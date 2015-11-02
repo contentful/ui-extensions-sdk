@@ -1,0 +1,58 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var yargs = require('yargs');
+var request = require('request');
+var http = require('../lib/cli/http');
+var del = require('../lib/cli/command/delete');
+
+let token = process.env.CONTENTFUL_MANAGEMENT_ACCESS_TOKEN;
+
+if (!token) {
+  console.error('CONTENTFUL_MANAGEMENT_ACCESS_TOKEN is undefined or empty');
+  process.exit(1);
+}
+
+yargs
+.reset()
+.options({
+  'space-id': {
+    required: true,
+    description: 'Id of a space in Contentful',
+    type: 'string',
+    requiresArg: true
+  },
+  'id': {
+    required: true,
+    description: 'Id of the widget to delete',
+    type: 'string',
+    requiresArg: true,
+  },
+  'v': {
+    description: 'Current version of the widget',
+    type: 'string',
+    requiresArg: true,
+  },
+  'host': {
+    description: 'API host',
+    type: 'string',
+    requiresArg: true
+  }
+});
+
+let argv = yargs.argv;
+let options = {};
+
+options.id = argv.id;
+options.space = argv.spaceId;
+options.version = argv.v;
+
+let context = {
+  host: argv.host || 'https://api.contentful.com/',
+  token: token,
+  request: request,
+  http: http
+};
+
+del(options, context);

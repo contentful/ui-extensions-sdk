@@ -1,0 +1,74 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var yargs = require('yargs');
+var request = require('request');
+var path = require('path');
+var http = require('../lib/cli/http');
+var create = require('../lib/cli/command/create');
+
+let token = process.env.CONTENTFUL_MANAGEMENT_ACCESS_TOKEN;
+
+if (!token) {
+  console.error('CONTENTFUL_MANAGEMENT_ACCESS_TOKEN is undefined or empty');
+  process.exit(1);
+}
+
+yargs
+.reset()
+.options({
+  'space-id': {
+    required: true,
+    description: 'Id of a space in Contentful',
+    type: 'string',
+    requiresArg: true
+  },
+  'f': {
+    description: 'Path to widget bundle',
+    type: 'string',
+    requiresArg: true
+  },
+  'u': {
+    description: 'URL to widget bundle',
+    type: 'string',
+    requiresArg: true,
+  },
+  'id': {
+    description: 'Widget id',
+    type: 'string',
+    requiresArg: true
+  },
+  'host': {
+    description: 'API host',
+    type: 'string',
+    requiresArg: true
+  }
+})
+.check(function (argv) {
+  if (
+    (argv.f && argv.u) ||
+    (!argv.f && !argv.u)
+  ) {
+    throw new Error('One of -f or -u is required');
+  } else {
+    return true;
+  }
+});
+
+let argv = yargs.argv;
+let options = {};
+
+options.url = argv.u;
+options.file = argv.f;
+options.id = argv.id;
+options.space = argv.spaceId;
+
+let context = {
+  host: argv.host || 'https://api.contentful.com',
+  token: token,
+  request: request,
+  http: http
+};
+
+create(options, context);

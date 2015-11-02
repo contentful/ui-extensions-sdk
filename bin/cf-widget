@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var path = require('path');
+var fs = require('fs');
+
+var _ = require('lodash');
+var yargs = require('yargs');
+
+// TODO: use yargs.demand to require at least one command
+// TODO: get the names of the available commands
+// from the executables in bin/cf-widget-X
+var yargs = require('yargs')
+  .command('read')
+  .command('update')
+  .command('delete')
+  .command('create');
+
+var argv = yargs.argv;
+var argvCommand = argv._[0];
+var binDir = path.resolve(__dirname);
+var commands = fs.readdirSync(`${binDir}`);
+var command = _.find(commands, function (file) {
+  let l = path.basename(file, '.js');
+  return l.match(new RegExp(`^cf-widget-${argvCommand}$`));
+});
+
+if (command) {
+  require(`${binDir}/${command}`);
+} else {
+  yargs.showHelp();
+}
