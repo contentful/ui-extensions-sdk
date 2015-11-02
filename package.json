@@ -1,15 +1,22 @@
 {
   "author": "Contentful GmbH",
-  "bugs": {"url": "https://github.com/contentful/widget-sdk/issues"},
+  "bugs": {
+    "url": "https://github.com/contentful/widget-sdk/issues"
+  },
   "description": " SDK to develop custom widgets on Contentful",
   "devDependencies": {
+    "chai": "^3.4.0",
+    "dirty-chai": "^1.2.2",
     "gulp": "^3.9.0",
     "gulp-jscs": "^3.0.2",
     "gulp-jshint": "^1.12.0",
     "gulp-markdown-code-blocks": "^1.1.0",
+    "gulp-spawn-mocha": "^2.2.1",
     "run-sequence": "^1.1.4"
   },
-  "directories": {"test": "test"},
+  "directories": {
+    "test": "test"
+  },
   "homepage": "https://github.com/contentful/widget-sdk#readme",
   "license": "MIT",
   "main": "index.js",
