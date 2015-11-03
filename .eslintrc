@@ -1,0 +1,10 @@
+{
+  "extends": "standard",
+  "rules": {
+    "no-multiple-empty-lines": [2, {"max": 3, "maxEOF": 1}]
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  }
+}
