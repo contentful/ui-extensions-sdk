@@ -1,0 +1,30 @@
+body {
+  width: 600px;
+  height: 600px;
+}
+
+.photolist {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.photo {
+  position: relative;
+  background: none;
+  border: none;
+  margin-bottom: 10px;
+  padding: 4px;
+}
+
+.photo:active {
+  outline: none;
+  top: 1px;
+  left: 1px;
+}
+
+.selected {
+  border: 2px dashed cadetblue;
+  padding: 2px;
+  outline: none;
+}

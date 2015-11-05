@@ -1,0 +1,24 @@
+iframe {
+  border: none;
+}
+
+#field {
+  width: 95%;
+}
+
+.value {
+  opacity: 0;
+  transition: opacity 0.2s ease-in;
+}
+
+.value.value-visible {
+  opacity: 1;
+}
+
+.content {
+  display: flex;
+}
+
+#log {
+  margin-left: auto;
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html><head>
+<style>
+  #emoji {
+    height: 250px;
+    transition: height 0.5s ease-in;
+  }
+</style>
+</head><body>
+<p id="emoji"></p>
+<input id="amount" type="text" value="1" />
+<button id="add">Add</button>
+<button id="dialog">Dialog</button>
+<script src="/cf_api.js" charset="utf-8"></script>
+<script>
+  /*
+  window.addEventListener('ready', function () {
+    var button = document.getElementById('add');
+    var dialog = document.getElementById('dialog');
+    var amount = document.getElementById('amount');
+    var emoji = document.getElementById('emoji');
+    emoji.innerHTML = window.cf.fields.get('emoji').getValue()
+    window.cf.fields.get('emoji').addObserver(function (value) {
+      emoji.innerHTML = value;
+    });
+    button.addEventListener('click', function () {
+      window.cf.field.setValue(amount.value);
+    });
+
+    dialog.addEventListener('click', function () {
+      window.cf.dialog.open('<p>dialogs</p>');
+    });
+
+    setTimeout(function () {
+      console.log('setting height')
+      emoji.style.height = '300px';
+    }, 2000);
+  });
+  */
+</script>
+</body>
+</html>
