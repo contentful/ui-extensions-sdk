@@ -6,6 +6,9 @@ export PATH := ./node_modules/.bin:${PATH}
 build:
 	webpack
 
+watch:
+	webpack --watch
+
 lint:
 	eslint lib/ bin/ test/
 

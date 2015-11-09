@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "prvate": true,
   "scripts": {
+    "prepublish": "make build",
     "test": "make test",
     "test-integration": "make test-integration",
     "test-unit": "make test-unit"
