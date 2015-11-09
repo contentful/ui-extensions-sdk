@@ -9,7 +9,7 @@ integrations or workflows.
 
 ### Usage
 
-[Download the library](api-download) and include it in your HTML.
+[Download the library][api-download] and include it in your HTML.
 
 ```html
 <script src="cf-widget-api.js"></script>
