@@ -65,7 +65,7 @@
 	      var _this = this;
 	
 	      cfApi.dialog.open({
-	        template: '<html><head></head><body>' + '<main></main>' + '<script src="http://app.joistio.com:9010/cf_api.bundle.js"></script>' + '<script src="http://app.joistio.com:9011/valueChangerWidgetDialog.bundle.js"></script>' + '</body>'
+	        template: '<html><head></head><body>' + '<main></main>' + '<script src="http://localhost:9011/cf-widget-api.js"></script>' + '<script src="http://localhost:9011/valueChangerWidgetDialog.bundle.js"></script>' + '</body>'
 	      }).then(function (data) {
 	        _this.setState({ value: data });
 	        cfApi.field.setValue(data);

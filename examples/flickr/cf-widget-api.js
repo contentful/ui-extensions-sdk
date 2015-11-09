@@ -283,8 +283,8 @@
 	    resize: function resize() {
 	      console.log('resizing iframe', body.offsetWidth, body.offsetHeight);
 	      messageDispatcher.send('setIframeSize', {
-	        width: body.offsetWidth,
-	        height: body.offsetHeight
+	        width: body.offsetWidth + 'px',
+	        height: body.offsetHeight + 'px'
 	      });
 	    },
 	
@@ -294,8 +294,8 @@
 	          if (body.offsetHeight !== currentSize.height || body.offsetWidth !== currentSize.width) {
 	            console.log('auto resizing iframe', body.offsetWidth, body.offsetHeight);
 	            messageDispatcher.send('setIframeSize', {
-	              width: body.offsetWidth,
-	              height: body.offsetHeight
+	              width: body.offsetWidth + 'px',
+	              height: body.offsetHeight + 'px'
 	            });
 	          }
 	        });

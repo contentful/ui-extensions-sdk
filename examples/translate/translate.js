@@ -46,8 +46,9 @@
       if (widget.cfApi.defaultLocale !== widget.cfApi.currentFieldLocale) {
         widget.uiUpdate.hideElement(widget.elements.populateAll);
       }
-      // setIframeSize method adds 30px
-      widget.cfApi.window.setSize(300, isDefaultLocale ? 50 : 15);
+
+      // Set iframe size
+      widget.cfApi.window.setSize('100%', (isDefaultLocale ? 80 : 40) + 'px');
     },
 
     fieldsUpdated: function() {

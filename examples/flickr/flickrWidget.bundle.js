@@ -65,7 +65,8 @@
 	      var _this = this;
 	
 	      cfApi.dialog.open({
-	        template: '<html><head></head><body>' + '<main></main>' + '<script src="http://localhost:8000/cf_api.bundle.js"></script>' + '<script src="http://localhost:8000/flickrWidgetDialog.bundle.js"></script>' + '</body>'
+	        template: '<html><head>' + '<link rel="stylesheet" type="text/css" href="http://localhost:9011/styles.css">' + '</head><body>' + '<main></main>' + '<script src="http://localhost:9011/cf-widget-api.js"></script>' + '<script src="http://localhost:9011/flickrWidgetDialog.bundle.js"></script>' + '</body></html>',
+	        title: 'Search Flickr'
 	      }).then(function (data) {
 	        _this.setState({
 	          url: flickr.imgUrl(data),
@@ -80,17 +81,20 @@
 	    },
 	
 	    render: function render() {
+	      // Resize window
+	      cfApi.window.setSize();
+	
 	      return React.createElement(
 	        'div',
 	        null,
 	        React.createElement(
-	          'p',
+	          'div',
 	          null,
 	          this.state.title
 	        ),
 	        React.createElement('img', { src: this.state.url }),
 	        React.createElement(
-	          'p',
+	          'div',
 	          null,
 	          React.createElement(
 	            'button',

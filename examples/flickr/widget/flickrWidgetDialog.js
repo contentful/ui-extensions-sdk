@@ -20,16 +20,15 @@ var Entry = React.createClass({
 
   handleChange(ev) {
     var searchTerm = React.findDOMNode(this.refs.searchTerm).value;
-    var tags = React.findDOMNode(this.refs.tags).value;
-    this.flickrSearch(searchTerm, tags);
+    this.flickrSearch(searchTerm);
   },
 
-  flickrSearch: function (searchTerm, tags) {
+  flickrSearch: function (searchTerm) {
     flickr.req('get', 'flickr.photos.search', {text: searchTerm})
     .then(response => {
       console.log(response.photos);
       this.setState({
-        photos: response.photos.photo
+        photos: response.photos.photo.slice(0,7)
       });
     });
   },
@@ -40,16 +39,10 @@ var Entry = React.createClass({
     });
     return (
       <div className="flickrwidget">
-        <h1>Search Flickr</h1>
-        <p>
-          <label>Search:</label>
-          <input type="text" ref="searchTerm" />
-        </p>
-        <p>
-          <label>Tags:</label>
-          <input type="text" ref="tags" />
-        </p>
-        <button onClick={this.handleChange}>Go!</button>
+        <div className="inline-form">
+          <input type="text" ref="searchTerm" placeholder="What are you looking for?" />
+          <button onClick={this.handleChange}>Search</button>
+        </div>
         <FlickrPhotos photos={this.state.photos} />
       </div>
     );
