@@ -15,11 +15,14 @@ var ValueChangerWidget = React.createClass({
 
   handleButton() {
     cfApi.dialog.open({
-      template: '<html><head></head><body>'+
+      template: '<html><head>' +
+        '<link rel="stylesheet" type="text/css" href="http://localhost:9011/styles.css">' +
+        '</head><body>'+
         '<main></main>'+
         '<script src="http://localhost:9011/cf-widget-api.js"></script>'+
         '<script src="http://localhost:9011/flickrWidgetDialog.bundle.js"></script>'+
-        '</body>'
+        '</body></html>',
+      title: 'Search Flickr'
     })
     .then(data => {
       this.setState({
@@ -35,11 +38,14 @@ var ValueChangerWidget = React.createClass({
   },
 
   render() {
+    // Resize window
+    cfApi.window.setSize();
+
     return (
       <div>
-        <p>{this.state.title}</p>
+        <div>{this.state.title}</div>
         <img src={this.state.url} />
-        <p><button onClick={this.handleButton}>Open Flickr</button></p>
+        <div><button onClick={this.handleButton}>Open Flickr</button></div>
       </div>
     );
   }

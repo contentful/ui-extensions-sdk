@@ -53,11 +53,11 @@ in the `dist` folder.
 
 #### Json Editor widget
 * Run `npm install` && `gulp`
-* This will install and inline all of the dependencies to the `index.html` file in the `/out` directory
+* This will install and inline all of the dependencies to the `index.html` file in the `/dist` directory
 * This example uses the `srcdoc` property - the widget source file is hosted on Contentful
 
 #### Translate widget
 
 * Run `npm install` && `gulp`
-* This will install and inline all of the dependencies to the `index.html` file in the `/out` directory
+* This will install and inline all of the dependencies to the `index.html` file in the `/dist` directory
 * This example uses the `srcdoc` property - the widget source file is hosted on Contentful

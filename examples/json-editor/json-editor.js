@@ -11,8 +11,8 @@
   var elements = {};
 
   var editorSize = {
-    width: 640,
-    height: 280
+    width: '100%',
+    height: 310
   };
 
   // Keeps track of some states
@@ -41,7 +41,7 @@
       theme: 'default'
     });
 
-    cm.setSize(editorSize.width, editorSize.height - 20);
+    cm.setSize(editorSize.width, editorSize.height - 50);
 
     // Watch for events
     window.addEventListener('cfWidgetReady', events.widgetReady);

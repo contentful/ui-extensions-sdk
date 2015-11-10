@@ -22,3 +22,93 @@ iframe {
 #log {
   margin-left: auto;
 }
+
+/* Import font */
+
+@font-face{
+  font-family: "Avenir Next W01";
+  src: url("https://static.contentful.com/app/2cd55546-ec00-4af9-aeca-4a3cd186da53.woff2") format("woff2"),
+       url("https://static.contentful.com/app/1e9892c0-6927-4412-9874-1b82801ba47a.woff") format("woff");
+  font-weight:  500;
+  font-style: normal;
+}
+
+@font-face{
+  font-family: "Avenir Next W01";
+  src: url("https://static.contentful.com/app/7377dbe6-f11a-4a05-b33c-bc8ce1f60f84.woff2") format("woff2"),
+       url("https://static.contentful.com/app/92b66dbd-4201-4ac2-a605-4d4ffc8705cc.woff") format("woff");
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face{
+  font-family:"Avenir Next W01";
+  src: url("https://static.contentful.com/app/aad99a1f-7917-4dd6-bbb5-b07cedbff64f.woff2") format("woff2"),
+       url("https://static.contentful.com/app/91b50bbb-9aa1-4d54-9159-ec6f19d14a7c.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+
+body {
+  font-family: "Avenir Next W01", Helvetica, sans-serif;
+  margin: 0;
+  font-size: 14px;
+}
+
+input, p, div {
+  font-family: inherit;
+  font-size: 1em;
+}
+
+input[type="text"], input[type="email"], input[type="number"] {
+  border: 1px solid #969fa6;
+  box-sizing: border-box;
+  width: 100%;
+  height: 33px;
+  padding: 6px;
+  border-radius: 3px;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, input[type="number"]:focus {
+  background-color: #fff;
+  border-color: #1683d0;
+  box-shadow: 0 0 3px #a4c7f1 inset;
+  outline: none;
+}
+
+input[type="submit"], button {
+  padding: 8px 24px;
+  display: inline-block;
+  outline: 0;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  border: 1px solid #3c80cf;
+  border-radius: 2px;
+  line-height: 18px;
+  color: #fff;
+  background: linear-gradient(to top, #3c80cf, #5b9fef);
+  transition-duration: 0.1s;
+  transition-property: all;
+  background-size: 100% 200%;
+}
+
+input[type="submit"]:hover, input[type="submit"]:active, button:hover {
+  border-color: rgb(48, 114, 190);
+  background: linear-gradient(to top, #3c80cf, #5b9fef);
+  background-position: 0px 100%;
+}
+
+input[type="submit"].disabled {
+  cursor: default;
+  opacity: 0.4;
+}
+
+.inline-form {
+  display: flex;
+}
+.inline-form > button {
+  margin-left: 12px;
+}
+
+

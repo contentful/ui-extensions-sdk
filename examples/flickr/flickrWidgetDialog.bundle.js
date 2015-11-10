@@ -67,17 +67,16 @@
 	
 	    handleChange: function handleChange(ev) {
 	      var searchTerm = React.findDOMNode(this.refs.searchTerm).value;
-	      var tags = React.findDOMNode(this.refs.tags).value;
-	      this.flickrSearch(searchTerm, tags);
+	      this.flickrSearch(searchTerm);
 	    },
 	
-	    flickrSearch: function flickrSearch(searchTerm, tags) {
+	    flickrSearch: function flickrSearch(searchTerm) {
 	      var _this = this;
 	
 	      flickr.req('get', 'flickr.photos.search', { text: searchTerm }).then(function (response) {
 	        console.log(response.photos);
 	        _this.setState({
-	          photos: response.photos.photo
+	          photos: response.photos.photo.slice(0, 7)
 	        });
 	      });
 	    },
@@ -90,34 +89,14 @@
 	        'div',
 	        { className: 'flickrwidget' },
 	        React.createElement(
-	          'h1',
-	          null,
-	          'Search Flickr'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
+	          'div',
+	          { className: 'inline-form' },
+	          React.createElement('input', { type: 'text', ref: 'searchTerm', placeholder: 'What are you looking for?' }),
 	          React.createElement(
-	            'label',
-	            null,
-	            'Search:'
-	          ),
-	          React.createElement('input', { type: 'text', ref: 'searchTerm' })
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'label',
-	            null,
-	            'Tags:'
-	          ),
-	          React.createElement('input', { type: 'text', ref: 'tags' })
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.handleChange },
-	          'Go!'
+	            'button',
+	            { onClick: this.handleChange },
+	            'Search'
+	          )
 	        ),
 	        React.createElement(FlickrPhotos, { photos: this.state.photos })
 	      );
@@ -23062,7 +23041,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body {\n  width: 600px;\n  height: 600px;\n}\n\n.photolist {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-between;\n}\n\n.photo {\n  position: relative;\n  background: none;\n  border: none;\n  margin-bottom: 10px;\n  padding: 4px;\n}\n\n.photo:active {\n  outline: none;\n  top: 1px;\n  left: 1px;\n}\n\n.selected {\n  border: 2px dashed cadetblue;\n  padding: 2px;\n  outline: none;\n}\n", ""]);
+	exports.push([module.id, "body {\n  width: 600px;\n  height: 140px;\n}\n\n.photolist {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-between;\n}\n\n.photo {\n  position: relative;\n  background: none;\n  border: none;\n  margin-bottom: 10px;\n  padding: 4px;\n}\n\n.photo:active {\n  outline: none;\n  top: 1px;\n  left: 1px;\n}\n\n.selected {\n  border: 2px dashed cadetblue;\n  padding: 2px;\n  outline: none;\n}\n", ""]);
 	
 	// exports
 
