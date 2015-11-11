@@ -1,4 +1,4 @@
-var chai      = require('chai');
+var chai = require('chai');
 var dirtyChai = require('dirty-chai');
 var sinonChai = require('sinon-chai');
 

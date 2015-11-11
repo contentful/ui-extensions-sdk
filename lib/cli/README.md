@@ -1,27 +1,49 @@
 ## Usage
 Following is an overview of the different operations supported by the CLI.
 
+### Descriptor files
+The `create` and `update` commands may use a JSON file to get most of its data.
+The following is a list of properties that are read from the file:
+
+Property | Description
+---------|------------
+id | Corresponds to the sys.id property and gives the resource URL
+name |	 
+fieldTypes |	 
+src |
+srcdoc |	A file path. The content of the file is read and sent to the API in the srcdoc property
+
+By default the `create` and `update` commands will look in the current working directory for a descriptor file called `widget.json`. Another file can be used witht the `--descriptor` option.
+
+The properties included in a descriptor file can be overriden by its counterpart command line options.
 
 ### Creating a widget
 A widget can be created by providing a link to an URL where the widget code is or by uploading the code itself. The CLI supports both ways:
 
 ```
-$ cli create --space SPACE_ID -f PATH_TO_FILE
+$ cli create --space-id SPACE_ID -f PATH_TO_FILE
 ```
 
 ```
-$ cli create --space SPACE_ID -u URL
+$ cli create --space-id SPACE_ID -u URL
 ```
  
 The id of the widget can be specified:
 
 ```
-$ cli create --space SPACE_ID --id ID -u URL
+$ cli create --space-id SPACE_ID --id ID -u URL
 ```
 
 ```
-$ cli create --space SPACE_ID --id ID -f PATH_TO_FILE
+$ cli create --space-id SPACE_ID --id ID -f PATH_TO_FILE
 ```
+
+A specific descriptor file can be used:
+
+```
+$ cli create --space-id SPACE_ID --descriptor /path/to/descriptor
+```
+
 
 ### Fetching a wiget
 Fetch a widget from the API:
@@ -34,28 +56,34 @@ $ cli read --space SPACE_ID --id ID
 A widget can be update by providing a link to an URL where the widget code is or by uploading the code itself. The CLI supports both ways:
 
 ```
-$ cli update --space SPACE_ID --id ID -u URL -v VERSION
+$ cli update --space-id SPACE_ID --id ID -u URL -v VERSION
 ```
 
 ```
-$ cli update --space SPACE_ID --id ID -f PATH_TO_FILE -v VERSION
+$ cli update --space-id SPACE_ID --id ID -f PATH_TO_FILE -v VERSION
 ```
 
 A widget ca also be updated without passing the version value. The cli will fetch the current representation of the widget and use its version as the version for the update.
 
 ```
-$ cli update --space SPACE_ID --id ID -u URL
+$ cli update --space-id SPACE_ID --id ID -u URL
 ```
 
 ```
-$ cli update --space SPACE_ID --id ID -f PATH_TO_FILE
+$ cli update --space-id SPACE_ID --id ID -f PATH_TO_FILE
+```
+
+A specific descriptor file can be used:
+
+```
+$ cli update --space-id SPACE_ID --descriptor /path/to/descriptor
 ```
  
 ### Deleting a widget
 A widget can be deleted:
 
 ```
-$ cli delete --space SPACE_ID --id ID
+$ cli delete --space-id SPACE_ID --id ID
 ```
 
 ## Miscellaneous

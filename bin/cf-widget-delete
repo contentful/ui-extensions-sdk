@@ -45,7 +45,7 @@ let argv = yargs.argv;
 let options = {};
 
 options.id = argv.id;
-options.space = argv.spaceId;
+options.spaceId = argv.spaceId;
 options.version = argv.v;
 
 let context = {

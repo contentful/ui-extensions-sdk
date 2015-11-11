@@ -39,20 +39,15 @@ yargs
     type: 'string',
     requiresArg: true
   },
+  'descriptor': {
+    description: 'Path to a widget descriptor file',
+    type: 'string',
+    requiresArg: true
+  },
   'host': {
     description: 'API host',
     type: 'string',
     requiresArg: true
-  }
-})
-.check(function (argv) {
-  if (
-    (argv.f && argv.u) ||
-    (!argv.f && !argv.u)
-  ) {
-    throw new Error('One of -f or -u is required');
-  } else {
-    return true;
   }
 });
 
@@ -62,7 +57,9 @@ let options = {};
 options.url = argv.u;
 options.file = argv.f;
 options.id = argv.id;
-options.space = argv.spaceId;
+options.spaceId = argv.spaceId;
+options.descriptor = argv.descriptor || './widget.json';
+options.descriptor = path.resolve(process.cwd(), options.descriptor);
 
 let context = {
   host: argv.host || 'https://api.contentful.com',

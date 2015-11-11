@@ -6,6 +6,7 @@ var yargs = require('yargs');
 var request = require('request');
 var http = require('../lib/cli/http');
 var update = require('../lib/cli/command/update');
+var path = require('path');
 
 let token = process.env.CONTENTFUL_MANAGEMENT_ACCESS_TOKEN;
 
@@ -24,7 +25,6 @@ yargs
     requiresArg: true
   },
   'id': {
-    required: true,
     description: 'Id of the widget to update',
     type: 'string',
     requiresArg: true,
@@ -44,20 +44,15 @@ yargs
     type: 'string',
     requiresArg: true,
   },
+  'descriptor': {
+    description: 'Path to a widget descriptor file',
+    type: 'string',
+    requiresArg: true
+  },
   'host': {
     description: 'API host',
     type: 'string',
     requiresArg: true
-  }
-})
-.check(function (argv) {
-  if (
-    (argv.f && argv.u) ||
-    (!argv.f && !argv.u)
-  ) {
-    throw new Error('One of -f or -u is required');
-  } else {
-    return true;
   }
 });
 
@@ -68,7 +63,9 @@ options.url = argv.u;
 options.file = argv.f;
 options.version = argv.v;
 options.id = argv.id;
-options.space = argv.spaceId;
+options.spaceId = argv.spaceId;
+options.descriptor = argv.descriptor || './widget.json';
+options.descriptor = path.resolve(process.cwd(), options.descriptor);
 
 let context = {
   host: argv.host || 'https://api.contentful.com',

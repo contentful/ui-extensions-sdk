@@ -4,7 +4,7 @@ var temp = require('temp');
 var _ = require('lodash');
 var Bluebird = require('bluebird');
 var fs = Bluebird.promisifyAll(require('fs'));
-var exec   = require('child_process').exec;
+var exec = require('child_process').exec;
 var path = require('path');
 
 var chai = require('../helper');
@@ -77,12 +77,12 @@ describe('Commands', function () {
         .then(assert.fail)
         .catch(function (error) {
           expect(error.error.code).to.eq(1);
-          expect(error.stderr).to.match(/One of -f or -u is required/);
+          expect(error.stderr).to.match(/no widget descriptor or -f or -u options present/);
         });
     });
 
     it('creates a widget', function () {
-      //TODO add test that works with host without protocol
+      // TODO add test that works with host without protocol
       return command('create --space-id 123 -u lol.com --host http://localhost:3000', execOptions)
         .then(function (stdout) {
           let widget = JSON.parse(stdout);
@@ -161,7 +161,7 @@ describe('Commands', function () {
     });
 
     it('fails if no --id option is provided', function () {
-      return command('update --space-id 123 -u foo.com --host http://localhost:3000', execOptions)
+      return command('read --space-id 123 -u foo.com --host http://localhost:3000', execOptions)
         .then(assert.fail)
         .catch(function (error) {
           expect(error.error.code).to.eq(1);
@@ -212,7 +212,7 @@ describe('Commands', function () {
         .then(assert.fail)
         .catch(function (error) {
           expect(error.error.code).to.eq(1);
-          expect(error.stderr).to.match(/Missing required argument: id/);
+          expect(error.stderr).to.match(/missing id/);
         });
     });
 
@@ -221,7 +221,7 @@ describe('Commands', function () {
         .then(assert.fail)
         .catch(function (error) {
           expect(error.error.code).to.eq(1);
-          expect(error.stderr).to.match(/One of -f or -u is required/);
+          expect(error.stderr).to.match(/no widget descriptor or -f or -u options present/);
         });
     });
 
@@ -416,7 +416,6 @@ describe('Commands', function () {
           expect(error.error.code).to.eq(1);
           expect(error.stderr).to.match(/Failed to delete the widget/);
         });
-
     });
 
     it('deletes a widget', function () {

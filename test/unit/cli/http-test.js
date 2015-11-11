@@ -31,7 +31,7 @@ describe('http', function () {
   describe('#get', function () {
     it('when the host includes a port', function () {
       let options = {
-        space: 123,
+        spaceId: 123,
         id: 456
       };
 
@@ -52,7 +52,7 @@ describe('http', function () {
 
     it('makes a GET request to the API', function () {
       let options = {
-        space: 123,
+        spaceId: 123,
         id: 456
       };
 
@@ -71,7 +71,7 @@ describe('http', function () {
 
     it('returns a JSON object', function () {
       let options = {
-        space: 123,
+        spaceId: 123,
         id: 456
       };
 
@@ -82,7 +82,7 @@ describe('http', function () {
 
     it('throws an error if the response status is not 200', function () {
       let options = {
-        space: 123,
+        spaceId: 123,
         id: 456
       };
 
@@ -97,7 +97,7 @@ describe('http', function () {
   describe('#post', function () {
     it('makes a POST request to the API', function () {
       let options = {
-        space: 123,
+        spaceId: 123,
         payload: {foo: 'bar'}
       };
 
@@ -117,7 +117,7 @@ describe('http', function () {
 
     it('throws an error if the response status is not 201', function () {
       let options = {
-        space: 123,
+        spaceId: 123,
         payload: {foo: 'bar'}
       };
 
@@ -133,7 +133,7 @@ describe('http', function () {
     describe('when a version option is not present', function () {
       it('makes a PUT request to the API', function () {
         let options = {
-          space: 123,
+          spaceId: 123,
           payload: {foo: 'bar'},
           id: 456
         };
@@ -156,9 +156,9 @@ describe('http', function () {
 
       it('throws an error if the response status is not 201', function () {
         let options = {
-          space: 123,
+          spaceId: 123,
           payload: {foo: 'bar'},
-          id: 456,
+          id: 456
         };
 
         requestStub.put.onFirstCall().callsArgWith(1, null, {statusCode: 400});
@@ -172,10 +172,10 @@ describe('http', function () {
     describe('when a version option is present', function () {
       it('makes a PUT request to the API', function () {
         let options = {
-          space: 123,
+          spaceId: 123,
           payload: {foo: 'bar'},
           id: 456,
-          version: 33,
+          version: 33
         };
 
         requestStub.put.onFirstCall().callsArgWith(1, null, {statusCode: 200});
@@ -197,7 +197,7 @@ describe('http', function () {
 
       it('throws an error if the response status is not 200', function () {
         let options = {
-          space: 123,
+          spaceId: 123,
           payload: {foo: 'bar'},
           id: 456,
           version: 33
@@ -215,7 +215,7 @@ describe('http', function () {
   describe('#delete', function () {
     it('makes a DELETE request to the API', function () {
       let options = {
-        space: 123,
+        spaceId: 123,
         id: 456,
         version: 33
       };

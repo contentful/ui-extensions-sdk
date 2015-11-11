@@ -7,7 +7,7 @@ build:
 	webpack
 
 lint:
-	eslint lib/
+	eslint lib/ bin/ test/
 
 clean:
 	rm -rf dist/*
@@ -23,7 +23,7 @@ gh-pages:
 test: test-unit test-integration
 
 test-unit:
-	_mocha test/unit/**/*.js
+	_mocha test/unit/**/*-test.js
 
 test-integration:
-	_mocha test/integration/**/*.js
+	_mocha test/integration/**/*-test.js
