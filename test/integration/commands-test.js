@@ -41,6 +41,7 @@ describe('Commands', function () {
   beforeEach(function () {
     let env = _.clone(process.env);
     env.CONTENTFUL_MANAGEMENT_ACCESS_TOKEN = 'lol-token';
+    env.LC_ALL = 'en_US';
 
     execOptions = {env: env};
   });
