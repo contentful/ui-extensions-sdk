@@ -25,7 +25,7 @@ describe('Widget', function () {
       beforeEach(function () {
         options = {
           spaceId: 123,
-          url: 'the-url',
+          src: 'the-src',
           id: 456
         };
 
@@ -37,7 +37,7 @@ describe('Widget', function () {
           expect(http.put).to.have.been.calledWith(
             {
               spaceId: options.spaceId,
-              payload: {src: options.url},
+              payload: {src: options.src},
               id: options.id
             },
             context
@@ -53,7 +53,7 @@ describe('Widget', function () {
             expect(http.put).to.have.been.calledWith(
               {
                 spaceId: options.spaceId,
-                payload: {src: options.url},
+                payload: {src: options.src},
                 id: options.id,
                 version: options.version
               },
@@ -64,11 +64,11 @@ describe('Widget', function () {
       });
     });
 
-    describe('when a bundle has been provided', function () {
+    describe('when a srcdoc has been provided', function () {
       beforeEach(function () {
         options = {
           spaceId: 123,
-          bundle: 'the-bundle'
+          srcdoc: 'the-bundle'
         };
 
         widget = new Widget(options, context);
@@ -79,7 +79,7 @@ describe('Widget', function () {
           expect(http.post).to.have.been.calledWith(
             {
               spaceId: options.spaceId,
-              payload: {srcdoc: options.bundle}
+              payload: {srcdoc: options.srcdoc}
             },
             context
           );
@@ -91,7 +91,7 @@ describe('Widget', function () {
       beforeEach(function () {
         options = {
           spaceId: 123,
-          url: 'the-url'
+          src: 'the-url'
         };
 
         widget = new Widget(options, context);
@@ -102,7 +102,7 @@ describe('Widget', function () {
           expect(http.post).to.have.been.calledWith(
             {
               spaceId: options.spaceId,
-              payload: {src: options.url}
+              payload: {src: options.src}
             },
             context
           );

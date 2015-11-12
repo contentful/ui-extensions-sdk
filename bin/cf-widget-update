@@ -6,7 +6,6 @@ var yargs = require('yargs');
 var request = require('request');
 var http = require('../lib/cli/http');
 var update = require('../lib/cli/command/update');
-var path = require('path');
 
 let token = process.env.CONTENTFUL_MANAGEMENT_ACCESS_TOKEN;
 
@@ -27,27 +26,42 @@ yargs
   'id': {
     description: 'Id of the widget to update',
     type: 'string',
-    requiresArg: true,
+    requiresArg: true
   },
-  'f': {
+  'srcdoc': {
     description: 'Path to widget bundle',
     type: 'string',
     requiresArg: true
   },
-  'u': {
+  'src': {
     description: 'URL to widget bundle',
     type: 'string',
-    requiresArg: true,
+    requiresArg: true
   },
   'v': {
     description: 'Current version of the widget',
     type: 'string',
-    requiresArg: true,
+    requiresArg: true
+  },
+  'name': {
+    description: 'Path to a widget descriptor file',
+    type: 'string',
+    requiresArg: true
+  },
+  'field-types': {
+    description: 'List of field types where to use the widget',
+    type: 'array',
+    requiresArg: true
   },
   'descriptor': {
     description: 'Path to a widget descriptor file',
     type: 'string',
     requiresArg: true
+  },
+  'sidebar': {
+    description: 'Render the widget in the sidebar',
+    type: 'boolean',
+    default: undefined
   },
   'host': {
     description: 'API host',
@@ -59,13 +73,15 @@ yargs
 let argv = yargs.argv;
 let options = {};
 
-options.url = argv.u;
-options.file = argv.f;
+options.src = argv.src;
+options.srcdoc = argv.srcdoc;
 options.version = argv.v;
 options.id = argv.id;
+options.name = argv.name;
 options.spaceId = argv.spaceId;
-options.descriptor = argv.descriptor || './widget.json';
-options.descriptor = path.resolve(process.cwd(), options.descriptor);
+options.descriptor = argv.descriptor;
+options.fieldTypes = argv.fieldTypes;
+options.sidebar = argv.sidebar;
 
 let context = {
   host: argv.host || 'https://api.contentful.com',

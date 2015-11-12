@@ -52,37 +52,43 @@ describe('Descriptor file', function () {
     execOptions = {env: env};
   });
 
-  example({
-    create: 'create  --space-id 123 --descriptor ./descriptor.json --host http://localhost:3000',
-    update: [
-      'create --space-id 123 --id 123 -u foo.com --host http://localhost:3000',
-      'update --space-id 123 --descriptor ./descriptor.json --host http://localhost:3000'
-    ]
-  },
-  function (commandName, commands) {
-    let customDescriptor, customDescriptorPath;
+  describe('when a descriptor file is given', function () {
+    let customDescriptor;
+    let customDescriptorPath = path.resolve(process.cwd(), 'descriptor.json');
 
-    describe('when a descriptor file is given', function () {
-      beforeEach(function () {
-        customDescriptor = {
-          id: '123',
-          src: 'foo.com'
-        };
+    beforeEach(function () {
+      customDescriptor = {
+        id: '123',
+        src: 'foo.com',
+        name: 'foo',
+        fieldTypes: ['t1', 't2'],
+        sidebar: true
+      };
 
-        customDescriptorPath = path.resolve(process.cwd(), 'descriptor.json');
-        return fs.writeFileAsync(customDescriptorPath, JSON.stringify(customDescriptor));
-      });
+      return fs.writeFileAsync(customDescriptorPath, JSON.stringify(customDescriptor));
+    });
 
-      afterEach(function () {
-        return fs.unlinkAsync(customDescriptorPath);
-      });
+    afterEach(function () {
+      return fs.unlinkAsync(customDescriptorPath);
+    });
 
+    example({
+      create: `create  --space-id 123 --descriptor ${customDescriptorPath} --host http://localhost:3000`,
+      update: [
+        'create --space-id 123 --id 123 --name lol --src foo.com --host http://localhost:3000',
+        `update --space-id 123 --descriptor ${customDescriptorPath} --host http://localhost:3000`
+      ]
+    },
+    function (commandName, commands) {
       it(`${commandName}s a widget`, function () {
         return runCommands(commands, execOptions)()
           .then(function (stdout) {
             let widget = JSON.parse(stdout);
 
+            expect(widget.name).to.eql(customDescriptor.name);
             expect(widget.src).to.eql(customDescriptor.src);
+            expect(widget.fieldTypes).to.eql(customDescriptor.fieldTypes);
+            expect(widget.sidebar).to.be.true();
             expect(widget.sys.id).to.eql(customDescriptor.id);
             expect(widget.sys.space.sys.id).to.eql('123');
           });
@@ -103,7 +109,7 @@ describe('Descriptor file', function () {
           return runCommands(commands, execOptions)()
           .then(assert.fail)
           .catch(function (error) {
-            let cause = 'no widget descriptor or -f or -u options present';
+            let cause = `ENOENT: no such file or directory, stat '${customDescriptorPath}'`;
             let msg = new RegExp(`Failed to ${commandName} the widget: ${cause}`);
             expect(error.error.code).to.eq(1);
             expect(error.stderr).to.match(msg);
@@ -153,7 +159,10 @@ describe('Descriptor file', function () {
     beforeEach(function () {
       descriptor = {
         id: '456',
-        src: 'lol.com'
+        src: 'lol.com',
+        name: 'foo',
+        fieldTypes: ['t1', 't2'],
+        sidebar: true
       };
 
       file = path.resolve(process.cwd(), 'widget.json');
@@ -168,7 +177,7 @@ describe('Descriptor file', function () {
       {
         create: 'create --space-id 123 --host http://localhost:3000',
         update: [
-          'create --space-id 123 --id 456 -u foo.com --host http://localhost:3000',
+          'create --space-id 123 --id 456 --src foo.com --host http://localhost:3000',
           'update --space-id 123 --host http://localhost:3000'
         ]
       },
@@ -178,6 +187,7 @@ describe('Descriptor file', function () {
           .then(function (stdout) {
             let widget = JSON.parse(stdout);
 
+            expect(widget.name).to.eql(descriptor.name);
             expect(widget.src).to.eql(descriptor.src);
             expect(widget.sys.id).to.eql(descriptor.id);
           });
@@ -203,7 +213,7 @@ describe('Descriptor file', function () {
         {
           create: 'create --space-id 123 --host http://localhost:3000',
           update: [
-            'create --space-id 123 --id 456 -u foo.com --host http://localhost:3000',
+            'create --space-id 123 --id 456 --src foo.com --host http://localhost:3000',
             'update --space-id 123 --host http://localhost:3000'
           ]
         },
@@ -227,14 +237,14 @@ describe('Descriptor file', function () {
 
     example(
       {
-        create: 'create --space-id 123 -u foo.com --host http://localhost:3000',
+        create: 'create --space-id 123 --src foo.com --host http://localhost:3000',
         update: [
           'create --space-id 123 --id 456  --host http://localhost:3000',
-          'update --space-id 123 -u foo.com --host http://localhost:3000'
+          'update --space-id 123 --src foo.com --host http://localhost:3000'
         ]
       },
       function (commandName, commands) {
-        it('src option ovewrites src property in the descriptor', function () {
+        it(`${commandName} --src option overwrites src property in the descriptor`, function () {
           return runCommands(commands, execOptions)()
             .then(function (stdout) {
               let widget = JSON.parse(stdout);
@@ -246,7 +256,49 @@ describe('Descriptor file', function () {
       }
     );
 
-    describe('when the -f option is used', function () {
+    example(
+      {
+        create: 'create --space-id 123 --name doge --host http://localhost:3000',
+        update: [
+          'create --space-id 123 --id 456  --host http://localhost:3000',
+          'update --space-id 123 --name doge --host http://localhost:3000'
+        ]
+      },
+      function (commandName, commands) {
+        it(`${commandName} --name option overwrites name property in the descriptor`, function () {
+          return runCommands(commands, execOptions)()
+            .then(function (stdout) {
+              let widget = JSON.parse(stdout);
+
+              expect(widget.name).to.eql('doge');
+              expect(widget.sys.id).to.eql(descriptor.id);
+            });
+        });
+      }
+    );
+
+    example(
+      {
+        create: 'create --space-id 123 --field-types t3 t4 --host http://localhost:3000',
+        update: [
+          'create --space-id 123 --id 456  --host http://localhost:3000',
+          'update --space-id 123 --field-types t3 t4 --host http://localhost:3000'
+        ]
+      },
+      function (commandName, commands) {
+        it(`${commandName} --field-types option overwrites fieldTypes property in the descriptor`, function () {
+          return runCommands(commands, execOptions)()
+            .then(function (stdout) {
+              let widget = JSON.parse(stdout);
+
+              expect(widget.fieldTypes).to.eql(['t3', 't4']);
+              expect(widget.sys.id).to.eql(descriptor.id);
+            });
+        });
+      }
+    );
+
+    describe('when the --srcdoc option is used', function () {
       let srcdoc, bundle, f, b;
 
       f = temp.path();
@@ -271,14 +323,14 @@ describe('Descriptor file', function () {
 
       example(
         {
-          create: `create --space-id 123 -f ${f} --host http://localhost:3000`,
+          create: `create --space-id 123 --srcdoc ${f} --host http://localhost:3000`,
           update: [
             'create --space-id 123 --id 456  --host http://localhost:3000',
-            `update --space-id 123 -f ${f} --host http://localhost:3000`
+            `update --space-id 123 --srcdoc ${f} --host http://localhost:3000`
           ]
         },
         function (commandName, commands) {
-          it('-f option overwrites srdoc property in the descriptor', function () {
+          it(`${commandName} --srcdoc option overwrites srdoc property in the descriptor`, function () {
             delete descriptor.src;
             descriptor.srcdoc = srcdoc;
 
@@ -306,7 +358,7 @@ describe('Descriptor file', function () {
         ]
       },
       function (commandName, commands) {
-        it('id option overwrites id property in the descriptor', function () {
+        it(`${commandName} --id option overwrites id property in the descriptor`, function () {
           return runCommands(commands, execOptions)()
             .then(function (stdout) {
               let widget = JSON.parse(stdout);
@@ -320,12 +372,32 @@ describe('Descriptor file', function () {
 
     example(
       {
+        create: 'create --space-id 123 --id 88 --no-sidebar --host http://localhost:3000',
+        update: [
+          'create --space-id 123 --id 88 --name foo --host http://localhost:3000',
+          'update --space-id 123 --id 88 --no-sidebar --host http://localhost:3000'
+        ]
+      },
+      function (commandName, commands) {
+        it(`${commandName} --sidebar option overwrites sidebar property in the descriptor`, function () {
+          return runCommands(commands, execOptions)()
+            .then(function (stdout) {
+              let widget = JSON.parse(stdout);
+
+              expect(widget.sidebar).to.be.false();
+            });
+        });
+      }
+    );
+
+    example(
+      {
         create: 'create --space-id 123  --host http://localhost:3000',
         update: 'update --space-id 123  --host http://localhost:3000'
 
       },
       function (commandName, commands) {
-        it('errors when the descriptor file is not valid JSON', function () {
+        it(`${commandName} errors when the descriptor file is not valid JSON`, function () {
           return fs.writeFileAsync(file, 'not-valid-json')
             .then(runCommands(commands, execOptions))
             .then(assert.fail)
@@ -345,7 +417,7 @@ describe('Descriptor file', function () {
         update: 'update --space-id 123 --host http://localhost:3000'
       },
       function (commandName, commands) {
-        it('errors when there are missing properties on the file (id)', function () {
+        it(`${commandName} errors when there are missing properties on the file (id)`, function () {
           descriptor = {src: 'foo.com'};
 
           return fs.writeFileAsync(file, JSON.stringify(descriptor))
@@ -380,5 +452,83 @@ describe('Descriptor file', function () {
         });
       }
     );
+
+    describe('when the --descripor option is used', function () {
+      describe('when the file exists', function () {
+        let customDescriptor;
+        let customDescriptorPath = path.resolve(process.cwd(), 'descriptor.json');
+
+        beforeEach(function () {
+          customDescriptor = {
+            id: 'desc-123',
+            src: 'desc-foo.com',
+            name: 'desc-foo',
+            fieldTypes: ['desc-t1', 'desc-t2'],
+            sidebar: true
+          };
+
+          return fs.writeFileAsync(customDescriptorPath, JSON.stringify(customDescriptor));
+        });
+
+        afterEach(function () {
+          return fs.unlinkAsync(customDescriptorPath);
+        });
+
+        example({
+          create: `create  --space-id 123 --descriptor ${customDescriptorPath} --host http://localhost:3000`,
+          update: [
+            'create --space-id 123 --id desc-123 --name lol --src foo.com --host http://localhost:3000',
+            `update --space-id 123 --descriptor ${customDescriptorPath} --host http://localhost:3000`
+          ]
+        },
+        function (commandName, commands) {
+          it(`${commandName}s a widget`, function () {
+            return runCommands(commands, execOptions)()
+            .catch(function (err) {
+              var util = require('util');
+              console.log(util.inspect(err, {showHidden: false, depth: null}));
+            })
+            .then(function (stdout) {
+              let widget = JSON.parse(stdout);
+
+              expect(widget.name).to.eql(customDescriptor.name);
+              expect(widget.src).to.eql(customDescriptor.src);
+              expect(widget.fieldTypes).to.eql(customDescriptor.fieldTypes);
+              expect(widget.sidebar).to.be.true();
+              expect(widget.sys.id).to.eql(customDescriptor.id);
+              expect(widget.sys.space.sys.id).to.eql('123');
+
+              expect(widget.name).not.to.eql(descriptor.name);
+              expect(widget.src).not.to.eql(descriptor.src);
+              expect(widget.fieldTypes).not.to.eql(descriptor.fieldTypes);
+              expect(widget.sys.id).not.to.eql(descriptor.id);
+            });
+          });
+        });
+      });
+
+      describe('when file does not exist', function () {
+        let customDescriptorPath = path.resolve(process.cwd(), 'missing-descriptor.json');
+
+        example(
+          {
+            create: `create --space-id 123 --descriptor ${customDescriptorPath}`,
+            update: `update --space-id 123 --descriptor ${customDescriptorPath}`
+          },
+          function (commandName, commands) {
+            it(`${commandName}s returns an error`, function () {
+              return runCommands(commands, execOptions)()
+              .then(assert.fail)
+              .catch(function (error) {
+                let cause = `ENOENT: no such file or directory, stat '${customDescriptorPath}'`;
+                let msg = new RegExp(`Failed to ${commandName} the widget: ${cause}`);
+                expect(error.error.code).to.eq(1);
+                expect(error.stderr).to.match(msg);
+              });
+            });
+          }
+        );
+      });
+    });
   });
 });
