@@ -40,7 +40,7 @@ let argv = yargs.argv;
 let options = {};
 
 options.id = argv.id;
-options.space = argv.spaceId;
+options.spaceId = argv.spaceId;
 
 let context = {
   host: argv.host || 'https://api.contentful.com/',

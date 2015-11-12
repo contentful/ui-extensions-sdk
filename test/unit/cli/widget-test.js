@@ -1,6 +1,6 @@
 'use strict';
 
-var sinon    = require('sinon');
+var sinon = require('sinon');
 var Bluebird = require('bluebird');
 var _ = require('lodash');
 
@@ -24,7 +24,7 @@ describe('Widget', function () {
     describe('when an id has been provided', function () {
       beforeEach(function () {
         options = {
-          space: 123,
+          spaceId: 123,
           url: 'the-url',
           id: 456
         };
@@ -36,7 +36,7 @@ describe('Widget', function () {
         return widget.save().then(function () {
           expect(http.put).to.have.been.calledWith(
             {
-              space: options.space,
+              spaceId: options.spaceId,
               payload: {src: options.url},
               id: options.id
             },
@@ -52,7 +52,7 @@ describe('Widget', function () {
           return widget.save().then(function () {
             expect(http.put).to.have.been.calledWith(
               {
-                space: options.space,
+                spaceId: options.spaceId,
                 payload: {src: options.url},
                 id: options.id,
                 version: options.version
@@ -67,7 +67,7 @@ describe('Widget', function () {
     describe('when a bundle has been provided', function () {
       beforeEach(function () {
         options = {
-          space: 123,
+          spaceId: 123,
           bundle: 'the-bundle'
         };
 
@@ -78,7 +78,7 @@ describe('Widget', function () {
         return widget.save().then(function () {
           expect(http.post).to.have.been.calledWith(
             {
-              space: options.space,
+              spaceId: options.spaceId,
               payload: {srcdoc: options.bundle}
             },
             context
@@ -90,7 +90,7 @@ describe('Widget', function () {
     describe('when a URL has been provided', function () {
       beforeEach(function () {
         options = {
-          space: 123,
+          spaceId: 123,
           url: 'the-url'
         };
 
@@ -101,7 +101,7 @@ describe('Widget', function () {
         return widget.save().then(function () {
           expect(http.post).to.have.been.calledWith(
             {
-              space: options.space,
+              spaceId: options.spaceId,
               payload: {src: options.url}
             },
             context
@@ -114,7 +114,7 @@ describe('Widget', function () {
   describe('#read', function () {
     beforeEach(function () {
       options = {
-        space: 123,
+        spaceId: 123,
         id: 456
       };
 
@@ -125,7 +125,7 @@ describe('Widget', function () {
       return widget.read().then(function () {
         expect(http.get).to.have.been.calledWith(
           {
-            space: options.space,
+            spaceId: options.spaceId,
             id: options.id
           },
           context
@@ -137,7 +137,7 @@ describe('Widget', function () {
   describe('#delete', function () {
     beforeEach(function () {
       options = {
-        space: 123,
+        spaceId: 123,
         id: 456
       };
 
@@ -148,7 +148,7 @@ describe('Widget', function () {
       return widget.delete().then(function () {
         expect(http.delete).to.have.been.calledWith(
           {
-            space: options.space,
+            spaceId: options.spaceId,
             id: options.id
           },
           context
