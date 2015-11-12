@@ -1,7 +1,9 @@
 {
   "extends": "standard",
   "rules": {
-    "no-multiple-empty-lines": [2, {"max": 3, "maxEOF": 1}]
+    "no-multiple-empty-lines": [2, {"max": 3, "maxEOF": 1}],
+    "no-trailing-spaces": 2,
+    "max-len": [2, 90, 4]
   },
   "env": {
     "browser": true,
