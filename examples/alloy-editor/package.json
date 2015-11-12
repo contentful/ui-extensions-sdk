@@ -1,0 +1,15 @@
+{
+  "name": "contentful-widget-alloy-editor",
+  "private": true,
+  "version": "0.0.0",
+  "description": "",
+  "author": "Contentful GmbH",
+  "license": "ISC",
+  "dependencies": {
+    "alloyeditor": "^0.6.0",
+    "contenful-widgets": "../.."
+  },
+  "devDependencies": {
+    "express": "^4.13.3"
+  }
+}

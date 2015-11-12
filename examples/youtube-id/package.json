@@ -1,0 +1,11 @@
+{
+  "name": "contentful-widget-youtube-id",
+  "version": "0.0.0",
+  "description": "",
+  "author": "Thomas Scholtes <thomas@contentful.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "browserify": "^12.0.1",
+    "uglify-js": "^2.5.0"
+  }
+}

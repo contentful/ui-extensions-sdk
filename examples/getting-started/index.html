@@ -1,0 +1,113 @@
+<!doctype html>
+<!--
+Include styles from the contentful app.
+
+In the future we will provide documentation on how to include and use
+the application styles.
+-->
+<link rel="stylesheet" href="https://static.contentful.com/app/main-62e0abc7.css">
+<style>
+  body {
+    margin: 0
+  }
+  #entries {
+    margin-top: 1em
+  }
+
+  #entries-list {
+    margin-top: 1em
+  }
+</style>
+
+<!--
+Load the Widget API that is used to communicate with the containing app.
+-->
+<script src="https://contentful.github.io/widget-sdk/cf-widget-api.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+
+<div>
+  Current Value: <span id="current-rating"></span>
+</div>
+<select id="rating" class="cfnext-select-box">
+  <option value="">Other</option>
+  <option value="1">Ok</option>
+  <option value="4">Good</option>
+  <option value="10">Super</option>
+</select>
+<div id="entries">
+  <button class="cfnext-btn-action">Show entries with the same rating</button>
+  <ul id="entries-list"></ul>
+</div>
+<script>
+
+  window.contentfulWidget.init(function (api) {
+
+    // Whenever the size of this document changes we adjust the size of
+    // the IFrame in the Contentful App.
+    api.window.startAutoResizer()
+
+    var metaData = api.entry.getSys()
+
+    ratingChanged(api.field.getValue())
+
+    $('#rating').on('input', function () {
+      api.field.setValue(parseInt(this.value))
+      $('#current-rating').html(this.value)
+    })
+
+    $('#entries > button').on('click', function () {
+      var button = $(this)
+      button.addClass('is-loading')
+
+      getEntriesWithSameRating()
+      .then(renderEntries)
+      .then(function () {
+        button.removeClass('is-loading')
+      })
+
+    })
+
+    function getEntriesWithSameRating () {
+      var query = {
+        'content_type': metaData.contentType.sys.id,
+        'sys.id[ne]': metaData.id
+      }
+      query['fields.' + api.field.id] = api.field.getValue()
+
+      return api.space.getEntries(query)
+    }
+
+    function ratingChanged (value) {
+      if (value == null) {
+        $('#current-rating').html('<em>unknown</em>')
+        $('select').val('')
+        return
+      } else {
+        $('#current-rating').html(value)
+        $('select').val(value)
+      }
+    }
+
+
+    function renderEntries (entries) {
+      if (!entries.length) {
+        $('ul#entries-list').html('<em>no entries found</em>')
+        return
+      }
+      var items = entries.map(renderEntry)
+      $('ul#entries-list').html(items)
+    }
+
+    function renderEntry (entry) {
+      var url = entryURL(entry)
+      return '<li><a target="_blank" href="' + url + '">' + url + '</a></li>'
+    }
+
+    function entryURL (entry) {
+      var id = entry.sys.id
+      var space = entry.sys.space.sys.id
+      return 'https://app.contentful.com/spaces/' + space + '/entries/' + id;
+    }
+  })
+
+</script>

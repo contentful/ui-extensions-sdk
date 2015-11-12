@@ -1,0 +1,6 @@
+{
+  "id": "my-first-widget",
+  "name": "My First Widget",
+  "srcdoc": "./index.html",
+  "fieldTypes": ["Integer"]
+}
