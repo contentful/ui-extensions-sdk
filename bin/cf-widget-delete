@@ -3,7 +3,8 @@
 'use strict';
 
 var yargs = require('yargs');
-var request = require('request');
+var url = require('url');
+var Contentful = require('contentful-management');
 var http = require('../lib/cli/http');
 var del = require('../lib/cli/command/delete');
 
@@ -27,12 +28,12 @@ yargs
     required: true,
     description: 'Id of the widget to delete',
     type: 'string',
-    requiresArg: true,
+    requiresArg: true
   },
   'v': {
     description: 'Current version of the widget',
     type: 'string',
-    requiresArg: true,
+    requiresArg: true
   },
   'host': {
     description: 'API host',
@@ -48,10 +49,18 @@ options.id = argv.id;
 options.spaceId = argv.spaceId;
 options.version = argv.v;
 
+let urlInfo = url.parse(argv.host || 'https://api.contentful.com');
+let host = urlInfo.host;
+let isSecure = urlInfo.protocol === 'https:';
+
+let client = Contentful.createClient({
+  accessToken: token,
+  host: host,
+  secure: isSecure
+});
+
 let context = {
-  host: argv.host || 'https://api.contentful.com/',
-  token: token,
-  request: request,
+  client: client,
   http: http
 };
 

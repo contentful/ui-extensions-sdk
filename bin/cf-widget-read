@@ -3,7 +3,8 @@
 'use strict';
 
 var yargs = require('yargs');
-var request = require('request');
+var url = require('url');
+var Contentful = require('contentful-management');
 var http = require('../lib/cli/http');
 var read = require('../lib/cli/command/read');
 
@@ -27,7 +28,7 @@ yargs
     required: true,
     description: 'ID of the widget to read',
     type: 'string',
-    requiresArg: true,
+    requiresArg: true
   },
   'host': {
     description: 'API host',
@@ -42,10 +43,18 @@ let options = {};
 options.id = argv.id;
 options.spaceId = argv.spaceId;
 
+let urlInfo = url.parse(argv.host || 'https://api.contentful.com');
+let host = urlInfo.host;
+let isSecure = urlInfo.protocol === 'https:';
+
+let client = Contentful.createClient({
+  accessToken: token,
+  host: host,
+  secure: isSecure
+});
+
 let context = {
-  host: argv.host || 'https://api.contentful.com/',
-  token: token,
-  request: request,
+  client: client,
   http: http
 };
 

@@ -37,10 +37,9 @@
     "babel-loader": "^6.0.1",
     "babel-preset-es2015": "^6.0.15",
     "bluebird": "^3.0.5",
+    "contentful-management": "^0.5.0",
     "es6-promise": "^3.0.2",
     "lodash": "^3.10.1",
-    "request": "^2.65.0",
-    "url-join": "0.0.1",
     "webpack": "^1.12.2",
     "yaku": "^0.11.4",
     "yargs": "^3.29.0"
