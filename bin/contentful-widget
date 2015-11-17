@@ -23,7 +23,7 @@ var binDir = path.resolve(__dirname);
 var commands = fs.readdirSync(`${binDir}`);
 var command = _.find(commands, function (file) {
   let l = path.basename(file, '.js');
-  return l.match(new RegExp(`^cf-widget-${argvCommand}$`));
+  return l.match(new RegExp(`^contentful-widget-${argvCommand}$`));
 });
 
 if (command) {
