@@ -25,10 +25,13 @@ yargs
     requiresArg: true
   },
   'id': {
-    required: true,
     description: 'ID of the widget to read',
     type: 'string',
     requiresArg: true
+  },
+  'all': {
+    description: 'Read all the widgets in the space',
+    type: 'boolean'
   },
   'host': {
     description: 'API host',
@@ -42,6 +45,7 @@ let options = {};
 
 options.id = argv.id;
 options.spaceId = argv.spaceId;
+options.all = argv.all;
 
 let urlInfo = url.parse(argv.host || 'https://api.contentful.com');
 let host = urlInfo.host;
