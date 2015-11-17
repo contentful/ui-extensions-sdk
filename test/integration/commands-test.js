@@ -5,6 +5,7 @@ var _ = require('lodash');
 var Bluebird = require('bluebird');
 var fs = Bluebird.promisifyAll(require('fs'));
 
+var yargsOptions = require('../../lib/cli/bin-helpers/flags');
 var command = require('./helpers/command');
 var chai = require('../helper');
 var expect = chai.expect;
@@ -50,6 +51,22 @@ describe('Commands', function () {
   });
 
   describe('create', function () {
+    it('shows all the available options when no one is provided', function () {
+      return command('create', execOptions)
+        .then(assert.fail)
+        .catch(function (error) {
+          let stderr = error.stderr;
+          let expectedOptions = [
+            'space-id', 'id', 'src', 'srcdoc', 'name', 'host', 'sidebar', 'field-types', 'descriptor'
+          ];
+
+
+          expectedOptions.forEach(function (option) {
+            expect(stderr).to.match(new RegExp(yargsOptions.options[option].description));
+          });
+        });
+    });
+
     it('fails if the --space-id option is not provided', function () {
       return command('create --src foo.com --host http://localhost:3000', execOptions)
         .then(assert.fail)
@@ -183,6 +200,19 @@ describe('Commands', function () {
   });
 
   describe('Read', function () {
+    it('shows all the available options when no one is provided', function () {
+      return command('read', execOptions)
+        .then(assert.fail)
+        .catch(function (error) {
+          let stderr = error.stderr;
+          let expectedOptions = ['space-id', 'id', 'all', 'host'];
+
+          expectedOptions.forEach(function (option) {
+            expect(stderr).to.match(new RegExp(yargsOptions.options[option].description));
+          });
+        });
+    });
+
     it('fails if the --space-id option is not provided', function () {
       return command('read --id 123 --host http://localhost:3000', execOptions)
         .then(assert.fail)
@@ -255,6 +285,22 @@ describe('Commands', function () {
   });
 
   describe('Update', function () {
+    it('shows all the available options when no one is provided', function () {
+      return command('update', execOptions)
+        .then(assert.fail)
+        .catch(function (error) {
+          let stderr = error.stderr;
+          let expectedOptions = [
+            'space-id', 'id', 'src', 'srcdoc', 'name', 'host', 'sidebar', 'field-types', 'descriptor',
+            'version', 'force'
+          ];
+
+          expectedOptions.forEach(function (option) {
+            expect(stderr).to.match(new RegExp(yargsOptions.options[option].description));
+          });
+        });
+    });
+
     it('fails if the --space-id option is not provided', function () {
       return command('update --id 123 --src foo.com --host http://localhost:3000', execOptions)
         .then(assert.fail)
@@ -518,6 +564,19 @@ describe('Commands', function () {
   });
 
   describe('Delete', function () {
+    it('shows all the available options when no one is provided', function () {
+      return command('delete', execOptions)
+        .then(assert.fail)
+        .catch(function (error) {
+          let stderr = error.stderr;
+          let expectedOptions = ['space-id', 'id', 'version', 'force', 'host'];
+
+          expectedOptions.forEach(function (option) {
+            expect(stderr).to.match(new RegExp(yargsOptions.options[option].description));
+          });
+        });
+    });
+
     it('fails if the --space-id option is not provided', function () {
       return command('update --id 123 --src foo.com --host http://localhost:3000', execOptions)
         .then(assert.fail)
