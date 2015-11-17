@@ -30,7 +30,7 @@ yargs
     type: 'string',
     requiresArg: true
   },
-  'v': {
+  'version': {
     description: 'Current version of the widget',
     type: 'string',
     requiresArg: true
@@ -51,7 +51,7 @@ let options = {};
 
 options.id = argv.id;
 options.spaceId = argv.spaceId;
-options.version = argv.v;
+options.version = argv.version;
 options.force = argv.force;
 
 let urlInfo = url.parse(argv.host || 'https://api.contentful.com');
