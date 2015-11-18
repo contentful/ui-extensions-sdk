@@ -5,13 +5,22 @@ var _ = require('lodash');
 var Bluebird = require('bluebird');
 var fs = Bluebird.promisifyAll(require('fs'));
 
-var yargsOptions = require('../../lib/cli/bin-helpers/flags');
+var commandsFlags = require('../../lib/cli/bin-helpers/flags');
 var command = require('./helpers/command');
 var chai = require('../helper');
 var expect = chai.expect;
 var assert = chai.assert;
 
 var server = require('./http-server');
+
+function testHelpOutput (flags, output) {
+  flags.forEach(function (flag) {
+    let description = commandsFlags.options[flag].description;
+    let regexp = new RegExp(`--${flag}\\s+${description}`);
+
+    expect(output).to.match(regexp);
+  });
+}
 
 describe('Commands', function () {
   this.timeout(5000);
@@ -38,7 +47,8 @@ describe('Commands', function () {
       it(`${subcommand} fails`, function () {
         delete execOptions.env.CONTENTFUL_MANAGEMENT_ACCESS_TOKEN;
 
-        return command(`${subcommand}`, execOptions)
+        // Include space-id and id as they are required options
+        return command(`${subcommand} --space-id 123 --id 456`, execOptions)
           .then(assert.fail)
           .catch(function (error) {
             let regexp = /CONTENTFUL_MANAGEMENT_ACCESS_TOKEN is undefined or empty/;
@@ -51,19 +61,27 @@ describe('Commands', function () {
   });
 
   describe('create', function () {
+    var flags = [
+      'space-id', 'id', 'src', 'srcdoc', 'name', 'host', 'sidebar',
+      'field-types', 'descriptor'
+    ];
+
+    it('shows the help when the --help flag is present', function () {
+      // Use the --space-id flag because otherwise the help would be
+      // shown because it's a required flag
+
+      return command('create --space-id 123 --help', execOptions)
+        .then(function (stdout) {
+          testHelpOutput(flags, stdout);
+        });
+    });
+
     it('shows all the available options when no one is provided', function () {
       return command('create', execOptions)
         .then(assert.fail)
         .catch(function (error) {
-          let stderr = error.stderr;
-          let expectedOptions = [
-            'space-id', 'id', 'src', 'srcdoc', 'name', 'host', 'sidebar', 'field-types', 'descriptor'
-          ];
-
-
-          expectedOptions.forEach(function (option) {
-            expect(stderr).to.match(new RegExp(yargsOptions.options[option].description));
-          });
+          expect(error.error.code).to.eql(1);
+          testHelpOutput(flags, error.stderr);
         });
     });
 
@@ -200,16 +218,24 @@ describe('Commands', function () {
   });
 
   describe('Read', function () {
+    var flags = [ 'space-id', 'id', 'host', 'all' ];
+
+    it('shows the help when the --help flag is present', function () {
+      // Use the --space-id flag because otherwise the help would be
+      // shown because it's a required flag
+
+      return command('read --space-id 123 --id 456 --help', execOptions)
+        .then(function (stdout) {
+          testHelpOutput(flags, stdout);
+        });
+    });
+
     it('shows all the available options when no one is provided', function () {
       return command('read', execOptions)
         .then(assert.fail)
         .catch(function (error) {
-          let stderr = error.stderr;
-          let expectedOptions = ['space-id', 'id', 'all', 'host'];
-
-          expectedOptions.forEach(function (option) {
-            expect(stderr).to.match(new RegExp(yargsOptions.options[option].description));
-          });
+          expect(error.error.code).to.eql(1);
+          testHelpOutput(flags, error.stderr);
         });
     });
 
@@ -285,19 +311,27 @@ describe('Commands', function () {
   });
 
   describe('Update', function () {
+    let flags = [
+      'space-id', 'id', 'src', 'srcdoc', 'name', 'host', 'sidebar', 'field-types', 'descriptor',
+      'version', 'force'
+    ];
+
+    it('shows the help when the --help flag is present', function () {
+      // Use the --space-id flag because otherwise the help would be
+      // shown because it's a required flag
+
+      return command('update --space-id 123 --help', execOptions)
+        .then(function (stdout) {
+          testHelpOutput(flags, stdout);
+        });
+    });
+
     it('shows all the available options when no one is provided', function () {
       return command('update', execOptions)
         .then(assert.fail)
         .catch(function (error) {
-          let stderr = error.stderr;
-          let expectedOptions = [
-            'space-id', 'id', 'src', 'srcdoc', 'name', 'host', 'sidebar', 'field-types', 'descriptor',
-            'version', 'force'
-          ];
-
-          expectedOptions.forEach(function (option) {
-            expect(stderr).to.match(new RegExp(yargsOptions.options[option].description));
-          });
+          expect(error.error.code).to.eql(1);
+          testHelpOutput(flags, error.stderr);
         });
     });
 
@@ -564,16 +598,24 @@ describe('Commands', function () {
   });
 
   describe('Delete', function () {
+    let flags = ['space-id', 'id', 'version', 'force', 'host'];
+
+    it('shows the help when the --help flag is present', function () {
+      // Use the --space-id and --id flags because otherwise the help would be
+      // shown because they are required flags
+
+      return command('delete --space-id 123 --id 456 --help', execOptions)
+        .then(function (stdout) {
+          testHelpOutput(flags, stdout);
+        });
+    });
+
     it('shows all the available options when no one is provided', function () {
       return command('delete', execOptions)
         .then(assert.fail)
         .catch(function (error) {
-          let stderr = error.stderr;
-          let expectedOptions = ['space-id', 'id', 'version', 'force', 'host'];
-
-          expectedOptions.forEach(function (option) {
-            expect(stderr).to.match(new RegExp(yargsOptions.options[option].description));
-          });
+          expect(error.error.code).to.eql(1);
+          testHelpOutput(flags, error.stderr);
         });
     });
 
