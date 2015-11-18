@@ -76,7 +76,7 @@ describe('Descriptor file', function () {
       create: `create  --space-id 123 --descriptor ${customDescriptorPath} --host http://localhost:3000`,
       update: [
         'create --space-id 123 --id 123 --name lol --src foo.com --host http://localhost:3000',
-        `update --space-id 123 --descriptor ${customDescriptorPath} --host http://localhost:3000`
+        `update --space-id 123 --descriptor ${customDescriptorPath} --force --host http://localhost:3000`
       ]
     },
     function (commandName, commands) {
@@ -178,7 +178,7 @@ describe('Descriptor file', function () {
         create: 'create --space-id 123 --host http://localhost:3000',
         update: [
           'create --space-id 123 --id 456 --src foo.com --host http://localhost:3000',
-          'update --space-id 123 --host http://localhost:3000'
+          'update --space-id 123 --force --host http://localhost:3000'
         ]
       },
       function (commandName, commands) {
@@ -214,7 +214,7 @@ describe('Descriptor file', function () {
           create: 'create --space-id 123 --host http://localhost:3000',
           update: [
             'create --space-id 123 --id 456 --src foo.com --host http://localhost:3000',
-            'update --space-id 123 --host http://localhost:3000'
+            'update --space-id 123 --force --host http://localhost:3000'
           ]
         },
         function (commandName, commands) {
@@ -240,7 +240,7 @@ describe('Descriptor file', function () {
         create: 'create --space-id 123 --src foo.com --host http://localhost:3000',
         update: [
           'create --space-id 123 --id 456  --host http://localhost:3000',
-          'update --space-id 123 --src foo.com --host http://localhost:3000'
+          'update --space-id 123 --src foo.com --force --host http://localhost:3000'
         ]
       },
       function (commandName, commands) {
@@ -261,7 +261,7 @@ describe('Descriptor file', function () {
         create: 'create --space-id 123 --name doge --host http://localhost:3000',
         update: [
           'create --space-id 123 --id 456  --host http://localhost:3000',
-          'update --space-id 123 --name doge --host http://localhost:3000'
+          'update --space-id 123 --name doge --force --host http://localhost:3000'
         ]
       },
       function (commandName, commands) {
@@ -282,7 +282,7 @@ describe('Descriptor file', function () {
         create: 'create --space-id 123 --field-types t3 t4 --host http://localhost:3000',
         update: [
           'create --space-id 123 --id 456  --host http://localhost:3000',
-          'update --space-id 123 --field-types t3 t4 --host http://localhost:3000'
+          'update --space-id 123 --field-types t3 t4 --force --host http://localhost:3000'
         ]
       },
       function (commandName, commands) {
@@ -326,7 +326,7 @@ describe('Descriptor file', function () {
           create: `create --space-id 123 --srcdoc ${f} --host http://localhost:3000`,
           update: [
             'create --space-id 123 --id 456  --host http://localhost:3000',
-            `update --space-id 123 --srcdoc ${f} --host http://localhost:3000`
+            `update --space-id 123 --srcdoc ${f} --force --host http://localhost:3000`
           ]
         },
         function (commandName, commands) {
@@ -354,7 +354,7 @@ describe('Descriptor file', function () {
           // TODO: use a different file when updating (or modify the
           // existing) one as now we are using the same descriptor file
           'create --space-id 123 --id 88 --host http://localhost:3000',
-          'update --space-id 123 --id 88 --host http://localhost:3000'
+          'update --space-id 123 --id 88 --force --host http://localhost:3000'
         ]
       },
       function (commandName, commands) {
@@ -375,7 +375,7 @@ describe('Descriptor file', function () {
         create: 'create --space-id 123 --id 88 --no-sidebar --host http://localhost:3000',
         update: [
           'create --space-id 123 --id 88 --name foo --host http://localhost:3000',
-          'update --space-id 123 --id 88 --no-sidebar --host http://localhost:3000'
+          'update --space-id 123 --id 88 --no-sidebar --force --host http://localhost:3000'
         ]
       },
       function (commandName, commands) {
@@ -478,16 +478,12 @@ describe('Descriptor file', function () {
           create: `create  --space-id 123 --descriptor ${customDescriptorPath} --host http://localhost:3000`,
           update: [
             'create --space-id 123 --id desc-123 --name lol --src foo.com --host http://localhost:3000',
-            `update --space-id 123 --descriptor ${customDescriptorPath} --host http://localhost:3000`
+            `update --space-id 123 --descriptor ${customDescriptorPath} --force --host http://localhost:3000`
           ]
         },
         function (commandName, commands) {
           it(`${commandName}s a widget`, function () {
             return runCommands(commands, execOptions)()
-            .catch(function (err) {
-              var util = require('util');
-              console.log(util.inspect(err, {showHidden: false, depth: null}));
-            })
             .then(function (stdout) {
               let widget = JSON.parse(stdout);
 

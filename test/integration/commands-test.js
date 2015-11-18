@@ -322,9 +322,21 @@ describe('Commands', function () {
         });
     });
 
+    it('fails to update the widget if no version is given and force option not present', function () {
+      let updateCmd = 'update --space-id 123 --id 456 --src foo.com --host http://localhost:3000';
+
+      return command(updateCmd, execOptions)
+        .then(assert.fail)
+        .catch(function (error) {
+          let msg = /to update without version use the --force flag/;
+          expect(error.error.code).to.eql(1);
+          expect(error.stderr).to.match(msg);
+        });
+    });
+
     it('updates a widget without explicitely giving it version', function () {
       let createCmd = 'create --space-id 123 --name lol --src lol.com --id 456 --host http://localhost:3000';
-      let updateCmd = 'update --space-id 123 --id 456 --src foo.com --host http://localhost:3000';
+      let updateCmd = 'update --space-id 123 --id 456 --src foo.com --force --host http://localhost:3000';
 
       return command(createCmd, execOptions)
         .then(function () {
@@ -350,7 +362,7 @@ describe('Commands', function () {
 
     it('updates the name of a widget', function () {
       let createCmd = 'create --space-id 123 --name lol --src l.com --id 456 --name foo --host http://localhost:3000';
-      let updateCmd = 'update --space-id 123 --id 456 --name doge --host http://localhost:3000';
+      let updateCmd = 'update --space-id 123 --id 456 --name doge --force --host http://localhost:3000';
 
       return command(createCmd, execOptions)
         .then(function () {
@@ -365,7 +377,7 @@ describe('Commands', function () {
 
     it('upates the fieldTypes of a widget', function () {
       let createCmd = 'create --space-id 123 --name lol --src l.com --id 456 --name foo --host http://localhost:3000';
-      let updateCmd = 'update --space-id 123 --id 456 --field-types t1 t2 --host http://localhost:3000';
+      let updateCmd = 'update --space-id 123 --id 456 --field-types t1 t2 --force --host http://localhost:3000';
 
       return command(createCmd, execOptions)
         .then(function () {
@@ -380,7 +392,7 @@ describe('Commands', function () {
 
     it('updates the sibebar property to true', function () {
       let createCmd = 'create --space-id 123 --name lol --src l.com --id 456 --name foo --no-sidebar --host http://localhost:3000';
-      let updateCmd = 'update --space-id 123 --id 456 --sidebar --host http://localhost:3000';
+      let updateCmd = 'update --space-id 123 --id 456 --sidebar --force --host http://localhost:3000';
 
       return command(createCmd, execOptions)
       .then(function () {
@@ -395,7 +407,7 @@ describe('Commands', function () {
 
     it('updates the sidebar property to false', function () {
       let createCmd = 'create --space-id 123 --name lol --src l.com --id 456 --name foo --sidebar --host http://localhost:3000';
-      let updateCmd = 'update --space-id 123 --id 456 --no-sidebar --host http://localhost:3000';
+      let updateCmd = 'update --space-id 123 --id 456 --no-sidebar --force --host http://localhost:3000';
 
       return command(createCmd, execOptions)
       .then(function () {
@@ -410,7 +422,7 @@ describe('Commands', function () {
 
     it('does not update the sidebar property', function () {
       let createCmd = 'create --space-id 123 --name lol --src l.com --id 456 --name foo --sidebar --host http://localhost:3000';
-      let updateCmd = 'update --space-id 123 --id 456 --name foo --host http://localhost:3000';
+      let updateCmd = 'update --space-id 123 --id 456 --name foo --force --host http://localhost:3000';
 
       return command(createCmd, execOptions)
       .then(function () {
@@ -437,7 +449,7 @@ describe('Commands', function () {
 
       it('reports the error when the API request fails (without version)', function () {
         let createCmd = 'create --space-id 123 --name lol --src lol.com --id fail-update --host http://localhost:3000';
-        let updateCmd = `update --space-id 123 --id fail-update --srcdoc ${file} --host http://localhost:3000`;
+        let updateCmd = `update --space-id 123 --id fail-update --srcdoc ${file} --force --host http://localhost:3000`;
 
         return command(createCmd, execOptions)
           .then(function () {
@@ -451,7 +463,7 @@ describe('Commands', function () {
       });
 
       it('reports the error when the API request fails (without version, reading current)', function () {
-        let updateCmd = `update --space-id 123 --id fail --srcdoc ${file} --host http://localhost:3000`;
+        let updateCmd = `update --space-id 123 --id fail --srcdoc ${file} --force --host http://localhost:3000`;
 
         return command(updateCmd, execOptions)
           .then(assert.fail)
@@ -463,7 +475,7 @@ describe('Commands', function () {
 
       it('reports the error when the API request fails (with version)', function () {
         let createCmd = 'create --space-id 123 --name lol --src lol.com --id fail-update --host http://localhost:3000';
-        let updateCmd = `update --space-id 123 -v 1 --id fail-update --srcdoc ${file} --host http://localhost:3000`;
+        let updateCmd = `update --space-id 123 -v 1 --id fail-update --srcdoc ${file} --force --host http://localhost:3000`;
 
         return command(createCmd, execOptions)
           .then(function () {
@@ -478,7 +490,7 @@ describe('Commands', function () {
 
       it('updates a widget from a file without explicitely giving its version', function () {
         let createCmd = 'create --space-id 123 --name lol --src lol.com --id 456 --host http://localhost:3000';
-        let updateCmd = `update --space-id 123 --id 456 --srcdoc ${file} --host http://localhost:3000`;
+        let updateCmd = `update --space-id 123 --id 456 --srcdoc ${file} --force --host http://localhost:3000`;
 
         return command(createCmd, execOptions)
           .then(function () {
