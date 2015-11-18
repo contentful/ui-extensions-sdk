@@ -309,7 +309,7 @@ describe('Commands', function () {
     });
 
     it('reports the error when the API request fails (with version)', function () {
-      let cmd = 'update --space-id 123 --name lol --src lol.com -v 1 --id fail --host http://localhost:3000';
+      let cmd = 'update --space-id 123 --name lol --src lol.com --version 1 --id fail --host http://localhost:3000';
 
       return command(cmd, execOptions)
         .then(assert.fail)
@@ -321,7 +321,7 @@ describe('Commands', function () {
 
     it('updates a widget passing the version', function () {
       let createCmd = 'create --space-id 123 --name lol --src lol.com --id 456 --host http://localhost:3000';
-      let updateCmd = 'update --space-id 123 --id 456 -v 1 --src foo.com --host http://localhost:3000';
+      let updateCmd = 'update --space-id 123 --id 456 --version 1 --src foo.com --host http://localhost:3000';
 
       return command(createCmd, execOptions)
         .then(function () {
@@ -487,7 +487,7 @@ describe('Commands', function () {
 
       it('reports the error when the API request fails (with version)', function () {
         let createCmd = 'create --space-id 123 --name lol --src lol.com --id fail-update --host http://localhost:3000';
-        let updateCmd = `update --space-id 123 -v 1 --id fail-update --srcdoc ${file} --force --host http://localhost:3000`;
+        let updateCmd = `update --space-id 123 --version 1 --id fail-update --srcdoc ${file} --force --host http://localhost:3000`;
 
         return command(createCmd, execOptions)
           .then(function () {
@@ -574,7 +574,7 @@ describe('Commands', function () {
     // TODO try to delete a non existing widget (handle 404)
 
     it('reports the error when the API request fails (with version)', function () {
-      let deleteCmd = 'delete --space-id 123 -v 1 --id fail-delete --host http://localhost:3000';
+      let deleteCmd = 'delete --space-id 123 --version 1 --id fail-delete --host http://localhost:3000';
 
       return command(deleteCmd, execOptions)
         .then(assert.fail)
@@ -586,7 +586,7 @@ describe('Commands', function () {
 
     it('deletes a widget', function () {
       let createCmd = 'create --space-id 123 --name lol --src lol.com --id 456 --host http://localhost:3000';
-      let deleteCmd = 'delete --space-id 123 --id 456 -v 1 --host http://localhost:3000';
+      let deleteCmd = 'delete --space-id 123 --id 456 --version 1 --host http://localhost:3000';
 
       return command(createCmd, execOptions)
         .then(function () {

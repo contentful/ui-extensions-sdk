@@ -39,7 +39,7 @@ yargs
     type: 'string',
     requiresArg: true
   },
-  'v': {
+  'version': {
     description: 'Current version of the widget',
     type: 'string',
     requiresArg: true
@@ -80,7 +80,7 @@ let options = {};
 
 options.src = argv.src;
 options.srcdoc = argv.srcdoc;
-options.version = argv.v;
+options.version = argv.version;
 options.id = argv.id;
 options.name = argv.name;
 options.spaceId = argv.spaceId;
