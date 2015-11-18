@@ -4,28 +4,13 @@ var temp = require('temp');
 var _ = require('lodash');
 var Bluebird = require('bluebird');
 var fs = Bluebird.promisifyAll(require('fs'));
-var exec = require('child_process').exec;
-var path = require('path');
 
+var command = require('./helpers/command');
 var chai = require('../helper');
 var expect = chai.expect;
 var assert = chai.assert;
 
 var server = require('./http-server');
-
-function command (subcommand, options) {
-  let binary = path.resolve(__dirname, '../../bin/cf-widget');
-
-  return new Bluebird(function (resolve, reject) {
-    exec(`${binary} ${subcommand}`, options, function (error, stdout, stderr) {
-      if (error) {
-        return reject({error: error, stderr: stderr});
-      }
-
-      resolve(stdout);
-    });
-  });
-}
 
 describe('Commands', function () {
   this.timeout(5000);
