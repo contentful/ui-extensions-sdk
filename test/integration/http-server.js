@@ -68,6 +68,14 @@ app.put('/spaces/:space/widgets/:id', function (req, res) {
   }
 });
 
+app.get('/spaces/:space/widgets', function (req, res) {
+  let widgets = _.filter(store, {sys: {space: {sys: {id: req.params.space}}}});
+
+  res.status(200);
+  res.json(widgets);
+  res.end();
+});
+
 app.get('/spaces/:space/widgets/:id', function (req, res) {
   let widget = store[req.params.id];
 

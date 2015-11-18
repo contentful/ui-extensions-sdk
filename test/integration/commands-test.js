@@ -207,12 +207,12 @@ describe('Commands', function () {
         });
     });
 
-    it('fails if no --id option is provided', function () {
+    it('fails if no --id or --all options are provided', function () {
       return command('read --space-id 123 --src foo.com --host http://localhost:3000', execOptions)
         .then(assert.fail)
         .catch(function (error) {
           expect(error.error.code).to.eq(1);
-          expect(error.stderr).to.match(/Missing required argument: id/);
+          expect(error.stderr).to.match(/missing one of --id or --all options/);
         });
     });
 
@@ -241,6 +241,31 @@ describe('Commands', function () {
           expect(widget.src).to.eql('lol.com');
           expect(widget.sys.id).to.eql('456');
         });
+    });
+
+    it('reads all widgets', function () {
+      let createCmd1 = 'create --space-id 123 --name lol --src lol.com --id 456 --host http://localhost:3000';
+      let createCmd2 = 'create --space-id 123 --name foo --src foo.com --id 789 --host http://localhost:3000';
+      let readCmd = 'read --space-id 123 --all --host http://localhost:3000';
+
+      return Bluebird.all([
+        command(createCmd1, execOptions),
+        command(createCmd2, execOptions)
+      ])
+      .then(function () {
+        return command(readCmd, execOptions);
+      })
+      .then(function (stdout) {
+        let widgets = JSON.parse(stdout);
+        let lolWidget = _.find(widgets, {sys: {id: '456'}});
+        let fooWidget = _.find(widgets, {sys: {id: '789'}});
+
+        expect(widgets.length).to.eq(2);
+        expect(lolWidget.name).to.eql('lol');
+        expect(lolWidget.src).to.eql('lol.com');
+        expect(fooWidget.name).to.eql('foo');
+        expect(fooWidget.src).to.eql('foo.com');
+      });
     });
   });
 
