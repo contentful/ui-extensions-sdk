@@ -35,6 +35,10 @@ yargs
     type: 'string',
     requiresArg: true
   },
+  'force': {
+    description: 'Force delete without explicit version',
+    type: 'boolean'
+  },
   'host': {
     description: 'API host',
     type: 'string',
@@ -48,6 +52,7 @@ let options = {};
 options.id = argv.id;
 options.spaceId = argv.spaceId;
 options.version = argv.v;
+options.force = argv.force;
 
 let urlInfo = url.parse(argv.host || 'https://api.contentful.com');
 let host = urlInfo.host;

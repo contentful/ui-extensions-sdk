@@ -526,8 +526,17 @@ describe('Commands', function () {
         });
     });
 
+    it('fails to delete the widget if no version is given and force option not present', function () {
+      return command('delete --space-id 123 --src foo.com --id 456 --host http://localshot', execOptions)
+        .then(assert.fail)
+        .catch(function (error) {
+          expect(error.error.code).to.eq(1);
+          expect(error.stderr).to.match(/to delete without version use the --force flag/);
+        });
+    });
+
     it('reports the error when the API request fails (without version, reading current)', function () {
-      let cmd = 'delete --space-id 123 --id fail --host http://localhost:3000';
+      let cmd = 'delete --space-id 123 --id fail --force --host http://localhost:3000';
 
       return command(cmd, execOptions)
         .then(assert.fail)
@@ -539,7 +548,7 @@ describe('Commands', function () {
 
     it('reports the error when the API request fails (without version, deleting)', function () {
       let createCmd = 'create --space-id 123 --name lol --src lol.com --id fail-delete --host http://localhost:3000';
-      let deleteCmd = 'delete --space-id 123 --id fail-delete --host http://localhost:3000';
+      let deleteCmd = 'delete --space-id 123 --id fail-delete --force --host http://localhost:3000';
 
       return command(createCmd, execOptions)
         .then(function () {
@@ -580,7 +589,7 @@ describe('Commands', function () {
 
     it('deletes a widget without explicitely giving its version', function () {
       let createCmd = 'create --space-id 123 --name lol --src lol.com --id 456 --host http://localhost:3000';
-      let deleteCmd = 'delete --space-id 123 --id 456 --host http://localhost:3000';
+      let deleteCmd = 'delete --space-id 123 --id 456 --force --host http://localhost:3000';
 
       return command(createCmd, execOptions)
         .then(function () {
