@@ -7,11 +7,11 @@ var app = express();
 
 var store = {};
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({ type: 'application/vnd.contentful.management.v1+json' }));
 app.use(function (req, res, next) {
-  let authHeader = req.headers.authorization;
+  let accessToken = req.query.access_token;
 
-  if (authHeader !== 'Bearer lol-token') {
+  if (accessToken !== 'lol-token') {
     res.status(404);
     res.end();
   } else {

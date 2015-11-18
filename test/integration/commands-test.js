@@ -28,6 +28,8 @@ function command (subcommand, options) {
 }
 
 describe('Commands', function () {
+  this.timeout(5000);
+
   beforeEach(function () {
     server.start();
   });
@@ -549,6 +551,8 @@ describe('Commands', function () {
           expect(error.stderr).to.match(/Failed to delete the widget/);
         });
     });
+
+    // TODO try to delete a non existing widget (handle 404)
 
     it('reports the error when the API request fails (with version)', function () {
       let deleteCmd = 'delete --space-id 123 -v 1 --id fail-delete --host http://localhost:3000';

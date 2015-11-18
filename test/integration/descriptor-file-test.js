@@ -35,6 +35,8 @@ function runCommands (commands, execOptions) {
 }
 
 describe('Descriptor file', function () {
+  this.timeout(5000);
+
   beforeEach(function () {
     server.start();
   });
