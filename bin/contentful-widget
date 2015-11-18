@@ -4,15 +4,10 @@
 
 var path = require('path');
 var fs = require('fs');
-
 var _ = require('lodash');
 var yargs = require('yargs');
 
-// TODO: use yargs.demand to require at least one command
-// TODO: get the names of the available commands
-// from the executables in bin/cf-widget-X
-var yargs = require('yargs')
-  .command('read')
+yargs.command('read')
   .command('update')
   .command('delete')
   .command('create');
