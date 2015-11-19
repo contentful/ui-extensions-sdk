@@ -46,21 +46,15 @@ describe('Commands', function () {
     describe('when the token is not defined on the environment', function () {
       it(`${subcommand} fails`, function () {
         delete execOptions.env.CONTENTFUL_MANAGEMENT_ACCESS_TOKEN;
+        let msg = 'CONTENTFUL_MANAGEMENT_ACCESS_TOKEN is undefined or empty';
+        let command = `${subcommand} --space-id 123 --id 456`;
 
-        // Include space-id and id as they are required options
-        return command(`${subcommand} --space-id 123 --id 456`, execOptions)
-          .then(assert.fail)
-          .catch(function (error) {
-            let regexp = /CONTENTFUL_MANAGEMENT_ACCESS_TOKEN is undefined or empty/;
-
-            expect(error.error.code).to.eq(1);
-            expect(error.stderr).to.match(regexp);
-          });
+        return expectErrorAndMessage(command, execOptions, msg);
       });
     });
   });
 
-  describe('create', function () {
+  describe('Create', function () {
     var flags = [
       'space-id', 'id', 'src', 'srcdoc', 'name', 'host', 'sidebar',
       'field-types', 'descriptor'
@@ -172,13 +166,9 @@ describe('Commands', function () {
 
     it('reports the error when the API request fails', function () {
       let cmd = 'create --space-id 123 --name lol --src lol.com --id fail --host http://localhost:3000';
+      let msg = serverErrorMsg('put', 123, 'fail');
 
-      return command(cmd, execOptions)
-        .then(assert.fail)
-        .catch(function (error) {
-          expect(error.error.code).to.eq(1);
-          expect(error.stderr).to.match(/Failed to create the widget/);
-        });
+      return expectErrorAndMessage(cmd, execOptions, msg);
     });
 
     describe('when the --srcdoc option is used', function () {
@@ -195,13 +185,16 @@ describe('Commands', function () {
 
       it('reports the error when the API request fails', function () {
         let cmd = `create --space-id 123 --name lol --srcdoc ${file} --id fail --host http://localhost:3000`;
+        let msg = serverErrorMsg('put', 123, 'fail');
 
-        return command(cmd, execOptions)
-          .then(assert.fail)
-          .catch(function (error) {
-            expect(error.error.code).to.eq(1);
-            expect(error.stderr).to.match(/Failed to create the widget/);
-          });
+        return expectErrorAndMessage(cmd, execOptions, msg);
+      });
+
+      it('reports the error when the file does not exist', function () {
+        let cmd = 'create --space-id 123 --name lol --srcdoc some-unexisting-file --host http://localhost:3000';
+        let msg = 'ENOENT: no such file or directory, open \'some-unexisting-file\'';
+
+        return expectErrorAndMessage(cmd, execOptions, msg);
       });
 
       it('creates a widget from a file', function () {
@@ -257,15 +250,18 @@ describe('Commands', function () {
         });
     });
 
+    it('reports when the widget can not be found', function () {
+      let cmd = 'read --space-id 123 --id not-found --host http://localhost:3000';
+      let msg = notFoundMsg('get', 123, 'not-found');
+
+      return expectErrorAndMessage(cmd, execOptions, msg);
+    });
+
     it('reports the error when the API request fails', function () {
       let cmd = 'read --space-id 123 --id fail --host http://localhost:3000';
+      let msg = serverErrorMsg('get', 123, 'fail');
 
-      return command(cmd, execOptions)
-        .then(assert.fail)
-        .catch(function (error) {
-          expect(error.error.code).to.eq(1);
-          expect(error.stderr).to.match(/Failed to read the widget/);
-        });
+      return expectErrorAndMessage(cmd, execOptions, msg);
     });
 
     it('reads a widget', function () {
@@ -308,6 +304,13 @@ describe('Commands', function () {
         expect(fooWidget.src).to.eql('foo.com');
       });
     });
+
+    it('reports the error when the API request fails (reading all widgets)', function () {
+      let cmd = 'read --space-id fail --all --host http://localhost:3000';
+      let msg = serverErrorMsg('get', 'fail');
+
+      return expectErrorAndMessage(cmd, execOptions, msg);
+    });
   });
 
   describe('Update', function () {
@@ -345,58 +348,42 @@ describe('Commands', function () {
     });
 
     it('fails if no --id option is provided', function () {
-      return command('update --space-id 123 --src foo.com --host http://localhost:3000', execOptions)
-        .then(assert.fail)
-        .catch(function (error) {
-          expect(error.error.code).to.eq(1);
-          expect(error.stderr).to.match(/no value given for: id/);
-        });
+      let cmd = 'update --space-id 123 --src foo.com --host http://localhost:3000';
+      let msg = 'no value given for: id';
+
+      return expectErrorAndMessage(cmd, execOptions, msg);
     });
 
     it('fails if no --srcdoc or --src options are provided', function () {
-      return command('update --space-id 123 --id 123 --host http://localhost:3000', execOptions)
-        .then(assert.fail)
-        .catch(function (error) {
-          expect(error.error.code).to.eq(1);
-          expect(error.stderr).to.match(/no value given for: src or srcdoc/);
-        });
+      let cmd = 'update --space-id 123 --id 123 --host http://localhost:3000';
+      let msg = 'no value given for: src or srcdoc';
+
+      return expectErrorAndMessage(cmd, execOptions, msg);
     });
 
     it('reports the error when the API request fails (without version, reading current)', function () {
-      let cmd = 'update --space-id 123 --src lol.com --id fail --host http://localhost:3000';
+      let cmd = 'update --space-id 123 --src lol.com --id fail --force --host http://localhost:3000';
+      let msg = serverErrorMsg('get', 123, 'fail');
 
-      return command(cmd, execOptions)
-        .then(assert.fail)
-        .catch(function (error) {
-          expect(error.error.code).to.eq(1);
-          expect(error.stderr).to.match(/Failed to update the widget/);
-        });
+      return expectErrorAndMessage(cmd, execOptions, msg);
     });
 
     it('reports the error when the API request fails (without version)', function () {
       let createCmd = 'create --space-id 123 --name lol --src lol.com --id fail-update --host http://localhost:3000';
-      let updateCmd = 'update --space-id 123 --id fail-update --src foo.com --host http://localhost:3000';
+      let updateCmd = 'update --space-id 123 --id fail-update --src foo.com --force --host http://localhost:3000';
+      let msg = serverErrorMsg('put', 123, 'fail-update');
 
       return command(createCmd, execOptions)
         .then(function () {
-          return command(updateCmd, execOptions);
-        })
-        .then(assert.fail)
-        .catch(function (error) {
-          expect(error.error.code).to.eq(1);
-          expect(error.stderr).to.match(/Failed to update the widget/);
+          return expectErrorAndMessage(updateCmd, execOptions, msg);
         });
     });
 
     it('reports the error when the API request fails (with version)', function () {
       let cmd = 'update --space-id 123 --name lol --src lol.com --version 1 --id fail --host http://localhost:3000';
+      let msg = serverErrorMsg('put', 123, 'fail');
 
-      return command(cmd, execOptions)
-        .then(assert.fail)
-        .catch(function (error) {
-          expect(error.error.code).to.eq(1);
-          expect(error.stderr).to.match(/Failed to update the widget/);
-        });
+      return expectErrorAndMessage(cmd, execOptions, msg);
     });
 
     it('updates a widget passing the version', function () {
@@ -415,15 +402,10 @@ describe('Commands', function () {
     });
 
     it('fails to update the widget if no version is given and force option not present', function () {
-      let updateCmd = 'update --space-id 123 --id 456 --src foo.com --host http://localhost:3000';
+      let cmd = 'update --space-id 123 --id 456 --src foo.com --host http://localhost:3000';
+      let msg = 'to update without version use the --force flag';
 
-      return command(updateCmd, execOptions)
-        .then(assert.fail)
-        .catch(function (error) {
-          let msg = /to update without version use the --force flag/;
-          expect(error.error.code).to.eql(1);
-          expect(error.stderr).to.match(msg);
-        });
+      return expectErrorAndMessage(cmd, execOptions, msg);
     });
 
     it('updates a widget without explicitely giving it version', function () {
@@ -442,14 +424,10 @@ describe('Commands', function () {
     });
 
     it('returns an error if neither descriptor or options are present', function () {
-      let updateCmd = 'update --space-id 123 --id 456';
+      let cmd = 'update --space-id 123 --id 456';
+      let msg = 'no value given for: src or srcdoc';
 
-      return command(updateCmd, execOptions)
-        .then(assert.fail)
-        .catch(function (error) {
-          expect(error.error.code).to.eq(1);
-          expect(error.stderr).to.match(/no value given for: src or srcdoc/);
-        });
+      return expectErrorAndMessage(cmd, execOptions, msg);
     });
 
     it('updates the name of a widget', function () {
@@ -542,42 +520,37 @@ describe('Commands', function () {
       it('reports the error when the API request fails (without version)', function () {
         let createCmd = 'create --space-id 123 --name lol --src lol.com --id fail-update --host http://localhost:3000';
         let updateCmd = `update --space-id 123 --id fail-update --srcdoc ${file} --force --host http://localhost:3000`;
+        let msg = serverErrorMsg('put', 123, 'fail-update');
 
         return command(createCmd, execOptions)
           .then(function () {
-            return command(updateCmd, execOptions);
-          })
-          .then(assert.fail)
-          .catch(function (error) {
-            expect(error.error.code).to.eq(1);
-            expect(error.stderr).to.match(/Failed to update the widget/);
+            return expectErrorAndMessage(updateCmd, execOptions, msg);
           });
       });
 
       it('reports the error when the API request fails (without version, reading current)', function () {
         let updateCmd = `update --space-id 123 --id fail --srcdoc ${file} --force --host http://localhost:3000`;
+        let msg = serverErrorMsg('get', 123, 'fail');
 
-        return command(updateCmd, execOptions)
-          .then(assert.fail)
-          .catch(function (error) {
-            expect(error.error.code).to.eq(1);
-            expect(error.stderr).to.match(/Failed to update the widget/);
-          });
+        return expectErrorAndMessage(updateCmd, execOptions, msg);
       });
 
       it('reports the error when the API request fails (with version)', function () {
         let createCmd = 'create --space-id 123 --name lol --src lol.com --id fail-update --host http://localhost:3000';
         let updateCmd = `update --space-id 123 --version 1 --id fail-update --srcdoc ${file} --force --host http://localhost:3000`;
+        let msg = serverErrorMsg('put', 123, 'fail-update');
 
         return command(createCmd, execOptions)
           .then(function () {
-            return command(updateCmd, execOptions);
-          })
-          .then(assert.fail)
-          .catch(function (error) {
-            expect(error.error.code).to.eq(1);
-            expect(error.stderr).to.match(/Failed to update the widget/);
+            return expectErrorAndMessage(updateCmd, execOptions, msg);
           });
+      });
+
+      it('reports the error when the file does not exist', function () {
+        let cmd = 'update --space-id 123 --id 456 --srcdoc some-unexisting-file --force --host http://localhost:3000';
+        let msg = 'ENOENT: no such file or directory, open \'some-unexisting-file\'';
+
+        return expectErrorAndMessage(cmd, execOptions, msg);
       });
 
       it('updates a widget from a file without explicitely giving its version', function () {
@@ -648,41 +621,41 @@ describe('Commands', function () {
 
     it('reports the error when the API request fails (without version, reading current)', function () {
       let cmd = 'delete --space-id 123 --id fail --force --host http://localhost:3000';
+      let msg = serverErrorMsg('get', 123, 'fail');
 
-      return command(cmd, execOptions)
-        .then(assert.fail)
-        .catch(function (error) {
-          expect(error.error.code).to.eq(1);
-          expect(error.stderr).to.match(/Failed to delete the widget/);
-        });
+      return expectErrorAndMessage(cmd, execOptions, msg);
     });
 
     it('reports the error when the API request fails (without version, deleting)', function () {
       let createCmd = 'create --space-id 123 --name lol --src lol.com --id fail-delete --host http://localhost:3000';
       let deleteCmd = 'delete --space-id 123 --id fail-delete --force --host http://localhost:3000';
+      let msg = serverErrorMsg('delete', 123, 'fail-delete');
 
       return command(createCmd, execOptions)
         .then(function () {
-          return command(deleteCmd, execOptions);
-        })
-        .then(assert.fail)
-        .catch(function (error) {
-          expect(error.error.code).to.eq(1);
-          expect(error.stderr).to.match(/Failed to delete the widget/);
+          return expectErrorAndMessage(deleteCmd, execOptions, msg);
         });
     });
 
-    // TODO try to delete a non existing widget (handle 404)
+    it('reports the error when the API request fails (without version, not found)', function () {
+      let deleteCmd = 'delete --space-id 123 --force --id not-found --host http://localhost:3000';
+      let msg = notFoundMsg('get', 123, 'not-found');
+
+      return expectErrorAndMessage(deleteCmd, execOptions, msg);
+    });
+
+    it('reports the error when the API request fails (with version, not found)', function () {
+      let deleteCmd = 'delete --space-id 123 --version 1 --id not-found --host http://localhost:3000';
+      let msg = notFoundMsg('delete', 123, 'not-found');
+
+      return expectErrorAndMessage(deleteCmd, execOptions, msg);
+    });
 
     it('reports the error when the API request fails (with version)', function () {
       let deleteCmd = 'delete --space-id 123 --version 1 --id fail-delete --host http://localhost:3000';
+      let msg = serverErrorMsg('delete', 123, 'fail-delete');
 
-      return command(deleteCmd, execOptions)
-        .then(assert.fail)
-        .catch(function (error) {
-          expect(error.error.code).to.eq(1);
-          expect(error.stderr).to.match(/Failed to delete the widget/);
-        });
+      return expectErrorAndMessage(deleteCmd, execOptions, msg);
     });
 
     it('deletes a widget', function () {
@@ -712,3 +685,47 @@ describe('Commands', function () {
     });
   });
 });
+
+function expectErrorAndMessage (commandString, execOptions, errorMessage) {
+  let commandName = commandString.match(/^(\w+)/)[1];
+  let regexp = errorMessageRegExp(commandName, errorMessage);
+
+  return command(commandString, execOptions)
+    .then(assert.fail)
+    .catch(function (error) {
+      expect(error.error.code).to.eq(1);
+      expect(error.stderr).to.match(regexp);
+    });
+}
+
+function resourceUrlRegexp (spaceId, id) {
+  let url = `http://localhost:3000/spaces/${spaceId}/widgets`;
+
+  if (id) {
+    url = `${url}/${id}`;
+  }
+
+  url = `${url}[\\w?=_-]+`;
+
+  return url;
+}
+
+function notFoundMsg (method, spaceId, id) {
+  let url = resourceUrlRegexp(spaceId, id);
+
+  return httpError(method, url, 'The resource can\'t be found');
+}
+
+function serverErrorMsg (method, spaceId, id) {
+  let url = resourceUrlRegexp(spaceId, id);
+
+  return httpError(method, url, 'Server failed to fulfill the request');
+}
+
+function httpError (method, pathRegexp, details) {
+  return `${method} ${pathRegexp} ${details}`;
+}
+
+function errorMessageRegExp (command, details) {
+  return new RegExp(`Failed to ${command} the widget: ${details}`);
+}

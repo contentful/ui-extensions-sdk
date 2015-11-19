@@ -20,8 +20,19 @@ app.use(function (req, res, next) {
 });
 
 app.all('/spaces/:space/widgets/:id', function (req, res, next) {
+  if (req.params.id === 'not-found') {
+    let error = buildError('NotFoundError', 'The resource can\'t be found');
+    res.status(404);
+    res.send(error);
+    res.end();
+    return;
+  }
+
   if (req.params.id === 'fail') {
+    let error = buildError();
+
     res.status(500);
+    res.json(error);
     res.end();
     return;
   }
@@ -50,7 +61,9 @@ app.put('/spaces/:space/widgets/:id', function (req, res) {
     res.end();
   } else {
     if (req.params.id === 'fail-update') {
+      let error = buildError();
       res.status(500);
+      res.send(error);
       res.end();
       return;
     }
@@ -71,6 +84,14 @@ app.put('/spaces/:space/widgets/:id', function (req, res) {
 app.get('/spaces/:space/widgets', function (req, res) {
   let widgets = _.filter(store, {sys: {space: {sys: {id: req.params.space}}}});
 
+  if (req.params.space === 'fail') {
+    let error = buildError();
+    res.status(500);
+    res.send(error);
+    res.end();
+    return;
+  }
+
   res.status(200);
   res.json(widgets);
   res.end();
@@ -89,7 +110,9 @@ app.delete('/spaces/:space/widgets/:id', function (req, res) {
   let xVersion = parseInt(req.headers['x-contentful-version'], 10);
 
   if (req.params.id === 'fail-delete') {
+    let error = buildError();
     res.status(500);
+    res.send(error);
     res.end();
     return;
   }
@@ -116,6 +139,15 @@ function createWidget (spaceId, id, payload) {
       }
     }
   });
+}
+
+function buildError (id, message) {
+  return {
+    sys: {
+      id: id || 'ServerError'
+    },
+    message: message || 'Server failed to fulfill the request'
+  };
 }
 
 var server;
