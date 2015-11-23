@@ -14,13 +14,9 @@
 
 
   widget.events = {
-    initialize: function() {
-      window.addEventListener('cfWidgetReady', this.widgetReady);
-    },
-
-    widgetReady: function(ev) {
+    initialize: function(resp) {
       // Define API
-      widget.cfApi = ev.detail;
+      widget.cfApi = resp;
       // Create HTML elements
       widget.elements = {
         input: createElement('input', {type: 'text'}),
@@ -48,7 +44,7 @@
       }
 
       // Set iframe size
-      widget.cfApi.window.setSize('100%', (isDefaultLocale ? 80 : 40) + 'px');
+      widget.cfApi.window.updateHeight((isDefaultLocale ? 80 : 40) + 'px');
     },
 
     fieldsUpdated: function() {
@@ -158,25 +154,6 @@
     return getCode(fromLocale) + '-' + getCode (toLocale);
   }
 
-  // Debounce 
-  // http://davidwalsh.name/javascript-debounce-function
-  function debounce(func, wait, immediate) {
-    var timeout;
-    return function() {
-      var context = this, args = arguments;
-      var later = function() {
-        timeout = null;
-        if (!immediate) func.apply(context, args);
-      };
-      var callNow = immediate && !timeout;
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-      if (callNow) func.apply(context, args);
-    };
-  }
-
-
-
-  widget.events.initialize();
+  window.contentfulWidget.init(widget.events.initialize);
 
 }();
