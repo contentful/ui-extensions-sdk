@@ -1,7 +1,8 @@
 {
   "extends": "../.eslintrc",
   "rules": {
-    "semi": [2, "always"]
+    "semi": [2, "always"],
+    "max-len": 0
   },
   "globals": {
     "describe": true,
