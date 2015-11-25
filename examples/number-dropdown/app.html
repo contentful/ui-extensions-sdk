@@ -2,21 +2,15 @@
 <!--
 Include styles from the contentful app.
 
-In the future we will provide documentation on how to include and use
-the application styles.
+In the future we will provide documentation on how to include and apply
+these styles.
 -->
 <link rel="stylesheet" href="https://static.contentful.com/app/main-62e0abc7.css">
 <style>
-  body {
-    margin: 0
-  }
-  #entries {
-    margin-top: 1em
-  }
-
-  #entries-list {
-    margin-top: 1em
-  }
+  body { margin: 0 }
+  #entries { margin-top: 1em }
+  #entries-list { margin-top: 1em }
+	#rating { margin-right: 1em }
 </style>
 
 <!--
@@ -25,36 +19,44 @@ Load the Widget API that is used to communicate with the containing app.
 <script src="https://contentful.github.io/widget-sdk/cf-widget-api.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
 
-<div>
-  Current Value: <span id="current-rating"></span>
-</div>
 <select id="rating" class="cfnext-select-box">
   <option value="">Other</option>
   <option value="1">Ok</option>
   <option value="4">Good</option>
   <option value="10">Super</option>
 </select>
+<span>
+  Current Value: <span id="current-rating"></span>
+</span>
 <div id="entries">
   <button class="cfnext-btn-action">Show entries with the same rating</button>
   <ul id="entries-list"></ul>
 </div>
 <script>
 
-  window.contentfulWidget.init(function (api) {
+  // This is the main entry point for widgets.
+  //
+  // The widget API reference explains in detail what you can do with
+  // the 'api' object.
+  window.contentfulWidget.init(function (widget) {
 
     // Whenever the size of this document changes we adjust the size of
     // the IFrame in the Contentful App.
-    api.window.startAutoResizer()
+    widget.window.startAutoResizer()
 
-    var metaData = api.entry.getSys()
+    var metaData = widget.entry.getSys()
 
-    ratingChanged(api.field.getValue())
+    ratingChanged(widget.field.getValue())
 
+    // When the user selects a different option from the dropdown we
+    // update the entry field
     $('#rating').on('input', function () {
-      api.field.setValue(parseInt(this.value))
+      widget.field.setValue(parseInt(this.value))
       $('#current-rating').html(this.value)
     })
 
+    // When the user clicks the button, we get all entries with the
+    // same rating and show them in a list.
     $('#entries > button').on('click', function () {
       var button = $(this)
       button.addClass('is-loading')
@@ -64,17 +66,20 @@ Load the Widget API that is used to communicate with the containing app.
       .then(function () {
         button.removeClass('is-loading')
       })
-
     })
 
+    // Get a list of entries that have the same content type and same
+    // value in the current field.
+    //
+    // Makes a request to the Contentful CMA using the Widget API
     function getEntriesWithSameRating () {
       var query = {
         'content_type': metaData.contentType.sys.id,
         'sys.id[ne]': metaData.id
       }
-      query['fields.' + api.field.id] = api.field.getValue()
+      query['fields.' + widget.field.id] = widget.field.getValue()
 
-      return api.space.getEntries(query)
+      return widget.space.getEntries(query)
     }
 
     function ratingChanged (value) {
@@ -89,13 +94,16 @@ Load the Widget API that is used to communicate with the containing app.
     }
 
 
+    // Populates the #entries-list with links to the entries.
+    // If 'entries' is an empty array we show a message.
     function renderEntries (entries) {
-      if (!entries.length) {
-        $('ul#entries-list').html('<em>no entries found</em>')
-        return
+      var content
+      if (entries.length) {
+        content = entries.map(renderEntry)
+      } else {
+        content = '<em>no entries found</em>'
       }
-      var items = entries.map(renderEntry)
-      $('ul#entries-list').html(items)
+      $('ul#entries-list').html(content)
     }
 
     function renderEntry (entry) {
