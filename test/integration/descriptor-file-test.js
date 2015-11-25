@@ -235,6 +235,32 @@ describe('Descriptor file', function () {
           });
         }
       );
+
+      example(
+        {
+          create: 'create --space-id 123 --src foo.com --host http://localhost:3000',
+          update: [
+            'create --space-id 123 --src wow.com --host http://localhost:3000',
+            'update --space-id 123 --src foo.com --force --host http://localhost:3000'
+          ]
+        },
+        function (commandName, commands) {
+          it(`${commandName} --src excludes the srdoc property in the descriptor`, function () {
+            delete descriptor.src;
+            descriptor.srcdoc = srdoc;
+
+            return fs.writeFileAsync(file, JSON.stringify(descriptor))
+            .then(runCommands(commands, execOptions))
+            .then(function (stdout) {
+              let widget = JSON.parse(stdout);
+
+              expect(widget).to.not.have.ownProperty('srcdoc');
+              expect(widget.src).to.eql('foo.com');
+              expect(widget.sys.id).to.eql(descriptor.id);
+            });
+          });
+        }
+      );
     });
 
     example(
@@ -341,6 +367,29 @@ describe('Descriptor file', function () {
             .then(function (stdout) {
               let widget = JSON.parse(stdout);
 
+              expect(widget.srcdoc).to.eql(b);
+              expect(widget.sys.id).to.eql(descriptor.id);
+            });
+          });
+        }
+      );
+
+      example(
+        {
+          create: `create --space-id 123 --srcdoc ${f} --host http://localhost:3000`,
+          update: [
+            'create --space-id 123 --id 456  --host http://localhost:3000',
+            `update --space-id 123 --srcdoc ${f} --force --host http://localhost:3000`
+          ]
+        },
+        function (commandName, commands) {
+          it(`${commandName} --srcdoc excludes the src property in the descriptor`, function () {
+            return fs.writeFileAsync(file, JSON.stringify(descriptor))
+            .then(runCommands(commands, execOptions))
+            .then(function (stdout) {
+              let widget = JSON.parse(stdout);
+
+              expect(widget).to.not.have.ownProperty('src');
               expect(widget.srcdoc).to.eql(b);
               expect(widget.sys.id).to.eql(descriptor.id);
             });
