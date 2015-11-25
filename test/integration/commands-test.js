@@ -60,6 +60,33 @@ describe('Commands', function () {
       'field-types', 'descriptor'
     ];
 
+    it('reads the host config from the environment', function () {
+      execOptions.env.CONTENTFUL_MANAGEMENT_HOST = 'http://localhost:3000';
+
+      return command('create --space-id 123 --id 456 --name foo --src foo.com', execOptions)
+      .then(function (stdout) {
+        let widget = JSON.parse(stdout);
+
+        expect(widget.sys.id).to.eql('456');
+        expect(widget.name).to.eql('foo');
+        expect(widget.src).to.eql('foo.com');
+      });
+    });
+
+    it('--host option has precedence over the CONTENTFUL_MANAGEMENT_HOST opion', function () {
+      // no API listening on localhost:9999
+      execOptions.env.CONTENTFUL_MANAGEMENT_HOST = 'http://localhost:9999';
+
+      return command('create --space-id 123 --id 456 --name foo --src foo.com --host http://localhost:3000', execOptions)
+      .then(function (stdout) {
+        let widget = JSON.parse(stdout);
+
+        expect(widget.sys.id).to.eql('456');
+        expect(widget.name).to.eql('foo');
+        expect(widget.src).to.eql('foo.com');
+      });
+    });
+
     it('shows the help when the --help flag is present', function () {
       // Use the --space-id flag because otherwise the help would be
       // shown because it's a required flag
@@ -213,6 +240,42 @@ describe('Commands', function () {
   describe('Read', function () {
     var flags = [ 'space-id', 'id', 'host', 'all' ];
 
+    it('reads the host config from the environment', function () {
+      execOptions.env.CONTENTFUL_MANAGEMENT_HOST = 'http://localhost:3000';
+      let createCmd = 'create --space-id 123 --name lol --src lol.com --id 456';
+      let readCmd = 'read --space-id 123 --id 456';
+
+      return command(createCmd, execOptions)
+        .then(function () {
+          return command(readCmd, execOptions);
+        })
+        .then(function (stdout) {
+          let widget = JSON.parse(stdout);
+
+          expect(widget.src).to.eql('lol.com');
+          expect(widget.sys.id).to.eql('456');
+        });
+    });
+
+    it('--host option has precedence over the CONTENTFUL_MANAGEMENT_HOST opion', function () {
+      // no API listening on localhost:9999
+      execOptions.env.CONTENTFUL_MANAGEMENT_HOST = 'http://localhost:9999';
+
+      let createCmd = 'create --space-id 123 --name lol --src lol.com --id 456 --host http://localhost:3000';
+      let readCmd = 'read --space-id 123 --id 456 --host http://localhost:3000';
+
+      return command(createCmd, execOptions)
+        .then(function () {
+          return command(readCmd, execOptions);
+        })
+        .then(function (stdout) {
+          let widget = JSON.parse(stdout);
+
+          expect(widget.src).to.eql('lol.com');
+          expect(widget.sys.id).to.eql('456');
+        });
+    });
+
     it('shows the help when the --help flag is present', function () {
       // Use the --space-id flag because otherwise the help would be
       // shown because it's a required flag
@@ -318,6 +381,41 @@ describe('Commands', function () {
       'space-id', 'id', 'src', 'srcdoc', 'name', 'host', 'sidebar', 'field-types', 'descriptor',
       'version', 'force'
     ];
+
+    it('reads the host config from the environment', function () {
+      execOptions.env.CONTENTFUL_MANAGEMENT_HOST = 'http://localhost:3000';
+      let createCmd = 'create --space-id 123 --name lol --src lol.com --id 456';
+      let updateCmd = 'update --space-id 123 --id 456 --version 1 --src foo.com';
+
+      return command(createCmd, execOptions)
+        .then(function () {
+          return command(updateCmd, execOptions);
+        })
+        .then(function (stdout) {
+          let widget = JSON.parse(stdout);
+
+          expect(widget.src).to.eql('foo.com');
+        });
+    });
+
+    it('--host option has precedence over the CONTENTFUL_MANAGEMENT_HOST opion', function () {
+      // no API listening on localhost:9999
+      execOptions.env.CONTENTFUL_MANAGEMENT_HOST = 'http://localhost:9999';
+
+      let createCmd = 'create --space-id 123 --name lol --src lol.com --id 456 --host http://localhost:3000';
+      let readCmd = 'read --space-id 123 --id 456 --host http://localhost:3000';
+
+      return command(createCmd, execOptions)
+        .then(function () {
+          return command(readCmd, execOptions);
+        })
+        .then(function (stdout) {
+          let widget = JSON.parse(stdout);
+
+          expect(widget.src).to.eql('lol.com');
+          expect(widget.sys.id).to.eql('456');
+        });
+    });
 
     it('shows the help when the --help flag is present', function () {
       // Use the --space-id flag because otherwise the help would be
@@ -572,6 +670,36 @@ describe('Commands', function () {
 
   describe('Delete', function () {
     let flags = ['space-id', 'id', 'version', 'force', 'host'];
+
+    it('reads the host config from the environment', function () {
+      execOptions.env.CONTENTFUL_MANAGEMENT_HOST = 'http://localhost:3000';
+      let createCmd = 'create --space-id 123 --name lol --src lol.com --id 456';
+      let deleteCmd = 'delete --space-id 123 --id 456 --version 1';
+
+      return command(createCmd, execOptions)
+        .then(function () {
+          return command(deleteCmd, execOptions);
+        })
+        .then(function (stdout) {
+          expect(stdout).to.be.empty();
+        });
+    });
+
+    it('--host option has precedence over the CONTENTFUL_MANAGEMENT_HOST opion', function () {
+      // no API listening on localhost:9999
+      execOptions.env.CONTENTFUL_MANAGEMENT_HOST = 'http://localhost:9999';
+
+      let createCmd = 'create --space-id 123 --name lol --src lol.com --id 456 --host http://localhost:3000';
+      let deleteCmd = 'delete --space-id 123 --id 456 --version 1 --host http://localhost:3000';
+
+      return command(createCmd, execOptions)
+        .then(function () {
+          return command(deleteCmd, execOptions);
+        })
+        .then(function (stdout) {
+          expect(stdout).to.be.empty();
+        });
+    });
 
     it('shows the help when the --help flag is present', function () {
       // Use the --space-id and --id flags because otherwise the help would be
