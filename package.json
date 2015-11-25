@@ -2,7 +2,7 @@
   "name": "contentful-widgets",
   "author": "Contentful GmbH",
   "version": "0.0.0",
-  "prvate": true,
+  "private": true,
   "scripts": {
     "prepublish": "make build",
     "test": "make test",
