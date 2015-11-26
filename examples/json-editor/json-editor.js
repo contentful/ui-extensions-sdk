@@ -7,11 +7,16 @@
 
 +function() {
 
-  var cfApi, cm;
+  if (typeof window.contentfulWidget === 'undefined') {
+    throw new Error('Depends on contentful-widget-api.js');
+  }
+
+  var cfApi;
+  var cm;
   var elements = {};
 
   var editorSize = {
-    width: '100%',
+    width: 'auto',
     height: 310
   };
 
@@ -20,46 +25,44 @@
   var undoable = false;
   var redoable = false;
 
-  var initialize = function() {
-
-    // Create elements
-    elements.toolbar = createElement('div', {className: 'toolbar'});
-    elements.editor = createElement('div');
-    elements.title = createElement('div', {className: 'title'}, elements.toolbar);
-    elements.undo = createElement('div', {className: 'undo'}, elements.toolbar);
-    elements.redo = createElement('div', {className: 'redo'}, elements.toolbar);
-    elements.info = createElement('div', {className: 'validation'}, elements.toolbar);
-
-    // Initialize Code Mirror
-    cm = CodeMirror(elements.editor, {
-      matchBrackets: true,
-      autoCloseBrackets: true,
-      mode: {name: 'javascript', json: true},
-      lineWrapping: true,
-      viewportMargin: Infinity,
-      indentUnit: 4,
-      theme: 'default'
-    });
-
-    cm.setSize(editorSize.width, editorSize.height - 50);
-
-    // Watch for events
-    window.addEventListener('cfWidgetReady', events.widgetReady);
-    cm.on('change', events.textChanged);
-    elements.undo.addEventListener('click', events.undo);
-    elements.redo.addEventListener('click', events.redo);
-
-  }
-
   var events = {
-    widgetReady: function(evt) {
-      cfApi = evt.detail;
+    initialize: function(resp) {
+      cfApi = resp;
+
+      // Create elements
+      elements.toolbar = createElement('div', {className: 'toolbar'});
+      elements.editor = createElement('div');
+      elements.title = createElement('div', {className: 'title'}, elements.toolbar);
+      elements.undo = createElement('div', {className: 'undo'}, elements.toolbar);
+      elements.redo = createElement('div', {className: 'redo'}, elements.toolbar);
+      elements.info = createElement('div', {className: 'validation'}, elements.toolbar);
+
+      // Initialize Code Mirror
+      cm = CodeMirror(elements.editor, {
+        matchBrackets: true,
+        autoCloseBrackets: true,
+        mode: {name: 'javascript', json: true},
+        lineWrapping: true,
+        viewportMargin: Infinity,
+        indentUnit: 4,
+        theme: 'default'
+      });
+
+      cm.setSize(editorSize.width, editorSize.height - 50);
+
+      // Watch for events
+      window.addEventListener('cfWidgetReady', events.widgetReady);
+      cm.on('change', events.textChanged);
+      elements.undo.addEventListener('click', events.undo);
+      elements.redo.addEventListener('click', events.redo);
+
+
       var val = cfApi.field.getValue();
       cm.doc.setValue(beautify(val));
       cm.clearHistory();
       updateHistorySize();
-      // Resize window
-      cfApi.window.setSize(editorSize.width, editorSize.height);
+      // Update height
+      cfApi.window.updateHeight(editorSize.height);
     },
     textChanged: function(evt) {
       validateAndSave(evt.getValue());
@@ -104,7 +107,7 @@
 
   // Takes an object and returns a pretty-printed JSON string
   var beautify = function(obj) {
-    if (obj === null) {
+    if (obj === null || obj === undefined) {
       return '';
     } else {
       return JSON.stringify(obj, null, '\t');
@@ -157,6 +160,6 @@
     }
   };
 
-  initialize();
+  window.contentfulWidget.init(events.initialize);
 
 }();
