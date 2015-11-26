@@ -6,6 +6,12 @@ export PATH := ./node_modules/.bin:${PATH}
 build:
 	webpack
 	@echo "Created 'dist/cf-widget-api-js'"
+	@mkdir -p dist
+	./node_modules/stylus/bin/stylus -u nib lib/style/index.styl -o dist/cf-widget-api.css --sourcemap
+
+docs: build
+	cp ./lib/style/styleguide.css ./dist/styleguide
+	./node_modules/kss/bin/kss-node --config kss-config.json
 
 watch:
 	webpack --watch

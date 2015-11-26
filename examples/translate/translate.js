@@ -19,9 +19,8 @@
       widget.cfApi = resp;
       // Create HTML elements
       widget.elements = {
-        input: createElement('input', {type: 'text'}),
-        defaultLanguage: createElement('div'),
-        populateAll: createElement('input', {type: 'submit', value: 'Populate all other locales'}, createElement('div'))
+        input: createElement('input', {type: 'text', className: 'cfnext-form__input--full-size'}, createElement('p')),
+        populateAll: createElement('input', {type: 'submit', className: 'cfnext-btn-action', value: 'Populate all other locales'})
       };
 
       // Attach event listeners
@@ -45,7 +44,7 @@
       }
 
       // Set iframe size
-      widget.cfApi.window.updateHeight((isDefaultLocale ? 80 : 40));
+      widget.cfApi.window.updateHeight((isDefaultLocale ? 110 : 60));
     },
 
     fieldsUpdated: function() {
@@ -91,7 +90,7 @@
       widget.elements.input.value = text ? text : '';
     },
     enableElement: function(element, enabled) {
-      element.className = (enabled === true) ? '' : 'disabled';
+      element.disabled = !enabled;
     },
     hideElement: function(element) {
       element.style.display = 'none';
