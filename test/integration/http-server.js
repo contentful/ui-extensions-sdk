@@ -72,7 +72,9 @@ app.put('/spaces/:space/widgets/:id', function (req, res) {
       res.status(409);
       res.end();
     } else {
-      widget = _.extend(widget, req.body);
+      let sys = widget.sys;
+      widget = req.body;
+      widget.sys = sys;
       widget.sys.version = widget.sys.version + 1;
       res.json(widget);
       res.status(200);

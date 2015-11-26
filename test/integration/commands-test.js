@@ -588,7 +588,7 @@ describe('Commands', function () {
       });
     });
 
-    it('does not update the sidebar property', function () {
+    it('removes the sidebar property (when ommited)', function () {
       let createCmd = 'create --space-id 123 --name lol --src l.com --id 456 --name foo --sidebar --host http://localhost:3000';
       let updateCmd = 'update --space-id 123 --id 456 --name foo --force --host http://localhost:3000';
 
@@ -599,7 +599,7 @@ describe('Commands', function () {
       .then(function (stdout) {
         let widget = JSON.parse(stdout);
 
-        expect(widget.sidebar).to.be.true();
+        expect(widget).to.not.have.ownProperty('sidebar');
       });
     });
 
