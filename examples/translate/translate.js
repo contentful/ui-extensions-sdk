@@ -29,33 +29,33 @@
       widget.elements.populateAll.addEventListener('click', widget.events.doTranslations);
 
       // Watch for changes on the default language field
-      if (widget.cfApi.defaultLocale !== widget.cfApi.currentFieldLocale) {
-        widget.cfApi.fields.addObserver(widget.events.fieldsUpdated);
+      if (widget.cfApi.locales.default !== widget.cfApi.field.locale) {
+        var apiName = widget.cfApi.field.id;
+        widget.cfApi.entry.fields[apiName].onValueChanged(widget.cfApi.field.locale, widget.events.fieldsUpdated);
       }
 
       // Populate current values
-      widget.events.fieldsUpdated(widget.cfApi.fields);
+      widget.events.fieldsUpdated();
 
-      var isDefaultLocale = widget.cfApi.defaultLocale === widget.cfApi.currentFieldLocale;
+      var isDefaultLocale = widget.cfApi.locales.default === widget.cfApi.field.locale;
 
       // Hide Populate button on non-default locales
-      if (widget.cfApi.defaultLocale !== widget.cfApi.currentFieldLocale) {
+      if (!isDefaultLocale) {
         widget.uiUpdate.hideElement(widget.elements.populateAll);
       }
 
       // Set iframe size
-      widget.cfApi.window.updateHeight((isDefaultLocale ? 80 : 40) + 'px');
+      widget.cfApi.window.updateHeight((isDefaultLocale ? 80 : 40));
     },
 
     fieldsUpdated: function() {
-      // Sometimes getValue() returns an empty object instead of null
-      var currentValue = typeof widget.cfApi.field.getValue() !== 'object' ? widget.cfApi.field.getValue() : null;
+      var currentValue = widget.cfApi.field.getValue();
 
       // Show translate button when there is a value in the default locale
       widget.uiUpdate.updateInput(currentValue);
 
       // Show or hide translate button
-      if (widget.cfApi.defaultLocale === widget.cfApi.currentFieldLocale) {
+      if (widget.cfApi.locales.default === widget.cfApi.field.locale) {
         widget.uiUpdate.enableElement(widget.elements.populateAll, !!currentValue);
       } else {
         // Save value
@@ -66,18 +66,17 @@
     textUpdated: function() {
       var val = widget.elements.input.value.toString();
       widget.cfApi.field.setValue(val);
-      widget.events.fieldsUpdated(widget.cfApi.fields);
+      widget.events.fieldsUpdated();
     },
 
     doTranslations: function(ev) {
       ev.preventDefault();
-      var currentLocale = widget.cfApi.currentFieldLocale;
-      var idx = widget.cfApi.locales.indexOf(currentLocale);
-      var arr = widget.cfApi.locales.slice();
+      var currentLocale = widget.cfApi.field.locale;
+      var idx = widget.cfApi.locales.available.indexOf(currentLocale);
+      var arr = widget.cfApi.locales.available.slice();
       arr.splice(idx, 1);
       var languagePair;
       var text = widget.cfApi.field.getValue();
-
       arr.forEach(function(language) {
         languagePair = getYandexCode(currentLocale, language);
         getTranslation(text, languagePair, language);
@@ -88,8 +87,8 @@
   widget.uiUpdate = {
     updateInput: function(text) {
       // because sometimes getValue() returns an empty object instead of null...
-      text = (typeof text === 'object') ? null : text;
-      widget.elements.input.value = text;
+      text = (typeof text === 'object') ? undefined : text;
+      widget.elements.input.value = text ? text : '';
     },
     enableElement: function(element, enabled) {
       element.className = (enabled === true) ? '' : 'disabled';
@@ -136,8 +135,8 @@
     callTranslateApi(text, lang)
     .then(function(resp) {
       var translation = resp.text.join(' ');
-      var apiName = widget.cfApi.field.apiName;
-      widget.cfApi.fields.fields[apiName].setValue(targetLocale, translation);
+      var apiName = widget.cfApi.field.id;
+      widget.cfApi.entry.fields[apiName].setValue(translation, targetLocale);
     });
   }
 
