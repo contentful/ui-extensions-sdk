@@ -3,12 +3,6 @@ var ChessBoard = window.ChessBoard
 var $ = window.$
 
 cfWidget.init(function (api) {
-  api.window.updateHeight(440)
-
-  api.entry.onSysChanged((sys) => {
-    // console.log('sys', sys)
-  })
-
   var board = ChessBoard('board', {
     draggable: true,
     dropOffBoard: 'trash',
@@ -16,13 +10,13 @@ cfWidget.init(function (api) {
       api.field.setValue(current)
     }
   })
+  api.window.updateHeight()
 
   board.position(api.field.getValue())
 
   api.field.onValueChanged(function (p) {
     board.position(p)
   })
-
 
   $('button').on('click', function () {
     board.start()
