@@ -63,7 +63,7 @@ describe('Descriptor file', function () {
         id: '123',
         src: 'foo.com',
         name: 'foo',
-        fieldTypes: ['t1', 't2'],
+        fieldTypes: ['Symbol', 'Assets'],
         sidebar: true
       };
 
@@ -85,14 +85,17 @@ describe('Descriptor file', function () {
       it(`${commandName}s a widget`, function () {
         return runCommands(commands, execOptions)()
           .then(function (stdout) {
-            let widget = JSON.parse(stdout);
+            let payload = JSON.parse(stdout);
 
-            expect(widget.name).to.eql(customDescriptor.name);
-            expect(widget.src).to.eql(customDescriptor.src);
-            expect(widget.fieldTypes).to.eql(customDescriptor.fieldTypes);
-            expect(widget.sidebar).to.be.true();
-            expect(widget.sys.id).to.eql(customDescriptor.id);
-            expect(widget.sys.space.sys.id).to.eql('123');
+            expect(payload.widget.name).to.eql(customDescriptor.name);
+            expect(payload.widget.src).to.eql(customDescriptor.src);
+            expect(payload.widget.fieldTypes).to.eql([
+              {type: 'Symbol'},
+              {type: 'Array', items: {type: 'Link', linkType: 'Asset'}}
+            ]);
+            expect(payload.widget.sidebar).to.be.true();
+            expect(payload.sys.id).to.eql(customDescriptor.id);
+            expect(payload.sys.space.sys.id).to.eql('123');
           });
       });
     });
@@ -163,7 +166,7 @@ describe('Descriptor file', function () {
         id: '456',
         src: 'lol.com',
         name: 'foo',
-        fieldTypes: ['t1', 't2'],
+        fieldTypes: ['Symbol', 'Assets'],
         sidebar: true
       };
 
@@ -187,11 +190,15 @@ describe('Descriptor file', function () {
         it(`${commandName}s the widget using the values in descriptor file`, function () {
           return runCommands(commands, execOptions)()
           .then(function (stdout) {
-            let widget = JSON.parse(stdout);
+            let payload = JSON.parse(stdout);
 
-            expect(widget.name).to.eql(descriptor.name);
-            expect(widget.src).to.eql(descriptor.src);
-            expect(widget.sys.id).to.eql(descriptor.id);
+            expect(payload.widget.name).to.eql(descriptor.name);
+            expect(payload.widget.src).to.eql(descriptor.src);
+            expect(payload.sys.id).to.eql(descriptor.id);
+            expect(payload.widget.fieldTypes).to.eql([
+              {type: 'Symbol'},
+              {type: 'Array', items: {type: 'Link', linkType: 'Asset'}}
+            ]);
           });
         });
       }
@@ -227,10 +234,10 @@ describe('Descriptor file', function () {
             return fs.writeFileAsync(file, JSON.stringify(descriptor))
             .then(runCommands(commands, execOptions))
             .then(function (stdout) {
-              let widget = JSON.parse(stdout);
+              let payload = JSON.parse(stdout);
 
-              expect(widget.srcdoc).to.eql(bundle);
-              expect(widget.sys.id).to.eql(descriptor.id);
+              expect(payload.widget.srcdoc).to.eql(bundle);
+              expect(payload.sys.id).to.eql(descriptor.id);
             });
           });
         }
@@ -252,11 +259,11 @@ describe('Descriptor file', function () {
             return fs.writeFileAsync(file, JSON.stringify(descriptor))
             .then(runCommands(commands, execOptions))
             .then(function (stdout) {
-              let widget = JSON.parse(stdout);
+              let payload = JSON.parse(stdout);
 
-              expect(widget).to.not.have.ownProperty('srcdoc');
-              expect(widget.src).to.eql('foo.com');
-              expect(widget.sys.id).to.eql(descriptor.id);
+              expect(payload.widget).to.not.have.ownProperty('srcdoc');
+              expect(payload.widget.src).to.eql('foo.com');
+              expect(payload.sys.id).to.eql(descriptor.id);
             });
           });
         }
@@ -275,10 +282,10 @@ describe('Descriptor file', function () {
         it(`${commandName} --src option overwrites src property in the descriptor`, function () {
           return runCommands(commands, execOptions)()
             .then(function (stdout) {
-              let widget = JSON.parse(stdout);
+              let payload = JSON.parse(stdout);
 
-              expect(widget.src).to.eql('foo.com');
-              expect(widget.sys.id).to.eql(descriptor.id);
+              expect(payload.widget.src).to.eql('foo.com');
+              expect(payload.sys.id).to.eql(descriptor.id);
             });
         });
       }
@@ -296,10 +303,10 @@ describe('Descriptor file', function () {
         it(`${commandName} --name option overwrites name property in the descriptor`, function () {
           return runCommands(commands, execOptions)()
             .then(function (stdout) {
-              let widget = JSON.parse(stdout);
+              let payload = JSON.parse(stdout);
 
-              expect(widget.name).to.eql('doge');
-              expect(widget.sys.id).to.eql(descriptor.id);
+              expect(payload.widget.name).to.eql('doge');
+              expect(payload.sys.id).to.eql(descriptor.id);
             });
         });
       }
@@ -307,20 +314,23 @@ describe('Descriptor file', function () {
 
     example(
       {
-        create: 'create --space-id 123 --field-types t3 t4 --host http://localhost:3000',
+        create: 'create --space-id 123 --field-types Number Date --host http://localhost:3000',
         update: [
           'create --space-id 123 --id 456  --host http://localhost:3000',
-          'update --space-id 123 --field-types t3 t4 --force --host http://localhost:3000'
+          'update --space-id 123 --field-types Number Date --force --host http://localhost:3000'
         ]
       },
       function (commandName, commands) {
         it(`${commandName} --field-types option overwrites fieldTypes property in the descriptor`, function () {
           return runCommands(commands, execOptions)()
             .then(function (stdout) {
-              let widget = JSON.parse(stdout);
+              let payload = JSON.parse(stdout);
 
-              expect(widget.fieldTypes).to.eql(['t3', 't4']);
-              expect(widget.sys.id).to.eql(descriptor.id);
+              expect(payload.widget.fieldTypes).to.eql([
+                {type: 'Number'},
+                {type: 'Date'}
+              ]);
+              expect(payload.sys.id).to.eql(descriptor.id);
             });
         });
       }
@@ -365,10 +375,10 @@ describe('Descriptor file', function () {
             return fs.writeFileAsync(file, JSON.stringify(descriptor))
             .then(runCommands(commands, execOptions))
             .then(function (stdout) {
-              let widget = JSON.parse(stdout);
+              let payload = JSON.parse(stdout);
 
-              expect(widget.srcdoc).to.eql(b);
-              expect(widget.sys.id).to.eql(descriptor.id);
+              expect(payload.widget.srcdoc).to.eql(b);
+              expect(payload.sys.id).to.eql(descriptor.id);
             });
           });
         }
@@ -387,11 +397,11 @@ describe('Descriptor file', function () {
             return fs.writeFileAsync(file, JSON.stringify(descriptor))
             .then(runCommands(commands, execOptions))
             .then(function (stdout) {
-              let widget = JSON.parse(stdout);
+              let payload = JSON.parse(stdout);
 
-              expect(widget).to.not.have.ownProperty('src');
-              expect(widget.srcdoc).to.eql(b);
-              expect(widget.sys.id).to.eql(descriptor.id);
+              expect(payload.widget).to.not.have.ownProperty('src');
+              expect(payload.widget.srcdoc).to.eql(b);
+              expect(payload.sys.id).to.eql(descriptor.id);
             });
           });
         }
@@ -412,10 +422,10 @@ describe('Descriptor file', function () {
         it(`${commandName} --id option overwrites id property in the descriptor`, function () {
           return runCommands(commands, execOptions)()
             .then(function (stdout) {
-              let widget = JSON.parse(stdout);
+              let payload = JSON.parse(stdout);
 
-              expect(widget.src).to.eql(descriptor.src);
-              expect(widget.sys.id).to.eql('88');
+              expect(payload.widget.src).to.eql(descriptor.src);
+              expect(payload.sys.id).to.eql('88');
             });
         });
       }
@@ -433,9 +443,9 @@ describe('Descriptor file', function () {
         it(`${commandName} --sidebar option overwrites sidebar property in the descriptor`, function () {
           return runCommands(commands, execOptions)()
             .then(function (stdout) {
-              let widget = JSON.parse(stdout);
+              let payload = JSON.parse(stdout);
 
-              expect(widget.sidebar).to.be.false();
+              expect(payload.widget.sidebar).to.be.false();
             });
         });
       }
@@ -514,7 +524,7 @@ describe('Descriptor file', function () {
             id: 'desc-123',
             src: 'desc-foo.com',
             name: 'desc-foo',
-            fieldTypes: ['desc-t1', 'desc-t2'],
+            fieldTypes: ['Asset', 'Text'],
             sidebar: true
           };
 
@@ -536,19 +546,22 @@ describe('Descriptor file', function () {
           it(`${commandName}s a widget`, function () {
             return runCommands(commands, execOptions)()
             .then(function (stdout) {
-              let widget = JSON.parse(stdout);
+              let payload = JSON.parse(stdout);
 
-              expect(widget.name).to.eql(customDescriptor.name);
-              expect(widget.src).to.eql(customDescriptor.src);
-              expect(widget.fieldTypes).to.eql(customDescriptor.fieldTypes);
-              expect(widget.sidebar).to.be.true();
-              expect(widget.sys.id).to.eql(customDescriptor.id);
-              expect(widget.sys.space.sys.id).to.eql('123');
+              expect(payload.widget.name).to.eql(customDescriptor.name);
+              expect(payload.widget.src).to.eql(customDescriptor.src);
+              expect(payload.widget.fieldTypes).to.eql([
+                {type: 'Link', linkType: 'Asset'},
+                {type: 'Text'}
+              ]);
+              expect(payload.widget.sidebar).to.be.true();
+              expect(payload.sys.id).to.eql(customDescriptor.id);
+              expect(payload.sys.space.sys.id).to.eql('123');
 
-              expect(widget.name).not.to.eql(descriptor.name);
-              expect(widget.src).not.to.eql(descriptor.src);
-              expect(widget.fieldTypes).not.to.eql(descriptor.fieldTypes);
-              expect(widget.sys.id).not.to.eql(descriptor.id);
+              expect(payload.widget.name).not.to.eql(descriptor.name);
+              expect(payload.widget.src).not.to.eql(descriptor.src);
+              expect(payload.widget.fieldTypes).not.to.eql(descriptor.fieldTypes);
+              expect(payload.sys.id).not.to.eql(descriptor.id);
             });
           });
         });
