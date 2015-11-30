@@ -7,7 +7,16 @@ of our current field types, and gives you the power to manipulate its data
 through an iframe where you can embed custom functionality, styling,
 integrations or workflows.
 
-### Usage
+## Getting Started
+
+To upload and mange widgets on our API you will need the
+`contenful-widget` command line tool from this repository. You can
+install it from this repository with `npm install -g .` or from github
+~~~bash
+npm install -g "git+ssh@github.com:contentful/widget-sdk.git"
+~~~
+
+## Usage
 
 [Download the library][api-download] and include it in your HTML.
 
@@ -43,7 +52,7 @@ The compiled version of the Contentful Widget SDK and map file will be available
 in the `dist` folder.
 
 
-### Examples
+## Examples
 
 #### Flickr widget
 * Run `npm install` && `npm start`

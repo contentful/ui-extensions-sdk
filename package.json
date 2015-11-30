@@ -12,6 +12,13 @@
   "bugs": {
     "url": "https://github.com/contentful/widget-sdk/issues"
   },
+  "bin": {
+    "contentful-widget": "./bin/contentful-widget",
+    "contentful-widget-create": "./bin/contentful-widget-create",
+    "contentful-widget-delete": "./bin/contentful-widget-delete",
+    "contentful-widget-read": "./bin/contentful-widget-read",
+    "contentful-widget-update": "./bin/contentful-widget-update"
+  },
   "description": " SDK to develop custom widgets on Contentful",
   "devDependencies": {
     "body-parser": "^1.14.1",
