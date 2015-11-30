@@ -3,7 +3,7 @@
 This document describes the API that a custom widget can use to
 communicate with the Contentful Management App.
 
-You will need to include the `widget-ap` library in your HTML5 app like
+You will need to include the `widget-api` library in your HTML5 app like
 so:
 ~~~html
 <script src="https://contentful.github.io/widget-sdk/cf-widget-api.js"></script>
@@ -49,12 +49,12 @@ and the widget is attached to the `title` field and the `en_US` locale.
 
 ### `widget.field.getValue(): any`
 
-Get the current value of the field and locale. In the example this would yield
+Gets the current value of the field and locale. In the example this would yield
 `"My Post"`.
 
 ### `widget.field.setValue(value): Promise<void>`
 
-Set the value for the field and locale. The promise is resolved when the change
+Sets the value for the field and locale. The promise is resolved when the change
 has been acknowledged. The type of the value must match the expected field type.
 For example, if the widget is attached to a “Symbol” field you must pass a
 string.
@@ -81,11 +81,11 @@ example.
 ## `widget.entry`
 
 This object allows you to read and update the value of any field of the current
-entry and get the entries metadata.
+entry and to get the entry's metadata.
 
 ### `entry.getSys(): object`
 
-Returns metadata for an entry. The value conincides with the `sys` value of an
+Returns metadata for an entry. The value coincides with the `sys` value of an
 entry returned by the Contentful Management API
 
 ### `entry.onSysChanged(cb): function`
@@ -104,7 +104,7 @@ var oldTitle = titleField.getValue()
 titleField.setValue(oldTitle.toUpperCase())
 ~~~
 
-By default a field get and sets values for the space’s default locale (see
+By default a field gets and sets values for the space’s default locale (see
 [`widget.locales`](#widget-locales)), but the getter, setter, and observer
 accept an optional `locale` argument.
 
@@ -121,8 +121,8 @@ accept an optional `locale` argument.
 
 ## `widget.space`
 
-The `space` object exposes methods that allow the widgt to read and manipulate a
-widge range of objects in the space. It’s API mirrors that of the
+The `space` object exposes methods that allow the widget to read and manipulate a
+wide range of objects in the space. Its API mirrors that of the
 [`contentful-management` library][cma-js], with a few differences.
 
 [cma-js]: https://github.com/contentful/contentful-management.js
@@ -149,7 +149,7 @@ widge range of objects in the space. It’s API mirrors that of the
 
 ### Assets
 
-Same as the entries method with “Entry” replaced by “Asset”. In addition there
+Same as the entry's method with “Entry” replaced by “Asset”. In addition there
 is `space.processAssetFile(asset, locale)`
 
 
@@ -159,11 +159,11 @@ A space can have multiple locales and each localized entry field can have
 different values for different locales. Locales are identified by their locale
 code, e.g. `"en_US"`.
 
-## `locales.default: string`
+### `locales.default: string`
 
 The default locale for the current space.
 
-## `locales.available: Array<string>`
+### `locales.available: Array<string>`
 
 A list of all locales available in the current space.
 
@@ -180,7 +180,7 @@ this value.
 
 ### `window.updateHeight(height)`
 
-Set the iframe height to the given value in pixels. `height` must be an integer.
+Sets the iframe height to the given value in pixels. `height` must be an integer.
 
 ### `window.startAutoResizer()`
 
