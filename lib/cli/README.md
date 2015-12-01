@@ -1,98 +1,138 @@
-## Usage
-Following is an overview of the different operations supported by the CLI.
+## Introduction
+Contentful allows customers to customize and tailor the UI using custom made widgets. Widgets have to be uploaded to Contentful in order to be able to use them in the UI.
 
-### Descriptor files
-The `create` and `update` commands may use a JSON file to get most of its data.
-The following is a list of properties that are read from the file:
+This repo hosts `contentful-widget` a Command Line Tool (CLI) developed to simplify the management tasks associated with custom widgets. With the CLI you can:
 
-Property | Description
----------|------------
-id | Corresponds to the sys.id property and gives the resource URL
-name |	 
-fieldTypes |	 
-src |
-srcdoc |	A file path. The content of the file is read and sent to the API in the srcdoc property
+- Create widgets
+- Update existing widgets
+- Read widgets
+- Delete widgets
 
-By default the `create` and `update` commands will look in the current working directory for a descriptor file called `widget.json`. Another file can be used witht the `--descriptor` option.
 
-The properties included in a descriptor file can be overriden by its counterpart command line options.
+## Available commands
 
-### Creating a widget
-A widget can be created by providing a link to an URL where the widget code is or by uploading the code itself. The CLI supports both ways:
+`contentful-widget` is composed of 4 subcommands that you can use to manage the widgets.
+
+**create a widget**
 
 ```
-$ cli create --space-id SPACE_ID -f PATH_TO_FILE
+contentful-widget create [options]
 ```
+Use this subcommand to create the widget for the first time. Succesive modifications made to the widget will be have to be using the `update` subcommand.
+
+**read a widget**
 
 ```
-$ cli create --space-id SPACE_ID -u URL
+contentful-widget read [options]
 ```
+Use this subcommand to read the widget payload from Contentful. With this subcommand you can also list all the widgets in one space.
+
+**update a widget**
+
+```
+contentful-widget update [options]
+```
+Use this subcommand to modify an existing widget.
  
-The id of the widget can be specified:
+**delete a widget**
 
 ```
-$ cli create --space-id SPACE_ID --id ID -u URL
+contentful-widget delete [options]
 ```
 
-```
-$ cli create --space-id SPACE_ID --id ID -f PATH_TO_FILE
-```
+Use this subcommand to pertmanently delete a widget from Contentful.
 
-A specific descriptor file can be used:
+For a full list of all the options available on every subcommand use the `--help` option.
 
-```
-$ cli create --space-id SPACE_ID --descriptor /path/to/descriptor
-```
+## Misc
 
+The following sections describe a series of concepts around the widgets and how the CLI deals with them.
 
-### Fetching a wiget
-Fetch a widget from the API:
+### Widget properties
 
-```
-$ cli read --space SPACE_ID --id ID
-```
+The following table describes the properties that can be set on a widget.
 
-### Updating a widget
-A widget can be update by providing a link to an URL where the widget code is or by uploading the code itself. The CLI supports both ways:
+Property | Required| Type | Description
+---------|---------|------|------------
+name | yes | String | Widget name
+fieldTypes | yes | List * | Field types where a widget can be used
+src | ** | String | URL where the widget bundle can be found
+srcdoc | ** | String | Widget bundle serialized as a string
+sidebar | no | Boolean | Controls the location of the widget. If `true` it will be rendered on the sidebar
 
-```
-$ cli update --space-id SPACE_ID --id ID -u URL -v VERSION
-```
+\* One of `src` or `srcdoc` have to be present
 
-```
-$ cli update --space-id SPACE_ID --id ID -f PATH_TO_FILE -v VERSION
-```
+\** Valid field types are: `Symbol`, `Symbols`, `Text`, `Integer`, `Number`, `Date`, `Boolean`, `Object`, `Entry`, `Entries`, `Asset`, `Assets`
 
-A widget ca also be updated without passing the version value. The cli will fetch the current representation of the widget and use its version as the version for the update.
+#### Specifying widget properties
 
-```
-$ cli update --space-id SPACE_ID --id ID -u URL
-```
+Subcommands that create of modify a widgets (`create` and `upload`) accept the properties for the widget in two forms: command line options or a JSON file.
+
+##### Command line options
+
+For every property in the widget there's a corresponding long option with the same name. So for example, there's a `name` property and so a `--name` option too.
 
 ```
-$ cli update --space-id SPACE_ID --id ID -f PATH_TO_FILE
+contentful-widget create --space-id 123 --name foo --src foo.com/widget
+```
+Note that camelcased property names like `fieldTypes` are hyphenated (`--field-types`).
+
+##### Descriptor files
+
+Descriptor files are JSON files that contain the values that will be sent to the API to create the widget. By default the CLI will look in the current working directory for a descriptor file called `widget.json`. Another file can be used witht the `--descriptor` option.
+
+A descriptor file can contain:
+
+- All the widget properties (`name`, `src`, ...). Please note that the `srcdoc` property has to be a path to a file containing the widget bundle.
+- An `id` property. Including the `id` in the descriptor file means that you won't have to use the `--id` option when creating or updating a widget.
+
+All the properties included in a descriptor file can be overriden by its counterpart command line options. This means that, for example, a `--name bar` option will take precedence over the `name` property in the descriptor file. Following is an example were the usage of descriptor files is explained:
+
+Assuming that there's a `widget.json` file in the directory where the CLI is run and that's its contents are:
+
+```json
+{
+  "name": "foo",
+  "src": "foo.com/widget",
+  "id": "foo-widget"
+}
 ```
 
-A specific descriptor file can be used:
+The following command
 
 ```
-$ cli update --space-id SPACE_ID --descriptor /path/to/descriptor
-```
- 
-### Deleting a widget
-A widget can be deleted:
-
-```
-$ cli delete --space-id SPACE_ID --id ID
+contentful-widget create --space-id 123 --name bar
 ```
 
-## Miscellaneous
+Will create the following widget. Note that the `name` is `bar` and that the `id` is `foo-widget`.
 
-#### Host selection
-All the commands can take a `--host` option which lets you set the host where the API is run.
-
-#### Authentication
-The CLI will make requests to the CMA on behalf of the user. Therefore the user will have to provide his oauth token:
-``` 
-$ CONTENTFUL_MANAGEMENT_ACCESS_TOKEN=TOKEN cli
+```json
+{
+  "name": "bar",
+  "src": "foo.com/widget",
+  "id": "foo-widget"
+  "sys": {
+   "id": "foo-widget"
+   ...
+  }
+}
 ```
+
+
+### Authentication
+
+Widgets are managed via the Contentful Management API (CMA).
+You will therefore need to provide a valid access token in the
+`CONTENTFUL_MANAGEMENT_ACCESS_TOKEN` environment variable.
+
+Our documentation describes [how to obtain a token](https://www.contentful.com/developers/docs/references/authentication/#getting-an-oauth-token).
+
+
+### Version locking
+
+Contentful API use [optimistic locking](https://www.contentful.com/developers/docs/references/content-management-api/#/introduction/updating-and-version-locking) to ensure that accidental non-idemptotent operations (`update` or `delete`) can't happen.
+
+This means that the CLI  needs to know the current version of the widget when using the `update` and `delete` subcommands. On these case you have to specify the version of the widget using the `--version` option.
+
+If you don't want to use the `--version` option on every update or deletion, the alternative is to use `--force`. When the `--force` option is present the CLI will automatically use the latest version of the widget. Be aware that using `--force` option might lead to accidental overwrites if multiple people are working on the same widget.
+
