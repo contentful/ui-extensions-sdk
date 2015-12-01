@@ -63,7 +63,7 @@ describe('Commands', function () {
     it('reads the host config from the environment', function () {
       execOptions.env.CONTENTFUL_MANAGEMENT_HOST = 'http://localhost:3000';
 
-      return command('create --space-id 123 --id 456 --name foo --src foo.com', execOptions)
+      return command('create --space-id 123 --field-types Symbol --id 456 --name foo --src foo.com', execOptions)
       .then(function (stdout) {
         let widget = JSON.parse(stdout);
 
@@ -77,7 +77,7 @@ describe('Commands', function () {
       // no API listening on localhost:9999
       execOptions.env.CONTENTFUL_MANAGEMENT_HOST = 'http://localhost:9999';
 
-      return command('create --space-id 123 --id 456 --name foo --src foo.com --host http://localhost:3000', execOptions)
+      return command('create --space-id 123 --id 456 --name foo --field-types Symbol --src foo.com --host http://localhost:3000', execOptions)
       .then(function (stdout) {
         let widget = JSON.parse(stdout);
 
@@ -120,13 +120,13 @@ describe('Commands', function () {
         .then(assert.fail)
         .catch(function (error) {
           expect(error.error.code).to.eq(1);
-          expect(error.stderr).to.match(/no value given for: name, src or srcdoc/);
+          expect(error.stderr).to.match(/no value given for: name, fieldTypes, src or srcdoc/);
         });
     });
 
     it('creates a widget', function () {
       // TODO add test that works with host without protocol
-      return command('create --space-id 123 --src lol.com --name lol --host http://localhost:3000', execOptions)
+      return command('create --space-id 123 --field-types Symbol --src lol.com --name lol --host http://localhost:3000', execOptions)
         .then(function (stdout) {
           let widget = JSON.parse(stdout);
 
@@ -136,18 +136,18 @@ describe('Commands', function () {
     });
 
     it('creates a widget with fieldTypes', function () {
-      let cmd = 'create --space-id 123 --name lol --src lol.com --field-types t1 t2 t3 --host http://localhost:3000';
+      let cmd = 'create --space-id 123 --name lol --src lol.com --field-types Symbol Text --host http://localhost:3000';
 
       return command(cmd, execOptions)
         .then(function (stdout) {
           let widget = JSON.parse(stdout);
 
-          expect(widget.fieldTypes).to.eql(['t1', 't2', 't3']);
+          expect(widget.fieldTypes).to.eql(['Symbol', 'Text']);
         });
     });
 
     it('creates a widget with the sidebar property set to true', function () {
-      let cmd = 'create --space-id 123 --name lol --src lol.com --sidebar --host http://localhost:3000';
+      let cmd = 'create --space-id 123 --name lol --src lol.com --field-types Symbol --sidebar --host http://localhost:3000';
 
       return command(cmd, execOptions)
       .then(function (stdout) {
@@ -158,7 +158,7 @@ describe('Commands', function () {
     });
 
     it('create a widget with the sidebar property set to false', function () {
-      let cmd = 'create --space-id 123 --name lol --src lol.com --no-sidebar --host http://localhost:3000';
+      let cmd = 'create --space-id 123 --name lol --src lol.com --field-types Symbol --no-sidebar --host http://localhost:3000';
 
       return command(cmd, execOptions)
       .then(function (stdout) {
@@ -169,7 +169,7 @@ describe('Commands', function () {
     });
 
     it('creates a widget with the sidebar property set to undefined if no sidebar option', function () {
-      let cmd = 'create --space-id 123 --name lol --src lol.com --host http://localhost:3000';
+      let cmd = 'create --space-id 123 --name lol --src lol.com --field-types Symbol --host http://localhost:3000';
 
       return command(cmd, execOptions)
       .then(function (stdout) {
@@ -180,7 +180,7 @@ describe('Commands', function () {
     });
 
     it('creates a widget with a custom id', function () {
-      let cmd = 'create --space-id 123 --name lol --src lol.com --id 456 --host http://localhost:3000';
+      let cmd = 'create --space-id 123 --name lol --src lol.com --field-types Symbol --id 456 --host http://localhost:3000';
 
       return command(cmd, execOptions)
         .then(function (stdout) {
@@ -192,7 +192,7 @@ describe('Commands', function () {
     });
 
     it('reports the error when the API request fails', function () {
-      let cmd = 'create --space-id 123 --name lol --src lol.com --id fail --host http://localhost:3000';
+      let cmd = 'create --space-id 123 --name lol --src lol.com --field-types Symbol --id fail --host http://localhost:3000';
       let msg = serverErrorMsg('put', 123, 'fail');
 
       return expectErrorAndMessage(cmd, execOptions, msg);
@@ -211,21 +211,21 @@ describe('Commands', function () {
       });
 
       it('reports the error when the API request fails', function () {
-        let cmd = `create --space-id 123 --name lol --srcdoc ${file} --id fail --host http://localhost:3000`;
+        let cmd = `create --space-id 123 --name lol --srcdoc ${file} --field-types Symbol --id fail --host http://localhost:3000`;
         let msg = serverErrorMsg('put', 123, 'fail');
 
         return expectErrorAndMessage(cmd, execOptions, msg);
       });
 
       it('reports the error when the file does not exist', function () {
-        let cmd = 'create --space-id 123 --name lol --srcdoc some-unexisting-file --host http://localhost:3000';
+        let cmd = 'create --space-id 123 --name lol --field-types Symbol --srcdoc some-unexisting-file --host http://localhost:3000';
         let msg = 'ENOENT: no such file or directory, open \'some-unexisting-file\'';
 
         return expectErrorAndMessage(cmd, execOptions, msg);
       });
 
       it('creates a widget from a file', function () {
-        let cmd = `create --space-id 123 --name lol --srcdoc ${file} --host http://localhost:3000`;
+        let cmd = `create --space-id 123 --name lol --srcdoc ${file} --field-types Symbol --host http://localhost:3000`;
 
         return command(cmd, execOptions)
         .then(function (stdout) {
@@ -242,7 +242,7 @@ describe('Commands', function () {
 
     it('reads the host config from the environment', function () {
       execOptions.env.CONTENTFUL_MANAGEMENT_HOST = 'http://localhost:3000';
-      let createCmd = 'create --space-id 123 --name lol --src lol.com --id 456';
+      let createCmd = 'create --space-id 123 --name lol --src lol.com --field-types Symbol --id 456';
       let readCmd = 'read --space-id 123 --id 456';
 
       return command(createCmd, execOptions)
@@ -261,7 +261,7 @@ describe('Commands', function () {
       // no API listening on localhost:9999
       execOptions.env.CONTENTFUL_MANAGEMENT_HOST = 'http://localhost:9999';
 
-      let createCmd = 'create --space-id 123 --name lol --src lol.com --id 456 --host http://localhost:3000';
+      let createCmd = 'create --space-id 123 --name lol --src lol.com --field-types Symbol --id 456 --host http://localhost:3000';
       let readCmd = 'read --space-id 123 --id 456 --host http://localhost:3000';
 
       return command(createCmd, execOptions)
@@ -328,7 +328,7 @@ describe('Commands', function () {
     });
 
     it('reads a widget', function () {
-      let createCmd = 'create --space-id 123 --name lol --src lol.com --id 456 --host http://localhost:3000';
+      let createCmd = 'create --space-id 123 --name lol --src lol.com --field-types Symbol --id 456 --host http://localhost:3000';
       let readCmd = 'read --space-id 123 --id 456 --host http://localhost:3000';
 
       return command(createCmd, execOptions)
@@ -344,8 +344,8 @@ describe('Commands', function () {
     });
 
     it('reads all widgets', function () {
-      let createCmd1 = 'create --space-id 123 --name lol --src lol.com --id 456 --host http://localhost:3000';
-      let createCmd2 = 'create --space-id 123 --name foo --src foo.com --id 789 --host http://localhost:3000';
+      let createCmd1 = 'create --space-id 123 --name lol --src lol.com --field-types Symbol --id 456 --host http://localhost:3000';
+      let createCmd2 = 'create --space-id 123 --name foo --src foo.com --field-types Symbol --id 789 --host http://localhost:3000';
       let readCmd = 'read --space-id 123 --all --host http://localhost:3000';
 
       return Bluebird.all([
@@ -384,8 +384,8 @@ describe('Commands', function () {
 
     it('reads the host config from the environment', function () {
       execOptions.env.CONTENTFUL_MANAGEMENT_HOST = 'http://localhost:3000';
-      let createCmd = 'create --space-id 123 --name lol --src lol.com --id 456';
-      let updateCmd = 'update --space-id 123 --id 456 --version 1 --src foo.com';
+      let createCmd = 'create --space-id 123 --name lol --src lol.com --field-types Symbol --id 456';
+      let updateCmd = 'update --space-id 123 --name lol --id 456 --version 1 --src foo.com --field-types Symbol';
 
       return command(createCmd, execOptions)
         .then(function () {
@@ -402,8 +402,8 @@ describe('Commands', function () {
       // no API listening on localhost:9999
       execOptions.env.CONTENTFUL_MANAGEMENT_HOST = 'http://localhost:9999';
 
-      let createCmd = 'create --space-id 123 --name lol --src lol.com --id 456 --host http://localhost:3000';
-      let readCmd = 'read --space-id 123 --id 456 --host http://localhost:3000';
+      let createCmd = 'create --space-id 123 --name lol --src lol.com --field-types Symbol --id 456 --host http://localhost:3000';
+      let readCmd = 'update --space-id 123 --name lol --src foo.com --field-types Symbol --id 456 --force --host http://localhost:3000';
 
       return command(createCmd, execOptions)
         .then(function () {
@@ -412,7 +412,7 @@ describe('Commands', function () {
         .then(function (stdout) {
           let widget = JSON.parse(stdout);
 
-          expect(widget.src).to.eql('lol.com');
+          expect(widget.src).to.eql('foo.com');
           expect(widget.sys.id).to.eql('456');
         });
     });
@@ -437,7 +437,7 @@ describe('Commands', function () {
     });
 
     it('fails if the --space-id option is not provided', function () {
-      return command('update --id 123 --src foo.com --host http://localhost:3000', execOptions)
+      return command('update --id 123 --name lol --field-types Symbol --src foo.com --host http://localhost:3000', execOptions)
         .then(assert.fail)
         .catch(function (error) {
           expect(error.error.code).to.eq(1);
@@ -445,30 +445,44 @@ describe('Commands', function () {
         });
     });
 
+    it('fails if no --name option is provided', function () {
+      let cmd = 'update --space-id 123 --id 456 --src foo.com --field-types Symbol --host http://localhost:3000';
+      let msg = 'no value given for: name';
+
+      return expectErrorAndMessage(cmd, execOptions, msg);
+    });
+
     it('fails if no --id option is provided', function () {
-      let cmd = 'update --space-id 123 --src foo.com --host http://localhost:3000';
+      let cmd = 'update --space-id 123 --name lol --src foo.com --field-types Symbol --host http://localhost:3000';
       let msg = 'no value given for: id';
 
       return expectErrorAndMessage(cmd, execOptions, msg);
     });
 
     it('fails if no --srcdoc or --src options are provided', function () {
-      let cmd = 'update --space-id 123 --id 123 --host http://localhost:3000';
+      let cmd = 'update --space-id 123 --name lol --field-types Symbol --id 123 --force --host http://localhost:3000';
       let msg = 'no value given for: src or srcdoc';
 
       return expectErrorAndMessage(cmd, execOptions, msg);
     });
 
+    it('fails if no --field-types option is provided', function () {
+      let cmd = 'update --space-id 123 --name lol --src lol.com --id 123 --host http://localhost:3000';
+      let msg = 'no value given for: fieldTypes';
+
+      return expectErrorAndMessage(cmd, execOptions, msg);
+    });
+
     it('reports the error when the API request fails (without version, reading current)', function () {
-      let cmd = 'update --space-id 123 --src lol.com --id fail --force --host http://localhost:3000';
+      let cmd = 'update --space-id 123 --name lol --src lol.com --field-types Symbol --id fail --force --host http://localhost:3000';
       let msg = serverErrorMsg('get', 123, 'fail');
 
       return expectErrorAndMessage(cmd, execOptions, msg);
     });
 
     it('reports the error when the API request fails (without version)', function () {
-      let createCmd = 'create --space-id 123 --name lol --src lol.com --id fail-update --host http://localhost:3000';
-      let updateCmd = 'update --space-id 123 --id fail-update --src foo.com --force --host http://localhost:3000';
+      let createCmd = 'create --space-id 123 --name lol --src lol.com --field-types Symbol --id fail-update --host http://localhost:3000';
+      let updateCmd = 'update --space-id 123 --name lol --id fail-update --src foo.com --field-types Symbol --force --host http://localhost:3000';
       let msg = serverErrorMsg('put', 123, 'fail-update');
 
       return command(createCmd, execOptions)
@@ -478,15 +492,15 @@ describe('Commands', function () {
     });
 
     it('reports the error when the API request fails (with version)', function () {
-      let cmd = 'update --space-id 123 --name lol --src lol.com --version 1 --id fail --host http://localhost:3000';
+      let cmd = 'update --space-id 123 --name lol --src lol.com --version 1 --field-types Symbol --id fail --host http://localhost:3000';
       let msg = serverErrorMsg('put', 123, 'fail');
 
       return expectErrorAndMessage(cmd, execOptions, msg);
     });
 
     it('updates a widget passing the version', function () {
-      let createCmd = 'create --space-id 123 --name lol --src lol.com --id 456 --host http://localhost:3000';
-      let updateCmd = 'update --space-id 123 --id 456 --version 1 --src foo.com --host http://localhost:3000';
+      let createCmd = 'create --space-id 123 --name lol --src lol.com --field-types Symbol --id 456 --host http://localhost:3000';
+      let updateCmd = 'update --space-id 123 --name foo --id 456 --version 1 --src foo.com --field-types Symbol --host http://localhost:3000';
 
       return command(createCmd, execOptions)
         .then(function () {
@@ -495,20 +509,21 @@ describe('Commands', function () {
         .then(function (stdout) {
           let widget = JSON.parse(stdout);
 
+          expect(widget.name).to.eql('foo');
           expect(widget.src).to.eql('foo.com');
         });
     });
 
     it('fails to update the widget if no version is given and force option not present', function () {
-      let cmd = 'update --space-id 123 --id 456 --src foo.com --host http://localhost:3000';
+      let cmd = 'update --space-id 123 --id 456 --name lol --field-types Symbol --src foo.com --host http://localhost:3000';
       let msg = 'to update without version use the --force flag';
 
       return expectErrorAndMessage(cmd, execOptions, msg);
     });
 
     it('updates a widget without explicitely giving it version', function () {
-      let createCmd = 'create --space-id 123 --name lol --src lol.com --id 456 --host http://localhost:3000';
-      let updateCmd = 'update --space-id 123 --id 456 --src foo.com --force --host http://localhost:3000';
+      let createCmd = 'create --space-id 123 --name lol --src lol.com --field-types Symbol --id 456 --host http://localhost:3000';
+      let updateCmd = 'update --space-id 123 --name foo --id 456 --src foo.com --field-types Symbol --force --host http://localhost:3000';
 
       return command(createCmd, execOptions)
         .then(function () {
@@ -517,20 +532,21 @@ describe('Commands', function () {
         .then(function (stdout) {
           let widget = JSON.parse(stdout);
 
+          expect(widget.name).to.eql('foo');
           expect(widget.src).to.eql('foo.com');
         });
     });
 
     it('returns an error if neither descriptor or options are present', function () {
-      let cmd = 'update --space-id 123 --id 456';
-      let msg = 'no value given for: src or srcdoc';
+      let cmd = 'update --space-id 123 --name lol --id 456';
+      let msg = 'no value given for: fieldTypes, src or srcdoc';
 
       return expectErrorAndMessage(cmd, execOptions, msg);
     });
 
     it('updates the name of a widget', function () {
-      let createCmd = 'create --space-id 123 --name lol --src l.com --id 456 --name foo --host http://localhost:3000';
-      let updateCmd = 'update --space-id 123 --id 456 --name doge --force --host http://localhost:3000';
+      let createCmd = 'create --space-id 123 --name lol --src l.com --field-types Symbol --id 456 --host http://localhost:3000';
+      let updateCmd = 'update --space-id 123 --name doge --src l.com --id 456 --field-types Symbol --force --host http://localhost:3000';
 
       return command(createCmd, execOptions)
         .then(function () {
@@ -544,8 +560,8 @@ describe('Commands', function () {
     });
 
     it('upates the fieldTypes of a widget', function () {
-      let createCmd = 'create --space-id 123 --name lol --src l.com --id 456 --name foo --host http://localhost:3000';
-      let updateCmd = 'update --space-id 123 --id 456 --field-types t1 t2 --force --host http://localhost:3000';
+      let createCmd = 'create --space-id 123 --name lol --src l.com --id 456 --field-types Symbol --name foo --host http://localhost:3000';
+      let updateCmd = 'update --space-id 123 --name lol --src l.com --id 456 --field-types Text Symbol --force --host http://localhost:3000';
 
       return command(createCmd, execOptions)
         .then(function () {
@@ -554,13 +570,13 @@ describe('Commands', function () {
         .then(function (stdout) {
           let widget = JSON.parse(stdout);
 
-          expect(widget.fieldTypes).to.eql(['t1', 't2']);
+          expect(widget.fieldTypes).to.eql(['Text', 'Symbol']);
         });
     });
 
     it('updates the sibebar property to true', function () {
-      let createCmd = 'create --space-id 123 --name lol --src l.com --id 456 --name foo --no-sidebar --host http://localhost:3000';
-      let updateCmd = 'update --space-id 123 --id 456 --sidebar --force --host http://localhost:3000';
+      let createCmd = 'create --space-id 123 --name lol --src l.com --field-types Symbol --id 456 --name foo --no-sidebar --host http://localhost:3000';
+      let updateCmd = 'update --space-id 123 --name lol --src l.com --field-types Symbol --id 456 --sidebar --force --host http://localhost:3000';
 
       return command(createCmd, execOptions)
       .then(function () {
@@ -574,8 +590,8 @@ describe('Commands', function () {
     });
 
     it('updates the sidebar property to false', function () {
-      let createCmd = 'create --space-id 123 --name lol --src l.com --id 456 --name foo --sidebar --host http://localhost:3000';
-      let updateCmd = 'update --space-id 123 --id 456 --no-sidebar --force --host http://localhost:3000';
+      let createCmd = 'create --space-id 123 --name lol --src l.com --field-types Symbol --id 456 --name foo --sidebar --host http://localhost:3000';
+      let updateCmd = 'update --space-id 123 --name lol --src l.com --field-types Symbol --id 456 --no-sidebar --force --host http://localhost:3000';
 
       return command(createCmd, execOptions)
       .then(function () {
@@ -589,8 +605,8 @@ describe('Commands', function () {
     });
 
     it('removes the sidebar property (when ommited)', function () {
-      let createCmd = 'create --space-id 123 --name lol --src l.com --id 456 --name foo --sidebar --host http://localhost:3000';
-      let updateCmd = 'update --space-id 123 --id 456 --name foo --force --host http://localhost:3000';
+      let createCmd = 'create --space-id 123 --name lol --src l.com --field-types Symbol --id 456 --name foo --sidebar --host http://localhost:3000';
+      let updateCmd = 'update --space-id 123 --name lol --src l.com --field-types Symbol --id 456 --name foo --force --host http://localhost:3000';
 
       return command(createCmd, execOptions)
       .then(function () {
@@ -616,8 +632,8 @@ describe('Commands', function () {
       });
 
       it('reports the error when the API request fails (without version)', function () {
-        let createCmd = 'create --space-id 123 --name lol --src lol.com --id fail-update --host http://localhost:3000';
-        let updateCmd = `update --space-id 123 --id fail-update --srcdoc ${file} --force --host http://localhost:3000`;
+        let createCmd = 'create --space-id 123 --name lol --src lol.com --field-types Symbol --id fail-update --host http://localhost:3000';
+        let updateCmd = `update --space-id 123 --name lol --field-types Symbol --id fail-update --srcdoc ${file} --force --host http://localhost:3000`;
         let msg = serverErrorMsg('put', 123, 'fail-update');
 
         return command(createCmd, execOptions)
@@ -627,15 +643,15 @@ describe('Commands', function () {
       });
 
       it('reports the error when the API request fails (without version, reading current)', function () {
-        let updateCmd = `update --space-id 123 --id fail --srcdoc ${file} --force --host http://localhost:3000`;
+        let updateCmd = `update --space-id 123 --name lol --field-types Symbol --id fail --srcdoc ${file} --force --host http://localhost:3000`;
         let msg = serverErrorMsg('get', 123, 'fail');
 
         return expectErrorAndMessage(updateCmd, execOptions, msg);
       });
 
       it('reports the error when the API request fails (with version)', function () {
-        let createCmd = 'create --space-id 123 --name lol --src lol.com --id fail-update --host http://localhost:3000';
-        let updateCmd = `update --space-id 123 --version 1 --id fail-update --srcdoc ${file} --force --host http://localhost:3000`;
+        let createCmd = 'create --space-id 123 --name lol --src lol.com --field-types Symbol --id fail-update --host http://localhost:3000';
+        let updateCmd = `update --space-id 123 --name lol --src lol.com --version 1 --field-types Symbol --id fail-update --srcdoc ${file} --force --host http://localhost:3000`;
         let msg = serverErrorMsg('put', 123, 'fail-update');
 
         return command(createCmd, execOptions)
@@ -645,15 +661,15 @@ describe('Commands', function () {
       });
 
       it('reports the error when the file does not exist', function () {
-        let cmd = 'update --space-id 123 --id 456 --srcdoc some-unexisting-file --force --host http://localhost:3000';
+        let cmd = 'update --space-id 123 --name lol --field-types Symbol --id 456 --srcdoc some-unexisting-file --force --host http://localhost:3000';
         let msg = 'ENOENT: no such file or directory, open \'some-unexisting-file\'';
 
         return expectErrorAndMessage(cmd, execOptions, msg);
       });
 
       it('updates a widget from a file without explicitely giving its version', function () {
-        let createCmd = 'create --space-id 123 --name lol --src lol.com --id 456 --host http://localhost:3000';
-        let updateCmd = `update --space-id 123 --id 456 --srcdoc ${file} --force --host http://localhost:3000`;
+        let createCmd = 'create --space-id 123 --name lol --src lol.com --field-types Symbol --id 456 --host http://localhost:3000';
+        let updateCmd = `update --space-id 123 --name lol --field-types Symbol --id 456 --srcdoc ${file} --force --host http://localhost:3000`;
 
         return command(createCmd, execOptions)
           .then(function () {
@@ -673,7 +689,7 @@ describe('Commands', function () {
 
     it('reads the host config from the environment', function () {
       execOptions.env.CONTENTFUL_MANAGEMENT_HOST = 'http://localhost:3000';
-      let createCmd = 'create --space-id 123 --name lol --src lol.com --id 456';
+      let createCmd = 'create --space-id 123 --name lol --src lol.com --field-types Symbol --id 456';
       let deleteCmd = 'delete --space-id 123 --id 456 --version 1';
 
       return command(createCmd, execOptions)
@@ -689,7 +705,7 @@ describe('Commands', function () {
       // no API listening on localhost:9999
       execOptions.env.CONTENTFUL_MANAGEMENT_HOST = 'http://localhost:9999';
 
-      let createCmd = 'create --space-id 123 --name lol --src lol.com --id 456 --host http://localhost:3000';
+      let createCmd = 'create --space-id 123 --name lol --src lol.com --field-types Symbol --id 456 --host http://localhost:3000';
       let deleteCmd = 'delete --space-id 123 --id 456 --version 1 --host http://localhost:3000';
 
       return command(createCmd, execOptions)
@@ -755,7 +771,7 @@ describe('Commands', function () {
     });
 
     it('reports the error when the API request fails (without version, deleting)', function () {
-      let createCmd = 'create --space-id 123 --name lol --src lol.com --id fail-delete --host http://localhost:3000';
+      let createCmd = 'create --space-id 123 --name lol --src lol.com --field-types Symbol --id fail-delete --host http://localhost:3000';
       let deleteCmd = 'delete --space-id 123 --id fail-delete --force --host http://localhost:3000';
       let msg = serverErrorMsg('delete', 123, 'fail-delete');
 
@@ -787,7 +803,7 @@ describe('Commands', function () {
     });
 
     it('deletes a widget', function () {
-      let createCmd = 'create --space-id 123 --name lol --src lol.com --id 456 --host http://localhost:3000';
+      let createCmd = 'create --space-id 123 --name lol --src lol.com --field-types Symbol --id 456 --host http://localhost:3000';
       let deleteCmd = 'delete --space-id 123 --id 456 --version 1 --host http://localhost:3000';
 
       return command(createCmd, execOptions)
@@ -800,7 +816,7 @@ describe('Commands', function () {
     });
 
     it('deletes a widget without explicitely giving its version', function () {
-      let createCmd = 'create --space-id 123 --name lol --src lol.com --id 456 --host http://localhost:3000';
+      let createCmd = 'create --space-id 123 --name lol --src lol.com --field-types Symbol --id 456 --host http://localhost:3000';
       let deleteCmd = 'delete --space-id 123 --id 456 --force --host http://localhost:3000';
 
       return command(createCmd, execOptions)

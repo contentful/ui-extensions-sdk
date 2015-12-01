@@ -77,7 +77,7 @@ describe('Descriptor file', function () {
     example({
       create: `create  --space-id 123 --descriptor ${customDescriptorPath} --host http://localhost:3000`,
       update: [
-        'create --space-id 123 --id 123 --name lol --src foo.com --host http://localhost:3000',
+        'create --space-id 123 --id 123 --name lol --src foo.com --field-types Symbol --host http://localhost:3000',
         `update --space-id 123 --descriptor ${customDescriptorPath} --force --host http://localhost:3000`
       ]
     },
