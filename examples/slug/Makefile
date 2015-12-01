@@ -1,11 +1,8 @@
-include custom.mk
+TOKEN=0aa7f136416f88c78ad84edf2f82a0e8a294d9cc9f6c9c809689cf525a647957
+SPACE=c2qz3rkoqmmx
 
 export PATH := ../../bin:${PATH}
 export CONTENTFUL_MANAGEMENT_ACCESS_TOKEN := $(TOKEN)
-
-WIDGET_ID="slug"
-
-.PHONY: upload setup build
 
 build: index.built.html
 
@@ -18,15 +15,8 @@ index.built.html: index.html app.js
 	uglifyjs app.js>> $@
 	echo "</script>" >> $@
 
-setup:
-	ln -sf ../../dist/cf-widget-api.js .
-	$(MAKE) create
+create: widget.json index.built.html
+	contentful-widget create --space-id ${SPACE}
 
 update: widget.json index.built.html
-	cf-widget update --space-id ${SPACE} --host ${HOST} -f index.built.html
-
-create: widget.json index.built.html
-	cf-widget create --space-id ${SPACE} --host ${HOST} -f index.built.html
-
-delete:
-	cf-widget delete --space-id ${SPACE} --host ${HOST} --id $(WIDGET_ID)
+	contentful-widget update --space-id ${SPACE} --force
