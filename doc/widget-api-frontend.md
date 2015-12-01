@@ -30,7 +30,8 @@ attached to.
 
 If you use localization, a widget instance will be rendered for each locale.
 This means you can only change the value for the given locale. See the
-[`entry.fields` API]() on how to change values for different locales.
+[`entry.fields` API](entryfieldsname-field) on how to change values for different
+locales.
 
 Suppose an entry returned by the Contentful Management API looks like this
 ~~~js
@@ -47,33 +48,27 @@ Suppose an entry returned by the Contentful Management API looks like this
 and the widget is attached to the `title` field and the `en_US` locale.
 
 
-### `widget.field.getValue(): mixed`
+##### `widget.field.getValue(): mixed`
+Gets the current value of the field and locale. In the example this would yield `"My Post"`.
 
-Gets the current value of the field and locale. In the example this would yield
-`"My Post"`.
-
-### `widget.field.setValue(value): Promise<void>`
-
+##### `widget.field.setValue(value): Promise<void>`
 Sets the value for the field and locale. The promise is resolved when the change
 has been acknowledged. The type of the value must match the expected field type.
 For example, if the widget is attached to a “Symbol” field you must pass a
 string.
 
-### `widget.field.onValueChanged(cb): function`
-
+##### `widget.field.onValueChanged(cb): function`
 Calls the callback every time the value of the field is changed by some external
 event (e.g. when multiple editors are working on the same entry). It will not be
 called after `setValue()` is called.
 
 The method returns a function that can be called to stop listening to changes.
 
-### `widget.field.id: string`
-
+##### `widget.field.id: string`
 The ID of a field is defined in an entry’s content type. Yields `"title"` in the
 example.
 
-### `widget.field.locale: string`
-
+##### `widget.field.locale: string`
 The current locale of a field the widget is attached to. Yields `"en_US"` in the
 example.
 
@@ -83,24 +78,21 @@ example.
 This object allows you to read and update the value of any field of the current
 entry and to get the entry's metadata.
 
-### `entry.getSys(): object`
-
+##### `entry.getSys(): object`
 Returns metadata for an entry. The value coincides with the `sys` value of an
 entry returned by the Contentful Management API
 
-### `entry.onSysChanged(cb): function`
-
+##### `entry.onSysChanged(cb): function`
 Calls the callback with metadata every time that metadata changes. The returned
 function can be called to stop listening to changes.
 
-
 ### `entry.fields[name]: Field`
 
-In addition to [`widget.field`](#widget-field), a widget can also control the
+In addition to [`widget.field`](#widgetfield), a widget can also control the
 values of all other fields in the current entry in a similar way. The main
 difference here is that all operations on an `entry.fields` field accept an
 optional `locale` argument which falls back to the space's default locale (see
-[`widget.locales`](#widget-locales)).
+[`widget.locales`](#widgetlocales)).
 
 * `field.id: string`
 * `field.locales: Array<string>`
@@ -109,9 +101,8 @@ optional `locale` argument which falls back to the space's default locale (see
 * `field.removeValue(locale?): Promise<void>`
 * `field.onValueChanged(locale?, cb): function`
 
-
 #### Example
-If the entry has a "title" field, we can transform it to upper case with
+If the entry has a “title” field, we can transform it to upper case with
 ~~~js
 var titleField = widget.entry.fields.title
 var oldTitle = titleField.getValue()
@@ -128,6 +119,7 @@ wide range of objects in the space. Its API mirrors that of the
 [cma-js]: https://github.com/contentful/contentful-management.js
 
 ### Content Types
+
 Allows operating on the current space's content types. Content types
 created/updated or deleted this way will immediately be published or unpublished
 respectively.
@@ -162,12 +154,10 @@ A space can have multiple locales and each localized entry field can have
 different values for different locales. Locales are identified by their locale
 code, e.g. `"en_US"`.
 
-### `locales.default: string`
-
+##### `locales.default: string`
 The default locale for the current space.
 
-### `locales.available: Array<string>`
-
+##### `locales.available: Array<string>`
 A list of all locales available in the current space.
 
 
@@ -176,19 +166,15 @@ A list of all locales available in the current space.
 The window object provides methods to update the size of iframe the widget is
 contained in. This prevents scrollbars inside the widget.
 
-### `window.updateHeight()`
-
+##### `window.updateHeight()`
 Calculates the body’s `scrollHeight` and sets the containers height to
 this value.
 
-### `window.updateHeight(height)`
-
+##### `window.updateHeight(height)`
 Sets the iframe height to the given value in pixels. `height` must be an integer.
 
-### `window.startAutoResizer()`
-
+##### `window.startAutoResizer()`
 Listens for DOM changes and calls `updateHeight()` when the size changes.
 
-### `window.stopAutoResizer()`
-
+##### `window.stopAutoResizer()`
 Stops resizing the iframe automatically.
