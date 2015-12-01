@@ -32,7 +32,7 @@ If you use localization, a widget instance will be rendered for each locale.
 This means you can only change the value for the given locale. See the
 [`entry.fields` API]() on how to change values for different locales.
 
-Suppose an entry returned by Contentful Management API looks like this
+Suppose an entry returned by the Contentful Management API looks like this
 ~~~js
 {
   sys: { ... },
@@ -47,7 +47,7 @@ Suppose an entry returned by Contentful Management API looks like this
 and the widget is attached to the `title` field and the `en_US` locale.
 
 
-### `widget.field.getValue(): any`
+### `widget.field.getValue(): mixed`
 
 Gets the current value of the field and locale. In the example this would yield
 `"My Post"`.
@@ -94,29 +94,29 @@ Calls the callback with metadata every time that metadata changes. The returned
 function can be called to stop listening to changes.
 
 
-## Entry Fields
+### `entry.fields[name]: Field`
 
-A widget can control the value of every field in the current entry. For example
-if the entry has a title field we can transform it to upper case with
+In addition to [`widget.field`](#widget-field), a widget can also control the
+values of all other fields in the current entry in a similar way. The main
+difference here is that all operations on an `entry.fields` field accept an
+optional `locale` argument which falls back to the space's default locale (see
+[`widget.locales`](#widget-locales)).
+
+* `field.id: string`
+* `field.locales: Array<string>`
+* `field.getValue(locale?): mixed`
+* `field.setValue(value, locale?): Promise<void>`
+* `field.removeValue(locale?): Promise<void>`
+* `field.onValueChanged(locale?, cb): function`
+
+
+#### Example
+If the entry has a "title" field, we can transform it to upper case with
 ~~~js
 var titleField = widget.entry.fields.title
 var oldTitle = titleField.getValue()
 titleField.setValue(oldTitle.toUpperCase())
 ~~~
-
-By default a field gets and sets values for the space’s default locale (see
-[`widget.locales`](#widget-locales)), but the getter, setter, and observer
-accept an optional `locale` argument.
-
-### `field.id: string`
-
-### `field.locales: Array<string>`
-
-### `field.getValue(locale?): any`
-
-### `field.setValue(locale?, value): Promise<void>`
-
-### `field.onValueChanged(locale?, cb): function`
 
 
 ## `widget.space`
@@ -127,19 +127,22 @@ wide range of objects in the space. Its API mirrors that of the
 
 [cma-js]: https://github.com/contentful/contentful-management.js
 
-### Content Type
+### Content Types
+Allows operating on the current space's content types. Content types
+created/updated or deleted this way will immediately be published or unpublished
+respectively.
 
 * `space.getContentType(id)`
 * `space.getContentTypes()`
-* `space.createContentType(data)	Also publishes the `
-* `space.updateContentType(data)	Also publishes the `
-* `space.deleteContentType(data)	Also unpublishes the `
+* `space.createContentType(data)`
+* `space.updateContentType(data)`
+* `space.deleteContentType(data)`
 
 ### Entries
 
 * `space.getEntry(id)`
 * `space.getEntries(query)`
-* `space.createEntry(data)`
+* `space.createEntry(data)` The content type is expected in `data.sys.contentType`
 * `space.updateEntry(data)`
 * `space.publishEntry(data)`
 * `space.unpublishEntry(data)`
