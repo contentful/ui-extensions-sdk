@@ -3,6 +3,21 @@
 This document describes the API that a custom widget can use to
 communicate with the Contentful Management App.
 
+### Table of Contents
+* [Inclusion into your project](#inclusion-into-your-project)
+* [Initialization](#initialization)
+* [`widget.field`](#widgetfield)
+* [`widget.entry`](#widgetentry)
+  * [`entry.fields[name]`](#entryfieldsname-field)
+* [`widget.space`](#widgetspace)
+  * [Content Types](#content-types)
+  * [Entries](#entries)
+  * [Assets](#assets)
+* [`widget.locales`](#widgetlocales)
+* [`widget.window`](#widgetwindow)
+
+## Inclusion into your project
+
 You will need to include the `widget-api` library in your HTML5 app like
 so:
 ~~~html
@@ -30,7 +45,7 @@ attached to.
 
 If you use localization, a widget instance will be rendered for each locale.
 This means you can only change the value for the given locale. See the
-[`entry.fields` API](entryfieldsname-field) on how to change values for different
+[`entry.fields` API](#entryfieldsname-field) on how to change values for different
 locales.
 
 Suppose an entry returned by the Contentful Management API looks like this
@@ -80,7 +95,7 @@ entry and to get the entry's metadata.
 
 ##### `entry.getSys(): object`
 Returns metadata for an entry. The value coincides with the `sys` value of an
-entry returned by the Contentful Management API
+entry returned by the [Contentful Management API](https://github.com/contentful/contentful-management.js#entry-properties)
 
 ##### `entry.onSysChanged(cb): function`
 Calls the callback with metadata every time that metadata changes. The returned
