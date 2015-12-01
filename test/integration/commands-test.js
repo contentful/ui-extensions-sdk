@@ -65,11 +65,11 @@ describe('Commands', function () {
 
       return command('create --space-id 123 --field-types Symbol --id 456 --name foo --src foo.com', execOptions)
       .then(function (stdout) {
-        let widget = JSON.parse(stdout);
+        let payload = JSON.parse(stdout);
 
-        expect(widget.sys.id).to.eql('456');
-        expect(widget.name).to.eql('foo');
-        expect(widget.src).to.eql('foo.com');
+        expect(payload.sys.id).to.eql('456');
+        expect(payload.widget.name).to.eql('foo');
+        expect(payload.widget.src).to.eql('foo.com');
       });
     });
 
@@ -79,11 +79,11 @@ describe('Commands', function () {
 
       return command('create --space-id 123 --id 456 --name foo --field-types Symbol --src foo.com --host http://localhost:3000', execOptions)
       .then(function (stdout) {
-        let widget = JSON.parse(stdout);
+        let payload = JSON.parse(stdout);
 
-        expect(widget.sys.id).to.eql('456');
-        expect(widget.name).to.eql('foo');
-        expect(widget.src).to.eql('foo.com');
+        expect(payload.sys.id).to.eql('456');
+        expect(payload.widget.name).to.eql('foo');
+        expect(payload.widget.src).to.eql('foo.com');
       });
     });
 
@@ -128,10 +128,10 @@ describe('Commands', function () {
       // TODO add test that works with host without protocol
       return command('create --space-id 123 --field-types Symbol --src lol.com --name lol --host http://localhost:3000', execOptions)
         .then(function (stdout) {
-          let widget = JSON.parse(stdout);
+          let payload = JSON.parse(stdout);
 
-          expect(widget.src).to.eql('lol.com');
-          expect(widget.name).to.eql('lol');
+          expect(payload.widget.src).to.eql('lol.com');
+          expect(payload.widget.name).to.eql('lol');
         });
     });
 
@@ -140,9 +140,12 @@ describe('Commands', function () {
 
       return command(cmd, execOptions)
         .then(function (stdout) {
-          let widget = JSON.parse(stdout);
+          let payload = JSON.parse(stdout);
 
-          expect(widget.fieldTypes).to.eql(['Symbol', 'Text']);
+          expect(payload.widget.fieldTypes).to.eql([
+            {type: 'Symbol'},
+            {type: 'Text'}
+          ]);
         });
     });
 
@@ -151,9 +154,9 @@ describe('Commands', function () {
 
       return command(cmd, execOptions)
       .then(function (stdout) {
-        let widget = JSON.parse(stdout);
+        let payload = JSON.parse(stdout);
 
-        expect(widget.sidebar).to.be.true();
+        expect(payload.widget.sidebar).to.be.true();
       });
     });
 
@@ -162,9 +165,9 @@ describe('Commands', function () {
 
       return command(cmd, execOptions)
       .then(function (stdout) {
-        let widget = JSON.parse(stdout);
+        let payload = JSON.parse(stdout);
 
-        expect(widget.sidebar).to.be.false();
+        expect(payload.widget.sidebar).to.be.false();
       });
     });
 
@@ -173,9 +176,9 @@ describe('Commands', function () {
 
       return command(cmd, execOptions)
       .then(function (stdout) {
-        let widget = JSON.parse(stdout);
+        let payload = JSON.parse(stdout);
 
-        expect(widget.sidebar).to.be.undefined();
+        expect(payload.widget.sidebar).to.be.undefined();
       });
     });
 
@@ -184,10 +187,10 @@ describe('Commands', function () {
 
       return command(cmd, execOptions)
         .then(function (stdout) {
-          let widget = JSON.parse(stdout);
+          let payload = JSON.parse(stdout);
 
-          expect(widget.src).to.eql('lol.com');
-          expect(widget.sys.id).to.eql('456');
+          expect(payload.widget.src).to.eql('lol.com');
+          expect(payload.sys.id).to.eql('456');
         });
     });
 
@@ -229,9 +232,9 @@ describe('Commands', function () {
 
         return command(cmd, execOptions)
         .then(function (stdout) {
-          let widget = JSON.parse(stdout);
+          let payload = JSON.parse(stdout);
 
-          expect(widget.srcdoc).to.eql('the-bundle-contents');
+          expect(payload.widget.srcdoc).to.eql('the-bundle-contents');
         });
       });
     });
@@ -250,10 +253,10 @@ describe('Commands', function () {
           return command(readCmd, execOptions);
         })
         .then(function (stdout) {
-          let widget = JSON.parse(stdout);
+          let payload = JSON.parse(stdout);
 
-          expect(widget.src).to.eql('lol.com');
-          expect(widget.sys.id).to.eql('456');
+          expect(payload.widget.src).to.eql('lol.com');
+          expect(payload.sys.id).to.eql('456');
         });
     });
 
@@ -269,10 +272,10 @@ describe('Commands', function () {
           return command(readCmd, execOptions);
         })
         .then(function (stdout) {
-          let widget = JSON.parse(stdout);
+          let payload = JSON.parse(stdout);
 
-          expect(widget.src).to.eql('lol.com');
-          expect(widget.sys.id).to.eql('456');
+          expect(payload.widget.src).to.eql('lol.com');
+          expect(payload.sys.id).to.eql('456');
         });
     });
 
@@ -336,10 +339,10 @@ describe('Commands', function () {
           return command(readCmd, execOptions);
         })
         .then(function (stdout) {
-          let widget = JSON.parse(stdout);
+          let payload = JSON.parse(stdout);
 
-          expect(widget.src).to.eql('lol.com');
-          expect(widget.sys.id).to.eql('456');
+          expect(payload.widget.src).to.eql('lol.com');
+          expect(payload.sys.id).to.eql('456');
         });
     });
 
@@ -356,15 +359,15 @@ describe('Commands', function () {
         return command(readCmd, execOptions);
       })
       .then(function (stdout) {
-        let widgets = JSON.parse(stdout);
-        let lolWidget = _.find(widgets, {sys: {id: '456'}});
-        let fooWidget = _.find(widgets, {sys: {id: '789'}});
+        let payloads = JSON.parse(stdout);
+        let lolWidget = _.find(payloads, {sys: {id: '456'}});
+        let fooWidget = _.find(payloads, {sys: {id: '789'}});
 
-        expect(widgets.length).to.eq(2);
-        expect(lolWidget.name).to.eql('lol');
-        expect(lolWidget.src).to.eql('lol.com');
-        expect(fooWidget.name).to.eql('foo');
-        expect(fooWidget.src).to.eql('foo.com');
+        expect(payloads.length).to.eq(2);
+        expect(lolWidget.widget.name).to.eql('lol');
+        expect(lolWidget.widget.src).to.eql('lol.com');
+        expect(fooWidget.widget.name).to.eql('foo');
+        expect(fooWidget.widget.src).to.eql('foo.com');
       });
     });
 
@@ -392,9 +395,9 @@ describe('Commands', function () {
           return command(updateCmd, execOptions);
         })
         .then(function (stdout) {
-          let widget = JSON.parse(stdout);
+          let payload = JSON.parse(stdout);
 
-          expect(widget.src).to.eql('foo.com');
+          expect(payload.widget.src).to.eql('foo.com');
         });
     });
 
@@ -410,10 +413,10 @@ describe('Commands', function () {
           return command(readCmd, execOptions);
         })
         .then(function (stdout) {
-          let widget = JSON.parse(stdout);
+          let payload = JSON.parse(stdout);
 
-          expect(widget.src).to.eql('foo.com');
-          expect(widget.sys.id).to.eql('456');
+          expect(payload.widget.src).to.eql('foo.com');
+          expect(payload.sys.id).to.eql('456');
         });
     });
 
@@ -507,10 +510,10 @@ describe('Commands', function () {
           return command(updateCmd, execOptions);
         })
         .then(function (stdout) {
-          let widget = JSON.parse(stdout);
+          let payload = JSON.parse(stdout);
 
-          expect(widget.name).to.eql('foo');
-          expect(widget.src).to.eql('foo.com');
+          expect(payload.widget.name).to.eql('foo');
+          expect(payload.widget.src).to.eql('foo.com');
         });
     });
 
@@ -530,10 +533,10 @@ describe('Commands', function () {
           return command(updateCmd, execOptions);
         })
         .then(function (stdout) {
-          let widget = JSON.parse(stdout);
+          let payload = JSON.parse(stdout);
 
-          expect(widget.name).to.eql('foo');
-          expect(widget.src).to.eql('foo.com');
+          expect(payload.widget.name).to.eql('foo');
+          expect(payload.widget.src).to.eql('foo.com');
         });
     });
 
@@ -553,24 +556,28 @@ describe('Commands', function () {
           return command(updateCmd, execOptions);
         })
         .then(function (stdout) {
-          let widget = JSON.parse(stdout);
+          let payload = JSON.parse(stdout);
 
-          expect(widget.name).to.eql('doge');
+          expect(payload.widget.name).to.eql('doge');
         });
     });
 
-    it('upates the fieldTypes of a widget', function () {
+    it('updates the fieldTypes of a widget', function () {
       let createCmd = 'create --space-id 123 --name lol --src l.com --id 456 --field-types Symbol --name foo --host http://localhost:3000';
-      let updateCmd = 'update --space-id 123 --name lol --src l.com --id 456 --field-types Text Symbol --force --host http://localhost:3000';
+      let updateCmd = 'update --space-id 123 --name lol --src l.com --id 456 --field-types Text Symbol Assets --force --host http://localhost:3000';
 
       return command(createCmd, execOptions)
         .then(function () {
           return command(updateCmd, execOptions);
         })
         .then(function (stdout) {
-          let widget = JSON.parse(stdout);
+          let payload = JSON.parse(stdout);
 
-          expect(widget.fieldTypes).to.eql(['Text', 'Symbol']);
+          expect(payload.widget.fieldTypes).to.eql([
+            {type: 'Text'},
+            {type: 'Symbol'},
+            {type: 'Array', items: {type: 'Link', linkType: 'Asset'}}
+          ]);
         });
     });
 
@@ -583,9 +590,9 @@ describe('Commands', function () {
         return command(updateCmd, execOptions);
       })
       .then(function (stdout) {
-        let widget = JSON.parse(stdout);
+        let payload = JSON.parse(stdout);
 
-        expect(widget.sidebar).to.be.true();
+        expect(payload.widget.sidebar).to.be.true();
       });
     });
 
@@ -598,9 +605,9 @@ describe('Commands', function () {
         return command(updateCmd, execOptions);
       })
       .then(function (stdout) {
-        let widget = JSON.parse(stdout);
+        let payload = JSON.parse(stdout);
 
-        expect(widget.sidebar).to.be.false();
+        expect(payload.widget.sidebar).to.be.false();
       });
     });
 
@@ -613,9 +620,9 @@ describe('Commands', function () {
         return command(updateCmd, execOptions);
       })
       .then(function (stdout) {
-        let widget = JSON.parse(stdout);
+        let payload = JSON.parse(stdout);
 
-        expect(widget).to.not.have.ownProperty('sidebar');
+        expect(payload.widget).to.not.have.ownProperty('sidebar');
       });
     });
 
@@ -676,9 +683,9 @@ describe('Commands', function () {
             return command(updateCmd, execOptions);
           })
           .then(function (stdout) {
-            let widget = JSON.parse(stdout);
+            let payload = JSON.parse(stdout);
 
-            expect(widget.srcdoc).to.eql('the-bundle-contents');
+            expect(payload.widget.srcdoc).to.eql('the-bundle-contents');
           });
       });
     });
