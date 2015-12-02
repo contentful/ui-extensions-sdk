@@ -58,9 +58,9 @@ in the `dist` folder.
 
 ## Examples
 
-### [Basic Number dropdown](examples/number-dropdown)
+#### [Basic Number dropdown](examples/number-dropdown)
 
-Basic widget that helps you get started with developing.  Uses a
+Basic widget that helps you get started with developing. Uses a
 dropdown to change the value of a number field and makes some CMA
 requests.
 

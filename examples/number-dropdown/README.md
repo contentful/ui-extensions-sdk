@@ -1,7 +1,7 @@
 # Getting Started with Contentful Widgets
 
-This guide will walk you through uploading, using and chaning your
-first widget.
+This guide will walk you through uploading, using, and making changes to
+your first widget.
 
 1. [Uploading the widget to a space](#uploading-the-widget-to-a-space)
 2. [Using the widget in the Contentful App](#using-the-widget-in-the-contentful-app)
@@ -24,7 +24,7 @@ The first step is to register the widget with the Contentful API to
 make the Content Management App aware of its existence.
 
 ~~~bash
-export CONTENTFUL_MANAGEMENT_ACCESS_TOKEN=<MY_TOKEN>
+export CONTENTFUL_MANAGEMENT_ACCESS_TOKEN=abcdefg
 contentful-widget create --space-id MY_SPACE_ID
 ~~~
 
@@ -85,7 +85,7 @@ documented there. If you make any changes to that file and reload the
 browser page, your changes will be reflected in the widget.
 
 If you want to deploy the code from `app.html` directly again, without
-having to serve it locally you can run
+having to serve it locally, you can run
 ~~~bash
 contentful-widget update --space-id MY_SPACE_ID --force
 ~~~
