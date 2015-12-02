@@ -21,7 +21,7 @@ Before you get started, please make sure you have the
 ## Uploading the widget to a space
 
 The first step is to register the widget with the Contentful API to
-make the Content Management App aware of its existence.
+make the Contentful App aware of its existence.
 
 ~~~bash
 export CONTENTFUL_MANAGEMENT_ACCESS_TOKEN=abcdefg
@@ -45,19 +45,19 @@ The `widget.json` file look like this.
 ~~~
 
 The file references `app.html` which contains the code loaded by the
-Contentful Mangement Application.
+Contentful App.
 
 [getting-token]: https://www.contentful.com/developers/docs/references/authentication/#getting-an-oauth-token
 
 
 ## Using the widget in the Contentful App
 
-Next, we will enable the widget in the Content Management App for a
+Next, we will enable the widget in the Contentful App for a
 “Number” field so that you can see it in action.
 
 In your space, choose any Content Type with a “Number” field or create
 a new one. Then open the “Settings” dialog for a field and switch to
-the appearance tab. A widget with the name “Hello World” should be
+the appearance tab. A widget with the name “Rating Dropdown” should be
 visible at the end of the list. (Note that you need to reload the app
 after you uploaded a widget.) Select the widget from the list and save
 the Content Type.  Finally you can open an entry for that Content Type
@@ -73,7 +73,7 @@ contentful-widget update --space-id MY_SPACE_ID --force --src "http://localhost:
 node dev-serve.js
 ~~~
 
-This will update the widget and tell the Content Management App to load
+This will update the widget and tell the Contentful App to load
 the widget from `http://localhost:3000/app.html` instead of loading it from the
 API and fire up the server. If you open an entry that uses the widget
 in your browser it will now use the code from your local machine. (You

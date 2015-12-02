@@ -7,10 +7,10 @@ these styles.
 -->
 <link rel="stylesheet" href="https://static.contentful.com/app/main-62e0abc7.css">
 <style>
-  body { margin: 0 }
-  #entries { margin-top: 1em }
-  #entries-list { margin-top: 1em }
-	#rating { margin-right: 1em }
+  body { margin: 0; }
+  #entries { margin-top: 1em; }
+  #entries-list { margin-top: 1em; }
+  #rating { margin-right: 1em; }
 </style>
 
 <!--
@@ -101,7 +101,7 @@ Load the Widget API that is used to communicate with the containing app.
       if (entries.length) {
         content = entries.map(renderEntry)
       } else {
-        content = '<em>no entries found</em>'
+        content = '<li><em>no entries found</em></li>'
       }
       $('ul#entries-list').html(content)
     }
