@@ -9,9 +9,9 @@ integrations or workflows.
 
 ## Getting Started
 
-To upload and mange widgets on our API you will need the
-`contenful-widget` command line tool from this repository. You can
-install it from this repository with `npm install -g .` or from github
+The most convenient way to upload and manage widgets through our API is
+via the `contenful-widget` command line tool.  You can install it from
+this repository with `npm install -g .` or from github
 ~~~bash
 npm install -g "git+ssh@github.com:contentful/widget-sdk.git"
 ~~~
