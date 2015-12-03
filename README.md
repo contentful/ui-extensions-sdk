@@ -9,12 +9,16 @@ integrations or workflows.
 
 ## Getting Started
 
-To upload and mange widgets on our API you will need the
-`contenful-widget` command line tool from this repository. You can
-install it from this repository with `npm install -g .` or from github
+The most convenient way to upload and manage widgets through our API is
+via the `contenful-widget` command line tool.  You can install it from
+this repository with `npm install -g .` or from github
 ~~~bash
 npm install -g "git+ssh@github.com:contentful/widget-sdk.git"
 ~~~
+
+If you want to learn how to write your own widgets and see them in
+action, checkout the documentation for the
+[Number Dropdown Widget](./examples/number-dropdown)
 
 ## Usage
 
@@ -24,12 +28,12 @@ npm install -g "git+ssh@github.com:contentful/widget-sdk.git"
 <script src="cf-widget-api.js"></script>
 ```
 
-Alternatively, you can [build it yourself](#buildyourself).
+Alternatively, you can [build it yourself](#build-it-yourself).
 
 [api-download]: https://contentful.github.io/widget-sdk/cf-widget-api.js
 
 
-### <a name="buildyourself"></a>Build it yourself
+## Build it yourself
 
 To run the Contentful Widget SDK you need:
 
@@ -54,19 +58,19 @@ in the `dist` folder.
 
 ## Examples
 
-#### Flickr widget
-* Run `npm install` && `npm start`
-* This will transpile the required files and start a server on `http://localhost:9011`
-* This example uses the `src` property - the widget files are hosted on an external server
+#### [Basic Number dropdown](examples/number-dropdown)
 
+Basic widget that helps you get started with developing. Uses a
+dropdown to change the value of a number field and makes some CMA
+requests.
 
 #### Json Editor widget
-* Run `npm install` && `gulp`
+* Run `npm install && gulp`
 * This will install and inline all of the dependencies to the `index.html` file in the `/dist` directory
 * This example uses the `srcdoc` property - the widget source file is hosted on Contentful
 
 #### Translate widget
 
-* Run `npm install` && `gulp`
+* Run `npm install && gulp`
 * This will install and inline all of the dependencies to the `index.html` file in the `/dist` directory
 * This example uses the `srcdoc` property - the widget source file is hosted on Contentful
