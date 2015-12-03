@@ -1,0 +1,10 @@
+{
+  "title": "Contentful Styleguide",
+  "source": "lib/style",
+  "homepage": "styleguide.md",
+  "css": [
+    "./styleguide.css",
+    "./../cf-widget-api.css"
+  ],
+  "destination": "dist/styleguide"
+}

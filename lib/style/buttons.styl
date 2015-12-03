@@ -1,0 +1,276 @@
+/*
+Buttons
+
+Styleguide 2.0
+*/
+
+.transparent-button-layer
+  background-color: transparent
+  position: absolute
+  $layer('buttonOverlay')
+  margin: 0 !important
+
+
+$button-reset()
+  color: inherit
+  font: inherit
+  font-size: inherit
+  line-height: normal
+  vertical-align: baseline
+  padding: 0
+  margin: 0
+  border: 0
+  background: none
+  overflow: visible
+  user-select: none
+  cursor: pointer
+  &::-moz-focus-inner
+    border: 0
+    padding: 0
+
+
+$cfnext-button($color, $text)
+  $cfnext-button-layout()
+  $cfnext-button-colors($color, $text)
+  $cfnext-button-loading($text)
+
+
+/**
+ * Applies layout and typography styles
+ */
+$button-vertical-padding = (10 / 16) * 1rem
+$cfnext-button-layout()
+  display: inline-block
+  padding: $button-vertical-padding 1.5rem
+  cursor: pointer
+  text-align: center
+  font-size: .875rem
+  font-weight: 500
+  white-space: nowrap
+  border: 1px solid transparent
+  border-radius: 2px
+  line-height: $base-line-height
+
+
+$cfnext-button-large()
+  font-size: 1.15rem
+  padding: 1rem 2.5rem
+
+
+/**
+ * Applies background, text and border colors for the various states.
+ */
+$cfnext-button-colors($bg, $text)
+  color: $text
+  background: $bg
+  background-size: 100% 200%
+  transition-property: all
+  transition-timing-function: ease-in-out
+  transition-duration: 0.1s
+
+  &:hover
+    background-position: 0 100%
+
+  &.active,&:active
+    box-shadow: inset 0 1px 2px rgba(black, .12)
+
+
+  // Reset for links
+  &:link, a&:hover, a&:link, a&:visited
+    color: $text
+
+  // Reset Browser styles
+  &, &:hover, &:active
+    outline: 0
+
+  &:disabled, &[aria-disabled=true]
+    opacity: 0.4
+    cursor: default
+    // This overides any other state styles, like hover or active
+    background: $bg
+    box-shadow: none
+
+
+/**
+ * Add a spinner pseude element and activate it in the `is-loading`
+ * state.
+ */
+$cfnext-button-loading($text)
+  > *
+    display: inline-block
+  +$spinner-base()
+    display: inline-block
+  &.is-loading
+    &:disabled
+      opacity: 1
+    +$spinner-active($text)
+      margin-left: 5px
+
+
+/*
+Buttons
+
+The following button styles should be used depending on the type of action that is performed.
+Action - This button should be used for actions which are important, but not necessarily
+the most important action in the current view
+Primary action - Used for the most important action in a given context
+Secondary action -  Used for actions that should complement primary actions or visually less
+important actions
+
+.cfnext-btn-action            - Action
+.cfnext-btn-primary-action    - Primary action
+.cfnext-btn-secondary-action  - Secondary action
+.cfnext-btn-caution           - Caution
+.cfnext-btn-plain             - Plain button
+
+
+Markup:
+<button class="{{modifier_class}}">Action</button>
+<button class="{{modifier_class}} is-loading">Loading</button>
+<button class="{{modifier_class}}" disabled="disabled">Disabled</button>
+
+Styleguide 2.1
+*/
+
+$btn-action-bg = linear-gradient(to top, $colors.blue-dark, $colors.blue-light)
+$btn-action()
+  $cfnext-button($btn-action-bg, white)
+  border-color: $colors.blue-dark
+
+  &:hover, &.active
+    border-color: $colors.blue-darkest
+
+.cfnext-btn-action,
+.cfnext-btn-action--large
+  $btn-action()
+
+.cfnext-btn-action--large
+  $cfnext-button-large()
+
+
+$btn-primary-bg = linear-gradient(to top, $colors.green-dark, $colors.green-light)
+$btn-primary()
+  $cfnext-button($btn-primary-bg, white)
+  border-color: $colors.green-dark
+
+  &:hover, &.active
+    border-color: $colors.green-darkest
+
+.cfnext-btn-primary-action,
+.cfnext-btn-primary-action--large
+  $btn-primary()
+
+.cfnext-btn-primary-action--large
+  $cfnext-button-large()
+
+
+$btn-secondary-text = $colors.text-mid
+$btn-secondary-bg = $colors.element-light
+.cfnext-btn-secondary-action,
+.cfnext-btn-secondary-action--large
+  $cfnext-button($btn-secondary-bg, $btn-secondary-text)
+  border-color: $colors.element-dark
+
+  &:hover, &.active
+    background-color: $colors.element-mid
+    border-color: $colors.element-darkest
+
+  > cf-icon[name="plus"]
+    circle
+      fill: $btn-secondary-text
+    path
+      stroke: $btn-secondary-bg
+
+.cfnext-btn-secondary-action--large
+  $cfnext-button-large()
+
+
+$btn-caution-bg = linear-gradient(to top, $colors.red-dark, $colors.red-light)
+.cfnext-btn-caution
+  $cfnext-button($btn-caution-bg, white)
+  border-color: $colors.red-dark
+
+  &:hover
+    border-color: $colors.red-darkest
+
+$cfnext-button-plain()
+  background: none
+  $cfnext-button-layout()
+  color: $colors.blue
+  outline: 0
+
+.cfnext-btn-plain
+  $cfnext-button-plain()
+
+/**
+Block button
+
+Use `x--block` to make the button a block element
+
+Markup:
+<p>
+  <button class="cfnext-btn-action x--block">Block Action Button</button>
+</p>
+<p>
+  <button class="cfnext-btn-action x--block is-loading">Loading</button>
+</p>
+
+Styleguide 2.2
+*/
+
+$x--block()
+  display: block
+  width: 100%
+  position: relative
+  &:after
+    position: absolute
+
+  &.is-loading
+    &:after
+      // This overides the width and height transitions
+      transition: opacity .2s linear
+      top: 11px
+
+.x--block
+  $x--block()
+
+
+// DEPRECATED
+$cfnext-btn-inline()
+  font-size: inherit
+  display: inline-block
+  vertical-align: baseline
+  padding: 0.1em 0.3em
+  margin: 0
+  border: 0
+  background: none
+  cursor: pointer
+  color: $colors.blue
+
+.cfnext-btn-inline
+  $cfnext-btn-inline()
+
+
+/**
+Link Style Button
+
+Markup:
+<button class="cfnext-btn-link">Action</button>
+<button class="cfnext-btn-link" disabled>Action</button>
+
+Styleguide 2.3
+*/
+
+.cfnext-btn-link
+  $button-reset();
+  display: block
+  color: $colors.blue-mid
+  transition: all ease-in-out .1s
+
+  &:not(:disabled):hover
+    color: $colors.blue-darkest
+
+  &:disabled
+    cursor: not-allowed
+    opacity: .5
+

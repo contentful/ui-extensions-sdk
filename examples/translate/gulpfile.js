@@ -12,12 +12,12 @@ gulp.task('copy', function() {
 
   var files = [
     'index.html',
-    'style.css',
     'translate.js'
   ];
 
   var dependencies = [
-    '../../dist/cf-widget-api.js'
+    '../../dist/cf-widget-api.js',
+    '../../dist/cf-widget-api.css'
   ];
 
   gulp.src(files)

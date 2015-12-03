@@ -28,6 +28,7 @@
     "eslint-config-standard": "^4.4.0",
     "eslint-plugin-standard": "^1.3.1",
     "express": "^4.13.3",
+    "kss": "^2.1.1",
     "mocha": "^2.3.3",
     "sinon": "^1.17.2",
     "sinon-chai": "^2.8.0",
@@ -47,6 +48,8 @@
     "contentful-management": "^0.5.0",
     "es6-promise": "^3.0.2",
     "lodash": "^3.10.1",
+    "nib": "^1.1.0",
+    "stylus": "^0.52.4",
     "webpack": "^1.12.2",
     "yaku": "^0.11.4",
     "yargs": "^3.29.0"
