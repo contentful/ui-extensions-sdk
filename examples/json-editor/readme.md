@@ -1,5 +1,10 @@
 # JSON Editor widget
 
+This widget provides a JSON formatter and validator based on the [Codemirror](http://codemirror.net) library.
+
+It should be used with fields with the type "Object".
+
+
 ### Bootstrap example for local development
 
 First set the access token on your environment:
@@ -25,6 +30,6 @@ gulp
 ### Upload widget
 If you want to inline all dependencies and upload the widget entirely to Contentful:
 ```bash
-contentful-widget create --srcdoc ./dist/index.all.html --space-id <yourSpaceId> --force
+contentful-widget update --srcdoc ./dist/index.all.html --space-id <yourSpaceId> --force
 ```
 

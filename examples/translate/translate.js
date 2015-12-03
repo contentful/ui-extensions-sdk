@@ -19,8 +19,8 @@
       widget.cfApi = resp;
       // Create HTML elements
       widget.elements = {
-        input: createElement('input', {type: 'text', className: 'cfnext-form__input--full-size'}, createElement('p')),
-        populateAll: createElement('input', {type: 'submit', className: 'cfnext-btn-action', value: 'Populate all other locales'})
+        input: createElement('input', {type: 'text', className: 'cf-form-input'}, createElement('p')),
+        populateAll: createElement('input', {type: 'submit', className: 'cf-btn-primary', value: 'Populate all other locales'})
       };
 
       // Attach event listeners

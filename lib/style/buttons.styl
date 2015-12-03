@@ -4,13 +4,6 @@ Buttons
 Styleguide 2.0
 */
 
-.transparent-button-layer
-  background-color: transparent
-  position: absolute
-  $layer('buttonOverlay')
-  margin: 0 !important
-
-
 $button-reset()
   color: inherit
   font: inherit
@@ -100,7 +93,7 @@ $cfnext-button-loading($text)
     display: inline-block
   +$spinner-base()
     display: inline-block
-  &.is-loading
+  &.cf-is-loading
     &:disabled
       opacity: 1
     +$spinner-active($text)
@@ -111,23 +104,16 @@ $cfnext-button-loading($text)
 Buttons
 
 The following button styles should be used depending on the type of action that is performed.
-Action - This button should be used for actions which are important, but not necessarily
-the most important action in the current view
-Primary action - Used for the most important action in a given context
-Secondary action -  Used for actions that should complement primary actions or visually less
-important actions
+Primary action     - Used for the most important action in a given context
+Secondary action   - Used for the secondary action in a given context
 
-.cfnext-btn-action            - Action
-.cfnext-btn-primary-action    - Primary action
-.cfnext-btn-secondary-action  - Secondary action
-.cfnext-btn-caution           - Caution
-.cfnext-btn-plain             - Plain button
-
+.cf-btn-primary    - Primary action
+.cf-btn-secondary  - Secondary action
 
 Markup:
 <button class="{{modifier_class}}">Action</button>
-<button class="{{modifier_class}} is-loading">Loading</button>
-<button class="{{modifier_class}}" disabled="disabled">Disabled</button>
+<button class="{{modifier_class}} cf-is-loading">Loading</button>
+<button class="{{modifier_class}}" disabled>Disabled</button>
 
 Styleguide 2.1
 */
@@ -140,34 +126,12 @@ $btn-action()
   &:hover, &.active
     border-color: $colors.blue-darkest
 
-.cfnext-btn-action,
-.cfnext-btn-action--large
+.cf-btn-primary
   $btn-action()
-
-.cfnext-btn-action--large
-  $cfnext-button-large()
-
-
-$btn-primary-bg = linear-gradient(to top, $colors.green-dark, $colors.green-light)
-$btn-primary()
-  $cfnext-button($btn-primary-bg, white)
-  border-color: $colors.green-dark
-
-  &:hover, &.active
-    border-color: $colors.green-darkest
-
-.cfnext-btn-primary-action,
-.cfnext-btn-primary-action--large
-  $btn-primary()
-
-.cfnext-btn-primary-action--large
-  $cfnext-button-large()
-
 
 $btn-secondary-text = $colors.text-mid
 $btn-secondary-bg = $colors.element-light
-.cfnext-btn-secondary-action,
-.cfnext-btn-secondary-action--large
+.cf-btn-secondary
   $cfnext-button($btn-secondary-bg, $btn-secondary-text)
   border-color: $colors.element-dark
 
@@ -181,96 +145,37 @@ $btn-secondary-bg = $colors.element-light
     path
       stroke: $btn-secondary-bg
 
-.cfnext-btn-secondary-action--large
-  $cfnext-button-large()
-
-
-$btn-caution-bg = linear-gradient(to top, $colors.red-dark, $colors.red-light)
-.cfnext-btn-caution
-  $cfnext-button($btn-caution-bg, white)
-  border-color: $colors.red-dark
-
-  &:hover
-    border-color: $colors.red-darkest
-
-$cfnext-button-plain()
-  background: none
-  $cfnext-button-layout()
-  color: $colors.blue
-  outline: 0
-
-.cfnext-btn-plain
-  $cfnext-button-plain()
-
 /**
 Block button
 
-Use `x--block` to make the button a block element
+Use `.cf-block` together with a button to make it a block element
 
 Markup:
 <p>
-  <button class="cfnext-btn-action x--block">Block Action Button</button>
+  <button class="cf-btn-primary cf-block">Block Action Button</button>
 </p>
 <p>
-  <button class="cfnext-btn-action x--block is-loading">Loading</button>
+  <button class="cf-btn-secondary cf-block cf-is-loading">Loading</button>
 </p>
 
 Styleguide 2.2
 */
 
-$x--block()
+$btn-block()
   display: block
   width: 100%
   position: relative
   &:after
     position: absolute
 
-  &.is-loading
+  &.cf-is-loading
     &:after
       // This overides the width and height transitions
       transition: opacity .2s linear
       top: 11px
 
-.x--block
-  $x--block()
-
-
-// DEPRECATED
-$cfnext-btn-inline()
-  font-size: inherit
-  display: inline-block
-  vertical-align: baseline
-  padding: 0.1em 0.3em
-  margin: 0
-  border: 0
-  background: none
-  cursor: pointer
-  color: $colors.blue
-
-.cfnext-btn-inline
-  $cfnext-btn-inline()
-
-
-/**
-Link Style Button
-
-Markup:
-<button class="cfnext-btn-link">Action</button>
-<button class="cfnext-btn-link" disabled>Action</button>
-
-Styleguide 2.3
-*/
-
-.cfnext-btn-link
-  $button-reset();
-  display: block
-  color: $colors.blue-mid
-  transition: all ease-in-out .1s
-
-  &:not(:disabled):hover
-    color: $colors.blue-darkest
-
-  &:disabled
-    cursor: not-allowed
-    opacity: .5
+.cf-btn-primary,
+.cf-btn-secondary
+  &.cf-block
+    $btn-block()
 

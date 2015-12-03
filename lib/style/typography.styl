@@ -5,15 +5,11 @@ Styleguide 1.0
 */
 
 /*
-Headings
+Font
 
 Markup:
-<h1>Level 1 Heading</h1>
-<h2>Level 2 Heading</h2>
-<h3>Level 3 Heading</h3>
-<h4>Level 4 Heading</h4>
-<h5>Level 5 Heading</h5>
-<h6>Level 6 Heading</h6>
+<p>Our base font size is <strong>14px</strong> and base line-height is <strong>18px</strong></p>
+<p>Here's some <strong>important text</strong> and here's something we want to <em>emphasize</em>.</p>
 
 Styleguide 1.1
 */
@@ -45,7 +41,7 @@ $sans-font()
   font-family: "Avenir Next W01", Helvetica, sans-serif
 
 $monospace-font()
-  font-family: "Menlo", "Andale mono", monospace
+  font-family: monospace
 
 $establish-baseline()
   font-size: $base-font-size
@@ -55,44 +51,17 @@ $rhythm(n = 1)
   return n * unit($base-line-height / $base-font-size, em);
 
 /*
-Section titles
+Links
 
 Markup:
-<h2 class="section-title">This is a title</h2>
+<p>This is a <a href-"#">link</a></p>
 
 Styleguide 1.2
 */
-.section-title
-  color: $metallic-gray-blueish
-  text-transform: uppercase
-  letter-spacing: 2px
-  font-weight: normal
-  padding-bottom: 10px
-  border-bottom: 1px solid $metallic-gray-blueish
 
-/*
-Uppercase
-
-Markup:
-<p class="uppercase">This is uppercase text</p>
-
-
-Styleguide 1.3
-*/
-.uppercase
-  text-transform: uppercase
-  letter-spacing: 1px
-
-/*
-Centered
-
-Markup:
-<p class="centered">This text is centered</p>
-
-Styleguide 1.4
-*/
-.centered
-  text-align: center
+a
+  color: $colors.blue-mid
+  cursor: pointer
 
 
 /*
@@ -100,12 +69,12 @@ Dimmed Text
 
 Markup:
 <p>This is normal text</p>
-<p class="text-dimmed">This is dimmed text</p>
+<p class="cf-text-dimmed">This is dimmed text</p>
 
-Styleguide 1.5
+Styleguide 1.3
 */
 $text-dimmed = hsl(0, 0%, 50%)
-.text-dimmed
+.cf-text-dimmed
   color: $text-dimmed
 
 
