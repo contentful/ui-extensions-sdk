@@ -23,13 +23,23 @@ action, checkout the documentation for the
 
 [Download the library][api-download] and include it in your HTML.
 
-```html
-<script src="cf-widget-api.js"></script>
-```
 
 Alternatively, you can [build it yourself](#build-it-yourself).
 
 [api-download]: https://contentful.github.io/widget-sdk/cf-widget-api.js
+
+
+## Using Contentful Styles
+
+As widgets are rendered inside an iframe, you will need to include the `cf-widget-api.css` library within your custom widget in order to use any of Contentful's styles.
+
+Download the CSS library [here](https://contentful.github.io/widget-sdk/cf-widget-api.css) and include it in your widget
+
+```html
+<link rel="stylesheet" type="text/css" href="cf-widget-api.css">
+```
+
+Futher information can be found in the [styleguide](http://contentful.github.io/widget-sdk/styleguide).
 
 
 ## Build it yourself
@@ -62,14 +72,3 @@ in the `dist` folder.
 Basic widget that helps you get started with developing. Uses a
 dropdown to change the value of a number field and makes some CMA
 requests.
-
-#### Json Editor widget
-* Run `npm install && gulp`
-* This will install and inline all of the dependencies to the `index.html` file in the `/dist` directory
-* This example uses the `srcdoc` property - the widget source file is hosted on Contentful
-
-#### Translate widget
-
-* Run `npm install && gulp`
-* This will install and inline all of the dependencies to the `index.html` file in the `/dist` directory
-* This example uses the `srcdoc` property - the widget source file is hosted on Contentful

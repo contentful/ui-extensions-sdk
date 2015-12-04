@@ -1,0 +1,208 @@
+/**
+ * Forms
+ *
+ * Build simple forms with labels, inputs, errors and option groups.
+ *
+ * Styleguide 3.0
+ */
+
+/*
+Inputs and labels
+
+Add`.cf-form-input` to all form elements to apply the styles.
+Textareas and inputs with type text/email/url/password get 100% width.
+
+Markup:
+<div class="cf-form-field">
+  <label>Name</label>
+  <input type="text" value="Contentful!" class="cf-form-input">
+</div>
+<div class="cf-form-field">
+  <label>Bio</label>
+  <textarea class="cf-form-input"></textarea>
+</div>
+
+Styleguide 3.1
+*/
+
+
+.cf-form-field
+  margin-bottom: $rhythm(1.5)
+  > label
+    display: block
+    margin-bottom: $rhythm(0.5)
+
+$cf-form-input()
+  $sans-font()
+  font-size: inherit
+  border: 1px solid $metallic-gray
+  border-radius: 3px 3px 3px 3px
+  box-sizing: border-box
+  height: 2.3em
+  padding: 0 0.5em
+  transition: border 0.3s
+  max-width: 100%
+  &:focus
+    background-color: white
+    border-width: 1px
+    border-color: $colors.blue
+    outline: none
+  &[readonly], &[disabled], &:disabled
+    color: $gray-medium
+    background-color: $gray-lighter
+    border: 1px solid $gray
+    box-shadow: none
+    transition: none
+  &[aria-invalid="true"], &.has-error
+    border-color: $red
+  &[type="number"]
+    padding-right: 0
+  textarea&
+    padding-top: 0.5em
+    padding-bottom: 0.5em
+    line-height: 1.3
+    height: auto
+  textarea&, &[type="url"], &[type="email"], &[type="text"], &[type="password"]
+    width: 100%
+
+.cf-form-input
+  $cf-form-input()
+
+
+
+/*
+Hints
+ 
+Markup:
+<div class="cf-form-field">
+  <label>First Name</label>
+  <input type="text" class="cf-form-input">
+  <div class="cf-form-hint">
+    You have to provide your name here
+  </div>
+</div>
+
+Styleguide 3.2
+*/
+
+.cf-form-hint
+  margin-top: $rhythm(0.5)
+  color: $text-dimmed
+  font-size: $small-font-size
+
+
+/*
+
+Errors
+
+Markup:
+<div class="cf-form-field">
+  <label>Name</label>
+  <input type="text" aria-invalid="true" class="cf-form-input has-error">
+  <div class="cf-field-error">Something went wrong!</div>
+</div>
+
+Styleguide 3.3
+
+*/
+ 
+.cf-field-error
+  margin-top: $rhythm(0.5)
+  color: $red
+
+/*
+Option set
+
+Markup:
+<form>
+  <p>A few options</p>
+  <div class="cf-form-option">
+    <input type="checkbox" id="option-a">
+    <label for="option-a">Check this</label>
+  </div>
+  <div class="cf-form-option">
+    <input type="checkbox" id="option-b">
+    <div class="cf-form-label">
+      <label for="option-b">Or check that</label>
+      <p>You also can check both</p>
+      <p class="cf-text-dimmed">This is a hint</p>
+    </div>
+  </div>
+  <div class="cf-form-option">
+    <input type="checkbox" id="option-c" disabled>
+    <label for="option-c">This option's disabled</label>
+  </div>
+</form>
+
+Styleguide 3.4
+*/
+
+.cf-form-option
+  margin-bottom: $rhythm(1)
+  display: flex
+
+  &:last-child
+    margin-bottom: 0
+
+  > input[type="checkbox"],
+  > input[type="radio"]
+    align-self: flex-start
+    flex-shrink: 0
+    margin: 1px 0.5em 0 0
+
+  > label
+    display: block
+    cursor: pointer
+
+.cf-form-label p
+  font-size: $small-font-size
+  margin: 0
+
+.cf-form-label label
+  // Larger line height increases clickable area
+  line-height:     $rhythm(1.5)
+  // Negative margin makes sure the larger line height does not
+  // influence the layout
+  margin-top:    - $rhythm(0.5)
+  display: inline-block;
+  cursor: pointer
+
+.cfnext-form-option > input[type="checkbox"]:disabled
+  & + .cfnext-form-option__desc,
+  & + label
+    color: $text-dimmed
+
+/*
+Horizontal option set
+
+Note: don't use an actual fieldset tag with this class:
+http://germanforblack.com/post/73295576875/flexbox-for-forms
+
+Markup:
+<form class="cf-form-horizontal">
+  <div class="cfnext-form-option">
+    <input type="checkbox" id="option-d">
+    <label for="option-d">Check this</label>
+  </div>
+  <div class="cfnext-form-option">
+    <input type="checkbox" id="option-e">
+    <label for="option-e">Select me</label>
+  </div>
+  <div class="cfnext-form-option">
+    <input type="checkbox" id="option-f">
+    <label for="option-f">Or me</label>
+  </div>
+</form>
+
+Styleguide 3.6
+
+*/
+
+.cf-form-horizontal
+  display: flex
+  flex-wrap: wrap
+
+  .cfnext-form-option
+    margin-right: $rhythm(2)
+  .cfnext-form-option:last-child
+    margin-right: 0
