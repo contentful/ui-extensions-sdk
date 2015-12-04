@@ -108,7 +108,7 @@ requests.
 
 ## Providing Feedback
 
-Technical feedback can be provided directly through the Github repo. This has several advantages, including a closer communication between developers and a single point of information. Answers provided to one participant may also be relevant to others, and we can use this space for a healthy and geeky communication channel. However, if at any point some confidential or business sensitive information needs to be discussed, then the conversation would temporarily be handled via Zendesk.
+Technical feedback can be provided directly through the Github repo. This has several advantages, including a closer communication between developers and a single point of information. Answers provided to one participant may also be relevant to others, and we can use this space for a healthy and open communication channel. However, if at any point some confidential or business sensitive information needs to be discussed, then the conversation would temporarily be handled via Zendesk.
 
 We are mostly interested in technical details ( custom widgets management, SDK, API, specific functionality details) and use cases (concert examples of problems that your organization could solve using custom widgets).
 
