@@ -9,7 +9,7 @@ export CONTENTFUL_MANAGEMENT_ACCESS_TOKEN=<contentfulManagementApiToken>
 
 Create the widget:
 ```bash
-./bin/contentful-widget create --space-id <yourSpaceId>
+contentful-widget create --space-id <yourSpaceId>
 ```
 
 Move into example directory and install dependencies
@@ -25,6 +25,6 @@ gulp
 ### Upload widget
 If you want to inline all dependencies and upload the widget entirely to Contentful:
 ```bash
-./../../bin/contentful-widget create --srcdoc ./dist/index.all.html --space-id <yourSpaceId> --force
+contentful-widget create --srcdoc ./dist/index.all.html --space-id <yourSpaceId> --force
 ```
 

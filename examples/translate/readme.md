@@ -19,7 +19,7 @@ export CONTENTFUL_MANAGEMENT_ACCESS_TOKEN=<contentfulManagementApiToken>
 
 Create the widget:
 ```bash
-./../../bin/contentful-widget create --space-id <yourSpaceId>
+contentful-widget create --space-id <yourSpaceId>
 ```
 
 Serve on http://:::3000
@@ -34,6 +34,6 @@ In order to to use this widget, create a Content Type with a field of type `Symb
 ### Upload widget
 If you want to inline all dependencies and upload the widget entirely to Contentful:
 ```bash
-./../../bin/contentful-widget create --srcdoc ./dist/index.all.html --space-id <yourSpaceId> --force
+contentful-widget create --srcdoc ./dist/index.all.html --space-id <yourSpaceId> --force
 ```
 
