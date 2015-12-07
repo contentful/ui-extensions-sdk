@@ -7,9 +7,12 @@
   "license": "ISC",
   "dependencies": {
     "alloyeditor": "^0.6.0",
-    "contenful-widgets": "../.."
-  },
-  "devDependencies": {
-    "express": "^4.13.3"
+    "babel": "^6.3.13",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.3.13",
+    "contenful-widgets": "../..",
+    "express": "^4.13.3",
+    "webpack": "^1.12.9",
+    "webpack-dev-middleware": "^1.4.0"
   }
 }

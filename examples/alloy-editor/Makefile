@@ -1,21 +1,14 @@
-include custom.mk
-
-export PATH := ../../bin:$(PATH)
-export CONTENTFUL_MANAGEMENT_ACCESS_TOKEN := $(TOKEN)
-
-setup:
-	ln -sf ../../dist/cf-widget-api.js .
-	$(MAKE) create
-	$(MAKE) serve
+export CONTENTFUL_MANAGEMENT_ACCESS_TOKEN := token
+SPACE=spaceid
 
 serve:
 	node serve.js
 
 update: widget.json
-	contentful-widget update --space-id ${SPACE} --host ${HOST}
+	contentful-widget update --space-id $(SPACE)
 
 create: widget.json
-	contentful-widget create --space-id ${SPACE} --host ${HOST}
+	contentful-widget create --space-id $(SPACE)
 
 delete:
-	contentful-widget delete --space-id ${SPACE} --host ${HOST} --id alloy
+	contentful-widget delete --space-id $(SPACE) --id alloy

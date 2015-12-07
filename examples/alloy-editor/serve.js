@@ -18,8 +18,7 @@ var webpack = makeWebpack({
         exclude: /(node_modules|bower_components)/,
         loader: 'babel',
         query: {
-          presets: ['es2015'],
-          plugins: ['transform-runtime']
+          presets: ['es2015']
         }
       }
     ]
@@ -28,6 +27,10 @@ var webpack = makeWebpack({
 })
 
 express()
+.use(function (req, res, next) {
+  res.set('Access-Control-Allow-Origin', '*')
+  next()
+})
 .use(webpackMiddleware(webpack, {lazy: true}))
 .use(express.static('.'))
 .use(express.static('./node_modules/alloyeditor/dist'))
