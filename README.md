@@ -113,6 +113,8 @@ change the value of a number field and makes some CMA requests.
 
 #### [Chessboard](examples/chessboard)
 
+![Chessboard Widget in action](http://contentful.github.io/widget-sdk/assets/chessboard.gif)
+
 This widget displays a chessboard and stores the board position as a JSON
 object. You can drag pieces on the chessboard and the position data will be
 updated automatically. The widget also supports *collaborative editing*. If two
