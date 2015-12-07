@@ -1,11 +1,11 @@
 <!doctype html>
 <!--
-Include styles from the contentful app.
+Include styles from the Contentful app.
 
-In the future we will provide documentation on how to include and apply
-these styles.
+See http://contentful.github.io/widget-sdk/styleguide for information on
+how to include and apply these styles.
 -->
-<link rel="stylesheet" href="https://static.contentful.com/app/main-62e0abc7.css">
+<link rel="stylesheet" href="https://contentful.github.io/widget-sdk/cf-widget-api.css">
 <style>
   body { margin: 0; }
   #entries { margin-top: 1em; }
@@ -19,7 +19,7 @@ Load the Widget API that is used to communicate with the containing app.
 <script src="https://contentful.github.io/widget-sdk/cf-widget-api.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
 
-<select id="rating" class="cfnext-select-box">
+<select id="rating" class="cf-form-input">
   <option value="">Other</option>
   <option value="1">Ok</option>
   <option value="4">Good</option>
@@ -29,7 +29,7 @@ Load the Widget API that is used to communicate with the containing app.
   Current Value: <span id="current-rating"></span>
 </span>
 <div id="entries">
-  <button class="cfnext-btn-action">Show entries with the same rating</button>
+  <button class="cf-btn-primary">Show entries with the same rating</button>
   <ul id="entries-list"></ul>
 </div>
 <script>
