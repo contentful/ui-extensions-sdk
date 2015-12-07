@@ -22,17 +22,17 @@ $button-reset()
     padding: 0
 
 
-$cfnext-button($color, $text)
-  $cfnext-button-layout()
-  $cfnext-button-colors($color, $text)
-  $cfnext-button-loading($text)
+$cf-button($color, $text)
+  $cf-button-layout()
+  $cf-button-colors($color, $text)
+  $cf-button-loading($text)
 
 
 /**
  * Applies layout and typography styles
  */
 $button-vertical-padding = (10 / 16) * 1rem
-$cfnext-button-layout()
+$cf-button-layout()
   display: inline-block
   padding: $button-vertical-padding 1.5rem
   cursor: pointer
@@ -45,7 +45,7 @@ $cfnext-button-layout()
   line-height: $base-line-height
 
 
-$cfnext-button-large()
+$cf-button-large()
   font-size: 1.15rem
   padding: 1rem 2.5rem
 
@@ -53,7 +53,7 @@ $cfnext-button-large()
 /**
  * Applies background, text and border colors for the various states.
  */
-$cfnext-button-colors($bg, $text)
+$cf-button-colors($bg, $text)
   color: $text
   background: $bg
   background-size: 100% 200%
@@ -88,7 +88,7 @@ $cfnext-button-colors($bg, $text)
  * Add a spinner pseude element and activate it in the `is-loading`
  * state.
  */
-$cfnext-button-loading($text)
+$cf-button-loading($text)
   > *
     display: inline-block
   +$spinner-base()
@@ -120,7 +120,7 @@ Styleguide 2.1
 
 $btn-action-bg = linear-gradient(to top, $colors.blue-dark, $colors.blue-light)
 $btn-action()
-  $cfnext-button($btn-action-bg, white)
+  $cf-button($btn-action-bg, white)
   border-color: $colors.blue-dark
 
   &:hover, &.active
@@ -132,7 +132,7 @@ $btn-action()
 $btn-secondary-text = $colors.text-mid
 $btn-secondary-bg = $colors.element-light
 .cf-btn-secondary
-  $cfnext-button($btn-secondary-bg, $btn-secondary-text)
+  $cf-button($btn-secondary-bg, $btn-secondary-text)
   border-color: $colors.element-dark
 
   &:hover, &.active

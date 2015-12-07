@@ -167,8 +167,7 @@ Styleguide 3.4
   display: inline-block;
   cursor: pointer
 
-.cfnext-form-option > input[type="checkbox"]:disabled
-  & + .cfnext-form-option__desc,
+.cf-form-option > input[type="checkbox"]:disabled
   & + label
     color: $text-dimmed
 
@@ -180,15 +179,15 @@ http://germanforblack.com/post/73295576875/flexbox-for-forms
 
 Markup:
 <form class="cf-form-horizontal">
-  <div class="cfnext-form-option">
+  <div class="cf-form-option">
     <input type="checkbox" id="option-d">
     <label for="option-d">Check this</label>
   </div>
-  <div class="cfnext-form-option">
+  <div class="cf-form-option">
     <input type="checkbox" id="option-e">
     <label for="option-e">Select me</label>
   </div>
-  <div class="cfnext-form-option">
+  <div class="cf-form-option">
     <input type="checkbox" id="option-f">
     <label for="option-f">Or me</label>
   </div>
@@ -202,7 +201,7 @@ Styleguide 3.6
   display: flex
   flex-wrap: wrap
 
-  .cfnext-form-option
+  .cf-form-option
     margin-right: $rhythm(2)
-  .cfnext-form-option:last-child
+  .cf-form-option:last-child
     margin-right: 0
