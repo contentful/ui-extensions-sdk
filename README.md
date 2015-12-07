@@ -9,66 +9,72 @@ integrations or workflows.
 
 ## Getting Started
 
-To upload and manage widgets on our API you will need the
-`contenful-widget` command line tool. You can install it with:
-~~~bash
-npm install -g contentful/contentful-widget-cli
-~~~
+The most convenient way to upload and manage widgets through our API is via the
+[`contenful-widget`][cf-widget-cli] command line tool. You can install it with
+
+```bash
+npm install -g "git+ssh@github.com:contentful/widget-sdk-cli.git"
+```
 
 If you want to learn how to write your own widgets and see them in
 action, checkout the documentation for the
 [Number Dropdown Widget](./examples/number-dropdown)
 
+[cf-widget-cli]: https://github.com/contentful/contentful-widget-cli
+
 ## Usage
 
-[Download the library][api-download] and include it in your HTML.
+This repository contains a [command line tool](lib/cli) to manage widgets
+through the Contentful API and the [widget client library](doc/widget-api-frontend.md)
+that widget developers need to include in their implementation.
 
-
-Alternatively, you can [build it yourself](#build-it-yourself).
-
-[api-download]: https://contentful.github.io/widget-sdk/cf-widget-api.js
-
-
-## Using Contentful Styles
-
-As widgets are rendered inside an iframe, you will need to include the `cf-widget-api.css` library within your custom widget in order to use any of Contentful's styles.
-
-Download the CSS library [here](https://contentful.github.io/widget-sdk/cf-widget-api.css) and include it in your widget
+The cli tool can be installed by running `npm install -g`. Including the
+compiled version of the widget client library is as simple as adding the
+following line to your application.
 
 ```html
-<link rel="stylesheet" type="text/css" href="cf-widget-api.css">
+<script src="https://contentful.github.io/widget-sdk/cf-widget-api.js"></script>
 ```
 
-Futher information can be found in the [styleguide](http://contentful.github.io/widget-sdk/styleguide).
-
-
-## Build it yourself
-
-To run the Contentful Widget SDK you need:
-
-* 0.12.7 or newer
-* npm 2.11.3 or newer
-
-Clone the repository:
-
-```bash
-git clone https://github.com/contentful/widget-sdk.git
-```
-
-Navigate to directory and run build script
-
-```bash
-cd widget-sdk && make
-```
-
-The compiled version of the Contentful Widget SDK and map file will be available
-in the `dist` folder.
+*As of now we do not distribute this repository through npm.*
 
 
 ## Examples
 
 #### [Basic Number dropdown](examples/number-dropdown)
 
-Basic widget that helps you get started with developing. Uses a
-dropdown to change the value of a number field and makes some CMA
-requests.
+Basic widget that helps you *get started* with developing. Uses a dropdown to
+change the value of a number field and makes some CMA requests.
+
+#### [Chessboard](examples/chessboard)
+
+This widget displays a chessboard and stores the board position as a JSON
+object. You can drag pieces on the chessboard and the position data will be
+updated automatically. The widget also supports *collaborative editing*. If two
+editors open the same entry moves will be synced between them.
+
+#### [Slug Generator](examples/slug)
+
+This widget will automatically generate its values from an entries title field.
+For example typing “Hello World” into the title field will set the widgets input
+field to “hello-world”. It will also check the uniquness of the slug across a
+customizable list of content types.
+
+This examples highlights how the widget API can be used to *inspect any value*
+of an entry and *react to changes*.
+
+#### [Rich Text Editor](examples/alloy-editor)
+
+This example integrates the [Alloy rich text editor](http://alloyeditor.com/) to
+edit “Text” fields.
+
+#### Json Editor widget
+* Run `npm install && gulp`
+* This will install and inline all of the dependencies to the `index.html` file in the `/dist` directory
+* This example uses the `srcdoc` property - the widget source file is hosted on Contentful
+
+#### Translate widget
+
+* Run `npm install && gulp`
+* This will install and inline all of the dependencies to the `index.html` file in the `/dist` directory
+* This example uses the `srcdoc` property - the widget source file is hosted on Contentful
