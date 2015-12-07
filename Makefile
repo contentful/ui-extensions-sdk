@@ -10,7 +10,8 @@ build:
 	./node_modules/stylus/bin/stylus -u nib lib/style/index.styl -o dist/cf-widget-api.css --sourcemap
 
 docs: build
-	cp ./lib/style/styleguide.css ./dist/styleguide
+	@mkdir -p dist
+	cp ./lib/style/styleguide.css ./dist/styleguide/styleguide.css
 	./node_modules/kss/bin/kss-node --config kss-config.json
 
 watch:
