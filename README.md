@@ -72,27 +72,20 @@ The most convenient way to upload and manage widgets through our API is via the
 npm install -g "git+ssh@github.com:contentful/widget-sdk-cli.git"
 ```
 
-If you want to learn how to write your own widgets and see them in
-action, checkout the documentation for the
-[Number Dropdown Widget](./examples/number-dropdown)
-
-[cf-widget-cli]: https://github.com/contentful/contentful-widget-cli
-
-## Usage
-
-This repository contains a [command line tool](lib/cli) to manage widgets
-through the Contentful API and the [widget client library](doc/widget-api-frontend.md)
-that widget developers need to include in their implementation.
-
-The cli tool can be installed by running `npm install -g`. Including the
-compiled version of the widget client library is as simple as adding the
-following line to your application.
+Including the compiled version of the widget client library is as simple as
+adding the following line to your application.
 
 ```html
 <script src="https://contentful.github.io/widget-sdk/cf-widget-api.js"></script>
 ```
 
 *As of now we do not distribute this repository through npm.*
+
+If you want to learn how to write your own widgets and see them in
+action, checkout the documentation for the
+[Number Dropdown Widget](./examples/number-dropdown)
+
+[cf-widget-cli]: https://github.com/contentful/contentful-widget-cli
 
 
 ## Examples
