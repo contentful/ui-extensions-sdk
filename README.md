@@ -88,6 +88,22 @@ action, checkout the documentation for the
 [cf-widget-cli]: https://github.com/contentful/contentful-widget-cli
 
 
+## Using Contentful Styles
+
+As widgets are rendered inside an iframe, you will need to include the
+`cf-widget-api.css` library within your custom widget in order to use any of
+Contentful's styles.
+
+Download the CSS library [here](https://contentful.github.io/widget-sdk/cf-widget-api.css) and include it in your widget
+
+```html
+<link rel="stylesheet" type="text/css" href="cf-widget-api.css">
+```
+
+Futher information can be found in the
+[styleguide](http://contentful.github.io/widget-sdk/styleguide).
+
+
 ## Examples
 
 #### [Basic Number dropdown](examples/number-dropdown)
