@@ -70,19 +70,19 @@ To simplify development you can host your widget locally.
 
 ~~~bash
 contentful-widget update --space-id MY_SPACE_ID --force --src "http://localhost:3000/app.html"
-node dev-serve.js
+python2 -m SimpleHTTPServer 8000
 ~~~
 
-This will update the widget and tell the Contentful App to load
-the widget from `http://localhost:3000/app.html` instead of loading it from the
-API and fire up the server. If you open an entry that uses the widget
-in your browser it will now use the code from your local machine. You
-need to enable insecure content since the Contentful App is
-served through HTTPS but your widget is not. See here how to do it in
-[Firefox][ff-mixed] and [Chrome][chrome-mixed].
+This will update the widget and tell the Contentful App to load the widget from
+`http://localhost:3000/app.html` instead of loading it from the API. It will
+also run a static server to serve that file. (If you don’t have Python installed
+there are [various ways to serve static files][static-one-liners].)
 
-[ff-mixed]: https://support.mozilla.org/en-US/kb/mixed-content-blocking-firefox
-[chrome-mixed]: https://support.google.com/chrome/answer/1342714
+
+If you now open an entry that uses the widget in your browser it will use the
+code from your local machine. You need to enable insecure content since the
+Contentful App is served through HTTPS but your widget is not. See here how to
+do it in [Firefox][ff-mixed] and [Chrome][chrome-mixed].
 
 All the code needed to run the widget is contained in `app.html` and
 documented there. If you make any changes to that file and reload the
@@ -96,3 +96,9 @@ contentful-widget update --space-id MY_SPACE_ID --force
 
 You can go on from here by having a look at the
 [Widget API](../../doc/widget-api-frontend.md) documentation.
+
+
+[static-one-liners]: https://gist.github.com/willurd/5720255
+[ff-mixed]: https://support.mozilla.org/en-US/kb/mixed-content-blocking-firefox
+[chrome-mixed]: https://support.google.com/chrome/answer/1342714
+
