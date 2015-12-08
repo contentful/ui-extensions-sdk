@@ -72,6 +72,15 @@ The most convenient way to upload and manage widgets through our API is via the
 npm install -g "git+ssh@github.com:contentful/contentful-widget-cli.git"
 ```
 
+To work with the widget sdk library and the examples, clone this repo and
+install the dependencies:
+
+```bash
+git clone git@github.com:contentful/widget-sdk.git
+cd widget-wdk
+npm install
+```
+
 Including the compiled version of the widget client library is as simple as
 adding the following line to your application.
 
@@ -105,6 +114,9 @@ Futher information can be found in the
 
 
 ## Examples
+
+This repo includes the following example widget implementations. Before you can
+use them, you need to run `npm install` in the repository root.
 
 #### [Basic Rating Dropdown](examples/rating-dropdown)
 
