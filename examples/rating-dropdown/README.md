@@ -47,6 +47,10 @@ The `widget.json` file look like this.
 The file references `app.html` which contains the code loaded by the
 Contentful App.
 
+Checkout the documentation for the [`contentful-widget` CLI
+tool][cf-widget-descriptor] for more information on the `widget.json` files.
+
+[cf-widget-descriptor]: https://github.com/contentful/contentful-widget-cli#descriptor-files
 [getting-token]: https://www.contentful.com/developers/docs/references/authentication/#getting-an-oauth-token
 
 
