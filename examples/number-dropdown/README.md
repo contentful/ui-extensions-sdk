@@ -81,6 +81,9 @@ need to enable insecure content since the Contentful App is
 served through HTTPS but your widget is not. See here how to do it in
 [Firefox][ff-mixed] and [Chrome][chrome-mixed].
 
+[ff-mixed]: https://support.mozilla.org/en-US/kb/mixed-content-blocking-firefox
+[chrome-mixed]: https://support.google.com/chrome/answer/1342714
+
 All the code needed to run the widget is contained in `app.html` and
 documented there. If you make any changes to that file and reload the
 browser page, your changes will be reflected in the widget.
