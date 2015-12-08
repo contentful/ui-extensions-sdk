@@ -53,7 +53,7 @@ $cf-form-input()
     border: 1px solid $gray
     box-shadow: none
     transition: none
-  &[aria-invalid="true"], &.has-error
+  &[aria-invalid="true"], &.cf-has-error
     border-color: $red
   &[type="number"]
     padding-right: 0
@@ -98,7 +98,7 @@ Errors
 Markup:
 <div class="cf-form-field">
   <label>Name</label>
-  <input type="text" aria-invalid="true" class="cf-form-input has-error">
+  <input type="text" aria-invalid="true" class="cf-form-input cf-has-error">
   <div class="cf-field-error">Something went wrong!</div>
 </div>
 
