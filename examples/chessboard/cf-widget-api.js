@@ -1,1 +1,0 @@
-../../dist/cf-widget-api.js
