@@ -1,8 +1,6 @@
 # Translation widget
 
-This custom widget translates text from the default locale to other locales in a space using
-the Yandex translation API.
-
+This widget translates text from the default locale to other locales in a space using the Yandex translation API.
 
 ### Bootstrap example for local development
 

@@ -135,16 +135,13 @@ of an entry and *react to changes*.
 This example integrates the [Alloy rich text editor](http://alloyeditor.com/) to
 edit “Text” fields.
 
-#### Json Editor widget
-* Run `npm install && gulp`
-* This will install and inline all of the dependencies to the `index.html` file in the `/dist` directory
-* This example uses the `srcdoc` property - the widget source file is hosted on Contentful
+#### [JSON Editor](examples/json-editor)
+This widget provides a JSON formatter and validator based on the [Codemirror](http://codemirror.net) library.
 
-#### Translate widget
+It should be used with fields with the type "Object".
 
-* Run `npm install && gulp`
-* This will install and inline all of the dependencies to the `index.html` file in the `/dist` directory
-* This example uses the `srcdoc` property - the widget source file is hosted on Contentful
+#### [Translator](examples/translate)
+This widget translates text from the default locale to other locales in a space using the Yandex translation API.
 
 
 ## Providing Feedback
