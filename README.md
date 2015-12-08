@@ -83,7 +83,7 @@ adding the following line to your application.
 
 If you want to learn how to write your own widgets and see them in
 action, checkout the documentation for the
-[Number Dropdown Widget](./examples/number-dropdown)
+[Rating Dropdown Widget](./examples/rating-dropdown)
 
 [cf-widget-cli]: https://github.com/contentful/contentful-widget-cli
 
@@ -106,7 +106,7 @@ Futher information can be found in the
 
 ## Examples
 
-#### [Basic Number dropdown](examples/number-dropdown)
+#### [Basic Rating Dropdown](examples/rating-dropdown)
 
 Basic widget that helps you *get started* with developing. Uses a dropdown to
 change the value of a number field and makes some CMA requests.
