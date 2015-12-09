@@ -2,7 +2,7 @@
 
 This widget provides a JSON formatter and validator based on the [Codemirror](http://codemirror.net) library.
 
-It should be used with fields with the type "Object".
+It should be used with fields with the type “Object”.
 
 
 ### Bootstrap example for local development
@@ -32,4 +32,3 @@ If you want to inline all dependencies and upload the widget entirely to Content
 ```bash
 contentful-widget update --srcdoc ./dist/index.all.html --space-id <yourSpaceId> --force
 ```
-
