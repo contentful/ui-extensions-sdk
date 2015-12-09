@@ -66,7 +66,7 @@ Examples of entry-level widgets are:
 ## Getting Started
 
 The most convenient way to upload and manage widgets through our API is via the
-[`contenful-widget`][cf-widget-cli] command line tool. You can install it with
+[`contentful-widget`][cf-widget-cli] command line tool. You can install it with
 
 ```bash
 npm install -g "git+ssh@github.com:contentful/contentful-widget-cli.git"
