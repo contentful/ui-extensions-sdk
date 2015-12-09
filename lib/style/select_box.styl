@@ -2,13 +2,13 @@
 Select boxes
 
 Markup:
-select.cfnext-select-box
+select.cf-select-box
   option value
   option more
-select.cfnext-select-box.pseudo-class-hover
+select.cf-select-box.pseudo-class-hover
   option value
   option more
-select.cfnext-select-box(disabled)
+select.cf-select-box(disabled)
   option value
   option more
 input.form-control
@@ -25,16 +25,17 @@ $select-box-reset()
   line-height: normal
   border: 0
   outline: 0
-  appearance: none
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   &::-ms-expand
     display: none
 
-
-$select-box-caret = url("/app/svg/dd-arrow-down.svg")
-$select-box-caret-disabled = url("/app/svg/dd-arrow-down-disabled.svg")
+$select-box-caret = url("http://static.contentful.com/app/svg/dd-arrow-down.svg")
+$select-box-caret-disabled = url("http://static.contentful.com/app/svg/dd-arrow-down-disabled.svg")
 $select-box-hover-gradient = linear-gradient(to bottom, white, #F9F9F9)
 
-.cfnext-select-box
+.cf-select-box
   $select-box-reset()
   $input-dimensions()
   $input-appearance()
@@ -54,7 +55,6 @@ $select-box-hover-gradient = linear-gradient(to bottom, white, #F9F9F9)
     background-image: $select-box-caret, $select-box-hover-gradient
 
   &:disabled
-    // TODO abstract the colors
     background-color: hsl(0, 0%, 93%)
     background-image: $select-box-caret-disabled
     border: 1px solid $colors.light-gray
