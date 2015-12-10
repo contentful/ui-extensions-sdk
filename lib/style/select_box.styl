@@ -2,18 +2,14 @@
 Select boxes
 
 Markup:
-select.cf-select-box
-  option value
-  option more
-select.cf-select-box.pseudo-class-hover
-  option value
-  option more
-select.cf-select-box(disabled)
-  option value
-  option more
-input.form-control
-
-Styleguide 5.2
+<select class="cf-select-box">
+  <option value="value">Value</option>
+  <option value="more">More</option>
+</select>
+<select disabled class="cf-select-box pseudo-class-hover">
+  <option value="value">Value</option>
+  <option value="more">More</option>
+</select>
 */
 
 $select-box-reset()
@@ -62,7 +58,7 @@ $select-box-hover-gradient = linear-gradient(to bottom, white, #F9F9F9)
     cursor: not-allowed;
 
 
-.inline-select
+.cf-inline-select
   background: transparent
   color: inherit
   font-size: inherit
