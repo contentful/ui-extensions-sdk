@@ -14,6 +14,10 @@ docs: build
 	cp ./lib/style/styleguide.css ./dist/styleguide/styleguide.css
 	./node_modules/kss/bin/kss-node --config kss-config.json
 
+build-examples:
+	$(MAKE) -C examples/chessboard build
+	cp -r examples/chessboard/dist/* dist/examples/chessboard
+
 watch:
 	webpack --watch
 

@@ -2,6 +2,8 @@
 
 export CONTENTFUL_MANAGEMENT_ACCESS_TOKEN := $(TOKEN)
 
+GH_PAGES_URL=http://contentful.github.io/widget-sdk/examples/chessboard/
+
 # Move all assets to the 'dist/' directory
 build:
 	mkdir -p dist
@@ -15,6 +17,9 @@ serve: build
 
 update: widget.json
 	contentful-widget update --space-id $(SPACE) --force
+
+update-gh: widget.json
+	contentful-widget update --space-id $(SPACE) --force --src "$(GH_PAGES_URL)"
 
 create: widget.json
 	contentful-widget create --space-id $(SPACE)
