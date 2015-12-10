@@ -11,6 +11,7 @@ build:
 
 docs: build
 	@mkdir -p dist
+	@mkdir -p dist/styleguide
 	cp ./lib/style/styleguide.css ./dist/styleguide/styleguide.css
 	./node_modules/kss/bin/kss-node --config kss-config.json
 
