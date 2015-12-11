@@ -4,7 +4,6 @@
   "version": "0.0.0",
   "description": "",
   "author": "Contentful GmbH",
-  "license": "ISC",
   "dependencies": {
     "alloyeditor": "^0.6.0",
     "babel": "^6.3.13",
