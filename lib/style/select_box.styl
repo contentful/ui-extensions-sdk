@@ -2,11 +2,11 @@
 Select boxes
 
 Markup:
-<select class="cf-select-box">
+<select class="cf-form-input">
   <option value="value">Value</option>
   <option value="more">More</option>
 </select>
-<select disabled class="cf-select-box pseudo-class-hover">
+<select disabled class="cf-form-input">
   <option value="value">Value</option>
   <option value="more">More</option>
 </select>
@@ -23,9 +23,9 @@ $select-box-reset()
   line-height: normal
   border: 0
   outline: 0
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  appearance: none
+  -webkit-appearance: none
+  -moz-appearance: none
   &::-ms-expand
     display: none
 
@@ -33,7 +33,7 @@ $select-box-caret = url("https://static.contentful.com/app/svg/dd-arrow-down.svg
 $select-box-caret-disabled = url("https://static.contentful.com/app/svg/dd-arrow-down-disabled.svg")
 $select-box-hover-gradient = linear-gradient(to bottom, white, #F9F9F9)
 
-.cf-select-box
+select.cf-form-input
   $select-box-reset()
   $input-dimensions()
   $input-appearance()
@@ -57,14 +57,4 @@ $select-box-hover-gradient = linear-gradient(to bottom, white, #F9F9F9)
     background-image: $select-box-caret-disabled
     border: 1px solid $colors.light-gray
     color: hsl(0, 0%, 61%)
-    cursor: not-allowed;
-
-
-.cf-inline-select
-  background: transparent
-  color: inherit
-  font-size: inherit
-  margin: 0
-  margin-top: -2px
-  margin-left: 3px
-  margin-right: 3px
+    cursor: not-allowed
