@@ -25,5 +25,11 @@
     "stylus": "^0.52.4",
     "webpack": "^1.12.2",
     "yaku": "^0.11.4"
+  },
+  "devDependencies": {
+    "css-loader": "^0.23.0",
+    "extract-text-webpack-plugin": "^0.9.1",
+    "style-loader": "^0.13.0",
+    "stylus-loader": "^1.4.2"
   }
 }

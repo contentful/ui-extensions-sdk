@@ -5,9 +5,6 @@ export PATH := ./node_modules/.bin:${PATH}
 # Compile the API from the lib directory into dist/cf-widget-api.js
 build:
 	webpack
-	@echo "Created 'dist/cf-widget-api-js'"
-	@mkdir -p dist
-	./node_modules/stylus/bin/stylus -u nib lib/style/index.styl -o dist/cf-widget-api.css --sourcemap
 
 docs: build
 	@mkdir -p dist/styleguide
