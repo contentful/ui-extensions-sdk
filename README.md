@@ -1,11 +1,15 @@
 # Contentful Widget SDK
 
-The custom widgets API allows you to personalize the Contentful Web
-Application's entry editor, so that you can build plugins that meet your
+The custom widgets API allows you to personalize the [Contentful](https://www.contentful.com)
+Web Application's entry editor, so that you can build plugins that meet your
 specific content editing or content management needs. It operates on top of any
 of our current field types, and gives you the power to manipulate its data
 through an iframe where you can embed custom functionality, styling,
 integrations or workflows.
+
+This SDK overview introduces you to the concept of custom widgets and lists concrete
+usage examples. The actual [widget API documentation](doc/widget-api-frontend.md)
+on the other hand gives you a more abstract and technical overview.
 
 ## Widgets taxonomy and example use cases
 
@@ -34,14 +38,14 @@ of single field widgets are:
 If you need more than a single field, you can try multi-field level widgets.
 Currently we have two approaches for this:
 
-#### Using JSON objects
+##### Using JSON objects
 The first is a simple approach is to use a JSON object field type and construct
 any complex field type that is not provided out of the box by Contentful, along
 with its UI and logic. However, there is a tradeoff when using this approach.
 Data inside of a JSON field cannot be used to query or filter entries in our
 APIs.
 
-#### Using relationships between multiple fields
+##### Using relationships between multiple fields
 This approach involves creating a single field custom widget that can use our
 CMA to perform operations on other fields within the entry.
 Examples of multi-field-level widgets are:
@@ -150,7 +154,7 @@ edit “Text” fields.
 #### [JSON Editor](examples/json-editor)
 This widget provides a JSON formatter and validator based on the [Codemirror](http://codemirror.net) library.
 
-It should be used with fields with the type "Object".
+It should be used with fields with the type “Object”.
 
 #### [Translator](examples/translate)
 This widget translates text from the default locale to other locales in a space using the Yandex translation API.

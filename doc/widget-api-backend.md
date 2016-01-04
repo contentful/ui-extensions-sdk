@@ -1,22 +1,28 @@
-## Abstract
+# Widget Management API Reference
 
-In the previous year Contentful enhanced the editing experience on its UI by adding widgets to the platform. Users had then the chance to customize the appearance and behaviour of a field by choosing which widget would be applied to it. Until now widgets, a combination of JS, HTML and CSS, have been developed in-house which meant that we had a well maintained but quite small widget ecosystem.
+This document describes the [Content Management API](http://docs.contentfulcma.apiary.io)'s
+endpoints which allow to manage custom Widgets in [Contentful](https://www.contentful.com).
+The API allows to create, update, delete and read custom widgets.
 
-As part of the goals for this quarter, the DevExp Team has to enhance the widget system making it possible for third party developers to create and use new widgets. Making this happen is a task that involves both the frontend and the backend. The backend members of the team will have to extend the Contentful API to add support for creation, update, deletion and read of widgets. 
+The API documented here is utilized by the [`contentful-widget`][cf-widget-cli]
+command line tool which offers a more convenient way to manage widgets than using
+the API directly. The widget API documentation for actual widget development can be
+found [here](/doc/widget-api-frontend.md).
 
-## Description
-The Content Management will be extended to accommodate the new endpoints required to manage the Widgets.
+[cf-widget-cli]: https://github.com/contentful/contentful-widget-cli
 
-### API
 
-#### Endpoints
-Path | Method| Payload | Description | Notes
------|-------|---------|-------------|------
-spaces/XYZ/widgets | GET|	None | Returns the widgets for the space.| The returned payload will have the same structure as other collections
-spaces/XYZ/widgets |	POST | A json object |Creates a widget  
-spaces/XYZ/widgets/ABC | PUT	| A json object | If the widget with ID ABC doesn't already exists it will be created with that ID. If the widget already exists the payload will replace the current widget with that ID. 
-spaces/XYZ/widgets/ABC | DELETE	| None | Deletes the widget with ID ABC 
-spaces/XYZ/widgets/ABC | GET | None | Returns the widget with ID ABC |	 
+## API
+
+### Endpoints
+Path                   | Method | Payload       | Description | Notes
+-----------------------|--------|---------------|-------------|------
+spaces/XYZ/widgets     | GET    | None          | Returns the widgets for the space. | The returned payload will have the same structure as other collections
+spaces/XYZ/widgets     | POST   | A json object |Creates a widget
+spaces/XYZ/widgets/ABC | PUT    | A json object | If the widget with ID ABC doesn't already exists it will be created with that ID. If the widget already exists the payload will replace the current widget with that ID.
+spaces/XYZ/widgets/ABC | DELETE | None          | Deletes the widget with ID ABC
+spaces/XYZ/widgets/ABC | GET    | None          | Returns the widget with ID ABC
+
 #### Querying
 To be discussed
 
