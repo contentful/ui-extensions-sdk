@@ -97,6 +97,13 @@ describe('FieldLocale', () => {
             expect(field.getValue()).to.equal(newValue)
           })
         })
+        describe(`without locale provided`, () => {
+          it(`sets the locale's value to the given one`, () => {
+            valueChangedHandler(field.id, undefined, newValue)
+
+            expect(field.getValue()).to.equal(newValue)
+          })
+        })
       })
     })
   })
