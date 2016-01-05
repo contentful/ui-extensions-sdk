@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "prepublish": "make build"
+    "prepublish": "make build",
+    "test": "make test"
   },
   "bugs": {
     "url": "https://github.com/contentful/widget-sdk/issues"
@@ -25,5 +26,14 @@
     "stylus": "^0.52.4",
     "webpack": "^1.12.2",
     "yaku": "^0.11.4"
+  },
+  "devDependencies": {
+    "karma": "^0.13.15",
+    "karma-mocha": "^0.2.1",
+    "karma-chai-plugins": "^0.6.1",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-safari-launcher": "^0.1.1",
+    "karma-slimerjs-launcher": "^0.2.0",
+    "karma-webpack": "^1.7.0"
   }
 }

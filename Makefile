@@ -24,6 +24,9 @@ watch:
 lint:
 	eslint lib/ bin/ test/
 
+test: lint
+	xvfb-run karma start --single-run --browsers SlimerJS --reporters dots
+
 clean:
 	rm -rf dist/*
 

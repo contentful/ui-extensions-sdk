@@ -1,0 +1,13 @@
+{
+  "rules": {
+    "no-new": 0
+  },
+  "env": {
+    "browser": true,
+    "mocha": true
+  },
+  "globals": {
+    "sinon": true,
+    "expect": true
+  }
+}
