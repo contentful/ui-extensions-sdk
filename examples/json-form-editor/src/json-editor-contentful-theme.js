@@ -2,24 +2,17 @@
 
 JSONEditor.defaults.themes.contentful = (function (JSONEditor) {
 
-  return JSONEditor.AbstractTheme.extend({
-    getFormControl: el(function (el, label, input, description) {
-      el.className = 'cf-form-field';
-    }),
+  var PARENT = JSONEditor.AbstractTheme;
+
+  var definition = {
+    getFormControl: 'cf-form-field',
     getIndentedPanel: function () {
-      var el = document.createElement('div');
-      el.className = 'jfe-indented-panel';
-      return el;
+      // No need for _super's .style attributes.
+      return document.createElement('div');
     },
-    getFormInputField: el(function (el, type) {
-      el.className = 'cf-form-input';
-    }),
-    getFormInputDescription: el(function (el, text) {
-      el.className = 'cf-form-hint';
-    }),
-    getFormInputLabel: el(function (el, text) {
-      el.className = 'jfe-label'
-    }),
+    getFormInputField: 'cf-form-input',
+    getFormInputDescription: 'cf-form-hint',
+    getFormInputLabel: 'jfe-label',
     afterInputReady: function (input) {
       input.cfFormField = input.cfFormField || this.closest(input, '.cf-form-field');
     },
@@ -27,19 +20,20 @@ JSONEditor.defaults.themes.contentful = (function (JSONEditor) {
       el.className = text.match(/save/i) ? 'cf-btn-primary' : 'cf-btn-secondary';
     }),
     getHeader: el(function (el, text) {
-      if (text instanceof HTMLElement) {
-        text.className = 'jfe-label'
+      if (!(text instanceof HTMLElement)) {
+        var label = document.createElement('span');
+        label.appendChild(document.createTextNode(text));
+        el.innerHTML = '';
+        el.appendChild(label);
+        text = label;
       }
+      text.className = 'jfe-label jfe-header-label';
       var el2 = document.createElement('div');
       el2.innerHTML = el.innerHTML;
       return el2;
     }),
-    getButtonHolder: el(function (el) {
-      el.className = 'jfe-button-holder';
-    }),
-    getSelectInput: el(function (el, options) {
-      el.className = 'cf-form-input';
-    }),
+    getHeaderButtonHolder: 'jfe-button-holder',
+    getSelectInput: 'cf-form-input',
     getSwitcher: function (options) {
       var el = this.getSelectInput(options);
       el.className += ' jfe-switcher';
@@ -72,11 +66,45 @@ JSONEditor.defaults.themes.contentful = (function (JSONEditor) {
       input.cfFormField.className = input.cfFormField.className.replace(/\s?cf-field-error/g, '');
       input.className = input.className.replace(/\s?cf-has-error/g, '');
     }
-  });
+  };
 
-  function el (fn) {
+  // Replace strings in definition with functions which call _super() and add the
+  // string as a class name.
+  for (var name in definition) {
+    var value = definition[name];
+    if (typeof value === 'string') {
+      definition[name] = elCssClass(value);
+    }
+  }
+  // Make all getters in the definition add a class name to the returned HTMLElement.
+  // E.g. class="jfe-get-error-message" for element returned by getErrorMessage().
+  for (var name in PARENT.prototype) {
+    if (name.substr(0, 3) === 'get') {
+      var cssClass = name
+        .replace(/^get/, 'jfe')
+        .replace(/([A-Z])/g, '-$1')
+        .toLowerCase();
+      var superFn = typeof definition[name] === 'function' ? definition[name] : false;
+      definition[name] = elCssClass(cssClass, superFn);
+    }
+  }
+  return PARENT.extend(definition);
+
+  function elCssClass (value, _super) {
+    return el(function (el) {
+      if (el instanceof HTMLElement) {
+        el.className += (el.className ? ' ' : '' ) + value;
+      }
+    }, _super);
+  }
+
+  function el (fn, _super) {
     return function (el) {
-      var el = this._super.apply(this, arguments);
+      var el = (_super || this._super).apply(this, arguments);
+      if(!_super) {
+        // Reset all class names coming from default theme.
+        el.className = '';
+      }
       var callbackArgs = [el].concat(Array.prototype.slice.call(arguments));
       return fn.apply(this, callbackArgs) || el;
     };

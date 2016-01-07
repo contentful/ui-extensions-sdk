@@ -1,26 +1,26 @@
 var gulp = require('gulp');
 var merge = require('merge-stream');
+var del = require('del');
 var serve = require('gulp-serve');
-var rename = require("gulp-rename");
+var rename = require('gulp-rename');
 var inlinesource = require('gulp-inline-source');
+var stylus = require('gulp-stylus');
 
-var files = [
-  'src/*'
-];
+var src = 'src/**/';
 var dependencies = [
   '../../dist/*',
   'node_modules/json-editor/dist/jsoneditor.js'
 ];
 
-gulp.task('default', ['copy'], function () {
+gulp.task('default', ['build'], function () {
   gulp.start('serve');
 });
 
 // Serve and watch for changes so we don't have to run `gulp` after each change.
-gulp.task('watch', ['copy'], function () {
+gulp.task('watch', ['build'], function () {
   gulp.start('serve');
-  gulp.watch([files, dependencies], function () {
-    gulp.start(['copy']);
+  gulp.watch([src + '*', dependencies], function () {
+    gulp.start(['build']);
   });
 });
 
@@ -30,9 +30,9 @@ gulp.task('serve', serve({
 }));
 
 // Copy required dependencies into dist folder.
-gulp.task('copy', function () {
+gulp.task('build', ['stylus'], function () {
 
-  var filesStream = gulp.src(files)
+  var filesStream = gulp.src(src + '!(*.styl)')
     .pipe(gulp.dest('./dist'));
 
   var depsStream = gulp.src(dependencies)
@@ -41,10 +41,22 @@ gulp.task('copy', function () {
   return merge(filesStream, depsStream);
 });
 
+gulp.task('stylus', function () {
+  return gulp.src(src + '*.styl')
+    .pipe(stylus())
+    .pipe(gulp.dest('./dist'));
+});
+
 // Bundles the whole widget into one file which can be uploaded to Contentful.
-gulp.task('bundle', ['copy'], function () {
-  gulp.src('./dist/index.html')
+gulp.task('bundle', ['build'], function () {
+  return gulp.src('./dist/index.html')
     .pipe(rename('index.min.html'))
     .pipe(inlinesource())
     .pipe(gulp.dest('./dist'));
+});
+
+gulp.task('clean', function () {
+  return del([
+    './dist'
+  ]);
 });

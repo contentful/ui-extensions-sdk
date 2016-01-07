@@ -21,26 +21,30 @@ window.CONTENTFUL_FORM_EDITOR_SCHEMA = {
         "name": {
           "type": "string",
           "description": "First and Last name",
-          "minLength": 4
+          "minLength": 4,
+          "propertyOrder": 10
         },
         "age": {
           "type": "integer",
           "default": 21,
           "minimum": 18,
-          "maximum": 99
+          "maximum": 99,
+          "propertyOrder": 20
         },
         "gender": {
           "type": "string",
           "enum": [
             "male",
             "female"
-          ]
+          ],
+          "propertyOrder": 30
         },
         favorite_color: {
           type: "string",
           format: "color",
           title: "favorite color",
-          default: "#19CD91"
+          default: "#19CD91",
+          "propertyOrder": 40
         }
       }
     },
