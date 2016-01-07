@@ -24,6 +24,7 @@ describe(`Field`, () => {
   describe(`instance`, () => {
     const defaultLocale = 'en-US'
     const localeWithoutValue = 'locale-without-value'
+    const unknownLocale = 'some-unknown-locale'
     const info = {
       id: 'some-field',
       locales: ['en-US', 'it-IT', 'de-DE', localeWithoutValue],
@@ -100,10 +101,9 @@ describe(`Field`, () => {
       })
 
       it(`throws an error if locale is unknown to the field`, () => {
-        const locale = 'some-unknown-locale'
         expect(() => {
-          field.setValue('value', locale)
-        }).to.throw((new UnknownLocaleError(field.id, locale)).message)
+          field.setValue('value', unknownLocale)
+        }).to.throw((new UnknownLocaleError(field.id, unknownLocale)).message)
       })
     })
 
@@ -171,21 +171,31 @@ describe(`Field`, () => {
           return field.onValueChanged(locale, noop)
         })
       })
+
+      it(`throws an error if locale is unknown to the field`, () => {
+        expect(() => {
+          field.onValueChanged(unknownLocale, noop)
+        }).to.throw((new UnknownLocaleError(field.id, unknownLocale)).message)
+      })
     })
 
     describe(`injected channel propagating "valueChanged"`, () => {
       const newValue = 'some new, unused value'
 
-      let valueChangedHandler
+      let valueChangedHandlers
       beforeEach(() => {
-        // The handler registered with channel.addHandler("valueChanged", handler)
-        valueChangedHandler = channelStub.addHandler.args[0][1]
+        valueChangedHandlers = (...handlerArgs) => {
+          channelStub.addHandler.args.forEach((args) => {
+            // Handler registered with channel.addHandler("valueChanged", handler)
+            args[1](...handlerArgs)
+          })
+        }
       })
 
       describe(`targeted at another field's id`, () => {
         it(`does not update the value`, () => {
           const oldValue = field.getValue()
-          valueChangedHandler(`${field.id}-other-id`, defaultLocale, newValue)
+          valueChangedHandlers(`${field.id}-other-id`, defaultLocale, newValue)
 
           expect(oldValue).to.equal(field.getValue())
         })
@@ -193,14 +203,14 @@ describe(`Field`, () => {
       describe(`targeted at the field's id`, () => {
         describe(`for specific locale`, () => {
           it(`sets the locale's value to the given one`, () => {
-            valueChangedHandler(field.id, defaultLocale, newValue)
+            valueChangedHandlers(field.id, defaultLocale, newValue)
 
             expect(field.getValue()).to.equal(newValue)
           })
         })
         describe(`without locale provided`, () => {
           it(`sets all locales' values to the given one`, () => {
-            valueChangedHandler(field.id, undefined, newValue)
+            valueChangedHandlers(field.id, undefined, newValue)
 
             info.locales.forEach((locale) => {
               expect(field.getValue(locale)).to.equal(newValue)
