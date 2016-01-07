@@ -156,6 +156,11 @@ This widget provides a JSON formatter and validator based on the [Codemirror](ht
 
 It should be used with fields with the type “Object”.
 
+#### [JSON Form Editor](examples/json-form-editor)
+This widget integrates the [JSON Editor](https://github.com/jdorn/json-editor)
+library to display an edit form based on a predefined [JSON Schema](https://json-schema.org/).
+Form input gets stored as a JSON object.
+
 #### [Translator](examples/translate)
 This widget translates text from the default locale to other locales in a space using the Yandex translation API.
 

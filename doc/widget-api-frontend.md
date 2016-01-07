@@ -181,6 +181,9 @@ A list of all locales available in the current space.
 The window object provides methods to update the size of iframe the widget is
 contained in. This prevents scrollbars inside the widget.
 
+To prevent a flickering scrollbar during height updates, it is recommended to
+set the widget's `body` to `overflow: hidden;`.
+
 ##### `window.updateHeight()`
 Calculates the body’s `scrollHeight` and sets the containers height to
 this value.

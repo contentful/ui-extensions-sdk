@@ -1,0 +1,26 @@
+body {
+  overflow: hidden;
+}
+
+.jfe-editor-root td {
+  vertical-align: baseline;
+}
+
+.jfe-button-holder {
+  display: inline-block;
+}
+
+.jfe-button-holder button {
+  margin: 0.15em;
+}
+
+.jfe-label {
+  margin-right: 0.5em;
+}
+
+.jfe-indented-panel {
+  margin: 0 0 1em .2em;
+  padding: 0.5em 0 0.5em 1em;
+  border-left: 1px solid rgba(195, 205, 213, 0.6); /* $colors.element-dark */
+  background: linear-gradient( 90deg, rgba(30, 30, 30, 0.025), transparent 90%)
+}
