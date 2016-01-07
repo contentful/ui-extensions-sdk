@@ -21,6 +21,12 @@ Markup:
   <label>Bio</label>
   <textarea class="cf-form-input"></textarea>
 </div>
+<div class="cf-form-field">
+  <select class="cf-form-input">
+    <option value="value">Value</option>
+    <option value="more">More</option>
+  </select>
+</div>
 
 Styleguide 3.1
 */
@@ -31,6 +37,10 @@ Styleguide 3.1
   > label
     display: block
     margin-bottom: $rhythm(0.5)
+
+$select-box-caret = url("https://static.contentful.com/app/svg/dd-arrow-down.svg")
+$select-box-caret-disabled = url("https://static.contentful.com/app/svg/dd-arrow-down-disabled.svg")
+$select-box-hover-gradient = linear-gradient(to bottom, white, #F9F9F9)
 
 $cf-form-input()
   $sans-font()
@@ -64,6 +74,32 @@ $cf-form-input()
     height: auto
   textarea&, &[type="url"], &[type="email"], &[type="text"], &[type="password"]
     width: 100%
+  select&
+    background: none
+    appearance: none
+    -webkit-appearance: none
+    -moz-appearance: none
+    &::-ms-expand
+      display: none
+    background-image:    $select-box-caret, none
+    background-position: center right 0.8em
+    background-repeat:   no-repeat, repeat
+    background-size:     0.7em, 100%
+    padding-left: 1ex
+    padding-right: 8ex
+    text-overflow: ellipsis
+    overflow: hidden
+    white-space: nowrap
+
+    &:hover:not(:disabled)
+      background-image: $select-box-caret, $select-box-hover-gradient
+
+    &:focus
+      border: 1px solid $gray
+
+    &:disabled
+      background-image: $select-box-caret-disabled
+      cursor: not-allowed
 
 .cf-form-input
   $cf-form-input()
@@ -193,7 +229,7 @@ Markup:
   </div>
 </form>
 
-Styleguide 3.6
+Styleguide 3.5
 
 */
 

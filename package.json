@@ -22,6 +22,7 @@
     "babel-loader": "^6.0.1",
     "babel-preset-es2015": "^6.0.15",
     "es6-promise": "^3.0.2",
+    "kss": "^2.3.1",
     "nib": "^1.1.0",
     "stylus": "^0.52.4",
     "webpack": "^1.12.2",
