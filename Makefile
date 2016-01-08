@@ -1,6 +1,6 @@
 export PATH := ./node_modules/.bin:${PATH}
 
-.PHONY: build build-pages lint clean
+.PHONY: build build-pages lint clean test
 
 # Compile the API from the lib directory into dist/cf-widget-api.js and dist/cf-widget-api.css
 build:
@@ -25,8 +25,10 @@ watch:
 lint:
 	eslint lib/ bin/ test/
 
-test: lint
+test:
 	xvfb-run karma start --single-run --browsers SlimerJS --reporters dots
+
+ci: test lint
 
 clean:
 	rm -rf dist/*
