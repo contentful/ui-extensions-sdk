@@ -69,16 +69,16 @@ describe(`Field`, () => {
         })
       })
 
-      describe(`for locale set to a locale without value`, () => {
-        it(`should return undefined`, () => {
+      describe(`with locale set to a locale without value`, () => {
+        it(`returns undefined`, () => {
           expect(field.getValue(localeWithoutValue)).to.equal(undefined)
         })
       })
 
-      describe(`for locale set to a unknown locale`, () => {
-        it(`should return undefined`, () => {
-          expect(field.getValue('unknown-locale')).to.equal(undefined)
-        })
+      it(`throws UnknownLocaleError when locale is unknown to the field`, () => {
+        expect(() => {
+          field.getValue(unknownLocale)
+        }).to.throw((new UnknownLocaleError(field.id, unknownLocale)).message)
       })
 
       info.locales.forEach((locale) => {
@@ -134,6 +134,12 @@ describe(`Field`, () => {
     describe(`.removeValue(locale)`, () => {
       info.locales.forEach((locale) => {
         describeRemoveValue(`with locale set to "${locale}"`, locale)
+      })
+
+      it(`throws an error if locale is unknown to the field`, () => {
+        expect(() => {
+          field.removeValue(unknownLocale)
+        }).to.throw((new UnknownLocaleError(field.id, unknownLocale)).message)
       })
     })
 

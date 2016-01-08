@@ -107,7 +107,8 @@ In addition to [`widget.field`](#widgetfield), a widget can also control the
 values of all other fields in the current entry in a similar way. The main
 difference here is that all operations on an `entry.fields` field accept an
 optional `locale` argument which falls back to the space's default locale (see
-[`widget.locales`](#widgetlocales)).
+[`widget.locales`](#widgetlocales)). Providing an unknown locale throws an
+exception.
 
 * `field.id: string`
 * `field.locales: Array<string>`
