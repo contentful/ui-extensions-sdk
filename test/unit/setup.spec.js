@@ -7,10 +7,6 @@ describe(`setup(apiCreator)`, () => {
   })
 
   describe(`returned "Contentful widget" object`, () => {
-    it(`has a .init()`, () => {
-      expect(cfWidget.init).to.be.a('function')
-    })
-
     describe(`.init(callback)`, () => {
       it(`is a function`, () => {
         expect(cfWidget.init).to.be.a('function')

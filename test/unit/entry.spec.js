@@ -1,5 +1,4 @@
 import createEntry from '../../lib/api/entry'
-import Field from '../../lib/api/field'
 import {
   noop,
   describeAttachHandlerMember
@@ -23,14 +22,20 @@ describe(`createEntry()`, () => {
         values: {}
       }
     ]
+    const defaultLocale = 'en-US'
 
     let channelStub
+    let FieldSpy
     let entry
     beforeEach(() => {
+      FieldSpy = sinon.spy()
+      createEntry.__Rewire__('Field', FieldSpy)
+
       channelStub = {
         addHandler: sinon.spy()
       }
-      entry = createEntry(channelStub, entryData, fieldInfo, 'en-US')
+
+      entry = createEntry(channelStub, entryData, fieldInfo, defaultLocale)
     })
 
     it(`subscribed to injected Channel's "sysChanged"`, () => {
@@ -39,11 +44,18 @@ describe(`createEntry()`, () => {
     })
 
     describe(`.fields[id]`, () => {
-      it(`is a Field with its .id==id for each constructor given fieldInfo`, () => {
-        fieldInfo.forEach((info) => {
-          const field = entry.fields[info.id]
-          expect(field).to.be.instanceof(Field)
-          expect(field.id).to.equal(info.id)
+      it(`exists for each constructor given field info`, () => {
+        const fieldIds = fieldInfo.map((info) => info.id)
+        expect(Object.getOwnPropertyNames(entry.fields)).to.deep.equal(fieldIds)
+      })
+      it(`got instantiated with its related constructor given field info`, () => {
+        Object.getOwnPropertyNames(entry.fields).forEach((fieldId) => {
+          const info = fieldInfo.find((info) => info.id === fieldId)
+          const field = entry.fields[fieldId]
+          const fieldInstantiationCall =
+            FieldSpy.withArgs(channelStub, info, defaultLocale).firstCall
+
+          expect(fieldInstantiationCall).to.have.been.calledOn(field)
         })
       })
     })
