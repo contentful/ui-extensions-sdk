@@ -1,19 +1,20 @@
 // https://github.com/jdorn/json-editor/blob/master/examples/advanced.html
 // TODO: Make this configurable on Data Type level.
+/*eslint quotes: [2, "double"]*/
 window.CONTENTFUL_FORM_EDITOR_SCHEMA = {
-  title: "Person",
-  oneOf: [
+  "title": "Person",
+  "oneOf": [
     {
-      $ref: "#/definitions/basicperson",
-      title: "Basic Person"
+      "$ref": "#/definitions/basicperson",
+      "title": "Basic Person"
     },
     {
-      $ref: "#/definitions/person",
-      title: "Complex Person"
+      "$ref": "#/definitions/person",
+      "title": "Complex Person"
     }
   ],
-  definitions: {
-    basicperson: {
+  "definitions": {
+    "basicperson": {
       "title": "Person",
       "type": "object",
       "id": "person",
@@ -39,16 +40,16 @@ window.CONTENTFUL_FORM_EDITOR_SCHEMA = {
           ],
           "propertyOrder": 30
         },
-        favorite_color: {
-          type: "string",
-          format: "color",
-          title: "favorite color",
-          default: "#19CD91",
+        "favorite_color": {
+          "type": "string",
+          "format": "color",
+          "title": "favorite color",
+          "default": "#19CD91",
           "propertyOrder": 40
         }
       }
     },
-    person: {
+    "person": {
       "$ref": "#/definitions/basicperson",
       "properties": {
         "location": {
