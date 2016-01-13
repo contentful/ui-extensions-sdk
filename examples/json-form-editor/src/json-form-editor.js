@@ -16,7 +16,7 @@ function initContentfulJsonFormEditor (cfApi) {
     required_by_default: true,
     startval: cfApi.field.getValue(),
     disable_collapse: true,
-    disable_properties: false,
+    disable_properties: true,
     show_errors: 'always'
   });
   editor.on('change', inputChanged);
