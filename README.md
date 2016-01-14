@@ -81,7 +81,7 @@ install the dependencies:
 
 ```bash
 git clone git@github.com:contentful/widget-sdk.git
-cd widget-wdk
+cd widget-sdk
 npm install
 ```
 
