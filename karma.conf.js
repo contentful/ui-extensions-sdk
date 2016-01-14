@@ -6,6 +6,7 @@ assert.equal(webpackBabelLoaderConfig.loader, 'babel')
 
 webpackConfig.entry = {}
 webpackConfig.output = {}
+webpackConfig.devtool = 'inline-source-map' // Gives us correct stack traces.
 webpackBabelLoaderConfig.query.plugins.push('babel-plugin-rewire')
 
 module.exports = function (config) {
@@ -18,8 +19,8 @@ module.exports = function (config) {
     exclude: [
     ],
     preprocessors: {
-      './lib/api/index.js': ['webpack'],
-      './test/unit/**/*.spec.js': ['webpack']
+      './lib/api/index.js': ['webpack', 'sourcemap'],
+      './test/unit/**/*.spec.js': ['webpack', 'sourcemap'],
     },
     webpack: webpackConfig,
     reporters: ['dots'],
