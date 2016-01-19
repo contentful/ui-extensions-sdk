@@ -1,0 +1,7 @@
+{
+  "id": "translateAllContent",
+  "name": "Translate All Content",
+  "src": "http://localhost:3000/",
+  "sidebar": true,
+  "fieldTypes": ["Symbol", "Text"]
+}
