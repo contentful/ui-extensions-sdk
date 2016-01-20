@@ -1,0 +1,6 @@
+{
+  "id": "customLinkedEntryEditor",
+  "name": "Custom Linked Entry Editor",
+  "src": "http://localhost:3000",
+  "fieldTypes": ["Entry"]
+}
