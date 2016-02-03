@@ -77,7 +77,7 @@ and see the widget rendered.
 To simplify development you can host your widget locally.
 
 ~~~bash
-contentful-widget update --space-id MY_SPACE_ID --force --src "http://localhost:3000/app.html"
+contentful-widget update --space-id MY_SPACE_ID --force --src "http://localhost:8000/app.html"
 python -m SimpleHTTPServer 8000
 ~~~
 
