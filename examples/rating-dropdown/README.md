@@ -20,8 +20,12 @@ Before you get started, please make sure you have the
 
 ## Uploading the widget to a space
 
-The first step is to register the widget with the Contentful API to
-make the Contentful App aware of its existence.
+The first step is to have two files which define the widget in a local folder:
+* [`widget.json`](./widget.json) containing meta data (more info on the format of this file [here](https://github.com/contentful/contentful-widget-cli#descriptor-files))
+* [`app.html`](./app.html) containing markup and logic
+
+The second step is to register the widget with the Contentful API to
+make the Contentful App aware of its existence. 
 
 ~~~bash
 export CONTENTFUL_MANAGEMENT_ACCESS_TOKEN=abcdefg
@@ -73,8 +77,8 @@ and see the widget rendered.
 To simplify development you can host your widget locally.
 
 ~~~bash
-contentful-widget update --space-id MY_SPACE_ID --force --src "http://localhost:3000/app.html"
-python2 -m SimpleHTTPServer 8000
+contentful-widget update --space-id MY_SPACE_ID --force --src "http://localhost:8000/app.html"
+python -m SimpleHTTPServer 8000
 ~~~
 
 This will update the widget and tell the Contentful App to load the widget from
