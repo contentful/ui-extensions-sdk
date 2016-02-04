@@ -21,7 +21,7 @@ Before you get started, please make sure you have the
 ## Uploading the widget to a space
 
 The first step is to have two files which define the widget in a local folder:
-* [`widget.json`](./widget.json) containing meta data
+* [`widget.json`](./widget.json) containing meta data (more info on the format of this file [here](https://github.com/contentful/contentful-widget-cli#descriptor-files))
 * [`app.html`](./app.html) containing markup and logic
 
 The second step is to register the widget with the Contentful API to
