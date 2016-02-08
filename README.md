@@ -1,11 +1,13 @@
-# Contentful Widget SDK
+# Contentful Widget SDK Developer Preview
 
 The custom widgets API allows you to personalize the [Contentful](https://www.contentful.com)
 Web Application's entry editor, so that you can build plugins that meet your
 specific content editing or content management needs. It operates on top of any
 of our current field types, and gives you the power to manipulate its data
 through an iframe where you can embed custom functionality, styling,
-integrations or workflows.
+integrations or workflows. 
+
+The Widgets API is still in development and therefore it is not encouraged to use it to build business critical solutions as it is likely to change. The purpose of making it available early is to provide early access to upcoming features and make our roadmap more transparent to users, as well as to collect early feedback before releasing, and commiting to support, a brand new API.
 
 This SDK overview introduces you to the concept of custom widgets and lists concrete
 usage examples. The actual [widget API documentation](doc/widget-api-frontend.md)
@@ -180,7 +182,7 @@ API, specific functionality details) and use cases (concert examples of problems
 that your organization could solve using custom widgets).
 
 
-## End of Preview Program
+## End of Developer Preview Program
 
 The custom widgets preview program will end once we achieve a stable and
 reliable specification definition. At this point, participants of the program
@@ -189,5 +191,3 @@ on when the feature will be made available to the general public. At this time,
 it would be advisable for participants to start thinking into how to incorporate
 this feature in their production environment since this version of the
 specification will be officially supported.
-
-Of course, participants in the program are free to stop participating at any time.
