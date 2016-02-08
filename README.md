@@ -75,7 +75,7 @@ The most convenient way to upload and manage widgets through our API is via the
 [`contentful-widget`][cf-widget-cli] command line tool. You can install it with
 
 ```bash
-npm install -g "git+ssh@github.com:contentful/contentful-widget-cli.git"
+npm install -g contentful-widget-cli
 ```
 
 To work with the widget sdk library and the examples, clone this repo and
