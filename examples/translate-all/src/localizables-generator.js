@@ -25,7 +25,7 @@ export default class NonLocalizedLocalizablesGenerator {
 
     for (let locale of field.locales) {
       const value = field.getValue(locale)
-      if (value === undefined && value !== srcValue) {
+      if (value === undefined) {
         yield {
           locale,
           srcLocale,

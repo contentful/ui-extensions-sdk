@@ -1,4 +1,5 @@
 import yandexTranslator from './yandex-translator'
+import {arrayLocalizableToTextLocalizables, localeToLanguage} from './helpers.js'
 
 export default class Localizer {
   constructor (options) {
@@ -17,13 +18,18 @@ export default class Localizer {
   _handleLocalizable (localizable) {
     const {srcValue, valueType} = localizable
     if (
-      // TODO: Handle "Array" as well.
       ['Symbol', 'Text'].indexOf(valueType) > -1 &&
       typeof srcValue === 'string'
     ) {
       return this._translateLocale(localizable)
+    } else if (
+      valueType === 'Array' && Array.isArray(srcValue)
+    ) {
+      const textLocalizables = arrayLocalizableToTextLocalizables(localizable)
+      return this.localize(textLocalizables)
+    } else {
+      return this._handleUntranslatable(localizable)
     }
-    return this._handleUntranslatable(localizable)
   }
 
   _translateLocale (localizable) {
@@ -54,8 +60,4 @@ export default class Localizer {
     localize(srcValue)
     return Promise.resolve(srcValue)
   }
-}
-
-function localeToLanguage (locale) {
-  return locale.match(/^[a-z]+/)[0]
 }

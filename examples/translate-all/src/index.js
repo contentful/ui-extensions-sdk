@@ -27,12 +27,10 @@ function initWidget (cfApi) {
   })
 
   translateButton.addEventListener('click', () => {
-    const localizer = newLocalizer()
-
     translateButton.classList.add('cf-is-loading')
     translateButton.disabled = true
 
-    localizer.localize(localesGenerator.generateLocalizables())
+    newLocalizer().localize(localesGenerator.generateLocalizables())
       .then(releaseButton)
       .catch(releaseButton)
 
