@@ -1,7 +1,9 @@
 import yandexTranslator from './yandex-translator'
 
 export default class Localizer {
-  constructor () {}
+  constructor (options) {
+    this._options = options
+  }
 
   localize (localizables) {
     const promises = []
@@ -21,7 +23,7 @@ export default class Localizer {
     ) {
       return this._translateLocale(localizable)
     }
-    return this._copyLocale(localizable)
+    return this._handleUntranslatable(localizable)
   }
 
   _translateLocale (localizable) {
@@ -35,9 +37,17 @@ export default class Localizer {
           localize(result)
           return result
         } else {
-          return this._copyLocale(localizable)
+          return this._handleUntranslatable(localizable)
         }
       })
+  }
+
+  _handleUntranslatable (localizable) {
+    if (this._options.copyUntranslatableLocales) {
+      return this._copyLocale(localizable)
+    } else {
+      return Promise.resolve()
+    }
   }
 
   _copyLocale ({srcValue, localize}) {

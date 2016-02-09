@@ -3,19 +3,18 @@
  * Displays a “Translate all content” button in the sidebar.
  */
 
-import 'babel-polyfill'
-
 import Localizer from './localizer'
 import NonLocalizedLocalizablesGenerator from './localizables-generator'
+
+const $ = document.querySelector.bind(document)
 
 window.contentfulWidget.init(initWidget)
 
 function initWidget (cfApi) {
-  cfApi.window.updateHeight()
+  cfApi.window.startAutoResizer()
 
   const contentTypeId = cfApi.entry.getSys().contentType.sys.id
-  const translateButton = document.getElementsByTagName('button')[0]
-  const translator = new Localizer()
+  const translateButton = $('#trall-btn-translate')
   let localesGenerator
 
   cfApi.space.getContentType(contentTypeId).then(function (contentType) {
@@ -28,10 +27,12 @@ function initWidget (cfApi) {
   })
 
   translateButton.addEventListener('click', () => {
+    const localizer = newLocalizer()
+
     translateButton.classList.add('cf-is-loading')
     translateButton.disabled = true
 
-    translator.localize(localesGenerator.generateLocalizables())
+    localizer.localize(localesGenerator.generateLocalizables())
       .then(releaseButton)
       .catch(releaseButton)
 
@@ -40,6 +41,11 @@ function initWidget (cfApi) {
       translateButton.disabled = false
     }
   })
+
+  function newLocalizer () {
+    const copyUntranslatableLocales = $('#trall-copy-untranslatable').checked
+    return new Localizer({copyUntranslatableLocales})
+  }
 }
 
 function getFieldTypesMapFromContentType (contentType) {

@@ -1,3 +1,5 @@
+import 'babel-polyfill'
+
 export default class NonLocalizedLocalizablesGenerator {
   constructor (entry, fieldTypes, defaultLocale) {
     this.entry = entry
