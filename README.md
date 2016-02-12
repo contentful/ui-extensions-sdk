@@ -5,12 +5,12 @@ Web Application's entry editor, so that you can build plugins that meet your
 specific content editing or content management needs. It operates on top of any
 of our current field types, and gives you the power to manipulate its data
 through an iframe where you can embed custom functionality, styling,
-integrations or workflows. 
+integrations or workflows.
 
 The Widgets API is still in development and therefore it is not encouraged to use it to build business critical solutions as it is likely to change. The purpose of making it available early is to provide early access to upcoming features and make our roadmap more transparent to users, as well as to collect early feedback before releasing, and commiting to support, a brand new API.
 
 This SDK overview introduces you to the concept of custom widgets and lists concrete
-usage examples. The actual [widget API documentation](doc/widget-api-frontend.md)
+usage examples. The actual [widget API documentation][api-ref]
 on the other hand gives you a more abstract and technical overview.
 
 ## Widgets taxonomy and example use cases
@@ -94,13 +94,13 @@ adding the following line to your application.
 <script src="https://contentful.github.io/widget-sdk/cf-widget-api.js"></script>
 ```
 
-*As of now we do not distribute this repository through npm.*
-
 If you want to learn how to write your own widgets and see them in
 action, checkout the documentation for the
-[Rating Dropdown Widget](./examples/rating-dropdown)
+[Rating Dropdown Widget](./examples/rating-dropdown). To get an overview over
+the API have a look at the [reference documentation][api-ref]
 
 [cf-widget-cli]: https://github.com/contentful/contentful-widget-cli
+[api-ref]: doc/widget-api-frontend.md
 
 
 ## Using Contentful Styles
