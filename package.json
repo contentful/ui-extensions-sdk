@@ -1,8 +1,7 @@
 {
-  "name": "contentful-widgets",
+  "name": "contentful-widget-sdk",
   "author": "Contentful GmbH",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.1.0",
   "scripts": {
     "prepublish": "make build",
     "test": "make test"

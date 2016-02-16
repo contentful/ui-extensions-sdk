@@ -18,18 +18,26 @@ communicate with the Contentful Management App.
 
 ## Inclusion into your project
 
-You will need to include the `widget-api` library in your HTML5 app like
+You will need to include the `contentful-widget-api` library in your HTML5 app like
 so:
 ~~~html
 <script src="https://contentful.github.io/widget-sdk/cf-widget-api.js"></script>
 ~~~
 
-You can also build the library by running `make build`
+The Contentful Widget SDK including the JavaScript API is also distributed as an
+[NPM package][package].
+
+~~~bash
+npm install --save contentful-widget-sdk
+~~~
+
+[package]: https://www.npmjs.com/package/contentful-widget-sdk
 
 ## Initialization
 
-The library exposes the global `window.contentfulWidget.init()` method.
-This is the main entry point for all widget related code.
+The `widget-api` library exposes the `contentfulWidget.init()` method.
+This is the main entry point for all widget related code. If you require the
+script from the web without any module system the entry point is available as
 
 ~~~js
 window.contentfulWidget.init(function (widget) {
@@ -37,6 +45,18 @@ window.contentfulWidget.init(function (widget) {
   widget.field.setValue("Hello world!")
 })
 ~~~
+
+If you use a CommonJS packager for the browser (e.g. [Browserify][]) you need
+to require the Widget API.
+
+~~~js
+var contentfulWidget = require('contentful-widget-sdk')
+contentfulWidget.init(function (api) {
+  /* ... */
+})
+~~~
+
+[Browserify]: http://browserify.org/
 
 ## `widget.field`
 
