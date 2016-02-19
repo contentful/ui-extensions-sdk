@@ -1,6 +1,6 @@
 # Contentful Widget SDK Developer Preview
 
-The custom widgets API allows you to personalize the [Contentful](https://www.contentful.com)
+The custom widgets API allows you to extend the [Contentful](https://www.contentful.com)
 Web Application's entry editor, so that you can build plugins that meet your
 specific content editing or content management needs. It operates on top of any
 of our current field types, and gives you the power to manipulate its data
