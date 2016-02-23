@@ -5,6 +5,10 @@
 
 'use strict';
 
+var cfWidget = window.contentfulWidget;
+
+cfWidget.init(initContentfulJsonFormEditor);
+
 function initContentfulJsonFormEditor (cfApi) {
   cfApi.window.startAutoResizer();
 
@@ -34,9 +38,7 @@ function initContentfulJsonFormEditor (cfApi) {
       cfApi.field.setValue(currentJSON);
     }
   }, 150);
-};
-
-window.contentfulWidget.init(initContentfulJsonFormEditor);
+}
 
 function createElement (elem, opts, parent) {
   var e = document.createElement(elem);
@@ -48,7 +50,7 @@ function createElement (elem, opts, parent) {
   parent = parent || document.body;
   parent.appendChild(e);
   return e;
-};
+}
 
 // http://davidwalsh.name/javascript-debounce-function
 function debounce (func, wait) {

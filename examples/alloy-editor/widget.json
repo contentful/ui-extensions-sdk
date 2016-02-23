@@ -1,6 +1,6 @@
 {
   "id": "alloy",
   "name": "Rich Text Editor",
-  "src": "http://localhost:3000",
+  "src": "http://localhost:3000/",
   "fieldTypes": ["Text"]
 }
