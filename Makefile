@@ -37,6 +37,4 @@ build-pages: gh-pages build-with-docs
 	$(MAKE) -C gh-pages
 
 gh-pages:
-	git clone git@github.com:contentful/widget-sdk $@
-	cd $@
-	git checkout $@
+	git clone git@github.com:contentful/widget-sdk --branch $@ $@
