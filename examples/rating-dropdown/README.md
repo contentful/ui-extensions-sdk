@@ -82,7 +82,7 @@ python -m SimpleHTTPServer 8000
 ~~~
 
 This will update the widget and tell the Contentful App to load the widget from
-`http://localhost:3000/app.html` instead of loading it from the API. It will
+`http://localhost:8000/app.html` instead of loading it from the API. It will
 also run a static server to serve that file. (If you don’t have Python installed
 there are [various ways to serve static files][static-one-liners].)
 

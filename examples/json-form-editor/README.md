@@ -22,7 +22,7 @@ export CONTENTFUL_MANAGEMENT_ACCESS_TOKEN=<contentfulManagementApiToken>
 contentful-widget create --space-id <yourSpaceId>
 ```
 
-Serve on `http://localhost:3000`:
+Serve on `http://localhost:3000/`:
 ```bash
 gulp watch
 ```
