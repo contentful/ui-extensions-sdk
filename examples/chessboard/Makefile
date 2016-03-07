@@ -2,7 +2,7 @@
 
 export CONTENTFUL_MANAGEMENT_ACCESS_TOKEN := $(TOKEN)
 
-GH_PAGES_URL=http://contentful.github.io/widget-sdk/examples/chessboard/
+GH_PAGES_URL=https://contentful.github.io/widget-sdk/examples/chessboard/
 
 # Move all assets to the 'dist/' directory
 build:
