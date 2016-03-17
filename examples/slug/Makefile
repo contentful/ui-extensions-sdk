@@ -1,6 +1,6 @@
 # Put your token and space id here.
-TOKEN=0aa7f136416f88c78ad84edf2f82a0e8a294d9cc9f6c9c809689cf525a647957
-SPACE=c2qz3rkoqmmx
+TOKEN=f00b4r
+SPACE=my5p4c3
 
 export PATH := ../../bin:${PATH}
 export CONTENTFUL_MANAGEMENT_ACCESS_TOKEN := $(TOKEN)
