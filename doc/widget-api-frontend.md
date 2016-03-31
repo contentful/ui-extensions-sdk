@@ -121,12 +121,14 @@ entry returned by the [Contentful Management API](https://github.com/contentful/
 Calls the callback with metadata every time that metadata changes. The returned
 function can be called to stop listening to changes.
 
-### `entry.fields[name]: Field`
+### `entry.fields[id]: Field`
 
 In addition to [`widget.field`](#widgetfield), a widget can also control the
-values of all other fields in the current entry in a similar way. The main
-difference here is that all operations on an `entry.fields` field accept an
-optional `locale` argument which falls back to the space's default locale (see
+values of all other fields in the current entry. Fields are referenced by their ID.
+
+The `Field` API methods provide a similar interface to `widget.field`. In
+addition, the methods accept an optional locale to change the value for a
+specific locale. It defaults to the space the space’s default locale (see
 [`widget.locales`](#widgetlocales)). Providing an unknown locale throws an
 exception.
 
