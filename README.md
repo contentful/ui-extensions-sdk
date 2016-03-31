@@ -1,13 +1,15 @@
 # Contentful Widget SDK Developer Preview
 
-The custom widgets API allows you to extend the [Contentful](https://www.contentful.com)
+The UI Extensions API allows you to extend the [Contentful](https://www.contentful.com)
 Web Application's entry editor, so that you can build plugins that meet your
 specific content editing or content management needs. It operates on top of any
 of our current field types, and gives you the power to manipulate its data
 through an iframe where you can embed custom functionality, styling,
 integrations or workflows.
 
-The Widgets API is still in development and therefore it is not encouraged to use it to build business critical solutions as it is likely to change. The purpose of making it available early is to provide early access to upcoming features and make our roadmap more transparent to users, as well as to collect early feedback before releasing, and commiting to support, a brand new API.
+The UI Extensions API is stable but remains under active development so please reach out to us if you intend to use it for business critical operations. The purpose of making it available early is to provide early access to upcoming features and make our roadmap more transparent to users, as well as to collect early feedback before releasing, and commiting to support, a brand new API. 
+
+Every Contentful user has access to this feature, it is enabled by default, and all requirements to start using it are simply to follow the instructions contained here.
 
 This SDK overview introduces you to the concept of custom widgets and lists concrete
 usage examples. The actual [widget API documentation][api-ref]
@@ -184,10 +186,4 @@ that your organization could solve using custom widgets).
 
 ## End of Developer Preview Program
 
-The custom widgets preview program will end once we achieve a stable and
-reliable specification definition. At this point, participants of the program
-will be notified of an internal stable release as well as provided an estimate
-on when the feature will be made available to the general public. At this time,
-it would be advisable for participants to start thinking into how to incorporate
-this feature in their production environment since this version of the
-specification will be officially supported.
+The final release of the UI Extensions API is scheduled for end of Q2 2016.
