@@ -51,7 +51,7 @@ to require the Widget API.
 
 ~~~js
 var contentfulWidget = require('contentful-widget-sdk')
-contentfulWidget.init(function (api) {
+contentfulWidget.init(function (widget) {
   /* ... */
 })
 ~~~
