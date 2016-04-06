@@ -4,3 +4,4 @@ node_modules
 gh-pages
 dist
 custom.mk
+.idea
