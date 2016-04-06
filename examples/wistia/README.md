@@ -18,19 +18,19 @@ The wistia widget loads videos from a [project](http://wistia.com/doc/projects) 
 
 ### Installation
 
-1. Clone the repository or download the repo as a [zip](https://github.com/contentful/widget-sdk/archive/master.zip)
+- Clone the repository or download the repo as a [zip](https://github.com/contentful/widget-sdk/archive/master.zip)
 ```bash
 git clone git@github.com:contentful/widget-sdk.git
 ```
-2. Navigate into widget folder
+- Navigate into widget folder
 ```bash
 cd examples/wistia
 ```
-3. Install dependencies
+- Install dependencies
 ```bash
 npm install
 ```
-4. Create a configuration file with your credentials for Contentful
+- Create a configuration file with your credentials for Contentful
 ```bash
 touch .env
 echo "$SPACE_ID={YOUR-SPACE-ID}" >> .env
@@ -41,31 +41,31 @@ and replace space ID, management token and port accordingly.
 
 ### Upload the widget to Contentful
 
-1. Compile the bundle (index.html) which we are going to upload to our space
+- Compile the bundle (index.html) which we are going to upload to our space
 ```bash
 webpack
 ```
-2. Create the widget in your space on Contentful
+- Create the widget in your space on Contentful
 ```bash
 npm run widget:create
 ```
 
 ### Update the widget
 
-1. Make sure to update your bundle with webpack
-2. Update the widget in your space on Contentful
+- Make sure to update your bundle with webpack
+- Update the widget in your space on Contentful
 ```bash
 npm run widget:update
 ```
 
 ### Local development
 
-1. Start a local server (replace your port if needed)
+- Start a local server (replace your port if needed)
 ```bash
 python -m SimpleHTTPServer 3030
 ```
-2. Tell contentful to render the widget from your local machine
-```bash
-npm run widget:dev
-```
-3. Open app.contentful.com, create a ContentType and assign the widget to a supported field
+- Tell contentful to render the widget from your local machine
+    ```bash
+    npm run widget:dev
+    ```
+- Open app.contentful.com, create a ContentType and assign the widget to a supported field
