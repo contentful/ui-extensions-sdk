@@ -65,7 +65,7 @@ npm run widget:update
 python -m SimpleHTTPServer 3030
 ```
 - Tell contentful to render the widget from your local machine
-    ```bash
-    npm run widget:dev
-    ```
+```bash
+npm run widget:dev
+```
 - Open app.contentful.com, create a ContentType and assign the widget to a supported field
