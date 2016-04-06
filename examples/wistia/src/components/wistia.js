@@ -84,7 +84,5 @@ export default class Wistia {
     if (this.widgetApi) {
       this.widgetApi.field.setValue(embedURL);
     }
-
-
   }
 }
