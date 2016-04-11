@@ -31,8 +31,7 @@ function initWidget (cfApi) {
     translateButton.disabled = true
 
     newLocalizer().localize(localesGenerator.generateLocalizables())
-      .then(releaseButton)
-      .catch(releaseButton)
+      .then(releaseButton, releaseButton)
 
     function releaseButton () {
       translateButton.classList.remove('cf-is-loading')

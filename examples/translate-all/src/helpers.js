@@ -9,7 +9,6 @@ export function arrayLocalizableToTextLocalizables (
       srcValue: value,
       valueType: 'Text',
       localize: (newValue) => {
-        console.log('srcValue was', srcValue, 'set', i, 'new value is', localizedValues)
         localizedValues[i] = newValue
         localize(localizedValues)
       }
