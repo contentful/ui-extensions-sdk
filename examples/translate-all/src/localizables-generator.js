@@ -25,11 +25,11 @@ export default class NonLocalizedLocalizablesGenerator {
 
     for (let locale of field.locales) {
       const value = field.getValue(locale)
-      if (value === undefined) {
+      // TODO: Remove one of those once we made up our mind what to return.
+      if (value === undefined || value === null) {
         yield {
           locale,
           srcLocale,
-          srcValue,
           valueType,
           localize: (value) => field.setValue(value, locale)
         }

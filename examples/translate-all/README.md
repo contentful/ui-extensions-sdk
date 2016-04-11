@@ -6,8 +6,15 @@ other locales enabled in the space, using the
 
 ## Bootstrap example for local development
 
-In the directory containing this README, run
+In the *widget-sdk* directory root, build the widget API with
 ```bash
+npm install
+make
+```
+
+Navigate to the *translate-all* directory containing this README and install
+```bash
+cd examples/translate-all
 npm install
 ```
 
