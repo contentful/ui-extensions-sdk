@@ -1,6 +1,6 @@
 html, body {
-    height: 500px;
-    overflow: scroll;
+    height: 440px;
+    overflow: hidden;
 }
 .preloader, .error {
     display: none;
@@ -34,4 +34,7 @@ html, body {
     margin: 0;
     padding: 0;
 }
-
+.panel-body {
+    max-height: 400px;
+    overflow: scroll;
+}

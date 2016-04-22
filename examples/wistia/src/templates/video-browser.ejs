@@ -26,7 +26,7 @@
                             <!-- Actual video player -->
                             <iframe src="https://fast.wistia.net/embed/iframe/<%= item.hashed_id %>"></iframe>
                             <div class="caption">
-                                <h5><%= item.name %></h5>
+                                <h5><%= item.name.length > 35 ? item.name.substr(0, 35) + '...' : item.name %></h5>
                                 <!-- Button to pass selected video to component. -->
                                 <a class="btn btn-primary" role="button" data-video-id="<%= item.hashed_id %>"><span
                                             class="nonactive">Use video</span><span class="active">Active</span></a>

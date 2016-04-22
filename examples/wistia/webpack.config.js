@@ -1,4 +1,3 @@
-var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
 
@@ -7,7 +6,7 @@ module.exports = {
   output: {
     path: __dirname + '/dist/',
     publicPath: '',
-    filename: "bundle.js"
+    filename: 'bundle.js'
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -18,7 +17,7 @@ module.exports = {
       filename: 'index.html',
     }),
     new webpack.ProvidePlugin({
-      _: "underscore"
+      _: 'underscore'
     })
   ],
   module: {
@@ -26,14 +25,14 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "babel",
+        loader: 'babel',
         query: {
           presets: ['es2015']
         }
       },
       {
         test: /\.css$/,
-        loader: "style-loader!css-loader"
+        loader: 'style-loader!css-loader'
       }
     ],
 

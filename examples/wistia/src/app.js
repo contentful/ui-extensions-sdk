@@ -1,7 +1,7 @@
 import Wistia from './components/wistia';
 
 // Require css so we can bundle it with webpack.
-require('./css/cf-widget-api.css');
+require('../../../dist/cf-widget-api.css');
 require('./css/styles.css');
 
 // Id of project in Wistia.
