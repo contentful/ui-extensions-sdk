@@ -9,7 +9,7 @@ field containing the position of the pieces.
 In the directory containing this README, run the following commands.
 
 ~~~bash
-make create TOKEN=my-cf-token SPACE=my-space-id
+make create CONTENTFUL_MANAGEMENT_ACCESS_TOKEN=my-cf-token SPACE=my-space-id
 make build serve
 ~~~
 
