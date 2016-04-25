@@ -22,7 +22,13 @@ contentful-widget create --space-id <yourSpaceId>
 
 Serve on http://:::3000
 ```bash
-gulp
+npm start
+```
+
+You can also provide a value for `PORT` environment variable to start the server on a custom port.
+If you do this, remember to update the `src` property in `widget.json`.
+```bash
+PORT=<custom port here> npm start
 ```
 
 Your widget will now be accessible via the Contentful web app.
@@ -34,4 +40,3 @@ If you want to inline all dependencies and upload the widget entirely to Content
 ```bash
 contentful-widget create --srcdoc ./dist/index.all.html --space-id <yourSpaceId> --force
 ```
-
