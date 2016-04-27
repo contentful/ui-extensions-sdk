@@ -5,7 +5,10 @@ var inlinesource = require('gulp-inline-source');
 gulp.task('default', ['copy', 'serve', 'bundle']);
 
 // Serve dist folder on port 3000 for local development
-gulp.task('serve', serve('dist'));
+gulp.task('serve', serve({
+  root: 'dist',
+  port: process.env.PORT || 3000
+}));
 
 // Copy required dependencies into dist folder
 gulp.task('copy', function() {
