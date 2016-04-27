@@ -168,6 +168,11 @@ Form input gets stored as a JSON object.
 #### [Translator](examples/translate)
 This widget translates text from the default locale to other locales in a space using the Yandex translation API.
 
+#### [Wistia Videos](examples/wistia)
+The wistia widget loads videos from a [project](http://wistia.com/doc/projects) on [wistia](http://wistia.com/) into the Contentful UI. A video can be easily previewed, selected and then stored as part of your content. In this example widget we store the video embed URL in Contentful so the video can be embedded easily. 
+
+![Screenshot of Wistia widget](http://contentful.github.io/widget-sdk/assets/wistia.gif) 
+
 
 ## Providing Feedback
 

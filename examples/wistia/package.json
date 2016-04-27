@@ -4,12 +4,11 @@
   "description": "Vistia  Widget for contentful",
   "main": "./src/app.js",
   "scripts": {
-    "env": "env",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "widget:create": "./node_modules/.bin/better-npm-run widget:create",
-    "widget:update": "./node_modules/.bin/better-npm-run widget:update",
-    "widget:dev": "./node_modules/.bin/better-npm-run widget:dev",
-    "widget:serve": "./node_modules/.bin/better-npm-run widget:serve"
+    "bundle": "webpack",
+    "widget:create": "better-npm-run widget:create",
+    "widget:update": "better-npm-run widget:update",
+    "widget:dev": "better-npm-run widget:dev"
   },
   "betterScripts": {
     "widget:create": {
@@ -20,9 +19,6 @@
     },
     "widget:dev": {
       "command": "export CONTENTFUL_MANAGEMENT_ACCESS_TOKEN=$CONTENTFUL_MANAGEMENT_ACCESS_TOKEN && contentful-widget update --space-id $SPACE_ID --force --src \"http://localhost:3030/index.html\""
-    },
-    "widget:serve": {
-      "command": "webpack-dev-server --open --inline --colors --progress --display-error-details --display-cached --port $PORT --content-base ./dist"
     }
   },
   "author": "frederik@contentful.com",
@@ -37,10 +33,8 @@
     "css-loader": "^0.23.1",
     "ejs-loader": "^0.2.1",
     "html-webpack-plugin": "^2.10.0",
-    "lodash": "^4.6.1",
     "style-loader": "^0.13.1",
-    "webpack": "^1.12.14",
-    "webpack-dev-server": "^1.14.1"
+    "webpack": "^1.12.14"
   },
   "dependencies": {
     "axios": "^0.9.1"

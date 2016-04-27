@@ -33,9 +33,9 @@ npm install
 - Create a configuration file with your credentials for Contentful
 ```bash
 touch .env
-echo "$SPACE_ID={YOUR-SPACE-ID}" >> .env
-echo "$CONTENTFUL_MANAGEMENT_ACCESS_TOKEN={YOUR-MANAGEMENT-TOKEN}" >> .env
-echo "$PORT={YOUR-PORT}" >> .env
+echo "SPACE_ID={YOUR-SPACE-ID}" >> .env
+echo "CONTENTFUL_MANAGEMENT_ACCESS_TOKEN={YOUR-MANAGEMENT-TOKEN}" >> .env
+
 ```
 and replace space ID, management token and port accordingly.
 
@@ -43,7 +43,7 @@ and replace space ID, management token and port accordingly.
 
 - Compile the bundle (index.html) which we are going to upload to our space
 ```bash
-webpack
+npm run bundle
 ```
 - Create the widget in your space on Contentful
 ```bash
@@ -55,6 +55,7 @@ npm run widget:create
 - Make sure to update your bundle with webpack
 - Update the widget in your space on Contentful
 ```bash
+npm run bundle
 npm run widget:update
 ```
 
@@ -66,6 +67,7 @@ python -m SimpleHTTPServer 3030
 ```
 - Tell contentful to render the widget from your local machine
 ```bash
+npm run bundle
 npm run widget:dev
 ```
-- Open app.contentful.com, create a ContentType and assign the widget to a supported field
+- Open app.contentful.com, create a ContentType and assign the widget to a supported field.

@@ -23,10 +23,6 @@ html, body {
 .thumbnail .btn .nonactive, .thumbnail .btn.active .active {
     display: inline;
 }
- {
-    display: none;
-}
-
 .thumbnail .btn.active {
     pointer-events: none;
 }

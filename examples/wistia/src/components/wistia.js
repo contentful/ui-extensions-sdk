@@ -20,7 +20,7 @@ export default class Wistia {
       .then(response => {
         this.preloaderEl.style.display = 'none';
 
-        var ejsTemplate = require('ejs!./../templates/video-browser.ejs');
+        const ejsTemplate = require('ejs!./../templates/video-browser.ejs');
 
         this.videoBrowserEl.innerHTML = ejsTemplate({'title': 'Wistia Widget', 'data': response.data});
 
@@ -30,7 +30,7 @@ export default class Wistia {
         this.inputEl.value = this.widgetApi.field.getValue();
 
         // TODO (floelhoeffel): Is this a save assumption to access DOM here?
-        let thumbnailEls = document.querySelectorAll('.thumbnail .btn');
+        const thumbnailEls = document.querySelectorAll('.thumbnail .btn');
 
         for (let i = 0; i < thumbnailEls.length; i++) {
           thumbnailEls[i].addEventListener('click', this.onThumbnailClick.bind(this));
@@ -46,12 +46,12 @@ export default class Wistia {
   /**
    * Calls the callback every time the value of the field is changed by some external event
    * (e.g. when multiple editors are working on the same entry).
+   * @param val The newly changed value.
    */
-  onValueChanged() {
+  onValueChanged(val) {
 
-    if (this.widgetApi && this.inputEl) {
-      console.log(this.widgetApi.field.getValue());
-      this.inputEl.value = this.widgetApi.field.getValue();
+    if (this.inputEl) {
+      this.inputEl.value = val;
     }
   }
 
@@ -73,7 +73,7 @@ export default class Wistia {
     }
     event.currentTarget.classList.add('active');
 
-    let embedURL = '//fast.wistia.net/embed/iframe/' + event.currentTarget.dataset.videoId;
+    const embedURL = '//fast.wistia.net/embed/iframe/' + event.currentTarget.dataset.videoId;
 
     // Show value in view.
     this.inputEl.value = embedURL;
