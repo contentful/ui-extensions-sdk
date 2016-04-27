@@ -2,16 +2,16 @@ import { init } from '../../lib/api'
 
 const AlloyEditor = window.AlloyEditor
 
-init((api) => {
+init((widget) => {
   let currentValue
 
-  api.window.updateHeight(200)
-  api.window.startAutoResizer()
+  widget.window.updateHeight(200)
+  widget.window.startAutoResizer()
 
   const editor = AlloyEditor.editable('content')._editor
-  editor.setData(api.field.getValue())
+  editor.setData(widget.field.getValue())
 
-  api.field.onValueChanged((value) => {
+  widget.field.onValueChanged((value) => {
     if (value !== currentValue) {
       currentValue = value
       editor.setData(value)
@@ -23,7 +23,7 @@ init((api) => {
 
     if (currentValue !== value) {
       currentValue = value
-      api.field.setValue(value)
+      widget.field.setValue(value)
     }
   })
 })
