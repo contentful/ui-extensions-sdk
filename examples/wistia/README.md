@@ -70,4 +70,9 @@ python -m SimpleHTTPServer 3030
 npm run bundle
 npm run widget:dev
 ```
-- Open app.contentful.com, create a ContentType and assign the widget to a supported field.
+
+### Using the widget in the Contentful App
+
+Next, we will enable the widget in the Contentful App for a “Short text” field so that you can see it in action.
+
+In your space, choose any Content Type with a “Short text” field or create a new one. Then open the “Settings” dialog for a field and switch to the appearance tab. A widget with the name “Wistia video widget” should be visible at the end of the list. (Note that you need to reload the app after you uploaded a widget.) Select the widget from the list and save the Content Type. Finally you can open an entry for that Content Type and see the widget rendered.
