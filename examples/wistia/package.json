@@ -12,13 +12,13 @@
   },
   "betterScripts": {
     "widget:create": {
-      "command": "export CONTENTFUL_MANAGEMENT_ACCESS_TOKEN=$CONTENTFUL_MANAGEMENT_ACCESS_TOKEN && contentful-widget create --space-id $SPACE_ID"
+      "command": "contentful-widget create --space-id $SPACE_ID"
     },
     "widget:update": {
-      "command": "export CONTENTFUL_MANAGEMENT_ACCESS_TOKEN=$CONTENTFUL_MANAGEMENT_ACCESS_TOKEN && contentful-widget update --space-id $SPACE_ID --force"
+      "command": "contentful-widget update --space-id $SPACE_ID --force"
     },
     "widget:dev": {
-      "command": "export CONTENTFUL_MANAGEMENT_ACCESS_TOKEN=$CONTENTFUL_MANAGEMENT_ACCESS_TOKEN && contentful-widget update --space-id $SPACE_ID --force --src 'http://localhost:3030/index.html'"
+      "command": "contentful-widget update --space-id $SPACE_ID --force --src 'http://localhost:3030/index.html'"
     }
   },
   "author": "frederik@contentful.com",
