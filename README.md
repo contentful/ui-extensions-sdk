@@ -180,7 +180,7 @@ sensitive information needs to be discussed, then the conversation would
 temporarily be handled via Zendesk.
 
 We are mostly interested in technical details (custom widgets management, SDK,
-API, specific functionality details) and use cases (concert examples of problems
+API, specific functionality details) and use cases (concrete examples of problems
 that your organization could solve using custom widgets).
 
 
