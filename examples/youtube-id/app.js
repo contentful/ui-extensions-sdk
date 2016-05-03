@@ -1,24 +1,24 @@
-require('../../lib')
+/* global $ */
+import { init } from '../../lib/api'
 
-window.addEventListener('cfWidgetReady', function (ev) {
-  setup(ev.detail)
-});
+init((widget) => {
+  const $code = $('code')
 
-function setup (api) {
-  window.api = api
-  api.field.addObserver(function (value) {
-    $('code').text(value || '');
+  widget.field.onValueChanged(function (value) {
+    $code.text(value || '')
   })
+
   $('button').on('click', function () {
-    $('code').text('');
-    api.field.setValue(null)
+    $code.text('')
+    widget.field.setValue(null)
   })
+
   $('input').on('input', function (ev) {
-    var value = ev.target.value
-    var match = value.match(/youtube\.com\/watch\?v=(\w+)/)
+    const match = ev.target.value.match(/youtube\.com\/watch\?v=(\w+)/)
+
     if (match) {
-      api.field.setValue(match[1])
-      $('code').text(match[1])
+      widget.field.setValue(match[1])
+      $code.text(match[1])
     }
   })
-}
+})
