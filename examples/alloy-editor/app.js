@@ -5,7 +5,6 @@ const AlloyEditor = window.AlloyEditor
 init((widget) => {
   let currentValue
 
-  widget.window.updateHeight(200)
   widget.window.startAutoResizer()
 
   const editor = AlloyEditor.editable('content')._editor
