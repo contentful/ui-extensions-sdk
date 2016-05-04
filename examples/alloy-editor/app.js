@@ -1,14 +1,16 @@
-import widget from '../../lib/api'
+import { init } from '../../lib/api'
 
-let AlloyEditor = window.AlloyEditor
-widget.init((api) => {
-  api.window.updateHeight(200)
-  api.window.startAutoResizer()
-  let editor = AlloyEditor.editable('content')._editor
+const AlloyEditor = window.AlloyEditor
+
+init((widget) => {
   let currentValue
-  editor.setData(api.field.getValue())
 
-  api.field.onValueChanged((value) => {
+  widget.window.startAutoResizer()
+
+  const editor = AlloyEditor.editable('content')._editor
+  editor.setData(widget.field.getValue())
+
+  widget.field.onValueChanged((value) => {
     if (value !== currentValue) {
       currentValue = value
       editor.setData(value)
@@ -16,10 +18,11 @@ widget.init((api) => {
   })
 
   editor.on('change', () => {
-    var value = editor.getData()
+    const value = editor.getData()
+
     if (currentValue !== value) {
       currentValue = value
-      api.field.setValue(value)
+      widget.field.setValue(value)
     }
   })
 })
