@@ -2,7 +2,7 @@ html, body {
     height: 440px;
     overflow: hidden;
 }
-.preloader, .error {
+.preloader, .error, .thumbnails {
     display: none;
 }
 .thumbnail iframe {

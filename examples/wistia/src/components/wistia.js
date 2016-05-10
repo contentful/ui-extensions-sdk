@@ -1,88 +1,79 @@
-export default class Wistia {
+import axios from 'axios';
 
-  constructor() {
-    this.videoBrowserEl = document.querySelector('.videoBrowser');
-    this.errorEl = document.querySelector('.error');
-    this.preloaderEl = document.querySelector('.preloader');
-    this.widgetApi = null;
-    this.axios = require('axios');
-  }
+export default function (widget, projectId, url) {
 
-  getVideos(projectId, url) {
-    if (!this.widgetApi) {
-      return;
-    }
-    this.axios.get(url, {
-        params: {
-          project_id: projectId
-        }
-      })
-      .then(response => {
-        this.preloaderEl.style.display = 'none';
+  // DOM elements.
+  const containerEl = document.querySelector('.thumbnails-container');
+  const thumbnailsEl = document.querySelector('.thumbnail-items-container');
+  const errorEl = document.querySelector('.error');
+  const preloaderEl = document.querySelector('.preloader');
+  const inputEl = document.getElementById('wistia-video-id');
+  let activeThumbnailEl;
 
-        const ejsTemplate = require('ejs!./../templates/video-browser.ejs');
+  widget.field.onValueChanged(onValueChanged);
 
-        this.videoBrowserEl.innerHTML = ejsTemplate({'title': 'Wistia Widget', 'data': response.data});
+  // Resize iframe in Contenful UI.
+  widget.window.updateHeight();
 
-        this.inputEl = document.getElementById('wistia-url');
+  axios.get(url, {
+      params: {
+        project_id: projectId
+      }
+    })
+    .then(response => {
+      preloaderEl.style.display = 'none';
+      containerEl.style.display = 'block';
 
-        // Pass value from Contentful to input element.
-        this.inputEl.value = this.widgetApi.field.getValue();
+      const ejsTemplate = require('ejs!./../templates/video-browser.ejs');
 
-        // TODO (floelhoeffel): Is this a save assumption to access DOM here?
-        const thumbnailEls = document.querySelectorAll('.thumbnail .btn');
-
-        for (let i = 0; i < thumbnailEls.length; i++) {
-          thumbnailEls[i].addEventListener('click', this.onThumbnailClick.bind(this));
-        }
-      })
-      .catch(response => {
-        this.preloaderEl.style.display = 'none';
-        this.errorEl.style.display = 'block';
-        console.error(response);
+      thumbnailsEl.innerHTML = ejsTemplate({
+        'data': response.data
       });
-  }
+
+      // Pass value from Contentful to input element.
+      inputEl.value = widget.field.getValue();
+
+      const thumbnailEls = document.querySelectorAll('.thumbnail .btn');
+
+      for (let i = 0; i < thumbnailEls.length; i++) {
+        thumbnailEls[i].addEventListener('click', onThumbnailClick);
+        if (inputEl.value && thumbnailEls[i].dataset.videoId == inputEl.value) {
+          thumbnailEls[i].classList.add('active');
+        }
+      }
+    })
+    .catch(response => {
+      preloaderEl.style.display = 'none';
+      errorEl.style.display = 'block';
+      console.error(response);
+    });
 
   /**
    * Calls the callback every time the value of the field is changed by some external event
    * (e.g. when multiple editors are working on the same entry).
    * @param val The newly changed value.
    */
-  onValueChanged(val) {
-
-    if (this.inputEl) {
-      this.inputEl.value = val;
-    }
+  function onValueChanged(val) {
+    inputEl.value = val;
   }
 
-  setWidgetAPI(widget) {
-    this.widgetApi = widget;
-
-    this.widgetApi.field.onValueChanged(this.onValueChanged.bind(this));
-
-    // Resize iframe in Contenful UI.
-    this.widgetApi.window.updateHeight();
-  }
-
-  onThumbnailClick(event) {
-    if (!this.inputEl) {
-      return;
-    }
-    if (this.activeThumbnailEl) {
-      this.activeThumbnailEl.classList.remove('active');
+  function onThumbnailClick(event) {
+    if (activeThumbnailEl) {
+      activeThumbnailEl.classList.remove('active');
     }
     event.currentTarget.classList.add('active');
 
-    const embedURL = '//fast.wistia.net/embed/iframe/' + event.currentTarget.dataset.videoId;
+    const embedId = event.currentTarget.dataset.videoId;
 
     // Show value in view.
-    this.inputEl.value = embedURL;
+    inputEl.value = embedId;
 
-    this.activeThumbnailEl = event.currentTarget;
+    activeThumbnailEl = event.currentTarget;
 
-    // Send value to entry in Contentful.
-    if (this.widgetApi) {
-      this.widgetApi.field.setValue(embedURL);
-    }
+    widget.field.setValue(embedId);
   }
 }
+
+
+
+
