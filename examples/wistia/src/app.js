@@ -2,11 +2,6 @@ import Wistia from './components/wistia';
 import '../../../dist/cf-widget-api.css';
 import './css/styles.css';
 
-
-// Require css so we can bundle it with webpack.
-// require('../../../dist/cf-widget-api.css');
-// require('./css/styles.css');*/
-
 // Id of project in Wistia.
 const WISTIA_PROJECT_ID = 'on2x2ho05v';
 // URL to wistia's api including our read-only API key.
