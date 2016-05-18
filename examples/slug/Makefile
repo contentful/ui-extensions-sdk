@@ -1,21 +1,19 @@
-# Put your token and space id here.
-TOKEN=f00b4r
-SPACE=my5p4c3
+# Uncomment the lines below after adding your data
+# export CONTENTFUL_MANAGEMENT_ACCESS_TOKEN=<your token>
+# export SPACE=<id of space you want to install the widget for>
 
-export PATH := ../../bin:${PATH}
-export CONTENTFUL_MANAGEMENT_ACCESS_TOKEN := $(TOKEN)
+BIN=./node_modules/.bin
 
 build: index.built.html
 
 # Inject all javascript files into 'index.html' to produce 'index.built.html'
-index.built.html: index.html app.js
+index.built.html: app.js index.html
 	cp index.html $@
 	echo "<script>" >> $@
-	uglifyjs cf-widget-api.js>> $@
+	$(BIN)/browserify -d -t [ babelify --presets [ es2015 ] ] --entry $<  >> $@
 	echo "</script>" >> $@
-	echo "<script>" >> $@
-	uglifyjs app.js>> $@
-	echo "</script>" >> $@
+
+.PHONY: build index.built.html
 
 create: widget.json index.built.html
 	contentful-widget create --space-id ${SPACE}
