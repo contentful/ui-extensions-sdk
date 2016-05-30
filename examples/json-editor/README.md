@@ -1,5 +1,7 @@
 # JSON Editor widget
 
+![json-editor-ok](http://contentful.github.io/widget-sdk/assets/json-editor.png)
+
 This widget provides a JSON formatter and validator based on the [Codemirror](http://codemirror.net) library.
 
 It should be used with fields with the type “Object”.
