@@ -1,6 +1,8 @@
 Alloy Editor Widget
 -------------------
 
+![alloy-editor](http://contentful.github.io/widget-sdk/assets/alloy-editor.png)
+
 This widgets uses the [Alloy Text Editor][alloy] to edit text fields.
 
 * Install dependencies with `npm install`
