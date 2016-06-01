@@ -1,5 +1,7 @@
 # Getting Started with Contentful Widgets
 
+![rating-dropdown](http://contentful.github.io/widget-sdk/assets/rating-dropdown.png)
+
 This guide will walk you through uploading, using, and making changes to
 your first widget.
 
@@ -25,7 +27,7 @@ The first step is to have two files which define the widget in a local folder:
 * [`app.html`](./app.html) containing markup and logic
 
 The second step is to register the widget with the Contentful API to
-make the Contentful App aware of its existence. 
+make the Contentful App aware of its existence.
 
 ~~~bash
 export CONTENTFUL_MANAGEMENT_ACCESS_TOKEN=abcdefg
@@ -109,4 +111,3 @@ You can go on from here by having a look at the
 [static-one-liners]: https://gist.github.com/willurd/5720255
 [ff-mixed]: https://support.mozilla.org/en-US/kb/mixed-content-blocking-firefox
 [chrome-mixed]: https://support.google.com/chrome/answer/1342714
-
