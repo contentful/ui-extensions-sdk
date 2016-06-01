@@ -7,7 +7,7 @@ of our current field types, and gives you the power to manipulate its data
 through an iframe where you can embed custom functionality, styling,
 integrations or workflows.
 
-The UI Extensions API is stable but remains under active development so please reach out to us if you intend to use it for business critical operations. The purpose of making it available early is to provide early access to upcoming features and make our roadmap more transparent to users, as well as to collect early feedback before releasing, and commiting to support, a brand new API. 
+The UI Extensions API is stable but remains under active development so please reach out to us if you intend to use it for business critical operations. The purpose of making it available early is to provide early access to upcoming features and make our roadmap more transparent to users, as well as to collect early feedback before releasing, and commiting to support, a brand new API.
 
 Every Contentful user has access to this feature, it is enabled by default, and all requirements to start using it are simply to follow the instructions contained here.
 
@@ -128,6 +128,8 @@ use them, you need to run `npm install` in the repository root.
 
 #### [Basic Rating Dropdown](examples/rating-dropdown)
 
+![rating-dropdown](http://contentful.github.io/widget-sdk/assets/rating-dropdown.png)
+
 Basic widget that helps you *get started* with developing. Uses a dropdown to
 change the value of a number field and makes some CMA requests.
 
@@ -142,6 +144,8 @@ editors open the same entry moves will be synced between them.
 
 #### [Slug Generator](examples/slug)
 
+![slug-widget](http://contentful.github.io/widget-sdk/assets/slug-widget.png)
+
 This widget will automatically generate its values from an entries title field.
 For example typing “Hello World” into the title field will set the widgets input
 field to “hello-world”. It will also check the uniquness of the slug across a
@@ -152,27 +156,44 @@ of an entry and *react to changes*.
 
 #### [Rich Text Editor](examples/alloy-editor)
 
+![alloy-editor](http://contentful.github.io/widget-sdk/assets/alloy-editor.png)
+
 This example integrates the [Alloy rich text editor](http://alloyeditor.com/) to
 edit “Text” fields.
 
 #### [JSON Editor](examples/json-editor)
+
+![json-editor-ok](http://contentful.github.io/widget-sdk/assets/json-editor.png)
+
 This widget provides a JSON formatter and validator based on the [Codemirror](http://codemirror.net) library.
 
 It should be used with fields with the type “Object”.
 
 #### [JSON Form Editor](examples/json-form-editor)
+
+![json-form-editor](http://contentful.github.io/widget-sdk/assets/json-form-editor.png)
+
 This widget integrates the [JSON Editor](https://github.com/jdorn/json-editor)
 library to display an edit form based on a predefined [JSON Schema](https://json-schema.org/).
 Form input gets stored as a JSON object.
 
 #### [Translator](examples/translate)
+
+![translate-widget](http://contentful.github.io/widget-sdk/assets/translate-widget.png)
+
 This widget translates text from the default locale to other locales in a space using the Yandex translation API.
 
 #### [Wistia Videos](examples/wistia)
-The wistia widget loads videos from a [project](http://wistia.com/doc/projects) on [wistia](http://wistia.com/) into the Contentful UI. A video can be easily previewed, selected and then stored as part of your content. In this example widget we store the video embed URL in Contentful so the video can be embedded easily. 
 
-![Screenshot of Wistia widget](http://contentful.github.io/widget-sdk/assets/wistia.gif) 
+![Screenshot of Wistia widget](http://contentful.github.io/widget-sdk/assets/wistia.gif)
 
+The wistia widget loads videos from a [project](http://wistia.com/doc/projects) on [wistia](http://wistia.com/) into the Contentful UI. A video can be easily previewed, selected and then stored as part of your content. In this example widget we store the video embed URL in Contentful so the video can be embedded easily.
+
+#### [YouTube ID](examples/youtube-id)
+
+![youtube-id](http://contentful.github.io/widget-sdk/assets/youtube-id.png)
+
+This widget extracts the video id from a valid YouTube URI.
 
 ## Providing Feedback
 
