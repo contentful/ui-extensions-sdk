@@ -84,7 +84,7 @@ To work with the widget sdk library and the examples, clone this repo and
 install the dependencies:
 
 ```bash
-git clone git@github.com:contentful/widget-sdk.git
+git clone https://github.com/contentful/widget-sdk.git
 cd widget-sdk
 npm install
 ```
