@@ -6,6 +6,7 @@ communicate with the Contentful Management App.
 ### Table of Contents
 * [Inclusion into your project](#inclusion-into-your-project)
 * [Initialization](#initialization)
+* [`widget.contentType`](#widgetcontenttype)
 * [`widget.field`](#widgetfield)
 * [`widget.entry`](#widgetentry)
   * [`entry.fields[name]`](#entryfieldsname-field)
@@ -58,6 +59,11 @@ contentfulWidget.init(function (widget) {
 
 [Browserify]: http://browserify.org/
 
+## `widget.contentType`
+
+This API gives you access to data about the content type and the entry.
+It has the shape as described under "content type properties" in our [api documentation](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/content-types).
+
 ## `widget.field`
 
 This API gives you access to the value and metadata of the field the widget is
@@ -92,12 +98,25 @@ has been acknowledged. The type of the value must match the expected field type.
 For example, if the widget is attached to a “Symbol” field you must pass a
 string.
 
+##### `widget.field.removeValue(value): Promise<void>`
+Removes the value for the field and locale. A subsequent call to `getValue()` for the field would yield `undefined`.
+
+##### `widget.field.setInvalid(Boolean): undefined`
+Communicates to the Contentful web application if the field is in a valid state or not.
+This impacts the styling applied to the field container.
+
 ##### `widget.field.onValueChanged(cb): function`
 Calls the callback every time the value of the field is changed by some external
 event (e.g. when multiple editors are working on the same entry). It will not be
 called after `setValue()` is called.
 
 The method returns a function that can be called to stop listening to changes.
+
+##### `widget.field.onIsDisabledChanged(cb): function`
+Calls the callback when the disabled status of the field changes.
+A boolean indicating whether the field is disabled or not is passed to the callback.
+
+The method returns a function that can be called to stop listerning to changes.
 
 ##### `widget.field.id: string`
 The ID of a field is defined in an entry’s content type. Yields `"title"` in the
@@ -107,6 +126,10 @@ example.
 The current locale of a field the widget is attached to. Yields `"en_US"` in the
 example.
 
+##### `widget.field.type: string`
+Holds the type of the field the widget is attached to.
+The field type can be one of the many described
+[in our api documentation](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/content-types).
 
 ## `widget.entry`
 
@@ -115,7 +138,8 @@ entry and to get the entry's metadata.
 
 ##### `entry.getSys(): object`
 Returns metadata for an entry. The value coincides with the `sys` value of an
-entry returned by the [Contentful Management API](https://github.com/contentful/contentful-management.js#entry-properties)
+entry returned by the `v0.8.x` of the
+[Contentful Management API](https://github.com/contentful/contentful-management.js/tree/legacy#entry-properties).
 
 ##### `entry.onSysChanged(cb): function`
 Calls the callback with metadata every time that metadata changes. The returned
@@ -138,6 +162,7 @@ exception.
 * `field.setValue(value, locale?): Promise<void>`
 * `field.removeValue(locale?): Promise<void>`
 * `field.onValueChanged(locale?, cb): function`
+* `field.onIsDisabledChanged(locale?, cb): function`
 
 #### Example
 If the entry has a “title” field, we can transform it to upper case with
@@ -151,10 +176,10 @@ titleField.setValue(oldTitle.toUpperCase())
 ## `widget.space`
 
 The `space` object exposes methods that allow the widget to read and manipulate a
-wide range of objects in the space. Its API mirrors that of the
+wide range of objects in the space. Its API mirrors `v0.8.x` of the
 [`contentful-management` library][cma-js], with a few differences.
 
-[cma-js]: https://github.com/contentful/contentful-management.js
+[cma-js]: https://github.com/contentful/contentful-management.js/tree/legacy
 
 ### Content Types
 
@@ -179,6 +204,7 @@ respectively.
 * `space.archiveEntry(data)`
 * `space.unarchiveEntry(data)`
 * `space.deleteEntry(data)`
+* `space.getPublishedEntries(query)`
 
 ### Assets
 

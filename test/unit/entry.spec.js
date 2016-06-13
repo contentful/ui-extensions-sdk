@@ -5,8 +5,8 @@ import {
 } from '../helpers'
 import {find} from 'lodash'
 
-describe(`createEntry()`, () => {
-  describe(`returned "entry" object`, () => {
+describe('createEntry()', () => {
+  describe('returned "entry" object', () => {
     const entryData = {sys: {}}
     const fieldInfo = [
       {
@@ -39,40 +39,50 @@ describe(`createEntry()`, () => {
       entry = createEntry(channelStub, entryData, fieldInfo, defaultLocale)
     })
 
-    it(`subscribed to injected Channel's "sysChanged"`, () => {
+    it('subscribed to injected Channel\'s "sysChanged"', () => {
       const spy = channelStub.addHandler
       expect(spy).to.have.been.calledWithExactly('sysChanged', sinon.match.func)
     })
 
-    describe(`.fields[id]`, () => {
-      it(`exists for each constructor given field info`, () => {
+    describe('.fields[id]', () => {
+      it('exists for each constructor given field info', () => {
         const fieldIds = fieldInfo.map((info) => info.id)
         expect(Object.getOwnPropertyNames(entry.fields)).to.deep.equal(fieldIds)
       })
-      it(`got instantiated with its related constructor given field info`, () => {
+      it('got instantiated with its related constructor given field info', () => {
         Object.getOwnPropertyNames(entry.fields).forEach((fieldId) => {
           const info = find(fieldInfo, (info) => info.id === fieldId)
           const field = entry.fields[fieldId]
           const fieldInstantiationCall =
-            FieldSpy.withArgs(channelStub, info, defaultLocale).firstCall
+                FieldSpy.withArgs(channelStub, info, defaultLocale).firstCall
 
           expect(fieldInstantiationCall).to.have.been.calledOn(field)
         })
       })
     })
 
-    describe(`.getSys()`, () => {
-      it(`returns entryData.sys given to constructor`, () => {
+    describe('.getSys()', () => {
+      it('returns entryData.sys given to constructor', () => {
         expect(entry.getSys()).to.equal(entryData.sys)
       })
     })
 
-    describeAttachHandlerMember(`.onSysChanged(handler)`, () => {
-      return entry.onSysChanged(noop)
+    describe('.onSysChanged(handler)', () => {
+      describeAttachHandlerMember('default behaviour', () => {
+        return entry.onSysChanged(noop)
+      })
+
+      it('calls handler immediately on attach with initial value of sys', () => {
+        const spy = sinon.spy()
+
+        entry.onSysChanged(spy)
+        sinon.assert.calledOnce(spy)
+        sinon.assert.calledWithExactly(spy, entryData.sys)
+      })
     })
 
-    describe(`injected channel propagating "sysChanged"`, () => {
-      it(`replaces current sys with the given one`, () => {
+    describe('injected channel propagating "sysChanged"', () => {
+      it('replaces current sys with the given one', () => {
         const newSys = {}
         // The handler registered with channel.addHandler("sysChanged", handler)
         const sysChangedHandler = channelStub.addHandler.args[0][1]
