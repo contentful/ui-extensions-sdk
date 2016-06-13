@@ -1,13 +1,10 @@
-# Contentful Widget SDK Developer Preview
+# Contentful UI Extensions SDK
 
-The UI Extensions API allows you to extend the [Contentful](https://www.contentful.com)
-Web Application's entry editor, so that you can build plugins that meet your
-specific content editing or content management needs. It operates on top of any
-of our current field types, and gives you the power to manipulate its data
-through an iframe where you can embed custom functionality, styling,
-integrations or workflows.
+The UI Extensions SDK allows you to customize and extend the functionality of [Contentful](https://www.contentful.com)
+Web Application's entry editor. The editor itself is a container for many "widgets" that enable editors to manipulate the content stored in content fields. Widgets' complexity varies. They can be simple user interface controls, such as a dropdown, or more complex micro web applications such as our Markdown editor. They are decoupled entities from field types, and can be reused (for example using a dropdown widget to edit number or text fields).
 
-The UI Extensions API is stable but remains under active development so please reach out to us if you intend to use it for business critical operations. The purpose of making it available early is to provide early access to upcoming features and make our roadmap more transparent to users, as well as to collect early feedback before releasing, and commiting to support, a brand new API.
+Previously, the Contentful Web Application only offered our core platform widgets as options to manipulate fields' content. Now, with the UI Extensions SDK it is possible to create custom widgets to further personalize your users' needs.
+Core widgets and custom widgets are both built on top of the same API, making them virtually identical in functionality with the main difference being that custom widgets are rendered inside a secure iframe. The next step in our roadmap is to open source our core widgets to make it even easier to build custom ones.
 
 Every Contentful user has access to this feature, it is enabled by default, and all requirements to start using it are simply to follow the instructions contained here.
 
@@ -130,50 +127,37 @@ use them, you need to run `npm install` in the repository root.
 
 ![rating-dropdown](http://contentful.github.io/widget-sdk/assets/rating-dropdown.png)
 
-Basic widget that helps you *get started* with developing. Uses a dropdown to
+This example is a basic widget meant to help you *get started* with custom widgets development. Uses a dropdown to
 change the value of a number field and makes some CMA requests.
-
-#### [Chessboard](examples/chessboard)
-
-![Chessboard Widget in action](http://contentful.github.io/widget-sdk/assets/chessboard.gif)
-
-This widget displays a chessboard and stores the board position as a JSON
-object. You can drag pieces on the chessboard and the position data will be
-updated automatically. The widget also supports *collaborative editing*. If two
-editors open the same entry moves will be synced between them.
-
-#### [Slug Generator](examples/slug)
-
-![slug-widget](http://contentful.github.io/widget-sdk/assets/slug-widget.png)
-
-This widget will automatically generate its values from an entries title field.
-For example typing “Hello World” into the title field will set the widgets input
-field to “hello-world”. It will also check the uniquness of the slug across a
-customizable list of content types.
-
-This examples highlights how the widget API can be used to *inspect any value*
-of an entry and *react to changes*.
 
 #### [Rich Text Editor](examples/alloy-editor)
 
 ![alloy-editor](http://contentful.github.io/widget-sdk/assets/alloy-editor.png)
 
-This example integrates the [Alloy rich text editor](http://alloyeditor.com/) to
-edit “Text” fields.
+This example integrates the [Alloy rich-text/HTML editor](http://alloyeditor.com/) to
+edit “Text” fields. Great to personalize the entry editor and enable HTML editing as an alternative to Markdown.
+
+#### [Slug Generator](examples/slug)
+
+![slug-widget](http://contentful.github.io/widget-sdk/assets/slug-widget.png)
+
+This example will automatically generate its values from an entries title field.
+For example typing “Hello World” into the title field will set the widgets input
+field to “hello-world”. It will also check the uniquness of the slug across a
+customizable list of content types. It highlights how the widget API can be used to *inspect any value*
+of an entry and *react to changes*.
 
 #### [JSON Editor](examples/json-editor)
 
 ![json-editor-ok](http://contentful.github.io/widget-sdk/assets/json-editor.png)
 
-This widget provides a JSON formatter and validator based on the [Codemirror](http://codemirror.net) library.
-
-It should be used with fields with the type “Object”.
+This example provides a JSON formatter and validator based on the [Codemirror](http://codemirror.net) library. It should be used with fields with the type “Object”.
 
 #### [JSON Form Editor](examples/json-form-editor)
 
 ![json-form-editor](http://contentful.github.io/widget-sdk/assets/json-form-editor.png)
 
-This widget integrates the [JSON Editor](https://github.com/jdorn/json-editor)
+This example integrates the [JSON Editor](https://github.com/jdorn/json-editor)
 library to display an edit form based on a predefined [JSON Schema](https://json-schema.org/).
 Form input gets stored as a JSON object.
 
@@ -181,35 +165,29 @@ Form input gets stored as a JSON object.
 
 ![translate-widget](http://contentful.github.io/widget-sdk/assets/translate-widget.png)
 
-This widget translates text from the default locale to other locales in a space using the Yandex translation API.
+This example translates text from the default locale to other locales in a space using the Yandex translation API.
 
 #### [Wistia Videos](examples/wistia)
 
 ![Screenshot of Wistia widget](http://contentful.github.io/widget-sdk/assets/wistia.gif)
 
-The wistia widget loads videos from a [project](http://wistia.com/doc/projects) on [wistia](http://wistia.com/) into the Contentful UI. A video can be easily previewed, selected and then stored as part of your content. In this example widget we store the video embed URL in Contentful so the video can be embedded easily.
+The example widget loads videos from a [project](http://wistia.com/doc/projects) on [wistia](http://wistia.com/) into the Contentful Web Application. A video can be easily previewed, selected and then stored as part of your content. In this example widget we store the video embed URL in Contentful so the video can be embedded easily.
 
 #### [YouTube ID](examples/youtube-id)
 
 ![youtube-id](http://contentful.github.io/widget-sdk/assets/youtube-id.png)
 
-This widget extracts the video id from a valid YouTube URI.
+This example extracts the video id from a valid YouTube URI. Useful as a simple way to integrate with 3rd party media services.
+
+#### [Chessboard](examples/chessboard)
+
+![Chessboard Widget in action](http://contentful.github.io/widget-sdk/assets/chessboard.gif)
+
+This example displays a chessboard and stores the board position as a JSON
+object. You can drag pieces on the chessboard and the position data will be
+updated automatically. The widget also supports *collaborative editing*. If two
+editors open the same entry moves will be synced between them. It highlights the flexibility and potential of solutions that can be built using the UI Extensions SDK.
 
 ## Providing Feedback
 
-Technical feedback can be provided directly through the Github repo. This has
-several advantages, including a closer communication between developers and a
-single point of information. Answers provided to one participant may also be
-relevant to others, and we can use this space for a healthy and open
-communication channel. However, if at any point some confidential or business
-sensitive information needs to be discussed, then the conversation would
-temporarily be handled via Zendesk.
-
-We are mostly interested in technical details (custom widgets management, SDK,
-API, specific functionality details) and use cases (concrete examples of problems
-that your organization could solve using custom widgets).
-
-
-## End of Developer Preview Program
-
-The final release of the UI Extensions API is scheduled for end of Q2 2016.
+Technical feedback can be provided directly through the Github repo. However, if at any point some confidential or business sensitive information needs to be discussed, then the conversation should be handled via our formal support channels.
