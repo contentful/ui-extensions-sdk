@@ -26,7 +26,7 @@ lint:
 	eslint lib/ bin/ test/
 
 test:
-	xvfb-run karma start --single-run --browsers SlimerJS --reporters dots
+	karma start --single-run
 
 ci: test lint
 
