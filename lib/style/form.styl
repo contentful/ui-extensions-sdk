@@ -1,3 +1,11 @@
+@require './typography'
+
+// TODO we should use 'data' URLs. In fact, the repo should contain the
+// SVG files and stylus should make them into data URLs.
+$select-box-caret = url("https://static.contentful.com/app/svg/dd-arrow-down.svg")
+$dotted-border-image = url("https://static.contentful.com/app/svg/dotted-border.svg")
+
+
 /**
  * Forms
  *
@@ -9,13 +17,16 @@
 /*
 Inputs and labels
 
-Add `.cf-form-input` to all form elements to apply the styles.
-Textareas and inputs with type text/email/url/password get 100% width.
+Add `.cf-form-input` to `<input>`, `<textarea>`, or `<select>` elements
+to apply the styles.
 
 Markup:
 <div class="cf-form-field">
   <label>Name</label>
   <input type="text" value="Contentful!" class="cf-form-input">
+  <div class="cf-form-hint">
+    You have to provide your name here
+  </div>
 </div>
 <div class="cf-form-field">
   <label>Bio</label>
@@ -38,88 +49,6 @@ Styleguide 3.1
     display: block
     margin-bottom: $rhythm(0.5)
 
-$select-box-caret = url("https://static.contentful.com/app/svg/dd-arrow-down.svg")
-$select-box-caret-disabled = url("https://static.contentful.com/app/svg/dd-arrow-down-disabled.svg")
-$select-box-hover-gradient = linear-gradient(to bottom, white, #F9F9F9)
-
-$cf-form-input()
-  $sans-font()
-  font-size: inherit
-  border: 1px solid $metallic-gray
-  border-radius: 3px 3px 3px 3px
-  box-sizing: border-box
-  height: 2.3em
-  padding: 0 0.5em
-  transition: border 0.3s
-  max-width: 100%
-  &:focus
-    background-color: white
-    border-width: 1px
-    border-color: $colors.blue
-    outline: none
-  &[readonly], &[disabled], &:disabled
-    color: $gray-medium
-    background-color: $gray-lighter
-    border: 1px solid $gray
-    box-shadow: none
-    transition: none
-  &[aria-invalid="true"], &.cf-has-error
-    border-color: $red
-  &[type="number"]
-    padding-right: 0
-  textarea&
-    padding-top: 0.5em
-    padding-bottom: 0.5em
-    line-height: 1.3
-    height: auto
-  textarea&, &[type="url"], &[type="email"], &[type="text"], &[type="password"]
-    width: 100%
-  select&
-    background: none
-    appearance: none
-    -webkit-appearance: none
-    -moz-appearance: none
-    &::-ms-expand
-      display: none
-    background-image:    $select-box-caret, none
-    background-position: center right 0.8em
-    background-repeat:   no-repeat, repeat
-    background-size:     0.7em, 100%
-    padding-left: 1ex
-    padding-right: 8ex
-    text-overflow: ellipsis
-    overflow: hidden
-    white-space: nowrap
-
-    &:hover:not(:disabled)
-      background-image: $select-box-caret, $select-box-hover-gradient
-
-    &:focus
-      border: 1px solid $gray
-
-    &:disabled
-      background-image: $select-box-caret-disabled
-      cursor: not-allowed
-
-.cf-form-input
-  $cf-form-input()
-
-
-
-/*
-Hints
- 
-Markup:
-<div class="cf-form-field">
-  <label>First Name</label>
-  <input type="text" class="cf-form-input">
-  <div class="cf-form-hint">
-    You have to provide your name here
-  </div>
-</div>
-
-Styleguide 3.2
-*/
 
 .cf-form-hint
   margin-top: $rhythm(0.5)
@@ -127,24 +56,133 @@ Styleguide 3.2
   font-size: $small-font-size
 
 
-/*
+$input-border()
+  // Set both properties to fix some browser inconsistencies
+  border-width: 0 0 1px 0
+  border-style: solid
+  border-color: transparent
+  border-image-width: 0 0 1px 0
+  border-image-source: $dotted-border-image
+  border-image-repeat: round
+  border-image-slice: 1 1
 
-Errors
+// Common base for <input> and <textarea> and <select>
+$input-base()
+  font-size: 16px
+  color: $colors.text-dark
+  $sans-font()
+
+  display: block
+  width: 100%
+  line-height: 1.5
+  outline: 0
+  padding: 0 2px
+  background-color: transparent
+  $input-border()
+
+  transition: 0.2s linear
+  transition-property: padding, background-color
+
+  &[aria-invalid="true"], &:invalid
+    background-color: #FFF2F1
+
+  &[aria-disabled="true"], &[disabled], &:disabled
+    background-color: #F7F9FA
+    color: $colors.text-lightest
+    border-image: none
+
+
+input.cf-form-input
+  $input-base()
+  height: 36px
+  // If the size property is set it determines the width
+  &[size]
+    width: auto
+
+
+textarea.cf-form-input
+  $input-base()
+  padding-top: 0.2em
+  height: 4.5em
+  // Prevents horizontal user resizing
+  max-width: 100%
+
+
+$select-box-reset()
+  color: inherit
+  font-size: inherit
+  font-family: inherit
+  cursor: inherit
+  background: none
+  line-height: normal
+  border: 0
+  outline: 0
+  appearance: none
+  &::-ms-expand
+    display: none
+
+
+select.cf-form-input
+  $select-box-reset()
+  $input-base()
+  width: auto;
+  padding-right: 1.5em
+  padding-left: 0.5em
+  height: 36px
+
+  > option
+    text-overflow: ellipsis
+    overflow: hidden
+
+  background-image:    $select-box-caret
+  background-position: center right 5px
+  background-repeat:   no-repeat
+  background-size:     0.7em
+
+/*
+Disabled inputs
+
+Disabled styles are applied when the selects `[aria-disabled="true"]` or `:disabled` match.
 
 Markup:
 <div class="cf-form-field">
   <label>Name</label>
-  <input type="text" aria-invalid="true" class="cf-form-input cf-has-error">
-  <div class="cf-field-error">Something went wrong!</div>
+  <input type="text" aria-disabled="true" class="cf-form-input" value="Cannot edit :(">
+</div>
+<div class="cf-form-field">
+  <label>Select</label>
+  <select disabled class="cf-form-input">
+    <option>Value</option>
+  </select>
 </div>
 
 Styleguide 3.3
-
 */
- 
+
+/*
+Errors
+
+Error styles are applied when the selects `[aria-invalid="true"]` or `:invalid` match.
+
+Markup:
+<div class="cf-form-field">
+  <label>Name</label>
+  <input type="text" aria-invalid="true" class="cf-form-input">
+  <div class="cf-field-error">Something went wrong!</div>
+</div>
+<div class="cf-form-field">
+  <label>Select</label>
+  <select aria-invalid="true" class="cf-form-input">
+    <option>Not the right value</option>
+  </select>
+</div>
+
+Styleguide 3.4
+*/
+
 .cf-field-error
   margin-top: $rhythm(0.5)
-  color: $red
+  color: $colors.red
 
 /*
 Option set
@@ -170,7 +208,7 @@ Markup:
   </div>
 </form>
 
-Styleguide 3.4
+Styleguide 3.5
 */
 
 .cf-form-option
@@ -229,8 +267,7 @@ Markup:
   </div>
 </form>
 
-Styleguide 3.5
-
+Styleguide 3.6
 */
 
 .cf-form-horizontal
