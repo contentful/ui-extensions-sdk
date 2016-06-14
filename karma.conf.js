@@ -20,15 +20,16 @@ module.exports = function (config) {
     ],
     preprocessors: {
       './lib/api/index.js': ['webpack', 'sourcemap'],
-      './test/unit/**/*.spec.js': ['webpack', 'sourcemap'],
+      './test/unit/**/*.spec.js': ['webpack', 'sourcemap']
     },
     webpack: webpackConfig,
+    webpackMiddleware: { noInfo: true },
     reporters: ['dots'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['SlimerJS'],
+    browsers: ['PhantomJS'],
     singleRun: true,
     concurrency: Infinity
   })
