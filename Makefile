@@ -3,17 +3,26 @@ export PATH := ./node_modules/.bin:${PATH}
 .PHONY: build build-pages lint clean test
 
 # Compile the API from the lib directory into dist/cf-widget-api.js and dist/cf-widget-api.css
-build:
+build: styles
+	@mkdir -p dist
 	webpack
 	@echo "Created 'dist/cf-widget-api-js'"
+
+styles:
 	@mkdir -p dist
-	./node_modules/stylus/bin/stylus -u nib lib/style/index.styl -o dist/cf-widget-api.css --sourcemap
+	stylus \
+		--use nib \
+		--sourcemap \
+		lib/style/index.styl \
+		> dist/cf-widget-api.css
 
 # Build API and Styleguide
-build-with-docs: build
+build-with-docs: build styleguide
+
+styleguide: styles
 	@mkdir -p dist/styleguide
+	kss-node --config kss-config.json
 	cp ./lib/style/styleguide.css ./dist/styleguide/styleguide.css
-	./node_modules/kss/bin/kss-node --config kss-config.json
 
 build-examples:
 	$(MAKE) -C examples/chessboard build

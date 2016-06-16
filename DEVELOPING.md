@@ -1,5 +1,16 @@
 ## Developing the Widget SDK
 
+### Styles and Styleguide
+
+We use [Stylus][] to build the stylessheets from `lib/styles`. The task `make
+styles` will create `dist/cf-widget-api.css`.
+We also use [KSS][] to turn comments in the style files into a styleguide. You
+can build the styleguide with `make styleguide` which will create HTML files in
+`dist/styleguide`.
+
+[Stylus]: http://stylus-lang.com/
+[KSS]: http://kss-node.github.io/kss-node/
+
 ### Updating GH Pages distribution
 
 We use [Github Pages][] to distribute the compiled Javascript code, stylesheets, and
