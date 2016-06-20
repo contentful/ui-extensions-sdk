@@ -102,8 +102,8 @@
         // Populates the #entries-list with links to the entries.
         // If 'entries' is an empty array we show a message.
         function renderEntries (entries) {
-          if (entries.length) {
-            var content = entries.map(renderEntry)
+          if (entries.items.length) {
+            var content = entries.items.map(renderEntry)
           } else {
             content = '<li><em>no entries found</em></li>'
           }
