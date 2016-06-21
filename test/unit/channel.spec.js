@@ -94,6 +94,14 @@ describe(`Channel instance`, () => {
           expect(promise).to.eventually.equal(result)
             .and.notify(done)
         })
+
+        it(`resolves once the call got answered with an undefined result`, (done) => {
+          answerLastCallWith({result: undefined})
+
+          expect(promise).to.eventually.equal(undefined)
+            .and.notify(done)
+        })
+
         it(`gets rejected once the call got answered with an error`, (done) => {
           const error = 'What a mess!'
           answerLastCallWith({error})
