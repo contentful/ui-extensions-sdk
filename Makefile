@@ -14,7 +14,7 @@ styles:
 		--use nib \
 		--sourcemap \
 		lib/style/index.styl \
-		> dist/cf-widget-api.css
+		--out dist/cf-widget-api.css
 
 # Build API and Styleguide
 build-with-docs: build styleguide
