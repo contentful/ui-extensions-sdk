@@ -68,7 +68,7 @@ Examples of entry-level widgets are:
 * Integration with a preview environment
 * Moving entries across different spaces
 
-## Getting Started
+## Getting started
 
 The most convenient way to upload and manage widgets through our API is via the
 [`contentful-widget`][cf-widget-cli] command line tool. You can install it with
@@ -77,12 +77,11 @@ The most convenient way to upload and manage widgets through our API is via the
 npm install -g contentful-widget-cli
 ```
 
-To work with the widget sdk library and the examples, clone this repo and
-install the dependencies:
+To work with the widget sdk library and the examples, clone this repo and install the dependencies:
 
 ```bash
-git clone https://github.com/contentful/widget-sdk.git
-cd widget-sdk
+git clone https://github.com/contentful/ui-extensions-sdk.git
+cd ui-extensions-sdk
 npm install
 ```
 
@@ -90,7 +89,7 @@ Including the compiled version of the widget client library is as simple as
 adding the following line to your application.
 
 ```html
-<script src="https://contentful.github.io/widget-sdk/cf-widget-api.js"></script>
+<script src="https://contentful.github.io/ui-extensions-sdk/cf-widget-api.js"></script>
 ```
 
 If you want to learn how to write your own widgets and see them in
@@ -102,20 +101,20 @@ the API have a look at the [reference documentation][api-ref]
 [api-ref]: doc/widget-api-frontend.md
 
 
-## Using Contentful Styles
+## Using Contentful styles
 
 As widgets are rendered inside an iframe, you will need to include the
 `cf-widget-api.css` library within your custom widget in order to use any of
 Contentful's styles.
 
-Download the CSS library [here](https://contentful.github.io/widget-sdk/cf-widget-api.css) and include it in your widget
+Download the CSS library [here](https://contentful.github.io/ui-extensions-sdk/cf-widget-api.css) and include it in your widget
 
 ```html
 <link rel="stylesheet" type="text/css" href="cf-widget-api.css">
 ```
 
 Futher information can be found in the
-[styleguide](http://contentful.github.io/widget-sdk/styleguide).
+[styleguide](http://contentful.github.io/ui-extensions-sdk/styleguide).
 
 
 ## Examples
@@ -125,21 +124,21 @@ use them, you need to run `npm install` in the repository root.
 
 #### [Basic Rating Dropdown](examples/rating-dropdown)
 
-![rating-dropdown](http://contentful.github.io/widget-sdk/assets/rating-dropdown.png)
+![rating-dropdown](http://contentful.github.io/ui-extensions-sdk/assets/rating-dropdown.png)
 
 This example is a basic widget meant to help you *get started* with custom widgets development. Uses a dropdown to
 change the value of a number field and makes some CMA requests.
 
 #### [Rich Text Editor](examples/alloy-editor)
 
-![alloy-editor](http://contentful.github.io/widget-sdk/assets/alloy-editor.png)
+![alloy-editor](http://contentful.github.io/ui-extensions-sdk/assets/alloy-editor.png)
 
 This example integrates the [Alloy rich-text/HTML editor](http://alloyeditor.com/) to
 edit “Text” fields. Great to personalize the entry editor and enable HTML editing as an alternative to Markdown.
 
 #### [Slug Generator](examples/slug)
 
-![slug-widget](http://contentful.github.io/widget-sdk/assets/slug-widget.png)
+![slug-widget](http://contentful.github.io/ui-extensions-sdk/assets/slug-widget.png)
 
 This example will automatically generate its values from an entries title field.
 For example typing “Hello World” into the title field will set the widgets input
@@ -149,13 +148,13 @@ of an entry and *react to changes*.
 
 #### [JSON Editor](examples/json-editor)
 
-![json-editor-ok](http://contentful.github.io/widget-sdk/assets/json-editor.png)
+![json-editor-ok](http://contentful.github.io/ui-extensions-sdk/assets/json-editor.png)
 
 This example provides a JSON formatter and validator based on the [Codemirror](http://codemirror.net) library. It should be used with fields with the type “Object”.
 
 #### [JSON Form Editor](examples/json-form-editor)
 
-![json-form-editor](http://contentful.github.io/widget-sdk/assets/json-form-editor.png)
+![json-form-editor](http://contentful.github.io/ui-extensions-sdk/assets/json-form-editor.png)
 
 This example integrates the [JSON Editor](https://github.com/jdorn/json-editor)
 library to display an edit form based on a predefined [JSON Schema](https://json-schema.org/).
@@ -163,31 +162,31 @@ Form input gets stored as a JSON object.
 
 #### [Translator](examples/translate)
 
-![translate-widget](http://contentful.github.io/widget-sdk/assets/translate-widget.png)
+![translate-widget](http://contentful.github.io/ui-extensions-sdk/assets/translate-widget.png)
 
 This example translates text from the default locale to other locales in a space using the Yandex translation API.
 
 #### [Wistia Videos](examples/wistia)
 
-![Screenshot of Wistia widget](http://contentful.github.io/widget-sdk/assets/wistia.gif)
+![Screenshot of Wistia widget](http://contentful.github.io/ui-extensions-sdk/assets/wistia.gif)
 
 The example widget loads videos from a [project](http://wistia.com/doc/projects) on [wistia](http://wistia.com/) into the Contentful Web Application. A video can be easily previewed, selected and then stored as part of your content. In this example widget we store the video embed URL in Contentful so the video can be embedded easily.
 
 #### [YouTube ID](examples/youtube-id)
 
-![youtube-id](http://contentful.github.io/widget-sdk/assets/youtube-id.png)
+![youtube-id](http://contentful.github.io/ui-extensions-sdk/assets/youtube-id.png)
 
 This example extracts the video id from a valid YouTube URI. Useful as a simple way to integrate with 3rd party media services.
 
 #### [Chessboard](examples/chessboard)
 
-![Chessboard Widget in action](http://contentful.github.io/widget-sdk/assets/chessboard.gif)
+![Chessboard Widget in action](http://contentful.github.io/ui-extensions-sdk/assets/chessboard.gif)
 
 This example displays a chessboard and stores the board position as a JSON
 object. You can drag pieces on the chessboard and the position data will be
 updated automatically. The widget also supports *collaborative editing*. If two
 editors open the same entry moves will be synced between them. It highlights the flexibility and potential of solutions that can be built using the UI Extensions SDK.
 
-## Providing Feedback
+## Providing feedback
 
 Technical feedback can be provided directly through the Github repo. However, if at any point some confidential or business sensitive information needs to be discussed, then the conversation should be handled via our formal support channels.

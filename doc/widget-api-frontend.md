@@ -22,17 +22,17 @@ communicate with the Contentful Management App.
 You will need to include the `contentful-widget-api` library in your HTML5 app like
 so:
 ~~~html
-<script src="https://contentful.github.io/widget-sdk/cf-widget-api.js"></script>
+<script src="https://contentful.github.io/ui-extensions-sdk/cf-widget-api.js"></script>
 ~~~
 
 The Contentful Widget SDK including the JavaScript API is also distributed as an
 [NPM package][package].
 
 ~~~bash
-npm install --save contentful-widget-sdk
+npm install --save contentful-ui-extensions-sdk
 ~~~
 
-[package]: https://www.npmjs.com/package/contentful-widget-sdk
+[package]: https://www.npmjs.com/package/contentful-ui-extensions-sdk
 
 ## Initialization
 
@@ -51,7 +51,7 @@ If you use a CommonJS packager for the browser (e.g. [Browserify][]) you need
 to require the Widget API.
 
 ~~~js
-var contentfulWidget = require('contentful-widget-sdk')
+var contentfulWidget = require('contentful-ui-extensions-sdk')
 contentfulWidget.init(function (widget) {
   /* ... */
 })
