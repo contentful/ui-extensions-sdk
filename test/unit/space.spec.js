@@ -3,6 +3,8 @@ const spaceMethods = [
   'getEntry',
   'getAsset',
 
+  'getPublishedEntries',
+  'getPublishedAssets',
   'getContentTypes',
   'getEntries',
   'getAssets',
@@ -34,8 +36,8 @@ const spaceMethods = [
 
 import createSpace from '../../lib/api/space'
 
-describe(`createSpace()`, () => {
-  describe(`returned "space" object`, () => {
+describe('createSpace()', () => {
+  describe('returned "space" object', () => {
     spaceMethods.forEach(describeSpaceMethod)
   })
 })
@@ -51,7 +53,7 @@ function describeSpaceMethod (methodName) {
   })
 
   describe(`.${methodName}()`, () => {
-    it(`is a function`, () => {
+    it('is a function', () => {
       expect(space[methodName]).to.be.a('function')
     })
     it(`invokes channel.call('callSpaceMethod', '${methodName}', args)`, () => {
@@ -61,7 +63,7 @@ function describeSpaceMethod (methodName) {
         .to.have.callCount(1).and
         .to.have.been.calledWithExactly('callSpaceMethod', methodName, args)
     })
-    it(`returns the promise returned by internal channel.call()`, () => {
+    it('returns the promise returned by internal channel.call()', () => {
       channelCallStub.withArgs('callSpaceMethod').returns('PROMISE')
       expect(space[methodName]()).to.equal('PROMISE')
     })

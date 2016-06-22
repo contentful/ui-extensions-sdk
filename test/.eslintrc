@@ -1,6 +1,7 @@
 {
   "rules": {
-    "no-new": 0
+    "no-new": 0,
+    "no-unused-vars": [2, {vars: 'all', args: 'all', argsIgnorePattern: '^_', varsIgnorePattern: '^_'}]
   },
   "env": {
     "browser": true,
