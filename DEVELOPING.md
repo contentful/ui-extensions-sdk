@@ -29,3 +29,10 @@ git push
 ~~~
 
 [Github Pages]: https://help.github.com/categories/github-pages-basics/
+
+### Releasing a new version of the sdk
+
+1. Commit with version bump (follow semver) and changelog updates
+2. Tag commit as `vX.Y.Z` and push tag to GitHub
+3. Publish new version of package on `npm`
+4. [Update GH Pages distribution](#updating-gh-pages-distribution)
