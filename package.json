@@ -1,21 +1,21 @@
 {
-  "name": "contentful-widget-sdk",
+  "name": "contentful-ui-extensions-sdk",
   "author": "Contentful GmbH",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "scripts": {
     "prepublish": "make build",
     "test": "make test"
   },
   "bugs": {
-    "url": "https://github.com/contentful/widget-sdk/issues"
+    "url": "https://github.com/contentful/ui-extensions-sdk/issues"
   },
-  "description": " SDK to develop custom widgets on Contentful",
-  "homepage": "https://github.com/contentful/widget-sdk#readme",
+  "description": "SDK to develop custom widgets on Contentful",
+  "homepage": "https://github.com/contentful/ui-extensions-sdk#readme",
   "license": "MIT",
   "main": "dist/cf-widget-api.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/contentful/widget-sdk.git"
+    "url": "git+https://github.com/contentful/ui-extensions-sdk.git"
   },
   "dependencies": {
     "babel-loader": "^6.0.1",
