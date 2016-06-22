@@ -1,9 +1,9 @@
-Wistia Widget 
+Wistia Widget
 -------------
 
-The wistia widget loads videos from a [project](http://wistia.com/doc/projects) on [wistia](http://wistia.com/) into the Contentful UI. A video can be easily previewed, selected and then stored as part of your content. In this example widget we store the video embed URL in Contentful so the video can be embedded easily. 
+The wistia widget loads videos from a [project](http://wistia.com/doc/projects) on [wistia](http://wistia.com/) into the Contentful UI. A video can be easily previewed, selected and then stored as part of your content. In this example widget we store the video embed URL in Contentful so the video can be embedded easily.
 
-![Screenshot of Wistia widget](http://contentful.github.io/widget-sdk/assets/wistia.gif)
+![Screenshot of Wistia widget](http://contentful.github.io/ui-extensions-sdk/assets/wistia.gif)
 
 ### Requirements
 
@@ -18,9 +18,9 @@ The wistia widget loads videos from a [project](http://wistia.com/doc/projects) 
 
 ### Installation
 
-- Clone the repository or download the repo as a [zip](https://github.com/contentful/widget-sdk/archive/master.zip)
+- Clone the repository or download the repo as a [zip](https://github.com/contentful/ui-extensions-sdk/archive/master.zip)
 ```bash
-git clone git@github.com:contentful/widget-sdk.git
+git clone git@github.com:contentful/ui-extensions-sdk.git
 ```
 - Navigate into widget folder
 ```bash

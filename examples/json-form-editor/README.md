@@ -1,6 +1,6 @@
 # JSON Form Editor widget
 
-![json-form-editor](http://contentful.github.io/widget-sdk/assets/json-form-editor.png)
+![json-form-editor](http://contentful.github.io/ui-extensions-sdk/assets/json-form-editor.png)
 
 This widget provides a JSON form editor based on the
 [JSON Editor](https://github.com/jdorn/json-editor)) library. It should be used

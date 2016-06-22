@@ -1,6 +1,6 @@
 # Getting Started with Contentful Widgets
 
-![rating-dropdown](http://contentful.github.io/widget-sdk/assets/rating-dropdown.png)
+![rating-dropdown](http://contentful.github.io/ui-extensions-sdk/assets/rating-dropdown.png)
 
 This guide will walk you through uploading, using, and making changes to
 your first widget.

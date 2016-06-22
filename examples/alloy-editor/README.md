@@ -1,7 +1,7 @@
 Alloy Editor Widget
 -------------------
 
-![alloy-editor](http://contentful.github.io/widget-sdk/assets/alloy-editor.png)
+![alloy-editor](http://contentful.github.io/ui-extensions-sdk/assets/alloy-editor.png)
 
 This widgets uses the [Alloy Text Editor][alloy] to edit text fields.
 

@@ -1,7 +1,7 @@
 Chessboard
 ==========
 
-![Chessboard Widget in action](http://contentful.github.io/widget-sdk/assets/chessboard.gif)
+![Chessboard Widget in action](http://contentful.github.io/ui-extensions-sdk/assets/chessboard.gif)
 
 This widget uses [chessboard.js][] to display a chessboard that edits a JSON
 field containing the position of the pieces.
