@@ -2,11 +2,11 @@ export PATH := ./node_modules/.bin:${PATH}
 
 .PHONY: build build-pages lint clean test
 
-# Compile the API from the lib directory into dist/cf-widget-api.js and dist/cf-widget-api.css
+# Compile the API from the lib directory into dist/cf-extension-api.js and dist/cf-extension-api.css
 build: styles
 	@mkdir -p dist
 	webpack
-	@echo "Created 'dist/cf-widget-api-js'"
+	@echo "Created 'dist/cf-extension-api.*'"
 
 styles:
 	@mkdir -p dist
@@ -14,7 +14,7 @@ styles:
 		--use nib \
 		--sourcemap \
 		lib/style/index.styl \
-		--out dist/cf-widget-api.css
+		--out dist/cf-extension.css
 
 # Build API and Styleguide
 build-with-docs: build styleguide
@@ -23,10 +23,6 @@ styleguide: styles
 	@mkdir -p dist/styleguide
 	kss-node --config kss-config.json
 	cp ./lib/style/styleguide.css ./dist/styleguide/styleguide.css
-
-build-examples:
-	$(MAKE) -C examples/chessboard build
-	cp -r examples/chessboard/dist/* dist/examples/chessboard
 
 watch:
 	webpack --watch
@@ -46,4 +42,4 @@ build-pages: gh-pages build-with-docs
 	$(MAKE) -C gh-pages
 
 gh-pages:
-	git clone git@github.com:contentful/widget-sdk --branch $@ $@
+	git clone git@github.com:contentful/ui-extensions-sdk --branch $@ $@
