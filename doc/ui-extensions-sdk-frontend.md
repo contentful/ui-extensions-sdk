@@ -1,31 +1,31 @@
-# Widget API Reference
+# UI Extensions API Reference
 
-This document describes the API that a custom widget can use to
+This document describes the API that a custom extension can use to
 communicate with the Contentful Management App.
 
 ### Table of Contents
 * [Inclusion into your project](#inclusion-into-your-project)
 * [Initialization](#initialization)
-* [`widget.contentType`](#widgetcontenttype)
-* [`widget.field`](#widgetfield)
-* [`widget.entry`](#widgetentry)
-  * [`entry.fields[name]`](#entryfieldsname-field)
-* [`widget.space`](#widgetspace)
+* [`extension.contentType`](#extensioncontenttype)
+* [`extension.field`](#extensionfield)
+* [`extension.entry`](#extensionentry)
+  * [`entry.fields[id]`](#entryfieldsid-field)
+* [`extension.space`](#extensionspace)
   * [Content Types](#content-types)
   * [Entries](#entries)
   * [Assets](#assets)
-* [`widget.locales`](#widgetlocales)
-* [`widget.window`](#widgetwindow)
+* [`extension.locales`](#extensionlocales)
+* [`extension.window`](#extensionwindow)
 
 ## Inclusion into your project
 
-You will need to include the `contentful-widget-api` library in your HTML5 app like
+You will need to include the `contentful-extension-sdk` library in your HTML5 app like
 so:
 ~~~html
-<script src="https://contentful.github.io/ui-extensions-sdk/cf-widget-api.js"></script>
+<script src="https://contentful.github.io/ui-extensions-sdk/cf-extension-api.js"></script>
 ~~~
 
-The Contentful Widget SDK including the JavaScript API is also distributed as an
+The Contentful UI Extensions SDK including the JavaScript API is also distributed as an
 [NPM package][package].
 
 ~~~bash
@@ -36,30 +36,30 @@ npm install --save contentful-ui-extensions-sdk
 
 ## Initialization
 
-The `widget-api` library exposes the `contentfulWidget.init()` method.
-This is the main entry point for all widget related code. If you require the
+The SDK exposes the `contentfulExtension.init()` method.
+This is the main entry point for all extension related code. If you require the
 script from the web without any module system the entry point is available as
 
 ~~~js
-window.contentfulWidget.init(function (widget) {
-  var value = widget.field.getValue()
-  widget.field.setValue("Hello world!")
+window.contentfulExtension.init(function (extension) {
+  var value = extension.field.getValue()
+  extension.field.setValue("Hello world!")
 })
 ~~~
 
 If you use a CommonJS packager for the browser (e.g. [Browserify][]) you need
-to require the Widget API.
+to require the Extensions SDK.
 
 ~~~js
-var contentfulWidget = require('contentful-ui-extensions-sdk')
-contentfulWidget.init(function (widget) {
+var contentfulExtension = require('contentful-ui-extensions-sdk')
+contentfulExtension.init(function (extension) {
   /* ... */
 })
 ~~~
 
 [Browserify]: http://browserify.org/
 
-## `widget.contentType`
+## `extension.contentType`
 
 This API gives you access to data about the content type and the entry.
 It has the shape as described under "content type properties" in our
@@ -67,14 +67,14 @@ It has the shape as described under "content type properties" in our
 
 _Since 1.0.0_
 
-## `widget.field`
+## `extension.field`
 
-This API gives you access to the value and metadata of the field the widget is
+This API gives you access to the value and metadata of the field the extension is
 attached to.
 
-If you use localization, a widget instance will be rendered for each locale.
+If you use localization, a extension instance will be rendered for each locale.
 This means you can only change the value for the given locale. See the
-[`entry.fields` API](#entryfieldsname-field) on how to change values for different
+[`entry.fields` API](#entryfieldsid-field) on how to change values for different
 locales.
 
 Suppose an entry returned by the Contentful Management API looks like this
@@ -89,61 +89,52 @@ Suppose an entry returned by the Contentful Management API looks like this
   }
 }
 ~~~
-and the widget is attached to the `title` field and the `en_US` locale.
+and the extension is attached to the `title` field and the `en_US` locale.
 
 
-##### `widget.field.getValue(): mixed`
+##### `extension.field.getValue(): mixed`
 Gets the current value of the field and locale. In the example this would yield `"My Post"`.
 
-##### `widget.field.setValue(value): Promise<void>`
+##### `extension.field.setValue(value): Promise<void>`
 Sets the value for the field and locale. The promise is resolved when the change
 has been acknowledged. The type of the value must match the expected field type.
-For example, if the widget is attached to a “Symbol” field you must pass a
+For example, if the extension is attached to a “Symbol” field you must pass a
 string.
 
-##### `widget.field.removeValue(value): Promise<void>`
+##### `extension.field.removeValue(value): Promise<void>`
 Removes the value for the field and locale. A subsequent call to `getValue()` for the field would yield `undefined`.
 
-_Since 1.0.0_
-
-##### `widget.field.setInvalid(Boolean): undefined`
+##### `extension.field.setInvalid(Boolean): undefined`
 Communicates to the Contentful web application if the field is in a valid state or not.
 This impacts the styling applied to the field container.
 
-_Since 1.0.0_
-
-##### `widget.field.onValueChanged(cb): function`
+##### `extension.field.onValueChanged(cb): function`
 Calls the callback every time the value of the field is changed by some external
 event (e.g. when multiple editors are working on the same entry). It will not be
 called after `setValue()` is called.
 
 The method returns a function that can be called to stop listening to changes.
 
-##### `widget.field.onIsDisabledChanged(cb): function`
+##### `extension.field.onIsDisabledChanged(cb): function`
 Calls the callback when the disabled status of the field changes.
 A boolean indicating whether the field is disabled or not is passed to the callback.
 
 The method returns a function that can be called to stop listerning to changes.
 
-_Since 1.0.0_
-
-##### `widget.field.id: string`
+##### `extension.field.id: string`
 The ID of a field is defined in an entry’s content type. Yields `"title"` in the
 example.
 
-##### `widget.field.locale: string`
-The current locale of a field the widget is attached to. Yields `"en_US"` in the
+##### `extension.field.locale: string`
+The current locale of a field the extension is attached to. Yields `"en_US"` in the
 example.
 
-##### `widget.field.type: string`
-Holds the type of the field the widget is attached to.
+##### `extension.field.type: string`
+Holds the type of the field the extension is attached to.
 The field type can be one of the many described
 [in our api documentation](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/content-types).
 
-_Since 1.0.0_
-
-## `widget.entry`
-
+## `extension.entry`
 This object allows you to read and update the value of any field of the current
 entry and to get the entry's metadata.
 
@@ -158,13 +149,13 @@ function can be called to stop listening to changes.
 
 ### `entry.fields[id]: Field`
 
-In addition to [`widget.field`](#widgetfield), a widget can also control the
+In addition to [`extension.field`](#extensionfield), a extension can also control the
 values of all other fields in the current entry. Fields are referenced by their ID.
 
-The `Field` API methods provide a similar interface to `widget.field`. In
+The `Field` API methods provide a similar interface to `extension.field`. In
 addition, the methods accept an optional locale to change the value for a
 specific locale. It defaults to the space the space’s default locale (see
-[`widget.locales`](#widgetlocales)). Providing an unknown locale throws an
+[`extension.locales`](#extensionlocales)). Providing an unknown locale throws an
 exception.
 
 * `field.id: string`
@@ -178,15 +169,15 @@ exception.
 #### Example
 If the entry has a “title” field, we can transform it to upper case with
 ~~~js
-var titleField = widget.entry.fields.title
+var titleField = extension.entry.fields.title
 var oldTitle = titleField.getValue()
 titleField.setValue(oldTitle.toUpperCase())
 ~~~
 
 
-## `widget.space`
+## `extension.space`
 
-The `space` object exposes methods that allow the widget to read and manipulate a
+The `space` object exposes methods that allow the extension to read and manipulate a
 wide range of objects in the space. Its API mirrors `v0.8.x` of the
 [`contentful-management` library][cma-js], with a few differences.
 
@@ -223,7 +214,7 @@ Same as the entry's method with “Entry” replaced by “Asset”. In addition
 is `space.processAssetFile(asset, locale)`
 
 
-## `widget.locales`
+## `extension.locales`
 
 A space can have multiple locales and each localized entry field can have
 different values for different locales. Locales are identified by their locale
@@ -236,13 +227,13 @@ The default locale for the current space.
 A list of all locales available in the current space.
 
 
-## `widget.window`
+## `extension.window`
 
-The window object provides methods to update the size of iframe the widget is
-contained in. This prevents scrollbars inside the widget.
+The window object provides methods to update the size of iframe the extension is
+contained in. This prevents scrollbars inside the extension.
 
 To prevent a flickering scrollbar during height updates, it is recommended to
-set the widget's `body` to `overflow: hidden;`.
+set the extension's `body` to `overflow: hidden;`.
 
 ##### `window.updateHeight()`
 Calculates the body’s `scrollHeight` and sets the containers height to
