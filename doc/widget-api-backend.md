@@ -23,9 +23,6 @@ spaces/XYZ/widgets/ABC | PUT    | A json object | If the widget with ID ABC does
 spaces/XYZ/widgets/ABC | DELETE | None          | Deletes the widget with ID ABC
 spaces/XYZ/widgets/ABC | GET    | None          | Returns the widget with ID ABC
 
-#### Querying
-To be discussed
-
 #### Restrictions
 For the prototype there should be no limitations to the data apart of those enforced by the storage mechanism. We might want to rethink this after we evaluated performance, requirements, and upsell needs.
 
