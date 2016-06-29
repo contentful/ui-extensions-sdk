@@ -6,7 +6,7 @@ export PATH := ./node_modules/.bin:${PATH}
 build: styles
 	@mkdir -p dist
 	webpack
-	@echo "Created 'dist/cf-widget-api-js'"
+	@echo "Created 'dist/cf-extension-api.js'"
 
 styles:
 	@mkdir -p dist
@@ -14,7 +14,7 @@ styles:
 		--use nib \
 		--sourcemap \
 		lib/style/index.styl \
-		--out dist/cf-widget-api.css
+		--out dist/cf-extension.css
 
 # Build API and Styleguide
 build-with-docs: build styleguide
