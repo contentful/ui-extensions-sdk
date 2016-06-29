@@ -62,7 +62,10 @@ contentfulWidget.init(function (widget) {
 ## `widget.contentType`
 
 This API gives you access to data about the content type and the entry.
-It has the shape as described under "content type properties" in our [api documentation](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/content-types).
+It has the shape as described under "content type properties" in our
+[api documentation](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/content-types).
+
+_Since 1.0.0_
 
 ## `widget.field`
 
@@ -101,9 +104,13 @@ string.
 ##### `widget.field.removeValue(value): Promise<void>`
 Removes the value for the field and locale. A subsequent call to `getValue()` for the field would yield `undefined`.
 
+_Since 1.0.0_
+
 ##### `widget.field.setInvalid(Boolean): undefined`
 Communicates to the Contentful web application if the field is in a valid state or not.
 This impacts the styling applied to the field container.
+
+_Since 1.0.0_
 
 ##### `widget.field.onValueChanged(cb): function`
 Calls the callback every time the value of the field is changed by some external
@@ -118,6 +125,8 @@ A boolean indicating whether the field is disabled or not is passed to the callb
 
 The method returns a function that can be called to stop listerning to changes.
 
+_Since 1.0.0_
+
 ##### `widget.field.id: string`
 The ID of a field is defined in an entry’s content type. Yields `"title"` in the
 example.
@@ -130,6 +139,8 @@ example.
 Holds the type of the field the widget is attached to.
 The field type can be one of the many described
 [in our api documentation](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/content-types).
+
+_Since 1.0.0_
 
 ## `widget.entry`
 
