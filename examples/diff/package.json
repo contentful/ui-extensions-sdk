@@ -1,0 +1,15 @@
+{
+  "name": "draftPublishedDiff",
+  "version": "1.0.0",
+  "description": "Diffing UI extension for Contentful's web app.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "create": "contentful-widget create --space-id $SPACE_ID",
+    "update": "contentful-widget update --space-id $SPACE_ID --force",
+    "dev": "contentful-widget update --space-id $SPACE_ID --force --src 'http://localhost:3030/index.html'"
+  },
+  "author": "frederik@contentful.com",
+  "license": "MIT",
+  "dependencies": {
+  }
+}

@@ -178,6 +178,12 @@ The example widget loads videos from a [project](http://wistia.com/doc/projects)
 
 This example extracts the video id from a valid YouTube URI. Useful as a simple way to integrate with 3rd party media services.
 
+#### [Diffing Published and Draft](examples/diff)
+
+![Screenshot of diff extension](http://contentful.github.io/ui-extensions-sdk/assets/diff-extension.png)
+
+The diff editor extension shows the diff between the draft value and the published value of a short text field.
+
 #### [Chessboard](examples/chessboard)
 
 ![Chessboard Widget in action](http://contentful.github.io/ui-extensions-sdk/assets/chessboard.gif)
