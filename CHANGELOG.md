@@ -3,6 +3,16 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and
 the [“Keep a Changelog” format](http://keepachangelog.com/).
 
+## 2.0.0 - Unreleased
+
+- Deprecate "widget" in favour of "extension"
+- `contentful-widget-sdk` package on NPM is deprecated in favour of `contentful-ui-extensions-sdk`
+- Global exposed on `window` is now called `contentfulExtension` instead of `contentfulWidget`
+- `widget.json` is now called `extension.json`
+- SDK assets hosted by us are now renamed as below
+  - `cf-widget-api.js` is now called `cf-extension-api.js`
+  - `cf-widget-api.css` is now called `cf-extension.css`
+
 ## 1.0.0 - 2015-06-22
 
 ### Added
