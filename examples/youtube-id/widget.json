@@ -1,6 +1,0 @@
-{
-  "id": "youtube-id",
-  "fieldTypes":["Symbol"],
-  "name":"Youtube ID",
-  "srcdoc":"./dist/index.html"
-}
