@@ -9,7 +9,7 @@ The following sandbox flags are enabled
 - `allow-popups`: This allows the extensions to open new browser windows.
 - `allow-popups-to-escape-sandbox`: This removes the sandbox restriction from windows opened from the sandboxed document.
 
-> Note that we do not set `allow-same-origin` flag and hence the iframe will have an origin of `null`.
+Note that we do not set `allow-same-origin` flag and hence the iframe will have an origin of `null`.
 
 ## May I open modal overlays on top of the entire Contentful page?
 
@@ -88,4 +88,4 @@ API endpoints will be updated as follows:
 - `spaces/XYZ/widgets` endpoint is deprecated in favor of `spaces/XYZ/extensions` for `GET` and `POST` methods
 - `spaces/XYZ/widgets/ABC` endpoint is deprecated in favor of `spaces/XYZ/extensions/ABC` for `PUT`, `DELETE` and `GET` methods
 
-> This change has no impact if you're using the CLI tool to manage your extension.
+This change has no impact if you're using the CLI tool to manage your extension.
