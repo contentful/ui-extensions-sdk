@@ -85,13 +85,6 @@ adding the following line to your application.
 <script src="https://contentful.github.io/ui-extensions-sdk/cf-extension-api.js"></script>
 ```
 
-Note that you also can use our skeleton and start building your extension by cloning our [bundles repository]():
-
-```bash
-git clone https://github.com/contentful/bundles.git
-cd bundles/extensions/skeleton
-```
-
 It also provide a set of examples you can check out to get a deeper understanding of the SDK capabilities.
 
 To get an overview over the API, have a look at the [reference documentation][api-ref]
@@ -118,7 +111,7 @@ Futher information about styling your extension can be found in the
 
 ## Examples
 
-Our bundles repository includes the following example extension implementations. Before you can
+Our extensions repository includes the following example extension implementations. Before you can
 use them, you need to run `npm install` in the repository root.
 
 #### [Basic Rating Dropdown](https://github.com/contentful/extensions/tree/master/samples/rating-dropdown)
