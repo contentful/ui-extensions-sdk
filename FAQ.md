@@ -70,7 +70,8 @@ If you were building extensions as a part of the beta program from March to July
 
 ### CLI tool
 
-- The `contentful-widget-cli` package is now `contentful-extension-cli`. This package will offer the `contentful-extension` utility instead of `contentful-widget`.
+- The `contentful-widget-cli` package is now `contentful-extension-cli`. This package will offer the `contentful-extension` utility instead of `contentful-widget`
+- Versions >= `2.0.0` of the `contentful-extension-cli` should be used with versions >= `2.0.0` of the UI Extensions SDK
 
 ### Extension code
 
