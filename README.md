@@ -170,7 +170,7 @@ This example loads videos from a [project](http://wistia.com/doc/projects) on [w
 
 This example extracts the video id from a valid YouTube URI. Useful as a simple way to integrate with 3rd party media services.
 
-#### [Diffing Published and Draft](https://github.com/contentful/extensions/tree/master/samples/examples/diff)
+#### [Diffing Published and Draft](https://github.com/contentful/extensions/tree/master/samples/diff)
 
 ![Screenshot of diff extension](http://contentful.github.io/ui-extensions-sdk/assets/diff-extension.png)
 
