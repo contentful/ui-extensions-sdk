@@ -11,7 +11,7 @@ Every Contentful user has access to this feature, it is enabled by default, and 
 This SDK overview introduces you to the concept of custom extensions and lists concrete
 usage examples. The [extension API documentation][api-ref], on the other hand, provides in-depth information on what the API exposes to the consumer.
 
-You can also refer to the [following FAQ][FAQ.md] for questions related to hosting, or limitations.
+You can also refer to the [following FAQ](FAQ.md) for questions related to hosting, or limitations.
 
 ## Extensions taxonomy and example use cases
 
