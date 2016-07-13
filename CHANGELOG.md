@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and
 the [“Keep a Changelog” format](http://keepachangelog.com/).
 
+## 2.0.1 - 2016-07-13
+
+### Fixed
+
+- Use `dist/cf-extension-api.js` file as the module's entry point
+
 ## 2.0.0 - 2016-07-06
 
 - Deprecate "widget" in favour of "extension"
