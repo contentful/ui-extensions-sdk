@@ -7,8 +7,8 @@ You can include the stylesheet as
 <link
   rel="stylesheet"
   type="text/css"
-  href="https://contentful.github.io/widget-sdk/cf-widget-api.css">
+  href="https://contentful.github.io/ui-extensions-sdk/cf-extension.css">
 ~~~
 
 We also distribute the CSS file as part of the NPM package. You can find in in
-`./dist/cf-widget-api.css`.
+`./dist/cf-extension.css`.
