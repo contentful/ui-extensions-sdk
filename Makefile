@@ -38,8 +38,5 @@ ci: test lint
 clean:
 	rm -rf dist/*
 
-build-pages: gh-pages build-with-docs
-	$(MAKE) -C gh-pages
-
-gh-pages:
-	git clone git@github.com:contentful/ui-extensions-sdk --branch $@ $@
+build-pages: build-with-docs
+	cp -r dist/* docs
