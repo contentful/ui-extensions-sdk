@@ -134,6 +134,13 @@ Holds the type of the field the extension is attached to.
 The field type can be one of the many described
 [in our api documentation](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/content-types).
 
+##### `extension.field.validations: Validation[]`
+A list of validations for this field that are defined in the content type. The
+[content type documentation](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/content-types/content-type/create/update-a-content-type)
+provides more information on the shape of validations.
+
+_In upcoming release_
+
 ## `extension.entry`
 This object allows you to read and update the value of any field of the current
 entry and to get the entry's metadata.

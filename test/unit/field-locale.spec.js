@@ -20,7 +20,8 @@ describe('FieldLocale', () => {
       locale: 'en-US',
       value: 'Hello',
       type: 'Symbol',
-      isDisabled: true
+      isDisabled: true,
+      validations: 'VALIDATIONS'
     }
     let field
     beforeEach(() => {
@@ -48,6 +49,12 @@ describe('FieldLocale', () => {
     describe('.locale', () => {
       it('is set to the same value as given to first constructor arg\'s .locale', () => {
         expect(field.locale).to.equal(info.locale)
+      })
+    })
+
+    describe('.validations', () => {
+      it('is equal to info.validations', () => {
+        expect(field.validations).to.equal(info.validations)
       })
     })
 
