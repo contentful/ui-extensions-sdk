@@ -1,9 +1,14 @@
 var path = require('path')
 
+var pkg = require('./package.json')
+var version = pkg.version
+
+var entry = {}
+entry['cf-extension-api'] = './lib/api/index.js'
+entry[`cf-extension-api-v${version}`] = './lib/api/index.js'
+
 module.exports = {
-  entry: {
-    'cf-extension-api': './lib/api/index.js'
-  },
+  entry: entry,
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].js',
