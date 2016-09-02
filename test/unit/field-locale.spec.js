@@ -12,7 +12,6 @@ describe('FieldLocale', () => {
     locale: 'en-US',
     value: 'Hello',
     type: 'Symbol',
-    isDisabled: true,
     validations: 'VALIDATIONS'
   }
   let channelStub
@@ -80,8 +79,6 @@ describe('FieldLocale', () => {
   })
 
   describe('.onIsDisabledChanged(handler)', () => {
-    testChangeMethod('onIsDisabledChanged', info.isDisabled)
-
     it('calls handler when method is received', () => {
       const cb = sinon.spy()
 
@@ -94,14 +91,23 @@ describe('FieldLocale', () => {
   })
 
   describe('.onValueChanged(handler)', () => {
-    testChangeMethod('onValueChanged', info.value)
-
     const newValue = 'some new, unused value'
     let valueChangedHandler
     beforeEach(() => {
       valueChangedHandler = function (...args) {
         channelStub.receiveMethod('valueChanged', args)
       }
+    })
+
+    describeAttachHandlerMember('default behaviour', () => {
+      return field.onValueChanged(noop)
+    })
+
+    it('calls handler immediately on attach with initial value of field', () => {
+      const spy = sinon.spy()
+      field.onValueChanged(spy)
+      sinon.assert.calledOnce(spy)
+      sinon.assert.calledWithExactly(spy, info.value)
     })
 
     describe('New value equals current value', () => {
@@ -165,20 +171,6 @@ describe('FieldLocale', () => {
     it('returns the promise returned by internal channel.call()', () => {
       channelStub.call.withArgs(method).returns('PROMISE')
       expect(field[method]('val')).to.equal('PROMISE')
-    })
-  }
-
-  function testChangeMethod (methodName, initialValue) {
-    describeAttachHandlerMember('default behaviour', () => {
-      return field[methodName](noop)
-    })
-
-    it('calls handler immediately on attach with initial value of field', () => {
-      const spy = sinon.spy()
-
-      field[methodName](spy)
-      sinon.assert.calledOnce(spy)
-      sinon.assert.calledWithExactly(spy, initialValue)
     })
   }
 })
