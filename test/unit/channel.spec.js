@@ -1,179 +1,116 @@
-import Channel from '../../lib/api/channel'
-import Promise from 'yaku'
-import {noop, describeAttachHandlerMember} from '../helpers'
+import connect from '../../lib/api/channel'
 
-describe(`Channel instance`, () => {
-  const sourceId = 42
-
-  let stubTargetWindow
-  let postMessageSpy
-  let channel
-  beforeEach(() => {
-    postMessageSpy = sinon.stub()
-    stubTargetWindow = {
-      postMessage: postMessageSpy
+describe('channel connect', function () {
+  beforeEach(function () {
+    this.postMessage = sinon.stub()
+    this.targetWindow = {
+      postMessage: this.postMessage
     }
-    channel = new Channel(sourceId, stubTargetWindow)
   })
 
-  it(`is a Channel instance`, () => {
-    expect(channel).to.be.instanceof(Channel)
-  })
-
-  describe(`.sourceId`, () => {
-    it(`is equal to id given to constructor`, () => {
-      expect(channel.sourceId).to.equal(sourceId)
+  it('resolves with channel and params on connect event', function (done) {
+    connect(this.targetWindow, (channel, params) => {
+      expect(channel.send).to.be.a('function')
+      expect(channel.call).to.be.a('function')
+      expect(channel.addHandler).to.be.a('function')
+      expect(params.id).to.equal('ID')
+      done()
     })
+
+    window.postMessage({
+      method: 'connect',
+      params: [{id: 'ID'}]
+    }, '*')
   })
 
-  describe(`.targetWindow`, () => {
-    it(`is equal to object given to constructor`, () => {
-      expect(channel.targetWindow).to.equal(stubTargetWindow)
-    })
-  })
-
-  describeAttachHandlerMember(`.addHandler(method, handler)`, () => {
-    return channel.addHandler('forSomePurpose', noop)
-  })
-
-  const messagingCases = {
-    'with multiple params': {
-      method: 'someMethod',
-      params: [42, 'foo', {}]
-    },
-    'with one params value': {
-      method: 'aMethod',
-      params: ['']
-    },
-    'without params': {
-      method: 'anothereMethod',
-      params: []
-    }
-  }
-
-  describe(`.send(method, ...params)`, () => {
-    for (let msg in messagingCases) {
-      describeSend(msg, messagingCases[msg])
-    }
-
-    describeSubsequentTargetWindowsPostMessageInvocations('send')
-  })
-
-  function describeSend (msg, {method, params}) {
-    describe(msg, () => {
-      describeTargetWindowsPostMessageInvocation('send', method, ...params)
-    })
-  }
-
-  describe(`.call(method, ...params)`, () => {
-    for (let msg in messagingCases) {
-      describeCall(msg, messagingCases[msg])
-    }
-
-    describeSubsequentTargetWindowsPostMessageInvocations('call')
-  })
-
-  function describeCall (msg, {method, params}) {
-    describe(msg, () => {
-      let promise
-      beforeEach(() => {
-        promise = channel.call(method, ...params)
+  describe('channel instance', function () {
+    beforeEach(function (done) {
+      connect(this.targetWindow, (channel) => {
+        this.channel = channel
+        done()
       })
 
-      describeTargetWindowsPostMessageInvocation('call', method, ...params)
+      window.postMessage({
+        method: 'connect',
+        params: [{id: 'SOURCE'}]
+      }, '*')
+    })
 
-      it(`returns a Promise`, () => {
-        expect(promise).to.be.instanceof(Promise)
-      })
-
-      describe(`returned Promise`, () => {
-        it(`gets resolved once the call got answered with a result`, (done) => {
-          const result = 'foo bar'
-          answerLastCallWith({result})
-
-          expect(promise).to.eventually.equal(result)
-            .and.notify(done)
+    describe('#send()', function () {
+      it('calls post message with parameters', function () {
+        this.channel.send('M', 1, 2)
+        expect(this.postMessage).to.be.calledOnce
+        expect(this.postMessage).to.be.calledWithMatch({
+          source: 'SOURCE',
+          method: 'M',
+          params: [1, 2]
         })
 
-        it(`resolves once the call got answered with an undefined result`, (done) => {
-          answerLastCallWith({result: undefined})
-
-          expect(promise).to.eventually.equal(undefined)
-            .and.notify(done)
-        })
-
-        it(`gets rejected once the call got answered with an error`, (done) => {
-          const error = 'What a mess!'
-          answerLastCallWith({error})
-
-          expect(promise).to.be.rejectedWith(error)
-            .and.notify(done)
-        })
-      })
-
-      function answerLastCallWith (data) {
-        data.id = postMessageSpy.lastCall.args[0].id
-        window.postMessage(data, '*')
-      }
-    })
-  }
-
-  function describeTargetWindowsPostMessageInvocation (member, method, ...params) {
-    describe(`.${member}() call's invocation of targetWindow .postMessage()`, () => {
-      beforeEach(() => {
-        postMessageSpy.reset()
-        channel[member](method, ...params)
-      })
-
-      it(`is done once`, () => {
-        expect(postMessageSpy).to.have.callCount(1)
-      })
-
-      describe(`message data`, () => {
-        itHasMessageData(`.source set to channel's source ID`, 'source', sourceId)
-        itHasMessageData(`.id set to a number`, 'id', sinon.match.number)
-        itHasMessageData(`.method as given to .call()`, 'method', method)
-        itHasMessageData(`.params as given to .call()`, 'params', params)
-
-        function itHasMessageData (msg, field, value) {
-          it(`has ${msg}`, () => {
-            expect(postMessageSpy).to.have.been.calledWith(
-              sinon.match.has(field, value))
-          })
-        }
-      })
-    })
-  }
-
-  function describeSubsequentTargetWindowsPostMessageInvocations (member) {
-    const msg =
-      `subsequent .${member}() calls' invocation of target window's .postMessage()`
-
-    describe(msg, () => {
-      const expectedCallsCount = Object.keys(messagingCases).length
-      beforeEach(() => {
-        for (let msg in messagingCases) {
-          const {method, params} = messagingCases[msg]
-          channel[member](method, ...params)
-        }
-      })
-
-      it(`is done once for each .${member}()`, () => {
-        expect(postMessageSpy).to.have.callCount(expectedCallsCount)
-      })
-
-      describe(`message data`, () => {
-        it(`has .id set to a number incremented by each call`, () => {
-          const expectedIds = []
-          for (let i = 0; i < expectedCallsCount; i++) {
-            expectedIds.push(i)
-          }
-          let providedIds = postMessageSpy.args.map((callArgs) => {
-            return callArgs[0].id
-          })
-          expect(providedIds).to.deep.equal(expectedIds)
+        this.channel.send('N', false)
+        expect(this.postMessage).to.be.calledTwice
+        expect(this.postMessage).to.be.calledWithMatch({
+          source: 'SOURCE',
+          method: 'N',
+          params: [false]
         })
       })
     })
-  }
+
+    describe('#call()', function () {
+      it('calls post message with parameters', function () {
+        this.channel.call('M', 1, 2)
+        expect(this.postMessage).to.be.calledOnce
+        expect(this.postMessage).to.be.calledWithMatch({
+          source: 'SOURCE',
+          method: 'M',
+          params: [1, 2]
+        })
+
+        this.channel.call('N', false)
+        expect(this.postMessage).to.be.calledTwice
+        expect(this.postMessage).to.be.calledWithMatch({
+          source: 'SOURCE',
+          method: 'N',
+          params: [false]
+        })
+      })
+
+      it('resolves promise when result is received', function () {
+        const response = this.channel.call('M')
+        const messageId = this.postMessage.args[0][0].id
+
+        window.postMessage({
+          id: messageId,
+          result: 'JO'
+        }, '*')
+
+        return expect(response).to.eventually.equal('JO')
+      })
+
+      it('rejects promise when error is received', function () {
+        const response = this.channel.call('M')
+        const messageId = this.postMessage.args[0][0].id
+
+        window.postMessage({
+          id: messageId,
+          error: 'ERROR'
+        }, '*')
+
+        return expect(response).to.be.rejected
+      })
+    })
+
+    describe('#addHandler()', function () {
+      it('calls callback when message is received', function (done) {
+        this.channel.addHandler('method', function (...params) {
+          expect(params).to.deep.equal(['a', 'b', 'c'])
+          done()
+        })
+        window.postMessage({
+          method: 'method',
+          params: ['a', 'b', 'c']
+        }, '*')
+      })
+    })
+  })
 })
