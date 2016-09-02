@@ -1,59 +1,93 @@
 import initializeApi from '../../lib/api/initialize'
+import Promise from 'yaku'
 
-describe(`initializeApi(apiCreator)`, () => {
-  let init
-  beforeEach(() => {
-    init = initializeApi(function () { return {} })
+describe('initializeApi(apiCreator)', function () {
+  beforeEach(function () {
+    this.apiCreator = sinon.stub().returns({})
+    const init = initializeApi((...args) => this.apiCreator(...args))
+    this.initialize = function () {
+      return new Promise((resolve) => init(resolve))
+    }
   })
 
-  describe(`returned init(callback)`, () => {
-    it(`is a function`, () => {
-      expect(init).to.be.a('function')
+  describe('callback', function () {
+    beforeEach(function () {
+      this.api = {}
+      this.init = initializeApi(() => this.api)
     })
 
-    describe(`called before Widget API is ready`, () => {
-      it(`does not invoke callback`, () => {
-        const spy = sinon.spy()
-        init(spy)
-        expect(spy).to.have.callCount(0)
+    it('is not invoked before connecting', function () {
+      const cb = sinon.spy()
+      this.init(cb)
+      expect(cb).to.not.be.called
+    })
+
+    it('is invoked after connecting', function (done) {
+      this.init(() => done())
+      sendConnect()
+    })
+
+    it('is invoked when registering it after connecting', function () {
+      sendConnect()
+      return wait()
+      .then(() => {
+        const cb = sinon.spy()
+        this.init(cb)
+        expect(cb).to.be.called
       })
     })
 
-    describe(`called after Widget API is ready`, () => {
-      it(`immediately invokes callback`, (done) => {
-        signalWidgetReady()
-        setTimeout(() => {
-          const spy = sinon.spy()
-          init(spy)
-          expect(spy).to.have.callCount(1)
-          done()
-        }, 0)
+    it('receives the result of the apiCreator', function (done) {
+      this.init((arg) => {
+        expect(arg).to.equal(this.api)
+        done()
       })
-    })
-
-    describe(`callback`, () => {
-      it(`gets invoked once ready state got signaled`, (done) => {
-        init(() => done())
-        signalWidgetReady()
-      })
-      it(`does not get called again if ready state is signaled again `, (done) => {
-        init(() => {
-          const spy = sinon.spy()
-          init(spy)
-          expect(spy).to.have.callCount(1)
-          done()
-        })
-        signalWidgetReady()
-      })
+      sendConnect()
     })
   })
 
-  function signalWidgetReady () {
+  it('calls apiCreator with channel and params', function () {
+    const params = {id: 'foo', val: 'x'}
+    sendConnect(params)
+    return this.initialize()
+    .then(() => {
+      const [channel, params] = this.apiCreator.args[0]
+      expect(channel.call).to.be.a('function')
+      expect(channel.send).to.be.a('function')
+      expect(channel.addHandler).to.be.a('function')
+      expect(params).to.deep.equal(params)
+    })
+  })
+
+  it('adds focus handlers', function () {
+    let send = sinon.spy()
+    this.apiCreator = function (channel) {
+      channel.send = send
+    }
+    sendConnect()
+    return this.initialize()
+    .then(() => {
+      document.dispatchEvent(new Event('focus'))
+      expect(send).to.be.calledOnce
+      expect(send).to.be.calledWithExactly('setActive', true)
+
+      send.reset()
+      document.dispatchEvent(new Event('blur'))
+      expect(send).to.be.calledOnce
+      expect(send).to.be.calledWithExactly('setActive', false)
+    })
+  })
+
+  function sendConnect (params) {
     window.postMessage({
       method: 'connect',
-      params: [{
-        id: 'foo'
-      }]
+      params: [
+        params || {id: 'foo'}
+      ]
     }, '*')
+  }
+
+  function wait () {
+    return new Promise((resolve) => setTimeout(resolve))
   }
 })
