@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<!--[if lte IE 6]>            <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IEMobile 7]>          <html class="no-js iem7" lang="en"> <![endif]-->
+<!--[if (IE 7)&(!IEMobile)]>  <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>                <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|(gt IEMobile 7)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Contentful Styleguide</title>
+
+  <meta name="description" content="">
+  <meta name="generator" content="kss-node">
+  <meta name="viewport" content="width=device-width">
+
+  <link rel="stylesheet" href="public/kss.css">
+  <link rel="stylesheet" href="./styleguide.css">
+<link rel="stylesheet" href="./../cf-extension.css">
+
+</head>
+<body id="kss-node">
+
+<div class="kss-sidebar kss-style">
+  <header class="kss-header">
+    <h1 class="kss-doc-title">Contentful Styleguide</h1>
+  </header>
+  <nav class="kss-nav">
+    <ul class="kss-nav__menu">
+      <li class="kss-nav__menu-item">
+        <a href="./">
+          <span class="kss-nav__ref">0</span
+          ><span class="kss-nav__name">Overview</span>
+        </a>
+      </li>
+      <li class="kss-nav__menu-item">
+        <a href="section-1.html">
+          <span class="kss-nav__ref">1</span
+          ><span class="kss-nav__name">Typography</span>
+        </a>
+      </li>
+      <li class="kss-nav__menu-item">
+        <a href="section-2.html">
+          <span class="kss-nav__ref">2</span
+          ><span class="kss-nav__name">Buttons</span>
+        </a>
+      </li>
+      <li class="kss-nav__menu-item">
+        <a href="section-3.html">
+          <span class="kss-nav__ref">3</span
+          ><span class="kss-nav__name">Forms</span>
+        </a>
+        <ul class="kss-nav__menu-child">
+            <li class="kss-nav__menu-item">
+              <a href="section-3.html#kssref-3-1">
+                <span class="kss-nav__ref ">3.1</span
+                ><span class="kss-nav__name">Inputs and labels</span>
+              </a>
+            </li>
+            <li class="kss-nav__menu-item">
+              <a href="section-3.html#kssref-3-3">
+                <span class="kss-nav__ref ">3.3</span
+                ><span class="kss-nav__name">Disabled inputs</span>
+              </a>
+            </li>
+            <li class="kss-nav__menu-item">
+              <a href="section-3.html#kssref-3-4">
+                <span class="kss-nav__ref ">3.4</span
+                ><span class="kss-nav__name">Errors</span>
+              </a>
+            </li>
+            <li class="kss-nav__menu-item">
+              <a href="section-3.html#kssref-3-5">
+                <span class="kss-nav__ref ">3.5</span
+                ><span class="kss-nav__name">Option set</span>
+              </a>
+            </li>
+            <li class="kss-nav__menu-item">
+              <a href="section-3.html#kssref-3-6">
+                <span class="kss-nav__ref ">3.6</span
+                ><span class="kss-nav__name">Horizontal option set</span>
+              </a>
+            </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>
+<article role="main" class="kss-main">
+
+      <div     id="kssref-3" class="kss-section kss-section--depth-1">
+
+    <div class="kss-style">
+      <h1 class="kss-title kss-title--level-1">
+        <a class="kss-title__permalink" href="#kssref-3">
+          <span class="kss-title__ref">
+              3
+            <span class="kss-title__permalink-hash">
+                #permalink
+            </span>
+          </span>
+          Forms
+        </a>
+      </h1>
+
+
+      <div class="kss-description">
+        <p>Build simple forms with labels, inputs, errors and option groups.</p>
+
+      </div>
+    </div>
+
+
+      </div>
+      <section id="kssref-3-1" class="kss-section kss-section--depth-2">
+
+    <div class="kss-style">
+      <h2 class="kss-title kss-title--level-2">
+        <a class="kss-title__permalink" href="#kssref-3-1">
+          <span class="kss-title__ref">
+              3.1
+            <span class="kss-title__permalink-hash">
+                #permalink
+            </span>
+          </span>
+          Inputs and labels
+        </a>
+      </h2>
+
+
+      <div class="kss-description">
+        <p>Add <code>.cf-form-input</code> to <code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code>, or <code>&lt;select&gt;</code> elements
+to apply the styles.</p>
+
+      </div>
+    </div>
+
+      <div class="kss-modifier__wrapper">
+        <div class="kss-modifier__heading kss-style">
+          Example
+        </div>
+        <div class="kss-modifier__example">
+          <div class="cf-form-field">
+  <label>Name</label>
+  <input type="text" value="Contentful!" class="cf-form-input">
+  <div class="cf-form-hint">
+    You have to provide your name here
+  </div>
+</div>
+<div class="cf-form-field">
+  <label>Bio</label>
+  <textarea class="cf-form-input"></textarea>
+</div>
+<div class="cf-form-field">
+  <select class="cf-form-input">
+    <option value="value">Value</option>
+    <option value="more">More</option>
+  </select>
+</div>
+        </div>
+      </div>
+
+      <div class="kss-markup kss-style">
+        <pre class="prettyprint linenums lang-html"><code data-language="html">&lt;div class=&quot;cf-form-field&quot;&gt;
+  &lt;label&gt;Name&lt;/label&gt;
+  &lt;input type=&quot;text&quot; value=&quot;Contentful!&quot; class=&quot;cf-form-input&quot;&gt;
+  &lt;div class=&quot;cf-form-hint&quot;&gt;
+    You have to provide your name here
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;cf-form-field&quot;&gt;
+  &lt;label&gt;Bio&lt;/label&gt;
+  &lt;textarea class=&quot;cf-form-input&quot;&gt;&lt;/textarea&gt;
+&lt;/div&gt;
+&lt;div class=&quot;cf-form-field&quot;&gt;
+  &lt;select class=&quot;cf-form-input&quot;&gt;
+    &lt;option value=&quot;value&quot;&gt;Value&lt;/option&gt;
+    &lt;option value=&quot;more&quot;&gt;More&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+
+      </section>
+      <section id="kssref-3-3" class="kss-section kss-section--depth-2">
+
+    <div class="kss-style">
+      <h2 class="kss-title kss-title--level-2">
+        <a class="kss-title__permalink" href="#kssref-3-3">
+          <span class="kss-title__ref">
+              3.3
+            <span class="kss-title__permalink-hash">
+                #permalink
+            </span>
+          </span>
+          Disabled inputs
+        </a>
+      </h2>
+
+
+      <div class="kss-description">
+        <p>Disabled styles are applied when the selects <code>[aria-disabled=&quot;true&quot;]</code> or <code>:disabled</code> match.</p>
+
+      </div>
+    </div>
+
+      <div class="kss-modifier__wrapper">
+        <div class="kss-modifier__heading kss-style">
+          Example
+        </div>
+        <div class="kss-modifier__example">
+          <div class="cf-form-field">
+  <label>Name</label>
+  <input type="text" aria-disabled="true" class="cf-form-input" value="Cannot edit :(">
+</div>
+<div class="cf-form-field">
+  <label>Select</label>
+  <select disabled class="cf-form-input">
+    <option>Value</option>
+  </select>
+</div>
+        </div>
+      </div>
+
+      <div class="kss-markup kss-style">
+        <pre class="prettyprint linenums lang-html"><code data-language="html">&lt;div class=&quot;cf-form-field&quot;&gt;
+  &lt;label&gt;Name&lt;/label&gt;
+  &lt;input type=&quot;text&quot; aria-disabled=&quot;true&quot; class=&quot;cf-form-input&quot; value=&quot;Cannot edit :(&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;cf-form-field&quot;&gt;
+  &lt;label&gt;Select&lt;/label&gt;
+  &lt;select disabled class=&quot;cf-form-input&quot;&gt;
+    &lt;option&gt;Value&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+
+      </section>
+      <section id="kssref-3-4" class="kss-section kss-section--depth-2">
+
+    <div class="kss-style">
+      <h2 class="kss-title kss-title--level-2">
+        <a class="kss-title__permalink" href="#kssref-3-4">
+          <span class="kss-title__ref">
+              3.4
+            <span class="kss-title__permalink-hash">
+                #permalink
+            </span>
+          </span>
+          Errors
+        </a>
+      </h2>
+
+
+      <div class="kss-description">
+        <p>Error styles are applied when the selects <code>[aria-invalid=&quot;true&quot;]</code> or <code>:invalid</code> match.</p>
+
+      </div>
+    </div>
+
+      <div class="kss-modifier__wrapper">
+        <div class="kss-modifier__heading kss-style">
+          Example
+        </div>
+        <div class="kss-modifier__example">
+          <div class="cf-form-field">
+  <label>Name</label>
+  <input type="text" aria-invalid="true" class="cf-form-input">
+  <div class="cf-field-error">Something went wrong!</div>
+</div>
+<div class="cf-form-field">
+  <label>Select</label>
+  <select aria-invalid="true" class="cf-form-input">
+    <option>Not the right value</option>
+  </select>
+</div>
+        </div>
+      </div>
+
+      <div class="kss-markup kss-style">
+        <pre class="prettyprint linenums lang-html"><code data-language="html">&lt;div class=&quot;cf-form-field&quot;&gt;
+  &lt;label&gt;Name&lt;/label&gt;
+  &lt;input type=&quot;text&quot; aria-invalid=&quot;true&quot; class=&quot;cf-form-input&quot;&gt;
+  &lt;div class=&quot;cf-field-error&quot;&gt;Something went wrong!&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;cf-form-field&quot;&gt;
+  &lt;label&gt;Select&lt;/label&gt;
+  &lt;select aria-invalid=&quot;true&quot; class=&quot;cf-form-input&quot;&gt;
+    &lt;option&gt;Not the right value&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+
+      </section>
+      <section id="kssref-3-5" class="kss-section kss-section--depth-2">
+
+    <div class="kss-style">
+      <h2 class="kss-title kss-title--level-2">
+        <a class="kss-title__permalink" href="#kssref-3-5">
+          <span class="kss-title__ref">
+              3.5
+            <span class="kss-title__permalink-hash">
+                #permalink
+            </span>
+          </span>
+          Option set
+        </a>
+      </h2>
+
+
+    </div>
+
+      <div class="kss-modifier__wrapper">
+        <div class="kss-modifier__heading kss-style">
+          Example
+        </div>
+        <div class="kss-modifier__example">
+          <form>
+  <p>A few options</p>
+  <div class="cf-form-option">
+    <input type="checkbox" id="option-a">
+    <label for="option-a">Check this</label>
+  </div>
+  <div class="cf-form-option">
+    <input type="checkbox" id="option-b">
+    <div class="cf-form-label">
+      <label for="option-b">Or check that</label>
+      <p>You also can check both</p>
+      <p class="cf-text-dimmed">This is a hint</p>
+    </div>
+  </div>
+  <div class="cf-form-option">
+    <input type="checkbox" id="option-c" disabled>
+    <label for="option-c">This option's disabled</label>
+  </div>
+</form>
+        </div>
+      </div>
+
+      <div class="kss-markup kss-style">
+        <pre class="prettyprint linenums lang-html"><code data-language="html">&lt;form&gt;
+  &lt;p&gt;A few options&lt;/p&gt;
+  &lt;div class=&quot;cf-form-option&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; id=&quot;option-a&quot;&gt;
+    &lt;label for=&quot;option-a&quot;&gt;Check this&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;cf-form-option&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; id=&quot;option-b&quot;&gt;
+    &lt;div class=&quot;cf-form-label&quot;&gt;
+      &lt;label for=&quot;option-b&quot;&gt;Or check that&lt;/label&gt;
+      &lt;p&gt;You also can check both&lt;/p&gt;
+      &lt;p class=&quot;cf-text-dimmed&quot;&gt;This is a hint&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;cf-form-option&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; id=&quot;option-c&quot; disabled&gt;
+    &lt;label for=&quot;option-c&quot;&gt;This option&#x27;s disabled&lt;/label&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+      </div>
+
+      </section>
+      <section id="kssref-3-6" class="kss-section kss-section--depth-2">
+
+    <div class="kss-style">
+      <h2 class="kss-title kss-title--level-2">
+        <a class="kss-title__permalink" href="#kssref-3-6">
+          <span class="kss-title__ref">
+              3.6
+            <span class="kss-title__permalink-hash">
+                #permalink
+            </span>
+          </span>
+          Horizontal option set
+        </a>
+      </h2>
+
+
+      <div class="kss-description">
+        <p>Note: don&#39;t use an actual fieldset tag with this class:
+<a href="http://germanforblack.com/post/73295576875/flexbox-for-forms">http://germanforblack.com/post/73295576875/flexbox-for-forms</a></p>
+
+      </div>
+    </div>
+
+      <div class="kss-modifier__wrapper">
+        <div class="kss-modifier__heading kss-style">
+          Example
+        </div>
+        <div class="kss-modifier__example">
+          <form class="cf-form-horizontal">
+  <div class="cf-form-option">
+    <input type="checkbox" id="option-d">
+    <label for="option-d">Check this</label>
+  </div>
+  <div class="cf-form-option">
+    <input type="checkbox" id="option-e">
+    <label for="option-e">Select me</label>
+  </div>
+  <div class="cf-form-option">
+    <input type="checkbox" id="option-f">
+    <label for="option-f">Or me</label>
+  </div>
+</form>
+        </div>
+      </div>
+
+      <div class="kss-markup kss-style">
+        <pre class="prettyprint linenums lang-html"><code data-language="html">&lt;form class=&quot;cf-form-horizontal&quot;&gt;
+  &lt;div class=&quot;cf-form-option&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; id=&quot;option-d&quot;&gt;
+    &lt;label for=&quot;option-d&quot;&gt;Check this&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;cf-form-option&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; id=&quot;option-e&quot;&gt;
+    &lt;label for=&quot;option-e&quot;&gt;Select me&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;cf-form-option&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; id=&quot;option-f&quot;&gt;
+    &lt;label for=&quot;option-f&quot;&gt;Or me&lt;/label&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+      </div>
+
+      </section>
+</article>
+
+<!-- SCRIPTS -->
+<script src="public/kss.js"></script>
+<script src="public/prettify.js"></script>
+<script>
+  prettyPrint();
+</script>
+
+
+
+<!-- Automatically generated using <a href="https://github.com/kss-node/kss-node">kss-node</a>. -->
+</body>
+</html>
