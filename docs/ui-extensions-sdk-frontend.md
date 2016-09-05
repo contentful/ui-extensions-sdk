@@ -121,6 +121,17 @@ A boolean indicating whether the field is disabled or not is passed to the callb
 
 The method returns a function that can be called to stop listerning to changes.
 
+##### `extension.field.onSchemaErrorsChanged(cb): function`
+Calls the callback immediately with the current validation errors and whenever
+the field is revalidated. The callback receives an array of error objects. An empty array indicates no errors.
+
+The errors are updated when the app validates an entry. This happens when
+loading an entry or when the user tries to publish it.
+
+The method returns a function that can be called to stop listerning to changes.
+
+_In upcoming release_
+
 ##### `extension.field.id: string`
 The ID of a field is defined in an entry’s content type. Yields `"title"` in the
 example.

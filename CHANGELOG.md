@@ -6,6 +6,7 @@ the [“Keep a Changelog” format](http://keepachangelog.com/).
 ## Upcoming
 ### Added
 - `field.validations` property.
+- `field.onSchemaErrorsChanged` signal.
 
 ### Fixed
 

@@ -79,15 +79,11 @@ describe('FieldLocale', () => {
   })
 
   describe('.onIsDisabledChanged(handler)', () => {
-    it('calls handler when method is received', () => {
-      const cb = sinon.spy()
+    testChannelSignal('onIsDisabledChanged', 'isDisabledChanged')
+  })
 
-      field.onIsDisabledChanged(cb)
-      cb.reset()
-      channelStub.receiveMethod('isDisabledChanged', ['ISDISABLED'])
-      sinon.assert.calledOnce(cb)
-      sinon.assert.calledWithExactly(cb, 'ISDISABLED')
-    })
+  describe('.onSchemaErrorsChanged(handler)', () => {
+    testChannelSignal('onSchemaErrorsChanged', 'schemaErrorsChanged')
   })
 
   describe('.onValueChanged(handler)', () => {
@@ -171,6 +167,26 @@ describe('FieldLocale', () => {
     it('returns the promise returned by internal channel.call()', () => {
       channelStub.call.withArgs(method).returns('PROMISE')
       expect(field[method]('val')).to.equal('PROMISE')
+    })
+  }
+
+  function testChannelSignal (method, message) {
+    it('calls handler when method is received', () => {
+      const cb = sinon.spy()
+
+      field[method](cb)
+      cb.reset()
+      channelStub.receiveMethod(message, ['VALUE'])
+      sinon.assert.calledOnce(cb)
+      sinon.assert.calledWithExactly(cb, 'VALUE')
+    })
+
+    it('calls handler with last received message', () => {
+      channelStub.receiveMethod(message, ['VALUE'])
+      const cb = sinon.spy()
+      field[method](cb)
+      sinon.assert.calledOnce(cb)
+      sinon.assert.calledWithExactly(cb, 'VALUE')
     })
   }
 })
