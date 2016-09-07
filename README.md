@@ -13,6 +13,30 @@ usage examples. The [extension API documentation][api-ref], on the other hand, p
 
 You can also refer to the [following FAQ](FAQ.md) for questions related to hosting, or limitations.
 
+## Getting started
+
+The most convenient way to upload and manage extensions through our API is via the
+[`contentful-extension`][cf-extension-cli] command line tool. You can install it with
+
+```bash
+npm install -g contentful-extension-cli
+```
+
+Including the compiled version of the extension client library is as simple as
+adding the following line to your application.
+
+```html
+<script src="https://contentful.github.io/ui-extensions-sdk/cf-extension-api.js"></script>
+```
+
+It also provide a set of examples you can check out to get a deeper understanding of the SDK capabilities.
+
+To get an overview over the API, have a look at the [reference documentation][api-ref]
+
+[cf-extension-cli]: https://github.com/contentful/contentful-extension-cli
+[api-ref]: docs/ui-extensions-sdk-frontend.md
+
+
 ## Extensions taxonomy and example use cases
 
 Conceptually, there are two main categories of custom extensions, for content
@@ -69,30 +93,6 @@ Examples of entry-level extensions are:
 * Integration with a preview environment
 * Moving entries across different spaces
 
-## Getting started
-
-The most convenient way to upload and manage extensions through our API is via the
-[`contentful-extension`][cf-extension-cli] command line tool. You can install it with
-
-```bash
-npm install -g contentful-extension-cli
-```
-
-Including the compiled version of the extension client library is as simple as
-adding the following line to your application.
-
-```html
-<script src="https://contentful.github.io/ui-extensions-sdk/cf-extension-api.js"></script>
-```
-
-It also provide a set of examples you can check out to get a deeper understanding of the SDK capabilities.
-
-To get an overview over the API, have a look at the [reference documentation][api-ref]
-
-[cf-extension-cli]: https://github.com/contentful/contentful-extension-cli
-[api-ref]: docs/ui-extensions-sdk-frontend.md
-
-
 ## Using Contentful styles
 
 As extensions are rendered inside an iframe, you will need to include the
@@ -107,83 +107,6 @@ You can include this CSS in your extension code as follows:
 
 Futher information about styling your extension can be found in the
 [styleguide](http://contentful.github.io/ui-extensions-sdk/styleguide).
-
-
-## Examples
-
-Our extensions repository includes the following example extension implementations. Before you can
-use them, you need to run `npm install` in the repository root.
-
-#### [Basic Rating Dropdown](https://github.com/contentful/extensions/tree/master/samples/rating-dropdown)
-
-![rating-dropdown](http://contentful.github.io/ui-extensions-sdk/assets/rating-dropdown.png)
-
-This example is a basic extension meant to help you *get started* with custom extensions development. Uses a dropdown to
-change the value of a number field and makes some CMA requests.
-
-#### [Rich Text Editor](https://github.com/contentful/extensions/tree/master/samples/alloy-editor)
-
-![alloy-editor](http://contentful.github.io/ui-extensions-sdk/assets/alloy-editor.png)
-
-This example integrates the [Alloy rich-text/HTML editor](http://alloyeditor.com/) to
-edit “Text” fields. Great to personalize the entry editor and enable HTML editing as an alternative to Markdown.
-
-#### [Slug Generator](https://github.com/contentful/extensions/tree/master/samples/slug)
-
-![slug-extension](http://contentful.github.io/ui-extensions-sdk/assets/slug-widget.png)
-
-This example will automatically generate its value from an entry's title field.
-For example typing “Hello World” into the title field will set the extensions input
-field to “hello-world”. It will also check the uniquness of the slug across a
-customizable list of content types. It highlights how the extensions SDK can be used to *inspect any value*
-of an entry and *react to changes*.
-
-#### [JSON Editor](https://github.com/contentful/extensions/tree/master/samples/json-editor)
-
-![json-editor-ok](http://contentful.github.io/ui-extensions-sdk/assets/json-editor.png)
-
-This example provides a JSON formatter and validator based on the [Codemirror](http://codemirror.net) library. It should be used with fields with the type “Object”.
-
-#### [JSON Form Editor](https://github.com/contentful/extensions/tree/master/samples/json-form-editor)
-
-![json-form-editor](http://contentful.github.io/ui-extensions-sdk/assets/json-form-editor.png)
-
-This example integrates the [JSON Editor](https://github.com/jdorn/json-editor)
-library to display an edit form based on a predefined [JSON Schema](https://json-schema.org/).
-Form input gets stored as a JSON object.
-
-#### [Translator](https://github.com/contentful/extensions/tree/master/samples/translate)
-
-![translate-extension](http://contentful.github.io/ui-extensions-sdk/assets/translate-widget.png)
-
-This example translates text from the default locale to other locales in a space using the Yandex translation API.
-
-#### [Wistia Videos](https://github.com/contentful/extensions/tree/master/samples/wistia)
-
-![Screenshot of Wistia extension](http://contentful.github.io/ui-extensions-sdk/assets/wistia.gif)
-
-This example loads videos from a [project](http://wistia.com/doc/projects) on [wistia](http://wistia.com/) into the Contentful Web Application. A video can be easily previewed, selected and then stored as part of your content. In this example extension we store the video embed URL in Contentful so the video can be embedded easily.
-
-#### [YouTube ID](https://github.com/contentful/extensions/tree/master/samples/youtube-id)
-
-![youtube-id](http://contentful.github.io/ui-extensions-sdk/assets/youtube-id.png)
-
-This example extracts the video id from a valid YouTube URI. Useful as a simple way to integrate with 3rd party media services.
-
-#### [Diffing Published and Draft](https://github.com/contentful/extensions/tree/master/samples/diff)
-
-![Screenshot of diff extension](http://contentful.github.io/ui-extensions-sdk/assets/diff-extension.png)
-
-The diff editor extension shows the diff between the draft value and the published value of a short text field.
-
-#### [Chessboard](https://github.com/contentful/extensions/tree/master/samples/chessboard)
-
-![Chessboard extension in action](http://contentful.github.io/ui-extensions-sdk/assets/chessboard.gif)
-
-This example displays a chessboard and stores the board position as a JSON
-object. You can drag pieces on the chessboard and the position data will be
-updated automatically. The extension also supports *collaborative editing*. If two
-editors open the same entry moves will be synced between them. It highlights the flexibility and potential of solutions that can be built using the UI Extensions SDK.
 
 ## Providing feedback
 
