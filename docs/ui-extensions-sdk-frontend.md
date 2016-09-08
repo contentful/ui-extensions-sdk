@@ -43,6 +43,9 @@ The Contentful UI Extensions SDK including the JavaScript API is also distribute
 npm install --save contentful-ui-extensions-sdk
 ~~~
 
+Note that for production purposes you should not rely on the `github.io` hosted
+files. You should use a CDN or bundle the library node module.
+
 [package]: https://www.npmjs.com/package/contentful-ui-extensions-sdk
 
 ## Initialization
