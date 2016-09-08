@@ -1,11 +1,13 @@
 var path = require('path')
 
 var pkg = require('./package.json')
-var version = pkg.version
+var tags = makeTags(pkg.version)
 
 var entry = {}
 entry['cf-extension-api'] = './lib/api/index.js'
-entry[`cf-extension-api-v${version}`] = './lib/api/index.js'
+tags.forEach((tag) => {
+  entry[`tagged/cf-extension-api-v${tag}`] = './lib/api/index.js'
+})
 
 module.exports = {
   entry: entry,
@@ -29,4 +31,14 @@ module.exports = {
     ]
   },
   devtool: 'source-map'
+}
+
+function makeTags (version) {
+  // For version 1.2.3, tags will be ['1', '1.2', '1.2.3']
+  return version.split('.')
+    .reduce(function (tags, component) {
+      var previous = tags[0] || []
+      tags.unshift(previous.concat([component]))
+      return tags
+    }, []).map((components) => components.join('.'))
 }
