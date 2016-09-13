@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and
 the [“Keep a Changelog” format](http://keepachangelog.com/).
 
+## Upcoming
+### Added
+- `field.validations` property.
+- `field.onSchemaErrorsChanged` signal.
+
+### Fixed
+
+- Use `dist/cf-extension-api.js` file as the module's entry point
+
 ## 2.0.1 - 2016-07-13
 
 ### Fixed
