@@ -144,7 +144,7 @@ loading an entry or when the user tries to publish it.
 
 The method returns a function that can be called to stop listerning to changes.
 
-_In upcoming release_
+_Since v2.1.0_
 
 ##### `extension.field.id: string`
 The ID of a field is defined in an entry’s content type. Yields `"title"` in the
@@ -164,7 +164,7 @@ A list of validations for this field that are defined in the content type. The
 [content type documentation](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/content-types/content-type/create/update-a-content-type)
 provides more information on the shape of validations.
 
-_In upcoming release_
+_Since v2.1.0_
 
 ## `extension.entry`
 This object allows you to read and update the value of any field of the current

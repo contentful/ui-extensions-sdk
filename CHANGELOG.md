@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and
 the [“Keep a Changelog” format](http://keepachangelog.com/).
 
-## Upcoming
+## 2.1.0 - 2016-09-13
 ### Added
 - `field.validations` property.
 - `field.onSchemaErrorsChanged` signal.

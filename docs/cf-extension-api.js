@@ -111,45 +111,60 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = initializeApi;
+	exports.default = createInitializer;
 	
 	var _channel = __webpack_require__(2);
 	
 	var _channel2 = _interopRequireDefault(_channel);
 	
-	var _signal = __webpack_require__(4);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function initializeApi(apiCreator) {
-	  var channel = new _channel2.default(null, window.parent);
-	  var apiInitCallbacks = new _signal.Signal();
-	  var createdApi = void 0;
+	function createInitializer(apiCreator) {
+	  var apiDeferred = createDeferred();
+	  var channelDeferred = createDeferred();
+	  channelDeferred.then(addFocusHandlers);
 	
-	  var removeHandler = channel.addHandler('connect', function (params) {
-	    removeHandler();
-	    channel.sourceId = params.id;
-	
-	    createdApi = apiCreator(channel, params);
-	
-	    apiInitCallbacks.dispatch(createdApi);
-	    apiInitCallbacks = null;
+	  (0, _channel2.default)(window.parent, function (channel, params, messageQueue) {
+	    channelDeferred.resolve(channel);
+	    var api = apiCreator(channel, params);
+	    messageQueue.forEach(function (m) {
+	      channel._handleMessage(m);
+	    });
+	    apiDeferred.resolve(api);
 	  });
 	
 	  return function init(initCb) {
-	    document.addEventListener('focus', setActive(true), true);
-	    document.addEventListener('blur', setActive(false), true);
+	    apiDeferred.then(initCb);
+	  };
+	}
 	
-	    if (createdApi) {
-	      initCb(createdApi);
-	    } else {
-	      apiInitCallbacks.attach(initCb);
-	    }
+	function addFocusHandlers(channel) {
+	  document.addEventListener('focus', function () {
+	    return channel.send('setActive', true);
+	  }, true);
+	  document.addEventListener('blur', function () {
+	    return channel.send('setActive', false);
+	  }, true);
+	}
 	
-	    function setActive(isActive) {
-	      return function () {
-	        return channel.call('setActive', isActive);
-	      };
+	function createDeferred() {
+	  var isResolved = false;
+	  var resolvedValue = void 0;
+	  var callbacks = [];
+	  return {
+	    resolve: function resolve(value) {
+	      isResolved = true;
+	      resolvedValue = value;
+	      callbacks.forEach(function (cb) {
+	        return cb(value);
+	      });
+	    },
+	    then: function then(cb) {
+	      if (isResolved) {
+	        cb(resolvedValue);
+	      } else {
+	        callbacks.push(cb);
+	      }
 	    }
 	  };
 	}
@@ -166,6 +181,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
+	exports.default = connect;
+	
 	var _yaku = __webpack_require__(3);
 	
 	var _yaku2 = _interopRequireDefault(_yaku);
@@ -174,9 +191,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	function connect(targetWindow, onConnect) {
+	  waitForConnect(targetWindow, function (params, messageQueue) {
+	    var channel = new Channel(params.id, targetWindow);
+	    onConnect(channel, params, messageQueue);
+	  });
+	}
+	
+	function waitForConnect(targetWindow, onConnect) {
+	  window.addEventListener('message', listener);
+	
+	  function listener(event) {
+	    var message = event.data;
+	    if (message.method === 'connect') {
+	      window.removeEventListener('message', listener);
+	      onConnect.apply(undefined, _toConsumableArray(message.params));
+	    }
+	  }
+	}
 	
 	var Channel = function () {
 	  function Channel(sourceId, targetWindow) {
@@ -184,13 +220,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	    _classCallCheck(this, Channel);
 	
-	    this.sourceId = sourceId;
-	    this.targetWindow = targetWindow; // contentful webapp window
-	    this._messageCount = 0;
 	    this._messageHandlers = {};
 	    this._responseHandlers = {};
 	
-	    // window refers to iframe contentWindow
+	    this._send = createSender(sourceId, targetWindow);
+	
 	    window.addEventListener('message', function (event) {
 	      _this._handleMessage(event.data);
 	    });
@@ -251,31 +285,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if ('result' in message) {
 	          responseHandler.resolve(message.result);
 	        } else if ('error' in message) {
+	          // TODO We should wrap this in an Error instance
 	          responseHandler.reject(message.error);
 	        }
 	        delete this._responseHandlers[id];
 	      }
-	    }
-	  }, {
-	    key: '_send',
-	    value: function _send(method, params) {
-	      var messageId = this._messageCount++;
-	
-	      this.targetWindow.postMessage({
-	        source: this.sourceId,
-	        id: messageId,
-	        method: method,
-	        params: params
-	      }, '*');
-	
-	      return messageId;
 	    }
 	  }]);
 	
 	  return Channel;
 	}();
 	
-	exports.default = Channel;
+	function createSender(sourceId, targetWindow) {
+	  var messageCount = 0;
+	  return function send(method, params) {
+	    var messageId = messageCount++;
+	
+	    targetWindow.postMessage({
+	      source: sourceId,
+	      id: messageId,
+	      method: method,
+	      params: params
+	    }, '*');
+	
+	    return messageId;
+	  };
+	}
 
 /***/ },
 /* 3 */
@@ -2081,6 +2116,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  // Thrash, waste and sodomy: IE GC bug
 	  var iframe = __webpack_require__(18)('iframe')
 	    , i      = enumBugKeys.length
+	    , lt     = '<'
 	    , gt     = '>'
 	    , iframeDocument;
 	  iframe.style.display = 'none';
@@ -2090,7 +2126,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  // html.removeChild(iframe);
 	  iframeDocument = iframe.contentWindow.document;
 	  iframeDocument.open();
-	  iframeDocument.write('<script>document.F=Object</script' + gt);
+	  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
 	  iframeDocument.close();
 	  createDict = iframeDocument.F;
 	  while(i--)delete createDict[PROTOTYPE][enumBugKeys[i]];
@@ -2108,6 +2144,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  } else result = createDict();
 	  return Properties === undefined ? result : dPs(result, Properties);
 	};
+
 
 /***/ },
 /* 50 */
@@ -2251,23 +2288,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var FieldLocale = function () {
-	  function FieldLocale(channel, _ref) {
+	  function FieldLocale(channel, fieldInfo) {
 	    var _this = this;
-	
-	    var id = _ref.id;
-	    var locale = _ref.locale;
-	    var value = _ref.value;
-	    var type = _ref.type;
-	    var isDisabled = _ref.isDisabled;
 	
 	    _classCallCheck(this, FieldLocale);
 	
-	    this.id = id;
-	    this.locale = locale;
-	    this.type = type;
-	    this._value = value;
-	    this._valueSignal = new _signal.MemoizedSignal(value);
-	    this._isDisabledSignal = new _signal.MemoizedSignal(isDisabled);
+	    this.id = fieldInfo.id;
+	    this.locale = fieldInfo.locale;
+	    this.type = fieldInfo.type;
+	    this.validations = fieldInfo.validations;
+	    this._value = fieldInfo.value;
+	    this._valueSignal = new _signal.MemoizedSignal(fieldInfo.value);
+	    this._isDisabledSignal = new _signal.MemoizedSignal(undefined);
+	    this._schemaErrorsChangedSignal = new _signal.MemoizedSignal(undefined);
 	    this._channel = channel;
 	
 	    channel.addHandler('valueChanged', function (id, locale, value) {
@@ -2279,6 +2312,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	    channel.addHandler('isDisabledChanged', function (isDisabled) {
 	      _this._isDisabledSignal.dispatch(isDisabled);
+	    });
+	
+	    channel.addHandler('schemaErrorsChanged', function (errors) {
+	      _this._schemaErrorsChangedSignal.dispatch(errors);
 	    });
 	  }
 	
@@ -2313,6 +2350,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'onIsDisabledChanged',
 	    value: function onIsDisabledChanged(handler) {
 	      return this._isDisabledSignal.attach(handler);
+	    }
+	  }, {
+	    key: 'onSchemaErrorsChanged',
+	    value: function onSchemaErrorsChanged(handler) {
+	      return this._schemaErrorsChangedSignal.attach(handler);
 	    }
 	  }]);
 	
