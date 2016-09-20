@@ -9,6 +9,15 @@
   "bugs": {
     "url": "https://github.com/contentful/ui-extensions-sdk/issues"
   },
+  "files": [
+    "dist/cf-extension-api.js",
+    "dist/cf-extension-api.js.map",
+    "dist/cf-extension.css",
+    "dist/cf-extension.css.map",
+    "docs/ui-extensions-api-backend.md",
+    "docs/ui-extensions-sdk-frontend.md",
+    "lib/**/*.js"
+  ],
   "description": "SDK to develop custom widgets on Contentful",
   "homepage": "https://github.com/contentful/ui-extensions-sdk#readme",
   "license": "MIT",
