@@ -1,16 +1,9 @@
 var path = require('path')
 
-var pkg = require('./package.json')
-var tags = makeTags(pkg.version)
-
-var entry = {}
-entry['cf-extension-api'] = './lib/api/index.js'
-tags.forEach((tag) => {
-  entry[`tagged/cf-extension-api-v${tag}`] = './lib/api/index.js'
-})
-
 module.exports = {
-  entry: entry,
+  entry: {
+    'cf-extension-api': './lib/api/index.js'
+  },
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].js',
