@@ -38,6 +38,9 @@ update the `./docs` directory.
    added in (e.g. _“Since 1.2.3”_)
 3. Update the version in `package.json`.
 4. [Update GH Pages distribution](#updating-gh-pages-distribution)
+5. Update the [`files`][npm-files] property in `package.json` if necessary.
 5. Commit to master.
 6. Tag commit as `vX.Y.Z` and push tag to GitHub
 7. Publish new version of package on `npm`
+
+[npm-files]: https://docs.npmjs.com/files/package.json#files
