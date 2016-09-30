@@ -22,29 +22,18 @@ communicate with the Contentful Management App.
 You will need to include the `contentful-extension-sdk` library in your HTML5 app like
 so:
 ~~~html
-<script src="https://contentful.github.io/ui-extensions-sdk/cf-extension-api.js"></script>
+<script src="https://unpkg.com/contentful-ui-extensions-sdk@2"></script>
 ~~~
 
-From `v2.0.1` we also distribute tagged versions of the SDK.
-~~~
-https://contentful.github.io/ui-extensions-sdk/tagged/cf-extension-api-v2.js
-https://contentful.github.io/ui-extensions-sdk/tagged/cf-extension-api-v2.0.js
-https://contentful.github.io/ui-extensions-sdk/tagged/cf-extension-api-v2.0.1.js
-~~~
-The `v2` file will point to the lastest `v2.x` release and similar for `v2.0`.
-The `v2.0.1` file will always point to the correct release. Check out the
-[`./docs/tagged` directory](./tagged) to see a list of all releases.
-
-
-The Contentful UI Extensions SDK including the JavaScript API is also distributed as an
-[NPM package][package].
-
+The SDK is also distributed as an [NPM package][package].
 ~~~bash
 npm install --save contentful-ui-extensions-sdk
 ~~~
 
-Note that for production purposes you should not rely on the `github.io` hosted
-files. You should use a CDN or bundle the library node module.
+You can include it in your code base with
+~~~js
+var contentfulExtension = require('contentful-ui-extensions-sdk')
+~~~
 
 [package]: https://www.npmjs.com/package/contentful-ui-extensions-sdk
 

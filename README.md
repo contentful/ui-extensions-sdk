@@ -25,9 +25,9 @@ npm install -g contentful-extension-cli
 Including the compiled version of the extension client library is as simple as
 adding the following line to your application.
 
-```html
-<script src="https://contentful.github.io/ui-extensions-sdk/cf-extension-api.js"></script>
-```
+~~~html
+<script src="https://unpkg.com/contentful-ui-extensions-sdk@2"></script>
+~~~
 
 It also provide a set of examples you can check out to get a deeper understanding of the SDK capabilities.
 
@@ -102,7 +102,7 @@ Contentful's styles.
 You can include this CSS in your extension code as follows:
 
 ```html
-<link rel="stylesheet" type="text/css" href="https://contentful.github.io/ui-extensions-sdk/cf-extension.css">
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/contentful-ui-extensions-sdk@2/dist/cf-extension.css">
 ```
 
 Futher information about styling your extension can be found in the

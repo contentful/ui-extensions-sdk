@@ -39,4 +39,4 @@ clean:
 	rm -rf dist/*
 
 build-pages: build-with-docs
-	cp -r dist/* docs
+	cp -r dist/styleguide docs

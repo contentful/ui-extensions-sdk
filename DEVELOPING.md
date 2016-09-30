@@ -2,6 +2,8 @@
 
 ### API documentation and changelog
 
+We use semantic versioning.
+
 A commit that changes the public API of the SDK must come with a changelog entry
 and an updated to the API documentation.
 
@@ -23,24 +25,25 @@ can build the styleguide with `make styleguide` which will create HTML files in
 
 ### Updating GH Pages distribution
 
-We use [Github Pages][] to distribute the compiled Javascript code, stylesheets, and
-the styleguide from the `./docs` folder.
+We use [Github Pages][] to distribute the styleguide from the `./docs` folder.
 
-If you make any changes to the code or stylesheets run `make build-pages` to
-update the `./docs` directory.
+If you make any changes to the stylesheets run `make build-pages` to
+update the `./docs` directory and add it to your commit.
+
+For backwards compatibility we also distribute the code and styles for `v2.1.0`
+from Github Pages. These are not updated automatically anymore since we use
+[`unpkg.com`][unpkg].
 
 [Github Pages]: https://help.github.com/categories/github-pages-basics/
+[unpkg]: https://unpkg.com
 
 ### Releasing a new version of the SDK
 
 1. Add new release to changelog by renaming “Upcoming” to “v1.2.3”.
-2. Update API documentation for added methods to include the version they were
+1. Update API documentation for added methods to include the version they were
    added in (e.g. _“Since 1.2.3”_)
-3. Update the version in `package.json`.
-4. [Update GH Pages distribution](#updating-gh-pages-distribution)
-5. Update the [`files`][npm-files] property in `package.json` if necessary.
-5. Commit to master.
-6. Tag commit as `vX.Y.Z` and push tag to GitHub
-7. Publish new version of package on `npm`
-
-[npm-files]: https://docs.npmjs.com/files/package.json#files
+1. Update the version in `package.json`.
+1. Update the [`files`][npm-files] property in `package.json` if necessary.
+1. Commit to master.
+1. Tag commit as `vX.Y.Z` and push tag to GitHub
+1. Publish new version of package on `npm`
