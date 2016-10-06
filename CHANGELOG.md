@@ -3,6 +3,17 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and
 the [“Keep a Changelog” format](http://keepachangelog.com/).
 
+## Upcoming 3.0.0
+This version introduces a breaking change:
+
+- `field.setValue()` calls `field.onValueChanged()` handlers
+
+You will need to migrate if one of your `onValueChanged` handles triggers a call
+to `setValue()` to prevent infinite loops. In that case you should compare the
+value received by the change handler and only act on it if it is different from
+you internal represenation.
+
+
 ## 2.1.0 - 2016-09-13
 ### Added
 - `field.validations` property.

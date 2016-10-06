@@ -188,9 +188,8 @@ describe(`Field`, () => {
     describe(`injected channel propagating "valueChanged"`, () => {
       const newValue = 'some new, unused value'
 
-      let valueChangedHandlers
-      beforeEach(() => {
-        valueChangedHandlers = (...handlerArgs) => {
+      beforeEach(function () {
+        this.receiveValueChanged = (...handlerArgs) => {
           channelStub.addHandler.args.forEach((args) => {
             // Handler registered with channel.addHandler("valueChanged", handler)
             args[1](...handlerArgs)
@@ -198,31 +197,16 @@ describe(`Field`, () => {
         }
       })
 
-      describe(`targeted at another field's id`, () => {
-        it(`does not update the value`, () => {
-          const oldValue = field.getValue()
-          valueChangedHandlers(`${field.id}-other-id`, defaultLocale, newValue)
+      it('does not update the value when receiving update for another field', function () {
+        const oldValue = field.getValue()
+        this.receiveValueChanged('other-id', defaultLocale, 'NEW')
 
-          expect(oldValue).to.equal(field.getValue())
-        })
+        expect(oldValue).to.equal(field.getValue())
       })
-      describe(`targeted at the field's id`, () => {
-        describe(`for specific locale`, () => {
-          it(`sets the locale's value to the given one`, () => {
-            valueChangedHandlers(field.id, defaultLocale, newValue)
 
-            expect(field.getValue()).to.equal(newValue)
-          })
-        })
-        describe(`without locale provided`, () => {
-          it(`sets all locales' values to the given one`, () => {
-            valueChangedHandlers(field.id, undefined, newValue)
-
-            info.locales.forEach((locale) => {
-              expect(field.getValue(locale)).to.equal(newValue)
-            })
-          })
-        })
+      it(`updates the value when receiving a change message`, function () {
+        this.receiveValueChanged(field.id, defaultLocale, 'CHANGED')
+        expect(field.getValue()).to.equal('CHANGED')
       })
     })
   })
