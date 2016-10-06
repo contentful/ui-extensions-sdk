@@ -186,8 +186,6 @@ describe(`Field`, () => {
     })
 
     describe(`injected channel propagating "valueChanged"`, () => {
-      const newValue = 'some new, unused value'
-
       beforeEach(function () {
         this.receiveValueChanged = (...handlerArgs) => {
           channelStub.addHandler.args.forEach((args) => {
@@ -197,7 +195,8 @@ describe(`Field`, () => {
         }
       })
 
-      it('does not update the value when receiving update for another field', function () {
+      it('does not update the value when receiving update for another field',
+      function () {
         const oldValue = field.getValue()
         this.receiveValueChanged('other-id', defaultLocale, 'NEW')
 

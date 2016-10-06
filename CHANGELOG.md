@@ -10,8 +10,8 @@ This version introduces a breaking change:
 
 You will need to migrate if one of your `onValueChanged` handles triggers a call
 to `setValue()` to prevent infinite loops. In that case you should compare the
-value received by the change handler and only act on it if it is different from
-you internal represenation.
+value received by the change handler to your internal representation. You should
+avoid triggering an update when the values are equal.
 
 
 ## 2.1.0 - 2016-09-13

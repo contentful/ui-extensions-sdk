@@ -6,7 +6,6 @@ import {
 } from '../helpers'
 
 describe('FieldLocale', () => {
-  const defaultLocale = 'en-US'
   const info = {
     id: 'some-field',
     locale: 'en-US',
@@ -90,14 +89,6 @@ describe('FieldLocale', () => {
   })
 
   describe('.onValueChanged(handler)', () => {
-    const newValue = 'some new, unused value'
-    let valueChangedHandler
-    beforeEach(() => {
-      valueChangedHandler = function (...args) {
-        channelStub.receiveMethod('valueChanged', args)
-      }
-    })
-
     describeAttachHandlerMember('default behaviour', () => {
       return field.onValueChanged(noop)
     })

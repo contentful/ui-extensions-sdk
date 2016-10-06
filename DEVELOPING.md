@@ -5,7 +5,7 @@
 We use semantic versioning.
 
 A commit that changes the public API of the SDK must come with a changelog entry
-and an updat to the API documentation. The entry in the changelog should follow the
+and an update to the API documentation. The entry in the changelog should follow the
 [“Keep a Changelog” format](http://keepachangelog.com/).
 
 For additions the API documentation must end with _“In upcoming release”_. If a
