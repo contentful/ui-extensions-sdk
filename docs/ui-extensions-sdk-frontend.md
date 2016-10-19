@@ -118,7 +118,7 @@ event (e.g. when multiple editors are working on the same entry) or when
 
 The method returns a function that can be called to stop listening to changes.
 
-_Changed in upcoming release_
+_Changed in v3.0.0_
 
 ##### `extension.field.onIsDisabledChanged(cb): function`
 Calls the callback when the disabled status of the field changes.

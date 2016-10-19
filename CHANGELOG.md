@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and
 the [“Keep a Changelog” format](http://keepachangelog.com/).
 
-## Upcoming 3.0.0
+## 3.0.0 - 2016-10-19
 This version introduces a breaking change:
 
 - `field.setValue()` calls `field.onValueChanged()` handlers
