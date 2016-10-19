@@ -5,12 +5,16 @@
 We use semantic versioning.
 
 A commit that changes the public API of the SDK must come with a changelog entry
-and an updated to the API documentation.
+and an update to the API documentation. The entry in the changelog should follow the
+[“Keep a Changelog” format](http://keepachangelog.com/).
 
-The entry in the changelog should follow the
-[“Keep a Changelog” format](http://keepachangelog.com/). The API documentation
-must end with _“In upcoming release”_. If a new version, say v1.2.3, is released
-this must be changed to _“Since v1.2.3”_ in the release commit.
+For additions the API documentation must end with _“In upcoming release”_. If a
+new version, say v1.2.3, is released this must be changed to _“Since v1.2.3”_ in
+the release commit.
+
+For API changes the documentation must end with _“Changed in upcoming release”_.
+If a new version, say v1.2.3, is released this must be changed to _“Changed in
+v1.2.3”_ in the release commit.
 
 ### Styles and Styleguide
 
@@ -41,7 +45,7 @@ from Github Pages. These are not updated automatically anymore since we use
 
 1. Add new release to changelog by renaming “Upcoming” to “v1.2.3”.
 1. Update API documentation for added methods to include the version they were
-   added in (e.g. _“Since 1.2.3”_)
+   added in (e.g. _“Since v1.2.3”_, _“Changed in v1.2.3”_)
 1. Update the version in `package.json`.
 1. Update the [`files`][npm-files] property in `package.json` if necessary.
 1. Commit to master.

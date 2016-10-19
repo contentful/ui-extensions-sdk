@@ -6,11 +6,9 @@ import {
 } from '../helpers'
 
 describe('FieldLocale', () => {
-  const defaultLocale = 'en-US'
   const info = {
     id: 'some-field',
     locale: 'en-US',
-    value: 'Hello',
     type: 'Symbol',
     validations: 'VALIDATIONS'
   }
@@ -58,8 +56,12 @@ describe('FieldLocale', () => {
   })
 
   describe('.getValue()', () => {
-    it('returns the field\'s value', () => {
-      expect(field.getValue()).to.equal(info.value)
+    it('returns the most recently received value', () => {
+      channelStub.receiveMethod('valueChanged', ['some-field', 'en-US', 'VAL1'])
+      expect(field.getValue()).to.equal('VAL1')
+
+      channelStub.receiveMethod('valueChanged', ['some-field', 'en-US', 'VAL2'])
+      expect(field.getValue()).to.equal('VAL2')
     })
   })
 
@@ -87,61 +89,46 @@ describe('FieldLocale', () => {
   })
 
   describe('.onValueChanged(handler)', () => {
-    const newValue = 'some new, unused value'
-    let valueChangedHandler
-    beforeEach(() => {
-      valueChangedHandler = function (...args) {
-        channelStub.receiveMethod('valueChanged', args)
-      }
-    })
-
     describeAttachHandlerMember('default behaviour', () => {
       return field.onValueChanged(noop)
     })
 
-    it('calls handler immediately on attach with initial value of field', () => {
+    it('calls handler immediately on attach with most recently received value', () => {
+      channelStub.receiveMethod('valueChanged', ['some-field', 'en-US', 'VAL1'])
+      const spy1 = sinon.spy()
+      field.onValueChanged(spy1)
+      sinon.assert.calledOnce(spy1)
+      sinon.assert.calledWithExactly(spy1, 'VAL1')
+
+      channelStub.receiveMethod('valueChanged', ['some-field', 'en-US', 'VAL2'])
+      const spy2 = sinon.spy()
+      field.onValueChanged(spy2)
+      sinon.assert.calledOnce(spy2)
+      sinon.assert.calledWithExactly(spy2, 'VAL2')
+    })
+
+    it('calls handler when value change is received', () => {
       const spy = sinon.spy()
       field.onValueChanged(spy)
+      spy.reset()
+
+      channelStub.receiveMethod('valueChanged', ['some-field', 'en-US', 'VAL1'])
       sinon.assert.calledOnce(spy)
-      sinon.assert.calledWithExactly(spy, info.value)
+      sinon.assert.calledWithExactly(spy, 'VAL1')
+
+      channelStub.receiveMethod('valueChanged', ['some-field', 'en-US', 'VAL2'])
+      sinon.assert.calledTwice(spy)
+      sinon.assert.calledWithExactly(spy, 'VAL2')
     })
 
-    describe('New value equals current value', () => {
-      it('does not dispatch new value', () => {
-        const oldValue = field.getValue()
-        const cb = sinon.spy()
+    it('does not call handler when other field value changes', function () {
+      const spy = sinon.spy()
+      field.onValueChanged(spy)
+      spy.reset()
 
-        field.onValueChanged(cb)
-        sinon.assert.calledOnce(cb)
-        valueChangedHandler(field.id, defaultLocale, oldValue)
-        sinon.assert.calledOnce(cb)
-      })
-    })
-
-    describe('targeted at another field’s id', () => {
-      it('does not update the value', () => {
-        const oldValue = field.getValue()
-        valueChangedHandler(`${field.id}-other-id`, defaultLocale, newValue)
-
-        expect(oldValue).to.equal(field.getValue())
-      })
-    })
-
-    describe('targeted at the field’s id', () => {
-      describe('for specific locale', () => {
-        it('sets the locale’s value to the given one', () => {
-          valueChangedHandler(field.id, defaultLocale, newValue)
-
-          expect(field.getValue()).to.equal(newValue)
-        })
-      })
-      describe('without locale provided', () => {
-        it('sets the locale’s value to the given one', () => {
-          valueChangedHandler(field.id, undefined, newValue)
-
-          expect(field.getValue()).to.equal(newValue)
-        })
-      })
+      channelStub.receiveMethod('valueChanged', ['other-field', 'en-US', 'VAL'])
+      channelStub.receiveMethod('valueChanged', ['some-field', 'other-locale', 'VAL'])
+      sinon.assert.notCalled(spy)
     })
   })
 
@@ -167,6 +154,20 @@ describe('FieldLocale', () => {
     it('returns the promise returned by internal channel.call()', () => {
       channelStub.call.withArgs(method).returns('PROMISE')
       expect(field[method]('val')).to.equal('PROMISE')
+    })
+
+    it('calls onValueChanged handler', function () {
+      const spy = sinon.spy()
+      field.onValueChanged(spy)
+      spy.reset()
+
+      field.setValue('VAL1')
+      sinon.assert.calledOnce(spy)
+      sinon.assert.calledWithExactly(spy, 'VAL1')
+
+      field.setValue('VAL2')
+      sinon.assert.calledTwice(spy)
+      sinon.assert.calledWithExactly(spy, 'VAL2')
     })
   }
 

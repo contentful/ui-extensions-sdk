@@ -113,10 +113,12 @@ This impacts the styling applied to the field container.
 
 ##### `extension.field.onValueChanged(cb): function`
 Calls the callback every time the value of the field is changed by some external
-event (e.g. when multiple editors are working on the same entry). It will not be
-called after `setValue()` is called.
+event (e.g. when multiple editors are working on the same entry) or when
+`setValue()` is called
 
 The method returns a function that can be called to stop listening to changes.
+
+_Changed in upcoming release_
 
 ##### `extension.field.onIsDisabledChanged(cb): function`
 Calls the callback when the disabled status of the field changes.
