@@ -3,6 +3,16 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and
 the [“Keep a Changelog” format](http://keepachangelog.com/).
 
+
+## 3.1.0 - 2016-11-11
+This version introduces a new functionality:
+
+- `extension.tools.openEntitySelector(options)` opens an entity selector
+
+You can now open the native entity selection modal window from your extension.
+`options` object passed to the call allows to configure behavior of search and
+insertion. Please see API reference for more details.
+
 ## 3.0.0 - 2016-10-19
 This version introduces a breaking change:
 

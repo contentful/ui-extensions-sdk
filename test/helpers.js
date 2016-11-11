@@ -13,3 +13,36 @@ export function describeAttachHandlerMember (msg, attachHandlerFn) {
     })
   })
 }
+
+export function describeChannelCallingMethod ({
+  creator, methodName, channelMethod, args, expectedCallArgs
+}) {
+  expectedCallArgs = expectedCallArgs || args
+  channelMethod = channelMethod || methodName
+
+  describe(`.${methodName}()`, () => {
+    let object
+    let channelCallStub
+
+    beforeEach(() => {
+      channelCallStub = sinon.stub()
+      object = creator({call: channelCallStub})
+    })
+
+    it('is a function', () => {
+      expect(object[methodName]).to.be.a('function')
+    })
+
+    it(`invokes channel.call('${channelMethod}')`, () => {
+      object[methodName](...args)
+      expect(channelCallStub)
+      .to.have.callCount(1).and
+      .to.have.been.calledWithExactly(...[channelMethod].concat(expectedCallArgs))
+    })
+
+    it('returns the promise returned by internal channel.call()', () => {
+      channelCallStub.withArgs(channelMethod).returns('PROMISE')
+      expect(object[methodName]()).to.equal('PROMISE')
+    })
+  })
+}

@@ -16,6 +16,7 @@ communicate with the Contentful Management App.
   * [Assets](#assets)
 * [`extension.locales`](#extensionlocales)
 * [`extension.window`](#extensionwindow)
+* [`entension.tools`](#extensiontools)
 
 ## Inclusion into your project
 
@@ -270,3 +271,53 @@ Listens for DOM changes and calls `updateHeight()` when the size changes.
 
 ##### `window.stopAutoResizer()`
 Stops resizing the iframe automatically.
+
+
+## `extension.tools`
+This object provides utility methods:
+
+##### `tools.openEntitySelector(options)`
+Opens the entity selector modal window. Available `options`:
+
+* `entityType` - can be either `'Entry'` or `'Asset'`
+* `locale` - code of a locale that you want to use. It'll be used to display
+  proper titles and descriptions. Defaults to the default space's locale
+* `multiple` - can be either `true` or `false`. When `true`, multiple entities
+  can be selected. Defaults to `false`
+* `min` and `max` - when `multiple` option is set to `true`, `min` and `max`
+  can be used to specify an inclusive range in which the number of selected
+  entities must be contained
+* `contentTypes` - when `entityType` option is set to `'Entry'`, `contentTypes`
+  can be an array of content type IDs of entries that we want to display in the
+  selector. By default entries of all content types are displayed
+
+The method returns a promise that is resolved with an entity (when `multiple`
+option is set to `false`) or an array of entities (when `multiple` is `true`).
+
+If a user closes the window without selecting any entities, the promise is
+rejected.
+
+~~~js
+// selecting a single asset:
+tools.openEntitySelector({entityType: 'Asset'})
+.then((selectedAsset) => {})
+
+// selecting between 2 and 4 entries of "blogpost" content type:
+tools.openEntitySelector({
+  entityType: 'Entry',
+  multiple: true,
+  min: 2,
+  max: 4
+  contentTypes: ['blogpost']
+}).then((selectedEntries) => {})
+
+// selecting an entry using non-default locale
+tools.openEntitySelector({
+  entityType: 'Entry',
+  locale: 'de-DE'
+}).then((selectedEntry) => {})
+
+// handling cancellation
+tools.openEntitySelector({entityType: 'Entry'})
+.then(noop, () => { /* called when modal was dismissed */ })
+~~~
