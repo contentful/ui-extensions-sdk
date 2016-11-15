@@ -16,7 +16,7 @@ communicate with the Contentful Management App.
   * [Assets](#assets)
 * [`extension.locales`](#extensionlocales)
 * [`extension.window`](#extensionwindow)
-* [`entension.tools`](#extensiontools)
+* [`entension.dialogs`](#extensiondialogs)
 
 ## Inclusion into your project
 
@@ -273,51 +273,64 @@ Listens for DOM changes and calls `updateHeight()` when the size changes.
 Stops resizing the iframe automatically.
 
 
-## `extension.tools`
-This object provides utility methods:
+## `extension.dialogs`
+This object provides methods for opening UI dialogs:
 
-##### `tools.openEntitySelector(options)`
-Opens the entity selector modal window. Available `options`:
+##### `dialogs.selectSingleEntry(options)`
+Opens a dialog for selecting a single entry. It returns a promise that is
+resolved with the selected entity or `null` if a user closes the dialog without
+selecting anything.
 
-* `entityType` - can be either `'Entry'` or `'Asset'`
+`options` is an optional object configuring the dialog. Available `options`:
+
 * `locale` - code of a locale that you want to use. It'll be used to display
-  proper titles and descriptions. Defaults to the default space's locale
-* `multiple` - can be either `true` or `false`. When `true`, multiple entities
-  can be selected. Defaults to `false`
-* `min` and `max` - when `multiple` option is set to `true`, `min` and `max`
-  can be used to specify an inclusive range in which the number of selected
-  entities must be contained
-* `contentTypes` - when `entityType` option is set to `'Entry'`, `contentTypes`
-  can be an array of content type IDs of entries that we want to display in the
-  selector. By default entries of all content types are displayed
-
-The method returns a promise that is resolved with an entity (when `multiple`
-option is set to `false`) or an array of entities (when `multiple` is `true`).
-
-If a user closes the window without selecting any entities, the promise is
-rejected.
+  proper titles and descriptions. Defaults to the space's default locale
+* `contentTypes` - an array of content type IDs of entries that we want to
+  display in the selector. By default entries of all content types are displayed
 
 ~~~js
-// selecting a single asset:
-tools.openEntitySelector({entityType: 'Asset'})
-.then((selectedAsset) => {})
+// display a dialog for selecting a single entry
+dialogs.selectSingleEntry().then((selectedEntry) => {})
 
-// selecting between 2 and 4 entries of "blogpost" content type:
-tools.openEntitySelector({
-  entityType: 'Entry',
-  multiple: true,
-  min: 2,
-  max: 4
+// select a single entry of "blogpost" content type
+// and display result in "de-DE" locale
+dialogs.selectSingleEntry({
+  locale: 'de-DE',
   contentTypes: ['blogpost']
-}).then((selectedEntries) => {})
-
-// selecting an entry using non-default locale
-tools.openEntitySelector({
-  entityType: 'Entry',
-  locale: 'de-DE'
 }).then((selectedEntry) => {})
-
-// handling cancellation
-tools.openEntitySelector({entityType: 'Entry'})
-.then(noop, () => { /* called when modal was dismissed */ })
 ~~~
+
+_In upcoming release_
+
+##### dialogs.selectMultipleEntries(options)
+Works similarly to `selectSingleEntry`, but allows to select multiple entries
+and the returned promise is resolved with an array of selected entries.
+
+Both `locale` and `contentTypes` options can be used. There are two additional
+options:
+
+* `min` and `max` - numeric values specifying an inclusive range in which
+  the number of selected entities must be contained
+
+~~~js
+// display a dialog for selecting multiple entries
+dialogs.selectMultipleEntries().then((arrayOfSelectedEntries) => {})
+
+// select between 1 and 3 (inclusive) entries
+dialogs.selectMultipleEntries({min: 1, max: 3})
+.then((arrayOfSelectedEntries) => {})
+~~~
+
+_In upcoming release_
+
+##### dialogs.selectSingleAsset(options)
+Counterpart of `selectSingleEntry` for assets. `contentTypes` option is not
+available.
+
+_In upcoming release_
+
+##### dialogs.selectMultipleAssets(options)
+Counterpart of `selectMultipleEntries` for assets. `contentTypes` option is
+not available.
+
+_In upcoming release_

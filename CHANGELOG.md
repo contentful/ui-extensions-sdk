@@ -4,12 +4,14 @@ This project adheres to [Semantic Versioning](http://semver.org/) and
 the [“Keep a Changelog” format](http://keepachangelog.com/).
 
 
-## 3.1.0 - 2016-11-11
+## Upcoming
+### Added
 This version introduces a new functionality:
 
-- `extension.tools.openEntitySelector(options)` opens an entity selector
+- `extension.dialogs.select...(options)` opens a dialog for selecting entries
+  and assets
 
-You can now open the native entity selection modal window from your extension.
+You can now open the native entity selection dialog window from your extension.
 `options` object passed to the call allows to configure behavior of search and
 insertion. Please see API reference for more details.
 
