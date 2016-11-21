@@ -328,7 +328,7 @@ dialogs.selectSingleEntry({
 }).then((selectedEntry) => {})
 ```
 
-_In upcoming releases_
+_Since v3.1.0_
 
 ### dialogs.selectMultipleEntries(options)
 
@@ -350,21 +350,21 @@ dialogs.selectMultipleEntries({min: 1, max: 3})
 .then((arrayOfSelectedEntries) => {})
 ```
 
-_In upcoming release_
+_Since v3.1.0_
 
 ### `dialogs.selectSingleAsset(options)`
 
 Counterpart of `selectSingleEntry` for assets. A `contentTypes` option is not
 available.
 
-_In upcoming release_
+_Since v3.1.0_
 
 ### `dialogs.selectMultipleAssets(options)`
 
 Counterpart of `selectMultipleEntries` for assets. A `contentTypes` option is
 not available.
 
-_In upcoming release_
+_Since v3.1.0_
 
 [browserify]: http://browserify.org/
 [cma-js]: https://github.com/contentful/contentful-management.js/tree/legacy
