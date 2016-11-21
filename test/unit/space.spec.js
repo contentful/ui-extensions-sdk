@@ -35,37 +35,19 @@ const spaceMethods = [
 ]
 
 import createSpace from '../../lib/api/space'
+import { describeChannelCallingMethod } from '../helpers'
 
 describe('createSpace()', () => {
   describe('returned "space" object', () => {
-    spaceMethods.forEach(describeSpaceMethod)
+    spaceMethods.forEach((spaceMethod) => {
+      const args = ['foo', 42, {}]
+      describeChannelCallingMethod({
+        creator: createSpace,
+        methodName: spaceMethod,
+        channelMethod: 'callSpaceMethod',
+        args: args,
+        expectedCallArgs: [spaceMethod, args]
+      })
+    })
   })
 })
-
-function describeSpaceMethod (methodName) {
-  let space
-  let channelCallStub
-  beforeEach(() => {
-    channelCallStub = sinon.stub()
-    space = createSpace({
-      call: channelCallStub
-    })
-  })
-
-  describe(`.${methodName}()`, () => {
-    it('is a function', () => {
-      expect(space[methodName]).to.be.a('function')
-    })
-    it(`invokes channel.call('callSpaceMethod', '${methodName}', args)`, () => {
-      let args = ['foo', 42, {}]
-      space[methodName](...args)
-      expect(channelCallStub)
-        .to.have.callCount(1).and
-        .to.have.been.calledWithExactly('callSpaceMethod', methodName, args)
-    })
-    it('returns the promise returned by internal channel.call()', () => {
-      channelCallStub.withArgs('callSpaceMethod').returns('PROMISE')
-      expect(space[methodName]()).to.equal('PROMISE')
-    })
-  })
-}
