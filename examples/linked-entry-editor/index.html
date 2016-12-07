@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Linked Entry Editor</title>
+  <link rel="stylesheet" type="text/css" href="https://contentful.github.io/widget-sdk/cf-widget-api.css">
+</head>
+<body>
+  <div id="main"></div>
+  <script src="https://contentful.github.io/widget-sdk/cf-widget-api.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <script>
+
+    +function() {
+      if (window.contentfulWidget === undefined) {
+        throw new Error('Depends on contentful-widget-api.js');
+      }
+
+      var cfApi;
+      var linkedEntry;
+      var mainElement = document.getElementById('main');
+      var elements = {};
+
+      function initialize(resp) {
+        cfApi = resp;
+        cfApi.window.updateHeight(90);
+        refresh();
+      }
+
+      // Try to get the linked entry
+      function refresh() {
+        mainElement.innerHTML = '';
+        elements = {};
+        cfApi.field._value ? getLinkedEntry() : createAddLinkElements();
+      }
+
+      function getLinkedEntry() {
+        cfApi.space.getEntry(cfApi.field.getValue().sys.id)
+        .then(createEntryElements, createAddLinkElements)
+      }
+
+      function createEntryElements(entry) {
+        linkedEntry = entry;
+
+        if (!linkedEntry.fields) {
+          createAddLinkElements();
+          return;
+        }
+
+        for (var field in linkedEntry.fields) {
+          elements[field] = {
+            input: createElement(
+              'input',
+              {type: 'text', value: linkedEntry.fields[field][cfApi.field.locale]}
+            ),
+            unlink: createElement('a', {innerHTML: 'Unlink entry'})
+          }
+        }
+
+        for (var element in elements) {
+          elements[element].input.addEventListener('input', _.debounce(updateDocument, 150));
+          elements[element].unlink.addEventListener('click', unlinkEntry);
+        }
+
+      }
+
+      function createAddLinkElements() {
+        linkedEntry = undefined;
+
+        elements.link = {
+          input: createElement('input', {type: 'text', placeholder: 'ID of linked entry'}),
+          info: createElement('p', {}),
+          button: createElement('button', {innerHTML: 'Link'})
+        }
+
+        // Populate the invalid value
+        var val = cfApi.field._value;
+
+        if (val && val.sys.id) {
+          elements.link.input.value = val.sys.id;
+        }
+
+        elements.link.button.addEventListener('click', function() {
+          var id = elements.link.input.value;
+          if (!id || !id.length) return;
+          cfApi.field.setValue({
+            sys: {
+              id: id,
+              linkType: 'Entry',
+              type: 'Link'
+            }
+          }).then(refresh)
+        });
+      }
+
+      function createElement (elem, opts, parent) {
+        var e = document.createElement(elem);
+
+        // Apply some default styles
+        switch(elem) {
+          case 'input':
+            e.className = 'cf-form-input';
+            break;
+          case 'button':
+            e.className = 'cf-btn-primary';
+            break;
+          default:
+        }
+
+        for (var prop in opts) {
+          e[prop] = opts[prop];
+        }
+        parent = parent || mainElement;
+        parent.appendChild(e);
+        return e;
+      }
+
+      function unlinkEntry() {
+        cfApi.field.setValue(undefined).then(refresh);
+      }
+
+      function updateDocument() {
+        // Update all of the elements
+        for (var field in linkedEntry.fields) {
+          linkedEntry.fields[field][cfApi.field.locale] = elements[field].input.value;
+        }
+        cfApi.space.updateEntry(linkedEntry)
+        .then(function(entry) {
+          linkedEntry = entry;
+        });
+      }
+
+      window.contentfulWidget.init(initialize);
+
+    }();
+
+    </script>
+</body>
+</html>
