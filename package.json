@@ -42,7 +42,7 @@
     "babel-plugin-rewire": "1.0.0-beta-3",
     "eslint": "^3.7.1",
     "eslint-config-standard": "^6.2.0",
-    "eslint-plugin-promise": "^2.0.1",
+    "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^2.0.1",
     "karma": "^0.13.15",
     "karma-chai-plugins": "^0.6.1",
