@@ -1,6 +1,6 @@
 # Extension Management API Reference
 
-This document describes the [Content Management API](http://docs.contentfulcma.apiary.io)'s
+This document describes the [Content Management API](https://www.contentful.com/developers/docs/references/content-management-api/)'s
 endpoints which allow to manage custom Extensions in [Contentful](https://www.contentful.com).
 The API allows to create, update, delete and read custom extensions.
 
@@ -31,11 +31,11 @@ For now it suffices to assure that the payload is a JSON document. In the future
 
 Name | Type | Required | Validation
 -----|------|----------|-----------
-src | String |	❌ (yes if no srcdoc given) 
+src | String |	❌ (yes if no srcdoc given)
 srcdoc |	String |	❌ (yes if no src given)
 fieldTypes | Array of strings | ❌ | Every element must be one of the strings Symbol, Symbols, Text, Integer, Number, Date, Boolean, Object, Entry, Entries, Asset, Assets
 name | String | ✓
- 
+
 #### Extension schema
 A extension is a JSON object with at least the following properties. For the prototype the endpoint should accept and store any additional properties
 
