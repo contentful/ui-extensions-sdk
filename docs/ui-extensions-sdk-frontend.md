@@ -256,7 +256,7 @@ respectively.
 ### Assets
 
 Same as the entry's method with "Entry" replaced by "Asset", with an additional
-`space.processAssetFile(asset, locale)`.
+`space.processAsset(asset, locale)`.
 
 ## `extension.locales`
 
