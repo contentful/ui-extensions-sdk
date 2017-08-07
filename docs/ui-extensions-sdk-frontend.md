@@ -16,6 +16,7 @@ with the Contentful Management App.
   - [Entries](#entries)
   - [Assets](#assets)
 - [`extension.locales`](#extensionlocales)
+- [`extension.user`](#user)
 - [`extension.window`](#extensionwindow)
 - [`extension.dialogs`](#extensiondialogs)
 
@@ -272,6 +273,31 @@ The default locale for the current space.
 
 A list of all locales available in the current space.
 
+## `extension.user`
+
+This object holds information about the current user and roles. It has the
+following shape.
+
+```javascript
+{
+  firstName: 'Dwight',
+  lastName: 'Schrute',
+  spaceMembership: {
+    admin: false,
+    roles: [{
+      name: 'Assistant to the regional manager',
+      description: 'Not “Assistant regional manager”',
+    }]
+  }
+}
+```
+
+The `spaceMembership` and `roles` objects have include a subset of the data from
+the corresponding resources in the Contentful Management API. You can find more
+information in the [CMA Reference Documentation][cma-docs].
+
+_Since v3.2.0_
+
 ## `extension.window`
 
 The window object provides methods to update the size of the iframe the
@@ -366,6 +392,7 @@ not available.
 
 _Since v3.1.0_
 
+[cma-docs]: https://www.contentful.com/developers/docs/references/content-management-api/
 [browserify]: http://browserify.org/
 [cma-js]: https://github.com/contentful/contentful-management.js/tree/legacy
 [package]: https://www.npmjs.com/package/contentful-ui-extensions-sdk

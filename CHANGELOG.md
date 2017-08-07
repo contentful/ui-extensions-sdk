@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/) and the ["Keep a
 Changelog" format](http://keepachangelog.com/).
 
+## 3.2.0 - Upcoming
+
+## Added
+
+- `extension.user` provides information about the current user.
+
+### Added
+
 ## 3.1.0 - 2016-11-21
 
 ### Added

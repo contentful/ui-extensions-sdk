@@ -2,10 +2,8 @@ const assert = require('assert')
 
 const webpackConfig = require('./webpack.config.js')
 const webpackBabelLoaderConfig = webpackConfig.module.loaders[0]
-assert.equal(webpackBabelLoaderConfig.loader, 'babel')
+assert.equal(webpackBabelLoaderConfig.loader, 'babel-loader')
 
-webpackConfig.entry = {}
-webpackConfig.output = {}
 webpackConfig.devtool = 'inline-source-map' // Gives us correct stack traces.
 webpackBabelLoaderConfig.query.plugins.push('babel-plugin-rewire')
 
