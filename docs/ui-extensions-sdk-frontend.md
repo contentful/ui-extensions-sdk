@@ -16,7 +16,7 @@ with the Contentful Management App.
   - [Entries](#entries)
   - [Assets](#assets)
 - [`extension.locales`](#extensionlocales)
-- [`extension.user`](#user)
+- [`extension.user`](#extensionuser)
 - [`extension.window`](#extensionwindow)
 - [`extension.dialogs`](#extensiondialogs)
 
