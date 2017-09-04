@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/) and the ["Keep a
 Changelog" format](http://keepachangelog.com/).
 
+## Upcoming 3.3.0
+
+## Added
+
+- Add `user.sys.id`, `user.email`, `user.spaceMembership.sys.id` to the data
+  exposed by `extension.user`.
+
 ## 3.2.0 - 2017-08-07
 
 ## Added

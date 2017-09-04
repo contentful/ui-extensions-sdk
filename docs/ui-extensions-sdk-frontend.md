@@ -280,9 +280,12 @@ following shape.
 
 ```javascript
 {
+  sys: { id: 'b33ts' },
   firstName: 'Dwight',
   lastName: 'Schrute',
+  email: 'dwight@dundermifflin.com',
   spaceMembership: {
+    sys: { id: 'abc123xyz' }
     admin: false,
     roles: [{
       name: 'Assistant to the regional manager',
@@ -296,7 +299,7 @@ The `spaceMembership` and `roles` objects have include a subset of the data from
 the corresponding resources in the Contentful Management API. You can find more
 information in the [CMA Reference Documentation][cma-docs].
 
-_Since v3.2.0_
+_Since v3.3.0_
 
 ## `extension.window`
 
