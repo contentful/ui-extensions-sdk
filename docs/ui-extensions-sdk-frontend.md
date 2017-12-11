@@ -359,7 +359,7 @@ dialogs.selectSingleEntry({
 
 _Since v3.1.0_
 
-### dialogs.selectMultipleEntries(options)
+### `dialogs.selectMultipleEntries(options)`
 
 Works similarly to `selectSingleEntry`, but allows to select multiple entries
 and the returned promise is resolved with an array of selected entries.
