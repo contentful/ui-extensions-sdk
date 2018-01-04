@@ -29,12 +29,13 @@ adding the following line to your application.
 <script src="https://unpkg.com/contentful-ui-extensions-sdk@3"></script>
 ~~~
 
-It also provide a set of examples you can check out to get a deeper understanding of the SDK capabilities.
+To get an overview over the API, have a look at the [reference documentation][api-ref].
 
-To get an overview over the API, have a look at the [reference documentation][api-ref]
+Check out [our example UI Extensions][examples] to get a deeper understanding of the SDK's capabilities.
 
 [cf-extension-cli]: https://github.com/contentful/contentful-extension-cli
 [api-ref]: docs/ui-extensions-sdk-frontend.md
+[examples]: https://github.com/contentful/extensions
 
 
 ## Extensions taxonomy and example use cases
