@@ -33,7 +33,7 @@ It also provide a set of examples you can check out to get a deeper understandin
 
 To get an overview over the API, have a look at the [reference documentation][api-ref]
 
-[contentful-cli]: https://www.github.com/contentful/contentful-cli
+[contentful-cli]: https://github.com/contentful/contentful-cli
 [api-ref]: docs/ui-extensions-sdk-frontend.md
 
 
