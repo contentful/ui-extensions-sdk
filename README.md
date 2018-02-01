@@ -16,10 +16,10 @@ You can also refer to the [following FAQ](FAQ.md) for questions related to hosti
 ## Getting started
 
 The most convenient way to upload and manage extensions through our API is via the
-[`contentful-extension`][cf-extension-cli] command line tool. You can install it with
+[`contentful`][contentful-cli] command line tool. You can install it with
 
 ```bash
-npm install -g contentful-extension-cli
+npm install -g contentful-cli
 ```
 
 Including the compiled version of the extension client library is as simple as
@@ -33,7 +33,7 @@ It also provide a set of examples you can check out to get a deeper understandin
 
 To get an overview over the API, have a look at the [reference documentation][api-ref]
 
-[cf-extension-cli]: https://github.com/contentful/contentful-extension-cli
+[contentful-cli]: https://github.com/contentful/contentful-cli
 [api-ref]: docs/ui-extensions-sdk-frontend.md
 
 
