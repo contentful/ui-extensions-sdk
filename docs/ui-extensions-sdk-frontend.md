@@ -19,6 +19,7 @@ with the Contentful Management App.
 - [`extension.user`](#extensionuser)
 - [`extension.window`](#extensionwindow)
 - [`extension.dialogs`](#extensiondialogs)
+- [`extension.parameters`](#extensionparameters)
 
 ## Inclusion in your project
 
@@ -395,7 +396,40 @@ not available.
 
 _Since v3.1.0_
 
+
+## `extension.parameters`
+
+Exposes extension configuration parameters as defined in [the Content Management API][cma-parameters] reference.
+
+`extension.parameters` has the following shape:
+
+```javascript
+{
+  installation: {
+    retries: 10,
+    isDevMode: true
+  },
+  instance: {
+    theme: 'light'
+  }
+}
+```
+
+You can rely on both `extension.parameters.installation` and `extension.parameters.instance`
+being defined. If no parameters were provided they will default to an empty object:
+
+```javascript
+{
+  installation: {},
+  instance: {}
+}
+```
+
+_Since v3.4.0_
+
+
 [cma-docs]: https://www.contentful.com/developers/docs/references/content-management-api/
 [browserify]: http://browserify.org/
 [cma-js]: https://github.com/contentful/contentful-management.js/tree/legacy
 [package]: https://www.npmjs.com/package/contentful-ui-extensions-sdk
+[cma-parameters]: https://www.contentful.com/developers/docs/references/content-management-api/#/reference/ui-extensions/configuration-parameters

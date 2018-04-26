@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/) and the ["Keep a
 Changelog" format](http://keepachangelog.com/).
 
+## 3.4.0 - 2018-04-26
+
+- Expose extension configuration parameters as `extension.parameters`
+
 ## 3.3.0 - 2017-09-04
 
 ## Added
