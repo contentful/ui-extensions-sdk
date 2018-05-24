@@ -28,7 +28,7 @@ You will need to include the
 library in your HTML5 app:
 
 ```html
-<script src="https://unpkg.com/contentful-ui-extensions-sdk@2"></script>
+<script src="https://unpkg.com/contentful-ui-extensions-sdk@3"></script>
 ```
 
 The SDK is also distributed as an [NPM package][package].
