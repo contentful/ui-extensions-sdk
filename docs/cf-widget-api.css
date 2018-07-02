@@ -179,11 +179,6 @@ a.cf-btn-primary:link,
 a.cf-btn-primary:visited {
   color: #fff;
 }
-.cf-btn-primary,
-.cf-btn-primary:hover,
-.cf-btn-primary:active {
-  outline: 0;
-}
 .cf-btn-primary:disabled,
 .cf-btn-primary[aria-disabled=true] {
   opacity: 0.4;
@@ -299,11 +294,6 @@ a.cf-btn-secondary:link,
 a.cf-btn-secondary:visited {
   color: #536171;
 }
-.cf-btn-secondary,
-.cf-btn-secondary:hover,
-.cf-btn-secondary:active {
-  outline: 0;
-}
 .cf-btn-secondary:disabled,
 .cf-btn-secondary[aria-disabled=true] {
   opacity: 0.4;
@@ -412,7 +402,6 @@ input.cf-form-input {
   display: block;
   width: 100%;
   line-height: 1.5;
-  outline: 0;
   padding: 0 2px;
   background-color: transparent;
   border-width: 0 0 1px 0;
@@ -458,7 +447,6 @@ textarea.cf-form-input {
   display: block;
   width: 100%;
   line-height: 1.5;
-  outline: 0;
   padding: 0 2px;
   background-color: transparent;
   border-width: 0 0 1px 0;
@@ -504,7 +492,6 @@ select.cf-form-input {
   background: none;
   line-height: normal;
   border: 0;
-  outline: 0;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -514,7 +501,6 @@ select.cf-form-input {
   display: block;
   width: 100%;
   line-height: 1.5;
-  outline: 0;
   padding: 0 2px;
   background-color: transparent;
   border-width: 0 0 1px 0;
