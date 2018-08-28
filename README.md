@@ -40,16 +40,12 @@ Check out [our example UI Extensions][examples] to get a deeper understanding of
 
 ## Extensions taxonomy and example use cases
 
-Conceptually, there are two main categories of custom extensions, for content
-editing and content management.
-- Content editing extensions reside in the entry editor body and operate on top of a particular field or set of fields.
-- Management extensions perform actions on the entire entry.
-
-### Content editing extensions
-Content editing extensions can operate on either single fields, or multiple fields.
+Conceptually, there are two main categories of custom extensions:
+- Single field extensions that reside in the entry editor body and operate on top of a particular field or set of fields.
+- Extensions that reside on the sidebar of the entry editor. They still operate on a particular field but are rendered on the sidebar instead.
 
 #### Single field extensions
-Content editing extensions applied to single fields are great for circumstances
+Extensions applied to single fields are great for circumstances
 where you just want to customize how you edit a particular field type. Examples
 of single field extensions are:
 
@@ -83,16 +79,22 @@ Examples of multi-field-level extensions are:
 * Custom recipes: When selecting an item from a dropdown menu I want the content
   of a short-text field type to change
 
-### Content management extensions
+### Sidebar extensions
 
-Content management extensions reside on the sidebar and allow for actions that
-include every element in the entry. These are better suited for tasks related to
-workflows, data-management, integrations, etc.
-Examples of entry-level extensions are:
+Sidebar extensions are rendered on the sidebar of the entry editor. They make most sense if the functionality provided by the extension applies to an entire entry instead of a single field. 
+
+Examples of sidebar extensions are:
 
 * Custom webhooks/notifications
 * Integration with a preview environment
 * Moving entries across different spaces
+
+A UI Extension becomes as sidebar extension by setting the property `sidebar` to `true` when creating or updating the extension. You can refer to the documentation of the Contentful CLI's `extension update` command [here](https://github.com/contentful/contentful-cli/tree/master/docs/extension/update).
+
+A sidebar extension is still assigned to a field which is then ommited from the entry editor. The field's value can be used to store data for the sidebar extension. If the field should not be distributed to users through the Content Delivery API it can be set to `ommited` on the [content type](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/content-types/content-type).
+
+We offer a sample sidebar extension that [triggers a build on Netlify](https://github.com/contentful/extensions/tree/master/samples/build-netlify)
+
 
 ## Using Contentful styles
 
