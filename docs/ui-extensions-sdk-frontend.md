@@ -332,6 +332,84 @@ Stops resizing the iframe automatically.
 
 This object provides methods for opening UI dialogs:
 
+### `dialogs.openAlert(options)`
+
+Opens a simple alert window. It can be only closed. The method returns
+a promise always resolving to `true` once the dialog is closed.
+
+`options` is an object configuring the dialog. The available `options` are:
+
+- `title` (string, __required__): title of the dialog.
+- `message` (string, __required__): message of the dialog.
+- `confirmLabel` (string, optional): label of the confirmation button.
+  Defaults to `"Confirm"`.
+- `shouldCloseOnEscapePress` (boolean, optional): indicates if the Escape key
+  should close the dialog. Defaults to `true`.
+- `shouldCloseOnOverlayClick` (boolean, optional): indicates if clicking the
+  dialog overlay should close the dialog. Defaults to `true`.
+
+```javascript
+dialogs.openAlert({
+  title: 'My alert',
+  message: 'My message to you'
+}).then(result => {
+  // `result` is always `true`, can be skipped
+});
+```
+
+_Since v3.4.2_
+
+### `dialogs.openConfirm(options)`
+
+Opens a confirmation window. A user can either confirm or cancel the dialog.
+The method returns a promise resolving to either `true` (for confirmations)
+or `false` (for cancellations). Clicking the dialog overlay or pressing the
+Escape key (if enabled) will cancel the dialog.
+
+`options` is an object configuring the dialog. The available `options` are
+all the options of `dialogs.openAlert(options)` and additionally there is:
+
+- `cancelLabel` (string, optional): label of the cancellation button.
+  Defaults to `"Cancel"`.
+
+```javascript
+dialogs.openAlert({
+  title: 'My question',
+  message: 'What is your answer?',
+  confirmLabel: 'Yes!',
+  cancelLabel: 'No...'
+}).then(result => {
+  // `result` is either `true` or `false`
+});
+```
+
+_Since v3.4.2_
+
+### `dialogs.openPrompt(options)`
+
+Opens a prompt window. A user can either provide a string input or cancel
+the dialog. The method returns a promise resolving the provided string
+(when confirmed) or `false` (when cancelled). Clicking the dialog overlay
+or pressing the Escape key (if enabled) will cancel the dialog.
+
+`options` is an object configuring the dialog. The available `options` are
+all the options of `dialogs.openConfirm(options)` and additionally there is:
+
+- `defaultValue` (string, optional): the default value of the text input.
+  Defaults to an empty string.
+
+```javascript
+dialogs.openPrompt({
+  title: 'My question',
+  message: 'Please tell me more...',
+  defaultValue: 'hello world'
+}).then(result => {
+  // `result` is either a string or `false`
+});
+```
+
+_Since v3.4.2_
+
 ### `dialogs.selectSingleEntry(options)`
 
 Opens a dialog for selecting a single entry. It returns a promise resolved with
