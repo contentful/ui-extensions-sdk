@@ -334,7 +334,7 @@ This object provides methods for opening UI dialogs:
 
 ### `dialogs.openAlert(options)`
 
-Opens a simple alert window. It can be only closed. The method returns
+Opens a simple alert window (which can only be closed). The method returns
 a promise always resolving to `true` once the dialog is closed.
 
 `options` is an object configuring the dialog. The available `options` are:
@@ -343,10 +343,10 @@ a promise always resolving to `true` once the dialog is closed.
 - `message` (string, __required__): message of the dialog.
 - `confirmLabel` (string, optional): label of the confirmation button.
   Defaults to `"Confirm"`.
-- `shouldCloseOnEscapePress` (boolean, optional): indicates if the Escape key
-  should close the dialog. Defaults to `true`.
+- `shouldCloseOnEscapePress` (boolean, optional): indicates if pressing
+  the Escape key closes the dialog. Defaults to `true`.
 - `shouldCloseOnOverlayClick` (boolean, optional): indicates if clicking the
-  dialog overlay should close the dialog. Defaults to `true`.
+  dialog overlay closes the dialog. Defaults to `true`.
 
 ```javascript
 dialogs.openAlert({
@@ -367,7 +367,7 @@ or `false` (for cancellations). Clicking the dialog overlay or pressing the
 Escape key (if enabled) will cancel the dialog.
 
 `options` is an object configuring the dialog. The available `options` are
-all the options of `dialogs.openAlert(options)` and additionally there is:
+the options of `dialogs.openAlert(options)` and additionally:
 
 - `cancelLabel` (string, optional): label of the cancellation button.
   Defaults to `"Cancel"`.
@@ -393,7 +393,7 @@ the dialog. The method returns a promise resolving the provided string
 or pressing the Escape key (if enabled) will cancel the dialog.
 
 `options` is an object configuring the dialog. The available `options` are
-all the options of `dialogs.openConfirm(options)` and additionally there is:
+the options of `dialogs.openConfirm(options)` and additionally:
 
 - `defaultValue` (string, optional): the default value of the text input.
   Defaults to an empty string.
