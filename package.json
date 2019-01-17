@@ -1,7 +1,7 @@
 {
   "name": "contentful-ui-extensions-sdk",
   "author": "Contentful GmbH",
-  "version": "3.4.2",
+  "version": "3.4.3",
   "scripts": {
     "prepublish": "make build",
     "test": "make test"
