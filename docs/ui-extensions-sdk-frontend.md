@@ -206,6 +206,8 @@ locale. It defaults to the space the space's default locale (see
 exception.
 
 - `field.id: string`
+- `field.type: string`
+- `field.validations: Array<Validation>`
 - `field.locales: Array<string>`
 - `field.getValue(locale?): mixed`
 - `field.setValue(value, locale?): Promise<void>`
@@ -268,11 +270,27 @@ code, e.g. `"en_US"`.
 
 ### `locales.default: string`
 
-The default locale for the current space.
+The default locale code for the current space.
 
 ### `locales.available: Array<string>`
 
-A list of all locales available in the current space.
+A list of all locale codes available for editing in the current space.
+
+### `locales.names: Object`
+
+An object with keys of locale codes and values of corresponding human-readable
+locale names.
+
+```javascript
+{
+  available: ['en-US', 'pl'],
+  default: 'en-US',
+  names: {
+    'en-US': 'English (US)',
+    pl: 'Polski'
+  }
+}
+```
 
 ## `extension.user`
 

@@ -32,7 +32,9 @@ describe(`Field`, () => {
         'en-US': 'Hello',
         'it-IT': 'Ciao',
         'de-DE': 'Hallo'
-      }
+      },
+      type: 'Symbol',
+      validations: 'VALIDATIONS'
     }
     let field
     beforeEach(() => {
@@ -53,6 +55,18 @@ describe(`Field`, () => {
     describe(`.locales`, () => {
       it(`is set to the same value as info.locales`, () => {
         expect(field.locales).to.deep.equal(info.locales)
+      })
+    })
+
+    describe(`.type`, () => {
+      it(`is set to the same value as info.type`, () => {
+        expect(field.type).to.equal(info.type)
+      })
+    })
+
+    describe(`.validations`, () => {
+      it(`is set to the same value as info.validations`, () => {
+        expect(field.validations).to.equal(info.validations)
       })
     })
 

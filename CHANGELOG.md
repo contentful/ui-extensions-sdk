@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/) and the ["Keep a
 Changelog" format](http://keepachangelog.com/).
 
+## 3.4.3 - 2019-01-17
+
+- Expose locale names: `locales.names`.
+- Expose field type and validations: `entry.fields[id].type`,
+  `entry.fields[id].validations`.
+
 ## 3.4.2 - 2019-01-15
 
 - Expose methods to open simple dialog windows: `dialogs.openAlert()`,
