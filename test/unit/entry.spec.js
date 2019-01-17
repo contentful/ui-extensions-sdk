@@ -3,11 +3,11 @@ import {
   noop,
   describeAttachHandlerMember
 } from '../helpers'
-import {find} from 'lodash'
+import { find } from 'lodash'
 
 describe('createEntry()', () => {
   describe('returned "entry" object', () => {
-    const entryData = {sys: {}}
+    const entryData = { sys: {} }
     const fieldInfo = [
       {
         id: 'field1',

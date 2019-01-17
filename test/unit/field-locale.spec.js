@@ -144,10 +144,10 @@ describe('FieldLocale', () => {
     it(`invokes channel.call("${method}", ...)`, () => {
       if (newValue === undefined) {
         expect(channelStub.call).to.have.been.calledWithExactly(
-        method, field.id, info.locale)
+          method, field.id, info.locale)
       } else {
         expect(channelStub.call).to.have.been.calledWithExactly(
-        method, field.id, info.locale, newValue)
+          method, field.id, info.locale, newValue)
       }
     })
 

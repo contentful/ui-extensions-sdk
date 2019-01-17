@@ -19,7 +19,7 @@ describe('channel connect', function () {
 
     window.postMessage({
       method: 'connect',
-      params: [{id: 'ID'}]
+      params: [{ id: 'ID' }]
     }, '*')
   })
 
@@ -32,7 +32,7 @@ describe('channel connect', function () {
 
       window.postMessage({
         method: 'connect',
-        params: [{id: 'SOURCE'}]
+        params: [{ id: 'SOURCE' }]
       }, '*')
     })
 

@@ -1,4 +1,4 @@
-import Field, {UnknownLocaleError} from '../../lib/api/field'
+import Field, { UnknownLocaleError } from '../../lib/api/field'
 import {
   noop,
   describeAttachHandlerMember
@@ -16,7 +16,7 @@ describe(`Field`, () => {
   describe(`construction error`, () => {
     it(`gets thrown if defaultLocale is not included in info.locales`, () => {
       expect(() => {
-        new Field(channelStub, {id: 'x', locales: ['de-DE'], values: {}}, 'en-US')
+        return new Field(channelStub, { id: 'x', locales: ['de-DE'], values: {} }, 'en-US')
       }).to.throw((new UnknownLocaleError('x', 'en-US')).message)
     })
   })
@@ -210,12 +210,12 @@ describe(`Field`, () => {
       })
 
       it('does not update the value when receiving update for another field',
-      function () {
-        const oldValue = field.getValue()
-        this.receiveValueChanged('other-id', defaultLocale, 'NEW')
+        function () {
+          const oldValue = field.getValue()
+          this.receiveValueChanged('other-id', defaultLocale, 'NEW')
 
-        expect(oldValue).to.equal(field.getValue())
-      })
+          expect(oldValue).to.equal(field.getValue())
+        })
 
       it(`updates the value when receiving a change message`, function () {
         this.receiveValueChanged(field.id, defaultLocale, 'CHANGED')

@@ -1,5 +1,5 @@
 import { MemoizedSignal, Signal } from '../../lib/api/signal'
-import {noop} from '../helpers'
+import { noop } from '../helpers'
 
 describe('MemoizedSignal', () => {
   it('calls the listener with the initial value', () => {
@@ -25,7 +25,6 @@ describe('MemoizedSignal', () => {
 
   test(MemoizedSignal)
 })
-
 
 describe('Signal', () => test(Signal))
 
@@ -85,7 +84,7 @@ function test (SignalConstructor) {
         spies.reset() // since MemoizedSignal invokes cb on attach
         signal.dispatch()
 
-        spies.expectCallCount({one: 1, two: 1, three: 1})
+        spies.expectCallCount({ one: 1, two: 1, three: 1 })
 
         sinon.assert.callOrder(spies.one, spies.two, spies.three)
       })
@@ -96,7 +95,7 @@ function test (SignalConstructor) {
         spies.reset()
         signal.dispatch()
 
-        spies.expectCallCount({one: 0, two: 1})
+        spies.expectCallCount({ one: 0, two: 1 })
       })
 
       it('fires reattached listeners', () => {
@@ -104,13 +103,13 @@ function test (SignalConstructor) {
         spies.reset()
         signal.dispatch()
 
-        spies.expectCallCount({one: 0})
+        spies.expectCallCount({ one: 0 })
 
         signal.attach(spies.one)
         spies.reset()
         signal.dispatch()
 
-        spies.expectCallCount({one: 1})
+        spies.expectCallCount({ one: 1 })
       })
 
       it('fires same listener attached twice two times', () => {
@@ -118,12 +117,12 @@ function test (SignalConstructor) {
         signal.attach(spies.one)
         spies.reset() // reset call count increment caused by memoization behaviour
         signal.dispatch()
-        spies.expectCallCount({one: 2})
+        spies.expectCallCount({ one: 2 })
 
         detachSpyOneA()
         signal.dispatch()
 
-        spies.expectCallCount({one: 3})
+        spies.expectCallCount({ one: 3 })
       })
 
       it('passes given arguments to the listeners', () => {
