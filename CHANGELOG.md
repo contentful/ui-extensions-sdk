@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/) and the ["Keep a
 Changelog" format](http://keepachangelog.com/).
 
+## 3.4.2 - 2019-01-15
+
+- Expose methods to open simple dialog windows: `dialogs.openAlert()`,
+  `dialogs.openConfirm()`, `dialogs.openPrompt()`.
+
 ## 3.4.1 - 2018-07-02
 
 - Reintroduced outline to all interactive elements for improved accessibility
