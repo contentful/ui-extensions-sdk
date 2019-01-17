@@ -27,7 +27,6 @@
     "url": "git+https://github.com/contentful/ui-extensions-sdk.git"
   },
   "dependencies": {
-    "core-js": "^2.4.0",
     "object-assign": "^4.1.0",
     "yaku": "^0.18.2"
   },
