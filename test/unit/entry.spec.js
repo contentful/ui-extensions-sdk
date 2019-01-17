@@ -3,7 +3,6 @@ import {
   noop,
   describeAttachHandlerMember
 } from '../helpers'
-import { find } from 'lodash'
 
 describe('createEntry()', () => {
   describe('returned "entry" object', () => {
@@ -51,7 +50,14 @@ describe('createEntry()', () => {
       })
       it('got instantiated with its related constructor given field info', () => {
         Object.getOwnPropertyNames(entry.fields).forEach((fieldId) => {
-          const info = find(fieldInfo, (info) => info.id === fieldId)
+          const info = fieldInfo.reduce((acc, info) => {
+            if (acc === false) {
+              return info.id === fieldId ? info : false
+            } else {
+              return acc
+            }
+          }, false)
+
           const field = entry.fields[fieldId]
           const fieldInstantiationCall =
                 FieldSpy.withArgs(channelStub, info, defaultLocale).firstCall

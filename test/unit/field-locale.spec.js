@@ -1,5 +1,4 @@
 import FieldLocale from '../../lib/api/field-locale'
-import cloneDeep from 'lodash/cloneDeep'
 import {
   noop,
   describeAttachHandlerMember
@@ -27,8 +26,7 @@ describe('FieldLocale', () => {
       }
     }
 
-    const infoCopy = cloneDeep(info)
-    field = new FieldLocale(channelStub, infoCopy)
+    field = new FieldLocale(channelStub, info)
   })
 
   describe('.id', () => {
