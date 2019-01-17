@@ -42,7 +42,7 @@ describe(`createWindow()`, () => {
       describe(`after auto resizer got started`, () => {
         it(`listens to DOM changes and invokes .updateHeigt()`, (done) => {
           updateHeightSpy.restore()
-          updateHeightSpy = sandbox.stub(window, 'updateHeight', () => {
+          updateHeightSpy = sandbox.stub(window, 'updateHeight').callsFake(() => {
             expect(updateHeightSpy).to.have.callCount(1)
             done()
           })
