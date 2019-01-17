@@ -3,8 +3,10 @@
   "author": "Contentful GmbH",
   "version": "3.4.3",
   "scripts": {
-    "prepublish": "make build",
-    "test": "make test"
+    "test": "karma start --single-run",
+    "lint": "eslint lib/ bin/ test/",
+    "build": "mkdir -p dist && webpack",
+    "prepublish": "mkdir -p dist && webpack"
   },
   "bugs": {
     "url": "https://github.com/contentful/ui-extensions-sdk/issues"
@@ -12,8 +14,6 @@
   "files": [
     "dist/cf-extension-api.js",
     "dist/cf-extension-api.js.map",
-    "dist/cf-extension.css",
-    "dist/cf-extension.css.map",
     "docs/ui-extensions-api-backend.md",
     "docs/ui-extensions-sdk-frontend.md",
     "lib/**/*.js"
