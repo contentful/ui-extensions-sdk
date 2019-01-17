@@ -1,5 +1,6 @@
+import { Promise } from 'es6-promise'
+
 import initializeApi from '../../lib/api/initialize'
-import Promise from 'yaku'
 
 describe('initializeApi(apiCreator)', function () {
   beforeEach(function () {

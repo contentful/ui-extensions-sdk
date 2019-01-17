@@ -27,7 +27,7 @@
     "url": "git+https://github.com/contentful/ui-extensions-sdk.git"
   },
   "dependencies": {
-    "yaku": "^0.18.2"
+    "es6-promise": "^4.2.5"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
