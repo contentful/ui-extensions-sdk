@@ -1,31 +1,21 @@
 {
   "name": "contentful-ui-extensions-sdk",
-  "author": "Contentful GmbH",
+  "description": "SDK to develop custom UI Extension for the Contentful Web App",
   "version": "3.4.3",
+  "author": "Contentful GmbH",
+  "license": "MIT",
+  "main": "dist/cf-extension-api.js",
+  "files": [
+    "dist/cf-extension-api.js",
+    "dist/cf-extension-api.js.map",
+    "dist/cf-extension.css",
+    "lib/**/*.js"
+  ],
   "scripts": {
     "test": "karma start --single-run",
     "lint": "eslint lib/ test/",
     "build": "webpack",
     "prepublish": "webpack"
-  },
-  "bugs": {
-    "url": "https://github.com/contentful/ui-extensions-sdk/issues"
-  },
-  "files": [
-    "dist/cf-extension-api.js",
-    "dist/cf-extension-api.js.map",
-    "dist/cf-extension.css",
-    "docs/ui-extensions-api-backend.md",
-    "docs/ui-extensions-sdk-frontend.md",
-    "lib/**/*.js"
-  ],
-  "description": "SDK to develop custom UI Extension for the Contentful Web App",
-  "homepage": "https://github.com/contentful/ui-extensions-sdk#readme",
-  "license": "MIT",
-  "main": "dist/cf-extension-api.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/contentful/ui-extensions-sdk.git"
   },
   "dependencies": {
     "es6-promise": "^4.2.5"
