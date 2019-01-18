@@ -7,14 +7,14 @@
   "main": "dist/cf-extension-api.js",
   "files": [
     "dist/cf-extension-api.js",
-    "dist/cf-extension-api.js.map",
+    "dist/cf-extension-api.map",
     "dist/cf-extension.css",
     "lib/**/*.js"
   ],
   "scripts": {
     "test": "mocha test/unit/*.js",
     "lint": "eslint --fix lib/ test/",
-    "build": "exit 1",
+    "build": "parcel build lib/index.js --out-file cf-extension-api.js --global contentfulExtension",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
@@ -31,6 +31,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "jsdom": "^13.1.0",
     "mocha": "^5.2.0",
+    "parcel-bundler": "^1.11.0",
     "sinon": "^7.2.2",
     "sinon-chai": "^3.3.0"
   }
