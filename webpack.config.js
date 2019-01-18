@@ -17,8 +17,7 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader',
         query: {
-          presets: ['es2015'],
-          plugins: [] // 'babel-plugin-rewire' in karma.conf.js
+          presets: ['es2015']
         }
       }
     ]
