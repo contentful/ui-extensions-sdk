@@ -29,11 +29,11 @@ describe('initializeApi(apiCreator)', function () {
     })
 
     it('is invoked when registering it after connecting', function () {
+      const cb = sinon.spy()
       sendConnect()
       return wait()
+        .then(() => this.init(cb))
         .then(() => {
-          const cb = sinon.spy()
-          this.init(cb)
           expect(cb).to.be.called // eslint-disable-line no-unused-expressions
         })
     })
