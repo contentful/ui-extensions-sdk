@@ -20,7 +20,7 @@ describe('initializeApi(apiCreator)', function () {
     it('is not invoked before connecting', function () {
       const cb = sinon.spy()
       this.init(cb)
-      expect(cb).to.not.be.called
+      expect(cb).to.not.be.called // eslint-disable-line no-unused-expressions
     })
 
     it('is invoked after connecting', function (done) {
@@ -34,7 +34,7 @@ describe('initializeApi(apiCreator)', function () {
         .then(() => {
           const cb = sinon.spy()
           this.init(cb)
-          expect(cb).to.be.called
+          expect(cb).to.be.called // eslint-disable-line no-unused-expressions
         })
     })
 
@@ -68,7 +68,7 @@ describe('initializeApi(apiCreator)', function () {
     }
     return this.initialize()
       .then(() => {
-        expect(handler).to.have.been.calledOnce
+        expect(handler).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
         expect(handler).to.have.been.calledWithExactly('X', 'Y')
       })
   })
@@ -82,12 +82,12 @@ describe('initializeApi(apiCreator)', function () {
     return this.initialize()
       .then(() => {
         document.dispatchEvent(new Event('focus'))
-        expect(send).to.be.calledOnce
+        expect(send).to.be.calledOnce // eslint-disable-line no-unused-expressions
         expect(send).to.be.calledWithExactly('setActive', true)
 
         send.reset()
         document.dispatchEvent(new Event('blur'))
-        expect(send).to.be.calledOnce
+        expect(send).to.be.calledOnce // eslint-disable-line no-unused-expressions
         expect(send).to.be.calledWithExactly('setActive', false)
       })
   })

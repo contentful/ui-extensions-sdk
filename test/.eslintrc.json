@@ -8,8 +8,5 @@
     "afterEach": false,
     "expect": false,
     "sinon": false
-  },
-  "rules": {
-    "no-unused-expressions": "off"
   }
 }
