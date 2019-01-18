@@ -1,3 +1,6 @@
+import createSpace from '../../lib/api/space'
+import { describeChannelCallingMethod } from '../helpers'
+
 const spaceMethods = [
   'getContentType',
   'getEntry',
@@ -33,9 +36,6 @@ const spaceMethods = [
 
   'processAsset'
 ]
-
-import createSpace from '../../lib/api/space'
-import { describeChannelCallingMethod } from '../helpers'
 
 describe('createSpace()', () => {
   describe('returned "space" object', () => {

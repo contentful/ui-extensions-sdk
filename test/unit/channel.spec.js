@@ -19,7 +19,7 @@ describe('channel connect', function () {
 
     window.postMessage({
       method: 'connect',
-      params: [{id: 'ID'}]
+      params: [{ id: 'ID' }]
     }, '*')
   })
 
@@ -32,14 +32,14 @@ describe('channel connect', function () {
 
       window.postMessage({
         method: 'connect',
-        params: [{id: 'SOURCE'}]
+        params: [{ id: 'SOURCE' }]
       }, '*')
     })
 
     describe('#send()', function () {
       it('calls post message with parameters', function () {
         this.channel.send('M', 1, 2)
-        expect(this.postMessage).to.be.calledOnce
+        expect(this.postMessage).to.be.calledOnce // eslint-disable-line no-unused-expressions
         expect(this.postMessage).to.be.calledWithMatch({
           source: 'SOURCE',
           method: 'M',
@@ -47,7 +47,7 @@ describe('channel connect', function () {
         })
 
         this.channel.send('N', false)
-        expect(this.postMessage).to.be.calledTwice
+        expect(this.postMessage).to.be.calledTwice // eslint-disable-line no-unused-expressions
         expect(this.postMessage).to.be.calledWithMatch({
           source: 'SOURCE',
           method: 'N',
@@ -59,7 +59,7 @@ describe('channel connect', function () {
     describe('#call()', function () {
       it('calls post message with parameters', function () {
         this.channel.call('M', 1, 2)
-        expect(this.postMessage).to.be.calledOnce
+        expect(this.postMessage).to.be.calledOnce // eslint-disable-line no-unused-expressions
         expect(this.postMessage).to.be.calledWithMatch({
           source: 'SOURCE',
           method: 'M',
@@ -67,7 +67,7 @@ describe('channel connect', function () {
         })
 
         this.channel.call('N', false)
-        expect(this.postMessage).to.be.calledTwice
+        expect(this.postMessage).to.be.calledTwice // eslint-disable-line no-unused-expressions
         expect(this.postMessage).to.be.calledWithMatch({
           source: 'SOURCE',
           method: 'N',

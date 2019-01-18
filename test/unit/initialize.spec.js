@@ -1,5 +1,6 @@
+import { Promise } from 'es6-promise'
+
 import initializeApi from '../../lib/api/initialize'
-import Promise from 'yaku'
 
 describe('initializeApi(apiCreator)', function () {
   beforeEach(function () {
@@ -19,7 +20,7 @@ describe('initializeApi(apiCreator)', function () {
     it('is not invoked before connecting', function () {
       const cb = sinon.spy()
       this.init(cb)
-      expect(cb).to.not.be.called
+      expect(cb).to.not.be.called // eslint-disable-line no-unused-expressions
     })
 
     it('is invoked after connecting', function (done) {
@@ -30,11 +31,11 @@ describe('initializeApi(apiCreator)', function () {
     it('is invoked when registering it after connecting', function () {
       sendConnect()
       return wait()
-      .then(() => {
-        const cb = sinon.spy()
-        this.init(cb)
-        expect(cb).to.be.called
-      })
+        .then(() => {
+          const cb = sinon.spy()
+          this.init(cb)
+          expect(cb).to.be.called // eslint-disable-line no-unused-expressions
+        })
     })
 
     it('receives the result of the apiCreator', function (done) {
@@ -47,29 +48,29 @@ describe('initializeApi(apiCreator)', function () {
   })
 
   it('calls apiCreator with channel and params', function () {
-    const params = {id: 'foo', val: 'x'}
+    const params = { id: 'foo', val: 'x' }
     sendConnect(params)
     return this.initialize()
-    .then(() => {
-      const [channel, params] = this.apiCreator.args[0]
-      expect(channel.call).to.be.a('function')
-      expect(channel.send).to.be.a('function')
-      expect(channel.addHandler).to.be.a('function')
-      expect(params).to.deep.equal(params)
-    })
+      .then(() => {
+        const [channel, params] = this.apiCreator.args[0]
+        expect(channel.call).to.be.a('function')
+        expect(channel.send).to.be.a('function')
+        expect(channel.addHandler).to.be.a('function')
+        expect(params).to.deep.equal(params)
+      })
   })
 
   it('calls handlers for queued messages', function () {
-    sendConnect(null, [{method: 'M', params: ['X', 'Y']}])
+    sendConnect(null, [{ method: 'M', params: ['X', 'Y'] }])
     const handler = sinon.stub()
     this.apiCreator = function (channel) {
       channel.addHandler('M', handler)
     }
     return this.initialize()
-    .then(() => {
-      expect(handler).to.have.been.calledOnce
-      expect(handler).to.have.been.calledWithExactly('X', 'Y')
-    })
+      .then(() => {
+        expect(handler).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
+        expect(handler).to.have.been.calledWithExactly('X', 'Y')
+      })
   })
 
   it('adds focus handlers', function () {
@@ -79,23 +80,23 @@ describe('initializeApi(apiCreator)', function () {
     }
     sendConnect()
     return this.initialize()
-    .then(() => {
-      document.dispatchEvent(new Event('focus'))
-      expect(send).to.be.calledOnce
-      expect(send).to.be.calledWithExactly('setActive', true)
+      .then(() => {
+        document.dispatchEvent(new Event('focus'))
+        expect(send).to.be.calledOnce // eslint-disable-line no-unused-expressions
+        expect(send).to.be.calledWithExactly('setActive', true)
 
-      send.reset()
-      document.dispatchEvent(new Event('blur'))
-      expect(send).to.be.calledOnce
-      expect(send).to.be.calledWithExactly('setActive', false)
-    })
+        send.reset()
+        document.dispatchEvent(new Event('blur'))
+        expect(send).to.be.calledOnce // eslint-disable-line no-unused-expressions
+        expect(send).to.be.calledWithExactly('setActive', false)
+      })
   })
 
   function sendConnect (params, messageQueue) {
     window.postMessage({
       method: 'connect',
       params: [
-        params || {id: 'foo'},
+        params || { id: 'foo' },
         messageQueue || []
       ]
     }, '*')

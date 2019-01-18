@@ -1,9 +1,5 @@
 import FieldLocale from '../../lib/api/field-locale'
-import cloneDeep from 'lodash/cloneDeep'
-import {
-  noop,
-  describeAttachHandlerMember
-} from '../helpers'
+import { describeAttachHandlerMember } from '../helpers'
 
 describe('FieldLocale', () => {
   const info = {
@@ -27,8 +23,7 @@ describe('FieldLocale', () => {
       }
     }
 
-    const infoCopy = cloneDeep(info)
-    field = new FieldLocale(channelStub, infoCopy)
+    field = new FieldLocale(channelStub, info)
   })
 
   describe('.id', () => {
@@ -90,7 +85,7 @@ describe('FieldLocale', () => {
 
   describe('.onValueChanged(handler)', () => {
     describeAttachHandlerMember('default behaviour', () => {
-      return field.onValueChanged(noop)
+      return field.onValueChanged(() => {})
     })
 
     it('calls handler immediately on attach with most recently received value', () => {
@@ -144,10 +139,10 @@ describe('FieldLocale', () => {
     it(`invokes channel.call("${method}", ...)`, () => {
       if (newValue === undefined) {
         expect(channelStub.call).to.have.been.calledWithExactly(
-        method, field.id, info.locale)
+          method, field.id, info.locale)
       } else {
         expect(channelStub.call).to.have.been.calledWithExactly(
-        method, field.id, info.locale, newValue)
+          method, field.id, info.locale, newValue)
       }
     })
 

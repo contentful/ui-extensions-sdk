@@ -1,8 +1,5 @@
-import Field, {UnknownLocaleError} from '../../lib/api/field'
-import {
-  noop,
-  describeAttachHandlerMember
-} from '../helpers'
+import Field, { UnknownLocaleError } from '../../lib/api/field'
+import { describeAttachHandlerMember } from '../helpers'
 
 describe(`Field`, () => {
   let channelStub
@@ -16,7 +13,7 @@ describe(`Field`, () => {
   describe(`construction error`, () => {
     it(`gets thrown if defaultLocale is not included in info.locales`, () => {
       expect(() => {
-        new Field(channelStub, {id: 'x', locales: ['de-DE'], values: {}}, 'en-US')
+        return new Field(channelStub, { id: 'x', locales: ['de-DE'], values: {} }, 'en-US')
       }).to.throw((new UnknownLocaleError('x', 'en-US')).message)
     })
   })
@@ -182,19 +179,19 @@ describe(`Field`, () => {
     }
 
     describeAttachHandlerMember(`.onValueChanged(handler)`, () => {
-      return field.onValueChanged(noop)
+      return field.onValueChanged(() => {})
     })
 
     describe(`.onValueChanged(locale, handler)`, () => {
       info.locales.forEach((locale) => {
         describeAttachHandlerMember(`with locale set to ${locale}`, () => {
-          return field.onValueChanged(locale, noop)
+          return field.onValueChanged(locale, () => {})
         })
       })
 
       it(`throws an error if locale is unknown to the field`, () => {
         expect(() => {
-          field.onValueChanged(unknownLocale, noop)
+          field.onValueChanged(unknownLocale, () => {})
         }).to.throw((new UnknownLocaleError(field.id, unknownLocale)).message)
       })
     })
@@ -210,12 +207,12 @@ describe(`Field`, () => {
       })
 
       it('does not update the value when receiving update for another field',
-      function () {
-        const oldValue = field.getValue()
-        this.receiveValueChanged('other-id', defaultLocale, 'NEW')
+        function () {
+          const oldValue = field.getValue()
+          this.receiveValueChanged('other-id', defaultLocale, 'NEW')
 
-        expect(oldValue).to.equal(field.getValue())
-      })
+          expect(oldValue).to.equal(field.getValue())
+        })
 
       it(`updates the value when receiving a change message`, function () {
         this.receiveValueChanged(field.id, defaultLocale, 'CHANGED')

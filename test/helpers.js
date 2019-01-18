@@ -1,5 +1,3 @@
-export const noop = function () {}
-
 export function describeAttachHandlerMember (msg, attachHandlerFn) {
   describe(msg, () => {
     it('returns a function to detach the handler', () => {
@@ -26,7 +24,7 @@ export function describeChannelCallingMethod ({
 
     beforeEach(() => {
       channelCallStub = sinon.stub()
-      object = creator({call: channelCallStub})
+      object = creator({ call: channelCallStub })
     })
 
     it('is a function', () => {
@@ -36,8 +34,8 @@ export function describeChannelCallingMethod ({
     it(`invokes channel.call('${channelMethod}')`, () => {
       object[methodName](...args)
       expect(channelCallStub)
-      .to.have.callCount(1).and
-      .to.have.been.calledWithExactly(...[channelMethod].concat(expectedCallArgs))
+        .to.have.callCount(1).and
+        .to.have.been.calledWithExactly(...[channelMethod].concat(expectedCallArgs))
     })
 
     it('returns the promise returned by internal channel.call()', () => {

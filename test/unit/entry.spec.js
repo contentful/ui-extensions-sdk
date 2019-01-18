@@ -1,13 +1,9 @@
 import createEntry from '../../lib/api/entry'
-import {
-  noop,
-  describeAttachHandlerMember
-} from '../helpers'
-import {find} from 'lodash'
+import { describeAttachHandlerMember } from '../helpers'
 
 describe('createEntry()', () => {
   describe('returned "entry" object', () => {
-    const entryData = {sys: {}}
+    const entryData = { sys: {} }
     const fieldInfo = [
       {
         id: 'field1',
@@ -23,20 +19,17 @@ describe('createEntry()', () => {
         values: {}
       }
     ]
-    const defaultLocale = 'en-US'
 
+    let createEntryFieldSpy
     let channelStub
-    let FieldSpy
     let entry
     beforeEach(() => {
-      FieldSpy = sinon.spy()
-      createEntry.__Rewire__('Field', FieldSpy)
-
+      createEntryFieldSpy = sinon.spy()
       channelStub = {
         addHandler: sinon.spy()
       }
 
-      entry = createEntry(channelStub, entryData, fieldInfo, defaultLocale)
+      entry = createEntry(channelStub, entryData, fieldInfo, createEntryFieldSpy)
     })
 
     it('subscribed to injected Channel\'s "sysChanged"', () => {
@@ -49,12 +42,19 @@ describe('createEntry()', () => {
         const fieldIds = fieldInfo.map((info) => info.id)
         expect(Object.getOwnPropertyNames(entry.fields)).to.deep.equal(fieldIds)
       })
+
       it('got instantiated with its related constructor given field info', () => {
         Object.getOwnPropertyNames(entry.fields).forEach((fieldId) => {
-          const info = find(fieldInfo, (info) => info.id === fieldId)
+          const info = fieldInfo.reduce((acc, info) => {
+            if (acc === false) {
+              return info.id === fieldId ? info : false
+            } else {
+              return acc
+            }
+          }, false)
+
           const field = entry.fields[fieldId]
-          const fieldInstantiationCall =
-                FieldSpy.withArgs(channelStub, info, defaultLocale).firstCall
+          const fieldInstantiationCall = createEntryFieldSpy.withArgs(info).firstCall
 
           expect(fieldInstantiationCall).to.have.been.calledOn(field)
         })
@@ -69,7 +69,7 @@ describe('createEntry()', () => {
 
     describe('.onSysChanged(handler)', () => {
       describeAttachHandlerMember('default behaviour', () => {
-        return entry.onSysChanged(noop)
+        return entry.onSysChanged(() => {})
       })
 
       it('calls handler immediately on attach with initial value of sys', () => {

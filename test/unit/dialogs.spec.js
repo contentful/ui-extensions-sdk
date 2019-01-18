@@ -21,8 +21,8 @@ describe('createDialogs()', () => {
         creator: createDialogs,
         methodName: method,
         channelMethod: 'openDialog',
-        args: [{test: true}],
-        expectedCallArgs: [type, {test: true}]
+        args: [{ test: true }],
+        expectedCallArgs: [type, { test: true }]
       })
     })
 
@@ -31,8 +31,8 @@ describe('createDialogs()', () => {
         creator: createDialogs,
         methodName: method,
         channelMethod: 'openDialog',
-        args: [{test: true}],
-        expectedCallArgs: ['entitySelector', {test: true, entityType, multiple}]
+        args: [{ test: true }],
+        expectedCallArgs: ['entitySelector', { test: true, entityType, multiple }]
       })
     })
   })
