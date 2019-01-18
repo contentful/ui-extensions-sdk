@@ -4,13 +4,11 @@ const { sinon, makeDOM, expect } = require('../helpers')
 
 const initializeApi = require('../../lib/initialize')
 
-const dom = makeDOM()
-const { Event } = dom.window
-
 describe('initializeApi(currentWindow, apiCreator)', function () {
   beforeEach(function () {
+    this.dom = makeDOM()
     this.apiCreator = sinon.stub().returns({})
-    const init = initializeApi(dom.window, (...args) => this.apiCreator(...args))
+    const init = initializeApi(this.dom.window, (...args) => this.apiCreator(...args))
     this.initialize = function () {
       return new Promise((resolve) => init(resolve))
     }
@@ -19,7 +17,7 @@ describe('initializeApi(currentWindow, apiCreator)', function () {
   describe('callback', function () {
     beforeEach(function () {
       this.api = {}
-      this.init = initializeApi(dom.window, () => this.api)
+      this.init = initializeApi(this.dom.window, () => this.api)
     })
 
     it('is not invoked before connecting', function () {
@@ -30,12 +28,12 @@ describe('initializeApi(currentWindow, apiCreator)', function () {
 
     it('is invoked after connecting', function (done) {
       this.init(() => done())
-      sendConnect()
+      sendConnect(this.dom)
     })
 
     it('is invoked when registering it after connecting', function () {
       const cb = sinon.spy()
-      sendConnect()
+      sendConnect(this.dom)
       return wait()
         .then(() => this.init(cb))
         .then(() => {
@@ -48,13 +46,13 @@ describe('initializeApi(currentWindow, apiCreator)', function () {
         expect(arg).to.equal(this.api)
         done()
       })
-      sendConnect()
+      sendConnect(this.dom)
     })
   })
 
   it('calls apiCreator with channel and params', function () {
     const params = { id: 'foo', val: 'x' }
-    sendConnect(params)
+    sendConnect(this.dom, params)
     return this.initialize()
       .then(() => {
         const [channel, params] = this.apiCreator.args[0]
@@ -66,7 +64,7 @@ describe('initializeApi(currentWindow, apiCreator)', function () {
   })
 
   it('calls handlers for queued messages', function () {
-    sendConnect(null, [{ method: 'M', params: ['X', 'Y'] }])
+    sendConnect(this.dom, null, [{ method: 'M', params: ['X', 'Y'] }])
     const handler = sinon.stub()
     this.apiCreator = function (channel) {
       channel.addHandler('M', handler)
@@ -79,25 +77,26 @@ describe('initializeApi(currentWindow, apiCreator)', function () {
   })
 
   it('adds focus handlers', function () {
+    const { Event } = this.dom.window
     const send = sinon.spy()
     this.apiCreator = function (channel) {
       channel.send = send
     }
-    sendConnect()
+    sendConnect(this.dom)
     return this.initialize()
       .then(() => {
-        dom.window.document.dispatchEvent(new Event('focus'))
+        this.dom.window.document.dispatchEvent(new Event('focus'))
         expect(send).to.be.calledOnce // eslint-disable-line no-unused-expressions
         expect(send).to.be.calledWithExactly('setActive', true)
 
         send.resetHistory()
-        dom.window.document.dispatchEvent(new Event('blur'))
+        this.dom.window.document.dispatchEvent(new Event('blur'))
         expect(send).to.be.calledOnce // eslint-disable-line no-unused-expressions
         expect(send).to.be.calledWithExactly('setActive', false)
       })
   })
 
-  function sendConnect (params, messageQueue) {
+  function sendConnect (dom, params, messageQueue) {
     dom.window.postMessage({
       method: 'connect',
       params: [
