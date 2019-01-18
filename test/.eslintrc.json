@@ -1,7 +1,6 @@
 {
   "extends": "standard",
   "globals": {
-    "Event": false,
     "describe": false,
     "it": false,
     "beforeEach": false,

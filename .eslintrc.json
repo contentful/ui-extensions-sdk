@@ -1,6 +1,3 @@
 {
-  "extends": "standard",
-  "globals": {
-    "MutationObserver": false
-  }
+  "extends": "standard"
 }

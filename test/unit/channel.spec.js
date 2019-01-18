@@ -3,13 +3,16 @@ import connect from '../../lib/api/channel'
 describe('channel connect', function () {
   beforeEach(function () {
     this.postMessage = sinon.stub()
-    this.targetWindow = {
-      postMessage: this.postMessage
-    }
+    this.originalParent = window.parent
+    window.parent = { postMessage: this.postMessage }
+  })
+
+  afterEach(function () {
+    window.parent = this.originalParent
   })
 
   it('resolves with channel and params on connect event', function (done) {
-    connect(this.targetWindow, (channel, params) => {
+    connect(window, (channel, params) => {
       expect(channel.send).to.be.a('function')
       expect(channel.call).to.be.a('function')
       expect(channel.addHandler).to.be.a('function')
@@ -25,7 +28,7 @@ describe('channel connect', function () {
 
   describe('channel instance', function () {
     beforeEach(function (done) {
-      connect(this.targetWindow, (channel) => {
+      connect(window, (channel) => {
         this.channel = channel
         done()
       })

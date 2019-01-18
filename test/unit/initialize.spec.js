@@ -2,10 +2,12 @@ import { Promise } from 'es6-promise'
 
 import initializeApi from '../../lib/api/initialize'
 
-describe('initializeApi(apiCreator)', function () {
+const { Event } = window
+
+describe('initializeApi(currentWindow, apiCreator)', function () {
   beforeEach(function () {
     this.apiCreator = sinon.stub().returns({})
-    const init = initializeApi((...args) => this.apiCreator(...args))
+    const init = initializeApi(window, (...args) => this.apiCreator(...args))
     this.initialize = function () {
       return new Promise((resolve) => init(resolve))
     }
@@ -14,7 +16,7 @@ describe('initializeApi(apiCreator)', function () {
   describe('callback', function () {
     beforeEach(function () {
       this.api = {}
-      this.init = initializeApi(() => this.api)
+      this.init = initializeApi(window, () => this.api)
     })
 
     it('is not invoked before connecting', function () {

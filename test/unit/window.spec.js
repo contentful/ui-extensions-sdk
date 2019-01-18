@@ -1,5 +1,8 @@
 import createWindow from '../../lib/api/window'
 
+const browserWindow = window
+const { Event } = browserWindow
+
 describe(`createWindow()`, () => {
   let sandbox
   beforeEach(() => {
@@ -14,7 +17,7 @@ describe(`createWindow()`, () => {
     let channelSendSpy
     beforeEach(() => {
       channelSendSpy = sandbox.spy()
-      window = createWindow({
+      window = createWindow(browserWindow, {
         send: channelSendSpy
       })
     })
@@ -107,10 +110,10 @@ describe(`createWindow()`, () => {
 })
 
 function modifyDOM () {
-  const elem = window.document.createElement('p')
-  window.document.body.appendChild(elem)
+  const elem = browserWindow.document.createElement('p')
+  browserWindow.document.body.appendChild(elem)
 }
 
 function fireViewportResize () {
-  window.dispatchEvent(new Event('resize'))
+  browserWindow.dispatchEvent(new Event('resize'))
 }
