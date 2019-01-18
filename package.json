@@ -19,7 +19,7 @@
     "docs/ui-extensions-sdk-frontend.md",
     "lib/**/*.js"
   ],
-  "description": "SDK to develop custom widgets on Contentful",
+  "description": "SDK to develop custom UI Extension for the Contentful Web App",
   "homepage": "https://github.com/contentful/ui-extensions-sdk#readme",
   "license": "MIT",
   "main": "dist/cf-extension-api.js",
