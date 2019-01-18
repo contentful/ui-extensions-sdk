@@ -1,4 +1,4 @@
-import createWindow from '../../lib/api/window'
+const createWindow = require('../../lib/api/window')
 
 const browserWindow = window
 const { Event } = browserWindow

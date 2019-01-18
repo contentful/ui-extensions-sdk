@@ -1,4 +1,4 @@
-import connect from '../../lib/api/channel'
+const connect = require('../../lib/api/channel')
 
 describe('channel connect', function () {
   beforeEach(function () {

@@ -1,4 +1,4 @@
-import { MemoizedSignal, Signal } from '../../lib/api/signal'
+const { MemoizedSignal, Signal } = require('../../lib/api/signal')
 
 describe('MemoizedSignal', () => {
   it('calls the listener with the initial value', () => {

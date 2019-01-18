@@ -1,4 +1,9 @@
-export function describeAttachHandlerMember (msg, attachHandlerFn) {
+module.exports = {
+  describeAttachHandlerMember,
+  describeChannelCallingMethod
+}
+
+function describeAttachHandlerMember (msg, attachHandlerFn) {
   describe(msg, () => {
     it('returns a function to detach the handler', () => {
       expect(attachHandlerFn()).to.be.a('function')
@@ -12,11 +17,10 @@ export function describeAttachHandlerMember (msg, attachHandlerFn) {
   })
 }
 
-export function describeChannelCallingMethod ({
-  creator, methodName, channelMethod, args, expectedCallArgs
-}) {
-  expectedCallArgs = expectedCallArgs || args
-  channelMethod = channelMethod || methodName
+function describeChannelCallingMethod (spec) {
+  const { creator, methodName, args } = spec
+  const expectedCallArgs = spec.expectedCallArgs || args
+  const channelMethod = spec.channelMethod || methodName
 
   describe(`.${methodName}()`, () => {
     let object

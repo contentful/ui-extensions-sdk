@@ -1,6 +1,6 @@
-import { Promise } from 'es6-promise'
+const { Promise } = require('es6-promise')
 
-import initializeApi from '../../lib/api/initialize'
+const initializeApi = require('../../lib/api/initialize')
 
 const { Event } = window
 

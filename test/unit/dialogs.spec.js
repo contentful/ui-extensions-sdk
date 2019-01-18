@@ -1,5 +1,6 @@
-import createDialogs from '../../lib/api/dialogs'
-import { describeChannelCallingMethod } from '../helpers'
+const { describeChannelCallingMethod } = require('../helpers')
+
+const createDialogs = require('../../lib/api/dialogs')
 
 const SIMPLE_DIALOGS = [
   ['openAlert', 'alert'],
