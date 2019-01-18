@@ -15,7 +15,7 @@
     "test": "mocha test/unit/*.js",
     "lint": "eslint --fix lib/ test/",
     "build": "exit 1",
-    "prepublish": "exit 1"
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "es6-promise": "^4.2.5"
