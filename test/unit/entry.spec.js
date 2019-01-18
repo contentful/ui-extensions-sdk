@@ -1,6 +1,6 @@
 const { describeAttachHandlerMember } = require('../helpers')
 
-const createEntry = require('../../lib/api/entry')
+const createEntry = require('../../lib/entry')
 
 describe('createEntry()', () => {
   describe('returned "entry" object', () => {

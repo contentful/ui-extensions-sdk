@@ -1,6 +1,6 @@
 const { describeAttachHandlerMember } = require('../helpers')
 
-const Field = require('../../lib/api/field')
+const Field = require('../../lib/field')
 
 describe(`Field`, () => {
   let channelStub

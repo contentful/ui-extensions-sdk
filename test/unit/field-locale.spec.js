@@ -1,6 +1,6 @@
 const { describeAttachHandlerMember } = require('../helpers')
 
-const FieldLocale = require('../../lib/api/field-locale')
+const FieldLocale = require('../../lib/field-locale')
 
 describe('FieldLocale', () => {
   const info = {

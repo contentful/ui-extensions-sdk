@@ -1,6 +1,6 @@
 const { describeChannelCallingMethod } = require('../helpers')
 
-const createDialogs = require('../../lib/api/dialogs')
+const createDialogs = require('../../lib/dialogs')
 
 const SIMPLE_DIALOGS = [
   ['openAlert', 'alert'],

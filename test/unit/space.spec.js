@@ -1,6 +1,6 @@
 const { describeChannelCallingMethod } = require('../helpers')
 
-const createSpace = require('../../lib/api/space')
+const createSpace = require('../../lib/space')
 
 const spaceMethods = [
   'getContentType',

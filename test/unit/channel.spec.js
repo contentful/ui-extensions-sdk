@@ -1,4 +1,4 @@
-const connect = require('../../lib/api/channel')
+const connect = require('../../lib/channel')
 
 describe('channel connect', function () {
   beforeEach(function () {

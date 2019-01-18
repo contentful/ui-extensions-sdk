@@ -2,7 +2,7 @@ var path = require('path')
 
 module.exports = {
   entry: {
-    'cf-extension-api': './lib/api/index.js'
+    'cf-extension-api': './lib/index.js'
   },
   output: {
     path: path.join(__dirname, 'dist'),

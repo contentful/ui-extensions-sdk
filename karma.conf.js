@@ -16,7 +16,7 @@ module.exports = function (config) {
     exclude: [
     ],
     preprocessors: {
-      './lib/api/index.js': ['webpack', 'sourcemap'],
+      './lib/index.js': ['webpack', 'sourcemap'],
       './test/unit/**/*.spec.js': ['webpack', 'sourcemap']
     },
     webpack: webpackConfig,
