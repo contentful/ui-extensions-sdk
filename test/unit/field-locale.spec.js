@@ -1,8 +1,5 @@
 import FieldLocale from '../../lib/api/field-locale'
-import {
-  noop,
-  describeAttachHandlerMember
-} from '../helpers'
+import { describeAttachHandlerMember } from '../helpers'
 
 describe('FieldLocale', () => {
   const info = {
@@ -88,7 +85,7 @@ describe('FieldLocale', () => {
 
   describe('.onValueChanged(handler)', () => {
     describeAttachHandlerMember('default behaviour', () => {
-      return field.onValueChanged(noop)
+      return field.onValueChanged(() => {})
     })
 
     it('calls handler immediately on attach with most recently received value', () => {

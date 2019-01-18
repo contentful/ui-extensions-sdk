@@ -1,8 +1,5 @@
 import Field, { UnknownLocaleError } from '../../lib/api/field'
-import {
-  noop,
-  describeAttachHandlerMember
-} from '../helpers'
+import { describeAttachHandlerMember } from '../helpers'
 
 describe(`Field`, () => {
   let channelStub
@@ -182,19 +179,19 @@ describe(`Field`, () => {
     }
 
     describeAttachHandlerMember(`.onValueChanged(handler)`, () => {
-      return field.onValueChanged(noop)
+      return field.onValueChanged(() => {})
     })
 
     describe(`.onValueChanged(locale, handler)`, () => {
       info.locales.forEach((locale) => {
         describeAttachHandlerMember(`with locale set to ${locale}`, () => {
-          return field.onValueChanged(locale, noop)
+          return field.onValueChanged(locale, () => {})
         })
       })
 
       it(`throws an error if locale is unknown to the field`, () => {
         expect(() => {
-          field.onValueChanged(unknownLocale, noop)
+          field.onValueChanged(unknownLocale, () => {})
         }).to.throw((new UnknownLocaleError(field.id, unknownLocale)).message)
       })
     })

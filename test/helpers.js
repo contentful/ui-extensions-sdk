@@ -1,5 +1,3 @@
-export const noop = function () {}
-
 export function describeAttachHandlerMember (msg, attachHandlerFn) {
   describe(msg, () => {
     it('returns a function to detach the handler', () => {

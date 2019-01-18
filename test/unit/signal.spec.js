@@ -1,5 +1,4 @@
 import { MemoizedSignal, Signal } from '../../lib/api/signal'
-import { noop } from '../helpers'
 
 describe('MemoizedSignal', () => {
   it('calls the listener with the initial value', () => {
@@ -53,7 +52,7 @@ function test (SignalConstructor) {
 
     describe('attach(listener)', () => {
       it('returns a function', () => {
-        expect(signal.attach(noop)).to.be.a('function')
+        expect(signal.attach(() => {})).to.be.a('function')
       })
 
       it('throws an error if listener is not a function', () => {

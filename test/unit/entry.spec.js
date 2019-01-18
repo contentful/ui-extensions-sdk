@@ -1,8 +1,5 @@
 import createEntry from '../../lib/api/entry'
-import {
-  noop,
-  describeAttachHandlerMember
-} from '../helpers'
+import { describeAttachHandlerMember } from '../helpers'
 
 describe('createEntry()', () => {
   describe('returned "entry" object', () => {
@@ -75,7 +72,7 @@ describe('createEntry()', () => {
 
     describe('.onSysChanged(handler)', () => {
       describeAttachHandlerMember('default behaviour', () => {
-        return entry.onSysChanged(noop)
+        return entry.onSysChanged(() => {})
       })
 
       it('calls handler immediately on attach with initial value of sys', () => {
