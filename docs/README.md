@@ -1,0 +1,10 @@
+# !! WARNING !!
+
+All files in the docs/ directory serve as a source for the Github page for this repository.
+
+UI Extension SDK resources are now a part of the official documentation:
+
+https://www.contentful.com/developers/docs/extensibility/ui-extensions/
+
+We still keep this directory around because in the past we used the Github page as a CDN.
+There may still be somebody relying on the files in this directory being deployed to the page.

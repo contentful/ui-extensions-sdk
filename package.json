@@ -5,8 +5,8 @@
   "scripts": {
     "test": "karma start --single-run",
     "lint": "eslint lib/ test/",
-    "build": "mkdir -p dist && webpack",
-    "prepublish": "mkdir -p dist && webpack"
+    "build": "webpack",
+    "prepublish": "webpack"
   },
   "bugs": {
     "url": "https://github.com/contentful/ui-extensions-sdk/issues"
@@ -14,6 +14,7 @@
   "files": [
     "dist/cf-extension-api.js",
     "dist/cf-extension-api.js.map",
+    "dist/cf-extension.css",
     "docs/ui-extensions-api-backend.md",
     "docs/ui-extensions-sdk-frontend.md",
     "lib/**/*.js"
