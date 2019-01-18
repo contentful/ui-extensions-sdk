@@ -15,7 +15,8 @@
     "test": "mocha test/unit/*.js",
     "lint": "eslint --fix lib/ test/",
     "build": "parcel build lib/index.js --out-file cf-extension-api.js --global contentfulExtension",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "size": "echo \"Gzipped, estimate: $(gzip -9 -c dist/cf-extension-api.js | wc -c) bytes\""
   },
   "dependencies": {
     "es6-promise": "^4.2.5"
