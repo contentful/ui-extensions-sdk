@@ -1,7 +1,3 @@
-.DS_Store
-node_modules
-*.log
-gh-pages
-dist
-custom.mk
-.idea
+/node_modules
+/dist/cf-extension-api.js
+/dist/cf-extension-api.js.map
