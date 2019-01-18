@@ -45,7 +45,7 @@ function test (SignalConstructor) {
           this.three.resetHistory()
         },
         expectCallCount (obj) {
-          for (let name in obj) {
+          for (const name in obj) {
             expect(this[name]).to.have.callCount(obj[name])
           }
         }

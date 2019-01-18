@@ -168,7 +168,7 @@ describe(`Field`, () => {
             .to.have.been.calledWithExactly(undefined, locale)
         })
         it(`returns the same value as .setValue(undefined, ${localeParam})`, () => {
-          let setValueStub = sinon.stub(field, 'setValue')
+          const setValueStub = sinon.stub(field, 'setValue')
           setValueStub.returns('PROMISE')
           expect(field.removeValue()).to.equal('PROMISE')
         })

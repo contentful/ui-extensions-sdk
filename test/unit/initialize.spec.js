@@ -79,7 +79,7 @@ describe('initializeApi(currentWindow, apiCreator)', function () {
   })
 
   it('adds focus handlers', function () {
-    let send = sinon.spy()
+    const send = sinon.spy()
     this.apiCreator = function (channel) {
       channel.send = send
     }

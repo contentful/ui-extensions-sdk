@@ -24,7 +24,7 @@ function describeAttachHandlerMember (msg, attachHandlerFn) {
     })
     describe('returned function', () => {
       it('can be executed without error', () => {
-        let detachHandler = attachHandlerFn()
+        const detachHandler = attachHandlerFn()
         expect(detachHandler).to.not.throw()
       })
     })
