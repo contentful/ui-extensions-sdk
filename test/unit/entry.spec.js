@@ -1,4 +1,4 @@
-const { describeAttachHandlerMember } = require('../helpers')
+const { sinon, expect, describeAttachHandlerMember } = require('../helpers')
 
 const createEntry = require('../../lib/entry')
 

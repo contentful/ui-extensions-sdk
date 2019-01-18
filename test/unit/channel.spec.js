@@ -1,18 +1,19 @@
+const { sinon, makeDOM, expect } = require('../helpers')
+
 const connect = require('../../lib/channel')
 
 describe('channel connect', function () {
   beforeEach(function () {
+    this.dom = makeDOM()
     this.postMessage = sinon.stub()
-    this.originalParent = window.parent
-    window.parent = { postMessage: this.postMessage }
-  })
-
-  afterEach(function () {
-    window.parent = this.originalParent
+    Object.defineProperty(this.dom.window, 'parent', {
+      writable: false,
+      value: { postMessage: this.postMessage }
+    })
   })
 
   it('resolves with channel and params on connect event', function (done) {
-    connect(window, (channel, params) => {
+    connect(this.dom.window, (channel, params) => {
       expect(channel.send).to.be.a('function')
       expect(channel.call).to.be.a('function')
       expect(channel.addHandler).to.be.a('function')
@@ -20,7 +21,7 @@ describe('channel connect', function () {
       done()
     })
 
-    window.postMessage({
+    this.dom.window.postMessage({
       method: 'connect',
       params: [{ id: 'ID' }]
     }, '*')
@@ -28,12 +29,12 @@ describe('channel connect', function () {
 
   describe('channel instance', function () {
     beforeEach(function (done) {
-      connect(window, (channel) => {
+      connect(this.dom.window, (channel) => {
         this.channel = channel
         done()
       })
 
-      window.postMessage({
+      this.dom.window.postMessage({
         method: 'connect',
         params: [{ id: 'SOURCE' }]
       }, '*')
@@ -82,7 +83,7 @@ describe('channel connect', function () {
         const response = this.channel.call('M')
         const messageId = this.postMessage.args[0][0].id
 
-        window.postMessage({
+        this.dom.window.postMessage({
           id: messageId,
           result: 'JO'
         }, '*')
@@ -94,7 +95,7 @@ describe('channel connect', function () {
         const response = this.channel.call('M')
         const messageId = this.postMessage.args[0][0].id
 
-        window.postMessage({
+        this.dom.window.postMessage({
           id: messageId,
           error: 'ERROR'
         }, '*')
@@ -109,7 +110,7 @@ describe('channel connect', function () {
           expect(params).to.deep.equal(['a', 'b', 'c'])
           done()
         })
-        window.postMessage({
+        this.dom.window.postMessage({
           method: 'method',
           params: ['a', 'b', 'c']
         }, '*')

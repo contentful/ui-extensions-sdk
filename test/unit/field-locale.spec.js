@@ -1,4 +1,4 @@
-const { describeAttachHandlerMember } = require('../helpers')
+const { sinon, expect, describeAttachHandlerMember } = require('../helpers')
 
 const FieldLocale = require('../../lib/field-locale')
 
@@ -106,7 +106,7 @@ describe('FieldLocale', () => {
     it('calls handler when value change is received', () => {
       const spy = sinon.spy()
       field.onValueChanged(spy)
-      spy.reset()
+      spy.resetHistory()
 
       channelStub.receiveMethod('valueChanged', ['some-field', 'en-US', 'VAL1'])
       sinon.assert.calledOnce(spy)
@@ -120,7 +120,7 @@ describe('FieldLocale', () => {
     it('does not call handler when other field value changes', function () {
       const spy = sinon.spy()
       field.onValueChanged(spy)
-      spy.reset()
+      spy.resetHistory()
 
       channelStub.receiveMethod('valueChanged', ['other-field', 'en-US', 'VAL'])
       channelStub.receiveMethod('valueChanged', ['some-field', 'other-locale', 'VAL'])
@@ -155,7 +155,7 @@ describe('FieldLocale', () => {
     it('calls onValueChanged handler', function () {
       const spy = sinon.spy()
       field.onValueChanged(spy)
-      spy.reset()
+      spy.resetHistory()
 
       field.setValue('VAL1')
       sinon.assert.calledOnce(spy)
@@ -172,7 +172,7 @@ describe('FieldLocale', () => {
       const cb = sinon.spy()
 
       field[method](cb)
-      cb.reset()
+      cb.resetHistory()
       channelStub.receiveMethod(message, ['VALUE'])
       sinon.assert.calledOnce(cb)
       sinon.assert.calledWithExactly(cb, 'VALUE')

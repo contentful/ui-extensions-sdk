@@ -1,4 +1,18 @@
+const sinon = require('sinon')
+const { JSDOM } = require('jsdom')
+const chai = require('chai')
+const sinonChai = require('sinon-chai')
+const chaiAsPromised = require('chai-as-promised')
+
+chai.use(sinonChai)
+chai.use(chaiAsPromised)
+
+const { expect } = chai
+
 module.exports = {
+  sinon,
+  makeDOM: () => new JSDOM('<!DOCTYPE html>'),
+  expect,
   describeAttachHandlerMember,
   describeChannelCallingMethod
 }

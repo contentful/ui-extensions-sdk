@@ -1,3 +1,5 @@
+const { sinon, expect } = require('../helpers')
+
 const { MemoizedSignal, Signal } = require('../../lib/signal')
 
 describe('MemoizedSignal', () => {
@@ -38,9 +40,9 @@ function test (SignalConstructor) {
         two: sinon.spy(),
         three: sinon.spy(),
         reset () {
-          this.one.reset()
-          this.two.reset()
-          this.three.reset()
+          this.one.resetHistory()
+          this.two.resetHistory()
+          this.three.resetHistory()
         },
         expectCallCount (obj) {
           for (let name in obj) {

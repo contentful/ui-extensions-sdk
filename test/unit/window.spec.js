@@ -1,25 +1,26 @@
+const { sinon, makeDOM, expect } = require('../helpers')
+
 const createWindow = require('../../lib/window')
 
-const browserWindow = window
-const { Event } = browserWindow
-
 describe(`createWindow()`, () => {
-  let sandbox
-  beforeEach(() => {
-    sandbox = sinon.sandbox.create()
-  })
-  afterEach(() => {
-    sandbox.restore()
-  })
-
   describe(`returned "window" object`, () => {
+    let dom
     let window
+    let modifyDOM
     let channelSendSpy
     beforeEach(() => {
-      channelSendSpy = sandbox.spy()
-      window = createWindow(browserWindow, {
-        send: channelSendSpy
+      const MutationObserverMock = function (cb) { modifyDOM = cb }
+      MutationObserverMock.prototype.observe = () => {}
+      MutationObserverMock.prototype.disconnect = () => { modifyDOM = () => {} }
+
+      dom = makeDOM()
+      Object.defineProperty(dom.window, 'MutationObserver', {
+        writable: false,
+        value: MutationObserverMock
       })
+
+      channelSendSpy = sinon.spy()
+      window = createWindow(dom.window, { send: channelSendSpy })
     })
 
     it(`has all expected member functions`, () => {
@@ -45,14 +46,15 @@ describe(`createWindow()`, () => {
       describe(`after auto resizer got started`, () => {
         it(`listens to DOM changes and invokes .updateHeigt()`, (done) => {
           updateHeightSpy.restore()
-          updateHeightSpy = sandbox.stub(window, 'updateHeight').callsFake(() => {
+          updateHeightSpy = sinon.stub(window, 'updateHeight').callsFake(() => {
             expect(updateHeightSpy).to.have.callCount(1)
             done()
           })
           modifyDOM()
         })
+
         it(`listens to global "resize" event and invokes .updateHeight()`, () => {
-          fireViewportResize()
+          fireViewportResize(dom)
           expect(updateHeightSpy).to.have.callCount(2)
         })
       })
@@ -70,8 +72,9 @@ describe(`createWindow()`, () => {
           }, 0)
           modifyDOM()
         })
+
         it(`stops listening to "resize" event does not invoke .updateHeight()`, () => {
-          fireViewportResize()
+          fireViewportResize(dom)
           expect(updateHeightSpy).to.have.callCount(0)
         })
       })
@@ -109,11 +112,7 @@ describe(`createWindow()`, () => {
   })
 })
 
-function modifyDOM () {
-  const elem = browserWindow.document.createElement('p')
-  browserWindow.document.body.appendChild(elem)
-}
-
-function fireViewportResize () {
-  browserWindow.dispatchEvent(new Event('resize'))
+function fireViewportResize (dom) {
+  const { Event } = dom.window
+  dom.window.dispatchEvent(new Event('resize'))
 }

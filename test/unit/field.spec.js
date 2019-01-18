@@ -1,4 +1,4 @@
-const { describeAttachHandlerMember } = require('../helpers')
+const { sinon, expect, describeAttachHandlerMember } = require('../helpers')
 
 const Field = require('../../lib/field')
 

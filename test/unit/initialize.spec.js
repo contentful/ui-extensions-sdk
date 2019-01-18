@@ -1,13 +1,16 @@
 const { Promise } = require('es6-promise')
 
+const { sinon, makeDOM, expect } = require('../helpers')
+
 const initializeApi = require('../../lib/initialize')
 
-const { Event } = window
+const dom = makeDOM()
+const { Event } = dom.window
 
 describe('initializeApi(currentWindow, apiCreator)', function () {
   beforeEach(function () {
     this.apiCreator = sinon.stub().returns({})
-    const init = initializeApi(window, (...args) => this.apiCreator(...args))
+    const init = initializeApi(dom.window, (...args) => this.apiCreator(...args))
     this.initialize = function () {
       return new Promise((resolve) => init(resolve))
     }
@@ -16,7 +19,7 @@ describe('initializeApi(currentWindow, apiCreator)', function () {
   describe('callback', function () {
     beforeEach(function () {
       this.api = {}
-      this.init = initializeApi(window, () => this.api)
+      this.init = initializeApi(dom.window, () => this.api)
     })
 
     it('is not invoked before connecting', function () {
@@ -83,19 +86,19 @@ describe('initializeApi(currentWindow, apiCreator)', function () {
     sendConnect()
     return this.initialize()
       .then(() => {
-        document.dispatchEvent(new Event('focus'))
+        dom.window.document.dispatchEvent(new Event('focus'))
         expect(send).to.be.calledOnce // eslint-disable-line no-unused-expressions
         expect(send).to.be.calledWithExactly('setActive', true)
 
-        send.reset()
-        document.dispatchEvent(new Event('blur'))
+        send.resetHistory()
+        dom.window.document.dispatchEvent(new Event('blur'))
         expect(send).to.be.calledOnce // eslint-disable-line no-unused-expressions
         expect(send).to.be.calledWithExactly('setActive', false)
       })
   })
 
   function sendConnect (params, messageQueue) {
-    window.postMessage({
+    dom.window.postMessage({
       method: 'connect',
       params: [
         params || { id: 'foo' },
