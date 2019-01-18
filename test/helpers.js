@@ -1,5 +1,3 @@
-import sinon from 'sinon'
-
 export const noop = function () {}
 
 export function describeAttachHandlerMember (msg, attachHandlerFn) {
