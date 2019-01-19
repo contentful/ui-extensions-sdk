@@ -1,6 +1,7 @@
 {
   "extends": "standard",
-  "globals": {
-    "MutationObserver": false
+  "rules": {
+    "no-var": "error",
+    "prefer-const": "error"
   }
 }

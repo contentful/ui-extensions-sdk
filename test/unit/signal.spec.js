@@ -1,4 +1,6 @@
-import { MemoizedSignal, Signal } from '../../lib/api/signal'
+const { sinon, expect } = require('../helpers')
+
+const { MemoizedSignal, Signal } = require('../../lib/signal')
 
 describe('MemoizedSignal', () => {
   it('calls the listener with the initial value', () => {
@@ -38,12 +40,12 @@ function test (SignalConstructor) {
         two: sinon.spy(),
         three: sinon.spy(),
         reset () {
-          this.one.reset()
-          this.two.reset()
-          this.three.reset()
+          this.one.resetHistory()
+          this.two.resetHistory()
+          this.three.resetHistory()
         },
         expectCallCount (obj) {
-          for (let name in obj) {
+          for (const name in obj) {
             expect(this[name]).to.have.callCount(obj[name])
           }
         }

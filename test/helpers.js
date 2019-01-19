@@ -1,22 +1,40 @@
-export function describeAttachHandlerMember (msg, attachHandlerFn) {
+const sinon = require('sinon')
+const { JSDOM } = require('jsdom')
+const chai = require('chai')
+const sinonChai = require('sinon-chai')
+const chaiAsPromised = require('chai-as-promised')
+
+chai.use(sinonChai)
+chai.use(chaiAsPromised)
+
+const { expect } = chai
+
+module.exports = {
+  sinon,
+  makeDOM: () => new JSDOM('<!DOCTYPE html>'),
+  expect,
+  describeAttachHandlerMember,
+  describeChannelCallingMethod
+}
+
+function describeAttachHandlerMember (msg, attachHandlerFn) {
   describe(msg, () => {
     it('returns a function to detach the handler', () => {
       expect(attachHandlerFn()).to.be.a('function')
     })
     describe('returned function', () => {
       it('can be executed without error', () => {
-        let detachHandler = attachHandlerFn()
+        const detachHandler = attachHandlerFn()
         expect(detachHandler).to.not.throw()
       })
     })
   })
 }
 
-export function describeChannelCallingMethod ({
-  creator, methodName, channelMethod, args, expectedCallArgs
-}) {
-  expectedCallArgs = expectedCallArgs || args
-  channelMethod = channelMethod || methodName
+function describeChannelCallingMethod (spec) {
+  const { creator, methodName, args } = spec
+  const expectedCallArgs = spec.expectedCallArgs || args
+  const channelMethod = spec.channelMethod || methodName
 
   describe(`.${methodName}()`, () => {
     let object

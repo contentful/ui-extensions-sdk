@@ -1,5 +1,6 @@
-import Field, { UnknownLocaleError } from '../../lib/api/field'
-import { describeAttachHandlerMember } from '../helpers'
+const { sinon, expect, describeAttachHandlerMember } = require('../helpers')
+
+const Field = require('../../lib/field')
 
 describe(`Field`, () => {
   let channelStub
@@ -14,7 +15,7 @@ describe(`Field`, () => {
     it(`gets thrown if defaultLocale is not included in info.locales`, () => {
       expect(() => {
         return new Field(channelStub, { id: 'x', locales: ['de-DE'], values: {} }, 'en-US')
-      }).to.throw((new UnknownLocaleError('x', 'en-US')).message)
+      }).to.throw('Unknown locale "en-US" for field "x"')
     })
   })
 
@@ -89,7 +90,7 @@ describe(`Field`, () => {
       it(`throws UnknownLocaleError when locale is unknown to the field`, () => {
         expect(() => {
           field.getValue(unknownLocale)
-        }).to.throw((new UnknownLocaleError(field.id, unknownLocale)).message)
+        }).to.throw('Unknown locale "some-unknown-locale" for field "some-field"')
       })
 
       info.locales.forEach((locale) => {
@@ -114,7 +115,7 @@ describe(`Field`, () => {
       it(`throws an error if locale is unknown to the field`, () => {
         expect(() => {
           field.setValue('value', unknownLocale)
-        }).to.throw((new UnknownLocaleError(field.id, unknownLocale)).message)
+        }).to.throw('Unknown locale "some-unknown-locale" for field "some-field"')
       })
     })
 
@@ -150,7 +151,7 @@ describe(`Field`, () => {
       it(`throws an error if locale is unknown to the field`, () => {
         expect(() => {
           field.removeValue(unknownLocale)
-        }).to.throw((new UnknownLocaleError(field.id, unknownLocale)).message)
+        }).to.throw('Unknown locale "some-unknown-locale" for field "some-field"')
       })
     })
 
@@ -167,7 +168,7 @@ describe(`Field`, () => {
             .to.have.been.calledWithExactly(undefined, locale)
         })
         it(`returns the same value as .setValue(undefined, ${localeParam})`, () => {
-          let setValueStub = sinon.stub(field, 'setValue')
+          const setValueStub = sinon.stub(field, 'setValue')
           setValueStub.returns('PROMISE')
           expect(field.removeValue()).to.equal('PROMISE')
         })
@@ -192,7 +193,7 @@ describe(`Field`, () => {
       it(`throws an error if locale is unknown to the field`, () => {
         expect(() => {
           field.onValueChanged(unknownLocale, () => {})
-        }).to.throw((new UnknownLocaleError(field.id, unknownLocale)).message)
+        }).to.throw('Unknown locale "some-unknown-locale" for field "some-field"')
       })
     })
 

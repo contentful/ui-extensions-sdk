@@ -1,5 +1,6 @@
-import createSpace from '../../lib/api/space'
-import { describeChannelCallingMethod } from '../helpers'
+const { describeChannelCallingMethod } = require('../helpers')
+
+const createSpace = require('../../lib/space')
 
 const spaceMethods = [
   'getContentType',

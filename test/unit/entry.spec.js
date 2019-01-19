@@ -1,5 +1,6 @@
-import createEntry from '../../lib/api/entry'
-import { describeAttachHandlerMember } from '../helpers'
+const { sinon, expect, describeAttachHandlerMember } = require('../helpers')
+
+const createEntry = require('../../lib/entry')
 
 describe('createEntry()', () => {
   describe('returned "entry" object', () => {

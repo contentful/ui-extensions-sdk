@@ -1,12 +1,8 @@
 {
-  "extends": "standard",
   "globals": {
-    "Event": false,
     "describe": false,
-    "it": false,
     "beforeEach": false,
     "afterEach": false,
-    "expect": false,
-    "sinon": false
+    "it": false
   }
 }
