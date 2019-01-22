@@ -51,7 +51,7 @@ describe('createNavigator()', () => {
       describeChannelCallingMethod({
         creator: createNavigator,
         methodName: method,
-        channelMethod: 'navigate',
+        channelMethod: 'navigateToContentEntity',
         args,
         expectedCallArgs: expected
       })
