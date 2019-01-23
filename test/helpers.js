@@ -12,9 +12,21 @@ const { expect } = chai
 module.exports = {
   sinon,
   makeDOM: () => new JSDOM('<!DOCTYPE html>'),
+  mockMutationObserver,
   expect,
   describeAttachHandlerMember,
   describeChannelCallingMethod
+}
+
+function mockMutationObserver (dom, registerMutationTrigger) {
+  const MutationObserverMock = function (cb) { registerMutationTrigger(cb) }
+  MutationObserverMock.prototype.observe = () => {}
+  MutationObserverMock.prototype.disconnect = () => { registerMutationTrigger(() => {}) }
+
+  Object.defineProperty(dom.window, 'MutationObserver', {
+    writable: false,
+    value: MutationObserverMock
+  })
 }
 
 function describeAttachHandlerMember (msg, attachHandlerFn) {

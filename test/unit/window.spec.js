@@ -1,4 +1,4 @@
-const { sinon, makeDOM, expect } = require('../helpers')
+const { sinon, makeDOM, mockMutationObserver, expect } = require('../helpers')
 
 const createWindow = require('../../lib/window')
 
@@ -9,16 +9,10 @@ describe(`createWindow()`, () => {
     let modifyDOM
     let channelSendSpy
     beforeEach(() => {
-      const MutationObserverMock = function (cb) { modifyDOM = cb }
-      MutationObserverMock.prototype.observe = () => {}
-      MutationObserverMock.prototype.disconnect = () => { modifyDOM = () => {} }
-
       dom = makeDOM()
-      Object.defineProperty(dom.window, 'MutationObserver', {
-        writable: false,
-        value: MutationObserverMock
+      mockMutationObserver(dom, cb => {
+        modifyDOM = cb
       })
-
       channelSendSpy = sinon.spy()
       window = createWindow(dom.window, { send: channelSendSpy })
     })
