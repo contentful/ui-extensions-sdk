@@ -13,6 +13,7 @@ for the Contentful Web App. Every UI Extension has to include the library in its
 - [Contentful Marketplace](https://www.contentful.com/developers/marketplace/)
 - [Contentful Changelog](https://www.contentful.com/developers/changelog/)
 - [Forma 36: The Contentful Design System](https://f36.contentful.com/)
+- [Forma 36 guide for UI Extensions](https://www.contentful.com/developers/docs/extensibility/ui-extensions/component-library/)
 - [`contentful-ui-extensions-sdk` at npm](https://www.npmjs.com/package/contentful-ui-extensions-sdk)
 
 ## Getting help
