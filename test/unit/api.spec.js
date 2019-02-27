@@ -1,8 +1,25 @@
 const { makeDOM, mockMutationObserver, expect } = require('../helpers')
 
 const createAPI = require('../../lib/api')
+const locations = require('../../lib/locations')
 
-function test (expected, location) {
+const sharedExpected = [
+  'location',
+  'user',
+  'parameters',
+  'locales',
+  'contentType',
+  'entry',
+  'space',
+  'dialogs',
+  'navigator',
+  'window',
+  'notifier'
+]
+
+function test (expected, location, expectedLocation) {
+  expectedLocation = expectedLocation || location
+
   const channel = { addHandler: () => {} }
 
   const data = {
@@ -26,50 +43,33 @@ function test (expected, location) {
   const api = createAPI(channel, data, dom.window)
 
   // Test location-specific API.
-  expect(api).to.have.all.keys(expected)
+  expect(api).to.have.all.keys(sharedExpected.concat(expected))
 
   // Test simple but nested properties of the shared API.
   expect(api.locales).to.have.all.keys(['available', 'default', 'names'])
   expect(api.notifier).to.have.all.keys(['success', 'error'])
+
+  // Test location methods (currently only `is`).
+  expect(Object.keys(api.location)).to.deep.equal(['is'])
+  expect(api.location.is(expectedLocation)).to.equal(true)
+  expect(api.location.is('wat?')).to.equal(false)
 }
 
 describe('createAPI()', () => {
-  it('returns correct shape of the default API (entry-field)', () => {
-    const expected = [
-      'user',
-      'parameters',
-      'locales',
-      'contentType',
-      'entry',
-      'field',
-      'space',
-      'dialogs',
-      'navigator',
-      'window',
-      'notifier'
-    ]
+  it('returns correct shape of the default API (entry-field and entry-field-sidebar)', () => {
+    const expected = ['field']
 
     // No location, `entry-field` is the default.
-    test(expected)
+    test(expected, undefined, locations.LOCATION_ENTRY_FIELD)
 
     // `entry-field` provided explicitly.
-    test(expected, 'entry-field')
+    test(expected, locations.LOCATION_ENTRY_FIELD)
+
+    // Legacy sidebar extension, has the `entry-field` API.
+    test(expected, locations.LOCATION_ENTRY_FIELD_SIDEBAR)
   })
 
   it('returns correct shape of the sidebar API (entry-sidebar)', () => {
-    const expected = [
-      'user',
-      'parameters',
-      'locales',
-      'contentType',
-      'entry',
-      'space',
-      'dialogs',
-      'navigator',
-      'window',
-      'notifier'
-    ]
-
-    test(expected, 'entry-sidebar')
+    test([], locations.LOCATION_ENTRY_SIDEBAR)
   })
 })
