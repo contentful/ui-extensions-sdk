@@ -19,21 +19,21 @@
     "size": "echo \"Gzipped, estimate: $(gzip -9 -c dist/cf-extension-api.js | wc -c) bytes\""
   },
   "dependencies": {
-    "es6-promise": "^4.2.5"
+    "es6-promise": "^4.2.6"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "eslint": "^5.12.0",
+    "eslint": "^5.14.1",
     "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
-    "jsdom": "^13.1.0",
-    "mocha": "^5.2.0",
+    "jsdom": "^13.2.0",
+    "mocha": "^6.0.2",
     "parcel-bundler": "^1.11.0",
-    "sinon": "^7.2.2",
+    "sinon": "^7.2.5",
     "sinon-chai": "^3.3.0"
   }
 }
