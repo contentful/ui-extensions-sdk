@@ -5,6 +5,7 @@ const createSpace = require('../../lib/space')
 const spaceMethods = [
   'getContentType',
   'getEntry',
+  'getEntrySnapshots',
   'getAsset',
 
   'getPublishedEntries',
@@ -35,7 +36,9 @@ const spaceMethods = [
   'unarchiveEntry',
   'unarchiveAsset',
 
-  'processAsset'
+  'processAsset',
+
+  'getUsers'
 ]
 
 describe('createSpace()', () => {
