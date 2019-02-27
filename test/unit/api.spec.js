@@ -8,8 +8,6 @@ const sharedExpected = [
   'user',
   'parameters',
   'locales',
-  'contentType',
-  'entry',
   'space',
   'dialogs',
   'navigator',
@@ -57,7 +55,7 @@ function test (expected, location, expectedLocation) {
 
 describe('createAPI()', () => {
   it('returns correct shape of the default API (entry-field and entry-field-sidebar)', () => {
-    const expected = ['field']
+    const expected = ['contentType', 'entry', 'field']
 
     // No location, `entry-field` is the default.
     test(expected, undefined, locations.LOCATION_ENTRY_FIELD)
@@ -70,6 +68,14 @@ describe('createAPI()', () => {
   })
 
   it('returns correct shape of the sidebar API (entry-sidebar)', () => {
-    test([], locations.LOCATION_ENTRY_SIDEBAR)
+    const expected = ['contentType', 'entry']
+
+    test(expected, locations.LOCATION_ENTRY_SIDEBAR)
+  })
+
+  it('returns correct shape of the dialog API (dialog)', () => {
+    const expected = ['close']
+
+    test(expected, locations.LOCATION_DIALOG)
   })
 })
