@@ -1,4 +1,5 @@
 /node_modules
 /.cache
+/.DS_Store
 /dist/cf-extension-api.js
 /dist/cf-extension-api.map

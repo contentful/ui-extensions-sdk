@@ -5,7 +5,8 @@ const createDialogs = require('../../lib/dialogs')
 const SIMPLE_DIALOGS = [
   ['openAlert', 'alert'],
   ['openConfirm', 'confirm'],
-  ['openPrompt', 'prompt']
+  ['openPrompt', 'prompt'],
+  ['openExtension', 'extension']
 ]
 
 const ENTITY_SELECTOR_DIALOGS = [
