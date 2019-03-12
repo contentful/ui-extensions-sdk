@@ -36,7 +36,9 @@ const spaceMethods = [
   'unarchiveEntry',
   'unarchiveAsset',
 
+  'createUpload',
   'processAsset',
+  'waitUntilAssetProcessed',
 
   'getUsers'
 ]
