@@ -3,36 +3,12 @@ declare module 'contentful-ui-extensions-sdk' {
   interface Sys {
     id: string;
     type: string;
-    linkType?: string;
   }
 
   interface SpaceMembership {
     sys: Sys;
     admin: boolean;
     roles: { name: string; description: string }[];
-  }
-
-  interface ContentTypeSys {
-    sys: {
-      type: string;
-      id: string;
-      version?: number;
-      space?: {
-        sys: Sys;
-      };
-      environment?: {
-        sys: Sys;
-      };
-      createdAt?: string;
-      createdBy?: {
-        sys: Sys;
-      };
-      updatedAt?: string;
-      updatedBy?: {
-        sys: Sys
-      };
-      linkType?: string;
-    }
   }
 
   interface User {
@@ -77,7 +53,6 @@ declare module 'contentful-ui-extensions-sdk' {
     type: string;
     validations: Object[];
 
-
     getValue: (locale?: string) => any;
     setValue: (value: any, locale?: string) => Promise<any>;
     removeValue: (locale?: string) => Promise<void>;
@@ -106,7 +81,26 @@ declare module 'contentful-ui-extensions-sdk' {
     items?: Object;
   }
 
-  type ContentTypeAPI = ContentTypeSys & {
+  interface ContentType {
+    sys: {
+      type: string;
+      id: string;
+      version?: number;
+      space?: {
+        sys: Sys;
+      };
+      environment?: {
+        sys: Sys;
+      };
+      createdAt?: string;
+      createdBy?: {
+        sys: Sys;
+      };
+      updatedAt?: string;
+      updatedBy?: {
+        sys: Sys
+      };
+    };
     fields: { [key: string]: ContentTypeField };
     name: string;
     displayField: string;
@@ -173,10 +167,6 @@ declare module 'contentful-ui-extensions-sdk' {
     available: string[];
     names: { [key:string]: string }
   }
-
-  /* User API */
-
-  type UserAPI = User;
 
   /* Window API */
 
@@ -283,10 +273,10 @@ declare module 'contentful-ui-extensions-sdk' {
   export interface ExtensionSDK {
     field?: FieldAPI;
     entry: EntryAPI;
-    contentType: ContentTypeAPI;
+    contentType: ContentType;
     space: SpaceAPI;
     locales: LocalesAPI;
-    user: UserAPI;
+    user: User;
     window: WindowAPI;
     dialogs: DialogsAPI;
     navigator: NavigatorAPI;
