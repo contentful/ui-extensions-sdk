@@ -5,11 +5,13 @@
   "author": "Contentful GmbH",
   "license": "MIT",
   "main": "dist/cf-extension-api.js",
+  "types": "./typings.d.ts",
   "files": [
     "dist/cf-extension-api.js",
     "dist/cf-extension-api.map",
     "dist/cf-extension.css",
-    "lib/**/*.js"
+    "lib/**/*.js",
+    "typings.d.ts"
   ],
   "scripts": {
     "test": "mocha test/unit/*.js",
