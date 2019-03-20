@@ -1,18 +1,19 @@
 declare module 'contentful-ui-extensions-sdk' {
 
-  interface Sys {
-    id: string;
-    type: string;
-  }
-
   interface SpaceMembership {
-    sys: Sys;
+    sys: {
+      id: string;
+      type: string;
+    };
     admin: boolean;
     roles: { name: string; description: string }[];
   }
 
   interface User {
-    sys: Sys;
+    sys: {
+      id: string;
+      type: string;
+    };
     firstName: string;
     lastName: string;
     email: string;
@@ -68,7 +69,7 @@ declare module 'contentful-ui-extensions-sdk' {
 
   /* Content Type API */
 
-  type ContentTypeField = {
+  interface ContentTypeField {
     disabled: boolean;
     id: string;
     localized: boolean;
@@ -81,25 +82,25 @@ declare module 'contentful-ui-extensions-sdk' {
     items?: Object;
   }
 
+  interface Link {
+    sys: {
+      id: string;
+      type: string;
+      linkType: string;
+    };
+  }
+
   interface ContentType {
     sys: {
       type: string;
       id: string;
       version?: number;
-      space?: {
-        sys: Sys;
-      };
-      environment?: {
-        sys: Sys;
-      };
+      space?: Link;
+      environment?: Link;
       createdAt?: string;
-      createdBy?: {
-        sys: Sys;
-      };
+      createdBy?: Link;
       updatedAt?: string;
-      updatedBy?: {
-        sys: Sys
-      };
+      updatedBy?: Link;
     };
     fields: { [key: string]: ContentTypeField };
     name: string;
@@ -178,7 +179,7 @@ declare module 'contentful-ui-extensions-sdk' {
 
   /* Dialogs API */
 
-  type OpenAlertOptions = {
+  interface OpenAlertOptions {
     title: string;
     message: string;
     confirmLabel?: string;
@@ -191,7 +192,7 @@ declare module 'contentful-ui-extensions-sdk' {
     intent?: 'primary' | 'positive' | 'negative'
   }
 
-  type OpenExtensionOptions = {
+  interface OpenExtensionOptions {
     id: string;
     width?: number;
     position?: 'center' | 'top';
