@@ -338,7 +338,12 @@ declare module 'contentful-ui-extensions-sdk' {
     field: FieldAPI
   }
 
-  export const init: (initCallback: (sdk: BaseExtensionSDK | FieldExtensionSDK | SidebarExtensionSDK) => any) => void;
+  export type DialogExtensionSDK = BaseExtensionSDK & {
+    /** Closes the dialog and resolves openExtension promise with data */
+    close: (data: any) => void
+  }
+
+  export const init: (initCallback: (sdk: BaseExtensionSDK | FieldExtensionSDK | SidebarExtensionSDK | DialogExtensionSDK) => any) => void;
 
   export const locations: {
     LOCATION_ENTRY_FIELD: string;
