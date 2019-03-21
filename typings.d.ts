@@ -24,19 +24,29 @@ declare module 'contentful-ui-extensions-sdk' {
     /* Field API */
 
   interface FieldAPI  {
-
+    /** The ID of a field is defined in an entry's content type. */
     id: string;
+    /** The current locale of a field the extension is attached to. */
     locale: string;
+    /** Holds the type of the field the extension is attached to. */
     type: string;
+    /** A list of validations for this field that are defined in the content type. */
     validations: Object[];
 
+    /** Gets the current value of the field and locale. */
     getValue: () => any;
+    /** Sets the value for the field and locale.  */
     setValue: (value: any) => Promise<any>;
+    /** Removes the value for the field and locale. */
     removeValue: () => Promise<void>;
+    /** Communicates to the web application if the field is in a valid state or not. */
     setInvalid: (value: boolean) => void;
 
+    /** Calls the callback every time the value of the field is changed by an external event or when setValue() is called. */
     onValueChanged: (callback: (value: any) => void) => Function;
+    /** Calls the callback when the disabled status of the field changes. */
     onIsDisabledChanged: (callback: Function) => Function;
+    /** Calls the callback immediately with the current validation errors and whenever the field is re-validated. */
     onSchemaErrorsChanged: (callback: Function) => Function;
   }
 
@@ -49,21 +59,33 @@ declare module 'contentful-ui-extensions-sdk' {
   type onIsDisabledChangedWithLocaleType = (locale: string, callback: Function) => Function;
 
   interface EntryFieldAPI {
+    /** The ID of a field is defined in an entry's content type. */
     id: string;
+    /** The list of locales for the field. */
     locales: string[];
+     /** Holds the type of the field. */
     type: string;
+    /** A list of validations for this field that are defined in the content type. */
     validations: Object[];
 
+    /** Gets the current value of the field and locale. */
     getValue: (locale?: string) => any;
+    /** Sets the value for the field and locale.  */
     setValue: (value: any, locale?: string) => Promise<any>;
+    /** Removes the value for the field and locale. */
     removeValue: (locale?: string) => Promise<void>;
+    /** Calls the callback every time the value of the field is changed by an external event or when setValue() is called. */
     onValueChanged: onValueChangedType | onValueChangeWithLocaleType;
+    /** Calls the callback when the disabled status of the field changes. */
     onIsDisabledChanged: onIsDisabledChangedType | onIsDisabledChangedWithLocaleType;
   }
 
   interface EntryAPI {
+    /** Returns metadata for an entry. */
     getSys: () => Object;
+    /** Calls the callback with metadata every time that metadata changes. */
     onSysChanged: (callback: (sys: Object) => void) => Function;
+    /** Allows to control the values of all other fields in the current entry. */
     fields: { [key: string]: EntryFieldAPI }
   }
 
@@ -158,22 +180,29 @@ declare module 'contentful-ui-extensions-sdk' {
     createUpload: (base64data: string) => void;
     waitUntilAssetProcessed: (assetId: string, locale: string) => void;
 
+    /** Returns all users who belong to the space. */
     getUsers: () => Promise<CollectionReponse<Object>>
   }
 
   /* Locales API */
 
   interface LocalesAPI {
+    /** The default locale code for the current space. */
     default: string;
+    /** A list of locale codes of all locales available for editing in the current space. */
     available: string[];
+    /** An object with keys of locale codes and values of corresponding human-readable locale names. */
     names: { [key:string]: string }
   }
 
   /* Window API */
 
   interface WindowAPI {
+    /** Sets the iframe height to the given value in pixels or using scrollHeight if value is not passed */
     updateHeight: (height?: number) => void;
+    /** Listens for DOM changes and updates height when the size changes. */
     startAutoResizer: () => void;
+    /** Stops resizing the iframe automatically. */
     stopAutoResizer: () => void;
   }
 
@@ -203,33 +232,33 @@ declare module 'contentful-ui-extensions-sdk' {
   }
 
   interface DialogsAPI {
-
+    /** Opens a simple alert window (which can only be closed). */
     openAlert: (options: OpenAlertOptions) => Promise<boolean>;
-
+    /** Opens a confirmation window. A user can either confirm or cancel the dialog. */
     openConfirm: (options: OpenConfirmOptions) => Promise<boolean>;
-
+    /** Opens a prompt window. A user can either provide a string input or cancel the dialog. */
     openPrompt: (options: OpenConfirmOptions & {
       defaultValue?: string;
     }) => Promise<string | boolean>;
-
+    /** Opens an extension in a dialog. */
     openExtension: (options: OpenExtensionOptions) => Promise<any>;
-
+    /** Opens a dialog for selecting a single entry. */
     selectSingleEntry: (options?: {
       locale?: string;
       contentTypes?: string[];
     }) => Promise<Object | null>;
-
+    /** Opens a dialog for selecting multiple entries. */
     selectMultipleEntries: (options?: {
       locale?: string;
       contentTypes?: string[];
       min?: number;
       max?: number;
     }) => Promise<Object[] | null>;
-
+    /** Opens a dialog for selecting a single asset. */
     selectSingleAsset: (options?: {
       locale?: string;
     }) => Promise<Object | null>;
-
+    /** Opens a dialog for selecting multiple assets. */
     selectMultipleAssets: (options?: {
       locale?: string;
       min?: number;
@@ -244,22 +273,29 @@ declare module 'contentful-ui-extensions-sdk' {
   }
 
   interface NavigatorAPI {
+    /** Opens an existing entry in the current Web App session. */
     openEntry: (entryId: string, options?: NavigatorAPIOptions) => Promise<void>;
+    /** Opens an existing asset in the current Web App session. */
     openAsset: (assetId: string, options?: NavigatorAPIOptions) => Promise<void>;
+    /** Opens a new entry in the current Web App session. */
     openNewEntry: (contentTypeId: string, options?: NavigatorAPIOptions) => Promise<void>;
+    /** Opens a new asset in the current Web App session. */
     openNewAsset: (options: NavigatorAPIOptions) => Promise<void>;
   }
 
   /* Notifier API */
 
   interface NotifierAPI {
+    /** Displays a success notification in the notification area of the Web App. */
     success: (message: string) => void;
+    /** Displays an error notification in the notification area of the Web App. */
     error: (message: string) => void;
   }
 
   /* Location API */
 
   interface LocationAPI {
+    /** Checks the location in which your extension is running */
     is: (type: string) => boolean;
   }
 
@@ -271,24 +307,39 @@ declare module 'contentful-ui-extensions-sdk' {
     invocation?: Object;
   }
 
-  export interface ExtensionSDK {
-    field?: FieldAPI;
+  export interface BaseExtensionSDK {
+    /** Allows to read and update the value of any field of the current entry and to get the entry's metadata */
     entry: EntryAPI;
+    /** Information about the content type of the entry. */
     contentType: ContentType;
+    /** Exposes methods that allow the extension to read and manipulate a wide range of objects in the space. */
     space: SpaceAPI;
-    locales: LocalesAPI;
+    /** Information about the current user and roles */
     user: User;
+    /** Information about the current locales */
+    locales: LocalesAPI;
+    /** Methods to update the size of the iframe the extension is contained within.  */
     window: WindowAPI;
+    /** Methods for opening UI dialogs: */
     dialogs: DialogsAPI;
+    /** Methods for navigating between entities stored in a Contentful space. */
     navigator: NavigatorAPI;
+    /** Methods for displaying notifications. */
     notifier: NotifierAPI;
+    /** Exposes extension configuration parameters */
     parameters: ParametersAPI;
     location: LocationAPI;
   }
 
-  type InitCallback = (sdk: ExtensionSDK) => void;
+  export type SidebarExtensionSDK = BaseExtensionSDK;
 
-  export const init: (initCallback: InitCallback) => void;
+  export type FieldExtensionSDK = BaseExtensionSDK & {
+    /** Gives you access to the value and metadata of the field the extension is attached to. */
+    field: FieldAPI
+  }
+
+  export const init: (initCallback: (sdk: BaseExtensionSDK | FieldExtensionSDK | SidebarExtensionSDK) => any) => void;
+
   export const locations: {
     LOCATION_ENTRY_FIELD: string;
     LOCATION_ENTRY_FIELD_SIDEBAR: string;
