@@ -8,7 +8,6 @@
   "types": "./typings.d.ts",
   "files": [
     "dist/cf-extension-api.js",
-    "dist/cf-extension-api.map",
     "dist/cf-extension.css",
     "lib/**/*.js",
     "typings.d.ts"
@@ -16,7 +15,7 @@
   "scripts": {
     "test": "mocha test/unit/*.js",
     "lint": "eslint --fix lib/ test/",
-    "build": "parcel build lib/index.js --out-file cf-extension-api.js --global contentfulExtension",
+    "build": "parcel build lib/index.js --no-source-maps --out-file cf-extension-api.js --global contentfulExtension",
     "prepublishOnly": "npm run build",
     "size": "echo \"Gzipped, estimate: $(gzip -9 -c dist/cf-extension-api.js | wc -c) bytes\""
   },
