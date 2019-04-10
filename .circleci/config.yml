@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   all:
     docker:
-      - image: circleci/node:8.12.0
+      - image: circleci/node:carbon
     steps:
       - checkout
       - run: npm install
