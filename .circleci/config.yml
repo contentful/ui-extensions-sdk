@@ -1,6 +1,7 @@
-version: 2
+version: 2.1
+
 jobs:
-  build:
+  all:
     docker:
       - image: circleci/node:8.12.0
     steps:
@@ -10,3 +11,20 @@ jobs:
       - run: npm test
       - run: npm run build
       - run: npm run size
+
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - all
+  schedule:
+    jobs:
+      - all
+    triggers:
+      - schedule:
+          cron: "40 * * * *"
+          filters:
+            branches:
+              only:
+                - master
+                - ci-integration-tests
