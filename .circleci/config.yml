@@ -11,6 +11,7 @@ jobs:
       - run: npm test
       - run: npm run build
       - run: npm run size
+      - run: npm run integration
 
 workflows:
   version: 2

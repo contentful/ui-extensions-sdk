@@ -17,7 +17,8 @@
     "lint": "eslint --fix lib/ test/",
     "build": "parcel build lib/index.js --no-source-maps --out-file cf-extension-api.js --global contentfulExtension",
     "prepublishOnly": "npm run build",
-    "size": "echo \"Gzipped, estimate: $(gzip -9 -c dist/cf-extension-api.js | wc -c) bytes\""
+    "size": "echo \"Gzipped, estimate: $(gzip -9 -c dist/cf-extension-api.js | wc -c) bytes\"",
+    "integration": "node test/integration"
   },
   "dependencies": {
     "es6-promise": "^4.2.6"
