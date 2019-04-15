@@ -181,7 +181,24 @@ declare module 'contentful-ui-extensions-sdk' {
     waitUntilAssetProcessed: (assetId: string, locale: string) => void;
 
     /** Returns all users who belong to the space. */
-    getUsers: () => Promise<CollectionReponse<Object>>
+    getUsers: () => Promise<CollectionReponse<Object>>,
+
+    /** Returns editor interface for a given content type */
+    getEditorInterface: (contentTypeId: string) => Promise<{
+      sys: Object;
+      controls: Array<{
+        fieldId: string;
+        widgetId: string;
+        widgetNamespace: string;
+        settings: Object;
+      }>;
+      sidebar?: Array<{
+        widgetId: string;
+        widgetNamespace: string;
+        settings: Object;
+        disabled?: boolean;
+      }>
+    }>
   }
 
   /* Locales API */

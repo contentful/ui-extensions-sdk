@@ -40,7 +40,9 @@ const spaceMethods = [
   'processAsset',
   'waitUntilAssetProcessed',
 
-  'getUsers'
+  'getUsers',
+
+  'getEditorInterface'
 ]
 
 describe('createSpace()', () => {
