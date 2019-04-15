@@ -73,6 +73,12 @@ describe('createAPI()', () => {
     test(expected, locations.LOCATION_ENTRY_SIDEBAR)
   })
 
+  it('returns correct shape of the entry editor API', () => {
+    const expected = ['contentType', 'entry']
+
+    test(expected, locations.LOCATION_ENTRY_EDITOR)
+  })
+
   it('returns correct shape of the dialog API (dialog)', () => {
     const expected = ['close']
 

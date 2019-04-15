@@ -333,6 +333,8 @@ declare module 'contentful-ui-extensions-sdk' {
 
   export type SidebarExtensionSDK = BaseExtensionSDK;
 
+  export type EntryEditorSDK = BaseExtensionSDK;
+
   export type FieldExtensionSDK = BaseExtensionSDK & {
     /** Gives you access to the value and metadata of the field the extension is attached to. */
     field: FieldAPI
@@ -350,6 +352,7 @@ declare module 'contentful-ui-extensions-sdk' {
     LOCATION_ENTRY_FIELD_SIDEBAR: string;
     LOCATION_ENTRY_SIDEBAR: string;
     LOCATION_DIALOG: string;
+    LOCATION_ENTRY_EDITOR: string;
   }
 
 }
