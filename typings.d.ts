@@ -130,6 +130,27 @@ declare module 'contentful-ui-extensions-sdk' {
     description: string;
   }
 
+  interface EditorInterface {
+    sys: Object;
+    controls: Array<{
+      fieldId: string;
+      widgetId: string;
+      widgetNamespace: string;
+      settings: Object;
+    }>;
+    sidebar?: Array<{
+      widgetId: string;
+      widgetNamespace: string;
+      settings: Object;
+      disabled?: boolean;
+    }>;
+    editor?: {
+      widgetId: string;
+      widgetNamespace: string;
+      settings: Object;
+    }
+  }
+
   /* Space API */
 
   interface SearchQuery {
@@ -184,21 +205,7 @@ declare module 'contentful-ui-extensions-sdk' {
     getUsers: () => Promise<CollectionReponse<Object>>,
 
     /** Returns editor interface for a given content type */
-    getEditorInterface: (contentTypeId: string) => Promise<{
-      sys: Object;
-      controls: Array<{
-        fieldId: string;
-        widgetId: string;
-        widgetNamespace: string;
-        settings: Object;
-      }>;
-      sidebar?: Array<{
-        widgetId: string;
-        widgetNamespace: string;
-        settings: Object;
-        disabled?: boolean;
-      }>
-    }>
+    getEditorInterface: (contentTypeId: string) => Promise<EditorInterface>
   }
 
   /* Locales API */
@@ -324,6 +331,12 @@ declare module 'contentful-ui-extensions-sdk' {
     invocation?: Object;
   }
 
+  interface SharedEditorSDK {
+    editor: {
+      editorInterface: EditorInterface
+    }
+  }
+
   export interface BaseExtensionSDK {
     /** Allows to read and update the value of any field of the current entry and to get the entry's metadata */
     entry: EntryAPI;
@@ -348,11 +361,13 @@ declare module 'contentful-ui-extensions-sdk' {
     location: LocationAPI;
   }
 
-  export type SidebarExtensionSDK = BaseExtensionSDK;
+  export type EditorExtensionSDK = BaseExtensionSDK & SharedEditorSDK;
 
-  export type EntryEditorSDK = BaseExtensionSDK;
+  export type SidebarExtensionSDK = BaseExtensionSDK & SharedEditorSDK;
 
-  export type FieldExtensionSDK = BaseExtensionSDK & {
+  export type EntryEditorSDK = BaseExtensionSDK & SharedEditorSDK;
+
+  export type FieldExtensionSDK = BaseExtensionSDK & SharedEditorSDK & {
     /** Gives you access to the value and metadata of the field the extension is attached to. */
     field: FieldAPI
   }
@@ -362,7 +377,7 @@ declare module 'contentful-ui-extensions-sdk' {
     close: (data: any) => void
   }
 
-  export const init: (initCallback: (sdk: BaseExtensionSDK | FieldExtensionSDK | SidebarExtensionSDK | DialogExtensionSDK) => any) => void;
+  export const init: (initCallback: (sdk: BaseExtensionSDK | FieldExtensionSDK | SidebarExtensionSDK | DialogExtensionSDK | EditorExtensionSDK) => any) => void;
 
   export const locations: {
     LOCATION_ENTRY_FIELD: string;

@@ -32,7 +32,14 @@ function test (expected, location, expectedLocation) {
     contentType: 'CONTENT TYPE',
     entry: { sys: 'EID' },
     fieldInfo: [],
-    field: { id: 'fid' }
+    field: { id: 'fid' },
+    editor: {
+      editorInterface: {
+        controls: [],
+        sidebar: [],
+        sys: {}
+      }
+    }
   }
 
   const dom = makeDOM()
@@ -55,7 +62,7 @@ function test (expected, location, expectedLocation) {
 
 describe('createAPI()', () => {
   it('returns correct shape of the default API (entry-field and entry-field-sidebar)', () => {
-    const expected = ['contentType', 'entry', 'field']
+    const expected = ['contentType', 'entry', 'field', 'editor']
 
     // No location, `entry-field` is the default.
     test(expected, undefined, locations.LOCATION_ENTRY_FIELD)
@@ -68,13 +75,13 @@ describe('createAPI()', () => {
   })
 
   it('returns correct shape of the sidebar API (entry-sidebar)', () => {
-    const expected = ['contentType', 'entry']
+    const expected = ['contentType', 'entry', 'editor']
 
     test(expected, locations.LOCATION_ENTRY_SIDEBAR)
   })
 
   it('returns correct shape of the entry editor API', () => {
-    const expected = ['contentType', 'entry']
+    const expected = ['contentType', 'entry', 'editor']
 
     test(expected, locations.LOCATION_ENTRY_EDITOR)
   })
