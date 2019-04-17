@@ -336,7 +336,8 @@ declare module 'contentful-ui-extensions-sdk' {
       editorInterface: EditorInterface,
       onActiveLocalesChanged: (callback: (value: Array<Object>) => any) => Function,
       onFocusedLocaleChanged: (callback: (value: Object) => any) => Function,
-      onLocaleModeChanged: (callback: (value: 'single' | 'multi') => any) => Function
+      onLocaleModeChanged: (callback: (value: 'single' | 'multi') => any) => Function,
+      onShowDisabledFieldsChanged: (callback: (value: boolean) => any) => Function
     }
   }
 
