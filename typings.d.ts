@@ -333,7 +333,10 @@ declare module 'contentful-ui-extensions-sdk' {
 
   interface SharedEditorSDK {
     editor: {
-      editorInterface: EditorInterface
+      editorInterface: EditorInterface,
+      onActiveLocalesChanged: (callback: (value: Array<Object>) => any) => Function,
+      onFocusedLocaleChanged: (callback: (value: Object) => any) => Function,
+      onLocaleModeChanged: (callback: (value: 'single' | 'multi') => any) => Function
     }
   }
 
