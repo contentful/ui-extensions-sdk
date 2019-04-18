@@ -331,6 +331,16 @@ declare module 'contentful-ui-extensions-sdk' {
     invocation?: Object;
   }
 
+  /* IDs */
+
+  interface IdsAPI {
+    extension: string;
+    space: string;
+    environment: string;
+    field: string;
+    entry: string;
+  }
+
   interface SharedEditorSDK {
     editor: {
       editorInterface: EditorInterface,
@@ -362,21 +372,30 @@ declare module 'contentful-ui-extensions-sdk' {
     notifier: NotifierAPI;
     /** Exposes extension configuration parameters */
     parameters: ParametersAPI;
+    /** Exposes method to identify extension's location */
     location: LocationAPI;
   }
 
-  export type EditorExtensionSDK = BaseExtensionSDK & SharedEditorSDK;
+  export type EditorExtensionSDK = BaseExtensionSDK & SharedEditorSDK & {
+    /** A set of IDs actual for the extension */
+    ids: Pick<IdsAPI, 'entry' | 'environment' | 'space' | 'extension'>
+  };
 
-  export type SidebarExtensionSDK = BaseExtensionSDK & SharedEditorSDK;
-
-  export type EntryEditorSDK = BaseExtensionSDK & SharedEditorSDK;
+  export type SidebarExtensionSDK = BaseExtensionSDK & SharedEditorSDK & {
+    /** A set of IDs actual for the extension */
+    ids: Pick<IdsAPI, 'entry' | 'environment' | 'space' | 'extension'>
+  };
 
   export type FieldExtensionSDK = BaseExtensionSDK & SharedEditorSDK & {
+    /** A set of IDs actual for the extension */
+    ids: IdsAPI
     /** Gives you access to the value and metadata of the field the extension is attached to. */
     field: FieldAPI
   }
 
   export type DialogExtensionSDK = BaseExtensionSDK & {
+    /** A set of IDs actual for the extension */
+    ids: Pick<IdsAPI, 'environment' | 'space' | 'extension'>
     /** Closes the dialog and resolves openExtension promise with data */
     close: (data: any) => void
   }

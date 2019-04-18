@@ -12,7 +12,8 @@ const sharedExpected = [
   'dialogs',
   'navigator',
   'window',
-  'notifier'
+  'notifier',
+  'ids'
 ]
 
 function test (expected, location, expectedLocation) {
