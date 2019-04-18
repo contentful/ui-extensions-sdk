@@ -339,6 +339,7 @@ declare module 'contentful-ui-extensions-sdk' {
     environment: string;
     field: string;
     entry: string;
+    contentType: string;
   }
 
   interface SharedEditorSDK {
@@ -378,12 +379,12 @@ declare module 'contentful-ui-extensions-sdk' {
 
   export type EditorExtensionSDK = BaseExtensionSDK & SharedEditorSDK & {
     /** A set of IDs actual for the extension */
-    ids: Pick<IdsAPI, 'entry' | 'environment' | 'space' | 'extension'>
+    ids: Pick<IdsAPI, 'entry' | 'contentType' | 'environment' | 'space' | 'extension'>
   };
 
   export type SidebarExtensionSDK = BaseExtensionSDK & SharedEditorSDK & {
     /** A set of IDs actual for the extension */
-    ids: Pick<IdsAPI, 'entry' | 'environment' | 'space' | 'extension'>
+    ids: Pick<IdsAPI, 'entry' | 'contentType' | 'environment' | 'space' | 'extension'>
   };
 
   export type FieldExtensionSDK = BaseExtensionSDK & SharedEditorSDK & {
