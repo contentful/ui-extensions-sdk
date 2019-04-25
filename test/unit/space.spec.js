@@ -7,6 +7,7 @@ const spaceMethods = [
   'getEntry',
   'getEntrySnapshots',
   'getAsset',
+  'getEditorInterface',
 
   'getPublishedEntries',
   'getPublishedAssets',
@@ -40,9 +41,7 @@ const spaceMethods = [
   'processAsset',
   'waitUntilAssetProcessed',
 
-  'getUsers',
-
-  'getEditorInterface'
+  'getUsers'
 ]
 
 describe('createSpace()', () => {

@@ -11,7 +11,6 @@ const sharedExpected = [
   'space',
   'dialogs',
   'navigator',
-  'window',
   'notifier',
   'ids'
 ]
@@ -63,7 +62,7 @@ function test (expected, location, expectedLocation) {
 
 describe('createAPI()', () => {
   it('returns correct shape of the default API (entry-field and entry-field-sidebar)', () => {
-    const expected = ['contentType', 'entry', 'field', 'editor']
+    const expected = ['contentType', 'entry', 'field', 'editor', 'window']
 
     // No location, `entry-field` is the default.
     test(expected, undefined, locations.LOCATION_ENTRY_FIELD)
@@ -76,19 +75,19 @@ describe('createAPI()', () => {
   })
 
   it('returns correct shape of the sidebar API (entry-sidebar)', () => {
-    const expected = ['contentType', 'entry', 'editor']
+    const expected = ['contentType', 'entry', 'editor', 'window']
 
     test(expected, locations.LOCATION_ENTRY_SIDEBAR)
   })
 
-  it('returns correct shape of the entry editor API', () => {
+  it('returns correct shape of the entry editor API (entry-editor)', () => {
     const expected = ['contentType', 'entry', 'editor']
 
     test(expected, locations.LOCATION_ENTRY_EDITOR)
   })
 
   it('returns correct shape of the dialog API (dialog)', () => {
-    const expected = ['close']
+    const expected = ['close', 'window']
 
     test(expected, locations.LOCATION_DIALOG)
   })

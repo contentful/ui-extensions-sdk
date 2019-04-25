@@ -132,22 +132,22 @@ declare module 'contentful-ui-extensions-sdk' {
 
   interface EditorInterface {
     sys: Object;
-    controls: Array<{
+    controls?: Array<{
       fieldId: string;
-      widgetId: string;
-      widgetNamespace: string;
-      settings: Object;
+      widgetId?: string;
+      widgetNamespace?: string;
+      settings?: Object;
     }>;
     sidebar?: Array<{
       widgetId: string;
       widgetNamespace: string;
-      settings: Object;
+      settings?: Object;
       disabled?: boolean;
     }>;
     editor?: {
       widgetId: string;
       widgetNamespace: string;
-      settings: Object;
+      settings?: Object;
     }
   }
 
@@ -346,10 +346,8 @@ declare module 'contentful-ui-extensions-sdk' {
   interface SharedEditorSDK {
     editor: {
       editorInterface: EditorInterface,
-      onActiveLocalesChanged: (callback: (value: Array<Object>) => any) => Function,
-      onFocusedLocaleChanged: (callback: (value: Object) => any) => Function,
-      onLocaleModeChanged: (callback: (value: 'single' | 'multi') => any) => Function,
-      onShowDisabledFieldsChanged: (callback: (value: boolean) => any) => Function
+      onLocaleSettingsChanged: (callback: (value: { mode: 'multi' | 'single', focused?: string, active?: Array<string>} ) => any) => Function;
+      onShowDisabledFieldsChanged: (callback: (value: boolean) => any) => Function;
     }
   }
 
@@ -364,8 +362,6 @@ declare module 'contentful-ui-extensions-sdk' {
     user: User;
     /** Information about the current locales */
     locales: LocalesAPI;
-    /** Methods to update the size of the iframe the extension is contained within.  */
-    window: WindowAPI;
     /** Methods for opening UI dialogs: */
     dialogs: DialogsAPI;
     /** Methods for navigating between entities stored in a Contentful space. */
@@ -380,29 +376,35 @@ declare module 'contentful-ui-extensions-sdk' {
 
   export type EditorExtensionSDK = BaseExtensionSDK & SharedEditorSDK & {
     /** A set of IDs actual for the extension */
-    ids: Pick<IdsAPI, 'entry' | 'contentType' | 'environment' | 'space' | 'extension' | 'user'>
+    ids: Pick<IdsAPI, 'entry' | 'contentType' | 'environment' | 'space' | 'extension' | 'user'>;
   };
 
   export type SidebarExtensionSDK = BaseExtensionSDK & SharedEditorSDK & {
     /** A set of IDs actual for the extension */
-    ids: Pick<IdsAPI, 'entry' | 'contentType' | 'environment' | 'space' | 'extension' | 'user'>
+    ids: Pick<IdsAPI, 'entry' | 'contentType' | 'environment' | 'space' | 'extension' | 'user'>;
+    /** Methods to update the size of the iframe the extension is contained within.  */
+    window: WindowAPI;
   };
 
   export type FieldExtensionSDK = BaseExtensionSDK & SharedEditorSDK & {
     /** A set of IDs actual for the extension */
-    ids: IdsAPI
+    ids: IdsAPI;
     /** Gives you access to the value and metadata of the field the extension is attached to. */
-    field: FieldAPI
+    field: FieldAPI;
+    /** Methods to update the size of the iframe the extension is contained within.  */
+    window: WindowAPI;
   }
 
   export type DialogExtensionSDK = BaseExtensionSDK & {
     /** A set of IDs actual for the extension */
-    ids: Pick<IdsAPI, 'environment' | 'space' | 'extension' | 'user'>
+    ids: Pick<IdsAPI, 'environment' | 'space' | 'extension' | 'user'>;
     /** Closes the dialog and resolves openExtension promise with data */
     close: (data: any) => void
+    /** Methods to update the size of the iframe the extension is contained within.  */
+    window: WindowAPI;
   }
 
-  export const init: (initCallback: (sdk: BaseExtensionSDK | FieldExtensionSDK | SidebarExtensionSDK | DialogExtensionSDK | EditorExtensionSDK) => any) => void;
+  export const init: (initCallback: (sdk: FieldExtensionSDK | SidebarExtensionSDK | DialogExtensionSDK | EditorExtensionSDK) => any) => void;
 
   export const locations: {
     LOCATION_ENTRY_FIELD: string;
