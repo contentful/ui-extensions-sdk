@@ -334,6 +334,7 @@ declare module 'contentful-ui-extensions-sdk' {
   /* IDs */
 
   interface IdsAPI {
+    user: string;
     extension: string;
     space: string;
     environment: string;
@@ -379,12 +380,12 @@ declare module 'contentful-ui-extensions-sdk' {
 
   export type EditorExtensionSDK = BaseExtensionSDK & SharedEditorSDK & {
     /** A set of IDs actual for the extension */
-    ids: Pick<IdsAPI, 'entry' | 'contentType' | 'environment' | 'space' | 'extension'>
+    ids: Pick<IdsAPI, 'entry' | 'contentType' | 'environment' | 'space' | 'extension' | 'user'>
   };
 
   export type SidebarExtensionSDK = BaseExtensionSDK & SharedEditorSDK & {
     /** A set of IDs actual for the extension */
-    ids: Pick<IdsAPI, 'entry' | 'contentType' | 'environment' | 'space' | 'extension'>
+    ids: Pick<IdsAPI, 'entry' | 'contentType' | 'environment' | 'space' | 'extension' | 'user'>
   };
 
   export type FieldExtensionSDK = BaseExtensionSDK & SharedEditorSDK & {
@@ -396,7 +397,7 @@ declare module 'contentful-ui-extensions-sdk' {
 
   export type DialogExtensionSDK = BaseExtensionSDK & {
     /** A set of IDs actual for the extension */
-    ids: Pick<IdsAPI, 'environment' | 'space' | 'extension'>
+    ids: Pick<IdsAPI, 'environment' | 'space' | 'extension' | 'user'>
     /** Closes the dialog and resolves openExtension promise with data */
     close: (data: any) => void
   }
