@@ -6,8 +6,14 @@ describe('FieldLocale', () => {
   const info = {
     id: 'some-field',
     locale: 'en-US',
-    type: 'Symbol',
-    validations: 'VALIDATIONS'
+    type: 'Array',
+    required: false,
+    validations: 'VALIDATIONS',
+    items: {
+      type: 'Link',
+      linkType: 'Entry',
+      validations: 'VALIDATIONS OF ITEMS'
+    }
   }
   let channelStub
   let field
@@ -24,7 +30,8 @@ describe('FieldLocale', () => {
       }
     }
 
-    field = new FieldLocale(channelStub, info)
+    const infoCopy = JSON.parse(JSON.stringify(info))
+    field = new FieldLocale(channelStub, infoCopy)
   })
 
   describe('.id', () => {
@@ -45,9 +52,28 @@ describe('FieldLocale', () => {
     })
   })
 
+  describe('.required', () => {
+    it('is equal to info.required', () => {
+      expect(field.required).to.equal(info.required)
+    })
+  })
+
   describe('.validations', () => {
     it('is equal to info.validations', () => {
       expect(field.validations).to.equal(info.validations)
+    })
+  })
+
+  describe(`.items`, () => {
+    it(`is set to the same value as info.items`, () => {
+      expect(field.items).to.deep.equal(info.items)
+    })
+
+    it('is skipped on the object if not defined in info', () => {
+      const noItemsInfo = JSON.parse(JSON.stringify(info))
+      delete noItemsInfo.items
+      const noItemsField = new FieldLocale(channelStub, noItemsInfo)
+      expect(noItemsField.items).to.equal(undefined)
     })
   })
 
