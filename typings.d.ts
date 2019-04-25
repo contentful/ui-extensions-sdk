@@ -21,6 +21,12 @@ declare module 'contentful-ui-extensions-sdk' {
     spaceMembership: SpaceMembership;
   }
 
+  interface Items {
+    type: string;
+    linkType?: string;
+    validations?: Object[];
+  }
+
     /* Field API */
 
   interface FieldAPI  {
@@ -30,8 +36,12 @@ declare module 'contentful-ui-extensions-sdk' {
     locale: string;
     /** Holds the type of the field the extension is attached to. */
     type: string;
+    /** Indicates if a value for this field is required **/
+    required: boolean;
     /** A list of validations for this field that are defined in the content type. */
     validations: Object[];
+    /** Defines the shape of array items **/
+    items?: Items;
 
     /** Gets the current value of the field and locale. */
     getValue: () => any;
@@ -65,8 +75,12 @@ declare module 'contentful-ui-extensions-sdk' {
     locales: string[];
      /** Holds the type of the field. */
     type: string;
+    /** Indicates if a value for this field is required **/
+    required: boolean;
     /** A list of validations for this field that are defined in the content type. */
     validations: Object[];
+    /** Defines the shape of array items **/
+    items?: Items;
 
     /** Gets the current value of the field and locale. */
     getValue: (locale?: string) => any;
@@ -101,7 +115,7 @@ declare module 'contentful-ui-extensions-sdk' {
     type: string;
     validations: Object[];
     linkType?: string;
-    items?: Object;
+    items?: Items;
   }
 
   interface Link {
