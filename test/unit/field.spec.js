@@ -31,9 +31,16 @@ describe(`Field`, () => {
         'it-IT': 'Ciao',
         'de-DE': 'Hallo'
       },
-      type: 'Symbol',
-      validations: 'VALIDATIONS'
+      type: 'Array',
+      required: true,
+      validations: 'VALIDATIONS',
+      items: {
+        type: 'Link',
+        linkType: 'Entry',
+        validations: 'VALIDATIONS OF ITEMS'
+      }
     }
+
     let field
     beforeEach(() => {
       const infoCopy = JSON.parse(JSON.stringify(info))
@@ -62,9 +69,28 @@ describe(`Field`, () => {
       })
     })
 
+    describe(`.required`, () => {
+      it(`is set to the same value as info.required`, () => {
+        expect(field.required).to.equal(info.required)
+      })
+    })
+
     describe(`.validations`, () => {
       it(`is set to the same value as info.validations`, () => {
         expect(field.validations).to.equal(info.validations)
+      })
+    })
+
+    describe(`.items`, () => {
+      it(`is set to the same value as info.items`, () => {
+        expect(field.items).to.deep.equal(info.items)
+      })
+
+      it('is skipped on the object if not defined in info', () => {
+        const noItemsInfo = JSON.parse(JSON.stringify(info))
+        delete noItemsInfo.items
+        const noItemsField = new Field(channelStub, noItemsInfo, defaultLocale)
+        expect(noItemsField.items).to.equal(undefined)
       })
     })
 

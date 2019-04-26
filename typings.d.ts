@@ -21,6 +21,12 @@ declare module 'contentful-ui-extensions-sdk' {
     spaceMembership: SpaceMembership;
   }
 
+  interface Items {
+    type: string;
+    linkType?: string;
+    validations?: Object[];
+  }
+
     /* Field API */
 
   interface FieldAPI  {
@@ -30,8 +36,12 @@ declare module 'contentful-ui-extensions-sdk' {
     locale: string;
     /** Holds the type of the field the extension is attached to. */
     type: string;
+    /** Indicates if a value for this field is required **/
+    required: boolean;
     /** A list of validations for this field that are defined in the content type. */
     validations: Object[];
+    /** Defines the shape of array items **/
+    items?: Items;
 
     /** Gets the current value of the field and locale. */
     getValue: () => any;
@@ -65,8 +75,12 @@ declare module 'contentful-ui-extensions-sdk' {
     locales: string[];
      /** Holds the type of the field. */
     type: string;
+    /** Indicates if a value for this field is required **/
+    required: boolean;
     /** A list of validations for this field that are defined in the content type. */
     validations: Object[];
+    /** Defines the shape of array items **/
+    items?: Items;
 
     /** Gets the current value of the field and locale. */
     getValue: (locale?: string) => any;
@@ -101,7 +115,7 @@ declare module 'contentful-ui-extensions-sdk' {
     type: string;
     validations: Object[];
     linkType?: string;
-    items?: Object;
+    items?: Items;
   }
 
   interface Link {
@@ -128,6 +142,27 @@ declare module 'contentful-ui-extensions-sdk' {
     name: string;
     displayField: string;
     description: string;
+  }
+
+  interface EditorInterface {
+    sys: Object;
+    controls?: Array<{
+      fieldId: string;
+      widgetId?: string;
+      widgetNamespace?: string;
+      settings?: Object;
+    }>;
+    sidebar?: Array<{
+      widgetId: string;
+      widgetNamespace: string;
+      settings?: Object;
+      disabled?: boolean;
+    }>;
+    editor?: {
+      widgetId: string;
+      widgetNamespace: string;
+      settings?: Object;
+    }
   }
 
   /* Space API */
@@ -181,7 +216,10 @@ declare module 'contentful-ui-extensions-sdk' {
     waitUntilAssetProcessed: (assetId: string, locale: string) => void;
 
     /** Returns all users who belong to the space. */
-    getUsers: () => Promise<CollectionReponse<Object>>
+    getUsers: () => Promise<CollectionReponse<Object>>,
+
+    /** Returns editor interface for a given content type */
+    getEditorInterface: (contentTypeId: string) => Promise<EditorInterface>
   }
 
   /* Locales API */
@@ -307,6 +345,26 @@ declare module 'contentful-ui-extensions-sdk' {
     invocation?: Object;
   }
 
+  /* IDs */
+
+  interface IdsAPI {
+    user: string;
+    extension: string;
+    space: string;
+    environment: string;
+    field: string;
+    entry: string;
+    contentType: string;
+  }
+
+  interface SharedEditorSDK {
+    editor: {
+      editorInterface: EditorInterface,
+      onLocaleSettingsChanged: (callback: (value: { mode: 'multi' | 'single', focused?: string, active?: Array<string>} ) => any) => Function;
+      onShowDisabledFieldsChanged: (callback: (value: boolean) => any) => Function;
+    }
+  }
+
   export interface BaseExtensionSDK {
     /** Allows to read and update the value of any field of the current entry and to get the entry's metadata */
     entry: EntryAPI;
@@ -318,8 +376,6 @@ declare module 'contentful-ui-extensions-sdk' {
     user: User;
     /** Information about the current locales */
     locales: LocalesAPI;
-    /** Methods to update the size of the iframe the extension is contained within.  */
-    window: WindowAPI;
     /** Methods for opening UI dialogs: */
     dialogs: DialogsAPI;
     /** Methods for navigating between entities stored in a Contentful space. */
@@ -328,28 +384,48 @@ declare module 'contentful-ui-extensions-sdk' {
     notifier: NotifierAPI;
     /** Exposes extension configuration parameters */
     parameters: ParametersAPI;
+    /** Exposes method to identify extension's location */
     location: LocationAPI;
   }
 
-  export type SidebarExtensionSDK = BaseExtensionSDK;
+  export type EditorExtensionSDK = BaseExtensionSDK & SharedEditorSDK & {
+    /** A set of IDs actual for the extension */
+    ids: Pick<IdsAPI, 'entry' | 'contentType' | 'environment' | 'space' | 'extension' | 'user'>;
+  };
 
-  export type FieldExtensionSDK = BaseExtensionSDK & {
+  export type SidebarExtensionSDK = BaseExtensionSDK & SharedEditorSDK & {
+    /** A set of IDs actual for the extension */
+    ids: Pick<IdsAPI, 'entry' | 'contentType' | 'environment' | 'space' | 'extension' | 'user'>;
+    /** Methods to update the size of the iframe the extension is contained within.  */
+    window: WindowAPI;
+  };
+
+  export type FieldExtensionSDK = BaseExtensionSDK & SharedEditorSDK & {
+    /** A set of IDs actual for the extension */
+    ids: IdsAPI;
     /** Gives you access to the value and metadata of the field the extension is attached to. */
-    field: FieldAPI
+    field: FieldAPI;
+    /** Methods to update the size of the iframe the extension is contained within.  */
+    window: WindowAPI;
   }
 
   export type DialogExtensionSDK = BaseExtensionSDK & {
+    /** A set of IDs actual for the extension */
+    ids: Pick<IdsAPI, 'environment' | 'space' | 'extension' | 'user'>;
     /** Closes the dialog and resolves openExtension promise with data */
     close: (data: any) => void
+    /** Methods to update the size of the iframe the extension is contained within.  */
+    window: WindowAPI;
   }
 
-  export const init: (initCallback: (sdk: BaseExtensionSDK | FieldExtensionSDK | SidebarExtensionSDK | DialogExtensionSDK) => any) => void;
+  export const init: (initCallback: (sdk: FieldExtensionSDK | SidebarExtensionSDK | DialogExtensionSDK | EditorExtensionSDK) => any) => void;
 
   export const locations: {
     LOCATION_ENTRY_FIELD: string;
     LOCATION_ENTRY_FIELD_SIDEBAR: string;
     LOCATION_ENTRY_SIDEBAR: string;
     LOCATION_DIALOG: string;
+    LOCATION_ENTRY_EDITOR: string;
   }
 
 }

@@ -7,6 +7,7 @@ const spaceMethods = [
   'getEntry',
   'getEntrySnapshots',
   'getAsset',
+  'getEditorInterface',
 
   'getPublishedEntries',
   'getPublishedAssets',
