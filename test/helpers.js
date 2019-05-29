@@ -18,10 +18,14 @@ module.exports = {
   describeChannelCallingMethod
 }
 
-function mockMutationObserver (dom, registerMutationTrigger) {
-  const MutationObserverMock = function (cb) { registerMutationTrigger(cb) }
+function mockMutationObserver(dom, registerMutationTrigger) {
+  const MutationObserverMock = function(cb) {
+    registerMutationTrigger(cb)
+  }
   MutationObserverMock.prototype.observe = () => {}
-  MutationObserverMock.prototype.disconnect = () => { registerMutationTrigger(() => {}) }
+  MutationObserverMock.prototype.disconnect = () => {
+    registerMutationTrigger(() => {})
+  }
 
   Object.defineProperty(dom.window, 'MutationObserver', {
     writable: false,
@@ -29,7 +33,7 @@ function mockMutationObserver (dom, registerMutationTrigger) {
   })
 }
 
-function describeAttachHandlerMember (msg, attachHandlerFn) {
+function describeAttachHandlerMember(msg, attachHandlerFn) {
   describe(msg, () => {
     it('returns a function to detach the handler', () => {
       expect(attachHandlerFn()).to.be.a('function')
@@ -43,7 +47,7 @@ function describeAttachHandlerMember (msg, attachHandlerFn) {
   })
 }
 
-function describeChannelCallingMethod (spec) {
+function describeChannelCallingMethod(spec) {
   const { creator, methodName, args } = spec
   const expectedCallArgs = spec.expectedCallArgs || args
   const channelMethod = spec.channelMethod || methodName
@@ -64,8 +68,8 @@ function describeChannelCallingMethod (spec) {
     it(`invokes channel.call('${channelMethod}')`, () => {
       object[methodName](...args)
       expect(channelCallStub)
-        .to.have.callCount(1).and
-        .to.have.been.calledWithExactly(...[channelMethod].concat(expectedCallArgs))
+        .to.have.callCount(1)
+        .and.to.have.been.calledWithExactly(...[channelMethod].concat(expectedCallArgs))
     })
 
     it('returns the promise returned by internal channel.call()', () => {

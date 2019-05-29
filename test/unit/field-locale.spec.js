@@ -21,11 +21,11 @@ describe('FieldLocale', () => {
   beforeEach(() => {
     channelStub = {
       _handlers: {},
-      addHandler: function (method, cb) {
+      addHandler: function(method, cb) {
         this._handlers[method] = cb
       },
       call: sinon.stub(),
-      receiveMethod: function (method, params) {
+      receiveMethod: function(method, params) {
         this._handlers[method](...params)
       }
     }
@@ -47,7 +47,7 @@ describe('FieldLocale', () => {
   })
 
   describe('.locale', () => {
-    it('is set to the same value as given to first constructor arg\'s .locale', () => {
+    it("is set to the same value as given to first constructor arg's .locale", () => {
       expect(field.locale).to.equal(info.locale)
     })
   })
@@ -143,7 +143,7 @@ describe('FieldLocale', () => {
       sinon.assert.calledWithExactly(spy, 'VAL2')
     })
 
-    it('does not call handler when other field value changes', function () {
+    it('does not call handler when other field value changes', function() {
       const spy = sinon.spy()
       field.onValueChanged(spy)
       spy.resetHistory()
@@ -154,7 +154,7 @@ describe('FieldLocale', () => {
     })
   })
 
-  function testValueMethods (method, newValue) {
+  function testValueMethods(method, newValue) {
     beforeEach(() => {
       field[method](newValue)
     })
@@ -165,11 +165,14 @@ describe('FieldLocale', () => {
 
     it(`invokes channel.call("${method}", ...)`, () => {
       if (newValue === undefined) {
-        expect(channelStub.call).to.have.been.calledWithExactly(
-          method, field.id, info.locale)
+        expect(channelStub.call).to.have.been.calledWithExactly(method, field.id, info.locale)
       } else {
         expect(channelStub.call).to.have.been.calledWithExactly(
-          method, field.id, info.locale, newValue)
+          method,
+          field.id,
+          info.locale,
+          newValue
+        )
       }
     })
 
@@ -178,7 +181,7 @@ describe('FieldLocale', () => {
       expect(field[method]('val')).to.equal('PROMISE')
     })
 
-    it('calls onValueChanged handler', function () {
+    it('calls onValueChanged handler', function() {
       const spy = sinon.spy()
       field.onValueChanged(spy)
       spy.resetHistory()
@@ -193,7 +196,7 @@ describe('FieldLocale', () => {
     })
   }
 
-  function testChannelSignal (method, message) {
+  function testChannelSignal(method, message) {
     it('calls handler when method is received', () => {
       const cb = sinon.spy()
 

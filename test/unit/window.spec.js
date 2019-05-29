@@ -38,7 +38,7 @@ describe(`createWindow()`, () => {
       })
 
       describe(`after auto resizer got started`, () => {
-        it(`listens to DOM changes and invokes .updateHeigt()`, (done) => {
+        it(`listens to DOM changes and invokes .updateHeigt()`, done => {
           updateHeightSpy.restore()
           updateHeightSpy = sinon.stub(window, 'updateHeight').callsFake(() => {
             expect(updateHeightSpy).to.have.callCount(1)
@@ -59,7 +59,7 @@ describe(`createWindow()`, () => {
           updateHeightSpy.reset()
         })
 
-        it(`stops observing DOM and does not invoke updateHeight()`, (done) => {
+        it(`stops observing DOM and does not invoke updateHeight()`, done => {
           setTimeout(() => {
             expect(updateHeightSpy).to.have.callCount(0)
             done()
@@ -106,7 +106,7 @@ describe(`createWindow()`, () => {
   })
 })
 
-function fireViewportResize (dom) {
+function fireViewportResize(dom) {
   const { Event } = dom.window
   dom.window.dispatchEvent(new Event('resize'))
 }

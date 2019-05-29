@@ -2,8 +2,8 @@ const { sinon, makeDOM, expect } = require('../helpers')
 
 const connect = require('../../lib/channel')
 
-describe('channel connect', function () {
-  beforeEach(function () {
+describe('channel connect', function() {
+  beforeEach(function() {
     this.dom = makeDOM()
     this.postMessage = sinon.stub()
     Object.defineProperty(this.dom.window, 'parent', {
@@ -12,36 +12,48 @@ describe('channel connect', function () {
     })
   })
 
-  it('resolves with channel and params on connect event', function (done) {
-    connect(this.dom.window, (channel, params) => {
-      expect(channel.send).to.be.a('function')
-      expect(channel.call).to.be.a('function')
-      expect(channel.addHandler).to.be.a('function')
-      expect(params.id).to.equal('ID')
-      done()
-    })
+  it('resolves with channel and params on connect event', function(done) {
+    connect(
+      this.dom.window,
+      (channel, params) => {
+        expect(channel.send).to.be.a('function')
+        expect(channel.call).to.be.a('function')
+        expect(channel.addHandler).to.be.a('function')
+        expect(params.id).to.equal('ID')
+        done()
+      }
+    )
 
-    this.dom.window.postMessage({
-      method: 'connect',
-      params: [{ id: 'ID' }]
-    }, '*')
+    this.dom.window.postMessage(
+      {
+        method: 'connect',
+        params: [{ id: 'ID' }]
+      },
+      '*'
+    )
   })
 
-  describe('channel instance', function () {
-    beforeEach(function (done) {
-      connect(this.dom.window, (channel) => {
-        this.channel = channel
-        done()
-      })
+  describe('channel instance', function() {
+    beforeEach(function(done) {
+      connect(
+        this.dom.window,
+        channel => {
+          this.channel = channel
+          done()
+        }
+      )
 
-      this.dom.window.postMessage({
-        method: 'connect',
-        params: [{ id: 'SOURCE' }]
-      }, '*')
+      this.dom.window.postMessage(
+        {
+          method: 'connect',
+          params: [{ id: 'SOURCE' }]
+        },
+        '*'
+      )
     })
 
-    describe('#send()', function () {
-      it('calls post message with parameters', function () {
+    describe('#send()', function() {
+      it('calls post message with parameters', function() {
         this.channel.send('M', 1, 2)
         expect(this.postMessage).to.be.calledOnce // eslint-disable-line no-unused-expressions
         expect(this.postMessage).to.be.calledWithMatch({
@@ -60,8 +72,8 @@ describe('channel connect', function () {
       })
     })
 
-    describe('#call()', function () {
-      it('calls post message with parameters', function () {
+    describe('#call()', function() {
+      it('calls post message with parameters', function() {
         this.channel.call('M', 1, 2)
         expect(this.postMessage).to.be.calledOnce // eslint-disable-line no-unused-expressions
         expect(this.postMessage).to.be.calledWithMatch({
@@ -79,41 +91,50 @@ describe('channel connect', function () {
         })
       })
 
-      it('resolves promise when result is received', function () {
+      it('resolves promise when result is received', function() {
         const response = this.channel.call('M')
         const messageId = this.postMessage.args[0][0].id
 
-        this.dom.window.postMessage({
-          id: messageId,
-          result: 'JO'
-        }, '*')
+        this.dom.window.postMessage(
+          {
+            id: messageId,
+            result: 'JO'
+          },
+          '*'
+        )
 
         return expect(response).to.eventually.equal('JO')
       })
 
-      it('rejects promise when error is received', function () {
+      it('rejects promise when error is received', function() {
         const response = this.channel.call('M')
         const messageId = this.postMessage.args[0][0].id
 
-        this.dom.window.postMessage({
-          id: messageId,
-          error: 'ERROR'
-        }, '*')
+        this.dom.window.postMessage(
+          {
+            id: messageId,
+            error: 'ERROR'
+          },
+          '*'
+        )
 
         return expect(response).to.be.rejected
       })
     })
 
-    describe('#addHandler()', function () {
-      it('calls callback when message is received', function (done) {
-        this.channel.addHandler('method', function (...params) {
+    describe('#addHandler()', function() {
+      it('calls callback when message is received', function(done) {
+        this.channel.addHandler('method', function(...params) {
           expect(params).to.deep.equal(['a', 'b', 'c'])
           done()
         })
-        this.dom.window.postMessage({
-          method: 'method',
-          params: ['a', 'b', 'c']
-        }, '*')
+        this.dom.window.postMessage(
+          {
+            method: 'method',
+            params: ['a', 'b', 'c']
+          },
+          '*'
+        )
       })
     })
   })

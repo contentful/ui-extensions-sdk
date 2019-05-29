@@ -10,11 +10,13 @@ describe('createEntry()', () => {
         id: 'field1',
         locales: ['en-US'],
         values: {}
-      }, {
+      },
+      {
         id: 'field2',
         locales: ['en-US'],
         values: {}
-      }, {
+      },
+      {
         id: 'field3',
         locales: ['en-US'],
         values: {}
@@ -40,12 +42,12 @@ describe('createEntry()', () => {
 
     describe('.fields[id]', () => {
       it('exists for each constructor given field info', () => {
-        const fieldIds = fieldInfo.map((info) => info.id)
+        const fieldIds = fieldInfo.map(info => info.id)
         expect(Object.getOwnPropertyNames(entry.fields)).to.deep.equal(fieldIds)
       })
 
       it('got instantiated with its related constructor given field info', () => {
-        Object.getOwnPropertyNames(entry.fields).forEach((fieldId) => {
+        Object.getOwnPropertyNames(entry.fields).forEach(fieldId => {
           const info = fieldInfo.reduce((acc, info) => {
             if (acc === false) {
               return info.id === fieldId ? info : false
