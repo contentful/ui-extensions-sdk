@@ -1,19 +1,10 @@
 require('dotenv').config()
 
-const path = require('path')
-const fs = require('fs-extra')
 const buildAndPublishExtensions = require('./tasks/build-and-publish-extensions')
-const createContentTypes = require('./tasks/create-content-types')
-const deleteContentTypes = require('./tasks/delete-content-types')
+const createEnvironment = require('./tasks/create-new-enviromenment')
+const deleteEnvironment = require('./tasks/delete-new-environment')
+const createConfigurationFiles = require('./tasks/create-configuration-files')
 const printStepTitle = require('./utils').printStepTitle
-const writeJSONFile = require('./utils').writeJSONFile
-
-const rootDirectory = fs.realpathSync(process.cwd())
-const resolvePath = relativePath => path.resolve(rootDirectory, relativePath)
-
-;['CONTENTFUL_SPACE', 'CONTENTFUL_CMA_TOKEN', 'CONTENTFUL_ENVIRONMENT'].forEach(envvar => {
-  console.log(`${envvar}=${process.env[envvar]}`)
-})
 
 const config = {
   cmaToken: process.env.CONTENTFUL_CMA_TOKEN,
@@ -21,44 +12,40 @@ const config = {
   environmentId: process.env.CONTENTFUL_ENVIRONMENT
 }
 
+function listAllEnvironmentVariables() {
+  ;['CONTENTFUL_SPACE', 'CONTENTFUL_CMA_TOKEN', 'CONTENTFUL_ENVIRONMENT'].forEach(envvar => {
+    console.log(`${envvar}=${process.env[envvar]}`)
+  })
+}
+
 const run = async () => {
-  printStepTitle(`Creating a new content type in the space`)
+  printStepTitle('Creating configuration files based on environment variables')
+  listAllEnvironmentVariables()
+  await createConfigurationFiles(config)
+
+  printStepTitle('Creating a new environment for testing')
 
   try {
-    await createContentTypes()
+    await createEnvironment(config.environmentId)
   } catch (e) {
     console.log(e)
-    throw new Error('Failed to create content types')
+    throw new Error('Failed to create a new environment')
   }
 
-  printStepTitle(`Build extensions and deploy it`)
-
-  await writeJSONFile(resolvePath('test-extensions/test-field-extension/.contentfulrc.json'), {
-    cmaToken: config.cmaToken,
-    activeSpaceId: config.spaceId,
-    activeEnvironmentId: config.environmentId
-  })
+  printStepTitle('Build extensions and deploy it')
   await buildAndPublishExtensions()
-
-  // Step 3. Assign extensions to places using CMA
-
-  // Step 4. Run Cypress tests
 
   printStepTitle('Runnings tests...')
   console.warn('No tests yet.')
 
-  // Step 5. Delete all content using CMA
-
-  printStepTitle('Delete content types')
+  printStepTitle('Remove previously created environment')
 
   try {
-    await deleteContentTypes()
+    await deleteEnvironment(config.environmentId)
   } catch (e) {
     console.log(e)
-    throw new Error('Failed to remove content types')
+    throw new Error('Failed to remove environment')
   }
-
-  // Step 7. Delete extensions
 }
 
 run()

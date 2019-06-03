@@ -1,5 +1,9 @@
 const fs = require('fs-extra')
 const os = require('os')
+const path = require('path')
+
+const rootDirectory = fs.realpathSync(process.cwd())
+const resolvePath = relativePath => path.resolve(rootDirectory, relativePath)
 
 let stepCount = 1
 
@@ -20,5 +24,6 @@ function writeJSONFile(path, obj) {
 
 module.exports = {
   printStepTitle,
-  writeJSONFile
+  writeJSONFile,
+  resolvePath
 }
