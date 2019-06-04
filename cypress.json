@@ -3,6 +3,8 @@
   "integrationFolder": "./test/cypress/integration",
   "pluginsFile": "./test/cypress/plugins/index.js",
   "supportFile": "./test/cypress/support/index.js",
+  "videosFolder": "./test/cypress/videos",
+  "screenshotsFolder": "./test/cypress/screenshots",
   "testFiles": "**/*.spec.js",
   "ignoreTestFiles": "**/example*.js",
   "baseUrl": "https://app.contentful.com",
@@ -10,5 +12,6 @@
   "reporter": "junit",
   "reporterOptions": {
     "mochaFile": "./test/cypress/reports/cypress/cypress-test-results.[hash].xml"
-  }
+  },
+  "chromeWebSecurity": false
 }

@@ -1,9 +1,10 @@
 const activeSpaceId = Cypress.env('activeSpaceId')
-
-export function home() {
-  return `/spaces/${activeSpaceId}/home`
-}
+const activeEnvironmentId = Cypress.env('activeEnvironmentId')
 
 export function entiriesList() {
-  return `/spaces/${activeSpaceId}/entries`
+  return `/spaces/${activeSpaceId}/environments/${activeEnvironmentId}/entries`
+}
+
+export function entry(id) {
+  return `${entiriesList()}/${id}`
 }
