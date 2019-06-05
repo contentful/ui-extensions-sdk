@@ -3,15 +3,29 @@ version: 2.1
 jobs:
   all:
     docker:
-      - image: circleci/node:carbon
+      - image: cypress/browsers:node8.15.1-chrome73
     steps:
       - checkout
-      - run: npm install
+      - restore_cache:
+          keys:
+            - v2-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - v2-deps-{{ .Branch }}-
+            - v2-deps-
+      - run: npm ci
+      - save_cache:
+          key: v2-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/.npm
+            - ~/.cache
       - run: npm run lint
       - run: npm test
       - run: npm run build
       - run: npm run size
       - run: npm run integration
+      - store_test_results:
+          path: test/cypress/reports
+      - store_artifacts:
+          path: test/cypress/screenshots
 
 workflows:
   version: 2
@@ -25,7 +39,7 @@ workflows:
       - all
     triggers:
       - schedule:
-          cron: "40 * * * *"
+          cron: '40 * * * *'
           filters:
             branches:
               only:
