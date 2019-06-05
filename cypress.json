@@ -4,11 +4,11 @@
   "pluginsFile": "./test/cypress/plugins/index.js",
   "supportFile": "./test/cypress/support/index.js",
   "videosFolder": "./test/cypress/videos",
+  "video": false,
   "screenshotsFolder": "./test/cypress/screenshots",
   "testFiles": "**/*.spec.js",
   "ignoreTestFiles": "**/example*.js",
   "baseUrl": "https://app.contentful.com",
-  "defaultCommandTimeout": 6000,
   "reporter": "junit",
   "reporterOptions": {
     "mochaFile": "./test/cypress/reports/cypress/cypress-test-results.[hash].xml"

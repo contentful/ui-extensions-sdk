@@ -1,8 +1,6 @@
-Cypress.Commands.add('iframe', { prevSubject: 'element' }, $iframe => {
-  return new Cypress.Promise(resolve => {
-    const $body = $iframe.contents().find('body')
-    resolve($body)
-  })
+Cypress.Commands.add('captureIFrameAs', { prevSubject: 'element' }, ($element, as) => {
+  const $body = $element.contents().find('body')
+  cy.wrap($body).as(as)
 })
 
 Cypress.Commands.add('setAuthTokenToLocalStorage', function setAuthTokenToLocalStorage() {
