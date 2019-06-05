@@ -17,7 +17,12 @@ const config = {
 let needCleanup = false
 
 function listAllEnvironmentVariables() {
-  ;['CONTENTFUL_SPACE', 'CONTENTFUL_CMA_TOKEN', 'CONTENTFUL_ENVIRONMENT'].forEach(envvar => {
+  ;[
+    'CONTENTFUL_SPACE',
+    'CONTENTFUL_CMA_TOKEN',
+    'CONTENTFUL_ENVIRONMENT',
+    'CYPRESS_BASE_URL'
+  ].forEach(envvar => {
     console.log(`${envvar}=${process.env[envvar]}`)
   })
 }
