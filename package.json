@@ -27,6 +27,7 @@
     "es6-promise": "^4.2.6"
   },
   "devDependencies": {
+    "nanoid": "2.0.3",
     "@testing-library/cypress": "4.0.1",
     "@testing-library/dom": "5.1.1",
     "babel-eslint": "10.0.1",

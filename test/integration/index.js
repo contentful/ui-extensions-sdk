@@ -10,32 +10,46 @@ const runCypress = require('./tasks/run-cypress')
 const config = {
   cmaToken: process.env.CONTENTFUL_CMA_TOKEN,
   spaceId: process.env.CONTENTFUL_SPACE,
-  environmentId: process.env.CONTENTFUL_ENVIRONMENT,
   baseUrl: process.env.CONTENTFUL_APP,
   testLocalSdk: process.env.TEST_LOCAL_SDK === 'true'
 }
 
-let needCleanup = false
+function listAllEnvironmentVariables() {
+  ;['CONTENTFUL_SPACE', 'CONTENTFUL_CMA_TOKEN', 'CYPRESS_BASE_URL', 'TEST_LOCAL_SDK'].forEach(
+    envvar => {
+      console.log(`${envvar}=${process.env[envvar]}`)
+    }
+  )
+}
+
+let environmentId
 
 const cleanup = async () => {
-  try {
-    await deleteEnvironment(config.environmentId)
-  } catch (e) {
-    console.log(e)
-    throw new Error('Failed to remove environment')
+  if (environmentId) {
+    try {
+      await deleteEnvironment(environmentId)
+    } catch (e) {
+      console.log(e)
+      throw new Error('Failed to remove environment')
+    }
   }
 }
 
 const run = async () => {
-  await createConfigurationFiles(config)
+  listAllEnvironmentVariables()
 
   try {
-    await createEnvironment(config.environmentId)
-    needCleanup = true
+    environmentId = await createEnvironment()
   } catch (e) {
     console.log(e)
     throw new Error('Failed to create a new environment')
   }
+
+  await createConfigurationFiles({
+    cmaToken: config.cmaToken,
+    spaceId: config.spaceId,
+    environmentId
+  })
 
   await buildExtensions({
     testLocalSdk: config.testLocalSdk
@@ -52,15 +66,12 @@ const run = async () => {
 
 run()
   .then(async () => {
-    if (needCleanup) {
-      await cleanup()
-    }
+    await cleanup()
+
     process.exit(0)
   })
   .catch(async e => {
-    if (needCleanup) {
-      await cleanup()
-    }
+    await cleanup()
     console.error(e)
     process.exit(1)
   })
