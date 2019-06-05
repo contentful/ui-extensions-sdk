@@ -5,13 +5,15 @@ const createEnvironment = require('./tasks/create-new-enviromenment')
 const deleteEnvironment = require('./tasks/delete-new-environment')
 const createConfigurationFiles = require('./tasks/create-configuration-files')
 const runCypress = require('./tasks/run-cypress')
+const buildAndLinkSdk = require('./tasks/build-and-link-sdk')
 const printStepTitle = require('./utils').printStepTitle
 
 const config = {
   cmaToken: process.env.CONTENTFUL_CMA_TOKEN,
   spaceId: process.env.CONTENTFUL_SPACE,
   environmentId: process.env.CONTENTFUL_ENVIRONMENT,
-  baseUrl: process.env.CONTENTFUL_APP
+  baseUrl: process.env.CONTENTFUL_APP,
+  testLocalSdk: process.env.TEST_LOCAL_SDK
 }
 
 let needCleanup = false
@@ -21,7 +23,8 @@ function listAllEnvironmentVariables() {
     'CONTENTFUL_SPACE',
     'CONTENTFUL_CMA_TOKEN',
     'CONTENTFUL_ENVIRONMENT',
-    'CYPRESS_BASE_URL'
+    'CYPRESS_BASE_URL',
+    'TEST_LOCAL_SDK'
   ].forEach(envvar => {
     console.log(`${envvar}=${process.env[envvar]}`)
   })
@@ -53,8 +56,15 @@ const run = async () => {
     throw new Error('Failed to create a new environment')
   }
 
+  if (config.testLocalSdk) {
+    printStepTitle('Building local copy of ui-extensions-sdk')
+    await buildAndLinkSdk()
+  }
+
   printStepTitle('Build extensions and deploy it')
-  await buildAndPublishExtensions()
+  await buildAndPublishExtensions({
+    testLocalSdk: config.testLocalSdk
+  })
 
   printStepTitle('Runnings tests...')
   try {
