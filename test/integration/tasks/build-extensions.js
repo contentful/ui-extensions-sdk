@@ -6,11 +6,11 @@ module.exports = async ({ testLocalSdk }) => {
   await runScript('npm', [
     'install',
     '--prefix',
-    'test-extensions/test-field-extension',
+    'test/extensions/test-field-extension',
     '--silent'
   ])
   if (testLocalSdk) {
     printStepTitle('Linking local copy of ui-extension-sdk to extensions')
-    await runScript('npm', ['link', './', '--prefix', 'test-extensions/test-field-extension'])
+    await runScript('npm', ['link', './', '--prefix', 'test/extensions/test-field-extension'])
   }
 }
