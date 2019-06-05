@@ -1,5 +1,11 @@
 {
-  "extends": ["../.eslintrc.json", "plugin:react/recommended"],
+  "extends": ["plugin:react/recommended", "plugin:prettier/recommended"],
   "parser": "babel-eslint",
-  "plugins": ["react"]
+  "plugins": ["react"],
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "16.8.6"
+    }
+  }
 }

@@ -18,8 +18,8 @@ module.exports = {
   describeChannelCallingMethod
 }
 
-function mockMutationObserver(dom, registerMutationTrigger) {
-  const MutationObserverMock = function(cb) {
+function mockMutationObserver (dom, registerMutationTrigger) {
+  const MutationObserverMock = function (cb) {
     registerMutationTrigger(cb)
   }
   MutationObserverMock.prototype.observe = () => {}
@@ -33,7 +33,7 @@ function mockMutationObserver(dom, registerMutationTrigger) {
   })
 }
 
-function describeAttachHandlerMember(msg, attachHandlerFn) {
+function describeAttachHandlerMember (msg, attachHandlerFn) {
   describe(msg, () => {
     it('returns a function to detach the handler', () => {
       expect(attachHandlerFn()).to.be.a('function')
@@ -47,7 +47,7 @@ function describeAttachHandlerMember(msg, attachHandlerFn) {
   })
 }
 
-function describeChannelCallingMethod(spec) {
+function describeChannelCallingMethod (spec) {
   const { creator, methodName, args } = spec
   const expectedCallArgs = spec.expectedCallArgs || args
   const channelMethod = spec.channelMethod || methodName
