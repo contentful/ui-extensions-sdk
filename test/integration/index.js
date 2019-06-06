@@ -9,13 +9,13 @@ const runCypress = require('./tasks/run-cypress')
 
 const config = {
   cmaToken: process.env.CONTENTFUL_CMA_TOKEN,
-  spaceId: process.env.CONTENTFUL_SPACE,
+  spaceId: process.env.CONTENTFUL_SPACE_ID,
   baseUrl: process.env.CONTENTFUL_APP,
   testLocalSdk: process.env.TEST_LOCAL_SDK === 'true'
 }
 
 function listAllEnvironmentVariables () {
-  ;['CONTENTFUL_SPACE', 'CONTENTFUL_CMA_TOKEN', 'CYPRESS_BASE_URL', 'TEST_LOCAL_SDK'].forEach(
+  ;['CONTENTFUL_SPACE_ID', 'CONTENTFUL_CMA_TOKEN', 'CYPRESS_BASE_URL', 'TEST_LOCAL_SDK'].forEach(
     envvar => {
       console.log(`${envvar}=${process.env[envvar]}`)
     }

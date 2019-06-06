@@ -5,7 +5,7 @@ const client = contentful.createClient({
 
 module.exports = {
   getCurrentSpace: () => {
-    return client.getSpace(process.env.CONTENTFUL_SPACE)
+    return client.getSpace(process.env.CONTENTFUL_SPACE_ID)
   },
   client
 }
