@@ -20,6 +20,7 @@
     "prepublishOnly": "npm run build",
     "size": "echo \"Gzipped, estimate: $(gzip -9 -c dist/cf-extension-api.js | wc -c) bytes\"",
     "integration": "node test/integration",
+    "integration:local": "node test/integration/local.js",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --browser chrome"
   },
