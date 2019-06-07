@@ -29,7 +29,7 @@ describe('MemoizedSignal', () => {
 
 describe('Signal', () => test(Signal))
 
-function test (SignalConstructor) {
+function test(SignalConstructor) {
   describe('instance', () => {
     let signal
     let spies
@@ -39,12 +39,12 @@ function test (SignalConstructor) {
         one: sinon.spy(),
         two: sinon.spy(),
         three: sinon.spy(),
-        reset () {
+        reset() {
           this.one.resetHistory()
           this.two.resetHistory()
           this.three.resetHistory()
         },
-        expectCallCount (obj) {
+        expectCallCount(obj) {
           for (const name in obj) {
             expect(this[name]).to.have.callCount(obj[name])
           }
