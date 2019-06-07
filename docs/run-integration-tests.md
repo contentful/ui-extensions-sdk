@@ -10,7 +10,7 @@ CONTENTFUL_CMA_TOKEN=<personal-cma-token>
 # ID of the space
 CONTENTFUL_SPACE_ID=<testing-space-id>
 # Url of the web app we test against
-CYPRESS_BASE_URL=https://app.contentful.com
+CYPRESS_baseUrl=https://app.contentful.com
 # If true, then local version of ui-extension-sdk will be used in all testing extension
 # Otherwise, it's latest version of ui-extension-sdk from NPM
 TEST_LOCAL_SDK=true

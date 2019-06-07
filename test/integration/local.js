@@ -16,7 +16,7 @@ function listAllEnvironmentVariables() {
   ;[
     'CONTENTFUL_SPACE_ID',
     'CONTENTFUL_CMA_TOKEN',
-    'CYPRESS_BASE_URL',
+    'CYPRESS_baseUrl',
     'TEST_LOCAL_SDK',
     'CONTENTFUL_LOCAL_TESTING_ENV'
   ].forEach(envvar => {

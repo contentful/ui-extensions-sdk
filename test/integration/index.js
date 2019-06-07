@@ -15,7 +15,7 @@ const config = {
 }
 
 function listAllEnvironmentVariables() {
-  ;['CONTENTFUL_SPACE_ID', 'CONTENTFUL_CMA_TOKEN', 'CYPRESS_BASE_URL', 'TEST_LOCAL_SDK'].forEach(
+  ;['CONTENTFUL_SPACE_ID', 'CONTENTFUL_CMA_TOKEN', 'CYPRESS_baseUrl', 'TEST_LOCAL_SDK'].forEach(
     envvar => {
       console.log(`${envvar}=${process.env[envvar]}`)
     }
@@ -58,9 +58,7 @@ const run = async () => {
   await deployExtensions()
 
   try {
-    await runCypress({
-      baseUrl: config.baseUrl
-    })
+    await runCypress()
   } catch (e) {}
 }
 
