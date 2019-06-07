@@ -145,7 +145,7 @@ describe(`Field`, () => {
       })
     })
 
-    function describeSetValue (msg, locale, localeOrDefault) {
+    function describeSetValue(msg, locale, localeOrDefault) {
       describe(msg, () => {
         const newValue = `new-value-${localeOrDefault}`
 
@@ -185,7 +185,7 @@ describe(`Field`, () => {
       })
     })
 
-    function describeRemoveValue (msg, locale) {
+    function describeRemoveValue(msg, locale) {
       describe(msg, () => {
         const localeParam = locale ? `"${locale}"` : 'undefined'
 
@@ -228,7 +228,7 @@ describe(`Field`, () => {
     })
 
     describe(`injected channel propagating "valueChanged"`, () => {
-      beforeEach(function () {
+      beforeEach(function() {
         this.receiveValueChanged = (...handlerArgs) => {
           channelStub.addHandler.args.forEach(args => {
             // Handler registered with channel.addHandler("valueChanged", handler)
@@ -237,14 +237,14 @@ describe(`Field`, () => {
         }
       })
 
-      it('does not update the value when receiving update for another field', function () {
+      it('does not update the value when receiving update for another field', function() {
         const oldValue = field.getValue()
         this.receiveValueChanged('other-id', defaultLocale, 'NEW')
 
         expect(oldValue).to.equal(field.getValue())
       })
 
-      it(`updates the value when receiving a change message`, function () {
+      it(`updates the value when receiving a change message`, function() {
         this.receiveValueChanged(field.id, defaultLocale, 'CHANGED')
         expect(field.getValue()).to.equal('CHANGED')
       })

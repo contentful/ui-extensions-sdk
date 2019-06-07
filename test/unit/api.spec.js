@@ -15,7 +15,7 @@ const sharedExpected = [
   'ids'
 ]
 
-function test (expected, location, expectedLocation) {
+function test(expected, location, expectedLocation) {
   expectedLocation = expectedLocation || location
 
   const channel = { addHandler: () => {} }

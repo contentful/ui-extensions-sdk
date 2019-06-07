@@ -12,7 +12,7 @@ const config = {
   testLocalSdk: process.env.TEST_LOCAL_SDK === 'true'
 }
 
-function listAllEnvironmentVariables () {
+function listAllEnvironmentVariables() {
   ;[
     'CONTENTFUL_SPACE_ID',
     'CONTENTFUL_CMA_TOKEN',
@@ -47,7 +47,7 @@ const run = async () => {
 /**
  * When running tests locally we don't create a new environment programmatically
  */
-;(async function main () {
+;(async function main() {
   try {
     await run()
     process.exit(0)

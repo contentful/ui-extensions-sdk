@@ -7,7 +7,7 @@ const resolvePath = relativePath => path.resolve(rootDirectory, relativePath)
 
 let stepCount = 1
 
-function printStepTitle (title) {
+function printStepTitle(title) {
   console.log('')
   console.log('-----------------------')
   console.log(`Step ${stepCount++}: ${title}`)
@@ -15,7 +15,7 @@ function printStepTitle (title) {
   console.log('')
 }
 
-function writeJSONFile (path, obj) {
+function writeJSONFile(path, obj) {
   fs.writeFileSync(path, JSON.stringify(obj, null, 2) + os.EOL, {
     encoding: 'utf8',
     flag: 'w'

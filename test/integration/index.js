@@ -14,7 +14,7 @@ const config = {
   testLocalSdk: process.env.TEST_LOCAL_SDK === 'true'
 }
 
-function listAllEnvironmentVariables () {
+function listAllEnvironmentVariables() {
   ;['CONTENTFUL_SPACE_ID', 'CONTENTFUL_CMA_TOKEN', 'CYPRESS_BASE_URL', 'TEST_LOCAL_SDK'].forEach(
     envvar => {
       console.log(`${envvar}=${process.env[envvar]}`)
@@ -64,7 +64,7 @@ const run = async () => {
   } catch (e) {}
 }
 
-;(async function main () {
+;(async function main() {
   try {
     await run()
     await cleanup()
