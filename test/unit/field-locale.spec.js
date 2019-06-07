@@ -47,7 +47,7 @@ describe('FieldLocale', () => {
   })
 
   describe('.locale', () => {
-    it('is set to the same value as given to first constructor arg\'s .locale', () => {
+    it("is set to the same value as given to first constructor arg's .locale", () => {
       expect(field.locale).to.equal(info.locale)
     })
   })
@@ -165,11 +165,14 @@ describe('FieldLocale', () => {
 
     it(`invokes channel.call("${method}", ...)`, () => {
       if (newValue === undefined) {
-        expect(channelStub.call).to.have.been.calledWithExactly(
-          method, field.id, info.locale)
+        expect(channelStub.call).to.have.been.calledWithExactly(method, field.id, info.locale)
       } else {
         expect(channelStub.call).to.have.been.calledWithExactly(
-          method, field.id, info.locale, newValue)
+          method,
+          field.id,
+          info.locale,
+          newValue
+        )
       }
     })
 

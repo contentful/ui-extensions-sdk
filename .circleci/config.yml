@@ -1,17 +1,34 @@
 version: 2.1
 
+cache-key: &cache-key
+  key: dependency-cache-primary-{{ arch }}-{{ checksum ".nvmrc" }}-{{ checksum "package-lock.json" }}
+
 jobs:
   all:
     docker:
-      - image: circleci/node:carbon
+      - image: cypress/browsers:node8.15.1-chrome73
     steps:
       - checkout
-      - run: npm install
+      - restore_cache: *cache-key
+      - run: npm ci
+      - run:
+          name: Reverting "package-lock.json"
+          # `npm install` can modify `package-lock.json`. If it happens, we're caching dependencies
+          # with a wrong key. To mitigate this problem we restore the original lock file.
+          command: git checkout -- package-lock.json
+      - save_cache:
+          <<: *cache-key
+          paths:
+            - ./node_modules
       - run: npm run lint
       - run: npm test
       - run: npm run build
       - run: npm run size
       - run: npm run integration
+      - store_test_results:
+          path: test/cypress/reports
+      - store_artifacts:
+          path: test/cypress/screenshots
 
 workflows:
   version: 2
@@ -25,7 +42,7 @@ workflows:
       - all
     triggers:
       - schedule:
-          cron: "40 * * * *"
+          cron: '40 * * * *'
           filters:
             branches:
               only:

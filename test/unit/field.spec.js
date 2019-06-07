@@ -119,7 +119,7 @@ describe(`Field`, () => {
         }).to.throw('Unknown locale "some-unknown-locale" for field "some-field"')
       })
 
-      info.locales.forEach((locale) => {
+      info.locales.forEach(locale => {
         if (locale === defaultLocale) {
           return
         }
@@ -134,7 +134,7 @@ describe(`Field`, () => {
     describeSetValue(`.setValue(value)`, undefined, defaultLocale)
 
     describe(`.setValue(value, locale)`, () => {
-      info.locales.forEach((locale) => {
+      info.locales.forEach(locale => {
         describeSetValue(`with locale set to "${locale}"`, locale, locale)
       })
 
@@ -158,7 +158,11 @@ describe(`Field`, () => {
         })
         it(`invokes channel.call("setValue", ...)`, () => {
           expect(channelStub.call).to.have.been.calledWithExactly(
-            'setValue', field.id, localeOrDefault, newValue)
+            'setValue',
+            field.id,
+            localeOrDefault,
+            newValue
+          )
         })
         it(`returns the promise returned by internal channel.call()`, () => {
           channelStub.call.withArgs('setValue').returns('PROMISE')
@@ -170,7 +174,7 @@ describe(`Field`, () => {
     describeRemoveValue(`.removeValue()`, undefined)
 
     describe(`.removeValue(locale)`, () => {
-      info.locales.forEach((locale) => {
+      info.locales.forEach(locale => {
         describeRemoveValue(`with locale set to "${locale}"`, locale)
       })
 
@@ -190,8 +194,8 @@ describe(`Field`, () => {
           field.removeValue(locale)
 
           expect(setValueSpy)
-            .to.have.callCount(1).and
-            .to.have.been.calledWithExactly(undefined, locale)
+            .to.have.callCount(1)
+            .and.to.have.been.calledWithExactly(undefined, locale)
         })
         it(`returns the same value as .setValue(undefined, ${localeParam})`, () => {
           const setValueStub = sinon.stub(field, 'setValue')
@@ -210,7 +214,7 @@ describe(`Field`, () => {
     })
 
     describe(`.onValueChanged(locale, handler)`, () => {
-      info.locales.forEach((locale) => {
+      info.locales.forEach(locale => {
         describeAttachHandlerMember(`with locale set to ${locale}`, () => {
           return field.onValueChanged(locale, () => {})
         })
@@ -226,20 +230,19 @@ describe(`Field`, () => {
     describe(`injected channel propagating "valueChanged"`, () => {
       beforeEach(function () {
         this.receiveValueChanged = (...handlerArgs) => {
-          channelStub.addHandler.args.forEach((args) => {
+          channelStub.addHandler.args.forEach(args => {
             // Handler registered with channel.addHandler("valueChanged", handler)
             args[1](...handlerArgs)
           })
         }
       })
 
-      it('does not update the value when receiving update for another field',
-        function () {
-          const oldValue = field.getValue()
-          this.receiveValueChanged('other-id', defaultLocale, 'NEW')
+      it('does not update the value when receiving update for another field', function () {
+        const oldValue = field.getValue()
+        this.receiveValueChanged('other-id', defaultLocale, 'NEW')
 
-          expect(oldValue).to.equal(field.getValue())
-        })
+        expect(oldValue).to.equal(field.getValue())
+      })
 
       it(`updates the value when receiving a change message`, function () {
         this.receiveValueChanged(field.id, defaultLocale, 'CHANGED')

@@ -46,7 +46,7 @@ const spaceMethods = [
 
 describe('createSpace()', () => {
   describe('returned "space" object', () => {
-    spaceMethods.forEach((spaceMethod) => {
+    spaceMethods.forEach(spaceMethod => {
       const args = ['foo', 42, {}]
       describeChannelCallingMethod({
         creator: createSpace,

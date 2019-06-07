@@ -58,8 +58,10 @@ function test (SignalConstructor) {
       })
 
       it('throws an error if listener is not a function', () => {
-        ['foo', undefined, 42].forEach((value) => {
-          expect(() => { signal.attach(value) }).to.throw()
+        ;['foo', undefined, 42].forEach(value => {
+          expect(() => {
+            signal.attach(value)
+          }).to.throw()
         })
       })
 

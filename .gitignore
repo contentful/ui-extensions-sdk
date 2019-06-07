@@ -3,3 +3,9 @@
 /.DS_Store
 /dist/cf-extension-api.js
 /dist/cf-extension-api.map
+/test/cypress/reports
+/test/cypress/videos
+/test/cypress/screenshots
+cypress.env.json
+.env
+.env.local

@@ -19,9 +19,13 @@ module.exports = {
 }
 
 function mockMutationObserver (dom, registerMutationTrigger) {
-  const MutationObserverMock = function (cb) { registerMutationTrigger(cb) }
+  const MutationObserverMock = function (cb) {
+    registerMutationTrigger(cb)
+  }
   MutationObserverMock.prototype.observe = () => {}
-  MutationObserverMock.prototype.disconnect = () => { registerMutationTrigger(() => {}) }
+  MutationObserverMock.prototype.disconnect = () => {
+    registerMutationTrigger(() => {})
+  }
 
   Object.defineProperty(dom.window, 'MutationObserver', {
     writable: false,
@@ -64,8 +68,8 @@ function describeChannelCallingMethod (spec) {
     it(`invokes channel.call('${channelMethod}')`, () => {
       object[methodName](...args)
       expect(channelCallStub)
-        .to.have.callCount(1).and
-        .to.have.been.calledWithExactly(...[channelMethod].concat(expectedCallArgs))
+        .to.have.callCount(1)
+        .and.to.have.been.calledWithExactly(...[channelMethod].concat(expectedCallArgs))
     })
 
     it('returns the promise returned by internal channel.call()', () => {

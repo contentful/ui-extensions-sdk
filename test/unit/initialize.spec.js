@@ -10,7 +10,7 @@ describe('initializeApi(currentWindow, apiCreator)', function () {
     this.apiCreator = sinon.stub().returns({})
     const init = initializeApi(this.dom.window, (...args) => this.apiCreator(...args))
     this.initialize = function () {
-      return new Promise((resolve) => init(resolve))
+      return new Promise(resolve => init(resolve))
     }
   })
 
@@ -42,7 +42,7 @@ describe('initializeApi(currentWindow, apiCreator)', function () {
     })
 
     it('receives the result of the apiCreator', function (done) {
-      this.init((arg) => {
+      this.init(arg => {
         expect(arg).to.equal(this.api)
         done()
       })
@@ -53,14 +53,13 @@ describe('initializeApi(currentWindow, apiCreator)', function () {
   it('calls apiCreator with channel and params', function () {
     const params = { id: 'foo', val: 'x' }
     sendConnect(this.dom, params)
-    return this.initialize()
-      .then(() => {
-        const [channel, params] = this.apiCreator.args[0]
-        expect(channel.call).to.be.a('function')
-        expect(channel.send).to.be.a('function')
-        expect(channel.addHandler).to.be.a('function')
-        expect(params).to.deep.equal(params)
-      })
+    return this.initialize().then(() => {
+      const [channel, params] = this.apiCreator.args[0]
+      expect(channel.call).to.be.a('function')
+      expect(channel.send).to.be.a('function')
+      expect(channel.addHandler).to.be.a('function')
+      expect(params).to.deep.equal(params)
+    })
   })
 
   it('calls handlers for queued messages', function () {
@@ -69,11 +68,10 @@ describe('initializeApi(currentWindow, apiCreator)', function () {
     this.apiCreator = function (channel) {
       channel.addHandler('M', handler)
     }
-    return this.initialize()
-      .then(() => {
-        expect(handler).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
-        expect(handler).to.have.been.calledWithExactly('X', 'Y')
-      })
+    return this.initialize().then(() => {
+      expect(handler).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
+      expect(handler).to.have.been.calledWithExactly('X', 'Y')
+    })
   })
 
   it('adds focus handlers', function () {
@@ -83,30 +81,29 @@ describe('initializeApi(currentWindow, apiCreator)', function () {
       channel.send = send
     }
     sendConnect(this.dom)
-    return this.initialize()
-      .then(() => {
-        this.dom.window.document.dispatchEvent(new Event('focus'))
-        expect(send).to.be.calledOnce // eslint-disable-line no-unused-expressions
-        expect(send).to.be.calledWithExactly('setActive', true)
+    return this.initialize().then(() => {
+      this.dom.window.document.dispatchEvent(new Event('focus'))
+      expect(send).to.be.calledOnce // eslint-disable-line no-unused-expressions
+      expect(send).to.be.calledWithExactly('setActive', true)
 
-        send.resetHistory()
-        this.dom.window.document.dispatchEvent(new Event('blur'))
-        expect(send).to.be.calledOnce // eslint-disable-line no-unused-expressions
-        expect(send).to.be.calledWithExactly('setActive', false)
-      })
+      send.resetHistory()
+      this.dom.window.document.dispatchEvent(new Event('blur'))
+      expect(send).to.be.calledOnce // eslint-disable-line no-unused-expressions
+      expect(send).to.be.calledWithExactly('setActive', false)
+    })
   })
 
   function sendConnect (dom, params, messageQueue) {
-    dom.window.postMessage({
-      method: 'connect',
-      params: [
-        params || { id: 'foo' },
-        messageQueue || []
-      ]
-    }, '*')
+    dom.window.postMessage(
+      {
+        method: 'connect',
+        params: [params || { id: 'foo' }, messageQueue || []]
+      },
+      '*'
+    )
   }
 
   function wait () {
-    return new Promise((resolve) => setTimeout(resolve))
+    return new Promise(resolve => setTimeout(resolve))
   }
 })

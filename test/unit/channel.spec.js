@@ -13,31 +13,43 @@ describe('channel connect', function () {
   })
 
   it('resolves with channel and params on connect event', function (done) {
-    connect(this.dom.window, (channel, params) => {
-      expect(channel.send).to.be.a('function')
-      expect(channel.call).to.be.a('function')
-      expect(channel.addHandler).to.be.a('function')
-      expect(params.id).to.equal('ID')
-      done()
-    })
+    connect(
+      this.dom.window,
+      (channel, params) => {
+        expect(channel.send).to.be.a('function')
+        expect(channel.call).to.be.a('function')
+        expect(channel.addHandler).to.be.a('function')
+        expect(params.id).to.equal('ID')
+        done()
+      }
+    )
 
-    this.dom.window.postMessage({
-      method: 'connect',
-      params: [{ id: 'ID' }]
-    }, '*')
+    this.dom.window.postMessage(
+      {
+        method: 'connect',
+        params: [{ id: 'ID' }]
+      },
+      '*'
+    )
   })
 
   describe('channel instance', function () {
     beforeEach(function (done) {
-      connect(this.dom.window, (channel) => {
-        this.channel = channel
-        done()
-      })
+      connect(
+        this.dom.window,
+        channel => {
+          this.channel = channel
+          done()
+        }
+      )
 
-      this.dom.window.postMessage({
-        method: 'connect',
-        params: [{ id: 'SOURCE' }]
-      }, '*')
+      this.dom.window.postMessage(
+        {
+          method: 'connect',
+          params: [{ id: 'SOURCE' }]
+        },
+        '*'
+      )
     })
 
     describe('#send()', function () {
@@ -83,10 +95,13 @@ describe('channel connect', function () {
         const response = this.channel.call('M')
         const messageId = this.postMessage.args[0][0].id
 
-        this.dom.window.postMessage({
-          id: messageId,
-          result: 'JO'
-        }, '*')
+        this.dom.window.postMessage(
+          {
+            id: messageId,
+            result: 'JO'
+          },
+          '*'
+        )
 
         return expect(response).to.eventually.equal('JO')
       })
@@ -95,10 +110,13 @@ describe('channel connect', function () {
         const response = this.channel.call('M')
         const messageId = this.postMessage.args[0][0].id
 
-        this.dom.window.postMessage({
-          id: messageId,
-          error: 'ERROR'
-        }, '*')
+        this.dom.window.postMessage(
+          {
+            id: messageId,
+            error: 'ERROR'
+          },
+          '*'
+        )
 
         return expect(response).to.be.rejected
       })
@@ -110,10 +128,13 @@ describe('channel connect', function () {
           expect(params).to.deep.equal(['a', 'b', 'c'])
           done()
         })
-        this.dom.window.postMessage({
-          method: 'method',
-          params: ['a', 'b', 'c']
-        }, '*')
+        this.dom.window.postMessage(
+          {
+            method: 'method',
+            params: ['a', 'b', 'c']
+          },
+          '*'
+        )
       })
     })
   })

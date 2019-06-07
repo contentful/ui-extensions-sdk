@@ -1,21 +1,77 @@
-const fs = require('fs')
-const path = require('path');
+require('dotenv').config()
 
-[
-  'CONTENTFUL_PAT',
-  'CONTENTFUL_CMA_URL',
-  'CONTENTFUL_APP_URL',
-  'CONTENTFUL_USER',
-  'CONTENTFUL_PASSWORD'
-].forEach(envvar => {
-  console.log(`${envvar}=${process.env[envvar]}`)
-})
+const buildExtensions = require('./tasks/build-extensions')
+const deployExtensions = require('./tasks/deploy-extensions')
+const createEnvironment = require('./tasks/create-new-enviromenment')
+const deleteEnvironment = require('./tasks/delete-new-environment')
+const createConfigurationFiles = require('./tasks/create-configuration-files')
+const runCypress = require('./tasks/run-cypress')
 
-const sdkFile = path.resolve(__dirname, '../../dist/cf-extension-api.js')
-const sdk = fs.readFileSync(sdkFile, 'utf8')
+const config = {
+  cmaToken: process.env.CONTENTFUL_CMA_TOKEN,
+  spaceId: process.env.CONTENTFUL_SPACE_ID,
+  baseUrl: process.env.CONTENTFUL_APP,
+  testLocalSdk: process.env.TEST_LOCAL_SDK === 'true'
+}
 
-console.log(`\n\nSDK:\n${sdk.slice(0, 500)}...\n\n`)
+function listAllEnvironmentVariables () {
+  ;['CONTENTFUL_SPACE_ID', 'CONTENTFUL_CMA_TOKEN', 'CYPRESS_BASE_URL', 'TEST_LOCAL_SDK'].forEach(
+    envvar => {
+      console.log(`${envvar}=${process.env[envvar]}`)
+    }
+  )
+}
 
-console.log('No tests yet.')
+let environmentId
 
-process.exit(0)
+const cleanup = async () => {
+  if (environmentId) {
+    try {
+      await deleteEnvironment(environmentId)
+    } catch (e) {
+      console.log(e)
+      throw new Error('Failed to remove environment')
+    }
+  }
+}
+
+const run = async () => {
+  listAllEnvironmentVariables()
+
+  try {
+    environmentId = await createEnvironment()
+  } catch (e) {
+    console.log(e)
+    throw new Error('Failed to create a new environment')
+  }
+
+  await createConfigurationFiles({
+    cmaToken: config.cmaToken,
+    spaceId: config.spaceId,
+    environmentId
+  })
+
+  await buildExtensions({
+    testLocalSdk: config.testLocalSdk
+  })
+
+  await deployExtensions()
+
+  try {
+    await runCypress({
+      baseUrl: config.baseUrl
+    })
+  } catch (e) {}
+}
+
+;(async function main () {
+  try {
+    await run()
+    await cleanup()
+    process.exit(0)
+  } catch (err) {
+    console.log(err)
+    await cleanup()
+    process.exit(1)
+  }
+})()
