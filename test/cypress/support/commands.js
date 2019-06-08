@@ -5,5 +5,6 @@ Cypress.Commands.add('captureIFrameAs', { prevSubject: 'element' }, ($element, a
 
 Cypress.Commands.add('setAuthTokenToLocalStorage', function setAuthTokenToLocalStorage() {
   const TOKEN = Cypress.env('cmaToken')
+  window.localStorage.setItem('token', TOKEN)
   window.sessionStorage.setItem('token', TOKEN)
 })
