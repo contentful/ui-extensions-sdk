@@ -20,7 +20,6 @@ class App extends React.Component {
 
     // Handler for external field value changes (e.g. when multiple authors are working on the same entry).
     this.detachExternalChangeHandler = this.props.sdk.field.onValueChanged(this.onExternalChange)
-    // const test = this.props.sdk.navigator.openPageExtension('test')
   }
 
   componentWillUnmount() {

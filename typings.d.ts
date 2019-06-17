@@ -310,6 +310,11 @@ declare module 'contentful-ui-extensions-sdk' {
     slideIn?: boolean;
   }
 
+    interface PageExtensionOptions {
+        extensionId?: string;
+        path?: string;
+    }
+
   interface NavigatorAPI {
     /** Opens an existing entry in the current Web App session. */
     openEntry: (entryId: string, options?: NavigatorAPIOptions) => Promise<void>;
@@ -319,7 +324,7 @@ declare module 'contentful-ui-extensions-sdk' {
     openNewEntry: (contentTypeId: string, options?: NavigatorAPIOptions) => Promise<void>;
     /** Opens a new asset in the current Web App session. */
     openNewAsset: (options: NavigatorAPIOptions) => Promise<void>;
-    openPageExtension: (extensionId: string) => Promise<void>;
+    openPageExtension: (options?: PageExtensionOptions) => Promise<void>;
   }
 
   /* Notifier API */
@@ -427,6 +432,7 @@ declare module 'contentful-ui-extensions-sdk' {
     LOCATION_ENTRY_SIDEBAR: string;
     LOCATION_DIALOG: string;
     LOCATION_ENTRY_EDITOR: string;
+    LOCATION_PAGE: string;
   }
 
 }
