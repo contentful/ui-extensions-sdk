@@ -319,6 +319,7 @@ declare module 'contentful-ui-extensions-sdk' {
     openNewEntry: (contentTypeId: string, options?: NavigatorAPIOptions) => Promise<void>;
     /** Opens a new asset in the current Web App session. */
     openNewAsset: (options: NavigatorAPIOptions) => Promise<void>;
+    openPageExtension: (extensionId: string) => Promise<void>;
   }
 
   /* Notifier API */
