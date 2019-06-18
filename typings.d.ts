@@ -311,8 +311,10 @@ declare module 'contentful-ui-extensions-sdk' {
   }
 
   interface PageExtensionOptions {
-      extensionId?: string;
-      path?: string;
+    /** If included, you can navigate to a different page extension. If omitted, you will navigate within the current extension. */
+    extensionId?: string;
+    /** Navigate to a path withing your page extension. */
+    path?: string;
   }
 
   interface NavigatorAPI {
@@ -324,6 +326,7 @@ declare module 'contentful-ui-extensions-sdk' {
     openNewEntry: (contentTypeId: string, options?: NavigatorAPIOptions) => Promise<void>;
     /** Opens a new asset in the current Web App session. */
     openNewAsset: (options: NavigatorAPIOptions) => Promise<void>;
+    /** Navigates to a page extension in the current Web App session. Calling without `options` will navigate to the home route of your page extension. */
     openPageExtension: (options?: PageExtensionOptions) => Promise<void>;
   }
 
