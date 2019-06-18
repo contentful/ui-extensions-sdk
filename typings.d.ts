@@ -310,10 +310,10 @@ declare module 'contentful-ui-extensions-sdk' {
     slideIn?: boolean;
   }
 
-    interface PageExtensionOptions {
-        extensionId?: string;
-        path?: string;
-    }
+  interface PageExtensionOptions {
+      extensionId?: string;
+      path?: string;
+  }
 
   interface NavigatorAPI {
     /** Opens an existing entry in the current Web App session. */
@@ -424,7 +424,12 @@ declare module 'contentful-ui-extensions-sdk' {
     window: WindowAPI;
   }
 
-  export const init: (initCallback: (sdk: FieldExtensionSDK | SidebarExtensionSDK | DialogExtensionSDK | EditorExtensionSDK) => any) => void;
+  export type PageExtensionSDK = BaseExtensionSDK & {
+    /** A set of IDs actual for the extension */
+    ids: Pick<IdsAPI, 'environment' | 'space' | 'extension' | 'user'>;
+  }
+
+  export const init: (initCallback: (sdk: FieldExtensionSDK | SidebarExtensionSDK | DialogExtensionSDK | EditorExtensionSDK | PageExtensionSDK) => any) => void;
 
   export const locations: {
     LOCATION_ENTRY_FIELD: string;
