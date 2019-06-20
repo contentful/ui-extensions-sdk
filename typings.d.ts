@@ -260,7 +260,7 @@ declare module 'contentful-ui-extensions-sdk' {
   }
 
   interface OpenExtensionOptions {
-    id: string;
+    id?: string;
     width?: number;
     position?: 'center' | 'top';
     title?: string;
@@ -312,7 +312,7 @@ declare module 'contentful-ui-extensions-sdk' {
 
   interface PageExtensionOptions {
     /** If included, you can navigate to a different page extension. If omitted, you will navigate within the current extension. */
-    extensionId?: string;
+    id?: string;
     /** Navigate to a path withing your page extension. */
     path?: string;
   }

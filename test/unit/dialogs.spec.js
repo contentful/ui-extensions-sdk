@@ -5,8 +5,7 @@ const createDialogs = require('../../lib/dialogs')
 const SIMPLE_DIALOGS = [
   ['openAlert', 'alert'],
   ['openConfirm', 'confirm'],
-  ['openPrompt', 'prompt'],
-  ['openExtension', 'extension']
+  ['openPrompt', 'prompt']
 ]
 
 const ENTITY_SELECTOR_DIALOGS = [
@@ -36,6 +35,22 @@ describe('createDialogs()', () => {
         args: [{ test: true }],
         expectedCallArgs: ['entitySelector', { test: true, entityType, multiple }]
       })
+    })
+
+    describeChannelCallingMethod({
+      creator: channelStub => createDialogs(channelStub, 'test-id'),
+      methodName: 'openExtension',
+      channelMethod: 'openDialog',
+      args: [{ test: true }],
+      expectedCallArgs: ['extension', { id: 'test-id', test: true }]
+    })
+
+    describeChannelCallingMethod({
+      creator: channelStub => createDialogs(channelStub, 'test-id'),
+      methodName: 'openExtension',
+      channelMethod: 'openDialog',
+      args: [{ test: true, id: 'custom-test-id' }],
+      expectedCallArgs: ['extension', { id: 'custom-test-id', test: true }]
     })
   })
 })

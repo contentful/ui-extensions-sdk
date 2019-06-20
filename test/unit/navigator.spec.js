@@ -46,25 +46,25 @@ const SCENARIOS = [
   {
     method: 'openPageExtension',
     args: [],
-    expected: { extensionId: 'test-id' },
+    expected: { id: 'test-id' },
     channelMethod: 'navigateToPageExtension'
   },
   {
     method: 'openPageExtension',
     args: [{ page: 'testPage' }],
-    expected: { extensionId: 'test-id', page: 'testPage' },
+    expected: { id: 'test-id', page: 'testPage' },
     channelMethod: 'navigateToPageExtension'
   },
   {
     method: 'openPageExtension',
-    args: [{ extensionId: 'another-id' }],
-    expected: { extensionId: 'another-id' },
+    args: [{ id: 'another-id' }],
+    expected: { id: 'another-id' },
     channelMethod: 'navigateToPageExtension'
   },
   {
     method: 'openPageExtension',
-    args: [{ extensionId: 'another-id', page: 'testPage' }],
-    expected: { extensionId: 'another-id', page: 'testPage' },
+    args: [{ id: 'another-id', page: 'testPage' }],
+    expected: { id: 'another-id', page: 'testPage' },
     channelMethod: 'navigateToPageExtension'
   }
 ]
