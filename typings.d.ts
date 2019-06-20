@@ -260,7 +260,7 @@ declare module 'contentful-ui-extensions-sdk' {
   }
 
   interface OpenExtensionOptions {
-    id: string;
+    id?: string;
     width?: number;
     position?: 'center' | 'top';
     title?: string;
