@@ -310,6 +310,13 @@ declare module 'contentful-ui-extensions-sdk' {
     slideIn?: boolean;
   }
 
+  interface PageExtensionOptions {
+    /** If included, you can navigate to a different page extension. If omitted, you will navigate within the current extension. */
+    extensionId?: string;
+    /** Navigate to a path withing your page extension. */
+    path?: string;
+  }
+
   interface NavigatorAPI {
     /** Opens an existing entry in the current Web App session. */
     openEntry: (entryId: string, options?: NavigatorAPIOptions) => Promise<void>;
@@ -319,6 +326,8 @@ declare module 'contentful-ui-extensions-sdk' {
     openNewEntry: (contentTypeId: string, options?: NavigatorAPIOptions) => Promise<void>;
     /** Opens a new asset in the current Web App session. */
     openNewAsset: (options: NavigatorAPIOptions) => Promise<void>;
+    /** Navigates to a page extension in the current Web App session. Calling without `options` will navigate to the home route of your page extension. */
+    openPageExtension: (options?: PageExtensionOptions) => Promise<void>;
   }
 
   /* Notifier API */
@@ -418,7 +427,12 @@ declare module 'contentful-ui-extensions-sdk' {
     window: WindowAPI;
   }
 
-  export const init: (initCallback: (sdk: FieldExtensionSDK | SidebarExtensionSDK | DialogExtensionSDK | EditorExtensionSDK) => any) => void;
+  export type PageExtensionSDK = BaseExtensionSDK & {
+    /** A set of IDs actual for the extension */
+    ids: Pick<IdsAPI, 'environment' | 'space' | 'extension' | 'user'>;
+  }
+
+  export const init: (initCallback: (sdk: FieldExtensionSDK | SidebarExtensionSDK | DialogExtensionSDK | EditorExtensionSDK | PageExtensionSDK) => any) => void;
 
   export const locations: {
     LOCATION_ENTRY_FIELD: string;
@@ -426,6 +440,7 @@ declare module 'contentful-ui-extensions-sdk' {
     LOCATION_ENTRY_SIDEBAR: string;
     LOCATION_DIALOG: string;
     LOCATION_ENTRY_EDITOR: string;
+    LOCATION_PAGE: string;
   }
 
 }

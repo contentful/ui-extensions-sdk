@@ -39,6 +39,9 @@ function test(expected, location, expectedLocation) {
         sidebar: [],
         sys: {}
       }
+    },
+    ids: {
+      extension: 'my-test-id'
     }
   }
 

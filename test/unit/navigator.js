@@ -42,16 +42,40 @@ const SCENARIOS = [
     method: 'openNewAsset',
     args: [{ slideIn: true }],
     expected: { entityType: 'Asset', id: null, slideIn: true }
+  },
+  {
+    method: 'openPageExtension',
+    args: [],
+    expected: { extensionId: 'test-id' },
+    channelMethod: 'navigateToPageExtension'
+  },
+  {
+    method: 'openPageExtension',
+    args: [{ page: 'testPage' }],
+    expected: { extensionId: 'test-id', page: 'testPage' },
+    channelMethod: 'navigateToPageExtension'
+  },
+  {
+    method: 'openPageExtension',
+    args: [{ extensionId: 'another-id' }],
+    expected: { extensionId: 'another-id' },
+    channelMethod: 'navigateToPageExtension'
+  },
+  {
+    method: 'openPageExtension',
+    args: [{ extensionId: 'another-id', page: 'testPage' }],
+    expected: { extensionId: 'another-id', page: 'testPage' },
+    channelMethod: 'navigateToPageExtension'
   }
 ]
 
 describe('createNavigator()', () => {
   describe('returned "navigator" object', () => {
-    SCENARIOS.forEach(({ method, args, expected }) => {
+    SCENARIOS.forEach(({ method, args, expected, channelMethod = 'navigateToContentEntity' }) => {
       describeChannelCallingMethod({
-        creator: createNavigator,
+        creator: channelStub => createNavigator(channelStub, 'test-id'),
         methodName: method,
-        channelMethod: 'navigateToContentEntity',
+        channelMethod,
         args,
         expectedCallArgs: expected
       })
