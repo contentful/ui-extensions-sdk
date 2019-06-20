@@ -26,7 +26,7 @@ context('Field extension', () => {
   })
 
   it('opens a page extension and tests navigating within the page', () => {
-    cy.visit(pageExtension('test-field-extension'))
+    cy.visit(pageExtension('test-page-extension'))
 
     // eslint-disable-next-line
     cy.wait(3000)
@@ -41,6 +41,6 @@ context('Field extension', () => {
       .find('button:first')
       .click()
 
-    cy.url().should('include', 'test-field-extension/new')
+    cy.url().should('include', 'test-page-extension/new')
   })
 })
