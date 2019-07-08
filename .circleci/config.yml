@@ -24,7 +24,11 @@ jobs:
       - run: npm test
       - run: npm run build
       - run: npm run size
-      - run: npm run integration
+      - run:
+          name: npm run integration
+          command: |
+            set -e
+            npm run integration
       - store_test_results:
           path: test/cypress/reports
       - store_artifacts:
