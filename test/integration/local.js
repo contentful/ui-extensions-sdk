@@ -5,7 +5,7 @@ const deployExtensions = require('./tasks/deploy-extensions')
 const createConfigurationFiles = require('./tasks/create-configuration-files')
 
 const config = {
-  cmaToken: process.env.CONTENTFUL_CMA_TOKEN,
+  managementToken: process.env.CONTENTFUL_CMA_TOKEN,
   spaceId: process.env.CONTENTFUL_SPACE_ID,
   baseUrl: process.env.CONTENTFUL_APP,
   environmentId: process.env.CONTENTFUL_LOCAL_TESTING_ENV,
@@ -32,7 +32,7 @@ const run = async () => {
   listAllEnvironmentVariables()
 
   await createConfigurationFiles({
-    cmaToken: config.cmaToken,
+    managementToken: config.managementToken,
     spaceId: config.spaceId,
     environmentId: config.environmentId
   })

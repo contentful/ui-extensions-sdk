@@ -1,6 +1,6 @@
 {
-  "id": "test-page-extension",
-  "name": "test-page-extension",
+  "id": "test-extension",
+  "name": "test-extension",
   "srcdoc": "./build/index.html",
   "fieldTypes": ["Symbol"]
 }

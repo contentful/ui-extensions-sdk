@@ -2,24 +2,25 @@ const writeJSONFile = require('../utils').writeJSONFile
 const resolvePath = require('../utils').resolvePath
 const printStepTitle = require('../utils').printStepTitle
 
-module.exports = async ({ cmaToken, spaceId, environmentId }) => {
+module.exports = async ({ managementToken, spaceId, environmentId }) => {
   printStepTitle('Creating configuration files based on environment variables')
 
   async function writeJSONForExtension(extensionId) {
     await writeJSONFile(resolvePath(`test/extensions/${extensionId}/.contentfulrc.json`), {
-      cmaToken: cmaToken,
+      managementToken: managementToken,
       activeSpaceId: spaceId,
-      activeEnvironmentId: environmentId
+      activeEnvironmentId: environmentId,
+      host: 'api.contentful.com'
     })
 
     console.log(`Created test/extensions/${extensionId}/.contentfulrc.json`)
     console.log('Created cypress.env.json')
   }
 
-  await Promise.all(['test-field-extension', 'test-page-extension'].map(writeJSONForExtension))
+  await Promise.all(['test-extension'].map(writeJSONForExtension))
 
   await writeJSONFile(resolvePath('cypress.env.json'), {
-    cmaToken: cmaToken,
+    managementToken: managementToken,
     activeSpaceId: spaceId,
     activeEnvironmentId: environmentId
   })

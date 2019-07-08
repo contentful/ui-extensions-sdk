@@ -8,7 +8,7 @@ const createConfigurationFiles = require('./tasks/create-configuration-files')
 const runCypress = require('./tasks/run-cypress')
 
 const config = {
-  cmaToken: process.env.CONTENTFUL_CMA_TOKEN,
+  managementToken: process.env.CONTENTFUL_CMA_TOKEN,
   spaceId: process.env.CONTENTFUL_SPACE_ID,
   baseUrl: process.env.CONTENTFUL_APP,
   testLocalSdk: process.env.TEST_LOCAL_SDK === 'true'
@@ -46,7 +46,7 @@ const run = async () => {
   }
 
   await createConfigurationFiles({
-    cmaToken: config.cmaToken,
+    managementToken: config.managementToken,
     spaceId: config.spaceId,
     environmentId
   })
@@ -57,9 +57,7 @@ const run = async () => {
 
   await deployExtensions()
 
-  try {
-    await runCypress()
-  } catch (e) {}
+  await runCypress()
 }
 
 ;(async function main() {

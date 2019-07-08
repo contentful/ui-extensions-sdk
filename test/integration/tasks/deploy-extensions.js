@@ -8,5 +8,5 @@ module.exports = async () => {
     await runScript('npm', ['run', 'deploy', '--prefix', `test/extensions/${extensionId}`])
   }
 
-  await Promise.all(['test-field-extension', 'test-page-extension'].map(runExtensionScript))
+  await Promise.all(['test-extension'].map(runExtensionScript))
 }
