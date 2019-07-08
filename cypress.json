@@ -13,5 +13,6 @@
   "reporterOptions": {
     "mochaFile": "test/cypress/reports/cypress-test-results.xml"
   },
-  "chromeWebSecurity": false
+  "chromeWebSecurity": false,
+  "defaultCommandTimeout": 7000
 }
