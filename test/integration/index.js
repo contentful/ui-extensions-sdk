@@ -57,9 +57,7 @@ const run = async () => {
 
   await deployExtensions()
 
-  try {
-    await runCypress()
-  } catch (e) {}
+  await runCypress()
 }
 
 ;(async function main() {
