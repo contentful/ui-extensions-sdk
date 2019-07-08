@@ -13,5 +13,5 @@ module.exports = async ({ testLocalSdk }) => {
     }
   }
 
-  await Promise.all(['test-field-extension', 'test-page-extension'].map(buildExtension))
+  await Promise.all(['test-extension'].map(buildExtension))
 }

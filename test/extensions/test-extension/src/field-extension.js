@@ -1,12 +1,8 @@
 import React from 'react'
-import { render } from 'react-dom'
 import PropTypes from 'prop-types'
 import { TextInput } from '@contentful/forma-36-react-components'
-import { init } from 'contentful-ui-extensions-sdk'
-import '@contentful/forma-36-react-components/dist/styles.css'
-import './index.css'
 
-class App extends React.Component {
+export class FieldExtension extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -55,10 +51,6 @@ class App extends React.Component {
   }
 }
 
-App.propTypes = {
+FieldExtension.propTypes = {
   sdk: PropTypes.object.isRequired
 }
-
-init(sdk => {
-  render(<App sdk={sdk} />, document.getElementById('root'))
-})

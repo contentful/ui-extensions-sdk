@@ -1,12 +1,8 @@
 import React from 'react'
-import { render } from 'react-dom'
 import PropTypes from 'prop-types'
 import { Button } from '@contentful/forma-36-react-components'
-import { init } from 'contentful-ui-extensions-sdk'
-import '@contentful/forma-36-react-components/dist/styles.css'
-import './index.css'
 
-function App({ sdk }) {
+export function PageExtension({ sdk }) {
   return (
     <div data-test-id="cf-ui-page-extension">
       hello page extension
@@ -29,10 +25,6 @@ function App({ sdk }) {
   )
 }
 
-App.propTypes = {
+PageExtension.propTypes = {
   sdk: PropTypes.object.isRequired
 }
-
-init(sdk => {
-  render(<App sdk={sdk} />, document.getElementById('root'))
-})

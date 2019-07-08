@@ -16,7 +16,7 @@ module.exports = async ({ cmaToken, spaceId, environmentId }) => {
     console.log('Created cypress.env.json')
   }
 
-  await Promise.all(['test-field-extension', 'test-page-extension'].map(writeJSONForExtension))
+  await Promise.all(['test-extension'].map(writeJSONForExtension))
 
   await writeJSONFile(resolvePath('cypress.env.json'), {
     cmaToken: cmaToken,
