@@ -9,7 +9,7 @@ context('Page extension', () => {
     cy.visit(pageExtension('test-extension'))
 
     // eslint-disable-next-line
-    cy.wait(3000)
+    cy.wait(5000)
 
     cy.get('[data-test-id="page-extension"] iframe').captureIFrameAs('extension')
 

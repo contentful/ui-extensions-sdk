@@ -5,6 +5,7 @@ import '@contentful/forma-36-react-components/dist/styles.css'
 import './index.css'
 import { FieldExtension } from './field-extension'
 import { PageExtension } from './page-extension'
+import { SidebarExtension } from './sidebar-extension'
 
 function renderExtension(element) {
   render(element, document.getElementById('root'))
@@ -15,5 +16,7 @@ init(sdk => {
     renderExtension(<FieldExtension sdk={sdk} />)
   } else if (sdk.location.is(locations.LOCATION_PAGE)) {
     renderExtension(<PageExtension sdk={sdk} />)
+  } else if (sdk.location.is(locations.LOCATION_ENTRY_SIDEBAR)) {
+    renderExtension(<SidebarExtension sdk={sdk} />)
   }
 })
