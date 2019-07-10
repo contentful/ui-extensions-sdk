@@ -3,16 +3,12 @@ import { pageExtension } from '../utils/paths'
 context('Page extension', () => {
   beforeEach(() => {
     cy.setAuthTokenToLocalStorage()
+    cy.visit(pageExtension('test-extension'))
+    cy.waitForIFrame()
+    cy.get('[data-test-id="page-extension"] iframe').captureIFrameAs('extension')
   })
 
   it('opens a page extension and tests navigating within the page', () => {
-    cy.visit(pageExtension('test-extension'))
-
-    // eslint-disable-next-line
-    cy.wait(5000)
-
-    cy.get('[data-test-id="page-extension"] iframe').captureIFrameAs('extension')
-
     cy.get('@extension')
       .find('[data-test-id="cf-ui-page-extension"]')
       .should('exist')

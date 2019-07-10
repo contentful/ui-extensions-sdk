@@ -7,6 +7,7 @@ export function DialogExtension({ sdk }) {
     <>
       <div>
         <OpenPageExtensionButton
+          testId="open-page-extension-button"
           sdk={sdk}
           onNavigated={() => {
             sdk.close()
@@ -15,7 +16,7 @@ export function DialogExtension({ sdk }) {
         </OpenPageExtensionButton>
       </div>
       <div>
-        <OpenPageExtensionButton sdk={sdk}>
+        <OpenPageExtensionButton sdk={sdk} testId="open-page-extension-button-without-closing">
           open page extension without closing dialog
         </OpenPageExtensionButton>
       </div>
