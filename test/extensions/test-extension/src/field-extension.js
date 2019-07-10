@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { TextInput } from '@contentful/forma-36-react-components'
+import { OpenPageExtensionButton } from './components'
 
 export class FieldExtension extends React.Component {
   constructor(props) {
@@ -40,13 +41,16 @@ export class FieldExtension extends React.Component {
 
   render = () => {
     return (
-      <TextInput
-        width="large"
-        type="text"
-        id="my-field"
-        value={this.state.value}
-        onChange={this.onChange}
-      />
+      <>
+        <TextInput
+          width="large"
+          type="text"
+          id="my-field"
+          value={this.state.value}
+          onChange={this.onChange}
+        />
+        <OpenPageExtensionButton sdk={this.props.sdk} />
+      </>
     )
   }
 }

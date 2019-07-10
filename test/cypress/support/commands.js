@@ -8,3 +8,8 @@ Cypress.Commands.add('setAuthTokenToLocalStorage', function setAuthTokenToLocalS
   window.localStorage.setItem('token', TOKEN)
   window.sessionStorage.setItem('token', TOKEN)
 })
+
+Cypress.Commands.add('waitForIFrame', function waitForIFrame() {
+  // eslint-disable-next-line
+  cy.wait(4000)
+})

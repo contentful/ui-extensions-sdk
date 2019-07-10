@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { TextInput, Textarea, Card } from '@contentful/forma-36-react-components'
+import { OpenPageExtensionButton } from './components'
 
 export class EntryEditorExtension extends React.Component {
   constructor(props) {
@@ -44,25 +45,30 @@ export class EntryEditorExtension extends React.Component {
 
   render() {
     return (
-      <Card className="f36-margin--xl">
-        <TextInput
-          className="f36-margin-bottom--xl"
-          testId="title-field"
-          width="large"
-          type="text"
-          id="my-title"
-          value={this.state.title}
-          onChange={this.onTitleChange}
-        />
-        <Textarea
-          testId="body-field"
-          width="large"
-          type="text"
-          id="my-body"
-          value={this.state.body}
-          onChange={this.onBodyChange}
-        />
-      </Card>
+      <>
+        <Card className="f36-margin--xl">
+          <TextInput
+            className="f36-margin-bottom--xl"
+            testId="title-field"
+            width="large"
+            type="text"
+            id="my-title"
+            value={this.state.title}
+            onChange={this.onTitleChange}
+          />
+          <Textarea
+            testId="body-field"
+            width="large"
+            type="text"
+            id="my-body"
+            value={this.state.body}
+            onChange={this.onBodyChange}
+          />
+        </Card>
+        <Card className="f36-margin--xl">
+          <OpenPageExtensionButton sdk={this.props.sdk} />
+        </Card>
+      </>
     )
   }
 }
