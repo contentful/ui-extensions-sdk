@@ -1,6 +1,6 @@
 import { entry } from '../utils/paths'
 
-import { openAndVerifyPageExtension } from './reusable/open-page-extension-test'
+import { verifyPageExtensionUrl } from './reusable/open-page-extension-test'
 
 const post = {
   id: '3MEimIRakHkmgmqvp1oIsM',
@@ -24,6 +24,10 @@ context('Sidebar extension', () => {
   })
 
   it('opens page extension using sdk.navigator.openPageExtension', () => {
-    openAndVerifyPageExtension()
+    cy.get('@extension')
+      .find('[data-test-id="open-page-extension-button"]')
+      .click()
+
+    verifyPageExtensionUrl('test-extension')
   })
 })
