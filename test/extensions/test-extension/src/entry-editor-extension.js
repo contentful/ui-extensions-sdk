@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { TextInput, Textarea, Card } from '@contentful/forma-36-react-components'
-import { OpenPageExtensionButton } from './components'
+import { OpenPageExtensionButton, OpenDialogExtensionButton } from './components'
 
 export class EntryEditorExtension extends React.Component {
   constructor(props) {
@@ -66,7 +66,12 @@ export class EntryEditorExtension extends React.Component {
           />
         </Card>
         <Card className="f36-margin--xl">
-          <OpenPageExtensionButton sdk={this.props.sdk} />
+          <div className="f36-margin-bottom--l">
+            <OpenPageExtensionButton sdk={this.props.sdk} />
+          </div>
+          <div>
+            <OpenDialogExtensionButton sdk={this.props.sdk} />
+          </div>
         </Card>
       </>
     )

@@ -5,7 +5,7 @@ import { OpenPageExtensionButton } from './components'
 export function DialogExtension({ sdk }) {
   return (
     <>
-      <div>
+      <div data-test-id="my-dialog-extension">
         <OpenPageExtensionButton
           testId="open-page-extension-button"
           sdk={sdk}
