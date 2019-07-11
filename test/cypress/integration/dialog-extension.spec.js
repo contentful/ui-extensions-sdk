@@ -29,7 +29,6 @@ context('Dialog extension', () => {
       .find(selectors.openDialogExtensionButton)
       .click()
 
-    cy.get(selectors.modalIFrame)
     cy.waitForIFrame()
     cy.get(selectors.modalIFrame).captureIFrameAs('extension')
   })

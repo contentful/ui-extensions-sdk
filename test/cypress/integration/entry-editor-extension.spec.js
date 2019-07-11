@@ -11,8 +11,11 @@ const post = {
 const selectors = {
   entryIFrame: '.entry-editor iframe',
   openPageExtensionButton: '[data-test-id="open-page-extension-button"]',
+  openDialogExtensionButton: '[data-test-id="open-dialog-extension-button"]',
   titleField: '[data-test-id="title-field"]',
-  bodyField: '[data-test-id="body-field"]'
+  bodyField: '[data-test-id="body-field"]',
+  modalIFrame: '[data-test-id="cf-ui-modal"] iframe',
+  dialogExtension: '[data-test-id="my-dialog-extension"]'
 }
 
 context('Entry editor extension', () => {
@@ -41,5 +44,20 @@ context('Entry editor extension', () => {
       .click()
 
     verifyPageExtensionUrl('test-extension')
+  })
+
+  it('opens the dialog extension and checks it is rendered', () => {
+    const dialogTitle = 'My awesome dialog extension'
+    cy.get('@extension')
+      .find(selectors.openDialogExtensionButton)
+      .click()
+    cy.get('[data-test-id=cf-ui-modal]')
+      .should('exist')
+      .and('contain', dialogTitle)
+    cy.waitForIFrame()
+    cy.get(selectors.modalIFrame).captureIFrameAs('dialogExtension')
+    cy.get('@dialogExtension')
+      .find(selectors.dialogExtension)
+      .should('be.visible')
   })
 })
