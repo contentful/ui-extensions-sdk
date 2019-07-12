@@ -29,6 +29,19 @@ const describeAppHookMessageExchange = (description, method, stage) => {
       expect(channelStub.send).to.have.been.calledWithExactly('appHookResult', expected)
     }
 
+    it('requires the handler to be a function', () => {
+      expect(() => {
+        app[method]('yolo')
+      }).to.throw(/must be a function/)
+    })
+
+    it('only allows to register a handler once', () => {
+      app[method](() => {})
+      expect(() => {
+        app[method](() => {})
+      }).to.throw(/handler twice/)
+    })
+
     it('does the exchange when handler is not defined', () => test(undefined, {}))
 
     describe('the exchange when handler is a synchronous function', () => {
