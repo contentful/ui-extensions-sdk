@@ -61,6 +61,8 @@ function test(expected, location, expectedLocation) {
   expect(Object.keys(api.location)).to.deep.equal(['is'])
   expect(api.location.is(expectedLocation)).to.equal(true)
   expect(api.location.is('wat?')).to.equal(false)
+
+  return api
 }
 
 describe('createAPI()', () => {
@@ -93,5 +95,15 @@ describe('createAPI()', () => {
     const expected = ['close', 'window']
 
     test(expected, locations.LOCATION_DIALOG)
+  })
+
+  it('returns correct shape of the app API (app)', () => {
+    const expected = ['platformAlpha']
+
+    const api = test(expected, locations.LOCATION_APP)
+
+    expect(api.platformAlpha).to.have.all.keys(['app'])
+    const appMethods = ['isInstalled', 'getParameters', 'onConfigure', 'onConfigurationCompleted']
+    expect(api.platformAlpha.app).to.have.all.keys(appMethods)
   })
 })

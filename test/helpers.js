@@ -58,7 +58,10 @@ function describeChannelCallingMethod(spec) {
 
     beforeEach(() => {
       channelCallStub = sinon.stub()
-      object = creator({ call: channelCallStub })
+      object = creator({
+        call: channelCallStub,
+        addHandler: sinon.spy()
+      })
     })
 
     it('is a function', () => {
