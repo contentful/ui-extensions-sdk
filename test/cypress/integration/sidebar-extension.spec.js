@@ -1,15 +1,11 @@
 import { entry } from '../utils/paths'
 
 import { openPageExtensionTest } from './reusable/open-page-extension-test'
+import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
 
 const post = {
   id: '3MEimIRakHkmgmqvp1oIsM',
   title: 'My post with a custom sidebar'
-}
-const selectors = {
-  openDialogExtensionButton: '[data-test-id="open-dialog-extension-button"]',
-  modalIFrame: '[data-test-id="cf-ui-modal"] iframe',
-  dialogExtension: '[data-test-id="my-dialog-extension"]'
 }
 
 context('Sidebar extension', () => {
@@ -28,20 +24,8 @@ context('Sidebar extension', () => {
       .should('exist')
   })
 
-  openPageExtensionTest()
+  /* Reusable tests */
 
-  it('opens the dialog extension and checks it is rendered', () => {
-    const dialogTitle = 'My awesome dialog extension'
-    cy.get('@extension')
-      .find(selectors.openDialogExtensionButton)
-      .click()
-    cy.get('[data-test-id=cf-ui-modal]')
-      .should('exist')
-      .and('contain', dialogTitle)
-    cy.waitForIFrame()
-    cy.get(selectors.modalIFrame).captureIFrameAs('dialogExtension')
-    cy.get('@dialogExtension')
-      .find(selectors.dialogExtension)
-      .should('be.visible')
-  })
+  openPageExtensionTest()
+  openDialogExtensionTest()
 })
