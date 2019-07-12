@@ -1,6 +1,6 @@
 import { entry } from '../utils/paths'
 
-import { verifyPageExtensionUrl } from './reusable/open-page-extension-test'
+import { openPageExtensionTest } from './reusable/open-page-extension-test'
 
 const post = {
   id: '3MEimIRakHkmgmqvp1oIsM',
@@ -28,13 +28,7 @@ context('Sidebar extension', () => {
       .should('exist')
   })
 
-  it('opens page extension using sdk.navigator.openPageExtension', () => {
-    cy.get('@extension')
-      .find('[data-test-id="open-page-extension-button"]')
-      .click()
-
-    verifyPageExtensionUrl('test-extension')
-  })
+  openPageExtensionTest()
 
   it('opens the dialog extension and checks it is rendered', () => {
     const dialogTitle = 'My awesome dialog extension'

@@ -1,6 +1,6 @@
 import { entry } from '../utils/paths'
 
-import { verifyPageExtensionUrl } from './reusable/open-page-extension-test'
+import { openPageExtensionTest } from './reusable/open-page-extension-test'
 
 const post = {
   id: '5mwUiJB2kThfAG9ZnRNuNQ',
@@ -27,7 +27,7 @@ context('Entry editor extension', () => {
     cy.get(selectors.entryIFrame).captureIFrameAs('extension')
   })
 
-  it('opens first post and checks that entry editor extension is rendered', () => {
+  it('opens page and checks that entry editor extension is rendered', () => {
     cy.get('@extension')
       .find(selectors.titleField)
       .should('exist')
@@ -38,13 +38,8 @@ context('Entry editor extension', () => {
       .should('exist')
       .and('have.value', post.body)
   })
-  it('opens page extension using sdk.navigator.openPageExtension', () => {
-    cy.get('@extension')
-      .find(selectors.openPageExtensionButton)
-      .click()
 
-    verifyPageExtensionUrl('test-extension')
-  })
+  openPageExtensionTest()
 
   it('opens the dialog extension and checks it is rendered', () => {
     const dialogTitle = 'My awesome dialog extension'

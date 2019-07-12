@@ -1,6 +1,6 @@
 import { entry } from '../utils/paths'
 
-import { verifyPageExtensionUrl } from './reusable/open-page-extension-test'
+import { openPageExtensionTest } from './reusable/open-page-extension-test'
 
 const post = {
   id: '1MDrvtuLDk0PcxS5nCkugC',
@@ -8,7 +8,6 @@ const post = {
 }
 
 const selectors = {
-  openPageExtensionButton: '[data-test-id="open-page-extension-button"]',
   openDialogExtensionButton: '[data-test-id="open-dialog-extension-button"]',
   fieldIFrame: '[data-field-api-name="title"] iframe',
   modalIFrame: '[data-test-id="cf-ui-modal"] iframe',
@@ -31,13 +30,7 @@ context('Field extension', () => {
       .should('exist')
   })
 
-  it('opens page extension using sdk.navigator.openPageExtension', () => {
-    cy.get('@extension')
-      .find(selectors.openPageExtensionButton)
-      .click()
-
-    verifyPageExtensionUrl('test-extension')
-  })
+  openPageExtensionTest()
 
   it('opens the dialog extension and checks it is rendered', () => {
     const dialogTitle = 'My awesome dialog extension'
