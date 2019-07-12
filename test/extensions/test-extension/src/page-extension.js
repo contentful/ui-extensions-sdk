@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Button } from '@contentful/forma-36-react-components'
+import { Button, Card } from '@contentful/forma-36-react-components'
+import { OpenDialogExtensionButton } from './components'
 
 export function PageExtension({ sdk }) {
   return (
@@ -22,6 +23,9 @@ export function PageExtension({ sdk }) {
         }}>
         go home
       </Button>
+      <Card className="f36-margin--l">
+        <OpenDialogExtensionButton sdk={sdk} />
+      </Card>
     </div>
   )
 }

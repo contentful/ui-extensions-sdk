@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { TextInput } from '@contentful/forma-36-react-components'
-import { OpenPageExtensionButton } from './components'
+import { TextInput, Card } from '@contentful/forma-36-react-components'
+import { OpenPageExtensionButton, OpenDialogExtensionButton } from './components'
 
 export class FieldExtension extends React.Component {
   constructor(props) {
@@ -49,7 +49,14 @@ export class FieldExtension extends React.Component {
           value={this.state.value}
           onChange={this.onChange}
         />
-        <OpenPageExtensionButton sdk={this.props.sdk} />
+        <Card className="f36-margin-top--l">
+          <div className="f36-margin-bottom--l">
+            <OpenPageExtensionButton sdk={this.props.sdk} />
+          </div>
+          <div>
+            <OpenDialogExtensionButton sdk={this.props.sdk} />
+          </div>
+        </Card>
       </>
     )
   }

@@ -1,6 +1,7 @@
 import { entry } from '../utils/paths'
 
-import { verifyPageExtensionUrl } from './reusable/open-page-extension-test'
+import { openPageExtensionTest } from './reusable/open-page-extension-test'
+import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
 
 const post = {
   id: '1MDrvtuLDk0PcxS5nCkugC',
@@ -8,7 +9,6 @@ const post = {
 }
 
 const selectors = {
-  openPageExtensionButton: '[data-test-id="open-page-extension-button"]',
   fieldIFrame: '[data-field-api-name="title"] iframe',
   input: '[data-test-id="cf-ui-text-input"]'
 }
@@ -28,11 +28,8 @@ context('Field extension', () => {
       .should('exist')
   })
 
-  it('opens page extension using sdk.navigator.openPageExtension', () => {
-    cy.get('@extension')
-      .find(selectors.openPageExtensionButton)
-      .click()
+  /* Reusable tests */
 
-    verifyPageExtensionUrl('test-extension')
-  })
+  openPageExtensionTest()
+  openDialogExtensionTest()
 })

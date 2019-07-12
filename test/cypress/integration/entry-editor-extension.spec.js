@@ -1,6 +1,7 @@
 import { entry } from '../utils/paths'
 
-import { verifyPageExtensionUrl } from './reusable/open-page-extension-test'
+import { openPageExtensionTest } from './reusable/open-page-extension-test'
+import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
 
 const post = {
   id: '5mwUiJB2kThfAG9ZnRNuNQ',
@@ -10,7 +11,6 @@ const post = {
 
 const selectors = {
   entryIFrame: '.entry-editor iframe',
-  openPageExtensionButton: '[data-test-id="open-page-extension-button"]',
   titleField: '[data-test-id="title-field"]',
   bodyField: '[data-test-id="body-field"]'
 }
@@ -24,7 +24,7 @@ context('Entry editor extension', () => {
     cy.get(selectors.entryIFrame).captureIFrameAs('extension')
   })
 
-  it('opens first post and checks that entry editor extension is rendered', () => {
+  it('opens page and checks that entry editor extension is rendered', () => {
     cy.get('@extension')
       .find(selectors.titleField)
       .should('exist')
@@ -35,11 +35,9 @@ context('Entry editor extension', () => {
       .should('exist')
       .and('have.value', post.body)
   })
-  it('opens page extension using sdk.navigator.openPageExtension', () => {
-    cy.get('@extension')
-      .find(selectors.openPageExtensionButton)
-      .click()
 
-    verifyPageExtensionUrl('test-extension')
-  })
+  /* Reusable tests */
+
+  openPageExtensionTest()
+  openDialogExtensionTest()
 })
