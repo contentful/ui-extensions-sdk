@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button } from '@contentful/forma-36-react-components'
+import { actionSelectors } from '../../../../constants'
 
 export default function OpenDialogExtensionButton({ sdk }) {
   return (
@@ -11,7 +12,7 @@ export default function OpenDialogExtensionButton({ sdk }) {
           title: 'My awesome dialog extension'
         })
       }}
-      testId="open-dialog-extension-button">
+      testId={actionSelectors.openDialogExtension}>
       open dialog extension
     </Button>
   )

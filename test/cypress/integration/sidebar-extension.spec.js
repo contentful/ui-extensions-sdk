@@ -1,7 +1,8 @@
 import { entry } from '../utils/paths'
-
+import * as Constants from '../../constants'
 import { openPageExtensionTest } from './reusable/open-page-extension-test'
 import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
+import { openEntrySlideInTest, openEntryTest } from './reusable/open-entry-test'
 
 const post = {
   id: '3MEimIRakHkmgmqvp1oIsM',
@@ -20,7 +21,7 @@ context('Sidebar extension', () => {
 
   it('opens first post and checks that sidebar extension is rendered', () => {
     cy.get('@extension')
-      .find('[data-test-id="sidebar-button"]')
+      .find(`[data-test-id="${Constants.actionSelectors.sidebarButton}"]`)
       .should('exist')
   })
 
@@ -28,4 +29,6 @@ context('Sidebar extension', () => {
 
   openPageExtensionTest()
   openDialogExtensionTest()
+  openEntryTest()
+  openEntrySlideInTest(post.id)
 })

@@ -10,20 +10,22 @@ export function DialogExtension({ sdk }) {
   }, [])
 
   return (
-    <div data-test-id="my-dialog-extension" className="f36-padding--l">
+    <div data-test-id={Constants.actionSelectors.dialogWrapper} className="f36-padding--l">
       <Heading className="f36-margin-bottom--m">
         <code>sdk.navigator & sdk.dialogs</code>
       </Heading>
       <div className="f36-margin-bottom--m">
         <OpenPageExtensionButton
-          testId="open-page-extension-button"
+          testId={Constants.actionSelectors.openPageExtension}
           sdk={sdk}
           onNavigated={() => {
             sdk.close()
           }}>
           open page extension with closing dialog
         </OpenPageExtensionButton>
-        <OpenPageExtensionButton sdk={sdk} testId="open-page-extension-button-without-closing">
+        <OpenPageExtensionButton
+          sdk={sdk}
+          testId={Constants.actionSelectors.openPageExtensionNoClose}>
           open page extension without closing dialog
         </OpenPageExtensionButton>
       </div>

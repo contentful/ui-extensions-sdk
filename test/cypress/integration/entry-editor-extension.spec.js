@@ -2,6 +2,7 @@ import { entry } from '../utils/paths'
 
 import { openPageExtensionTest } from './reusable/open-page-extension-test'
 import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
+import { openEntrySlideInTest, openEntryTest } from './reusable/open-entry-test'
 
 const post = {
   id: '5mwUiJB2kThfAG9ZnRNuNQ',
@@ -40,4 +41,6 @@ context('Entry editor extension', () => {
 
   openPageExtensionTest()
   openDialogExtensionTest()
+  openEntryTest()
+  openEntrySlideInTest(post.id)
 })

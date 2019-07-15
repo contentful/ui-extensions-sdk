@@ -1,6 +1,7 @@
 import { pageExtension } from '../utils/paths'
 
 import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
+import { openEntryTest } from './reusable/open-entry-test'
 
 const selectors = {
   pageIFrame: '[data-test-id="page-extension"] iframe',
@@ -30,4 +31,5 @@ context('Page extension', () => {
   /* Reusable tests */
 
   openDialogExtensionTest()
+  openEntryTest()
 })

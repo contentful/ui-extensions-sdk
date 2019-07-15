@@ -1,5 +1,7 @@
+import { actionSelectors } from '../../../constants'
+
 export function clickToOpenDialogExtension(
-  selector = '[data-test-id="open-dialog-extension-button"]'
+  selector = `[data-test-id="${actionSelectors.openDialogExtension}"]`
 ) {
   cy.get('@extension')
     .find(selector)
@@ -15,12 +17,12 @@ export function checkThatDialogIsOpened(selector = '[data-test-id=cf-ui-modal]')
 
 export function checkThatExtensionInDialogIsRendered(
   selector = '[data-test-id=cf-ui-modal] iframe',
-  dialogSelector = '[data-test-id="my-dialog-extension"]'
+  dialogWrapper = `[data-test-id="${actionSelectors.dialogWrapper}"]`
 ) {
   cy.waitForIFrame()
   cy.get(selector).captureIFrameAs('dialogExtension')
   cy.get('@dialogExtension')
-    .find(dialogSelector)
+    .find(dialogWrapper)
     .should('be.visible')
 }
 

@@ -1,6 +1,8 @@
 import { entry } from '../utils/paths'
 
 import * as openPageExtensionTest from './reusable/open-page-extension-test'
+import { openEntryTest } from './reusable/open-entry-test'
+import { actionSelectors } from '../../constants'
 
 const post = {
   id: '3MEimIRakHkmgmqvp1oIsM',
@@ -10,7 +12,7 @@ const post = {
 const selectors = {
   modalIFrame: '[data-test-id="cf-ui-modal"] iframe',
   sidebarIFrame: '[data-test-id="entry-editor-sidebar"] iframe',
-  openDialogExtensionButton: '[data-test-id="open-dialog-extension-button"]'
+  openDialogExtensionButton: `[data-test-id="${actionSelectors.openDialogExtension}"]`
 }
 
 context('Dialog extension', () => {
@@ -39,10 +41,14 @@ context('Dialog extension', () => {
 
   it('opens page extension using sdk.navigator.openPageExtension (without closing dialog)', () => {
     openPageExtensionTest.clickToOpenPageExtension(
-      '[data-test-id="open-page-extension-button-without-closing"]'
+      `[data-test-id="${actionSelectors.openPageExtensionNoClose}"]`
     )
     openPageExtensionTest.verifyPageExtensionUrl()
 
     cy.get(selectors.modalIFrame).should('be.visible')
   })
+
+  /* Reusable */
+
+  openEntryTest()
 })

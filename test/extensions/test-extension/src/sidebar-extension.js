@@ -12,7 +12,7 @@ export function SidebarExtension({ sdk }) {
   return (
     <div data-test-id="cf-ui-sidebar-extension">
       <div className="f36-margin-bottom--l">
-        <Button testId="sidebar-button">Click me</Button>
+        <Button testId={Constants.actionSelectors.sidebarButton}>Click me</Button>
       </div>
 
       <Card className="f36-margin-top--l" title="Navigator">

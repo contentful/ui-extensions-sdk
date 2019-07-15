@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button } from '@contentful/forma-36-react-components'
+import { actionSelectors } from '../../../../constants'
 
 export default function OpenPageExtensionButton({ sdk, onNavigated, children, ...restProps }) {
   const onClick = async () => {
@@ -11,7 +12,7 @@ export default function OpenPageExtensionButton({ sdk, onNavigated, children, ..
   }
 
   return (
-    <Button onClick={onClick} testId="open-page-extension-button" {...restProps}>
+    <Button onClick={onClick} testId={actionSelectors.openPageExtension} {...restProps}>
       {children}
     </Button>
   )

@@ -1,6 +1,9 @@
 import { pageExtension } from '../../utils/paths'
+import { actionSelectors } from '../../../constants'
 
-export function clickToOpenPageExtension(selector = '[data-test-id="open-page-extension-button"]') {
+export function clickToOpenPageExtension(
+  selector = `[data-test-id="${actionSelectors.openPageExtension}"]`
+) {
   cy.get('@extension')
     .find(selector)
     .click()

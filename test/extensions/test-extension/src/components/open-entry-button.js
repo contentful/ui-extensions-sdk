@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button } from '@contentful/forma-36-react-components'
+import { actionSelectors } from '../../../../constants'
 
 export default function OpenEntryButton({ sdk, entryId, onOpen, canSlideIn }) {
   return (
@@ -13,7 +14,7 @@ export default function OpenEntryButton({ sdk, entryId, onOpen, canSlideIn }) {
             onOpen()
           })
         }}
-        testId="open-entry-button">
+        testId={actionSelectors.openEntry}>
         open entry
       </Button>
       <Button
@@ -28,7 +29,7 @@ export default function OpenEntryButton({ sdk, entryId, onOpen, canSlideIn }) {
               onOpen()
             })
         }}
-        testId="open-entry-slidein-button">
+        testId={actionSelectors.openEntrySlideIn}>
         {!canSlideIn ? '[not supported]' : ''} open entry (slide-in)
       </Button>
     </>
