@@ -2,13 +2,11 @@ import { entry } from '../../utils/paths'
 import * as Constants from '../../../constants'
 
 export function clickToOpenEntry({ slideIn } = { slideIn: false }) {
-  cy.get('@extension')
-    .find(
-      slideIn
-        ? `[data-test-id="${Constants.actionSelectors.openEntrySlideIn}"]`
-        : `[data-test-id="${Constants.actionSelectors.openEntry}"]`
-    )
-    .click()
+  cy.get('@extension').within(() => {
+    cy.getByTestId(
+      slideIn ? Constants.actionSelectors.openEntrySlideIn : Constants.actionSelectors.openEntry
+    ).click()
+  })
 }
 
 export function verifyEntryPageUrl(entryId) {

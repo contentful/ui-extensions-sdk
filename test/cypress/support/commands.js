@@ -1,3 +1,5 @@
+import '@testing-library/cypress/add-commands'
+
 Cypress.Commands.add('captureIFrameAs', { prevSubject: 'element' }, ($element, as) => {
   const $body = $element.contents().find('body')
   cy.wrap($body).as(as)

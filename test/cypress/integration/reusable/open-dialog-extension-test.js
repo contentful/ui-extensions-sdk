@@ -1,29 +1,26 @@
 import { actionSelectors } from '../../../constants'
 
-export function clickToOpenDialogExtension(
-  selector = `[data-test-id="${actionSelectors.openDialogExtension}"]`
-) {
-  cy.get('@extension')
-    .find(selector)
-    .click()
+export function clickToOpenDialogExtension(testId = actionSelectors.openDialogExtension) {
+  cy.get('@extension').within(() => {
+    cy.getByTestId(testId).click()
+  })
 }
 
-export function checkThatDialogIsOpened(selector = '[data-test-id=cf-ui-modal]') {
+export function checkThatDialogIsOpened() {
   const dialogTitle = 'My awesome dialog extension'
-  cy.get(selector)
+  cy.getByTestId('cf-ui-modal')
     .should('exist')
     .and('contain', dialogTitle)
 }
 
-export function checkThatExtensionInDialogIsRendered(
-  selector = '[data-test-id=cf-ui-modal] iframe',
-  dialogWrapper = `[data-test-id="${actionSelectors.dialogWrapper}"]`
-) {
+export function checkThatExtensionInDialogIsRendered(testId = actionSelectors.dialogWrapper) {
   cy.waitForIFrame()
-  cy.get(selector).captureIFrameAs('dialogExtension')
-  cy.get('@dialogExtension')
-    .find(dialogWrapper)
-    .should('be.visible')
+  cy.getByTestId('cf-ui-modal').within(() => {
+    cy.get('iframe').captureIFrameAs('dialogExtension')
+  })
+  cy.get('@dialogExtension').within(() => {
+    cy.getByTestId(testId).should('be.visible')
+  })
 }
 
 export function openDialogExtensionTest() {
