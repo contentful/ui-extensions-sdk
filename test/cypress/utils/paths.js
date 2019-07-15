@@ -12,3 +12,11 @@ export function pageExtension(extensionId) {
 export function entry(id) {
   return `${entiriesList()}/${id}`
 }
+
+export function assetsList() {
+  return `/spaces/${activeSpaceId}/environments/${activeEnvironmentId}/assets`
+}
+
+export function asset(id) {
+  return `${assetsList()}/${id}`
+}

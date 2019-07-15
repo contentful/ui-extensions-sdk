@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Heading } from '@contentful/forma-36-react-components'
-import { OpenPageExtensionButton, OpenEntryButton } from './components'
+import { OpenPageExtensionButton, OpenEntryButton, OpenAssetButton } from './components'
 import * as Constants from '../../../constants'
 
 export function DialogExtension({ sdk }) {
@@ -33,6 +33,16 @@ export function DialogExtension({ sdk }) {
         <OpenEntryButton
           sdk={sdk}
           entryId={Constants.entries.testImageWrapper}
+          canSlideIn={false}
+          onOpen={() => {
+            sdk.close()
+          }}
+        />
+      </div>
+      <div>
+        <OpenAssetButton
+          sdk={sdk}
+          assetId={Constants.assets.testImage}
           canSlideIn={false}
           onOpen={() => {
             sdk.close()

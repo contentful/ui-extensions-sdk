@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Card, Heading } from '@contentful/forma-36-react-components'
-import { OpenDialogExtensionButton, OpenEntryButton } from './components'
+import { OpenDialogExtensionButton, OpenEntryButton, OpenAssetButton } from './components'
 import * as Constants from '../../../constants'
 
 export function PageExtension({ sdk }) {
@@ -37,6 +37,9 @@ export function PageExtension({ sdk }) {
             entryId={Constants.entries.testImageWrapper}
             canSlideIn={false}
           />
+        </div>
+        <div>
+          <OpenAssetButton sdk={sdk} assetId={Constants.assets.testImage} canSlideIn={false} />
         </div>
       </Card>
     </div>

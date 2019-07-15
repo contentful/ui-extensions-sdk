@@ -3,6 +3,7 @@ import { entry } from '../utils/paths'
 import { openPageExtensionTest } from './reusable/open-page-extension-test'
 import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
 import { openEntryTest, openEntrySlideInTest } from './reusable/open-entry-test'
+import { openAssetSlideInTest, openAssetTest } from './reusable/open-asset-test'
 
 const post = {
   id: '1MDrvtuLDk0PcxS5nCkugC',
@@ -32,4 +33,6 @@ context('Field extension', () => {
   openDialogExtensionTest()
   openEntryTest()
   openEntrySlideInTest(post.id)
+  openAssetTest()
+  openAssetSlideInTest(post.id)
 })
