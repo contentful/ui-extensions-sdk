@@ -2,15 +2,11 @@ import { entry } from '../utils/paths'
 
 import { openPageExtensionTest } from './reusable/open-page-extension-test'
 import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
+import { openEntryTest, openEntrySlideInTest } from './reusable/open-entry-test'
 
 const post = {
   id: '1MDrvtuLDk0PcxS5nCkugC',
   title: 'My first post'
-}
-
-const selectors = {
-  fieldIFrame: '[data-field-api-name="title"] iframe',
-  input: '[data-test-id="cf-ui-text-input"]'
 }
 
 context('Field extension', () => {
@@ -19,17 +15,21 @@ context('Field extension', () => {
     cy.visit(entry(post.id))
     cy.getByText(post.title).should('exist')
     cy.waitForIFrame()
-    cy.get(selectors.fieldIFrame).captureIFrameAs('extension')
+    cy.get('[data-field-api-name="title"]').within(() => {
+      cy.get('iframe').captureIFrameAs('extension')
+    })
   })
 
   it('field extension is rendered', () => {
-    cy.get('@extension')
-      .find(selectors.input)
-      .should('exist')
+    cy.get('@extension').within(() => {
+      cy.getByTestId('cf-ui-text-input').should('exist')
+    })
   })
 
   /* Reusable tests */
 
   openPageExtensionTest()
   openDialogExtensionTest()
+  openEntryTest()
+  openEntrySlideInTest(post.id)
 })

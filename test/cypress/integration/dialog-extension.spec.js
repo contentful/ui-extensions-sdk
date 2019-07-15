@@ -1,16 +1,12 @@
 import { entry } from '../utils/paths'
 
 import * as openPageExtensionTest from './reusable/open-page-extension-test'
+import { openEntryTest } from './reusable/open-entry-test'
+import { actionSelectors } from '../../constants'
 
 const post = {
   id: '3MEimIRakHkmgmqvp1oIsM',
   title: 'My post with a custom sidebar'
-}
-
-const selectors = {
-  modalIFrame: '[data-test-id="cf-ui-modal"] iframe',
-  sidebarIFrame: '[data-test-id="entry-editor-sidebar"] iframe',
-  openDialogExtensionButton: '[data-test-id="open-dialog-extension-button"]'
 }
 
 context('Dialog extension', () => {
@@ -19,30 +15,38 @@ context('Dialog extension', () => {
     cy.visit(entry(post.id))
     cy.getByText(post.title).should('exist')
     cy.waitForIFrame()
-    cy.get(selectors.sidebarIFrame).should('have.length', 1)
-    cy.get(selectors.sidebarIFrame).captureIFrameAs('sidebarExtension')
 
-    cy.get('@sidebarExtension')
-      .find(selectors.openDialogExtensionButton)
-      .click()
+    cy.getByTestId('entry-editor-sidebar').within(() => {
+      cy.get('iframe')
+        .should('have.length', 1)
+        .captureIFrameAs('sidebarExtension')
+    })
+
+    cy.get('@sidebarExtension').within(() => {
+      cy.getByTestId(actionSelectors.openDialogExtension).click()
+    })
 
     cy.waitForIFrame()
-    cy.get(selectors.modalIFrame).captureIFrameAs('extension')
+    cy.getByTestId('cf-ui-modal').within(() => {
+      cy.get('iframe').captureIFrameAs('extension')
+    })
   })
 
   it('opens page extension using sdk.navigator.openPageExtension (with closing dialog)', () => {
     openPageExtensionTest.clickToOpenPageExtension()
     openPageExtensionTest.verifyPageExtensionUrl()
 
-    cy.get(selectors.modalIFrame).should('not.be.visible')
+    cy.get('@extension').should('not.be.visible')
   })
 
   it('opens page extension using sdk.navigator.openPageExtension (without closing dialog)', () => {
-    openPageExtensionTest.clickToOpenPageExtension(
-      '[data-test-id="open-page-extension-button-without-closing"]'
-    )
+    openPageExtensionTest.clickToOpenPageExtension(actionSelectors.openPageExtensionNoClose)
     openPageExtensionTest.verifyPageExtensionUrl()
 
-    cy.get(selectors.modalIFrame).should('be.visible')
+    cy.get('@extension').should('be.visible')
   })
+
+  /* Reusable */
+
+  openEntryTest()
 })

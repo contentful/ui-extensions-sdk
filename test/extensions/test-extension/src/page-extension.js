@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Button, Card } from '@contentful/forma-36-react-components'
-import { OpenDialogExtensionButton } from './components'
+import { Button, Card, Heading } from '@contentful/forma-36-react-components'
+import { OpenDialogExtensionButton, OpenEntryButton } from './components'
+import * as Constants from '../../../constants'
 
 export function PageExtension({ sdk }) {
   return (
@@ -23,8 +24,20 @@ export function PageExtension({ sdk }) {
         }}>
         go home
       </Button>
-      <Card className="f36-margin--l">
-        <OpenDialogExtensionButton sdk={sdk} />
+      <Card className="f36-margin--l" title="Navigator">
+        <Heading className="f36-margin-bottom--m">
+          <code>sdk.navigator & sdk.dialogs</code>
+        </Heading>
+        <div className="f36-margin-bottom--m">
+          <OpenDialogExtensionButton sdk={sdk} />
+        </div>
+        <div>
+          <OpenEntryButton
+            sdk={sdk}
+            entryId={Constants.entries.testImageWrapper}
+            canSlideIn={false}
+          />
+        </div>
       </Card>
     </div>
   )
