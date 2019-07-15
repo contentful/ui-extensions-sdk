@@ -2,6 +2,7 @@ import { entry } from '../utils/paths'
 
 import * as openPageExtensionTest from './reusable/open-page-extension-test'
 import { openEntryTest } from './reusable/open-entry-test'
+import { openAssetTest } from './reusable/open-asset-test'
 import { actionSelectors } from '../../constants'
 
 const post = {
@@ -49,4 +50,5 @@ context('Dialog extension', () => {
   /* Reusable */
 
   openEntryTest()
+  openAssetTest()
 })

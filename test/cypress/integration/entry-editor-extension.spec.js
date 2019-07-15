@@ -3,6 +3,7 @@ import { entry } from '../utils/paths'
 import { openPageExtensionTest } from './reusable/open-page-extension-test'
 import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
 import { openEntrySlideInTest, openEntryTest } from './reusable/open-entry-test'
+import { openAssetSlideInTest, openAssetTest } from './reusable/open-asset-test'
 
 const post = {
   id: '5mwUiJB2kThfAG9ZnRNuNQ',
@@ -41,4 +42,6 @@ context('Entry editor extension', () => {
   openDialogExtensionTest()
   openEntryTest()
   openEntrySlideInTest(post.id)
+  openAssetTest()
+  openAssetSlideInTest(post.id)
 })

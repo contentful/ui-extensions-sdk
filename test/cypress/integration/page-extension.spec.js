@@ -2,6 +2,7 @@ import { pageExtension } from '../utils/paths'
 
 import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
 import { openEntryTest } from './reusable/open-entry-test'
+import { openAssetTest } from './reusable/open-asset-test'
 
 context('Page extension', () => {
   beforeEach(() => {
@@ -28,4 +29,5 @@ context('Page extension', () => {
 
   openDialogExtensionTest()
   openEntryTest()
+  openAssetTest()
 })

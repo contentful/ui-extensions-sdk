@@ -3,6 +3,7 @@ import * as Constants from '../../constants'
 import { openPageExtensionTest } from './reusable/open-page-extension-test'
 import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
 import { openEntrySlideInTest, openEntryTest } from './reusable/open-entry-test'
+import { openAssetSlideInTest, openAssetTest } from './reusable/open-asset-test'
 
 const post = {
   id: '3MEimIRakHkmgmqvp1oIsM',
@@ -35,4 +36,6 @@ context('Sidebar extension', () => {
   openDialogExtensionTest()
   openEntryTest()
   openEntrySlideInTest(post.id)
+  openAssetTest()
+  openAssetSlideInTest(post.id)
 })
