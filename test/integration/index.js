@@ -1,5 +1,6 @@
 require('dotenv').config()
 
+const asyncRetry = require('async-retry')
 const buildExtensions = require('./tasks/build-extensions')
 const deployExtensions = require('./tasks/deploy-extensions')
 const createEnvironment = require('./tasks/create-new-enviromenment')
@@ -27,7 +28,12 @@ let environmentId
 const cleanup = async () => {
   if (environmentId) {
     try {
-      await deleteEnvironment(environmentId)
+      await asyncRetry(
+        () => {
+          return deleteEnvironment(environmentId)
+        },
+        { retries: 3 }
+      )
     } catch (e) {
       console.log(e)
       throw new Error('Failed to remove environment')
@@ -39,7 +45,12 @@ const run = async () => {
   listAllEnvironmentVariables()
 
   try {
-    environmentId = await createEnvironment()
+    environmentId = await asyncRetry(
+      () => {
+        return createEnvironment()
+      },
+      { retries: 3 }
+    )
   } catch (e) {
     console.log(e)
     throw new Error('Failed to create a new environment')
