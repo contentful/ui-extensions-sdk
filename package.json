@@ -59,8 +59,7 @@
     "parcel-bundler": "^1.12.3",
     "prettier": "1.17.1",
     "sinon": "^7.3.1",
-    "sinon-chai": "^3.3.0",
-    "mochawesome": "4.0.1"
+    "sinon-chai": "^3.3.0"
   },
   "husky": {
     "hooks": {

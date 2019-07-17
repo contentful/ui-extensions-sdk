@@ -9,10 +9,9 @@
   "testFiles": "**/*.spec.js",
   "ignoreTestFiles": "**/example*.js",
   "baseUrl": "https://app.contentful.com",
-  "reporter": "mochawesome",
+  "reporter": "junit",
   "reporterOptions": {
-    "reportDir": "test/cypress/reports",
-    "overwrite": false
+    "mochaFile": "test/cypress/reports/mocha/results.xml"
   },
   "chromeWebSecurity": false,
   "defaultCommandTimeout": 7000
