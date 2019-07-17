@@ -11,7 +11,7 @@
   "baseUrl": "https://app.contentful.com",
   "reporter": "junit",
   "reporterOptions": {
-    "mochaFile": "test/cypress/reports/cypress-test-results.xml"
+    "mochaFile": "test/cypress/reports/mocha/results.xml"
   },
   "chromeWebSecurity": false,
   "defaultCommandTimeout": 7000

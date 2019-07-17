@@ -6,7 +6,7 @@ cache-key: &cache-key
 jobs:
   all:
     docker:
-      - image: cypress/browsers:node8.15.1-chrome73
+      - image: cypress/browsers:node10.11.0-chrome75
     steps:
       - checkout
       - restore_cache: *cache-key
