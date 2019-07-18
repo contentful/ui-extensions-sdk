@@ -8,16 +8,17 @@ context('Page extension', () => {
   beforeEach(() => {
     cy.setAuthTokenToLocalStorage()
     cy.visit(pageExtension('test-extension'))
-    cy.waitForIFrame()
     cy.getByTestId('page-extension').within(() => {
+      cy.waitForIFrame()
       cy.get('iframe').captureIFrameAs('extension')
-    })
-    cy.get('@extension').within(() => {
-      cy.getByTestId('my-page-extension').should('exist')
     })
   })
 
   it('opens a page extension and tests navigating within the page', () => {
+    cy.get('@extension').within(() => {
+      cy.getByTestId('my-page-extension').should('exist')
+    })
+
     cy.get('@extension').within(() => {
       cy.getByTestId('open-new-path-button').click()
     })
