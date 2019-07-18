@@ -5,10 +5,10 @@ module.exports = (command, args) => {
     const child = spawn(command, args, { stdio: 'inherit' })
     child.on('close', code => {
       if (code !== 0) {
-        reject(new Error(`${command} ${args.join(' ')}`))
-        return
+        reject(new Error(`${command} ${args.join(' ')}. Exit code: ${code}`))
+      } else {
+        resolve()
       }
-      resolve()
     })
   })
 }
