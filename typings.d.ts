@@ -443,10 +443,10 @@ declare module 'contentful-ui-extensions-sdk' {
         isInstalled: () => boolean
         /** Returns parameters of an App, null otherwise **/
         getParameters: () => null | Object
-        /** Registers a handler to be called to produce parameters for an App **/
+        /** Returns current state of an App, null otherwise **/
+        getCurrentState: () => null | Object
+        /** Registers a handler to be called to produce parameters and target state for an App **/
         onConfigure: (handler: Function) => void
-        /** Registers a handler to be called to do post configuration tasks **/
-        onConfigurationCompleted: (handler: Function) => void
       }
     }
   }
