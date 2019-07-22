@@ -103,7 +103,13 @@ describe('createAPI()', () => {
     const api = test(expected, locations.LOCATION_APP)
 
     expect(api.platformAlpha).to.have.all.keys(['app'])
-    const appMethods = ['isInstalled', 'getParameters', 'onConfigure', 'onConfigurationCompleted']
+    const appMethods = [
+      'isInstalled',
+      'getParameters',
+      'getCurrentState',
+      'onConfigure',
+      'onConfigurationCompleted'
+    ]
     expect(api.platformAlpha.app).to.have.all.keys(appMethods)
   })
 })

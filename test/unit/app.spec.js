@@ -87,9 +87,11 @@ const describeAppHookMessageExchange = (description, method, stage) => {
   })
 }
 
+const APP_METHODS = ['isInstalled', 'getParameters', 'getCurrentState']
+
 describe('createApp()', () => {
   describe('returned "app" object', () => {
-    ;['isInstalled', 'getParameters'].forEach(appMethod => {
+    APP_METHODS.forEach(appMethod => {
       describeChannelCallingMethod({
         creator: createApp,
         methodName: appMethod,
