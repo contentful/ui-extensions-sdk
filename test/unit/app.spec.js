@@ -102,11 +102,5 @@ describe('createApp()', () => {
     })
 
     describeAppHookMessageExchange('.onConfigure(handler)', 'onConfigure', 'preInstall')
-
-    describeAppHookMessageExchange(
-      '.onConfigurationCompleted(handler)',
-      'onConfigurationCompleted',
-      'postInstall'
-    )
   })
 })
