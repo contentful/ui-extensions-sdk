@@ -432,7 +432,26 @@ declare module 'contentful-ui-extensions-sdk' {
     ids: Pick<IdsAPI, 'environment' | 'space' | 'extension' | 'user'>;
   }
 
-  export const init: (initCallback: (sdk: FieldExtensionSDK | SidebarExtensionSDK | DialogExtensionSDK | EditorExtensionSDK | PageExtensionSDK) => any) => void;
+  export type AppExtensionSDK = BaseExtensionSDK & {
+    /** A set of IDs actual for the extension */
+    ids: Pick<IdsAPI, 'environment' | 'space' | 'user'>;
+    /** Apps Platform __ALPHA__ methods: subject to change **/
+    platformAlpha: {
+      /** Management methods for App status and installation **/
+      app: {
+        /** Returns true if an App is installed **/
+        isInstalled: () => boolean
+        /** Returns parameters of an App, null otherwise **/
+        getParameters: () => null | Object
+        /** Returns current state of an App, null otherwise **/
+        getCurrentState: () => null | Object
+        /** Registers a handler to be called to produce parameters and target state for an App **/
+        onConfigure: (handler: Function) => void
+      }
+    }
+  }
+
+  export const init: (initCallback: (sdk: FieldExtensionSDK | SidebarExtensionSDK | DialogExtensionSDK | EditorExtensionSDK | PageExtensionSDK | AppExtensionSDK) => any) => void;
 
   export const locations: {
     LOCATION_ENTRY_FIELD: string;
@@ -441,6 +460,7 @@ declare module 'contentful-ui-extensions-sdk' {
     LOCATION_DIALOG: string;
     LOCATION_ENTRY_EDITOR: string;
     LOCATION_PAGE: string;
+    LOCATION_APP: string;
   }
 
 }
