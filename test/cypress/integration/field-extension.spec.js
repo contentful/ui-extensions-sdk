@@ -4,11 +4,14 @@ import { openPageExtensionTest } from './reusable/open-page-extension-test'
 import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
 import { openEntryTest, openEntrySlideInTest } from './reusable/open-entry-test'
 import { openAssetSlideInTest, openAssetTest } from './reusable/open-asset-test'
+import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
 
 const post = {
   id: '1MDrvtuLDk0PcxS5nCkugC',
   title: 'My first post'
 }
+
+const iframeSelector = '[data-field-api-name="title"] iframe'
 
 context('Field extension', () => {
   beforeEach(() => {
@@ -16,9 +19,7 @@ context('Field extension', () => {
     cy.visit(entry(post.id))
     cy.getByText(post.title).should('exist')
     cy.waitForIFrame()
-    cy.get('[data-field-api-name="title"]').within(() => {
-      cy.get('iframe').captureIFrameAs('extension')
-    })
+    cy.get(iframeSelector).captureIFrameAs('extension')
   })
 
   it('field extension is rendered', () => {
@@ -30,9 +31,10 @@ context('Field extension', () => {
   /* Reusable tests */
 
   openPageExtensionTest()
-  openDialogExtensionTest()
+  openDialogExtensionTest(iframeSelector)
   openEntryTest()
   openEntrySlideInTest(post.id)
   openAssetTest()
   openAssetSlideInTest(post.id)
+  openSdkUserDataTest(iframeSelector)
 })

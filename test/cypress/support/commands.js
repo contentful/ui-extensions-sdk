@@ -15,3 +15,9 @@ Cypress.Commands.add('waitForIFrame', function waitForIFrame() {
   // eslint-disable-next-line
   cy.wait(4000)
 })
+
+Cypress.Commands.add('getSdk', function(selector) {
+  return cy.window().then(win => {
+    return win.document.querySelector(selector).contentWindow.window.sdk
+  })
+})

@@ -4,11 +4,14 @@ import { openPageExtensionTest } from './reusable/open-page-extension-test'
 import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
 import { openEntrySlideInTest, openEntryTest } from './reusable/open-entry-test'
 import { openAssetSlideInTest, openAssetTest } from './reusable/open-asset-test'
+import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
 
 const post = {
   id: '3MEimIRakHkmgmqvp1oIsM',
   title: 'My post with a custom sidebar'
 }
+
+const iframeSelector = '[data-test-id="entry-editor-sidebar"] iframe'
 
 context('Sidebar extension', () => {
   beforeEach(() => {
@@ -38,4 +41,5 @@ context('Sidebar extension', () => {
   openEntrySlideInTest(post.id)
   openAssetTest()
   openAssetSlideInTest(post.id)
+  openSdkUserDataTest(iframeSelector)
 })
