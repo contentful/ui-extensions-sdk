@@ -15,7 +15,6 @@ function renderExtension(element) {
 }
 
 init(sdk => {
-  window.sdk = sdk
   if (sdk.location.is(locations.LOCATION_ENTRY_FIELD)) {
     renderExtension(<FieldExtension sdk={sdk} />)
   } else if (sdk.location.is(locations.LOCATION_PAGE)) {
