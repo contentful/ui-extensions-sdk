@@ -36,7 +36,7 @@ context('Sidebar extension', () => {
   /* Reusable tests */
 
   openPageExtensionTest()
-  openDialogExtensionTest()
+  openDialogExtensionTest(iframeSelector)
   openEntryTest()
   openEntrySlideInTest(post.id)
   openAssetTest()

@@ -42,7 +42,7 @@ context('Entry editor extension', () => {
   /* Reusable tests */
 
   openPageExtensionTest()
-  openDialogExtensionTest()
+  openDialogExtensionTest(iframeSelector)
   openEntryTest()
   openEntrySlideInTest(post.id)
   openAssetTest()
