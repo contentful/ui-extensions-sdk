@@ -1,12 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { TextInput, Card, Heading } from '@contentful/forma-36-react-components'
-import {
-  OpenPageExtensionButton,
-  OpenDialogExtensionButton,
-  OpenEntryButton,
-  OpenAssetButton
-} from './components'
+import { OpenPageExtensionButton, OpenEntryButton, OpenAssetButton } from './components'
 import * as Constants from '../../../constants'
 
 export class FieldExtension extends React.Component {
@@ -61,9 +56,6 @@ export class FieldExtension extends React.Component {
           </Heading>
           <div className="f36-margin-bottom--m">
             <OpenPageExtensionButton sdk={this.props.sdk} />
-          </div>
-          <div className="f36-margin-bottom--m">
-            <OpenDialogExtensionButton sdk={this.props.sdk} />
           </div>
           <div className="f36-margin-bottom--m">
             <OpenEntryButton sdk={this.props.sdk} entryId={Constants.entries.testImageWrapper} />

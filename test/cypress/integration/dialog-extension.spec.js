@@ -5,13 +5,15 @@ import { openEntryTest } from './reusable/open-entry-test'
 import { openAssetTest } from './reusable/open-asset-test'
 import { actionSelectors } from '../../constants'
 import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
+import { openDialogExtension } from './reusable/open-dialog-extension-test'
 
 const post = {
   id: '3MEimIRakHkmgmqvp1oIsM',
   title: 'My post with a custom sidebar'
 }
 
-const iframeSelector = '[data-test-id="cf-ui-modal"] iframe'
+const iframeSidebarSelector = '[data-test-id="entry-editor-sidebar"] iframe'
+const iframeDialogSelector = '[data-test-id="cf-ui-modal"] iframe'
 
 context('Dialog extension', () => {
   beforeEach(() => {
@@ -26,10 +28,7 @@ context('Dialog extension', () => {
         .captureIFrameAs('sidebarExtension')
     })
 
-    cy.get('@sidebarExtension').within(() => {
-      cy.getByTestId(actionSelectors.openDialogExtension).click()
-    })
-
+    openDialogExtension(iframeSidebarSelector)
     cy.waitForIFrame()
     cy.getByTestId('cf-ui-modal').within(() => {
       cy.get('iframe').captureIFrameAs('extension')
@@ -54,5 +53,5 @@ context('Dialog extension', () => {
 
   openEntryTest()
   openAssetTest()
-  openSdkUserDataTest(iframeSelector)
+  openSdkUserDataTest(iframeDialogSelector)
 })

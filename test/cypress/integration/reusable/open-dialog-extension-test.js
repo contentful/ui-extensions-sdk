@@ -1,8 +1,10 @@
 import { actionSelectors } from '../../../constants'
 
-export function clickToOpenDialogExtension(testId = actionSelectors.openDialogExtension) {
-  cy.get('@extension').within(() => {
-    cy.getByTestId(testId).click()
+export function openDialogExtension(iframeSelector) {
+  cy.getSdk(iframeSelector).then(sdk => {
+    sdk.dialogs.openExtension({
+      title: 'My awesome dialog extension'
+    })
   })
 }
 
@@ -25,11 +27,7 @@ export function checkThatExtensionInDialogIsRendered(testId = actionSelectors.di
 
 export function openDialogExtensionTest(iframeSelector) {
   it('opens the dialog extension and checks it is rendered', () => {
-    cy.getSdk(iframeSelector).then(sdk => {
-      sdk.dialogs.openExtension({
-        title: 'My awesome dialog extension'
-      })
-    })
+    openDialogExtension(iframeSelector)
     checkThatDialogIsOpened()
     checkThatExtensionInDialogIsRendered()
   })

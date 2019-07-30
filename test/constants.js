@@ -11,7 +11,6 @@ export const actionSelectors = {
   openEntrySlideIn: 'open-entry-slidein-button',
   openAsset: 'open-asset-button',
   openAssetSlideIn: 'open-asset-slidein-button',
-  openDialogExtension: 'open-dialog-extension-button',
   openPageExtension: 'open-page-extension-button',
   openPageExtensionNoClose: 'open-page-extension-button-without-closing',
   dialogWrapper: 'my-dialog-extension',
