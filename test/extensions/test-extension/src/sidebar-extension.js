@@ -1,12 +1,7 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Button, Heading, Card } from '@contentful/forma-36-react-components'
-import {
-  OpenPageExtensionButton,
-  OpenDialogExtensionButton,
-  OpenEntryButton,
-  OpenAssetButton
-} from './components'
+import { OpenPageExtensionButton, OpenEntryButton, OpenAssetButton } from './components'
 import * as Constants from '../../../constants'
 
 export function SidebarExtension({ sdk }) {
@@ -26,9 +21,6 @@ export function SidebarExtension({ sdk }) {
         </Heading>
         <div className="f36-margin-bottom--m">
           <OpenPageExtensionButton sdk={sdk} />
-        </div>
-        <div className="f36-margin-bottom--m">
-          <OpenDialogExtensionButton sdk={sdk} />
         </div>
         <div className="f36-margin-bottom--m">
           <OpenEntryButton sdk={sdk} entryId={Constants.entries.testImageWrapper} />

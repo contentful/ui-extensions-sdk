@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Card, Heading } from '@contentful/forma-36-react-components'
-import { OpenDialogExtensionButton, OpenEntryButton, OpenAssetButton } from './components'
+import { OpenEntryButton, OpenAssetButton } from './components'
 import * as Constants from '../../../constants'
 
 export function PageExtension({ sdk }) {
@@ -28,9 +28,6 @@ export function PageExtension({ sdk }) {
         <Heading className="f36-margin-bottom--m">
           <code>sdk.navigator & sdk.dialogs</code>
         </Heading>
-        <div className="f36-margin-bottom--m">
-          <OpenDialogExtensionButton sdk={sdk} />
-        </div>
         <div>
           <OpenEntryButton
             sdk={sdk}
