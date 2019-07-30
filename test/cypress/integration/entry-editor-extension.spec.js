@@ -4,12 +4,15 @@ import { openPageExtensionTest } from './reusable/open-page-extension-test'
 import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
 import { openEntrySlideInTest, openEntryTest } from './reusable/open-entry-test'
 import { openAssetSlideInTest, openAssetTest } from './reusable/open-asset-test'
+import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
 
 const post = {
   id: '5mwUiJB2kThfAG9ZnRNuNQ',
   title: 'My post with a custom entry editor',
   body: 'body value'
 }
+
+const iframeSelector = '.entry-editor iframe'
 
 context('Entry editor extension', () => {
   beforeEach(() => {
@@ -39,9 +42,10 @@ context('Entry editor extension', () => {
   /* Reusable tests */
 
   openPageExtensionTest()
-  openDialogExtensionTest()
+  openDialogExtensionTest(iframeSelector)
   openEntryTest()
   openEntrySlideInTest(post.id)
   openAssetTest()
   openAssetSlideInTest(post.id)
+  openSdkUserDataTest(iframeSelector)
 })

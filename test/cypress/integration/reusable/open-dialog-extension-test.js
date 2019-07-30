@@ -23,9 +23,13 @@ export function checkThatExtensionInDialogIsRendered(testId = actionSelectors.di
   })
 }
 
-export function openDialogExtensionTest() {
+export function openDialogExtensionTest(iframeSelector) {
   it('opens the dialog extension and checks it is rendered', () => {
-    clickToOpenDialogExtension()
+    cy.getSdk(iframeSelector).then(sdk => {
+      sdk.dialogs.openExtension({
+        title: 'My awesome dialog extension'
+      })
+    })
     checkThatDialogIsOpened()
     checkThatExtensionInDialogIsRendered()
   })

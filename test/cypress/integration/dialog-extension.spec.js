@@ -4,11 +4,14 @@ import * as openPageExtensionTest from './reusable/open-page-extension-test'
 import { openEntryTest } from './reusable/open-entry-test'
 import { openAssetTest } from './reusable/open-asset-test'
 import { actionSelectors } from '../../constants'
+import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
 
 const post = {
   id: '3MEimIRakHkmgmqvp1oIsM',
   title: 'My post with a custom sidebar'
 }
+
+const iframeSelector = '[data-test-id="cf-ui-modal"] iframe'
 
 context('Dialog extension', () => {
   beforeEach(() => {
@@ -51,4 +54,5 @@ context('Dialog extension', () => {
 
   openEntryTest()
   openAssetTest()
+  openSdkUserDataTest(iframeSelector)
 })
