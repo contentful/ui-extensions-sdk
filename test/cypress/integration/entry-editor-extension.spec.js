@@ -5,6 +5,7 @@ import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
 import { openEntrySlideInTest, openEntryTest } from './reusable/open-entry-test'
 import { openAssetSlideInTest, openAssetTest } from './reusable/open-asset-test'
 import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
+import { openSdkLocalesDataTest } from './reusable/open-sdk-locales-data-test'
 
 const post = {
   id: '5mwUiJB2kThfAG9ZnRNuNQ',
@@ -48,4 +49,5 @@ context('Entry editor extension', () => {
   openAssetTest()
   openAssetSlideInTest(post.id)
   openSdkUserDataTest(iframeSelector)
+  openSdkLocalesDataTest(iframeSelector)
 })

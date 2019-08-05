@@ -1,8 +1,20 @@
-{
-    "email": "team-extensibility+testing@contentful.com",
-    "firstName": "Extensibility",
-    "lastName": "Testing",
-    "isAdmin": true,
-    "membershipId": "voxk9gcy69ri-60txzLuZBFZht0aZu6C2jF",
-    "userId": "60txzLuZBFZht0aZu6C2jF"
+{  
+   "sys":{  
+      "type":"User",
+      "id":"60txzLuZBFZht0aZu6C2jF"
+   },
+   "firstName":"Extensibility",
+   "lastName":"Testing",
+   "email":"team-extensibility+testing@contentful.com",
+   "avatarUrl":"https://www.gravatar.com/avatar/110302d0e16cd279620ffdce0b86ef7c?s=50&d=https%3A%2F%2Fstatic.contentful.com%2Fgatekeeper%2Fusers%2Fdefault-a4327b54b8c7431ea8ddd9879449e35f051f43bd767d83c5ff351aed9db5986e.png",
+   "spaceMembership":{  
+      "sys":{  
+         "type":"SpaceMembership",
+         "id":"voxk9gcy69ri-60txzLuZBFZht0aZu6C2jF"
+      },
+      "admin":true,
+      "roles":[  
+
+      ]
+   }
 }
