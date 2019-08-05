@@ -4,6 +4,7 @@ import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
 import { openEntryTest } from './reusable/open-entry-test'
 import { openAssetTest } from './reusable/open-asset-test'
 import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
+import { openSdkLocalesDataTest } from './reusable/open-sdk-locales-data-test'
 
 const iframeSelector = '[data-test-id="page-extension"] iframe'
 
@@ -35,4 +36,5 @@ context('Page extension', () => {
   openEntryTest()
   openAssetTest()
   openSdkUserDataTest(iframeSelector)
+  openSdkLocalesDataTest(iframeSelector)
 })

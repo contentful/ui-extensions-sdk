@@ -5,6 +5,7 @@ import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
 import { openEntryTest, openEntrySlideInTest } from './reusable/open-entry-test'
 import { openAssetSlideInTest, openAssetTest } from './reusable/open-asset-test'
 import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
+import { openSdkLocalesDataTest } from './reusable/open-sdk-locales-data-test'
 
 const post = {
   id: '1MDrvtuLDk0PcxS5nCkugC',
@@ -37,4 +38,5 @@ context('Field extension', () => {
   openAssetTest()
   openAssetSlideInTest(post.id)
   openSdkUserDataTest(iframeSelector)
+  openSdkLocalesDataTest(iframeSelector)
 })

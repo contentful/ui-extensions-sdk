@@ -6,6 +6,7 @@ import { openAssetTest } from './reusable/open-asset-test'
 import { actionSelectors } from '../../constants'
 import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
 import { openDialogExtension } from './reusable/open-dialog-extension-test'
+import { openSdkLocalesDataTest } from './reusable/open-sdk-locales-data-test'
 
 const post = {
   id: '3MEimIRakHkmgmqvp1oIsM',
@@ -54,4 +55,5 @@ context('Dialog extension', () => {
   openEntryTest()
   openAssetTest()
   openSdkUserDataTest(iframeDialogSelector)
+  openSdkLocalesDataTest(iframeDialogSelector)
 })
