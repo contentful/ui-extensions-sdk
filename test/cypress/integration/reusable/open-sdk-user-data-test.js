@@ -7,7 +7,7 @@ export function verifySdkUserData(iframeSelector) {
 }
 
 export function openSdkUserDataTest(iframeSelector) {
-  it.only('sdk.user static methods have expected values', () => {
+  it('sdk.user static methods have expected values', () => {
     verifySdkUserData(iframeSelector)
   })
 }
