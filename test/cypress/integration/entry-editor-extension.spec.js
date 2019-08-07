@@ -14,6 +14,7 @@ const post = {
 }
 
 const iframeSelector = '.entry-editor iframe'
+const idsData = require('./fixtures/ids-data.json')
 
 context('Entry editor extension', () => {
   beforeEach(() => {
@@ -37,6 +38,14 @@ context('Entry editor extension', () => {
       cy.getByTestId('body-field')
         .should('exist')
         .and('have.value', post.body)
+    })
+  })
+
+  it('sdk.ids static methods have expected values', () => {
+    cy.getSdk(iframeSelector).then(sdk => {
+      idsData['field'] = undefined
+      idsData['environment'] = Cypress.env('activeEnvironmentId')
+      expect(sdk.ids).to.deep.equal(idsData)
     })
   })
 

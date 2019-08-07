@@ -7,6 +7,7 @@ import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
 import { openSdkLocalesDataTest } from './reusable/open-sdk-locales-data-test'
 
 const iframeSelector = '[data-test-id="page-extension"] iframe'
+const idsData = require('./fixtures/ids-data.json')
 
 context('Page extension', () => {
   beforeEach(() => {
@@ -28,6 +29,16 @@ context('Page extension', () => {
     })
 
     cy.url().should('include', 'test-extension/new')
+  })
+
+  it('sdk.ids static methods have expected values', () => {
+    cy.getSdk(iframeSelector).then(sdk => {
+      idsData['entry'] = undefined
+      idsData['contentType'] = undefined
+      idsData['field'] = undefined
+      idsData['environment'] = Cypress.env('activeEnvironmentId')
+      expect(sdk.ids).to.deep.equal(idsData)
+    })
   })
 
   /* Reusable tests */

@@ -9,10 +9,12 @@ import { openSdkLocalesDataTest } from './reusable/open-sdk-locales-data-test'
 
 const post = {
   id: '3MEimIRakHkmgmqvp1oIsM',
-  title: 'My post with a custom sidebar'
+  title: 'My post with a custom sidebar',
+  contentType: 'postWithSidebar'
 }
 
 const iframeSelector = '[data-test-id="entry-editor-sidebar"] iframe'
+const idsData = require('./fixtures/ids-data.json')
 
 context('Sidebar extension', () => {
   beforeEach(() => {
@@ -31,6 +33,16 @@ context('Sidebar extension', () => {
   it('opens first post and checks that sidebar extension is rendered', () => {
     cy.get('@extension').within(() => {
       cy.getByTestId(Constants.actionSelectors.sidebarButton).should('exist')
+    })
+  })
+
+  it('sdk.ids static methods have expected values', () => {
+    cy.getSdk(iframeSelector).then(sdk => {
+      idsData['entry'] = post.id
+      idsData['contentType'] = post.contentType
+      idsData['field'] = undefined
+      idsData['environment'] = Cypress.env('activeEnvironmentId')
+      expect(sdk.ids).to.deep.equal(idsData)
     })
   })
 
