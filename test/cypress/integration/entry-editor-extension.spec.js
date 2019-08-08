@@ -43,9 +43,13 @@ context('Entry editor extension', () => {
 
   it('sdk.ids static methods have expected values', () => {
     cy.getSdk(iframeSelector).then(sdk => {
-      idsData['field'] = undefined
-      idsData['environment'] = Cypress.env('activeEnvironmentId')
-      expect(sdk.ids).to.deep.equal(idsData)
+      expect(sdk.ids.contentType).to.equal(idsData.entryEditorExtension.contentType)
+      expect(sdk.ids.entry).to.equal(idsData.entryEditorExtension.entry)
+      expect(sdk.ids.field).to.equal(undefined)
+      expect(sdk.ids.environment).to.equal(Cypress.env('activeEnvironmentId'))
+      expect(sdk.ids.extension).to.equal(idsData.extension)
+      expect(sdk.ids.space).to.equal(idsData.space)
+      expect(sdk.ids.user).to.equal(idsData.user)
     })
   })
 

@@ -1,9 +1,21 @@
 {
-    "contentType": "postWithCustomEntryEditor",
-    "entry": "5mwUiJB2kThfAG9ZnRNuNQ",
-    "environment": "test",
-    "extension": "test-extension",
-    "field": "bdpb",
+    "entryEditorExtension":
+    {
+        "entry": "5mwUiJB2kThfAG9ZnRNuNQ",
+        "contentType": "postWithCustomEntryEditor"
+    },
+    "fieldExtension":
+    {
+        "entry": "1MDrvtuLDk0PcxS5nCkugC",
+        "contentType": "post",
+        "field": "bdpb"
+    },
+    "sidebarExtension":
+    {
+        "entry": "3MEimIRakHkmgmqvp1oIsM",
+        "contentType": "postWithSidebar",
+        "field": "bdpb"
+    },
     "space": "voxk9gcy69ri",
     "user": "60txzLuZBFZht0aZu6C2jF"
 }

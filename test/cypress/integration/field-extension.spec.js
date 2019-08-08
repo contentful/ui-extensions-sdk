@@ -9,8 +9,7 @@ import { openSdkLocalesDataTest } from './reusable/open-sdk-locales-data-test'
 
 const post = {
   id: '1MDrvtuLDk0PcxS5nCkugC',
-  title: 'My first post',
-  contentType: 'post'
+  title: 'My first post'
 }
 
 const iframeSelector = '[data-field-api-name="title"] iframe'
@@ -33,10 +32,13 @@ context('Field extension', () => {
 
   it('sdk.ids static methods have expected values', () => {
     cy.getSdk(iframeSelector).then(sdk => {
-      idsData['entry'] = post.id
-      idsData['contentType'] = post.contentType
-      idsData['environment'] = Cypress.env('activeEnvironmentId')
-      expect(sdk.ids).to.deep.equal(idsData)
+      expect(sdk.ids.contentType).to.equal(idsData.fieldExtension.contentType)
+      expect(sdk.ids.entry).to.equal(idsData.fieldExtension.entry)
+      expect(sdk.ids.field).to.equal(idsData.fieldExtension.field)
+      expect(sdk.ids.environment).to.equal(Cypress.env('activeEnvironmentId'))
+      expect(sdk.ids.extension).to.equal(idsData.extension)
+      expect(sdk.ids.space).to.equal(idsData.space)
+      expect(sdk.ids.user).to.equal(idsData.user)
     })
   })
 
