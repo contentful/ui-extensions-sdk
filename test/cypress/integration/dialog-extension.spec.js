@@ -10,8 +10,7 @@ import { openSdkLocalesDataTest } from './reusable/open-sdk-locales-data-test'
 
 const post = {
   id: '3MEimIRakHkmgmqvp1oIsM',
-  title: 'My post with a custom sidebar',
-  contentType: 'postWithSidebar'
+  title: 'My post with a custom sidebar'
 }
 
 const iframeSidebarSelector = '[data-test-id="entry-editor-sidebar"] iframe'
