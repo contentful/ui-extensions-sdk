@@ -8,26 +8,9 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-@font-face {
-  font-family: "Avenir Next W01";
-  src: url("https://static.contentful.com/app/2cd55546-ec00-4af9-aeca-4a3cd186da53.woff2") format("woff2"), url("https://static.contentful.com/app/1e9892c0-6927-4412-9874-1b82801ba47a.woff") format("woff");
-  font-weight: 500;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Avenir Next W01";
-  src: url("https://static.contentful.com/app/7377dbe6-f11a-4a05-b33c-bc8ce1f60f84.woff2") format("woff2"), url("https://static.contentful.com/app/92b66dbd-4201-4ac2-a605-4d4ffc8705cc.woff") format("woff");
-  font-weight: 500;
-  font-style: italic;
-}
-@font-face {
-  font-family: "Avenir Next W01";
-  src: url("https://static.contentful.com/app/627fbb5a-3bae-4cd9-b617-2f923e29d55e.woff2") format("woff2"), url("https://static.contentful.com/app/f26faddb-86cc-4477-a253-1e1287684336.woff") format("woff");
-  font-weight: 600;
-  font-style: normal;
-}
 body {
-  font-family: "Avenir Next W01", Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
   text-rendering: optimizeLegibility;
   font-size: 14px;
   line-height: 18px;
@@ -169,8 +152,8 @@ a:hover {
 }
 .cf-btn-primary.active,
 .cf-btn-primary:active {
-  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.12);
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.12);
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12);
 }
 .cf-btn-primary:link,
 a.cf-btn-primary:hover,
@@ -179,9 +162,9 @@ a.cf-btn-primary:visited {
   color: #fff;
 }
 .cf-btn-primary:disabled,
-.cf-btn-primary[aria-disabled=true] {
+.cf-btn-primary[aria-disabled='true'] {
   opacity: 0.4;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=40)';
   filter: alpha(opacity=40);
   cursor: default;
   background: -webkit-linear-gradient(bottom, #3c80cf, #5b9fef);
@@ -198,7 +181,7 @@ a.cf-btn-primary:visited {
 .cf-btn-primary:after {
   content: '';
   opacity: 0;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=0)';
   filter: alpha(opacity=0);
   border: 0;
   width: 0;
@@ -236,8 +219,8 @@ a.cf-btn-primary:visited {
   border-radius: 50%;
   border-bottom: 2px solid #fff;
   border-left: 2px solid #fff;
-  border-top: 2px solid rgba(255,255,255,0.6);
-  border-right: 2px solid rgba(255,255,255,0.6);
+  border-top: 2px solid rgba(255, 255, 255, 0.6);
+  border-right: 2px solid rgba(255, 255, 255, 0.6);
   margin-left: 5px;
 }
 .cf-btn-primary:hover,
@@ -282,8 +265,8 @@ a.cf-btn-primary:visited {
 }
 .cf-btn-secondary.active,
 .cf-btn-secondary:active {
-  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.12);
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.12);
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12);
 }
 .cf-btn-secondary:link,
 a.cf-btn-secondary:hover,
@@ -292,9 +275,9 @@ a.cf-btn-secondary:visited {
   color: #536171;
 }
 .cf-btn-secondary:disabled,
-.cf-btn-secondary[aria-disabled=true] {
+.cf-btn-secondary[aria-disabled='true'] {
   opacity: 0.4;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=40)';
   filter: alpha(opacity=40);
   cursor: default;
   background: #e5ebed;
@@ -307,7 +290,7 @@ a.cf-btn-secondary:visited {
 .cf-btn-secondary:after {
   content: '';
   opacity: 0;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=0)';
   filter: alpha(opacity=0);
   border: 0;
   width: 0;
@@ -345,8 +328,8 @@ a.cf-btn-secondary:visited {
   border-radius: 50%;
   border-bottom: 2px solid #536171;
   border-left: 2px solid #536171;
-  border-top: 2px solid rgba(135,150,167,0.6);
-  border-right: 2px solid rgba(135,150,167,0.6);
+  border-top: 2px solid rgba(135, 150, 167, 0.6);
+  border-right: 2px solid rgba(135, 150, 167, 0.6);
   margin-left: 5px;
 }
 .cf-btn-secondary:hover,
@@ -354,10 +337,10 @@ a.cf-btn-secondary:visited {
   background-color: #d3dce0;
   border-color: #b4c3ca;
 }
-.cf-btn-secondary > cf-icon[name="plus"] circle {
+.cf-btn-secondary > cf-icon[name='plus'] circle {
   fill: #536171;
 }
-.cf-btn-secondary > cf-icon[name="plus"] path {
+.cf-btn-secondary > cf-icon[name='plus'] path {
   stroke: #e5ebed;
 }
 .cf-btn-primary.cf-block,
@@ -394,7 +377,8 @@ a.cf-btn-secondary:visited {
 input.cf-form-input {
   font-size: 16px;
   color: #2a3039;
-  font-family: "Avenir Next W01", Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
   display: block;
   width: 100%;
   line-height: 1.5;
@@ -404,7 +388,7 @@ input.cf-form-input {
   border-style: solid;
   border-color: transparent;
   border-image-width: 0 0 1px 0;
-  border-image-source: url("https://static.contentful.com/app/svg/dotted-border.svg");
+  border-image-source: url('https://static.contentful.com/app/svg/dotted-border.svg');
   border-image-repeat: round;
   border-image-slice: 1 1;
   -webkit-transition: 0.2s linear;
@@ -419,11 +403,11 @@ input.cf-form-input {
   transition-property: padding, background-color;
   height: 36px;
 }
-input.cf-form-input[aria-invalid="true"],
+input.cf-form-input[aria-invalid='true'],
 input.cf-form-input:invalid {
   background-color: #fff2f1;
 }
-input.cf-form-input[aria-disabled="true"],
+input.cf-form-input[aria-disabled='true'],
 input.cf-form-input[disabled],
 input.cf-form-input:disabled {
   background-color: #f7f9fa;
@@ -439,7 +423,8 @@ input.cf-form-input[size] {
 textarea.cf-form-input {
   font-size: 16px;
   color: #2a3039;
-  font-family: "Avenir Next W01", Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
   display: block;
   width: 100%;
   line-height: 1.5;
@@ -449,7 +434,7 @@ textarea.cf-form-input {
   border-style: solid;
   border-color: transparent;
   border-image-width: 0 0 1px 0;
-  border-image-source: url("https://static.contentful.com/app/svg/dotted-border.svg");
+  border-image-source: url('https://static.contentful.com/app/svg/dotted-border.svg');
   border-image-repeat: round;
   border-image-slice: 1 1;
   -webkit-transition: 0.2s linear;
@@ -466,11 +451,11 @@ textarea.cf-form-input {
   height: 4.5em;
   max-width: 100%;
 }
-textarea.cf-form-input[aria-invalid="true"],
+textarea.cf-form-input[aria-invalid='true'],
 textarea.cf-form-input:invalid {
   background-color: #fff2f1;
 }
-textarea.cf-form-input[aria-disabled="true"],
+textarea.cf-form-input[aria-disabled='true'],
 textarea.cf-form-input[disabled],
 textarea.cf-form-input:disabled {
   background-color: #f7f9fa;
@@ -493,7 +478,8 @@ select.cf-form-input {
   appearance: none;
   font-size: 16px;
   color: #2a3039;
-  font-family: "Avenir Next W01", Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
   display: block;
   width: 100%;
   line-height: 1.5;
@@ -503,7 +489,7 @@ select.cf-form-input {
   border-style: solid;
   border-color: transparent;
   border-image-width: 0 0 1px 0;
-  border-image-source: url("https://static.contentful.com/app/svg/dotted-border.svg");
+  border-image-source: url('https://static.contentful.com/app/svg/dotted-border.svg');
   border-image-repeat: round;
   border-image-slice: 1 1;
   -webkit-transition: 0.2s linear;
@@ -520,7 +506,7 @@ select.cf-form-input {
   padding-right: 1.5em;
   padding-left: 0.5em;
   height: 36px;
-  background-image: url("https://static.contentful.com/app/svg/dd-arrow-down.svg");
+  background-image: url('https://static.contentful.com/app/svg/dd-arrow-down.svg');
   background-position: center right 5px;
   background-repeat: no-repeat;
   -webkit-background-size: 0.7em;
@@ -530,11 +516,11 @@ select.cf-form-input {
 select.cf-form-input::-ms-expand {
   display: none;
 }
-select.cf-form-input[aria-invalid="true"],
+select.cf-form-input[aria-invalid='true'],
 select.cf-form-input:invalid {
   background-color: #fff2f1;
 }
-select.cf-form-input[aria-disabled="true"],
+select.cf-form-input[aria-disabled='true'],
 select.cf-form-input[disabled],
 select.cf-form-input:disabled {
   background-color: #f7f9fa;
@@ -565,8 +551,8 @@ select.cf-form-input > option {
 .cf-form-option:last-child {
   margin-bottom: 0;
 }
-.cf-form-option > input[type="checkbox"],
-.cf-form-option > input[type="radio"] {
+.cf-form-option > input[type='checkbox'],
+.cf-form-option > input[type='radio'] {
   -webkit-align-self: flex-start;
   align-self: flex-start;
   -ms-flex-item-align: start;
@@ -588,7 +574,7 @@ select.cf-form-input > option {
   display: inline-block;
   cursor: pointer;
 }
-.cf-form-option > input[type="checkbox"]:disabled + label {
+.cf-form-option > input[type='checkbox']:disabled + label {
   color: #808080;
 }
 .cf-form-horizontal {
