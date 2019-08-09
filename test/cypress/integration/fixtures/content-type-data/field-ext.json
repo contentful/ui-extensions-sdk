@@ -1,0 +1,48 @@
+{
+  "sys": {
+    "space": {
+      "sys": {
+        "type": "Link",
+        "linkType": "Space",
+        "id": "voxk9gcy69ri"
+      }
+    },
+    "id": "post",
+    "type": "ContentType",
+    "createdAt": "2019-06-03T13:35:42.101Z",
+    "updatedAt": "2019-07-09T09:18:34.678Z",
+    "environment": {
+      "sys": {
+        "id": "test",
+        "type": "Link",
+        "linkType": "Environment"
+      }
+    },
+    "revision": 7
+  },
+  "name": "Post",
+  "description": null,
+  "displayField": "title",
+  "fields": [
+    {
+      "id": "title",
+      "name": "Title",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": [],
+      "disabled": false,
+      "omitted": false
+    },
+    {
+      "id": "body",
+      "name": "Body",
+      "type": "Text",
+      "localized": false,
+      "required": false,
+      "validations": [],
+      "disabled": false,
+      "omitted": false
+    }
+  ]
+}

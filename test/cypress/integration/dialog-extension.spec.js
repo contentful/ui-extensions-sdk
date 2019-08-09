@@ -15,6 +15,7 @@ const post = {
 
 const iframeSidebarSelector = '[data-test-id="entry-editor-sidebar"] iframe'
 const iframeDialogSelector = '[data-test-id="cf-ui-modal"] iframe'
+const idsData = require('./fixtures/ids-data.json')
 
 context('Dialog extension', () => {
   beforeEach(() => {
@@ -48,6 +49,18 @@ context('Dialog extension', () => {
     openPageExtensionTest.verifyPageExtensionUrl()
 
     cy.get('@extension').should('be.visible')
+  })
+
+  it('sdk.ids static methods have expected values', () => {
+    cy.getSdk(iframeDialogSelector).then(sdk => {
+      expect(sdk.ids.contentType).to.equal(undefined)
+      expect(sdk.ids.entry).to.equal(undefined)
+      expect(sdk.ids.field).to.equal(undefined)
+      expect(sdk.ids.environment).to.equal(Cypress.env('activeEnvironmentId'))
+      expect(sdk.ids.extension).to.equal(idsData.extension)
+      expect(sdk.ids.space).to.equal(idsData.space)
+      expect(sdk.ids.user).to.equal(idsData.user)
+    })
   })
 
   /* Reusable */

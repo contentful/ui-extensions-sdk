@@ -6,6 +6,7 @@ import { openEntryTest, openEntrySlideInTest } from './reusable/open-entry-test'
 import { openAssetSlideInTest, openAssetTest } from './reusable/open-asset-test'
 import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
 import { openSdkLocalesDataTest } from './reusable/open-sdk-locales-data-test'
+import { openSdkEntryDataTest } from './reusable/open-sdk-entry-data-test'
 
 const post = {
   id: '1MDrvtuLDk0PcxS5nCkugC',
@@ -13,6 +14,8 @@ const post = {
 }
 
 const iframeSelector = '[data-field-api-name="title"] iframe'
+const idsData = require('./fixtures/ids-data.json')
+const contentTypeData = require('./fixtures/content-type-data/field-ext.json')
 
 context('Field extension', () => {
   beforeEach(() => {
@@ -29,6 +32,25 @@ context('Field extension', () => {
     })
   })
 
+  it('sdk.ids static methods have expected values', () => {
+    cy.getSdk(iframeSelector).then(sdk => {
+      expect(sdk.ids.contentType).to.equal(idsData.fieldExtension.contentType)
+      expect(sdk.ids.entry).to.equal(idsData.fieldExtension.entry)
+      expect(sdk.ids.field).to.equal(idsData.fieldExtension.field)
+      expect(sdk.ids.environment).to.equal(Cypress.env('activeEnvironmentId'))
+      expect(sdk.ids.extension).to.equal(idsData.extension)
+      expect(sdk.ids.space).to.equal(idsData.space)
+      expect(sdk.ids.user).to.equal(idsData.user)
+    })
+  })
+
+  it('sdk.contentType static methods have expected values', () => {
+    cy.getSdk(iframeSelector).then(sdk => {
+      contentTypeData.sys.environment.sys.id = Cypress.env('activeEnvironmentId')
+      expect(sdk.contentType).to.deep.equal(contentTypeData)
+    })
+  })
+
   /* Reusable tests */
 
   openPageExtensionTest()
@@ -39,4 +61,5 @@ context('Field extension', () => {
   openAssetSlideInTest(post.id)
   openSdkUserDataTest(iframeSelector)
   openSdkLocalesDataTest(iframeSelector)
+  openSdkEntryDataTest(iframeSelector)
 })
