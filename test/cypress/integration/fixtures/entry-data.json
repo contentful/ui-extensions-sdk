@@ -1,0 +1,22 @@
+{
+  "fields": {
+    "title": {
+      "id": "title",
+      "locales": [
+        "en-US"
+      ],
+      "type": "Symbol",
+      "required": true,
+      "validations": []
+    },
+    "body": {
+      "id": "body",
+      "locales": [
+        "en-US"
+      ],
+      "type": "Text",
+      "required": false,
+      "validations": []
+    }
+  }
+}

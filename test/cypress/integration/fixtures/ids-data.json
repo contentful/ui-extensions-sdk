@@ -8,13 +8,13 @@
     {
         "entry": "1MDrvtuLDk0PcxS5nCkugC",
         "contentType": "post",
-        "field": "bdpb"
+        "field": "title"
     },
     "sidebarExtension":
     {
         "entry": "3MEimIRakHkmgmqvp1oIsM",
         "contentType": "postWithSidebar",
-        "field": "bdpb"
+        "field": "title"
     },
     "extension": "test-extension",
     "space": "voxk9gcy69ri",

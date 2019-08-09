@@ -6,6 +6,7 @@ import { openEntrySlideInTest, openEntryTest } from './reusable/open-entry-test'
 import { openAssetSlideInTest, openAssetTest } from './reusable/open-asset-test'
 import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
 import { openSdkLocalesDataTest } from './reusable/open-sdk-locales-data-test'
+import { openSdkEntryDataTest } from './reusable/open-sdk-entry-data-test'
 
 const post = {
   id: '3MEimIRakHkmgmqvp1oIsM',
@@ -14,6 +15,7 @@ const post = {
 
 const iframeSelector = '[data-test-id="entry-editor-sidebar"] iframe'
 const idsData = require('./fixtures/ids-data.json')
+const contentTypeData = require('./fixtures/content-type-data/sidebar-ext.json')
 
 context('Sidebar extension', () => {
   beforeEach(() => {
@@ -47,6 +49,13 @@ context('Sidebar extension', () => {
     })
   })
 
+  it('sdk.contentType static methods have expected values', () => {
+    cy.getSdk(iframeSelector).then(sdk => {
+      contentTypeData.sys.environment.sys.id = Cypress.env('activeEnvironmentId')
+      expect(sdk.contentType).to.deep.equal(contentTypeData)
+    })
+  })
+
   /* Reusable tests */
 
   openPageExtensionTest()
@@ -57,4 +66,5 @@ context('Sidebar extension', () => {
   openAssetSlideInTest(post.id)
   openSdkUserDataTest(iframeSelector)
   openSdkLocalesDataTest(iframeSelector)
+  openSdkEntryDataTest(iframeSelector)
 })
