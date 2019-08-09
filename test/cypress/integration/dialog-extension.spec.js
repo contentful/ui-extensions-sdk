@@ -3,7 +3,6 @@ import { entry } from '../utils/paths'
 import * as openPageExtensionTest from './reusable/open-page-extension-test'
 import { openEntryTest } from './reusable/open-entry-test'
 import { openAssetTest } from './reusable/open-asset-test'
-import { actionSelectors } from '../../constants'
 import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
 import { openDialogExtension } from './reusable/open-dialog-extension-test'
 import { openSdkLocalesDataTest } from './reusable/open-sdk-locales-data-test'
@@ -38,14 +37,17 @@ context('Dialog extension', () => {
   })
 
   it('opens page extension using sdk.navigator.openPageExtension (with closing dialog)', () => {
-    openPageExtensionTest.clickToOpenPageExtension()
+    openPageExtensionTest.openPageExtension(iframeDialogSelector)
+    cy.getSdk(iframeDialogSelector).then(sdk => {
+      sdk.close()
+    })
     openPageExtensionTest.verifyPageExtensionUrl()
 
     cy.get('@extension').should('not.be.visible')
   })
 
   it('opens page extension using sdk.navigator.openPageExtension (without closing dialog)', () => {
-    openPageExtensionTest.clickToOpenPageExtension(actionSelectors.openPageExtensionNoClose)
+    openPageExtensionTest.openPageExtension(iframeDialogSelector)
     openPageExtensionTest.verifyPageExtensionUrl()
 
     cy.get('@extension').should('be.visible')
@@ -65,8 +67,8 @@ context('Dialog extension', () => {
 
   /* Reusable */
 
-  openEntryTest()
-  openAssetTest()
+  openEntryTest(iframeDialogSelector)
+  openAssetTest(iframeDialogSelector)
   openSdkUserDataTest(iframeDialogSelector)
   openSdkLocalesDataTest(iframeDialogSelector)
 })

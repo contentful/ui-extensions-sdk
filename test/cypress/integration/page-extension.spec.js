@@ -46,8 +46,8 @@ context('Page extension', () => {
   /* Reusable tests */
 
   openDialogExtensionTest(iframeSelector)
-  openEntryTest()
-  openAssetTest()
+  openEntryTest(iframeSelector)
+  openAssetTest(iframeSelector)
   openSdkUserDataTest(iframeSelector)
   openSdkLocalesDataTest(iframeSelector)
 })
