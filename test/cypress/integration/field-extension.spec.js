@@ -53,12 +53,12 @@ context('Field extension', () => {
 
   /* Reusable tests */
 
-  openPageExtensionTest()
+  openPageExtensionTest(iframeSelector)
   openDialogExtensionTest(iframeSelector)
-  openEntryTest()
-  openEntrySlideInTest(post.id)
-  openAssetTest()
-  openAssetSlideInTest(post.id)
+  openEntryTest(iframeSelector)
+  openEntrySlideInTest(iframeSelector, post.id)
+  openAssetTest(iframeSelector)
+  openAssetSlideInTest(iframeSelector, post.id)
   openSdkUserDataTest(iframeSelector)
   openSdkLocalesDataTest(iframeSelector)
   openSdkEntryDataTest(iframeSelector)

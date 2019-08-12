@@ -1,9 +1,8 @@
 import { pageExtension } from '../../utils/paths'
-import { actionSelectors } from '../../../constants'
 
-export function clickToOpenPageExtension(testId = actionSelectors.openPageExtension) {
-  cy.get('@extension').within(() => {
-    cy.getByTestId(testId).click()
+export function openPageExtension(iframeSelector) {
+  cy.getSdk(iframeSelector).then(sdk => {
+    sdk.navigator.openPageExtension()
   })
 }
 
@@ -11,9 +10,9 @@ export function verifyPageExtensionUrl(extensionId = 'test-extension') {
   cy.url().should('eq', Cypress.config().baseUrl + pageExtension(extensionId))
 }
 
-export function openPageExtensionTest() {
+export function openPageExtensionTest(iframeSelector) {
   it('opens page extension using sdk.navigator.openPageExtension', () => {
-    clickToOpenPageExtension()
+    openPageExtension(iframeSelector)
     verifyPageExtensionUrl()
   })
 }

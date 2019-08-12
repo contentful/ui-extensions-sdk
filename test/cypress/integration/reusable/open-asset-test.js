@@ -1,11 +1,17 @@
 import { asset } from '../../utils/paths'
 import * as Constants from '../../../constants'
 
-export function clickToOpenAsset({ slideIn } = { slideIn: false }) {
-  cy.get('@extension').within(() => {
-    cy.getByTestId(
-      slideIn ? Constants.actionSelectors.openAssetSlideIn : Constants.actionSelectors.openAsset
-    ).click()
+export function openAssetExtension(iframeSelector) {
+  cy.getSdk(iframeSelector).then(sdk => {
+    sdk.navigator.openAsset(Constants.assets.testImage)
+  })
+}
+
+export function openAssetSlideInExtension(iframeSelector) {
+  cy.getSdk(iframeSelector).then(sdk => {
+    sdk.navigator.openAsset(Constants.assets.testImage, {
+      slideIn: true
+    })
   })
 }
 
@@ -20,18 +26,16 @@ export function verifyAssetSlideInUrl(assetId, previousEntryId) {
   )
 }
 
-export function openAssetTest() {
+export function openAssetTest(iframeSelector) {
   it('opens asset using sdk.navigator.openAsset', () => {
-    clickToOpenAsset()
+    openAssetExtension(iframeSelector)
     verifyAssetPageUrl(Constants.assets.testImage)
   })
 }
 
-export function openAssetSlideInTest(currentEntryId) {
+export function openAssetSlideInTest(iframeSelector, currentEntryId) {
   it('opens asset using sdk.navigator.openAsset (slideIn)', () => {
-    clickToOpenAsset({
-      slideIn: true
-    })
+    openAssetSlideInExtension(iframeSelector)
     verifyAssetSlideInUrl(Constants.assets.testImage, currentEntryId)
   })
 }

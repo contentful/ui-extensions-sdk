@@ -1,11 +1,17 @@
 import { entry } from '../../utils/paths'
 import * as Constants from '../../../constants'
 
-export function clickToOpenEntry({ slideIn } = { slideIn: false }) {
-  cy.get('@extension').within(() => {
-    cy.getByTestId(
-      slideIn ? Constants.actionSelectors.openEntrySlideIn : Constants.actionSelectors.openEntry
-    ).click()
+export function openEntryExtension(iframeSelector) {
+  cy.getSdk(iframeSelector).then(sdk => {
+    sdk.navigator.openEntry(Constants.entries.testImageWrapper)
+  })
+}
+
+export function openEntrySlideInExtension(iframeSelector) {
+  cy.getSdk(iframeSelector).then(sdk => {
+    sdk.navigator.openEntry(Constants.entries.testImageWrapper, {
+      slideIn: true
+    })
   })
 }
 
@@ -20,18 +26,16 @@ export function verifyEntrySlideInUrl(entryId, previousEntryId) {
   )
 }
 
-export function openEntryTest() {
+export function openEntryTest(iframeSelector) {
   it('opens entry using sdk.navigator.openEntry', () => {
-    clickToOpenEntry()
+    openEntryExtension(iframeSelector)
     verifyEntryPageUrl(Constants.entries.testImageWrapper)
   })
 }
 
-export function openEntrySlideInTest(currentEntryId) {
+export function openEntrySlideInTest(iframeSelector, currentEntryId) {
   it('opens entry using sdk.navigator.openEntry (slideIn)', () => {
-    clickToOpenEntry({
-      slideIn: true
-    })
+    openEntrySlideInExtension(iframeSelector)
     verifyEntrySlideInUrl(Constants.entries.testImageWrapper, currentEntryId)
   })
 }
