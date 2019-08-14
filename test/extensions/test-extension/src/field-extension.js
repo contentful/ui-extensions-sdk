@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { TextInput, Card, Heading } from '@contentful/forma-36-react-components'
-import { OpenPageExtensionButton, OpenEntryButton, OpenAssetButton } from './components'
-import * as Constants from '../../../constants'
+import { TextInput } from '@contentful/forma-36-react-components'
 
 export class FieldExtension extends React.Component {
   constructor(props) {
@@ -50,20 +48,6 @@ export class FieldExtension extends React.Component {
           value={this.state.value}
           onChange={this.onChange}
         />
-        <Card className="f36-margin-top--l" title="Navigator">
-          <Heading className="f36-margin-bottom--m">
-            <code>sdk.navigator & sdk.dialogs</code>
-          </Heading>
-          <div className="f36-margin-bottom--m">
-            <OpenPageExtensionButton sdk={this.props.sdk} />
-          </div>
-          <div className="f36-margin-bottom--m">
-            <OpenEntryButton sdk={this.props.sdk} entryId={Constants.entries.testImageWrapper} />
-          </div>
-          <div>
-            <OpenAssetButton sdk={this.props.sdk} assetId={Constants.assets.testImage} />
-          </div>
-        </Card>
       </>
     )
   }

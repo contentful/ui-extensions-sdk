@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Heading } from '@contentful/forma-36-react-components'
-import { OpenPageExtensionButton, OpenEntryButton, OpenAssetButton } from './components'
+import { Button } from '@contentful/forma-36-react-components'
 import * as Constants from '../../../constants'
 
 export function DialogExtension({ sdk }) {
@@ -10,45 +9,13 @@ export function DialogExtension({ sdk }) {
   }, [])
 
   return (
-    <div data-test-id={Constants.actionSelectors.dialogWrapper} className="f36-padding--l">
-      <Heading className="f36-margin-bottom--m">
-        <code>sdk.navigator & sdk.dialogs</code>
-      </Heading>
-      <div className="f36-margin-bottom--m">
-        <OpenPageExtensionButton
-          testId={Constants.actionSelectors.openPageExtension}
-          sdk={sdk}
-          onNavigated={() => {
-            sdk.close()
-          }}>
-          open page extension with closing dialog
-        </OpenPageExtensionButton>
-        <OpenPageExtensionButton
-          sdk={sdk}
-          testId={Constants.actionSelectors.openPageExtensionNoClose}>
-          open page extension without closing dialog
-        </OpenPageExtensionButton>
-      </div>
-      <div>
-        <OpenEntryButton
-          sdk={sdk}
-          entryId={Constants.entries.testImageWrapper}
-          canSlideIn={false}
-          onOpen={() => {
-            sdk.close()
-          }}
-        />
-      </div>
-      <div>
-        <OpenAssetButton
-          sdk={sdk}
-          assetId={Constants.assets.testImage}
-          canSlideIn={false}
-          onOpen={() => {
-            sdk.close()
-          }}
-        />
-      </div>
+    <div data-test-id={Constants.actionSelectors.dialogWrapper}>
+      <Button
+        onClick={() => {
+          sdk.close()
+        }}>
+        Close
+      </Button>
     </div>
   )
 }

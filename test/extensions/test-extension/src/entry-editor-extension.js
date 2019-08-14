@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { TextInput, Textarea, Card, Heading } from '@contentful/forma-36-react-components'
-import { OpenPageExtensionButton, OpenEntryButton, OpenAssetButton } from './components'
-import * as Constants from '../../../constants'
+import { TextInput, Textarea, Card } from '@contentful/forma-36-react-components'
 
 export class EntryEditorExtension extends React.Component {
   constructor(props) {
@@ -65,20 +63,6 @@ export class EntryEditorExtension extends React.Component {
             value={this.state.body}
             onChange={this.onBodyChange}
           />
-        </Card>
-        <Card className="f36-margin--xl" title="Navigator">
-          <Heading className="f36-margin-bottom--m">
-            <code>sdk.navigator & sdk.dialogs</code>
-          </Heading>
-          <div className="f36-margin-bottom--m">
-            <OpenPageExtensionButton sdk={this.props.sdk} />
-          </div>
-          <div className="f36-margin-bottom--m">
-            <OpenEntryButton sdk={this.props.sdk} entryId={Constants.entries.testImageWrapper} />
-          </div>
-          <div>
-            <OpenAssetButton sdk={this.props.sdk} assetId={Constants.assets.testImage} />
-          </div>
         </Card>
       </>
     )
