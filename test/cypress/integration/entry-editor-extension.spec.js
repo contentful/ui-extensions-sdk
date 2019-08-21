@@ -66,6 +66,12 @@ context('Entry editor extension', () => {
     })
   })
 
+  it('verifies sdk.location.is entry-editor', () => {
+    cy.getSdk(iframeSelector).then(sdk => {
+      expect(sdk.location.is('entry-editor')).to.equal(true)
+    })
+  })
+
   /* Reusable tests */
 
   openPageExtensionTest(iframeSelector)

@@ -69,6 +69,12 @@ context('Dialog extension', () => {
     })
   })
 
+  it('verifies sdk.location.is dialog', () => {
+    cy.getSdk(iframeDialogSelector).then(sdk => {
+      expect(sdk.location.is('dialog')).to.equal(true)
+    })
+  })
+
   /* Reusable */
 
   openEntryTest(iframeDialogSelector)

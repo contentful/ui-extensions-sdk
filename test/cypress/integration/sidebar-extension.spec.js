@@ -60,6 +60,12 @@ context('Sidebar extension', () => {
     })
   })
 
+  it('verifies sdk.location.is entry-sidebar', () => {
+    cy.getSdk(iframeSelector).then(sdk => {
+      expect(sdk.location.is('entry-sidebar')).to.equal(true)
+    })
+  })
+
   /* Reusable tests */
 
   openPageExtensionTest(iframeSelector)

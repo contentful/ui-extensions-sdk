@@ -47,6 +47,12 @@ context('Page extension', () => {
     })
   })
 
+  it('verifies sdk.location.is page', () => {
+    cy.getSdk(iframeSelector).then(sdk => {
+      expect(sdk.location.is('page')).to.equal(true)
+    })
+  })
+
   /* Reusable tests */
 
   openDialogExtensionTest(iframeSelector)

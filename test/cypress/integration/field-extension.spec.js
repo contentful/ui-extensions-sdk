@@ -55,6 +55,12 @@ context('Field extension', () => {
     })
   })
 
+  it('verifies sdk.location.is entry-field', () => {
+    cy.getSdk(iframeSelector).then(sdk => {
+      expect(sdk.location.is('entry-field')).to.equal(true)
+    })
+  })
+
   /* Reusable tests */
 
   openPageExtensionTest(iframeSelector)
