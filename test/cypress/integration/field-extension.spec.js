@@ -7,6 +7,10 @@ import { openAssetSlideInTest, openAssetTest } from './reusable/open-asset-test'
 import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
 import { openSdkLocalesDataTest } from './reusable/open-sdk-locales-data-test'
 import { openSdkEntryDataTest } from './reusable/open-sdk-entry-data-test'
+import {
+  openSuccessNotificationTest,
+  openErrorNotificationTest
+} from './reusable/open-notifications-test'
 
 const post = {
   id: '1MDrvtuLDk0PcxS5nCkugC',
@@ -62,4 +66,6 @@ context('Field extension', () => {
   openSdkUserDataTest(iframeSelector)
   openSdkLocalesDataTest(iframeSelector)
   openSdkEntryDataTest(iframeSelector)
+  openSuccessNotificationTest(iframeSelector)
+  openErrorNotificationTest(iframeSelector)
 })
