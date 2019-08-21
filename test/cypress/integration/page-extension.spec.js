@@ -5,6 +5,10 @@ import { openEntryTest } from './reusable/open-entry-test'
 import { openAssetTest } from './reusable/open-asset-test'
 import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
 import { openSdkLocalesDataTest } from './reusable/open-sdk-locales-data-test'
+import {
+  openSuccessNotificationTest,
+  openErrorNotificationTest
+} from './reusable/open-notifications-test'
 
 const iframeSelector = '[data-test-id="page-extension"] iframe'
 const idsData = require('./fixtures/ids-data.json')
@@ -50,4 +54,6 @@ context('Page extension', () => {
   openAssetTest(iframeSelector)
   openSdkUserDataTest(iframeSelector)
   openSdkLocalesDataTest(iframeSelector)
+  openSuccessNotificationTest(iframeSelector)
+  openErrorNotificationTest(iframeSelector)
 })

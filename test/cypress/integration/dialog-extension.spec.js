@@ -6,6 +6,10 @@ import { openAssetTest } from './reusable/open-asset-test'
 import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
 import { openDialogExtension } from './reusable/open-dialog-extension-test'
 import { openSdkLocalesDataTest } from './reusable/open-sdk-locales-data-test'
+import {
+  openSuccessNotificationTest,
+  openErrorNotificationTest
+} from './reusable/open-notifications-test'
 
 const post = {
   id: '3MEimIRakHkmgmqvp1oIsM',
@@ -71,4 +75,6 @@ context('Dialog extension', () => {
   openAssetTest(iframeDialogSelector)
   openSdkUserDataTest(iframeDialogSelector)
   openSdkLocalesDataTest(iframeDialogSelector)
+  openSuccessNotificationTest(iframeDialogSelector)
+  openErrorNotificationTest(iframeDialogSelector)
 })
