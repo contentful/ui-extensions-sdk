@@ -63,6 +63,10 @@ context('Sidebar extension', () => {
   it('verifies sdk.location.is entry-sidebar', () => {
     cy.getSdk(iframeSelector).then(sdk => {
       expect(sdk.location.is('entry-sidebar')).to.equal(true)
+      expect(sdk.location.is('dialog')).to.equal(false)
+      expect(sdk.location.is('entry-editor')).to.equal(false)
+      expect(sdk.location.is('entry-field')).to.equal(false)
+      expect(sdk.location.is('page')).to.equal(false)
     })
   })
 

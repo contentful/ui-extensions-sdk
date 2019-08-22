@@ -72,6 +72,10 @@ context('Dialog extension', () => {
   it('verifies sdk.location.is dialog', () => {
     cy.getSdk(iframeDialogSelector).then(sdk => {
       expect(sdk.location.is('dialog')).to.equal(true)
+      expect(sdk.location.is('entry-editor')).to.equal(false)
+      expect(sdk.location.is('entry-field')).to.equal(false)
+      expect(sdk.location.is('page')).to.equal(false)
+      expect(sdk.location.is('entry-sidebar')).to.equal(false)
     })
   })
 
