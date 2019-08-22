@@ -5,6 +5,5 @@ export function verifyLocation(sdk, location) {
   let invalidLocations = Object.values(locations)
   invalidLocations = invalidLocations.filter(item => item !== location)
   invalidLocations.push('test-value')
-  console.log(invalidLocations)
-  invalidLocations.every(item => expect(sdk.location.is(item)).to.equal(false))
+  invalidLocations.forEach(item => expect(sdk.location.is(item)).to.equal(false))
 }
