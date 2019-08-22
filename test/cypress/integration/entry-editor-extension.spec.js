@@ -11,6 +11,7 @@ import {
   openSuccessNotificationTest,
   openErrorNotificationTest
 } from './reusable/open-notifications-test'
+import { verifyLocation } from '../utils/verify-location'
 
 const post = {
   id: '5mwUiJB2kThfAG9ZnRNuNQ',
@@ -68,11 +69,7 @@ context('Entry editor extension', () => {
 
   it('verifies sdk.location.is entry-editor', () => {
     cy.getSdk(iframeSelector).then(sdk => {
-      expect(sdk.location.is('entry-editor')).to.equal(true)
-      expect(sdk.location.is('dialog')).to.equal(false)
-      expect(sdk.location.is('entry-field')).to.equal(false)
-      expect(sdk.location.is('page')).to.equal(false)
-      expect(sdk.location.is('entry-sidebar')).to.equal(false)
+      verifyLocation(sdk, 'entry-editor')
     })
   })
 
