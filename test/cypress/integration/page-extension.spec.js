@@ -9,6 +9,7 @@ import {
   openSuccessNotificationTest,
   openErrorNotificationTest
 } from './reusable/open-notifications-test'
+import { verifyLocation } from '../utils/verify-location'
 
 const iframeSelector = '[data-test-id="page-extension"] iframe'
 const idsData = require('./fixtures/ids-data.json')
@@ -44,6 +45,12 @@ context('Page extension', () => {
       expect(sdk.ids.extension).to.equal(idsData.extension)
       expect(sdk.ids.space).to.equal(idsData.space)
       expect(sdk.ids.user).to.equal(idsData.user)
+    })
+  })
+
+  it('verifies sdk.location.is page', () => {
+    cy.getSdk(iframeSelector).then(sdk => {
+      verifyLocation(sdk, 'page')
     })
   })
 

@@ -11,6 +11,7 @@ import {
   openSuccessNotificationTest,
   openErrorNotificationTest
 } from './reusable/open-notifications-test'
+import { verifyLocation } from '../utils/verify-location'
 
 const post = {
   id: '5mwUiJB2kThfAG9ZnRNuNQ',
@@ -63,6 +64,12 @@ context('Entry editor extension', () => {
     cy.getSdk(iframeSelector).then(sdk => {
       contentTypeData.sys.environment.sys.id = Cypress.env('activeEnvironmentId')
       expect(sdk.contentType).to.deep.equal(contentTypeData)
+    })
+  })
+
+  it('verifies sdk.location.is entry-editor', () => {
+    cy.getSdk(iframeSelector).then(sdk => {
+      verifyLocation(sdk, 'entry-editor')
     })
   })
 

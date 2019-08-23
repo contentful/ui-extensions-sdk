@@ -11,6 +11,7 @@ import {
   openSuccessNotificationTest,
   openErrorNotificationTest
 } from './reusable/open-notifications-test'
+import { verifyLocation } from '../utils/verify-location'
 
 const post = {
   id: '1MDrvtuLDk0PcxS5nCkugC',
@@ -52,6 +53,12 @@ context('Field extension', () => {
     cy.getSdk(iframeSelector).then(sdk => {
       contentTypeData.sys.environment.sys.id = Cypress.env('activeEnvironmentId')
       expect(sdk.contentType).to.deep.equal(contentTypeData)
+    })
+  })
+
+  it('verifies sdk.location.is entry-field', () => {
+    cy.getSdk(iframeSelector).then(sdk => {
+      verifyLocation(sdk, 'entry-field')
     })
   })
 

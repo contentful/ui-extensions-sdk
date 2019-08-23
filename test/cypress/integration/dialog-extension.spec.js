@@ -10,6 +10,7 @@ import {
   openSuccessNotificationTest,
   openErrorNotificationTest
 } from './reusable/open-notifications-test'
+import { verifyLocation } from '../utils/verify-location'
 
 const post = {
   id: '3MEimIRakHkmgmqvp1oIsM',
@@ -66,6 +67,12 @@ context('Dialog extension', () => {
       expect(sdk.ids.extension).to.equal(idsData.extension)
       expect(sdk.ids.space).to.equal(idsData.space)
       expect(sdk.ids.user).to.equal(idsData.user)
+    })
+  })
+
+  it('verifies sdk.location.is dialog', () => {
+    cy.getSdk(iframeDialogSelector).then(sdk => {
+      verifyLocation(sdk, 'dialog')
     })
   })
 

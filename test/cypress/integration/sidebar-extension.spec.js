@@ -11,6 +11,7 @@ import {
   openSuccessNotificationTest,
   openErrorNotificationTest
 } from './reusable/open-notifications-test'
+import { verifyLocation } from '../utils/verify-location'
 
 const post = {
   id: '3MEimIRakHkmgmqvp1oIsM',
@@ -57,6 +58,12 @@ context('Sidebar extension', () => {
     cy.getSdk(iframeSelector).then(sdk => {
       contentTypeData.sys.environment.sys.id = Cypress.env('activeEnvironmentId')
       expect(sdk.contentType).to.deep.equal(contentTypeData)
+    })
+  })
+
+  it('verifies sdk.location.is entry-sidebar', () => {
+    cy.getSdk(iframeSelector).then(sdk => {
+      verifyLocation(sdk, 'entry-sidebar')
     })
   })
 
