@@ -63,7 +63,7 @@ context('Sidebar extension', () => {
 
   it('verifies sdk.location.is entry-sidebar', () => {
     cy.getSdk(iframeSelector).then(sdk => {
-      verifyLocation(sdk, ' entry-sidebar')
+      verifyLocation(sdk, 'entry-sidebar')
     })
   })
 
