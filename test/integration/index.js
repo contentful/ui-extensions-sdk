@@ -16,11 +16,12 @@ const config = {
 }
 
 function listAllEnvironmentVariables() {
-  ;['CONTENTFUL_SPACE_ID', 'CONTENTFUL_CMA_TOKEN', 'CYPRESS_baseUrl', 'TEST_LOCAL_SDK'].forEach(
-    envvar => {
-      console.log(`${envvar}=${process.env[envvar]}`)
-    }
-  )
+  ;['CONTENTFUL_SPACE_ID', 'CYPRESS_baseUrl', 'TEST_LOCAL_SDK'].forEach(envvar => {
+    console.log(`${envvar}=${process.env[envvar]}`)
+  })
+  ;['CONTENTFUL_CMA_TOKEN'].forEach(envvar => {
+    console.log(`${envvar}=${process.env[envvar].slice(0, 5)}...`)
+  })
 }
 
 let environmentId
