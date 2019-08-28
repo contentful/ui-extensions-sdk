@@ -12,6 +12,7 @@ import {
   openErrorNotificationTest
 } from './reusable/open-notifications-test'
 import { verifyLocation } from '../utils/verify-location'
+import { openSdkParametersTest } from './reusable/open-sdk-parameters-test'
 
 const post = {
   id: '5mwUiJB2kThfAG9ZnRNuNQ',
@@ -86,4 +87,5 @@ context('Entry editor extension', () => {
   openSdkEntryDataTest(iframeSelector)
   openSuccessNotificationTest(iframeSelector)
   openErrorNotificationTest(iframeSelector)
+  openSdkParametersTest(iframeSelector)
 })

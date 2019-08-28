@@ -11,6 +11,7 @@ import {
   openErrorNotificationTest
 } from './reusable/open-notifications-test'
 import { verifyLocation } from '../utils/verify-location'
+import { verifySdkInstallationParameters } from './reusable/open-sdk-parameters-test'
 
 const post = {
   id: '3MEimIRakHkmgmqvp1oIsM',
@@ -73,6 +74,12 @@ context('Dialog extension', () => {
   it('verifies sdk.location.is dialog', () => {
     cy.getSdk(iframeDialogSelector).then(sdk => {
       verifyLocation(sdk, 'dialog')
+    })
+  })
+
+  it('sdk.parameters.installation has expected values', () => {
+    cy.getSdk(iframeDialogSelector).then(sdk => {
+      verifySdkInstallationParameters(iframeDialogSelector)
     })
   })
 

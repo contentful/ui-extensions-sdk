@@ -10,6 +10,7 @@ import {
   openErrorNotificationTest
 } from './reusable/open-notifications-test'
 import { verifyLocation } from '../utils/verify-location'
+import { verifySdkInstallationParameters } from './reusable/open-sdk-parameters-test'
 
 const iframeSelector = '[data-test-id="page-extension"] iframe'
 const idsData = require('./fixtures/ids-data.json')
@@ -51,6 +52,12 @@ context('Page extension', () => {
   it('verifies sdk.location.is page', () => {
     cy.getSdk(iframeSelector).then(sdk => {
       verifyLocation(sdk, 'page')
+    })
+  })
+
+  it('sdk.parameters.installation has expected values', () => {
+    cy.getSdk(iframeSelector).then(sdk => {
+      verifySdkInstallationParameters(iframeSelector)
     })
   })
 

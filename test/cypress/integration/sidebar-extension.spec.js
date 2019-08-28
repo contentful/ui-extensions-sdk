@@ -12,6 +12,7 @@ import {
   openErrorNotificationTest
 } from './reusable/open-notifications-test'
 import { verifyLocation } from '../utils/verify-location'
+import { openSdkParametersTest } from './reusable/open-sdk-parameters-test'
 
 const post = {
   id: '3MEimIRakHkmgmqvp1oIsM',
@@ -80,4 +81,5 @@ context('Sidebar extension', () => {
   openSdkEntryDataTest(iframeSelector)
   openSuccessNotificationTest(iframeSelector)
   openErrorNotificationTest(iframeSelector)
+  openSdkParametersTest(iframeSelector)
 })
