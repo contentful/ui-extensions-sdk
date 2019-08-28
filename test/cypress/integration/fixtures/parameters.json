@@ -1,0 +1,12 @@
+{
+    "installation":
+    {
+        "installationParameterBooleanId": false,
+        "installationParameterNumberId": 7
+    },
+    "instance":
+    {
+        "instanceParameterEnumId": "option1",
+        "instanceParameterSymbolId": "instance-parameter-text"
+    }
+}
