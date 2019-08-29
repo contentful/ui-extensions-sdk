@@ -3,7 +3,8 @@ import { actionSelectors } from '../../../constants'
 export function openDialogExtension(iframeSelector) {
   cy.getSdk(iframeSelector).then(sdk => {
     sdk.dialogs.openExtension({
-      title: 'My awesome dialog extension'
+      title: 'My awesome dialog extension',
+      parameters: { test: true, value: 'invocation-parameter' }
     })
   })
 }
