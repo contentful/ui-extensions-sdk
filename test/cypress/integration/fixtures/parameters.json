@@ -1,6 +1,6 @@
 {
   "installation": {
-    "installationParameterBooleanId": false,
+    "installationParameterBooleanId": true,
     "installationParameterNumberId": 7
   },
   "instance": {

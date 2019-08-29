@@ -15,8 +15,8 @@
       {
         "id": "installationParameterNumberId",
         "type": "Number",
-        "name": "installation parameter Number name",
-        "required": true,
+        "name": "Installation parameter Number name",
+        "required": false,
         "default": 7
       }
     ],
@@ -25,7 +25,7 @@
         "id": "instanceParameterSymbolId",
         "type": "Symbol",
         "name": "Instance Parameter Symbol name",
-        "description": "Instance Parameter symbol description",
+        "description": "Instance parameter Symbol description",
         "default": "instance-parameter-text",
         "required": true
       },
@@ -35,7 +35,7 @@
         "name": "Instance parameter Enum name",
         "options": [{"option1": "option1 value"}, {"option2": "option2 value"}],
         "default": "option1",
-        "required": true
+        "required": false
       }
     ]
   }
