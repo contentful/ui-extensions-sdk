@@ -12,7 +12,10 @@ import {
   openErrorNotificationTest
 } from './reusable/open-notifications-test'
 import { verifyLocation } from '../utils/verify-location'
-import { openSdkParametersTest } from './reusable/open-sdk-parameters-test'
+import {
+  verifySdkInstallationParameters,
+  verifySdkInstanceParameters
+} from '../utils/verify-parameters'
 
 const post = {
   id: '3MEimIRakHkmgmqvp1oIsM',
@@ -43,7 +46,7 @@ context('Sidebar extension', () => {
     })
   })
 
-  it('sdk.ids static methods have expected values', () => {
+  it('verifies sdk.ids static methods have expected values', () => {
     cy.getSdk(iframeSelector).then(sdk => {
       expect(sdk.ids.contentType).to.equal(idsData.sidebarExtension.contentType)
       expect(sdk.ids.entry).to.equal(idsData.sidebarExtension.entry)
@@ -55,7 +58,7 @@ context('Sidebar extension', () => {
     })
   })
 
-  it('sdk.contentType static methods have expected values', () => {
+  it('verifies sdk.contentType static methods have expected values', () => {
     cy.getSdk(iframeSelector).then(sdk => {
       contentTypeData.sys.environment.sys.id = Cypress.env('activeEnvironmentId')
       expect(sdk.contentType).to.deep.equal(contentTypeData)
@@ -65,6 +68,13 @@ context('Sidebar extension', () => {
   it('verifies sdk.location.is entry-sidebar', () => {
     cy.getSdk(iframeSelector).then(sdk => {
       verifyLocation(sdk, 'entry-sidebar')
+    })
+  })
+
+  it('verifies sdk.parameters have expected values', () => {
+    cy.getSdk(iframeSelector).then(sdk => {
+      verifySdkInstallationParameters(iframeSelector)
+      verifySdkInstanceParameters(iframeSelector)
     })
   })
 
@@ -81,5 +91,4 @@ context('Sidebar extension', () => {
   openSdkEntryDataTest(iframeSelector)
   openSuccessNotificationTest(iframeSelector)
   openErrorNotificationTest(iframeSelector)
-  openSdkParametersTest(iframeSelector)
 })

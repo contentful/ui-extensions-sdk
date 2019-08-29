@@ -1,4 +1,4 @@
-const parameters = require('../fixtures/parameters.json')
+const parameters = require('../integration/fixtures/parameters.json')
 
 export function verifySdkInstallationParameters(iframeSelector) {
   cy.getSdk(iframeSelector).then(sdk => {
@@ -18,12 +18,5 @@ export function verifySdkInvocationParameters(iframeSelector) {
   cy.getSdk(iframeSelector).then(sdk => {
     expect(Object.keys(sdk.parameters.invocation)).to.have.length(2)
     expect(sdk.parameters.invocation).to.deep.equal(parameters.invocation)
-  })
-}
-
-export function openSdkParametersTest(iframeSelector) {
-  it('sdk.parameters have expected values', () => {
-    verifySdkInstallationParameters(iframeSelector)
-    verifySdkInstanceParameters(iframeSelector)
   })
 }

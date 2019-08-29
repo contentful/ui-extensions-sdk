@@ -10,7 +10,7 @@ import {
   openErrorNotificationTest
 } from './reusable/open-notifications-test'
 import { verifyLocation } from '../utils/verify-location'
-import { verifySdkInstallationParameters } from './reusable/open-sdk-parameters-test'
+import { verifySdkInstallationParameters } from '../utils/verify-parameters'
 
 const iframeSelector = '[data-test-id="page-extension"] iframe'
 const idsData = require('./fixtures/ids-data.json')
@@ -37,7 +37,7 @@ context('Page extension', () => {
     cy.url().should('include', 'test-extension/new')
   })
 
-  it('sdk.ids static methods have expected values', () => {
+  it('verifies sdk.ids static methods have expected values', () => {
     cy.getSdk(iframeSelector).then(sdk => {
       expect(sdk.ids.contentType).to.equal(undefined)
       expect(sdk.ids.entry).to.equal(undefined)
@@ -55,9 +55,15 @@ context('Page extension', () => {
     })
   })
 
-  it('sdk.parameters.installation has expected values', () => {
+  it('verifies sdk.parameters.installation has expected values', () => {
     cy.getSdk(iframeSelector).then(sdk => {
       verifySdkInstallationParameters(iframeSelector)
+    })
+  })
+
+  it('verifies sdk.parameters.invocation has expected default value', () => {
+    cy.getSdk(iframeSelector).then(sdk => {
+      expect(sdk.parameters.invocation).to.deep.equal({ path: '/' })
     })
   })
 
