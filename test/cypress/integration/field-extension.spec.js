@@ -1,6 +1,9 @@
 import { entry } from '../utils/paths'
 
-import { openPageExtensionTest } from './reusable/open-page-extension-test'
+import {
+  openPageExtensionTest,
+  openPageExtensionWithSubRoute
+} from './reusable/open-page-extension-test'
 import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
 import { openEntryTest, openEntrySlideInTest } from './reusable/open-entry-test'
 import { openAssetSlideInTest, openAssetTest } from './reusable/open-asset-test'
@@ -12,6 +15,10 @@ import {
   openErrorNotificationTest
 } from './reusable/open-notifications-test'
 import { verifyLocation } from '../utils/verify-location'
+import {
+  verifySdkInstallationParameters,
+  verifySdkInstanceParameters
+} from '../utils/verify-parameters'
 
 const post = {
   id: '1MDrvtuLDk0PcxS5nCkugC',
@@ -19,8 +26,10 @@ const post = {
 }
 
 const iframeSelector = '[data-field-api-name="title"] iframe'
+const iframePageSelector = '[data-test-id="page-extension"] iframe'
 const idsData = require('./fixtures/ids-data.json')
 const contentTypeData = require('./fixtures/content-type-data/field-ext.json')
+const parameters = require('./fixtures/parameters.json')
 
 context('Field extension', () => {
   beforeEach(() => {
@@ -31,13 +40,13 @@ context('Field extension', () => {
     cy.get(iframeSelector).captureIFrameAs('extension')
   })
 
-  it('field extension is rendered', () => {
+  it('verifies field extension is rendered', () => {
     cy.get('@extension').within(() => {
       cy.getByTestId('cf-ui-text-input').should('exist')
     })
   })
 
-  it('sdk.ids static methods have expected values', () => {
+  it('verifies sdk.ids static methods have expected values', () => {
     cy.getSdk(iframeSelector).then(sdk => {
       expect(sdk.ids.contentType).to.equal(idsData.fieldExtension.contentType)
       expect(sdk.ids.entry).to.equal(idsData.fieldExtension.entry)
@@ -49,7 +58,7 @@ context('Field extension', () => {
     })
   })
 
-  it('sdk.contentType static methods have expected values', () => {
+  it('verifies sdk.contentType static methods have expected values', () => {
     cy.getSdk(iframeSelector).then(sdk => {
       contentTypeData.sys.environment.sys.id = Cypress.env('activeEnvironmentId')
       expect(sdk.contentType).to.deep.equal(contentTypeData)
@@ -59,6 +68,23 @@ context('Field extension', () => {
   it('verifies sdk.location.is entry-field', () => {
     cy.getSdk(iframeSelector).then(sdk => {
       verifyLocation(sdk, 'entry-field')
+    })
+  })
+
+  it('verifies sdk.parameters have expected values', () => {
+    cy.getSdk(iframeSelector).then(sdk => {
+      verifySdkInstallationParameters(iframeSelector)
+      // for field extension custom instance parameter is set in UI.
+      parameters.instance.instanceParameterEnumId = 'option2'
+      verifySdkInstanceParameters(iframeSelector)
+    })
+  })
+
+  it('verifies opened page extension contains path in sdk.parameteres.invocation)', () => {
+    openPageExtensionWithSubRoute(iframeSelector)
+    cy.waitForIFrame()
+    cy.getSdk(iframePageSelector).then(sdk => {
+      expect(sdk.parameters.invocation).to.deep.equal({ path: location.pathname })
     })
   })
 

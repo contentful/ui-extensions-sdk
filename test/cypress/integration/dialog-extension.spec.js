@@ -11,6 +11,10 @@ import {
   openErrorNotificationTest
 } from './reusable/open-notifications-test'
 import { verifyLocation } from '../utils/verify-location'
+import {
+  verifySdkInstallationParameters,
+  verifySdkInvocationParameters
+} from '../utils/verify-parameters'
 
 const post = {
   id: '3MEimIRakHkmgmqvp1oIsM',
@@ -58,7 +62,7 @@ context('Dialog extension', () => {
     cy.get('@extension').should('be.visible')
   })
 
-  it('sdk.ids static methods have expected values', () => {
+  it('verifies sdk.ids static methods have expected values', () => {
     cy.getSdk(iframeDialogSelector).then(sdk => {
       expect(sdk.ids.contentType).to.equal(undefined)
       expect(sdk.ids.entry).to.equal(undefined)
@@ -73,6 +77,13 @@ context('Dialog extension', () => {
   it('verifies sdk.location.is dialog', () => {
     cy.getSdk(iframeDialogSelector).then(sdk => {
       verifyLocation(sdk, 'dialog')
+    })
+  })
+
+  it('verifies sdk.parameters have expected values', () => {
+    cy.getSdk(iframeDialogSelector).then(sdk => {
+      verifySdkInstallationParameters(iframeDialogSelector)
+      verifySdkInvocationParameters(iframeDialogSelector)
     })
   })
 

@@ -6,6 +6,12 @@ export function openPageExtension(iframeSelector) {
   })
 }
 
+export function openPageExtensionWithSubRoute(iframeSelector) {
+  cy.getSdk(iframeSelector).then(sdk => {
+    sdk.navigator.openPageExtension({ path: location.pathname })
+  })
+}
+
 export function verifyPageExtensionUrl(extensionId = 'test-extension') {
   cy.url().should('eq', Cypress.config().baseUrl + pageExtension(extensionId))
 }

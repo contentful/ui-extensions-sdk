@@ -27,7 +27,7 @@
   "scripts": {
     "start": "contentful-extension-scripts start",
     "build": "contentful-extension-scripts build",
-    "deploy": "npm run build && contentful extension update --force",
+    "deploy": "npm run build && contentful extension update --installation-parameters '{\"installationParameterBooleanId\": true}' --force",
     "configure": "contentful space use && contentful space environment use",
     "login": "contentful login",
     "logout": "contentful logout",
