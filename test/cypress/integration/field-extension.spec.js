@@ -74,6 +74,7 @@ context('Field extension', () => {
   it('verifies sdk.parameters have expected values', () => {
     cy.getSdk(iframeSelector).then(sdk => {
       verifySdkInstallationParameters(iframeSelector)
+      // for field extension custom instance parameter is set in UI.
       parameters.instance.instanceParameterEnumId = 'option2'
       verifySdkInstanceParameters(iframeSelector)
     })
