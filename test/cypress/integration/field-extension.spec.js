@@ -29,6 +29,7 @@ const iframeSelector = '[data-field-api-name="title"] iframe'
 const iframePageSelector = '[data-test-id="page-extension"] iframe'
 const idsData = require('./fixtures/ids-data.json')
 const contentTypeData = require('./fixtures/content-type-data/field-ext.json')
+const parameters = require('./fixtures/parameters.json')
 
 context('Field extension', () => {
   beforeEach(() => {
@@ -73,6 +74,7 @@ context('Field extension', () => {
   it('verifies sdk.parameters have expected values', () => {
     cy.getSdk(iframeSelector).then(sdk => {
       verifySdkInstallationParameters(iframeSelector)
+      parameters.instance.instanceParameterEnumId = 'option2'
       verifySdkInstanceParameters(iframeSelector)
     })
   })
