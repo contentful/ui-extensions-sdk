@@ -10,7 +10,7 @@
     "id": "post",
     "type": "ContentType",
     "createdAt": "2019-06-03T13:35:42.101Z",
-    "updatedAt": "2019-08-30T10:11:14.278Z",
+    "updatedAt": "2019-08-30T11:11:22.366Z",
     "environment": {
       "sys": {
         "id": "test",
