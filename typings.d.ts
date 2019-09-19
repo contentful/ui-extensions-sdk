@@ -174,7 +174,7 @@ declare module 'contentful-ui-extensions-sdk' {
     [key: string]: any;
   }
 
-  type CollectionReponse<T> = {
+  type CollectionResponse<T> = {
     items: T[];
     total: number;
     skip: number;
@@ -184,14 +184,14 @@ declare module 'contentful-ui-extensions-sdk' {
 
   interface SpaceAPI {
     getContentType: (id: string) => Promise<Object>;
-    getContentTypes: () => Promise<CollectionReponse<Object>>;
+    getContentTypes: () => Promise<CollectionResponse<Object>>;
     createContentType: (data: any) => Promise<Object>;
     updateContentType: (data: any) => Promise<Object>;
     deleteContentType: (data: any) => Promise<Object>;
 
     getEntry: (id: string) => Promise<Object>;
     getEntrySnapshots: (id: string) => Promise<any>;
-    getEntries: (query?: SearchQuery) => Promise<CollectionReponse<Object>>;
+    getEntries: (query?: SearchQuery) => Promise<CollectionResponse<Object>>;
     createEntry: (contentTypeId: string, data: any) => Promise<Object>;
     updateEntry: (data: any) => Promise<Object>;
     publishEntry: (data: any) => Promise<Object>;
@@ -199,10 +199,10 @@ declare module 'contentful-ui-extensions-sdk' {
     archiveEntry: (data: any) => Promise<Object>;
     unarchiveEntry: (data: any) => Promise<Object>;
     deleteEntry: (data: any) => Promise<Object>;
-    getPublishedEntries: (query?: SearchQuery) => Promise<CollectionReponse<Object>>;
+    getPublishedEntries: (query?: SearchQuery) => Promise<CollectionResponse<Object>>;
 
     getAsset: (id: string) => Promise<Object>;
-    getAssets: (query?: SearchQuery) => Promise<CollectionReponse<Object>>;
+    getAssets: (query?: SearchQuery) => Promise<CollectionResponse<Object>>;
     createAsset: (data: any) => Promise<Object>;
     updateAsset: (data: any) => Promise<Object>;
     deleteAsset: (data: any) => Promise<Object>;
@@ -211,12 +211,12 @@ declare module 'contentful-ui-extensions-sdk' {
     archiveAsset: (data: any) => Promise<Object>;
     processAsset: (data: any, locale: string) => Promise<Object>;
     unarchiveAsset: (data: any) => Promise<Object>;
-    getPublishedAssets: (query?: SearchQuery) => Promise<CollectionReponse<Object>>;
+    getPublishedAssets: (query?: SearchQuery) => Promise<CollectionResponse<Object>>;
     createUpload: (base64data: string) => void;
     waitUntilAssetProcessed: (assetId: string, locale: string) => void;
 
     /** Returns all users who belong to the space. */
-    getUsers: () => Promise<CollectionReponse<Object>>,
+    getUsers: () => Promise<CollectionResponse<Object>>,
 
     /** Returns editor interface for a given content type */
     getEditorInterface: (contentTypeId: string) => Promise<EditorInterface>
