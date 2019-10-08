@@ -439,18 +439,18 @@ declare module 'contentful-ui-extensions-sdk' {
     platformAlpha: {
       /** Management methods for App status and installation **/
       app: {
-        /** Returns true if an App is installed **/
-        isInstalled: () => boolean
-        /** Returns parameters of an App, null otherwise **/
-        getParameters: () => null | Object
-        /** Returns current state of an App, null otherwise **/
-        getCurrentState: () => null | Object
-        /** Registers a handler to be called to produce parameters and target state for an App **/
-        onConfigure: (handler: Function) => void
-        /** Sets the state to be dirty and able to click the install/save button **/
-        setDirty: () => void
-        /** Sets the state to be pristine and disables the click to the install/save button **/
-        setPristine: () => void
+        /** Returns true if an App is installed */
+        isInstalled: () => Promise<boolean>
+        /** Returns parameters of an App, null otherwise */
+        getParameters: () => Promise<null | Object>
+        /** Returns current state of an App, null otherwise */
+        getCurrentState: () => Promise<null | Object>
+        /** Registers a handler to be called to produce parameters and target state for an App */
+        onConfigure: (handler: Function) => Promise<void>
+        /** Sets the state to be dirty and able to click the install/save button */
+        setDirty: () => Promise<void>
+        /** Sets the state to be pristine and disables the click to the install/save button */
+        setPristine: () => Promise<void>
       }
     }
   }
