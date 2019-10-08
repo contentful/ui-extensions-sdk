@@ -447,6 +447,10 @@ declare module 'contentful-ui-extensions-sdk' {
         getCurrentState: () => null | Object
         /** Registers a handler to be called to produce parameters and target state for an App **/
         onConfigure: (handler: Function) => void
+        /** Sets the state to be dirty and able to click the install/save button **/
+        setDirty: () => void
+        /** Sets the state to be pristine and disables the click to the install/save button **/
+        setPristine: () => void
       }
     }
   }
