@@ -87,7 +87,7 @@ const describeAppHookMessageExchange = (description, method, stage) => {
   })
 }
 
-const APP_METHODS = ['isInstalled', 'getParameters', 'getCurrentState']
+const APP_METHODS = ['isInstalled', 'getParameters', 'getCurrentState', 'isReady']
 
 describe('createApp()', () => {
   describe('returned "app" object', () => {
