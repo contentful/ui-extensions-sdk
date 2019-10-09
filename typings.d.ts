@@ -440,13 +440,15 @@ declare module 'contentful-ui-extensions-sdk' {
       /** Management methods for App status and installation **/
       app: {
         /** Returns true if an App is installed **/
-        isInstalled: () => boolean
+        isInstalled: () => Promise<boolean>
         /** Returns parameters of an App, null otherwise **/
-        getParameters: () => null | Object
+        getParameters: () => Promise<null | Object>
         /** Returns current state of an App, null otherwise **/
-        getCurrentState: () => null | Object
+        getCurrentState: () => Promise<null | Object>
         /** Registers a handler to be called to produce parameters and target state for an App **/
-        onConfigure: (handler: Function) => void
+        onConfigure: (handler: Function) => Promise<void>
+        /** Tells the web app that the app is loaded */
+        isReady: () => Promise<void>
       }
     }
   }
