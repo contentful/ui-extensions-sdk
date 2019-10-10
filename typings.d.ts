@@ -448,7 +448,7 @@ declare module 'contentful-ui-extensions-sdk' {
         /** Registers a handler to be called to produce parameters and target state for an App **/
         onConfigure: (handler: Function) => Promise<void>
         /** Tells the web app that the app is loaded */
-        isReady: () => Promise<void>
+        setReady: () => Promise<void>
       }
     }
   }
