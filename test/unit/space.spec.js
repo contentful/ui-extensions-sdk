@@ -13,6 +13,7 @@ const spaceMethods = [
   'getPublishedAssets',
   'getContentTypes',
   'getEntries',
+  'getEditorInterfaces',
   'getAssets',
 
   'createContentType',

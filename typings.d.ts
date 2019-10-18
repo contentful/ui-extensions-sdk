@@ -220,6 +220,8 @@ declare module 'contentful-ui-extensions-sdk' {
 
     /** Returns editor interface for a given content type */
     getEditorInterface: (contentTypeId: string) => Promise<EditorInterface>
+    /** Returns editor interfaces for a given environment */
+    getEditorInterfaces: () => Promise<CollectionResponse<Object>>;
   }
 
   /* Locales API */
