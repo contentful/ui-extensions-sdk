@@ -455,7 +455,9 @@ declare module 'contentful-ui-extensions-sdk' {
     }
   }
 
-  export const init: (initCallback: (sdk: FieldExtensionSDK | SidebarExtensionSDK | DialogExtensionSDK | EditorExtensionSDK | PageExtensionSDK | AppExtensionSDK) => any) => void;
+  export type KnownSDK = FieldExtensionSDK | SidebarExtensionSDK | DialogExtensionSDK | EditorExtensionSDK | PageExtensionSDK | AppExtensionSDK;
+
+  export const init: <T extends KnownSDK = KnownSDK>(initCallback: (sdk: T) => any) => void;
 
   export const locations: {
     LOCATION_ENTRY_FIELD: string;
