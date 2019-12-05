@@ -48,7 +48,7 @@ workflows:
       - all
     triggers:
       - schedule:
-          cron: '* 2 * * *'
+          cron: '2 22 * * *'
           filters:
             branches:
               only:
