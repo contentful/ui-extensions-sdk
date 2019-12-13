@@ -72,6 +72,10 @@
       "eslint --fix",
       "git add"
     ],
+    "*.ts": [
+      "prettier --write",
+      "git add"
+    ],
     "*.md": [
       "prettier --write",
       "git add"
