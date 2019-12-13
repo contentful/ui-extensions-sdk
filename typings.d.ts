@@ -261,7 +261,9 @@ declare module 'contentful-ui-extensions-sdk' {
 
   interface OpenExtensionOptions {
     id?: string
-    width?: number
+    width?: number | 'small' | 'medium' | 'large' | 'fullWidth'
+    minHeight?: number | string
+    allowHeightOverflow?: boolean
     position?: 'center' | 'top'
     title?: string
     shouldCloseOnOverlayClick?: boolean
