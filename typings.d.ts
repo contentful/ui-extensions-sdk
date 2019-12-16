@@ -304,6 +304,10 @@ declare module 'contentful-ui-extensions-sdk' {
       min?: number
       max?: number
     }) => Promise<Object[] | null>
+    /** Upload and create multiple assets using bulk uploader */
+    createMultipleAssets: (options?: {
+      locale?: string
+    }) => Promise<{ publishedAssets: Object[]; unpublishableAssets: Object[] }>
   }
 
   /* Navigator API */
