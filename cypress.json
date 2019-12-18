@@ -13,6 +13,13 @@
   "reporterOptions": {
     "mochaFile": "test/cypress/reports/mocha/results.xml"
   },
+  "blacklistHosts": [
+    "*intercomcdn.com",
+    "*segment.io",
+    "*segment.com",
+    "*google-analytics.com",
+    "*wootric.com"
+  ],
   "chromeWebSecurity": false,
   "defaultCommandTimeout": 7000
 }
