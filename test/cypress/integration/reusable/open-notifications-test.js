@@ -3,7 +3,7 @@ export function verifySuccessNotification(iframeSelector) {
   cy.getSdk(iframeSelector).then(sdk => {
     sdk.notifier.success(successMessage)
   })
-  cy.getByTestId('cf-ui-notification')
+  cy.findByTestId('cf-ui-notification')
     .should('have.attr', 'data-intent', 'success')
     .and('contain', successMessage)
 }
@@ -13,7 +13,7 @@ export function verifyErrorNotification(iframeSelector) {
   cy.getSdk(iframeSelector).then(sdk => {
     sdk.notifier.error(errorMessage)
   })
-  cy.getByTestId('cf-ui-notification')
+  cy.findByTestId('cf-ui-notification')
     .should('have.attr', 'data-intent', 'error')
     .and('contain', errorMessage)
 }

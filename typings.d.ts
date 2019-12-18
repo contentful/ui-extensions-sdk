@@ -309,7 +309,8 @@ declare module 'contentful-ui-extensions-sdk' {
   /* Navigator API */
 
   interface NavigatorAPIOptions {
-    slideIn?: boolean
+    /** use `waitForClose` if you want promise to be resolved only after slide in editor is closed */
+    slideIn?: boolean | { waitForClose: boolean }
   }
 
   interface PageExtensionOptions {

@@ -7,11 +7,23 @@ export function openAssetExtension(iframeSelector) {
   })
 }
 
-export function openAssetSlideInExtension(iframeSelector) {
+export function openAssetSlideInExtension(iframeSelector, done) {
   cy.getSdk(iframeSelector).then(sdk => {
-    sdk.navigator.openAsset(Constants.assets.testImage, {
-      slideIn: true
-    })
+    sdk.navigator
+      .openAsset(Constants.assets.testImage, {
+        slideIn: true
+      })
+      .then(done)
+  })
+}
+
+export function openAssetSlideInWaitExtension(iframeSelector, done) {
+  cy.getSdk(iframeSelector).then(sdk => {
+    sdk.navigator
+      .openAsset(Constants.assets.testImage, {
+        slideIn: { waitForClose: true }
+      })
+      .then(done)
   })
 }
 
@@ -34,8 +46,39 @@ export function openAssetTest(iframeSelector) {
 }
 
 export function openAssetSlideInTest(iframeSelector, currentEntryId) {
-  it('opens asset using sdk.navigator.openAsset (slideIn)', () => {
-    openAssetSlideInExtension(iframeSelector)
+  function clickSlideInClose() {
+    return cy.get('[data-test-id="slide-in-layer"] [data-test-id="breadcrumbs-back-btn"]').click()
+  }
+
+  it('opens asset using sdk.navigator.openAsset (slideIn = true)', done => {
+    let closeClicked = false
+
+    // callback should be called right after slide in is opened
+    openAssetSlideInExtension(iframeSelector, result => {
+      expect(result.navigated).to.be.equal(true)
+      expect(closeClicked).to.be.equal(false)
+      done()
+    })
+
     verifyAssetSlideInUrl(Constants.assets.testImage, currentEntryId)
+    clickSlideInClose().then(() => {
+      closeClicked = true
+    })
+  })
+
+  it('opens asset using sdk.navigator.openAsset (slideIn = { waitForClose: true })', done => {
+    let closeClicked = false
+
+    // callback should be called only after slide in is closed
+    openAssetSlideInWaitExtension(iframeSelector, result => {
+      expect(result.navigated).to.be.equal(true)
+      expect(closeClicked).to.be.equal(true)
+      done()
+    })
+
+    verifyAssetSlideInUrl(Constants.assets.testImage, currentEntryId)
+    clickSlideInClose().then(() => {
+      closeClicked = true
+    })
   })
 }

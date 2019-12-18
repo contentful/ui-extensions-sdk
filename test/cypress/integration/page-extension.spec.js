@@ -19,7 +19,7 @@ context('Page extension', () => {
   beforeEach(() => {
     cy.setAuthTokenToLocalStorage()
     cy.visit(pageExtension('test-extension'))
-    cy.getByTestId('page-extension').within(() => {
+    cy.findByTestId('page-extension').within(() => {
       cy.waitForIFrame()
       cy.get('iframe').captureIFrameAs('extension')
     })
@@ -27,11 +27,11 @@ context('Page extension', () => {
 
   it('opens a page extension and tests navigating within the page', () => {
     cy.get('@extension').within(() => {
-      cy.getByTestId('my-page-extension').should('exist')
+      cy.findByTestId('my-page-extension').should('exist')
     })
 
     cy.get('@extension').within(() => {
-      cy.getByTestId('open-new-path-button').click()
+      cy.findByTestId('open-new-path-button').click()
     })
 
     cy.url().should('include', 'test-extension/new')

@@ -35,14 +35,14 @@ context('Field extension', () => {
   beforeEach(() => {
     cy.setAuthTokenToLocalStorage()
     cy.visit(entry(post.id))
-    cy.getByText(post.title).should('exist')
+    cy.findByText(post.title).should('exist')
     cy.waitForIFrame()
     cy.get(iframeSelector).captureIFrameAs('extension')
   })
 
   it('verifies field extension is rendered', () => {
     cy.get('@extension').within(() => {
-      cy.getByTestId('cf-ui-text-input').should('exist')
+      cy.findByTestId('cf-ui-text-input').should('exist')
     })
   })
 

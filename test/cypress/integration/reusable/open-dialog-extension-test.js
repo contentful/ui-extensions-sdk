@@ -11,18 +11,18 @@ export function openDialogExtension(iframeSelector) {
 
 export function checkThatDialogIsOpened() {
   const dialogTitle = 'My awesome dialog extension'
-  cy.getByTestId('cf-ui-modal')
+  cy.findByTestId('cf-ui-modal')
     .should('exist')
     .and('contain', dialogTitle)
 }
 
 export function checkThatExtensionInDialogIsRendered(testId = actionSelectors.dialogWrapper) {
   cy.waitForIFrame()
-  cy.getByTestId('cf-ui-modal').within(() => {
+  cy.findByTestId('cf-ui-modal').within(() => {
     cy.get('iframe').captureIFrameAs('dialogExtension')
   })
   cy.get('@dialogExtension').within(() => {
-    cy.getByTestId(testId).should('be.visible')
+    cy.findByTestId(testId).should('be.visible')
   })
 }
 
