@@ -29,10 +29,10 @@ context('Dialog extension', () => {
   beforeEach(() => {
     cy.setAuthTokenToLocalStorage()
     cy.visit(entry(post.id))
-    cy.getByText(post.title).should('exist')
+    cy.findByText(post.title).should('exist')
     cy.waitForIFrame()
 
-    cy.getByTestId('entry-editor-sidebar').within(() => {
+    cy.findByTestId('entry-editor-sidebar').within(() => {
       cy.get('iframe')
         .should('have.length', 1)
         .captureIFrameAs('sidebarExtension')
@@ -40,7 +40,7 @@ context('Dialog extension', () => {
 
     openDialogExtension(iframeSidebarSelector)
     cy.waitForIFrame()
-    cy.getByTestId('cf-ui-modal').within(() => {
+    cy.findByTestId('cf-ui-modal').within(() => {
       cy.get('iframe').captureIFrameAs('extension')
     })
   })

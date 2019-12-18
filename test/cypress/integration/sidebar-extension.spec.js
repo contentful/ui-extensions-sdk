@@ -30,10 +30,10 @@ context('Sidebar extension', () => {
   beforeEach(() => {
     cy.setAuthTokenToLocalStorage()
     cy.visit(entry(post.id))
-    cy.getByText(post.title).should('exist')
+    cy.findByText(post.title).should('exist')
     cy.waitForIFrame()
 
-    cy.getByTestId('entry-editor-sidebar').within(() => {
+    cy.findByTestId('entry-editor-sidebar').within(() => {
       cy.get('iframe')
         .should('have.length', 1)
         .captureIFrameAs('extension')
@@ -42,7 +42,7 @@ context('Sidebar extension', () => {
 
   it('opens first post and checks that sidebar extension is rendered', () => {
     cy.get('@extension').within(() => {
-      cy.getByTestId(Constants.actionSelectors.sidebarButton).should('exist')
+      cy.findByTestId(Constants.actionSelectors.sidebarButton).should('exist')
     })
   })
 

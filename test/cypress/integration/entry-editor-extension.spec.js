@@ -31,7 +31,7 @@ context('Entry editor extension', () => {
   beforeEach(() => {
     cy.setAuthTokenToLocalStorage()
     cy.visit(entry(post.id))
-    cy.getByText(post.title).should('exist')
+    cy.findByText(post.title).should('exist')
     cy.waitForIFrame()
     cy.get('.entry-editor').within(() => {
       cy.get('iframe').captureIFrameAs('extension')
@@ -40,13 +40,13 @@ context('Entry editor extension', () => {
 
   it('opens page and checks that entry editor extension is rendered', () => {
     cy.get('@extension').within(() => {
-      cy.getByTestId('title-field')
+      cy.findByTestId('title-field')
         .should('exist')
         .and('have.value', post.title)
     })
 
     cy.get('@extension').within(() => {
-      cy.getByTestId('body-field')
+      cy.findByTestId('body-field')
         .should('exist')
         .and('have.value', post.body)
     })
