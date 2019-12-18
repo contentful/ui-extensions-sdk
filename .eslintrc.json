@@ -1,5 +1,12 @@
 {
   "extends": ["standard", "plugin:prettier/recommended"],
+  "parserOptions": {
+    "ecmaVersion": 9,
+    "ecmaFeatures": {
+      "spread": true,
+      "destructuring": true
+    }
+  },
   "rules": {
     "no-var": "error",
     "prefer-const": "error"
