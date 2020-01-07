@@ -324,15 +324,34 @@ declare module 'contentful-ui-extensions-sdk' {
 
   interface NavigatorAPI {
     /** Opens an existing entry in the current Web App session. */
-    openEntry: (entryId: string, options?: NavigatorAPIOptions) => Promise<void>
+    openEntry: (
+      entryId: string,
+      options?: NavigatorAPIOptions
+    ) => Promise<{ navigated: boolean; entity: Object }>
     /** Opens an existing asset in the current Web App session. */
-    openAsset: (assetId: string, options?: NavigatorAPIOptions) => Promise<void>
+    openAsset: (
+      assetId: string,
+      options?: NavigatorAPIOptions
+    ) => Promise<{ navigated: boolean; entity: Object }>
     /** Opens a new entry in the current Web App session. */
-    openNewEntry: (contentTypeId: string, options?: NavigatorAPIOptions) => Promise<void>
+    openNewEntry: (
+      contentTypeId: string,
+      options?: NavigatorAPIOptions
+    ) => Promise<{ navigated: boolean; entity: Object }>
     /** Opens a new asset in the current Web App session. */
-    openNewAsset: (options: NavigatorAPIOptions) => Promise<void>
+    openNewAsset: (
+      options: NavigatorAPIOptions
+    ) => Promise<{
+      navigated: boolean
+      entity: Object
+    }>
     /** Navigates to a page extension in the current Web App session. Calling without `options` will navigate to the home route of your page extension. */
-    openPageExtension: (options?: PageExtensionOptions) => Promise<void>
+    openPageExtension: (
+      options?: PageExtensionOptions
+    ) => Promise<{
+      navigated: boolean
+      path: string
+    }>
   }
 
   /* Notifier API */
