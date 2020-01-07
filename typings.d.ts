@@ -231,6 +231,8 @@ declare module 'contentful-ui-extensions-sdk' {
     available: string[]
     /** An object with keys of locale codes and values of corresponding human-readable locale names. */
     names: { [key: string]: string }
+    /** An object with keys of locale codes and values of corresponding fallback locale codes. If there's no fallback then the value is undefined. */
+    fallbacks: { [key: string]: string }
   }
 
   /* Window API */
