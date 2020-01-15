@@ -99,18 +99,24 @@ describe('createAPI()', () => {
   })
 
   it('returns correct shape of the app API (app)', () => {
-    const expected = ['platformAlpha']
+    const expected = ['app', 'platformAlpha']
 
-    const api = test(expected, locations.LOCATION_APP)
+    // Test legacy `LOCATION_APP`.
+    test(expected, locations.LOCATION_APP)
+    // Test new `LOCATION_APP_CONFIG`.
+    const api = test(expected, locations.LOCATION_APP_CONFIG)
 
-    expect(api.platformAlpha).to.have.all.keys(['app'])
     const appMethods = [
+      'setReady',
       'isInstalled',
       'getParameters',
       'getCurrentState',
       'onConfigure',
-      'setReady'
+      'onConfigurationCompleted'
     ]
+
+    expect(api.app).to.have.all.keys(appMethods)
+    expect(api.platformAlpha).to.have.all.keys(['app'])
     expect(api.platformAlpha.app).to.have.all.keys(appMethods)
   })
 })
