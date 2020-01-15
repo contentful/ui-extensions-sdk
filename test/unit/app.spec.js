@@ -2,7 +2,7 @@ const { sinon, expect, describeChannelCallingMethod } = require('../helpers')
 
 const createApp = require('../../lib/app')
 
-const describeAppHookMessageExchange = (description, method, stage) => {
+const describeAppHookMessageExchange = ({ description, method, stage, sendsResultBack }) => {
   describe(description, () => {
     let channelStub
     let app
@@ -22,7 +22,7 @@ const describeAppHookMessageExchange = (description, method, stage) => {
       }
 
       const msg = { installationRequestId: 'xyz', stage }
-      const expected = { result, ...msg }
+      const expected = { ...(sendsResultBack ? { result } : {}), ...msg }
 
       await sendMessage(msg)
 
@@ -87,7 +87,7 @@ const describeAppHookMessageExchange = (description, method, stage) => {
   })
 }
 
-const APP_METHODS = ['isInstalled', 'getParameters', 'getCurrentState', 'setReady']
+const APP_METHODS = ['setReady', 'isInstalled', 'getParameters', 'getCurrentState']
 
 describe('createApp()', () => {
   describe('returned "app" object', () => {
@@ -101,6 +101,18 @@ describe('createApp()', () => {
       })
     })
 
-    describeAppHookMessageExchange('.onConfigure(handler)', 'onConfigure', 'preInstall')
+    describeAppHookMessageExchange({
+      description: '.onConfigure(handler)',
+      method: 'onConfigure',
+      stage: 'preInstall',
+      sendsResultBack: true
+    })
+
+    describeAppHookMessageExchange({
+      description: '.onConfigurationCompleted(handler)',
+      method: 'onConfigurationCompleted',
+      stage: 'postInstall',
+      sendsResultBack: false
+    })
   })
 })
