@@ -261,7 +261,7 @@ declare module 'contentful-ui-extensions-sdk' {
     intent?: 'primary' | 'positive' | 'negative'
   }
 
-  interface OpenExtensionOptions {
+  interface OpenCustomWidgetOptions {
     id?: string
     width?: number | 'small' | 'medium' | 'large' | 'fullWidth'
     minHeight?: number | string
@@ -285,7 +285,9 @@ declare module 'contentful-ui-extensions-sdk' {
       }
     ) => Promise<string | boolean>
     /** Opens an extension in a dialog. */
-    openExtension: (options: OpenExtensionOptions) => Promise<any>
+    openExtension: (options: OpenCustomWidgetOptions) => Promise<any>
+    /** Opens the current app in a dialog */
+    openCurrentApp: (options?: Omit<OpenCustomWidgetOptions, 'id'>) => Promise<any>
     /** Opens a dialog for selecting a single entry. */
     selectSingleEntry: (options?: {
       locale?: string
@@ -383,6 +385,7 @@ declare module 'contentful-ui-extensions-sdk' {
   interface IdsAPI {
     user: string
     extension: string
+    app?: string
     space: string
     environment: string
     field: string
@@ -465,25 +468,27 @@ declare module 'contentful-ui-extensions-sdk' {
     ids: Pick<IdsAPI, 'environment' | 'space' | 'extension' | 'user'>
   }
 
+  interface AppConfigAPI {
+    /** Tells the web app that the app is loaded */
+    setReady: () => Promise<void>
+    /** Returns true if an App is installed **/
+    isInstalled: () => Promise<boolean>
+    /** Returns parameters of an App, null otherwise **/
+    getParameters: () => Promise<null | Object>
+    /** Returns current state of an App, null otherwise **/
+    getCurrentState: () => Promise<null | Object>
+    /** Registers a handler to be called to produce parameters for an App **/
+    onConfigure: (handler: Function) => Promise<void>
+    /** Registers a handler to be called once configuration was finished **/
+    onConfigurationCompleted: (handler: Function) => Promise<void>
+  }
+
   export type AppExtensionSDK = BaseExtensionSDK & {
-    /** A set of IDs actual for the extension */
-    ids: Pick<IdsAPI, 'environment' | 'space' | 'user'>
+    /** A set of IDs actual for the app */
+    ids: Pick<IdsAPI, 'environment' | 'space' | 'app' | 'user'>
     /** Apps Platform __ALPHA__ methods: subject to change **/
-    platformAlpha: {
-      /** Management methods for App status and installation **/
-      app: {
-        /** Returns true if an App is installed **/
-        isInstalled: () => Promise<boolean>
-        /** Returns parameters of an App, null otherwise **/
-        getParameters: () => Promise<null | Object>
-        /** Returns current state of an App, null otherwise **/
-        getCurrentState: () => Promise<null | Object>
-        /** Registers a handler to be called to produce parameters and target state for an App **/
-        onConfigure: (handler: Function) => Promise<void>
-        /** Tells the web app that the app is loaded */
-        setReady: () => Promise<void>
-      }
-    }
+    app: AppConfigAPI
+    platformAlpha: { app: AppConfigAPI }
   }
 
   export type KnownSDK =
@@ -504,5 +509,6 @@ declare module 'contentful-ui-extensions-sdk' {
     LOCATION_ENTRY_EDITOR: string
     LOCATION_PAGE: string
     LOCATION_APP: string
+    LOCATION_APP_CONFIG: string
   }
 }
