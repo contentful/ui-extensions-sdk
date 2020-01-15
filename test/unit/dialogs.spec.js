@@ -1,4 +1,4 @@
-const { describeChannelCallingMethod } = require('../helpers')
+const { expect, describeChannelCallingMethod } = require('../helpers')
 
 const createDialogs = require('../../lib/dialogs')
 
@@ -38,7 +38,7 @@ describe('createDialogs()', () => {
     })
 
     describeChannelCallingMethod({
-      creator: channelStub => createDialogs(channelStub, 'test-id'),
+      creator: channelStub => createDialogs(channelStub, { extension: 'test-id' }),
       methodName: 'openExtension',
       channelMethod: 'openDialog',
       args: [{ test: true }],
@@ -46,11 +46,47 @@ describe('createDialogs()', () => {
     })
 
     describeChannelCallingMethod({
-      creator: channelStub => createDialogs(channelStub, 'test-id'),
+      creator: channelStub => createDialogs(channelStub, { extension: 'test-id' }),
       methodName: 'openExtension',
       channelMethod: 'openDialog',
       args: [{ test: true, id: 'custom-test-id' }],
       expectedCallArgs: ['extension', { id: 'custom-test-id', test: true }]
+    })
+
+    describe('.openExtension()', () => {
+      it('throws if no extension ID is provided (no ID option, app location)', () => {
+        const dialogs = createDialogs({ call: () => {} }, { app: 'some-app-id' })
+
+        expect(() => {
+          dialogs.openExtension({ test: true })
+        }).to.throw(/Extension ID not provided/)
+      })
+    })
+
+    describeChannelCallingMethod({
+      creator: channelStub => createDialogs(channelStub, { app: 'app-id' }),
+      methodName: 'openCurrentApp',
+      channelMethod: 'openDialog',
+      args: [{ test: true }],
+      expectedCallArgs: ['app', { id: 'app-id', test: true }]
+    })
+
+    describeChannelCallingMethod({
+      creator: channelStub => createDialogs(channelStub, { app: 'app-id' }),
+      methodName: 'openCurrentApp',
+      channelMethod: 'openDialog',
+      args: [{ test: true, id: 'try-to-overwrite' }],
+      expectedCallArgs: ['app', { id: 'app-id', test: true }]
+    })
+
+    describe('.openCurrentApp()', () => {
+      it('throws if not in app context', () => {
+        const dialogs = createDialogs({ call: () => {} }, { extension: 'some-ext' })
+
+        expect(() => {
+          dialogs.openCurrentApp()
+        }).to.throw(/Not in the app context/)
+      })
     })
   })
 })
