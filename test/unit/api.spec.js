@@ -28,7 +28,9 @@ function test(expected, location, expectedLocation) {
       available: 'AVAIL',
       default: 'DEFAULT',
       names: 'NAMES',
-      fallbacks: 'FALLBACK'
+      fallbacks: 'FALLBACK',
+      optional: 'OPTIONAL',
+      direction: 'DIRECTION'
     },
     contentType: 'CONTENT TYPE',
     entry: { sys: 'EID' },
@@ -55,7 +57,14 @@ function test(expected, location, expectedLocation) {
   expect(api).to.have.all.keys(sharedExpected.concat(expected))
 
   // Test simple but nested properties of the shared API.
-  expect(api.locales).to.have.all.keys(['available', 'default', 'names', 'fallbacks'])
+  expect(api.locales).to.have.all.keys([
+    'available',
+    'default',
+    'names',
+    'fallbacks',
+    'optional',
+    'direction'
+  ])
   expect(api.notifier).to.have.all.keys(['success', 'error'])
 
   // Test location methods (currently only `is`).
