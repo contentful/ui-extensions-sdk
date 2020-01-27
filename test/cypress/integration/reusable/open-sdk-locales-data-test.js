@@ -8,7 +8,7 @@ const expectedLocaleData = {
   },
   optional: {
     'en-US': false,
-    ru: false
+    ru: true
   },
   direction: {
     'en-US': 'ltr',
