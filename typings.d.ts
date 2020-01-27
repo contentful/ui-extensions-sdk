@@ -233,6 +233,10 @@ declare module 'contentful-ui-extensions-sdk' {
     names: { [key: string]: string }
     /** An object with keys of locale codes and values of corresponding fallback locale codes. If there's no fallback then the value is undefined. */
     fallbacks: { [key: string]: string }
+    /** An object with keys of locale codes and values of corresponding boolean value indicating if the locale is optional or not. */
+    optional: { [key: string]: boolean }
+    /** An object with keys of locale codes and values of corresponding information indicating if the locale is right-to-left or left-to-right language. */
+    direction: { [key: string]: 'ltr' | 'rtl' }
   }
 
   /* Window API */
