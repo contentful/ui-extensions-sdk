@@ -26,6 +26,32 @@ declare module 'contentful-ui-extensions-sdk' {
     validations?: Object[]
   }
 
+  interface Link {
+    sys: {
+      id: string
+      type: string
+      linkType: string
+    }
+  }
+
+  interface EntrySys {
+    space: Link
+    id: string
+    type: string
+    createdAt: string
+    updatedAt: string
+    environment: Link
+    publishedVersion: number
+    publishedAt: string
+    firstPublishedAt: string
+    createdBy: Link
+    updatedBy: Link
+    publishedCounter: number
+    version: number
+    publishedBy: Link
+    contentType: Link
+  }
+
   /* Field API */
 
   interface FieldAPI {
@@ -87,16 +113,18 @@ declare module 'contentful-ui-extensions-sdk' {
     /** Removes the value for the field and locale. */
     removeValue: (locale?: string) => Promise<void>
     /** Calls the callback every time the value of the field is changed by an external event or when setValue() is called. */
-    onValueChanged: onValueChangedType | onValueChangeWithLocaleType
+    onValueChanged: onValueChangeWithLocaleType
+    onValueChanged: onValueChangedType
     /** Calls the callback when the disabled status of the field changes. */
-    onIsDisabledChanged: onIsDisabledChangedType | onIsDisabledChangedWithLocaleType
+    onIsDisabledChanged: onIsDisabledChangedWithLocaleType
+    onIsDisabledChanged: onIsDisabledChangedType
   }
 
   interface EntryAPI {
     /** Returns metadata for an entry. */
-    getSys: () => Object
+    getSys: () => EntrySys
     /** Calls the callback with metadata every time that metadata changes. */
-    onSysChanged: (callback: (sys: Object) => void) => Function
+    onSysChanged: (callback: (sys: EntrySys) => void) => Function
     /** Allows to control the values of all other fields in the current entry. */
     fields: { [key: string]: EntryFieldAPI }
   }
@@ -114,14 +142,6 @@ declare module 'contentful-ui-extensions-sdk' {
     validations: Object[]
     linkType?: string
     items?: Items
-  }
-
-  interface Link {
-    sys: {
-      id: string
-      type: string
-      linkType: string
-    }
   }
 
   interface ContentType {
@@ -181,45 +201,53 @@ declare module 'contentful-ui-extensions-sdk' {
   }
 
   interface SpaceAPI {
-    getContentType: (id: string) => Promise<Object>
-    getContentTypes: () => Promise<CollectionResponse<Object>>
-    createContentType: (data: any) => Promise<Object>
-    updateContentType: (data: any) => Promise<Object>
-    deleteContentType: (data: any) => Promise<Object>
+    getContentType: <T = Object>(id: string) => Promise<T>
+    getContentTypes: <T = Object>() => Promise<CollectionResponse<T>>
+    createContentType: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>
+    updateContentType: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>
+    deleteContentType: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>
 
-    getEntry: (id: string) => Promise<Object>
-    getEntrySnapshots: (id: string) => Promise<any>
-    getEntries: (query?: SearchQuery) => Promise<CollectionResponse<Object>>
-    createEntry: (contentTypeId: string, data: any) => Promise<Object>
-    updateEntry: (data: any) => Promise<Object>
-    publishEntry: (data: any) => Promise<Object>
-    unpublishEntry: (data: any) => Promise<Object>
-    archiveEntry: (data: any) => Promise<Object>
-    unarchiveEntry: (data: any) => Promise<Object>
-    deleteEntry: (data: any) => Promise<Object>
-    getPublishedEntries: (query?: SearchQuery) => Promise<CollectionResponse<Object>>
+    getEntry: <T = Object>(id: string) => Promise<T>
+    getEntrySnapshots: <T = Object>(id: string) => Promise<CollectionResponse<T>>
+    getEntries: <T = Object, InputArgs = SearchQuery>(
+      query?: InputArgs
+    ) => Promise<CollectionResponse<T>>
+    createEntry: <T = Object, InputArgs = any>(contentTypeId: string, data: InputArgs) => Promise<T>
+    updateEntry: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>
+    publishEntry: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>
+    unpublishEntry: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>
+    archiveEntry: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>
+    unarchiveEntry: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>
+    deleteEntry: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>
+    getPublishedEntries: <T = Object, InputArgs = SearchQuery>(
+      query?: InputArgs
+    ) => Promise<CollectionResponse<T>>
 
-    getAsset: (id: string) => Promise<Object>
-    getAssets: (query?: SearchQuery) => Promise<CollectionResponse<Object>>
-    createAsset: (data: any) => Promise<Object>
-    updateAsset: (data: any) => Promise<Object>
-    deleteAsset: (data: any) => Promise<Object>
-    publishAsset: (data: any) => Promise<Object>
-    unpublishAsset: (data: any) => Promise<Object>
-    archiveAsset: (data: any) => Promise<Object>
-    processAsset: (data: any, locale: string) => Promise<Object>
-    unarchiveAsset: (data: any) => Promise<Object>
-    getPublishedAssets: (query?: SearchQuery) => Promise<CollectionResponse<Object>>
+    getAsset: <T = Object>(id: string) => Promise<T>
+    getAssets: <T = Object, InputArgs = SearchQuery>(
+      query?: SearchQuery
+    ) => Promise<CollectionResponse<T>>
+    createAsset: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>
+    updateAsset: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>
+    deleteAsset: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>
+    publishAsset: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>
+    unpublishAsset: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>
+    archiveAsset: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>
+    processAsset: <T = Object, InputArgs = any>(data: InputArgs, locale: string) => Promise<T>
+    unarchiveAsset: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>
+    getPublishedAssets: <T = Object, InputArgs = SearchQuery>(
+      query?: InputArgs
+    ) => Promise<CollectionResponse<T>>
     createUpload: (base64data: string) => void
     waitUntilAssetProcessed: (assetId: string, locale: string) => void
 
     /** Returns all users who belong to the space. */
-    getUsers: () => Promise<CollectionResponse<Object>>
+    getUsers: <T = Object>() => Promise<CollectionResponse<T>>
 
     /** Returns editor interface for a given content type */
     getEditorInterface: (contentTypeId: string) => Promise<EditorInterface>
     /** Returns editor interfaces for a given environment */
-    getEditorInterfaces: () => Promise<CollectionResponse<Object>>
+    getEditorInterfaces: () => Promise<CollectionResponse<EditorInterface>>
   }
 
   /* Locales API */
@@ -232,7 +260,7 @@ declare module 'contentful-ui-extensions-sdk' {
     /** An object with keys of locale codes and values of corresponding human-readable locale names. */
     names: { [key: string]: string }
     /** An object with keys of locale codes and values of corresponding fallback locale codes. If there's no fallback then the value is undefined. */
-    fallbacks: { [key: string]: string }
+    fallbacks: { [key: string]: string | undefined }
     /** An object with keys of locale codes and values of corresponding boolean value indicating if the locale is optional or not. */
     optional: { [key: string]: boolean }
     /** An object with keys of locale codes and values of corresponding information indicating if the locale is right-to-left or left-to-right language. */
@@ -293,25 +321,25 @@ declare module 'contentful-ui-extensions-sdk' {
     /** Opens the current app in a dialog */
     openCurrentApp: (options?: Omit<OpenCustomWidgetOptions, 'id'>) => Promise<any>
     /** Opens a dialog for selecting a single entry. */
-    selectSingleEntry: (options?: {
+    selectSingleEntry: <T = Object>(options?: {
       locale?: string
       contentTypes?: string[]
-    }) => Promise<Object | null>
+    }) => Promise<T | null>
     /** Opens a dialog for selecting multiple entries. */
-    selectMultipleEntries: (options?: {
+    selectMultipleEntries: <T = Object>(options?: {
       locale?: string
       contentTypes?: string[]
       min?: number
       max?: number
-    }) => Promise<Object[] | null>
+    }) => Promise<T[] | null>
     /** Opens a dialog for selecting a single asset. */
-    selectSingleAsset: (options?: { locale?: string }) => Promise<Object | null>
+    selectSingleAsset: <T = Object>(options?: { locale?: string }) => Promise<T | null>
     /** Opens a dialog for selecting multiple assets. */
-    selectMultipleAssets: (options?: {
+    selectMultipleAssets: <T = Object>(options?: {
       locale?: string
       min?: number
       max?: number
-    }) => Promise<Object[] | null>
+    }) => Promise<T[] | null>
   }
 
   /* Navigator API */
@@ -330,26 +358,26 @@ declare module 'contentful-ui-extensions-sdk' {
 
   interface NavigatorAPI {
     /** Opens an existing entry in the current Web App session. */
-    openEntry: (
+    openEntry: <T = Object>(
       entryId: string,
       options?: NavigatorAPIOptions
-    ) => Promise<{ navigated: boolean; entity: Object }>
+    ) => Promise<{ navigated: boolean; entity: T }>
     /** Opens an existing asset in the current Web App session. */
-    openAsset: (
+    openAsset: <T = Object>(
       assetId: string,
       options?: NavigatorAPIOptions
-    ) => Promise<{ navigated: boolean; entity: Object }>
+    ) => Promise<{ navigated: boolean; entity: T }>
     /** Opens a new entry in the current Web App session. */
-    openNewEntry: (
+    openNewEntry: <T = Object>(
       contentTypeId: string,
       options?: NavigatorAPIOptions
-    ) => Promise<{ navigated: boolean; entity: Object }>
+    ) => Promise<{ navigated: boolean; entity: T }>
     /** Opens a new asset in the current Web App session. */
-    openNewAsset: (
+    openNewAsset: <T = Object>(
       options: NavigatorAPIOptions
     ) => Promise<{
       navigated: boolean
-      entity: Object
+      entity: T
     }>
     /** Navigates to a page extension in the current Web App session. Calling without `options` will navigate to the home route of your page extension. */
     openPageExtension: (
