@@ -42,6 +42,8 @@ declare module 'contentful-ui-extensions-sdk' {
     updatedAt: string
     environment: Link
     publishedVersion: number
+    deletedVersion?: number
+    archivedVersion?: number
     publishedAt: string
     firstPublishedAt: string
     createdBy: Link
@@ -156,7 +158,7 @@ declare module 'contentful-ui-extensions-sdk' {
       updatedAt?: string
       updatedBy?: Link
     }
-    fields: { [key: string]: ContentTypeField }
+    fields: ContentTypeField[]
     name: string
     displayField: string
     description: string
@@ -506,9 +508,9 @@ declare module 'contentful-ui-extensions-sdk' {
     /** Returns true if an App is installed **/
     isInstalled: () => Promise<boolean>
     /** Returns parameters of an App, null otherwise **/
-    getParameters: () => Promise<null | Object>
+    getParameters: <T = Object>() => Promise<null | T>
     /** Returns current state of an App, null otherwise **/
-    getCurrentState: () => Promise<null | Object>
+    getCurrentState: <T = Object>() => Promise<null | T>
     /** Registers a handler to be called to produce parameters for an App **/
     onConfigure: (handler: Function) => Promise<void>
     /** Registers a handler to be called once configuration was finished **/
