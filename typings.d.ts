@@ -111,13 +111,13 @@ declare module 'contentful-ui-extensions-sdk' {
     removeValue: (locale?: string) => Promise<void>
     /** Calls the callback every time the value of the field is changed by an external event or when setValue() is called. */
     onValueChanged: {
-      (callback: (value: any) => void): Function
-      (locale: string, callback: (value: any) => void): Function
+      (callback: (value: any) => void): () => void
+      (locale: string, callback: (value: any) => void): () => void
     }
     /** Calls the callback when the disabled status of the field changes. */
     onIsDisabledChanged: {
-      (callback: Function): Function
-      (locale: string, callback: Function): Function
+      (callback: (isDisabled: boolean) => void): () => void
+      (locale: string, callback: (isDisabled: boolean) => void): () => void
     }
   }
 
