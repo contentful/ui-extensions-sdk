@@ -89,11 +89,6 @@ declare module 'contentful-ui-extensions-sdk' {
 
   /* Entry API */
 
-  type onValueChangedType = (callback: (value: any) => void) => Function
-  type onValueChangeWithLocaleType = (locale: string, callback: (value: any) => void) => Function
-  type onIsDisabledChangedType = (callback: Function) => Function
-  type onIsDisabledChangedWithLocaleType = (locale: string, callback: Function) => Function
-
   interface EntryFieldAPI {
     /** The ID of a field is defined in an entry's content type. */
     id: string
@@ -115,11 +110,15 @@ declare module 'contentful-ui-extensions-sdk' {
     /** Removes the value for the field and locale. */
     removeValue: (locale?: string) => Promise<void>
     /** Calls the callback every time the value of the field is changed by an external event or when setValue() is called. */
-    onValueChanged: onValueChangeWithLocaleType
-    onValueChanged: onValueChangedType
+    onValueChanged: {
+      (callback: (value: any) => void): Function
+      (locale: string, callback: (value: any) => void): Function
+    }
     /** Calls the callback when the disabled status of the field changes. */
-    onIsDisabledChanged: onIsDisabledChangedWithLocaleType
-    onIsDisabledChanged: onIsDisabledChangedType
+    onIsDisabledChanged: {
+      (callback: Function): Function
+      (locale: string, callback: Function): Function
+    }
   }
 
   interface EntryAPI {
