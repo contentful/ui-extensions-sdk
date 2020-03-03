@@ -1,4 +1,4 @@
-const cachedContentTypes = require('../fixtures/cached-content-types.json')
+const cachedContentTypes = require('../fixtures/cached-content-types')
 
 export function verifySpaceGetCachedContentTypes(iframeSelector) {
   cy.getSdk(iframeSelector).then(sdk => {
