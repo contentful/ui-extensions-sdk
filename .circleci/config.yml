@@ -56,8 +56,10 @@ jobs:
           command: |
             set -e
             npm run integration
+      - run: npm run merge-report
+      - run: npm run generate-report
       - store_test_results:
-          path: /mochawesome-report
+          path: test/cypress/reports/full_report.json
       - store_artifacts:
           path: test/cypress/screenshots
 

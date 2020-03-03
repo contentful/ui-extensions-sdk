@@ -9,9 +9,12 @@
   "testFiles": "**/*.spec.js",
   "ignoreTestFiles": "**/example*.js",
   "baseUrl": "https://app.contentful.com",
-  "reporter": "junit",
+  "reporter": "./node_modules/mochawesome/src/mochawesome.js",
   "reporterOptions": {
-    "mochaFile": "test/cypress/reports/mocha/results.xml"
+    "reportDir": "./test/cypress/reports/separate-reports",
+    "overwrite": false,
+    "html": false,
+    "json": true
   },
   "blacklistHosts": [
     "*intercomcdn.com",
