@@ -59,7 +59,7 @@ jobs:
       - run: npm run merge-report
       - run: npm run generate-report
       - store_test_results:
-          path: test/cypress/reports/full_report.json
+          path: test/cypress/reports
       - store_artifacts:
           path: test/cypress/screenshots
 
