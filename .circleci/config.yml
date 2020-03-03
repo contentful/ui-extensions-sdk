@@ -10,6 +10,8 @@ jobs:
         environment:
           ## this enables colors in the output
           TERM: xterm
+    environment:
+      CYPRESS_INSTALL_BINARY: 0
     steps:
       - checkout
       - restore_cache: *cache-key
