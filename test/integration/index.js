@@ -76,10 +76,8 @@ const run = async () => {
   try {
     await run()
     await cleanup()
-    process.exit(0)
   } catch (err) {
     console.log(err)
     await cleanup()
-    process.exit(1)
   }
 })()
