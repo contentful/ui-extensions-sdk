@@ -202,6 +202,7 @@ declare module 'contentful-ui-extensions-sdk' {
   }
 
   interface SpaceAPI {
+    getCachedContentTypes: () => ContentType[]
     getContentType: <T = Object>(id: string) => Promise<T>
     getContentTypes: <T = Object>() => Promise<CollectionResponse<T>>
     createContentType: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>

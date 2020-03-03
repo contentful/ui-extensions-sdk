@@ -4,9 +4,14 @@ cache-key: &cache-key
   key: dependency-cache-primary-{{ arch }}-{{ checksum ".nvmrc" }}-{{ checksum "package-lock.json" }}
 
 jobs:
-  all:
+  unit:
     docker:
-      - image: cypress/browsers:node10.11.0-chrome75
+      - image: cypress/browsers:node13.3.0-chrome79-ff70
+        environment:
+          ## this enables colors in the output
+          TERM: xterm
+    environment:
+      CYPRESS_INSTALL_BINARY: 0
     steps:
       - checkout
       - restore_cache: *cache-key
@@ -24,6 +29,26 @@ jobs:
       - run: npm test
       - run: npm run build
       - run: npm run size
+  integration:
+    docker:
+      - image: cypress/browsers:node13.3.0-chrome79-ff70
+        environment:
+          ## this enables colors in the output
+          TERM: xterm
+    steps:
+      - checkout
+      - restore_cache: *cache-key
+      - run: npm ci
+      - run:
+          name: Reverting "package-lock.json"
+          # `npm install` can modify `package-lock.json`. If it happens, we're caching dependencies
+          # with a wrong key. To mitigate this problem we restore the original lock file.
+          command: git checkout -- package-lock.json
+      - save_cache:
+          <<: *cache-key
+          paths:
+            - ./node_modules
+      - run: npm run build
       - run:
           name: npm run integration
           environment:
@@ -31,6 +56,8 @@ jobs:
           command: |
             set -e
             npm run integration
+      - run: npm run merge-report
+      - run: npm run generate-report
       - store_test_results:
           path: test/cypress/reports
       - store_artifacts:
@@ -41,11 +68,12 @@ workflows:
   # run on every commit
   commit:
     jobs:
-      - all
+      - unit
+      - integration
   # run in master every hour, 0:40, 1:40...
   schedule:
     jobs:
-      - all
+      - integration
     triggers:
       - schedule:
           cron: '2 22 * * *'

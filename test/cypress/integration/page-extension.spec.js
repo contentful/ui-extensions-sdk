@@ -63,7 +63,7 @@ context('Page extension', () => {
 
   it('verifies sdk.parameters.invocation has expected default value', () => {
     cy.getSdk(iframeSelector).then(sdk => {
-      expect(sdk.parameters.invocation).to.deep.equal({ path: '/' })
+      expect(sdk.parameters.invocation).to.deep.equal({ path: '' })
     })
   })
 

@@ -1,5 +1,7 @@
 /node_modules
 /.cache
+/.idea
+/mochawesome-report
 /.DS_Store
 /dist/cf-extension-api.js
 /dist/cf-extension-api.map

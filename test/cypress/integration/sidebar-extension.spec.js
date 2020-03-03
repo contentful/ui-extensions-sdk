@@ -6,7 +6,7 @@ import { openEntrySlideInTest, openEntryTest } from './reusable/open-entry-test'
 import { openAssetSlideInTest, openAssetTest } from './reusable/open-asset-test'
 import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
 import { openSdkLocalesDataTest } from './reusable/open-sdk-locales-data-test'
-import { openSdkEntryDataTest } from './reusable/open-sdk-entry-data-test'
+import { checkSdkEntryDataTest } from './reusable/check-sdk-entry-data-test'
 import {
   openSuccessNotificationTest,
   openErrorNotificationTest
@@ -88,7 +88,7 @@ context('Sidebar extension', () => {
   openAssetSlideInTest(iframeSelector, post.id)
   openSdkUserDataTest(iframeSelector)
   openSdkLocalesDataTest(iframeSelector)
-  openSdkEntryDataTest(iframeSelector)
+  checkSdkEntryDataTest(iframeSelector)
   openSuccessNotificationTest(iframeSelector)
   openErrorNotificationTest(iframeSelector)
 })
