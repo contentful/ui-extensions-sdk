@@ -25,8 +25,8 @@
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --browser chrome",
     "clean-reports": "rm -rf cypress/reports",
-    "merge-report": "mochawesome-merge --reportDir test/cypress/reports/separate-reports test/cypress/reports/full_report.json",
-    "generate-report": "mochawesome-report-generator --reportDir test/cypress/reports test/cypress/reports/full_report.json"
+    "merge-report": "mochawesome-merge ./test/cypress/reports/separate-reports/*.json > ./test/cypress/reports/full_report.json",
+    "generate-report": "npx mochawesome-report-generator --reportDir test/cypress/reports test/cypress/reports/full_report.json"
   },
   "dependencies": {
     "es6-promise": "^4.2.8"
