@@ -8,6 +8,7 @@ import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
 import { openSdkLocalesDataTest } from './reusable/open-sdk-locales-data-test'
 import { checkSdkEntryDataTest } from './reusable/check-sdk-entry-data-test'
 import { checkSdkSpaceMethods } from './reusable/check-sdk-space-methods-test'
+import { checkSdkNavigationSlideInCallbackTest } from './reusable/check-sdk-navigation-slide-in-callback-test'
 import {
   openSuccessNotificationTest,
   openErrorNotificationTest
@@ -99,4 +100,5 @@ context('Entry editor extension', () => {
   checkSdkSpaceMethods(iframeSelector)
   openSuccessNotificationTest(iframeSelector)
   openErrorNotificationTest(iframeSelector)
+  checkSdkNavigationSlideInCallbackTest(iframeSelector)
 })

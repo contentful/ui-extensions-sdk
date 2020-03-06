@@ -388,6 +388,9 @@ declare module 'contentful-ui-extensions-sdk' {
       navigated: boolean
       path: string
     }>
+    onSlideInNavigation: (
+      fn: (data: { newSlideLevel: number; oldSlideLevel: number }) => void
+    ) => Function
   }
 
   /* Notifier API */
