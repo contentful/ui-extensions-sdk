@@ -1,4 +1,6 @@
 declare module 'contentful-ui-extensions-sdk' {
+  type EntityType = 'Entry' | 'Asset'
+
   interface SpaceMembership {
     sys: {
       id: string
@@ -280,6 +282,60 @@ declare module 'contentful-ui-extensions-sdk' {
     stopAutoResizer: () => void
   }
 
+  /* Scheduled Actions API */
+
+  enum PublicActionStatus {
+    Scheduled = 'scheduled',
+    Succeeded = 'succeeded',
+    Failed = 'failed',
+    Canceled = 'canceled'
+  }
+
+  type ScheduledAction = {
+    sys: {
+      id: string
+      type: 'ScheduledAction'
+      createdAt: Date
+      createdBy: Link
+      canceledAt?: Date
+      canceledBy?: Link
+      space: {
+        sys: {
+          id: string
+          linkType: 'Space'
+          type: string
+        }
+      }
+      status: PublicActionStatus
+    }
+    entity: {
+      sys: {
+        id: string
+        linkType: EntityType
+        type: string
+      }
+    }
+    environment: {
+      sys: {
+        id: string
+        linkType: 'Environment'
+        type: string
+      }
+    }
+    scheduledFor: {
+      datetime: Date
+    }
+    action: 'publish' | 'unpublish'
+  }
+
+  interface ScheduledActionsAPI {
+    getEntityScheduledActions: (
+      entityType: EntityType,
+      entityId: string
+    ) => Promise<ScheduledAction[]>
+    getAllScheduledActions: () => Promise<ScheduledAction[]>
+  }
+
   /* Dialogs API */
 
   interface OpenAlertOptions {
@@ -465,6 +521,8 @@ declare module 'contentful-ui-extensions-sdk' {
     parameters: ParametersAPI
     /** Exposes method to identify extension's location */
     location: LocationAPI
+    /** Exposes methods for getting scheduled actions */
+    scheduledActions: ScheduledActionsAPI
   }
 
   export type EditorExtensionSDK = BaseExtensionSDK &
