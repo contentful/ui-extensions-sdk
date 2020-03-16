@@ -252,6 +252,14 @@ declare module 'contentful-ui-extensions-sdk' {
     getEditorInterface: (contentTypeId: string) => Promise<EditorInterface>
     /** Returns editor interfaces for a given environment */
     getEditorInterfaces: () => Promise<CollectionResponse<EditorInterface>>
+
+    /* Returns a list of scheduled actions for a given entity */
+    getEntityScheduledActions: (
+      entityType: EntityType,
+      entityId: string
+    ) => Promise<ScheduledAction[]>
+    /* Returns a list of scheduled actions for the currenst space & environment */
+    getAllScheduledActions: () => Promise<ScheduledAction[]>
   }
 
   /* Locales API */
@@ -282,7 +290,7 @@ declare module 'contentful-ui-extensions-sdk' {
     stopAutoResizer: () => void
   }
 
-  /* Scheduled Actions API */
+  /* Scheduled Actions */
 
   enum PublicActionStatus {
     Scheduled = 'scheduled',
@@ -326,14 +334,6 @@ declare module 'contentful-ui-extensions-sdk' {
       datetime: Date
     }
     action: 'publish' | 'unpublish'
-  }
-
-  interface ScheduledActionsAPI {
-    getEntityScheduledActions: (
-      entityType: EntityType,
-      entityId: string
-    ) => Promise<ScheduledAction[]>
-    getAllScheduledActions: () => Promise<ScheduledAction[]>
   }
 
   /* Dialogs API */
@@ -521,8 +521,6 @@ declare module 'contentful-ui-extensions-sdk' {
     parameters: ParametersAPI
     /** Exposes method to identify extension's location */
     location: LocationAPI
-    /** Exposes methods for getting scheduled actions */
-    scheduledActions: ScheduledActionsAPI
   }
 
   export type EditorExtensionSDK = BaseExtensionSDK &

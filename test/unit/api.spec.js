@@ -7,7 +7,6 @@ const sharedExpected = [
   'location',
   'user',
   'parameters',
-  'scheduledActions',
   'locales',
   'space',
   'dialogs',
