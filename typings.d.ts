@@ -1,4 +1,6 @@
 declare module 'contentful-ui-extensions-sdk' {
+  type EntityType = 'Entry' | 'Asset'
+
   interface SpaceMembership {
     sys: {
       id: string
@@ -250,6 +252,14 @@ declare module 'contentful-ui-extensions-sdk' {
     getEditorInterface: (contentTypeId: string) => Promise<EditorInterface>
     /** Returns editor interfaces for a given environment */
     getEditorInterfaces: () => Promise<CollectionResponse<EditorInterface>>
+
+    /* Returns a list of scheduled actions for a given entity */
+    getEntityScheduledActions: (
+      entityType: EntityType,
+      entityId: string
+    ) => Promise<ScheduledAction[]>
+    /* Returns a list of scheduled actions for the currenst space & environment */
+    getAllScheduledActions: () => Promise<ScheduledAction[]>
   }
 
   /* Locales API */
@@ -278,6 +288,54 @@ declare module 'contentful-ui-extensions-sdk' {
     startAutoResizer: () => void
     /** Stops resizing the iframe automatically. */
     stopAutoResizer: () => void
+  }
+
+  /* Scheduled Actions */
+
+  enum PublicActionStatus {
+    Scheduled = 'scheduled',
+    Succeeded = 'succeeded',
+    Failed = 'failed',
+    Canceled = 'canceled'
+  }
+
+  type ScheduledActionActionType = 'publish' | 'unpublish'
+
+  type ScheduledAction = {
+    sys: {
+      id: string
+      type: 'ScheduledAction'
+      createdAt: Date
+      createdBy: Link
+      canceledAt?: Date
+      canceledBy?: Link
+      space: {
+        sys: {
+          id: string
+          linkType: 'Space'
+          type: string
+        }
+      }
+      status: PublicActionStatus
+    }
+    entity: {
+      sys: {
+        id: string
+        linkType: EntityType
+        type: string
+      }
+    }
+    environment: {
+      sys: {
+        id: string
+        linkType: 'Environment'
+        type: string
+      }
+    }
+    scheduledFor: {
+      datetime: Date
+    }
+    action: ScheduledActionActionType
   }
 
   /* Dialogs API */
