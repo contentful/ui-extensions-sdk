@@ -299,6 +299,8 @@ declare module 'contentful-ui-extensions-sdk' {
     Canceled = 'canceled'
   }
 
+  type ScheduledActionActionType = 'publish' | 'unpublish'
+
   type ScheduledAction = {
     sys: {
       id: string
@@ -333,7 +335,7 @@ declare module 'contentful-ui-extensions-sdk' {
     scheduledFor: {
       datetime: Date
     }
-    action: 'publish' | 'unpublish'
+    action: ScheduledActionActionType
   }
 
   /* Dialogs API */
