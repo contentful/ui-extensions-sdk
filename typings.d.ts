@@ -393,12 +393,16 @@ declare module 'contentful-ui-extensions-sdk' {
       max?: number
     }) => Promise<T[] | null>
     /** Opens a dialog for selecting a single asset. */
-    selectSingleAsset: <T = Object>(options?: { locale?: string }) => Promise<T | null>
+    selectSingleAsset: <T = Object>(options?: {
+      locale?: string
+      mimetypeGroups?: string[]
+    }) => Promise<T | null>
     /** Opens a dialog for selecting multiple assets. */
     selectMultipleAssets: <T = Object>(options?: {
       locale?: string
       min?: number
       max?: number
+      mimetypeGroups?: string[]
     }) => Promise<T[] | null>
   }
 
