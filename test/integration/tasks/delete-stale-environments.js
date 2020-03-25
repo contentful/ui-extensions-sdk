@@ -28,7 +28,6 @@ module.exports = async (currentSpace = getCurrentSpace) => {
     } = environment
     if (!isProtected(name) && isStaleEnvironment(createdAt)) {
       try {
-        console.log(environment)
         await environment.delete()
         deletedEnvironmentIds.push(id)
       } catch (error) {
