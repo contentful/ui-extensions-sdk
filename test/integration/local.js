@@ -2,6 +2,7 @@ require('dotenv').config()
 
 const buildExtensions = require('./tasks/build-extensions')
 const deployExtensions = require('./tasks/deploy-extensions')
+const deleteStaleEnvironments = require('./tasks/delete-stale-environments')
 const createConfigurationFiles = require('./tasks/create-configuration-files')
 
 const config = {
@@ -27,6 +28,9 @@ function listAllEnvironmentVariables() {
 }
 
 const run = async () => {
+  console.log('TEST STALE ENVS')
+  await deleteStaleEnvironments()
+
   if (config.environmentId === 'master') {
     throw new Error('Do not run tests on `master` enviroment.')
   }
