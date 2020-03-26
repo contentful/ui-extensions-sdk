@@ -4,7 +4,7 @@ const asyncRetry = require('async-retry')
 const buildExtensions = require('./tasks/build-extensions')
 const deployExtensions = require('./tasks/deploy-extensions')
 const createEnvironment = require('./tasks/create-new-enviromenment')
-const deleteStaleEnvironments = require('./tasks/delete-stale-environments')
+// const deleteStaleEnvironments = require('./tasks/delete-stale-environments')
 const deleteEnvironment = require('./tasks/delete-new-environment')
 const createConfigurationFiles = require('./tasks/create-configuration-files')
 const runCypress = require('./tasks/run-cypress')
@@ -28,8 +28,6 @@ function listAllEnvironmentVariables() {
 let environmentId
 
 const cleanup = async () => {
-  await deleteStaleEnvironments()
-
   if (environmentId) {
     try {
       await asyncRetry(
@@ -38,6 +36,7 @@ const cleanup = async () => {
         },
         { retries: 3 }
       )
+      // await deleteStaleEnvironments()
     } catch (e) {
       console.log(e)
       throw new Error('Failed to remove environment')
