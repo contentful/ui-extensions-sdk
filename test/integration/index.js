@@ -36,7 +36,6 @@ const cleanup = async () => {
         },
         { retries: 3 }
       )
-      // await deleteStaleEnvironments()
     } catch (e) {
       console.log(e)
       throw new Error('Failed to remove environment')
@@ -46,6 +45,12 @@ const cleanup = async () => {
 
 const run = async () => {
   listAllEnvironmentVariables()
+
+  // try {
+  //   await deleteStaleEnvironments()
+  // } catch (e) {
+  //   console.error('Could not delete all stale environments')
+  // }
 
   try {
     environmentId = await asyncRetry(
