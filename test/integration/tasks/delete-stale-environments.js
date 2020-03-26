@@ -1,5 +1,6 @@
 const getCurrentSpace = require('../contentful-client').getCurrentSpace
 const printStepTitle = require('../utils').printStepTitle
+const sleep = require('../utils').sleep
 
 const ONE_DAY_IN_MS = 60 * 60 * 24 * 1000
 
@@ -21,7 +22,7 @@ module.exports = async (currentSpace = getCurrentSpace) => {
   }
   const deletedEnvironmentIds = []
   await Promise.allSettled(
-    items.map(environment => {
+    items.map(async environment => {
       const {
         name,
         sys: { createdAt, id }
@@ -29,6 +30,7 @@ module.exports = async (currentSpace = getCurrentSpace) => {
       if (!isProtected(name) && isStaleEnvironment(createdAt)) {
         try {
           deletedEnvironmentIds.push(id)
+          await sleep(200)
           return environment.delete()
         } catch (error) {
           console.error(`Could not delete environment ${environment.sys.id}`)
