@@ -20,7 +20,6 @@ module.exports = async (currentSpace = getCurrentSpace) => {
     return difference >= ONE_DAY_IN_MS
   }
   const deletedEnvironmentIds = []
-
   await Promise.allSettled(
     items.map(environment => {
       const {
@@ -29,8 +28,8 @@ module.exports = async (currentSpace = getCurrentSpace) => {
       } = environment
       if (!isProtected(name) && isStaleEnvironment(createdAt)) {
         try {
-          environment.delete()
           deletedEnvironmentIds.push(id)
+          return environment.delete()
         } catch (error) {
           console.error(`Could not delete environment ${environment.sys.id}`)
         }
