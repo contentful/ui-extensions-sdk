@@ -11,3 +11,4 @@
 cypress.env.json
 .env
 .env.local
+.envrc

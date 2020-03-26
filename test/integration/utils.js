@@ -22,8 +22,13 @@ function writeJSONFile(path, obj) {
   })
 }
 
+function sleep(duration) {
+  return new Promise(resolve => setTimeout(resolve, duration))
+}
+
 module.exports = {
   printStepTitle,
   writeJSONFile,
-  resolvePath
+  resolvePath,
+  sleep
 }

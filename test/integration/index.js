@@ -4,6 +4,7 @@ const asyncRetry = require('async-retry')
 const buildExtensions = require('./tasks/build-extensions')
 const deployExtensions = require('./tasks/deploy-extensions')
 const createEnvironment = require('./tasks/create-new-enviromenment')
+const deleteStaleEnvironments = require('./tasks/delete-stale-environments')
 const deleteEnvironment = require('./tasks/delete-new-environment')
 const createConfigurationFiles = require('./tasks/create-configuration-files')
 const runCypress = require('./tasks/run-cypress')
@@ -44,6 +45,12 @@ const cleanup = async () => {
 
 const run = async () => {
   listAllEnvironmentVariables()
+
+  try {
+    await deleteStaleEnvironments()
+  } catch (e) {
+    console.error('Could not delete all stale environments')
+  }
 
   try {
     environmentId = await asyncRetry(
