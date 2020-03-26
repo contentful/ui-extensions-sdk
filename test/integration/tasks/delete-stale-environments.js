@@ -1,6 +1,5 @@
 const getCurrentSpace = require('../contentful-client').getCurrentSpace
-const printStepTitle = require('../utils').printStepTitle
-const sleep = require('../utils').sleep
+const { printStepTitle, sleep } = require('../utils')
 
 const ONE_DAY_IN_MS = 60 * 60 * 24 * 1000
 
@@ -12,12 +11,11 @@ module.exports = async (currentSpace = getCurrentSpace) => {
   const { items } = environments
 
   // filter for relevant environments
-  const regexps = [/^master$/g, /test/g]
-  const isProtected = name => regexps.some(rgx => new RegExp(rgx).test(name))
+  const isProtected = name => name === 'master' || name.includes('test')
 
   const isStaleEnvironment = timeStamp => {
     const environmentDate = new Date(timeStamp).getTime()
-    const difference = new Date().getTime() - environmentDate
+    const difference = Date.now() - environmentDate
     return difference >= ONE_DAY_IN_MS
   }
   const deletedEnvironmentIds = []
