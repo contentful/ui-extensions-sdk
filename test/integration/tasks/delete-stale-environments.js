@@ -1,7 +1,7 @@
 const getCurrentSpace = require('../contentful-client').getCurrentSpace
 const printStepTitle = require('../utils').printStepTitle
 
-const ONE_DAY = 60 * 60 * 24 * 1000
+const ONE_DAY_IN_MS = 60 * 60 * 24 * 1000
 
 module.exports = async (currentSpace = getCurrentSpace) => {
   printStepTitle('Removing stale environments')
@@ -17,7 +17,7 @@ module.exports = async (currentSpace = getCurrentSpace) => {
   const isStaleEnvironment = timeStamp => {
     const environmentDate = new Date(timeStamp).getTime()
     const difference = new Date().getTime() - environmentDate
-    return difference >= ONE_DAY
+    return difference >= ONE_DAY_IN_MS
   }
   const deletedEnvironmentIds = []
 
