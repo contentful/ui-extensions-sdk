@@ -21,23 +21,21 @@ module.exports = async (currentSpace = getCurrentSpace) => {
     return difference >= ONE_DAY_IN_MS
   }
   const deletedEnvironmentIds = []
-  await Promise.allSettled(
-    items.map(async environment => {
-      const {
-        name,
-        sys: { createdAt, id }
-      } = environment
-      if (!isProtected(name) && isStaleEnvironment(createdAt)) {
-        try {
-          deletedEnvironmentIds.push(id)
-          await sleep(200)
-          return environment.delete()
-        } catch (error) {
-          console.error(`Could not delete environment ${environment.sys.id}`)
-        }
+  items.forEach(async environment => {
+    const {
+      name,
+      sys: { createdAt, id }
+    } = environment
+    if (!isProtected(name) && isStaleEnvironment(createdAt)) {
+      try {
+        await environment.delete()
+        deletedEnvironmentIds.push(id)
+        await sleep(200)
+      } catch (error) {
+        console.error(`Could not delete environment ${environment.sys.id}`)
       }
-    })
-  )
+    }
+  })
 
   return deletedEnvironmentIds
 }
