@@ -1,7 +1,7 @@
 function yesterday() {
   const now = new Date()
-  const defaultDate = now - 1000 * 60 * 60 * 48 * 1
-  return new Date(defaultDate).toISOString()
+  const oneDayAgo = now - 60 * 60 * 24 * 1000
+  return new Date(oneDayAgo).toISOString()
 }
 
 const today = new Date().toISOString()
