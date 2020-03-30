@@ -420,29 +420,35 @@ declare module 'contentful-ui-extensions-sdk' {
     path?: string
   }
 
+  interface NavigatorSlideInfo {
+    newSlideLevel: number
+    oldSlideLevel: number
+  }
+
+  interface NavigatorOpenResponse<T> {
+    navigated: boolean
+    entity: T
+    slide?: NavigatorSlideInfo
+  }
+
   interface NavigatorAPI {
     /** Opens an existing entry in the current Web App session. */
     openEntry: <T = Object>(
       entryId: string,
       options?: NavigatorAPIOptions
-    ) => Promise<{ navigated: boolean; entity: T }>
+    ) => Promise<NavigatorOpenResponse<T>>
     /** Opens an existing asset in the current Web App session. */
     openAsset: <T = Object>(
       assetId: string,
       options?: NavigatorAPIOptions
-    ) => Promise<{ navigated: boolean; entity: T }>
+    ) => Promise<NavigatorOpenResponse<T>>
     /** Opens a new entry in the current Web App session. */
     openNewEntry: <T = Object>(
       contentTypeId: string,
       options?: NavigatorAPIOptions
-    ) => Promise<{ navigated: boolean; entity: T }>
+    ) => Promise<NavigatorOpenResponse<T>>
     /** Opens a new asset in the current Web App session. */
-    openNewAsset: <T = Object>(
-      options: NavigatorAPIOptions
-    ) => Promise<{
-      navigated: boolean
-      entity: T
-    }>
+    openNewAsset: <T = Object>(options: NavigatorAPIOptions) => Promise<NavigatorOpenResponse<T>>
     /** Navigates to a page extension in the current Web App session. Calling without `options` will navigate to the home route of your page extension. */
     openPageExtension: (
       options?: PageExtensionOptions
@@ -450,9 +456,7 @@ declare module 'contentful-ui-extensions-sdk' {
       navigated: boolean
       path: string
     }>
-    onSlideInNavigation: (
-      fn: (data: { newSlideLevel: number; oldSlideLevel: number }) => void
-    ) => Function
+    onSlideInNavigation: (fn: (slide: NavigatorSlideInfo) => void) => Function
   }
 
   /* Notifier API */
