@@ -456,6 +456,21 @@ declare module 'contentful-ui-extensions-sdk' {
       navigated: boolean
       path: string
     }>
+    /** Navigates to a bulk entry editor */
+    openBulkEditor: (
+      entryId: string,
+      options: {
+        /** ID of the reference field */
+        fieldId: string
+        /** Editable locale */
+        locale: string
+        /** Focused index */
+        index: number
+      }
+    ) => Promise<{
+      navigated: boolean
+      slide?: NavigatorSlideInfo
+    }>
     onSlideInNavigation: (fn: (slide: NavigatorSlideInfo) => void) => Function
   }
 
