@@ -35,11 +35,18 @@ const describeAppHookMessageExchange = ({ description, method, stage, sendsResul
       }).to.throw(/must be a function/)
     })
 
-    it('only allows to register a handler once', () => {
-      app[method](() => {})
-      expect(() => {
-        app[method](() => {})
-      }).to.throw(/handler twice/)
+    it('will only call the last added handler', () => {
+      const first = sinon.spy()
+      const second = sinon.spy()
+
+      app[method](first)
+      app[method](second)
+
+      const [, sendMessage] = channelStub.addHandler.args[0]
+      sendMessage({ stage })
+
+      sinon.assert.notCalled(first)
+      sinon.assert.calledOnce(second)
     })
 
     it('does the exchange when handler is not defined', () => test(undefined, {}))
