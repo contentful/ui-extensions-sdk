@@ -425,11 +425,11 @@ declare module 'contentful-ui-extensions-sdk' {
     path?: string
   }
 
-  /** Information about current value of navigating to a page. */
+  /** Information about current value of the navigation status. */
   interface NavigatorPageResponse {
     /** Will be true if navigation was successfully executed by the web app. */
     navigated: boolean
-    /** The path that was navigated to. */
+    /** The path that was navigated to by the web app. */
     path: string
   }
 
