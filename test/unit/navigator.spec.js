@@ -45,27 +45,33 @@ const SCENARIOS = [
   },
   {
     method: 'openPageExtension',
-    args: [],
-    expected: { id: 'test-id' },
-    channelMethod: 'navigateToPageExtension'
+    args: [{ id: 'test-id', type: 'extension' }],
+    expected: { id: 'test-id', type: 'extension' },
+    channelMethod: 'navigateToPage'
   },
   {
     method: 'openPageExtension',
-    args: [{ page: 'testPage' }],
-    expected: { id: 'test-id', page: 'testPage' },
-    channelMethod: 'navigateToPageExtension'
+    args: [{ id: 'test-id', page: 'testPage', type: 'extension' }],
+    expected: { id: 'test-id', page: 'testPage', type: 'extension' },
+    channelMethod: 'navigateToPage'
   },
   {
     method: 'openPageExtension',
-    args: [{ id: 'another-id' }],
-    expected: { id: 'another-id' },
-    channelMethod: 'navigateToPageExtension'
+    args: [{ id: 'another-id', type: 'extension' }],
+    expected: { id: 'another-id', type: 'extension' },
+    channelMethod: 'navigateToPage'
   },
   {
     method: 'openPageExtension',
-    args: [{ id: 'another-id', page: 'testPage' }],
-    expected: { id: 'another-id', page: 'testPage' },
-    channelMethod: 'navigateToPageExtension'
+    args: [{ id: 'another-id', page: 'testPage', type: 'extension' }],
+    expected: { id: 'another-id', page: 'testPage', type: 'extension' },
+    channelMethod: 'navigateToPage'
+  },
+  {
+    method: 'openCurrentAppPage',
+    args: [{ id: 'app-id', page: '/something', type: 'app' }],
+    expected: { id: 'app-id', page: '/something', type: 'app' },
+    channelMethod: 'navigateToPage'
   }
 ]
 
