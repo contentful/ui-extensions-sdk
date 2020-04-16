@@ -622,7 +622,6 @@ declare module 'contentful-ui-extensions-sdk' {
     LOCATION_DIALOG: string
     LOCATION_ENTRY_EDITOR: string
     LOCATION_PAGE: string
-    LOCATION_APP: string
     LOCATION_APP_CONFIG: string
   }
 }
