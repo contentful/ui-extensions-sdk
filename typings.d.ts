@@ -593,8 +593,6 @@ declare module 'contentful-ui-extensions-sdk' {
     isInstalled: () => Promise<boolean>
     /** Returns parameters of an App, null otherwise **/
     getParameters: <T = Object>() => Promise<null | T>
-    /** Returns current state of an App, null otherwise **/
-    getCurrentState: <T = Object>() => Promise<null | T>
     /** Registers a handler to be called to produce parameters for an App **/
     onConfigure: (handler: Function) => Promise<void>
     /** Registers a handler to be called once configuration was finished **/
@@ -604,9 +602,7 @@ declare module 'contentful-ui-extensions-sdk' {
   export type AppExtensionSDK = BaseExtensionSDK & {
     /** A set of IDs actual for the app */
     ids: Pick<IdsAPI, 'environment' | 'space' | 'app' | 'user'>
-    /** Apps Platform __ALPHA__ methods: subject to change **/
     app: AppConfigAPI
-    platformAlpha: { app: AppConfigAPI }
   }
 
   export type KnownSDK =
@@ -626,7 +622,6 @@ declare module 'contentful-ui-extensions-sdk' {
     LOCATION_DIALOG: string
     LOCATION_ENTRY_EDITOR: string
     LOCATION_PAGE: string
-    LOCATION_APP: string
     LOCATION_APP_CONFIG: string
   }
 }
