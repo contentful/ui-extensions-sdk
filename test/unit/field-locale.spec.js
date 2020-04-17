@@ -105,7 +105,7 @@ describe('FieldLocale', () => {
   describe('.onIsDisabledChanged(handler)', () => {
     testChannelSignal(
       'onIsDisabledChanged',
-      'isDisabledChangedForLocale',
+      'isDisabledChangedForFieldLocale',
       [info.id, info.locale, true],
       [true]
     )
