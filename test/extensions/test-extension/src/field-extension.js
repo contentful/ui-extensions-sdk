@@ -6,13 +6,18 @@ export class FieldExtension extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      value: props.sdk.field.getValue()
+      value: props.sdk.field.getValue(),
+      isDisabled: true
     }
     this.detachExternalChangeHandler = null
   }
 
   componentDidMount() {
     this.props.sdk.window.startAutoResizer()
+
+    this.props.sdk.field.onIsDisabledChanged(value => {
+      this.setState({ isDisabled: value !== false })
+    })
 
     // Handler for external field value changes (e.g. when multiple authors are working on the same entry).
     this.detachExternalChangeHandler = this.props.sdk.field.onValueChanged(this.onExternalChange)
@@ -45,6 +50,7 @@ export class FieldExtension extends React.Component {
           width="large"
           type="text"
           id="my-field"
+          disabled={this.state.isDisabled}
           value={this.state.value}
           onChange={this.onChange}
         />

@@ -42,9 +42,11 @@ context('Field extension', () => {
     cy.get(iframeSelector).captureIFrameAs('extension')
   })
 
-  it('verifies field extension is rendered', () => {
+  it('verifies field extension is rendered and onIsDisabledChanged handler is called', () => {
     cy.get('@extension').within(() => {
-      cy.findByTestId('cf-ui-text-input').should('exist')
+      cy.findByTestId('cf-ui-text-input')
+        .should('exist')
+        .and('not.have.attr', 'disabled')
     })
   })
 

@@ -40,17 +40,19 @@ context('Entry editor extension', () => {
     })
   })
 
-  it('opens page and checks that entry editor extension is rendered', () => {
+  it('verify that entry editor extension is rendered and onIsDisabledChanged handler is called', () => {
     cy.get('@extension').within(() => {
       cy.findByTestId('title-field')
         .should('exist')
         .and('have.value', post.title)
+        .and('not.have.attr', 'disabled')
     })
 
     cy.get('@extension').within(() => {
       cy.findByTestId('body-field')
         .should('exist')
         .and('have.value', post.body)
+        .and('not.have.attr', 'disabled')
     })
   })
 
