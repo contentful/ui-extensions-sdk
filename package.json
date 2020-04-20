@@ -9,19 +9,19 @@
   "files": [
     "dist/cf-extension-api.js",
     "dist/cf-extension.css",
-    "lib/**/*.js",
+    "lib/**/types.ts",
     "typings.d.ts"
   ],
   "scripts": {
-    "test": "mocha test/unit/*.js",
-    "lint": "eslint lib/ test/",
+    "test": "ts-mocha 'test/unit/*.[jt]s'",
+    "lint": "eslint '{lib,test}/**/*.{t,j}s'",
     "lint:fix": "eslint --fix lib/ test/",
-    "build": "parcel build lib/index.js --no-source-maps --out-file cf-extension-api.js --global contentfulExtension",
-    "build:debug": "parcel build lib/index.js --out-file cf-extension-api.js --global contentfulExtension",
+    "build": "parcel build lib/index.ts --no-source-maps --out-file cf-extension-api.js --global contentfulExtension",
+    "build:debug": "parcel build lib/index.ts --public-url '.' --out-file cf-extension-api.js --global contentfulExtension",
     "prepublishOnly": "npm run build",
     "size": "echo \"Gzipped, estimate: $(gzip -9 -c dist/cf-extension-api.js | wc -c) bytes\"",
-    "integration": "node test/integration",
-    "integration:local": "node test/integration/local.js",
+    "integration": "ts-node test/integration",
+    "integration:local": "ts-node test/integration/local",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --browser chrome",
     "clean-reports": "rm -rf cypress/reports",
@@ -34,13 +34,17 @@
   "devDependencies": {
     "@testing-library/cypress": "5.3.0",
     "@testing-library/dom": "6.12.2",
+    "@types/chai-as-promised": "^7.1.2",
+    "@types/jsdom": "^16.2.1",
+    "@typescript-eslint/eslint-plugin": "^2.28.0",
+    "@typescript-eslint/parser": "^2.28.0",
     "async-retry": "1.2.3",
     "babel-eslint": "10.0.1",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "contentful-management": "5.7.2",
     "cross-spawn": "6.0.5",
-    "cypress": "^4.1.0",
+    "cypress": "^4.4.1",
     "cypress-plugin-retries": "^1.5.2",
     "dotenv": "8.0.0",
     "eslint": "^6.8.0",
@@ -65,7 +69,10 @@
     "parcel-bundler": "^1.12.4",
     "prettier": "1.17.1",
     "sinon": "^7.5.0",
-    "sinon-chai": "^3.5.0"
+    "sinon-chai": "^3.5.0",
+    "ts-mocha": "^7.0.0",
+    "ts-node": "^8.9.0",
+    "typescript": "^3.8.3"
   },
   "husky": {
     "hooks": {
@@ -73,13 +80,9 @@
     }
   },
   "lint-staged": {
-    "*.js": [
-      "prettier --write",
-      "eslint --fix",
-      "git add"
-    ],
     "*.ts": [
       "prettier --write",
+      "eslint --fix",
       "git add"
     ],
     "*.md": [

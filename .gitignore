@@ -4,7 +4,7 @@
 /mochawesome-report
 /.DS_Store
 /dist/cf-extension-api.js
-/dist/cf-extension-api.map
+/dist/cf-extension-api.js.map
 /test/cypress/reports
 /test/cypress/videos
 /test/cypress/screenshots
