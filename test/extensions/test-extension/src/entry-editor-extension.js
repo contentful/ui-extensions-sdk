@@ -7,16 +7,26 @@ export class EntryEditorExtension extends React.Component {
     super(props)
     this.state = {
       title: props.sdk.entry.fields.title.getValue() || '',
-      body: props.sdk.entry.fields.body.getValue() || ''
+      body: props.sdk.entry.fields.body.getValue() || '',
+      titleIsDisabled: true,
+      bodyIsDisabled: true
     }
   }
 
   componentDidMount() {
-    this.props.sdk.entry.fields.title.onValueChanged(value => {
+    const fields = this.props.sdk.entry.fields
+
+    fields.title.onValueChanged(value => {
       this.setState({ title: value })
     })
-    this.props.sdk.entry.fields.body.onValueChanged(value => {
+    fields.body.onValueChanged(value => {
       this.setState({ body: value })
+    })
+    fields.title.onIsDisabledChanged(value => {
+      this.setState({ titleIsDisabled: value !== false })
+    })
+    fields.body.onIsDisabledChanged(value => {
+      this.setState({ bodyIsDisabled: value !== false })
     })
   }
 
@@ -53,6 +63,7 @@ export class EntryEditorExtension extends React.Component {
             type="text"
             id="my-title"
             value={this.state.title}
+            disabled={this.state.titleIsDisabled}
             onChange={this.onTitleChange}
           />
           <Textarea
@@ -61,6 +72,7 @@ export class EntryEditorExtension extends React.Component {
             type="text"
             id="my-body"
             value={this.state.body}
+            disabled={this.state.bodyIsDisabled}
             onChange={this.onBodyChange}
           />
         </Card>

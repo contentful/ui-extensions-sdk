@@ -103,7 +103,12 @@ describe('FieldLocale', () => {
   })
 
   describe('.onIsDisabledChanged(handler)', () => {
-    testChannelSignal('onIsDisabledChanged', 'isDisabledChanged')
+    testChannelSignal(
+      'onIsDisabledChanged',
+      'isDisabledChangedForFieldLocale',
+      [info.id, info.locale, true],
+      [true]
+    )
   })
 
   describe('.onSchemaErrorsChanged(handler)', () => {
@@ -196,23 +201,23 @@ describe('FieldLocale', () => {
     })
   }
 
-  function testChannelSignal(method, message) {
+  function testChannelSignal(method, message, messageArgs = ['VALUE'], methodArgs = messageArgs) {
     it('calls handler when method is received', () => {
       const cb = sinon.spy()
 
       field[method](cb)
       cb.resetHistory()
-      channelStub.receiveMethod(message, ['VALUE'])
+      channelStub.receiveMethod(message, messageArgs)
       sinon.assert.calledOnce(cb)
-      sinon.assert.calledWithExactly(cb, 'VALUE')
+      sinon.assert.calledWithExactly(cb, ...methodArgs)
     })
 
     it('calls handler with last received message', () => {
-      channelStub.receiveMethod(message, ['VALUE'])
+      channelStub.receiveMethod(message, messageArgs)
       const cb = sinon.spy()
       field[method](cb)
       sinon.assert.calledOnce(cb)
-      sinon.assert.calledWithExactly(cb, 'VALUE')
+      sinon.assert.calledWithExactly(cb, ...methodArgs)
     })
   }
 })
