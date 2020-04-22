@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "test": "ts-mocha 'test/unit/*.[jt]s'",
-    "lint": "tsc -b && tsc -b test/extensions/test-extension && eslint '{lib,test}/**/*.{t,j}s'",
+    "lint": "tsc -b && eslint '{lib,test}/**/*.{t,j}s'",
     "lint:fix": "eslint --fix lib/ test/",
     "build": "parcel build lib/index.ts --no-source-maps --out-file cf-extension-api.js --global contentfulExtension",
     "build:debug": "parcel build lib/index.ts --public-url '.' --out-file cf-extension-api.js --global contentfulExtension",

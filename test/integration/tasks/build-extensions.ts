@@ -11,6 +11,9 @@ export default async ({ testLocalSdk }) => {
       printStepTitle('Linking local copy of ui-extension-sdk to extensions')
       await runScript('npm', ['link', './', '--prefix', `test/extensions/${extensionId}`])
     }
+
+    printStepTitle('Checking types')
+    await runScript('npx', ['tsc', '-b', 'test/extensions/test-extension'])
   }
 
   await Promise.all(['test-extension'].map(buildExtension))
