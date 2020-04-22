@@ -1,15 +1,25 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { TextInput } from '@contentful/forma-36-react-components'
+import { FieldExtensionSDK } from 'contentful-ui-extensions-sdk'
 
-export class FieldExtension extends React.Component {
+interface Props {
+  sdk: FieldExtensionSDK
+}
+
+interface State {
+  value: string
+  isDisabled: boolean
+}
+
+export class FieldExtension extends React.Component<Props, State> {
+  detachExternalChangeHandler = null
+
   constructor(props) {
     super(props)
     this.state = {
       value: props.sdk.field.getValue(),
       isDisabled: true
     }
-    this.detachExternalChangeHandler = null
   }
 
   componentDidMount() {
@@ -57,8 +67,4 @@ export class FieldExtension extends React.Component {
       </>
     )
   }
-}
-
-FieldExtension.propTypes = {
-  sdk: PropTypes.object.isRequired
 }

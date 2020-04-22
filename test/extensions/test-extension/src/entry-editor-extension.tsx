@@ -1,8 +1,19 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { TextInput, Textarea, Card } from '@contentful/forma-36-react-components'
+import { EditorExtensionSDK } from 'contentful-ui-extensions-sdk'
 
-export class EntryEditorExtension extends React.Component {
+interface Props {
+  sdk: EditorExtensionSDK
+}
+
+interface State {
+  title: string
+  body: string
+  titleIsDisabled: boolean
+  bodyIsDisabled: boolean
+}
+
+export class EntryEditorExtension extends React.Component<Props, State> {
   constructor(props) {
     super(props)
     this.state = {
@@ -69,7 +80,6 @@ export class EntryEditorExtension extends React.Component {
           <Textarea
             testId="body-field"
             width="large"
-            type="text"
             id="my-body"
             value={this.state.body}
             disabled={this.state.bodyIsDisabled}
@@ -79,8 +89,4 @@ export class EntryEditorExtension extends React.Component {
       </>
     )
   }
-}
-
-EntryEditorExtension.propTypes = {
-  sdk: PropTypes.object.isRequired
 }

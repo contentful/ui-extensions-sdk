@@ -14,7 +14,12 @@
     "sourceMap": true,
     "inlineSources": true,
     "noEmit": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react"
   },
-  "exclude": ["test/extensions"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "lib/node_modules/contentful-ui-extensions-sdk/typings.d.ts"
+  ]
 }

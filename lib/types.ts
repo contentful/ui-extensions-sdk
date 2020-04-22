@@ -585,7 +585,7 @@ export type DialogExtensionSDK = BaseExtensionSDK & {
   /** A set of IDs actual for the extension */
   ids: Pick<IdsAPI, 'environment' | 'space' | 'extension' | 'user'>
   /** Closes the dialog and resolves openExtension promise with data */
-  close: (data: any) => void
+  close: (data?: any) => void
   /** Methods to update the size of the iframe the extension is contained within.  */
   window: WindowAPI
 }

@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button } from '@contentful/forma-36-react-components'
+import { PageExtensionSDK } from 'contentful-ui-extensions-sdk'
 
-export function PageExtension({ sdk }) {
+export function PageExtension({ sdk }: { sdk: PageExtensionSDK }) {
   return (
     <div data-test-id="my-page-extension">
       hello page extension
