@@ -35,7 +35,7 @@ export default function createWindow(currentWindow, channel) {
     currentWindow.removeEventListener('resize', autoUpdateHeight)
   }
 
-  function updateHeight(height: number = null) {
+  function updateHeight(height: number | null = null) {
     if (height === null) {
       height = Math.ceil(document.documentElement.getBoundingClientRect().height)
     }

@@ -4,8 +4,8 @@ import { Items } from './types'
 const INFO_PROPS = ['id', 'locales', 'type', 'required', 'validations', 'items']
 
 export default class Field {
-  _defaultLocale: string
-  _fieldLocales: FieldLocale[]
+  private _defaultLocale: string
+  private _fieldLocales: FieldLocale[]
   items: Items
 
   constructor(channel, info, defaultLocale) {
@@ -60,7 +60,7 @@ export default class Field {
     return this._getFieldLocale(locale).onIsDisabledChanged(handler)
   }
 
-  _getFieldLocale(locale) {
+  private _getFieldLocale(locale) {
     locale = locale || this._defaultLocale
     assertHasLocale(this, locale)
     return this._fieldLocales[locale]

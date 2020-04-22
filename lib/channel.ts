@@ -20,9 +20,9 @@ function waitForConnect(currentWindow, onConnect) {
 }
 
 class Channel {
-  _messageHandlers = {}
-  _responseHandlers = {}
-  _send: ReturnType<typeof createSender>
+  private _messageHandlers = {}
+  private _responseHandlers = {}
+  private _send: ReturnType<typeof createSender>
 
   constructor(sourceId, currentWindow) {
     this._send = createSender(sourceId, currentWindow.parent)
@@ -51,7 +51,7 @@ class Channel {
     return this._messageHandlers[method].attach(handler)
   }
 
-  _handleMessage(message) {
+  private _handleMessage(message) {
     if (message.method) {
       const { method, params } = message
       const handlers = this._messageHandlers[method]

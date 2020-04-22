@@ -10,12 +10,12 @@ export default class FieldLocale implements FieldAPI {
   required: boolean
   validations: any[]
   items?: Items
-  _value: any
+  private _value: any
 
-  _valueSignal: MemoizedSignal
-  _isDisabledSignal: MemoizedSignal
-  _schemaErrorsChangedSignal: MemoizedSignal
-  _channel: any
+  private _valueSignal: MemoizedSignal
+  private _isDisabledSignal: MemoizedSignal
+  private _schemaErrorsChangedSignal: MemoizedSignal
+  private _channel: any
 
   constructor(channel, fieldInfo) {
     INFO_PROPS.forEach(prop => {

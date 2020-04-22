@@ -1,6 +1,6 @@
 class Signal {
-  _id = 0
-  _listeners = {}
+  private _id = 0
+  private _listeners = {}
 
   dispatch(...args) {
     for (const key in this._listeners) {
@@ -22,7 +22,7 @@ class Signal {
 const memArgsSymbol = '__private__memoized__arguments__'
 
 class MemoizedSignal extends Signal {
-  [memArgsSymbol]: any[] = []
+  private [memArgsSymbol]: any[] = []
 
   constructor(...memoizedArgs) {
     super()

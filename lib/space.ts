@@ -1,4 +1,6 @@
-const spaceMethods = [
+import { SpaceAPI } from './types'
+
+const spaceMethods: Array<keyof SpaceAPI> = [
   'getContentType',
   'getEntry',
   'getEntrySnapshots',
@@ -42,13 +44,10 @@ const spaceMethods = [
 
   'getAllScheduledActions',
   'getEntityScheduledActions'
-] as const
+]
 
 export default function createSpace(channel, initialContentTypes) {
-  const space = {} as {
-    [key: string]: (...args: any[]) => any
-    getCachedContentTypes: () => any[]
-  }
+  const space = {} as SpaceAPI
 
   spaceMethods.forEach(methodName => {
     space[methodName] = function(...args) {
