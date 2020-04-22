@@ -416,8 +416,21 @@ declare module 'contentful-ui-extensions-sdk' {
   interface PageExtensionOptions {
     /** If included, you can navigate to a different page extension. If omitted, you will navigate within the current extension. */
     id?: string
-    /** Navigate to a path withing your page extension. */
+    /** Navigate to a path within your page extension. */
     path?: string
+  }
+
+  interface AppPageLocationOptions {
+    /** A path to navigate to within your app's page location. */
+    path?: string
+  }
+
+  /** Information about current value of the navigation status. */
+  interface NavigatorPageResponse {
+    /** Will be true if navigation was successfully executed by the web app. */
+    navigated: boolean
+    /** The path that was navigated to by the web app. */
+    path: string
   }
 
   interface NavigatorSlideInfo {
@@ -450,12 +463,9 @@ declare module 'contentful-ui-extensions-sdk' {
     /** Opens a new asset in the current Web App session. */
     openNewAsset: <T = Object>(options: NavigatorAPIOptions) => Promise<NavigatorOpenResponse<T>>
     /** Navigates to a page extension in the current Web App session. Calling without `options` will navigate to the home route of your page extension. */
-    openPageExtension: (
-      options?: PageExtensionOptions
-    ) => Promise<{
-      navigated: boolean
-      path: string
-    }>
+    openPageExtension: (options?: PageExtensionOptions) => Promise<NavigatorPageResponse>
+    /** Navigates to the app's page location. */
+    openCurrentAppPage: (options?: AppPageLocationOptions) => Promise<NavigatorPageResponse>
     /** Navigates to a bulk entry editor */
     openBulkEditor: (
       entryId: string,
