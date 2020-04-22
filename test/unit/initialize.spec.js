@@ -17,7 +17,8 @@ describe('initializeApi(currentWindow, apiCreator)', function() {
   describe('callback', function() {
     beforeEach(function() {
       this.api = {}
-      this.init = initializeApi(this.dom.window, () => this.api)
+      this.apiCreator = sinon.stub().returns(this.api)
+      this.init = initializeApi(this.dom.window, this.apiCreator)
     })
 
     it('is not invoked before connecting', function() {
@@ -46,6 +47,23 @@ describe('initializeApi(currentWindow, apiCreator)', function() {
         expect(arg).to.equal(this.api)
         done()
       })
+      sendConnect(this.dom)
+    })
+
+    it('receives the result of the custom API creator', function(done) {
+      const customApi = {}
+      const makeCustomApi = sinon.stub().returns(customApi)
+
+      this.init(
+        (_, arg) => {
+          expect(arg).to.equal(customApi)
+          const [channel, params] = this.apiCreator.args[0]
+          expect(makeCustomApi).to.be.calledWithExactly(channel, params)
+          done()
+        },
+        { makeCustomApi }
+      )
+
       sendConnect(this.dom)
     })
   })
