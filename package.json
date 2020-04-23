@@ -9,7 +9,6 @@
   "files": [
     "dist/cf-extension-api.js",
     "dist/cf-extension.css",
-    "lib/**/types.ts",
     "typings.d.ts"
   ],
   "scripts": {
@@ -18,7 +17,8 @@
     "lint:fix": "eslint --fix lib/ test/",
     "build": "parcel build lib/index.ts --no-source-maps --out-file cf-extension-api.js --global contentfulExtension",
     "build:debug": "parcel build lib/index.ts --public-url '.' --out-file cf-extension-api.js --global contentfulExtension",
-    "prepublishOnly": "npm run build",
+    "typings": "tsc -b typings.tsconfig.json && mv lib/types.d.ts typings.d.ts && cat module-declaration.d.ts >> typings.d.ts",
+    "prepublishOnly": "npm run build && npm run typings",
     "size": "echo \"Gzipped, estimate: $(gzip -9 -c dist/cf-extension-api.js | wc -c) bytes\"",
     "integration": "ts-node test/integration",
     "integration:local": "ts-node test/integration/local",

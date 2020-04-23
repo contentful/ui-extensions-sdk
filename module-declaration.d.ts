@@ -1,10 +1,6 @@
-import * as Types from './lib/types'
-import _locations from './lib/locations'
-
+// will be appended to generated typings.d.ts
 declare module 'contentful-ui-extensions-sdk' {
-  export = Types
-
   export const init: <T extends KnownSDK = KnownSDK>(initCallback: (sdk: T) => any) => void
 
-  export const locations: typeof _locations
+  export const locations: Locations
 }
