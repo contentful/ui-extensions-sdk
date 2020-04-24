@@ -1,6 +1,5 @@
 {
-  "extends": ["plugin:react/recommended", "plugin:prettier/recommended"],
-  "parser": "babel-eslint",
+  "extends": ["plugin:react/recommended", "../../.eslintrc.json"],
   "plugins": ["react"],
   "settings": {
     "react": {
