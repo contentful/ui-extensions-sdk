@@ -112,13 +112,13 @@ export interface EntryFieldAPI {
   removeValue: (locale?: string) => Promise<void>
   /** Calls the callback every time the value of the field is changed by an external event or when setValue() is called. */
   onValueChanged: {
-    (callback: (value: any) => void): () => void
-    (locale: string, callback: (value: any) => void): () => void
+    (callback: (value: any) => void): () => Function
+    (locale: string, callback: (value: any) => void): () => Function
   }
   /** Calls the callback when the disabled status of the field changes. */
   onIsDisabledChanged: {
-    (callback: (isDisabled: boolean) => void): () => void
-    (locale: string, callback: (isDisabled: boolean) => void): () => void
+    (callback: (isDisabled: boolean) => void): () => Function
+    (locale: string, callback: (isDisabled: boolean) => void): () => Function
   }
 }
 
