@@ -68,7 +68,7 @@ export default class Field {
 
   getLocaleSpecificField(locale) {
     if (!locale) {
-      throw new Error(`getLocaleSpecificField must be passed a locale`)
+      throw new Error('getLocaleSpecificField must be passed a locale')
     }
 
     return this._getFieldLocale(locale)
