@@ -120,6 +120,8 @@ export interface EntryFieldAPI {
     (callback: (isDisabled: boolean) => void): () => void
     (locale: string, callback: (isDisabled: boolean) => void): () => void
   }
+
+  getFieldLocale: (locale: string) => FieldAPI
 }
 
 export interface EntryAPI {

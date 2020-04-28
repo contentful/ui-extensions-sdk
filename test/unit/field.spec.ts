@@ -1,6 +1,7 @@
 import { sinon, expect, describeAttachHandlerMember } from '../helpers'
 
 import Field from '../../lib/field'
+import FieldLocale from '../../lib/field-locale'
 
 describe(`Field`, () => {
   let channelStub
@@ -247,6 +248,21 @@ describe(`Field`, () => {
       it(`updates the value when receiving a change message`, function() {
         this.receiveValueChanged(field.id, defaultLocale, 'CHANGED')
         expect(field.getValue()).to.equal('CHANGED')
+      })
+    })
+
+    describe('getFieldLocale called with a locale', () => {
+      let result
+      beforeEach(() => {
+        result = field.getFieldLocale('en-US')
+      })
+
+      it('returns a fieldLocale instance', () => {
+        expect(result).to.be.an.instanceOf(FieldLocale)
+      })
+
+      it('contains the expect value for that locale', () => {
+        expect(result.getValue()).to.equal(info.values['en-US'])
       })
     })
   })
