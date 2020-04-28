@@ -251,10 +251,10 @@ describe(`Field`, () => {
       })
     })
 
-    describe('getFieldLocale called with a locale', () => {
+    describe('getLocaleSpecificField called with a locale', () => {
       let result
       beforeEach(() => {
-        result = field.getFieldLocale('en-US')
+        result = field.getLocaleSpecificField('en-US')
       })
 
       it('returns a fieldLocale instance', () => {

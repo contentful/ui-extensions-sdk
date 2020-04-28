@@ -32,11 +32,11 @@ export default class Field {
   }
 
   getValue(locale) {
-    return this.getFieldLocale(locale).getValue()
+    return this._getFieldLocale(locale).getValue()
   }
 
   setValue(value, locale) {
-    return this.getFieldLocale(locale).setValue(value)
+    return this._getFieldLocale(locale).setValue(value)
   }
 
   removeValue(locale) {
@@ -48,7 +48,7 @@ export default class Field {
       handler = locale
       locale = undefined
     }
-    return this.getFieldLocale(locale).onValueChanged(handler)
+    return this._getFieldLocale(locale).onValueChanged(handler)
   }
 
   onIsDisabledChanged(locale, handler) {
@@ -57,12 +57,20 @@ export default class Field {
       locale = undefined
     }
 
-    return this.getFieldLocale(locale).onIsDisabledChanged(handler)
+    return this._getFieldLocale(locale).onIsDisabledChanged(handler)
   }
 
-  getFieldLocale(locale = this._defaultLocale) {
+  private _getFieldLocale(locale = this._defaultLocale) {
     assertHasLocale(this, locale)
     return this._fieldLocales[locale]
+  }
+
+  getLocaleSpecificField(locale) {
+    if (!locale) {
+      throw new Error(`getLocaleSpecificField must be passed a locale`)
+    }
+
+    return this._getFieldLocale(locale)
   }
 }
 
