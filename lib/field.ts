@@ -60,8 +60,7 @@ export default class Field {
     return this.getFieldLocale(locale).onIsDisabledChanged(handler)
   }
 
-  getFieldLocale(locale) {
-    locale = locale || this._defaultLocale
+  getFieldLocale(locale = this._defaultLocale) {
     assertHasLocale(this, locale)
     return this._fieldLocales[locale]
   }
