@@ -1,5 +1,6 @@
+/// <reference types="cypress" />
+
 import { configure } from '@testing-library/dom'
-import 'cypress-plugin-retries'
 
 import './commands'
 
