@@ -534,6 +534,23 @@ export interface SharedEditorSDK {
   }
 }
 
+export type CrudAction = 'create' | 'read' | 'update' | 'delete'
+export type PublishableAction = 'publish' | 'unpublish'
+export type ArchiveableAction = 'archive' | 'unarchive'
+
+export interface AccessAPI {
+  can(action: 'read' | 'update', entity: 'EditorInterface' | EditorInterface): Promise<boolean>
+  can<T = Object>(
+    action: CrudAction,
+    entity: 'ContentType' | ContentType | 'Asset' | 'Entry' | T
+  ): Promise<boolean>
+  can<T = Object>(
+    action: PublishableAction,
+    entity: 'ContentType' | ContentType | 'Asset' | 'Entry' | T
+  ): Promise<boolean>
+  can<T = Object>(action: ArchiveableAction, entity: 'Asset' | 'Entry' | T): Promise<boolean>
+}
+
 export interface BaseExtensionSDK {
   /** Allows to read and update the value of any field of the current entry and to get the entry's metadata */
   entry: EntryAPI
@@ -555,6 +572,8 @@ export interface BaseExtensionSDK {
   parameters: ParametersAPI
   /** Exposes method to identify extension's location */
   location: LocationAPI
+  /** Exposes methods for checking user's access level */
+  access: AccessAPI
 }
 
 export type EditorExtensionSDK = BaseExtensionSDK &
