@@ -51,8 +51,6 @@ jobs:
       - run: npm run build
       - run:
           name: npm run integration
-          environment:
-            CYPRESS_RETRIES: 3
           command: |
             set -e
             npm run integration
