@@ -121,7 +121,7 @@ export interface EntryFieldAPI {
     (locale: string, callback: (isDisabled: boolean) => void): () => void
   }
 
-  getLocaleSpecificField: (locale: string) => FieldAPI
+  getForLocale: (locale: string) => FieldAPI
 }
 
 export interface EntryAPI {
