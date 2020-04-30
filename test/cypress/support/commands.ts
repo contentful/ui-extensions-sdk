@@ -25,7 +25,7 @@ Cypress.Commands.add('setAuthTokenToLocalStorage', function setAuthTokenToLocalS
 
 Cypress.Commands.add('waitForIFrame', function waitForIFrame() {
   // eslint-disable-next-line
-  cy.wait(4000)
+  cy.wait(10000)
 })
 
 Cypress.Commands.add('getSdk', function(selector) {
