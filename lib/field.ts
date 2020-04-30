@@ -65,6 +65,14 @@ export default class Field {
     assertHasLocale(this, locale)
     return this._fieldLocales[locale]
   }
+
+  getForLocale(locale) {
+    if (!locale) {
+      throw new Error('getForLocale must be passed a locale')
+    }
+
+    return this._getFieldLocale(locale)
+  }
 }
 
 function assertHasLocale(field, locale) {

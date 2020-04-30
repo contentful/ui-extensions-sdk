@@ -120,6 +120,10 @@ export interface EntryFieldAPI {
     (callback: (isDisabled: boolean) => void): () => void
     (locale: string, callback: (isDisabled: boolean) => void): () => void
   }
+
+  /** Get an instance of FieldAPI for this field, specific to the locale that is
+   * passed as an argument */
+  getForLocale: (locale: string) => FieldAPI
 }
 
 export interface EntryAPI {
