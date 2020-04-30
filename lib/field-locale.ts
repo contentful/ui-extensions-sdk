@@ -44,8 +44,10 @@ export default class FieldLocale implements FieldAPI {
       }
     })
 
-    channel.addHandler('schemaErrorsChanged', errors => {
-      this._schemaErrorsChangedSignal.dispatch(errors)
+    channel.addHandler('schemaErrorsChangedForFieldLocale', (id, locale, errors) => {
+      if (id === this.id && locale === this.locale) {
+        this._schemaErrorsChangedSignal.dispatch(errors)
+      }
     })
   }
 
