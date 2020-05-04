@@ -25,5 +25,5 @@
     "*osano.com"
   ],
   "chromeWebSecurity": false,
-  "defaultCommandTimeout": 15000
+  "defaultCommandTimeout": 20000
 }

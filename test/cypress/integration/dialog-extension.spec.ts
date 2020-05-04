@@ -24,13 +24,16 @@ const post = {
 
 const iframeSidebarSelector = '[data-test-id="entry-editor-sidebar"] iframe'
 const iframeDialogSelector = '[data-test-id="cf-ui-modal"] iframe'
+const sidebarExtension = 'cf-ui-sidebar-extension'
+const dialogExtension = 'my-dialog-extension'
 
 context('Dialog extension', () => {
   beforeEach(() => {
     cy.setAuthTokenToLocalStorage()
     cy.visit(entry(post.id))
     cy.findByTestId('workbench-title').should('exist')
-    cy.waitForIFrame()
+
+    cy.waitForIframeWithTestId(sidebarExtension)
 
     cy.findByTestId('entry-editor-sidebar').within(() => {
       cy.get('iframe')
@@ -39,8 +42,9 @@ context('Dialog extension', () => {
     })
 
     openDialogExtension(iframeSidebarSelector)
-    cy.waitForIFrame()
+
     cy.findByTestId('cf-ui-modal').within(() => {
+      cy.waitForIframeWithTestId(dialogExtension)
       cy.get('iframe').captureIFrameAs('extension')
     })
   })
