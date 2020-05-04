@@ -25,13 +25,14 @@ const post = {
 }
 
 const iframeSelector = '[data-test-id="entry-editor-sidebar"] iframe'
+const sidebarExtension = 'cf-ui-sidebar-extension'
 
 context('Sidebar extension', () => {
   beforeEach(() => {
     cy.setAuthTokenToLocalStorage()
     cy.visit(entry(post.id))
     cy.findByTestId('workbench-title').should('exist')
-    cy.waitForIFrame()
+    cy.waitForIframeWithTestId(sidebarExtension)
 
     cy.findByTestId('entry-editor-sidebar').within(() => {
       cy.get('iframe')

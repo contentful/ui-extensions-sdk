@@ -28,13 +28,14 @@ const post = {
 }
 
 const iframeSelector = '[data-test-id="cf-ui-workbench-content"] iframe'
+const entryExtensionSelector = 'cf-ui-card'
 
 context('Entry editor extension', () => {
   beforeEach(() => {
     cy.setAuthTokenToLocalStorage()
     cy.visit(entry(post.id))
     cy.findByTestId('workbench-title').should('exist')
-    cy.waitForIFrame()
+    cy.waitForIframeWithTestId(entryExtensionSelector)
     cy.get('[data-test-id="cf-ui-workbench-content"]').within(() => {
       cy.get('iframe').captureIFrameAs('extension')
     })
