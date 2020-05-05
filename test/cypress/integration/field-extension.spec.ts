@@ -100,8 +100,6 @@ context('Field extension', () => {
   /* Reusable tests */
 
   checkSdkNavigationSlideInCallbackTest(iframeSelector)
-  openErrorNotificationTest(iframeSelector)
-  openSuccessNotificationTest(iframeSelector)
   openPageExtensionTest(iframeSelector)
   openDialogExtensionTest(iframeSelector)
   openEntryTest(iframeSelector)
@@ -112,4 +110,6 @@ context('Field extension', () => {
   openSdkLocalesDataTest(iframeSelector)
   checkSdkEntryDataTest(iframeSelector)
   checkSdkSpaceMethods(iframeSelector)
+  openSuccessNotificationTest(iframeSelector)
+  openErrorNotificationTest(iframeSelector)
 })
