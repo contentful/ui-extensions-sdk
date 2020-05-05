@@ -308,9 +308,11 @@ export type ScheduledAction = {
   sys: {
     id: string
     type: 'ScheduledAction'
-    createdAt: Date
+    /** ISO 8601 string */
+    createdAt: string
     createdBy: Link
-    canceledAt?: Date
+    /** ISO 8601 string */
+    canceledAt?: string
     canceledBy?: Link
     space: {
       sys: {
@@ -336,7 +338,8 @@ export type ScheduledAction = {
     }
   }
   scheduledFor: {
-    datetime: Date
+    /** ISO 8601 string */
+    datetime: string
   }
   action: ScheduledActionActionType
 }
