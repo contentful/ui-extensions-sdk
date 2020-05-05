@@ -39,7 +39,10 @@ context('Field extension', () => {
   beforeEach(() => {
     cy.setAuthTokenToLocalStorage()
     cy.visit(entry(post.id))
-    cy.findByTestId('workbench-title').should('exist')
+    cy.findByTestId('workbench-title').should($title => {
+      expect($title).to.exist
+    })
+
     cy.waitForIframeWithTestId(fieldUiTestId)
     cy.get(iframeSelector).captureIFrameAs('extension')
   })
