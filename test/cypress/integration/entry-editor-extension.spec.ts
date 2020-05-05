@@ -94,9 +94,6 @@ context('Entry editor extension', () => {
 
   /* Reusable tests */
 
-  checkSdkNavigationSlideInCallbackTest(iframeSelector)
-  openSuccessNotificationTest(iframeSelector)
-  openErrorNotificationTest(iframeSelector)
   openPageExtensionTest(iframeSelector)
   openDialogExtensionTest(iframeSelector)
   openEntryTest(iframeSelector)
@@ -107,4 +104,7 @@ context('Entry editor extension', () => {
   openSdkLocalesDataTest(iframeSelector)
   checkSdkEntryDataTest(iframeSelector)
   checkSdkSpaceMethods(iframeSelector)
+  openSuccessNotificationTest(iframeSelector)
+  openErrorNotificationTest(iframeSelector)
+  checkSdkNavigationSlideInCallbackTest(iframeSelector)
 })
