@@ -21,6 +21,10 @@ export default class Field {
     this._fieldLocales = info.locales.reduce((acc, locale) => {
       const fieldLocale = new FieldLocale(channel, {
         id: info.id,
+        type: info.type,
+        required: info.required,
+        validations: info.validations,
+        items: info.items,
         locale,
         value: info.values[locale]
       })
