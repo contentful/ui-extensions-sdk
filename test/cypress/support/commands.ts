@@ -1,5 +1,4 @@
 import '@testing-library/cypress/add-commands'
-import cachedContentTypes from '../integration/fixtures/cached-content-types'
 
 declare global {
   namespace Cypress {

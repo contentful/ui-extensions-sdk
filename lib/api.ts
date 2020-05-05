@@ -60,7 +60,10 @@ function makeSharedAPI(channel, data) {
       success: message => channel.send('notify', { type: 'success', message }),
       error: message => channel.send('notify', { type: 'error', message })
     },
-    ids
+    ids,
+    access: {
+      can: (action, entity) => channel.call('checkAccess', action, entity)
+    }
   }
 }
 

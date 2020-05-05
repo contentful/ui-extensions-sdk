@@ -12,7 +12,8 @@ const sharedExpected = [
   'dialogs',
   'navigator',
   'notifier',
-  'ids'
+  'ids',
+  'access'
 ]
 
 function test(expected: string[], location: string, expectedLocation = location) {
@@ -64,6 +65,7 @@ function test(expected: string[], location: string, expectedLocation = location)
     'direction'
   ])
   expect(api.notifier).to.have.all.keys(['success', 'error'])
+  expect(api.access).to.have.all.keys(['can'])
 
   // Test location methods (currently only `is`).
   expect(Object.keys(api.location)).to.deep.equal(['is'])
