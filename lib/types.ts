@@ -295,7 +295,7 @@ export interface WindowAPI {
 
 /* Scheduled Actions */
 
-export enum PublicActionStatus {
+export const enum PublicActionStatus {
   Scheduled = 'scheduled',
   Succeeded = 'succeeded',
   Failed = 'failed',
