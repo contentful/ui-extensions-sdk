@@ -31,7 +31,7 @@ context('Dialog extension', () => {
   beforeEach(() => {
     cy.setAuthTokenToLocalStorage()
     cy.visit(entry(post.id))
-    cy.findByTestId('workbench-title').should('exist')
+    cy.findByTestId('workbench-title', { timeout: 10000 }).should('exist')
 
     cy.waitForIframeWithTestId(sidebarExtension)
 
