@@ -2,8 +2,8 @@ import { asset } from '../../utils/paths'
 import * as Constants from '../../../constants'
 
 export function openAssetExtension(iframeSelector) {
-  cy.getSdk(iframeSelector).then(sdk => {
-    sdk.navigator.openAsset(Constants.assets.testImage)
+  cy.getSdk(iframeSelector).then(async sdk => {
+    await sdk.navigator.openAsset(Constants.assets.testImage)
   })
 }
 

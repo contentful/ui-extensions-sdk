@@ -110,7 +110,7 @@ context('Field extension', () => {
   openSdkLocalesDataTest(iframeSelector)
   checkSdkEntryDataTest(iframeSelector)
   checkSdkSpaceMethods(iframeSelector)
+  checkSdkNavigationSlideInCallbackTest(iframeSelector)
   openSuccessNotificationTest(iframeSelector)
   openErrorNotificationTest(iframeSelector)
-  checkSdkNavigationSlideInCallbackTest(iframeSelector)
 })
