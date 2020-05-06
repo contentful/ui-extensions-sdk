@@ -38,7 +38,10 @@ Cypress.Commands.add('waitForIframeWithTestId', function waitForIframe(testId) {
 })
 
 Cypress.Commands.add('getSdk', function(selector) {
-  return cy.window().then(win => {
-    return win.document.querySelector(selector).contentWindow.window.sdk
-  })
+  return cy
+    .window()
+    .then(win => {
+      return win.document.querySelector(selector).contentWindow.window.sdk
+    })
+    .then(cy.wrap)
 })
