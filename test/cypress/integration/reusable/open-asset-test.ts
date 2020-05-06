@@ -2,6 +2,7 @@ import { asset } from '../../utils/paths'
 import * as Constants from '../../../constants'
 
 export function openAssetExtension(iframeSelector) {
+  cy.wait('@extension')
   cy.getSdk(iframeSelector).then(sdk => {
     sdk.navigator.openAsset(Constants.assets.testImage)
   })
@@ -46,6 +47,7 @@ export function openAssetTest(iframeSelector) {
 }
 
 export function openAssetSlideInTest(iframeSelector, currentEntryId) {
+  cy.wait('@extension')
   function clickSlideInClose() {
     return cy.get('[data-test-id="slide-in-layer"] [data-test-id="breadcrumbs-back-btn"]').click()
   }
