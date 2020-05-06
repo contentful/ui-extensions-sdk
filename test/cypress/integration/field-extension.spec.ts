@@ -11,7 +11,7 @@ import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
 import { openSdkLocalesDataTest } from './reusable/open-sdk-locales-data-test'
 import { checkSdkEntryDataTest } from './reusable/check-sdk-entry-data-test'
 import { checkSdkSpaceMethods } from './reusable/check-sdk-space-methods-test'
-// import { checkSdkNavigationSlideInCallbackTest } from './reusable/check-sdk-navigation-slide-in-callback-test'
+import { checkSdkNavigationSlideInCallbackTest } from './reusable/check-sdk-navigation-slide-in-callback-test'
 import {
   openSuccessNotificationTest,
   openErrorNotificationTest
@@ -100,6 +100,9 @@ context('Field extension', () => {
 
   /* Reusable tests */
 
+  checkSdkNavigationSlideInCallbackTest(iframeSelector)
+  openSuccessNotificationTest(iframeSelector)
+  openErrorNotificationTest(iframeSelector)
   openPageExtensionTest(iframeSelector)
   openDialogExtensionTest(iframeSelector)
   openEntryTest(iframeSelector)
@@ -110,7 +113,4 @@ context('Field extension', () => {
   openSdkLocalesDataTest(iframeSelector)
   checkSdkEntryDataTest(iframeSelector)
   checkSdkSpaceMethods(iframeSelector)
-  // checkSdkNavigationSlideInCallbackTest(iframeSelector)
-  openSuccessNotificationTest(iframeSelector)
-  openErrorNotificationTest(iframeSelector)
 })
