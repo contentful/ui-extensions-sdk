@@ -33,14 +33,15 @@ const entryExtensionSelector = 'cf-ui-card'
 context('Entry editor extension', () => {
   beforeEach(() => {
     cy.setAuthTokenToLocalStorage()
-    cy.visit(entry(post.id))
-    cy.findByTestId('workbench-title').should($title => {
-      expect($title).to.exist
-    })
+    cy.visit(entry(post.id)).then(() => {
+      cy.findByTestId('workbench-title').should($title => {
+        expect($title).to.exist
+      })
 
-    cy.waitForIframeWithTestId(entryExtensionSelector)
-    cy.get('[data-test-id="cf-ui-workbench-content"]').within(() => {
-      cy.get('iframe').captureIFrameAs('extension')
+      cy.waitForIframeWithTestId(entryExtensionSelector)
+      cy.get('[data-test-id="cf-ui-workbench-content"]').within(() => {
+        cy.get('iframe').captureIFrameAs('extension')
+      })
     })
   })
 
@@ -104,7 +105,7 @@ context('Entry editor extension', () => {
   openSdkLocalesDataTest(iframeSelector)
   checkSdkEntryDataTest(iframeSelector)
   checkSdkSpaceMethods(iframeSelector)
+  checkSdkNavigationSlideInCallbackTest(iframeSelector)
   openSuccessNotificationTest(iframeSelector)
   openErrorNotificationTest(iframeSelector)
-  checkSdkNavigationSlideInCallbackTest(iframeSelector)
 })
