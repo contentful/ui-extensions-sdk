@@ -33,7 +33,7 @@ const post = {
 const iframeSelector = '[data-field-api-name="title"] iframe'
 const iframePageSelector = '[data-test-id="page-extension"] iframe'
 const fieldUiTestId = 'cf-ui-text-input'
-const pageExtensionTestId = 'my-page-extension'
+// const pageExtensionTestId = 'my-page-extension'
 
 context('Field extension', () => {
   beforeEach(() => {
@@ -92,7 +92,7 @@ context('Field extension', () => {
 
   it('verifies opened page extension contains path in sdk.parameteres.invocation)', () => {
     openPageExtensionWithSubRoute(iframeSelector)
-    cy.waitForIframeWithTestId(pageExtensionTestId)
+    cy.waitForIFrame()
     cy.getSdk(iframePageSelector).then(sdk => {
       expect(sdk.parameters.invocation).to.deep.equal({ path: location.pathname })
     })
@@ -100,9 +100,6 @@ context('Field extension', () => {
 
   /* Reusable tests */
 
-  checkSdkNavigationSlideInCallbackTest(iframeSelector)
-  openSuccessNotificationTest(iframeSelector)
-  openErrorNotificationTest(iframeSelector)
   openPageExtensionTest(iframeSelector)
   openDialogExtensionTest(iframeSelector)
   openEntryTest(iframeSelector)
@@ -113,4 +110,7 @@ context('Field extension', () => {
   openSdkLocalesDataTest(iframeSelector)
   checkSdkEntryDataTest(iframeSelector)
   checkSdkSpaceMethods(iframeSelector)
+  openSuccessNotificationTest(iframeSelector)
+  openErrorNotificationTest(iframeSelector)
+  checkSdkNavigationSlideInCallbackTest(iframeSelector)
 })

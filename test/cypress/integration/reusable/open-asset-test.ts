@@ -2,16 +2,13 @@ import { asset } from '../../utils/paths'
 import * as Constants from '../../../constants'
 
 export function openAssetExtension(iframeSelector) {
-  return cy
-    .getSdk(iframeSelector)
-    .then(sdk => {
-      sdk.navigator.openAsset(Constants.assets.testImage)
-    })
-    .then(cy.wrap)
+  cy.getSdk(iframeSelector).then(sdk => {
+    sdk.navigator.openAsset(Constants.assets.testImage)
+  })
 }
 
 export function openAssetSlideInExtension(iframeSelector, done) {
-  return cy.getSdk(iframeSelector).then(sdk => {
+  cy.getSdk(iframeSelector).then(sdk => {
     sdk.navigator
       .openAsset(Constants.assets.testImage, {
         slideIn: true
@@ -21,7 +18,7 @@ export function openAssetSlideInExtension(iframeSelector, done) {
 }
 
 export function openAssetSlideInWaitExtension(iframeSelector, done) {
-  return cy.getSdk(iframeSelector).then(sdk => {
+  cy.getSdk(iframeSelector).then(sdk => {
     sdk.navigator
       .openAsset(Constants.assets.testImage, {
         slideIn: { waitForClose: true }
@@ -43,47 +40,45 @@ export function verifyAssetSlideInUrl(assetId, previousEntryId) {
 
 export function openAssetTest(iframeSelector) {
   it('opens asset using sdk.navigator.openAsset', () => {
-    openAssetExtension(iframeSelector).then(() => {
-      verifyAssetPageUrl(Constants.assets.testImage)
-    })
+    openAssetExtension(iframeSelector)
+    verifyAssetPageUrl(Constants.assets.testImage)
   })
 }
 
 export function openAssetSlideInTest(iframeSelector, currentEntryId) {
   function clickSlideInClose() {
-    return cy
-      .get('[data-test-id="slide-in-layer"] [data-test-id="breadcrumbs-back-btn"]')
-      .then($element => $element.click())
-      .then(cy.wrap)
+    return cy.get('[data-test-id="slide-in-layer"] [data-test-id="breadcrumbs-back-btn"]').click()
   }
 
-  it('opens asset using sdk.navigator.openAsset (slideIn = true)', () => {
+  it('opens asset using sdk.navigator.openAsset (slideIn = true)', done => {
     let closeClicked = false
 
     // callback should be called right after slide in is opened
     openAssetSlideInExtension(iframeSelector, result => {
       expect(result.navigated).to.be.equal(true)
       expect(closeClicked).to.be.equal(false)
-    }).then(() => {
-      verifyAssetSlideInUrl(Constants.assets.testImage, currentEntryId)
-      clickSlideInClose().then(() => {
-        closeClicked = true
-      })
+      done()
+    })
+
+    verifyAssetSlideInUrl(Constants.assets.testImage, currentEntryId)
+    clickSlideInClose().then(() => {
+      closeClicked = true
     })
   })
 
-  it('opens asset using sdk.navigator.openAsset (slideIn = { waitForClose: true })', () => {
+  it('opens asset using sdk.navigator.openAsset (slideIn = { waitForClose: true })', done => {
     let closeClicked = false
 
     // callback should be called only after slide in is closed
     openAssetSlideInWaitExtension(iframeSelector, result => {
       expect(result.navigated).to.be.equal(true)
       expect(closeClicked).to.be.equal(true)
-    }).then(() => {
-      verifyAssetSlideInUrl(Constants.assets.testImage, currentEntryId)
-      clickSlideInClose().then(() => {
-        closeClicked = true
-      })
+      done()
+    })
+
+    verifyAssetSlideInUrl(Constants.assets.testImage, currentEntryId)
+    clickSlideInClose().then(() => {
+      closeClicked = true
     })
   })
 }
