@@ -43,7 +43,12 @@ const spaceMethods: Array<keyof SpaceAPI> = [
   'getUsers',
 
   'getAllScheduledActions',
-  'getEntityScheduledActions'
+  'getEntityScheduledActions',
+  
+  'createWebhook',
+  'createWebhookWithId',
+  'getWebhook',
+  'getWebhooks'
 ]
 
 export default function createSpace(channel, initialContentTypes) {
