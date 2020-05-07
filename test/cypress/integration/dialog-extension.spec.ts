@@ -30,10 +30,10 @@ const dialogExtension = 'my-dialog-extension'
 context('Dialog extension', () => {
   beforeEach(() => {
     cy.setAuthTokenToLocalStorage()
-    cy.visit(entry(post.id), { timeout: 20000 }).then(() => {
-      cy.get('div[data-test-id="workbench-title"]', { timeout: 20000 }).should($title => {
-        expect($title).to.exist
-      })
+    cy.visit(entry(post.id))
+    cy.findByText(post.title).should('exist')
+    cy.findByTestId('workbench-title').should($title => {
+      expect($title).to.exist
     })
 
     cy.waitForIframeWithTestId(sidebarExtension)
