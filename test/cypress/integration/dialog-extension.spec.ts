@@ -31,7 +31,7 @@ context('Dialog extension', () => {
   beforeEach(() => {
     cy.setAuthTokenToLocalStorage()
     cy.visit(entry(post.id)).should(() => {
-      cy.findByTestId('workbench-title').should($title => {
+      cy.get('[data-test-id="workbench-title"]').should($title => {
         expect($title).to.exist
       })
     })
