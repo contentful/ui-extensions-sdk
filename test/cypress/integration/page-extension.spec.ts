@@ -19,10 +19,11 @@ const pageExtensionId = 'my-page-extension'
 context('Page extension', () => {
   beforeEach(() => {
     cy.setAuthTokenToLocalStorage()
-    cy.visit(pageExtension('test-extension'))
-    cy.findByTestId('page-extension').within(() => {
-      cy.waitForIframeWithTestId(pageExtensionId)
-      cy.get('iframe').captureIFrameAs('extension')
+    cy.visit(pageExtension('test-extension')).should(() => {
+      cy.findByTestId('page-extension').within(() => {
+        cy.waitForIframeWithTestId(pageExtensionId)
+        cy.get('iframe').captureIFrameAs('extension')
+      })
     })
   })
 

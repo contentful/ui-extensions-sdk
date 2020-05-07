@@ -31,19 +31,17 @@ context('Sidebar extension', () => {
   beforeEach(() => {
     cy.setAuthTokenToLocalStorage()
 
-    cy.visit(entry(post.id), {
-      onLoad: () => {
-        cy.findByTestId('workbench-title').should($title => {
-          expect($title).to.exist
-        })
-        cy.waitForIframeWithTestId(sidebarExtension)
+    cy.visit(entry(post.id)).should(() => {
+      cy.findByTestId('workbench-title').should($title => {
+        expect($title).to.exist
+      })
+      cy.waitForIframeWithTestId(sidebarExtension)
 
-        cy.findByTestId('entry-editor-sidebar').within(() => {
-          cy.get('iframe')
-            .should('have.length', 1)
-            .captureIFrameAs('extension')
-        })
-      }
+      cy.findByTestId('entry-editor-sidebar').within(() => {
+        cy.get('iframe')
+          .should('have.length', 1)
+          .captureIFrameAs('extension')
+      })
     })
   })
 

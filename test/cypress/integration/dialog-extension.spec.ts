@@ -30,27 +30,25 @@ const dialogExtension = 'my-dialog-extension'
 context('Dialog extension', () => {
   beforeEach(() => {
     cy.setAuthTokenToLocalStorage()
-    cy.visit(entry(post.id), {
-      onLoad: () => {
-        cy.findByTestId('workbench-title').should($title => {
-          expect($title).to.exist
-        })
+    cy.visit(entry(post.id)).should(() => {
+      cy.findByTestId('workbench-title').should($title => {
+        expect($title).to.exist
+      })
+    })
 
-        cy.waitForIframeWithTestId(sidebarExtension)
+    cy.waitForIframeWithTestId(sidebarExtension)
 
-        cy.findByTestId('entry-editor-sidebar').within(() => {
-          cy.get('iframe')
-            .should('have.length', 1)
-            .captureIFrameAs('sidebarExtension')
-        })
+    cy.findByTestId('entry-editor-sidebar').within(() => {
+      cy.get('iframe')
+        .should('have.length', 1)
+        .captureIFrameAs('sidebarExtension')
+    })
 
-        openDialogExtension(iframeSidebarSelector)
+    openDialogExtension(iframeSidebarSelector)
 
-        cy.findByTestId('cf-ui-modal').within(() => {
-          cy.waitForIframeWithTestId(dialogExtension)
-          cy.get('iframe').captureIFrameAs('extension')
-        })
-      }
+    cy.findByTestId('cf-ui-modal').within(() => {
+      cy.waitForIframeWithTestId(dialogExtension)
+      cy.get('iframe').captureIFrameAs('extension')
     })
   })
 
