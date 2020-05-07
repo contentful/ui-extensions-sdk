@@ -30,8 +30,8 @@ const dialogExtension = 'my-dialog-extension'
 context('Dialog extension', () => {
   beforeEach(() => {
     cy.setAuthTokenToLocalStorage()
-    cy.visit(entry(post.id)).should(() => {
-      cy.get('[data-test-id="workbench-title"]').should($title => {
+    cy.visit(entry(post.id), { timeout: 20000 }).then(() => {
+      cy.get('div[data-test-id="workbench-title"]', { timeout: 20000 }).should($title => {
         expect($title).to.exist
       })
     })
