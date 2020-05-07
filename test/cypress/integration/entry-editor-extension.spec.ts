@@ -3,7 +3,7 @@ import { entry } from '../utils/paths'
 import { openPageExtensionTest } from './reusable/open-page-extension-test'
 import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
 import { openEntrySlideInTest, openEntryTest } from './reusable/open-entry-test'
-import { openAssetTest } from './reusable/open-asset-test'
+import { openAssetTest, openAssetSlideInTest } from './reusable/open-asset-test'
 import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
 import { openSdkLocalesDataTest } from './reusable/open-sdk-locales-data-test'
 import { checkSdkEntryDataTest } from './reusable/check-sdk-entry-data-test'
@@ -100,7 +100,7 @@ context('Entry editor extension', () => {
   openEntryTest(iframeSelector)
   openEntrySlideInTest(iframeSelector, post.id)
   openAssetTest(iframeSelector)
-  // openAssetSlideInTest(iframeSelector, post.id)
+  openAssetSlideInTest(iframeSelector, post.id)
   openSdkUserDataTest(iframeSelector)
   openSdkLocalesDataTest(iframeSelector)
   checkSdkEntryDataTest(iframeSelector)
