@@ -10,7 +10,19 @@ export function pageExtension(extensionId) {
 }
 
 export function entry(id) {
-  return `${entriesList()}/${id}`
+  const entryURL = `${entriesList()}/${id}`
+
+  console.log(`
+    **********
+
+
+   ENTRY URL=${entryURL}
+
+
+   **********
+
+  `)
+  return entryURL
 }
 
 export function assetsList() {
