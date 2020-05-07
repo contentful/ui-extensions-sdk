@@ -112,7 +112,12 @@ describe('FieldLocale', () => {
   })
 
   describe('.onSchemaErrorsChanged(handler)', () => {
-    testChannelSignal('onSchemaErrorsChanged', 'schemaErrorsChanged')
+    testChannelSignal(
+      'onSchemaErrorsChanged',
+      'schemaErrorsChangedForFieldLocale',
+      [info.id, info.locale, [{ message: 'oh no' }]],
+      [[{ message: 'oh no' }]]
+    )
   })
 
   describe('.onValueChanged(handler)', () => {
