@@ -33,15 +33,17 @@ const entryExtensionSelector = 'cf-ui-card'
 context('Entry editor extension', () => {
   beforeEach(() => {
     cy.setAuthTokenToLocalStorage()
-    cy.visit(entry(post.id)).then(() => {
-      cy.findByTestId('workbench-title').should($title => {
-        expect($title).to.exist
-      })
+    cy.visit(entry(post.id), {
+      onLoad: () => {
+        cy.findByTestId('workbench-title').should($title => {
+          expect($title).to.exist
+        })
 
-      cy.waitForIframeWithTestId(entryExtensionSelector)
-      cy.get('[data-test-id="cf-ui-workbench-content"]').within(() => {
-        cy.get('iframe').captureIFrameAs('extension')
-      })
+        cy.waitForIframeWithTestId(entryExtensionSelector)
+        cy.get('[data-test-id="cf-ui-workbench-content"]').within(() => {
+          cy.get('iframe').captureIFrameAs('extension')
+        })
+      }
     })
   })
 
