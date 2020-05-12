@@ -60,6 +60,8 @@ jobs:
           path: test/cypress/reports
       - store_artifacts:
           path: test/cypress/screenshots
+      - store_artifacts:
+          path: test/cypress/videos
 
 workflows:
   version: 2

@@ -5,7 +5,7 @@
   "supportFile": "./test/cypress/support/index.ts",
   "numTestsKeptInMemory": 1,
   "videosFolder": "./test/cypress/videos",
-  "video": false,
+  "video": true,
   "screenshotsFolder": "./test/cypress/screenshots",
   "testFiles": "**/*.spec.[jt]s",
   "ignoreTestFiles": "**/example*.js",
