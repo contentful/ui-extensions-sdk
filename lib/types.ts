@@ -80,12 +80,15 @@ export interface FieldAPI {
   /** Communicates to the web application if the field is in a valid state or not. */
   setInvalid: (value: boolean) => void
 
-  /** Calls the callback every time the value of the field is changed by an external event or when setValue() is called. */
-  onValueChanged: (callback: (value: any) => void) => Function
-  /** Calls the callback when the disabled status of the field changes. */
-  onIsDisabledChanged: (callback: Function) => Function
-  /** Calls the callback immediately with the current validation errors and whenever the field is re-validated. */
-  onSchemaErrorsChanged: (callback: Function) => Function
+  /** Calls the callback every time the value of the field is changed by an external event or when setValue() is called.
+   *  the returned function can be called to remove the handler function */
+  onValueChanged: (callback: (value: any) => void) => () => void
+  /** Calls the callback when the disabled status of the field changes.
+   *  the returned function can be called to remove the handler function */
+  onIsDisabledChanged: (callback: Function) => () => void
+  /** Calls the callback immediately with the current validation errors and whenever the field is re-validated.
+   *  the returned function can be called to remove the handler function */
+  onSchemaErrorsChanged: (callback: Function) => () => void
 }
 
 /* Entry API */
@@ -110,15 +113,17 @@ export interface EntryFieldAPI {
   setValue: (value: any, locale?: string) => Promise<any>
   /** Removes the value for the field and locale. */
   removeValue: (locale?: string) => Promise<void>
-  /** Calls the callback every time the value of the field is changed by an external event or when setValue() is called. */
+  /** Calls the callback every time the value of the field is changed by an external event or when setValue() is called.
+   *  the returned function can be called to remove the handler function */
   onValueChanged: {
-    (callback: (value: any) => void): () => void
-    (locale: string, callback: (value: any) => void): () => void
+    (callback: (value: any) => void): () => () => void
+    (locale: string, callback: (value: any) => void): () => () => void
   }
-  /** Calls the callback when the disabled status of the field changes. */
+  /** Calls the callback when the disabled status of the field changes.
+   *  the returned function can be called to remove the handler function */
   onIsDisabledChanged: {
-    (callback: (isDisabled: boolean) => void): () => void
-    (locale: string, callback: (isDisabled: boolean) => void): () => void
+    (callback: (isDisabled: boolean) => void): () => () => void
+    (locale: string, callback: (isDisabled: boolean) => void): () => () => void
   }
 
   /** Get an instance of FieldAPI for this field, specific to the locale that is
