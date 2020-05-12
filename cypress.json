@@ -3,6 +3,7 @@
   "integrationFolder": "./test/cypress/integration",
   "pluginsFile": "./test/cypress/plugins/index.ts",
   "supportFile": "./test/cypress/support/index.ts",
+  "numTestsKeptInMemory": 1,
   "videosFolder": "./test/cypress/videos",
   "video": true,
   "screenshotsFolder": "./test/cypress/screenshots",
