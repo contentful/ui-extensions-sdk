@@ -7,7 +7,7 @@ export function openAssetExtension(iframeSelector) {
   })
 }
 
-export function openAssetSlideInExtension(iframeSelector, done) {
+export function _openAssetSlideInExtension(iframeSelector, done) {
   cy.getSdk(iframeSelector).then(sdk => {
     sdk.navigator
       .openAsset(Constants.assets.testImage, {
@@ -15,6 +15,16 @@ export function openAssetSlideInExtension(iframeSelector, done) {
       })
       .then(done)
   })
+}
+
+export function openAssetSlideInExtension(iframeSelector) {
+  return cy.getSdk(iframeSelector).then(sdk =>
+    sdk.navigator
+      .openAsset(Constants.assets.testImage, {
+        slideIn: true
+      })
+      .then(cy.wrap)
+  )
 }
 
 export function openAssetSlideInWaitExtension(iframeSelector, done) {
@@ -50,19 +60,16 @@ export function openAssetSlideInTest(iframeSelector, currentEntryId) {
     return cy.get('[data-test-id="slide-in-layer"] [data-test-id="breadcrumbs-back-btn"]').click()
   }
 
-  it('opens asset using sdk.navigator.openAsset (slideIn = true)', done => {
+  it('opens asset using sdk.navigator.openAsset (slideIn = true)', () => {
     let closeClicked = false
 
-    // callback should be called right after slide in is opened
-    openAssetSlideInExtension(iframeSelector, result => {
+    openAssetSlideInExtension(iframeSelector).then(result => {
       expect(result.navigated).to.be.equal(true)
       expect(closeClicked).to.be.equal(false)
-      done()
-    })
-
-    verifyAssetSlideInUrl(Constants.assets.testImage, currentEntryId)
-    clickSlideInClose().then(() => {
-      closeClicked = true
+      verifyAssetSlideInUrl(Constants.assets.testImage, currentEntryId)
+      clickSlideInClose().then(() => {
+        closeClicked = true
+      })
     })
   })
 
