@@ -6,7 +6,7 @@ cache-key: &cache-key
 jobs:
   unit:
     docker:
-      - image: cypress/browsers:node13.3.0-chrome79-ff70
+      - image: cypress/browsers:node10.16.0-chrome77
         environment:
           ## this enables colors in the output
           TERM: xterm
