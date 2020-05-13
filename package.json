@@ -23,7 +23,7 @@
     "integration": "ts-node test/integration",
     "integration:local": "ts-node test/integration/local",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run --browser chrome --headless",
+    "cypress:run": "cypress run --browser chrome",
     "clean-reports": "rm -rf cypress/reports",
     "merge-report": "mochawesome-merge ./test/cypress/reports/separate-reports/*.json > ./test/cypress/reports/full_report.json",
     "generate-report": "npx mochawesome-report-generator --reportDir test/cypress/reports test/cypress/reports/full_report.json"

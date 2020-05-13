@@ -6,7 +6,6 @@ import buildExtensions from './tasks/build-extensions'
 import deployExtensions from './tasks/deploy-extensions'
 import createEnvironment from './tasks/create-new-environment'
 import deleteStaleEnvironments from './tasks/delete-stale-environments'
-import deleteEnvironment from './tasks/delete-new-environment'
 import createConfigurationFiles from './tasks/create-configuration-files'
 import runCypress from './tasks/run-cypress'
 
@@ -14,7 +13,7 @@ const config = {
   managementToken: process.env.CONTENTFUL_CMA_TOKEN,
   spaceId: process.env.CONTENTFUL_SPACE_ID,
   baseUrl: process.env.CONTENTFUL_APP,
-  testLocalSdk: process.env.TEST_LOCAL_SDK === 'true'
+  testLocalSdk: 'true'
 }
 
 function listAllEnvironmentVariables() {
@@ -28,21 +27,21 @@ function listAllEnvironmentVariables() {
 
 let environmentId
 
-const cleanup = async () => {
-  if (environmentId) {
-    try {
-      await asyncRetry(
-        () => {
-          return deleteEnvironment(environmentId)
-        },
-        { retries: 3 }
-      )
-    } catch (e) {
-      console.log(e)
-      throw new Error('Failed to remove environment')
-    }
-  }
-}
+// const cleanup = async () => {
+//   if (environmentId) {
+//     try {
+//       await asyncRetry(
+//         () => {
+//           return deleteEnvironment(environmentId)
+//         },
+//         { retries: 3 }
+//       )
+//     } catch (e) {
+//       console.log(e)
+//       throw new Error('Failed to remove environment')
+//     }
+//   }
+// }
 
 const run = async () => {
   listAllEnvironmentVariables()
@@ -82,10 +81,10 @@ const run = async () => {
 ;(async function main() {
   try {
     await run()
-    await cleanup()
+    // await cleanup()
   } catch (err) {
     console.log(err)
-    await cleanup()
+    // await cleanup()
     process.exit(1)
   }
 })()

@@ -37,25 +37,13 @@ jobs:
           TERM: xterm
     steps:
       - checkout
-      - restore_cache: *cache-key
       - run: npm ci
-      - run:
-          name: Reverting "package-lock.json"
-          # `npm install` can modify `package-lock.json`. If it happens, we're caching dependencies
-          # with a wrong key. To mitigate this problem we restore the original lock file.
-          command: git checkout -- package-lock.json
-      - save_cache:
-          <<: *cache-key
-          paths:
-            - ./node_modules
       - run: npm run build
       - run:
           name: npm run integration
-          environment:
-            CYPRESS_RETRIES: 3
           command: |
             set -e
-            npm run integration
+            TEST_LOCAL_SDK=true npm run integration
       - run: npm run merge-report
       - run: npm run generate-report
       - store_artifacts:
@@ -70,8 +58,8 @@ workflows:
   # run on every commit
   commit:
     jobs:
-      - unit
       - integration
+      - unit
   # run in master every hour, 0:40, 1:40...
   schedule:
     jobs:
