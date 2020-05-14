@@ -7,7 +7,7 @@
   "videosFolder": "./test/cypress/videos",
   "video": true,
   "screenshotsFolder": "./test/cypress/screenshots",
-  "testFiles": "**/dialog-extension.spec.ts",
+  "testFiles": "**/*.spec.ts",
   "ignoreTestFiles": "**/example*.js",
   "baseUrl": "https://app.contentful.com",
   "reporter": "./node_modules/mochawesome/src/mochawesome.js",
@@ -26,5 +26,5 @@
     "*osano.com"
   ],
   "chromeWebSecurity": false,
-  "defaultCommandTimeout": 60000
+  "defaultCommandTimeout": 30000
 }

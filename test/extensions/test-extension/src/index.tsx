@@ -22,23 +22,17 @@ function renderExtension(element) {
   render(element, document.getElementById('root'))
 }
 
-console.log('BEFORE INIT')
-try {
-  init(sdk => {
-    console.log('IN INIT')
-    ;(window as any).sdk = sdk
-    if (sdk.location.is(locations.LOCATION_ENTRY_FIELD)) {
-      renderExtension(<FieldExtension sdk={sdk as FieldExtensionSDK} />)
-    } else if (sdk.location.is(locations.LOCATION_PAGE)) {
-      renderExtension(<PageExtension sdk={sdk as PageExtensionSDK} />)
-    } else if (sdk.location.is(locations.LOCATION_ENTRY_SIDEBAR)) {
-      renderExtension(<SidebarExtension sdk={sdk as SidebarExtensionSDK} />)
-    } else if (sdk.location.is(locations.LOCATION_ENTRY_EDITOR)) {
-      renderExtension(<EntryEditorExtension sdk={sdk as EditorExtensionSDK} />)
-    } else if (sdk.location.is(locations.LOCATION_DIALOG)) {
-      renderExtension(<DialogExtension sdk={sdk as DialogExtensionSDK} />)
-    }
-  })
-} catch (error) {
-  console.error('ERROR INIT', error)
-}
+init(sdk => {
+  ;(window as any).sdk = sdk
+  if (sdk.location.is(locations.LOCATION_ENTRY_FIELD)) {
+    renderExtension(<FieldExtension sdk={sdk as FieldExtensionSDK} />)
+  } else if (sdk.location.is(locations.LOCATION_PAGE)) {
+    renderExtension(<PageExtension sdk={sdk as PageExtensionSDK} />)
+  } else if (sdk.location.is(locations.LOCATION_ENTRY_SIDEBAR)) {
+    renderExtension(<SidebarExtension sdk={sdk as SidebarExtensionSDK} />)
+  } else if (sdk.location.is(locations.LOCATION_ENTRY_EDITOR)) {
+    renderExtension(<EntryEditorExtension sdk={sdk as EditorExtensionSDK} />)
+  } else if (sdk.location.is(locations.LOCATION_DIALOG)) {
+    renderExtension(<DialogExtension sdk={sdk as DialogExtensionSDK} />)
+  }
+})
