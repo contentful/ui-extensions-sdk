@@ -3,7 +3,7 @@ import { entry } from '../utils/paths'
 import { openPageExtensionTest } from './reusable/open-page-extension-test'
 import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
 import { openEntrySlideInTest, openEntryTest } from './reusable/open-entry-test'
-import { openAssetSlideInTest, openAssetTest } from './reusable/open-asset-test'
+import { openAssetTest, openAssetSlideInTest } from './reusable/open-asset-test'
 import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
 import { openSdkLocalesDataTest } from './reusable/open-sdk-locales-data-test'
 import { checkSdkEntryDataTest } from './reusable/check-sdk-entry-data-test'
@@ -28,13 +28,17 @@ const post = {
 }
 
 const iframeSelector = '[data-test-id="cf-ui-workbench-content"] iframe'
+const entryExtensionSelector = 'cf-ui-card'
 
 context('Entry editor extension', () => {
   beforeEach(() => {
     cy.setAuthTokenToLocalStorage()
     cy.visit(entry(post.id))
-    cy.findByTestId('workbench-title').should('exist')
-    cy.waitForIFrame()
+    cy.findByTestId('workbench-title').should($title => {
+      expect($title).to.exist
+    })
+
+    cy.waitForIframeWithTestId(entryExtensionSelector)
     cy.get('[data-test-id="cf-ui-workbench-content"]').within(() => {
       cy.get('iframe').captureIFrameAs('extension')
     })

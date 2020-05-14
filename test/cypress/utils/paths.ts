@@ -1,7 +1,7 @@
 const activeSpaceId = Cypress.env('activeSpaceId')
 const activeEnvironmentId = Cypress.env('activeEnvironmentId')
 
-export function entiriesList() {
+export function entriesList() {
   return `/spaces/${activeSpaceId}/environments/${activeEnvironmentId}/entries`
 }
 
@@ -10,7 +10,7 @@ export function pageExtension(extensionId) {
 }
 
 export function entry(id) {
-  return `${entiriesList()}/${id}`
+  return `${entriesList()}/${id}`
 }
 
 export function assetsList() {

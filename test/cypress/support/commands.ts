@@ -5,7 +5,9 @@ declare global {
     interface Chainable<Subject = any> {
       captureIFrameAs(value: string): Chainable<Subject>
       setAuthTokenToLocalStorage(): Chainable<Subject>
-      waitForIFrame(): Chainable<Subject>
+      waitForIframeWithTestId(selector: string): Chainable<Subject>
+      waitForPageLoad(page: string, testId: string): Chainable<Subject>
+      checkForIframe(selector): Chainable<Subject>
       captureIFrameAs(selector: string): Chainable<Subject>
       getSdk(selector: string): Chainable<any>
     }
@@ -23,13 +25,17 @@ Cypress.Commands.add('setAuthTokenToLocalStorage', function setAuthTokenToLocalS
   window.sessionStorage.setItem('token', TOKEN)
 })
 
-Cypress.Commands.add('waitForIFrame', function waitForIFrame() {
-  // eslint-disable-next-line
-  cy.wait(4000)
+Cypress.Commands.add('waitForIframeWithTestId', function waitForIframe(testId) {
+  cy.get('iframe').should($iframe => {
+    expect($iframe.contents().find(`[data-test-id="${testId}"]`)).to.exist
+  })
 })
 
 Cypress.Commands.add('getSdk', function(selector) {
-  return cy.window().then(win => {
-    return win.document.querySelector(selector).contentWindow.window.sdk
-  })
+  return cy
+    .window()
+    .then(win => {
+      return win.document.querySelector(selector).contentWindow.window.sdk
+    })
+    .then(cy.wrap)
 })

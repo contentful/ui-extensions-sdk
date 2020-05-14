@@ -14,13 +14,15 @@ import { verifySdkInstallationParameters } from '../utils/verify-parameters'
 import idsData from './fixtures/ids-data.json'
 
 const iframeSelector = '[data-test-id="page-extension"] iframe'
+const pageExtensionId = 'my-page-extension'
 
 context('Page extension', () => {
   beforeEach(() => {
     cy.setAuthTokenToLocalStorage()
     cy.visit(pageExtension('test-extension'))
+
     cy.findByTestId('page-extension').within(() => {
-      cy.waitForIFrame()
+      cy.waitForIframeWithTestId(pageExtensionId)
       cy.get('iframe').captureIFrameAs('extension')
     })
   })

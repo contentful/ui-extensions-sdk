@@ -17,7 +17,7 @@ export function checkThatDialogIsOpened() {
 }
 
 export function checkThatExtensionInDialogIsRendered(testId = actionSelectors.dialogWrapper) {
-  cy.waitForIFrame()
+  cy.waitForIframeWithTestId(actionSelectors.dialogWrapper)
   cy.findByTestId('cf-ui-modal').within(() => {
     cy.get('iframe').captureIFrameAs('dialogExtension')
   })
