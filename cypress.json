@@ -7,7 +7,7 @@
   "videosFolder": "./test/cypress/videos",
   "video": true,
   "screenshotsFolder": "./test/cypress/screenshots",
-  "testFiles": "**/*.spec.ts",
+  "testFiles": "**/*.spec.[jt]s",
   "ignoreTestFiles": "**/example*.js",
   "baseUrl": "https://app.contentful.com",
   "reporter": "./node_modules/mochawesome/src/mochawesome.js",
