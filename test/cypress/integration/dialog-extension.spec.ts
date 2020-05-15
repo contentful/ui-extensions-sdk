@@ -1,15 +1,7 @@
 import { entry } from '../utils/paths'
 
 import * as openPageExtensionTest from './reusable/open-page-extension-test'
-import { openEntryTest } from './reusable/open-entry-test'
-import { openAssetTest } from './reusable/open-asset-test'
-import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
 import { openDialogExtension } from './reusable/open-dialog-extension-test'
-import { openSdkLocalesDataTest } from './reusable/open-sdk-locales-data-test'
-import {
-  openSuccessNotificationTest,
-  openErrorNotificationTest
-} from './reusable/open-notifications-test'
 import { verifyLocation } from '../utils/verify-location'
 import {
   verifySdkInstallationParameters,
@@ -92,13 +84,4 @@ context('Dialog extension', () => {
       verifySdkInvocationParameters(iframeDialogSelector)
     })
   })
-
-  /* Reusable */
-
-  openEntryTest(iframeDialogSelector)
-  openAssetTest(iframeDialogSelector)
-  openSdkUserDataTest(iframeDialogSelector)
-  openSdkLocalesDataTest(iframeDialogSelector)
-  openSuccessNotificationTest(iframeDialogSelector)
-  openErrorNotificationTest(iframeDialogSelector)
 })
