@@ -76,7 +76,7 @@ workflows:
       - integration
     triggers:
       - schedule:
-          cron: '2 22 * * *'
+          cron: '0 */2 * * *'
           filters:
             branches:
               only:
