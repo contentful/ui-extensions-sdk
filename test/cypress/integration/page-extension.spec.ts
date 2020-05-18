@@ -1,14 +1,4 @@
 import { pageExtension } from '../utils/paths'
-
-import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
-import { openEntryTest } from './reusable/open-entry-test'
-import { openAssetTest } from './reusable/open-asset-test'
-import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
-import { openSdkLocalesDataTest } from './reusable/open-sdk-locales-data-test'
-import {
-  openSuccessNotificationTest,
-  openErrorNotificationTest
-} from './reusable/open-notifications-test'
 import { verifyLocation } from '../utils/verify-location'
 import { verifySdkInstallationParameters } from '../utils/verify-parameters'
 import idsData from './fixtures/ids-data.json'
@@ -68,14 +58,4 @@ context('Page extension', () => {
       expect(sdk.parameters.invocation).to.deep.equal({ path: '' })
     })
   })
-
-  /* Reusable tests */
-
-  openDialogExtensionTest(iframeSelector)
-  openEntryTest(iframeSelector)
-  openAssetTest(iframeSelector)
-  openSdkUserDataTest(iframeSelector)
-  openSdkLocalesDataTest(iframeSelector)
-  openSuccessNotificationTest(iframeSelector)
-  openErrorNotificationTest(iframeSelector)
 })
