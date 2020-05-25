@@ -23,7 +23,7 @@ export default function createDialogs(channel, ids) {
     options = prepareOptions(options)
 
     // Use provided ID, default to the current extension.
-    options.id = options.id || ids.extension
+    options = { ...options, id: options.id || ids.extension }
     if (options.id) {
       return channel.call('openDialog', 'extension', options)
     } else {
@@ -35,15 +35,17 @@ export default function createDialogs(channel, ids) {
     if (ids.app) {
       return openCurrentAppDialog(options)
     } else {
-      options.id = ids.extension
-      return openExtensionDialog(options)
+      return openExtensionDialog({
+        ...options,
+        id: ids.extension
+      })
     }
   }
 
   function openCurrentAppDialog(options?) {
     options = prepareOptions(options)
     // Force ID of the current app.
-    options.id = ids.app
+    options = { ...options, id: ids.app }
     if (options.id) {
       return channel.call('openDialog', 'app', options)
     } else {
