@@ -391,8 +391,8 @@ export interface DialogsAPI {
   openExtension: (options: OpenCustomWidgetOptions) => Promise<any>
   /** Opens the current app in a dialog */
   openCurrentApp: (options?: Omit<OpenCustomWidgetOptions, 'id'>) => Promise<any>
-  /** Opens an extension or an app in a dialog */
-  openDialog: (
+  /** Opens the current extension or app in a dialog */
+  openCurrent: (
     options?: Omit<OpenCustomWidgetOptions, 'id'> | OpenCustomWidgetOptions
   ) => Promise<any>
   /** Opens a dialog for selecting a single entry. */
