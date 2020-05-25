@@ -8,6 +8,7 @@ export default function createDialogs(channel, ids) {
     openPrompt: openSimpleDialog.bind(null, 'prompt'),
     openExtension: openExtensionDialog,
     openCurrentApp: openCurrentAppDialog,
+    openCurrent: openCurrentDialog,
     selectSingleEntry: openEntitySelector.bind(null, 'Entry', false),
     selectSingleAsset: openEntitySelector.bind(null, 'Asset', false),
     selectMultipleEntries: openEntitySelector.bind(null, 'Entry', true),
@@ -23,7 +24,6 @@ export default function createDialogs(channel, ids) {
 
     // Use provided ID, default to the current extension.
     options.id = options.id || ids.extension
-
     if (options.id) {
       return channel.call('openDialog', 'extension', options)
     } else {
@@ -31,12 +31,19 @@ export default function createDialogs(channel, ids) {
     }
   }
 
+  function openCurrentDialog(options?) {
+    if (ids.app) {
+      return openCurrentAppDialog(options)
+    } else {
+      options.id = ids.extension
+      return openExtensionDialog(options)
+    }
+  }
+
   function openCurrentAppDialog(options?) {
     options = prepareOptions(options)
-
     // Force ID of the current app.
     options.id = ids.app
-
     if (options.id) {
       return channel.call('openDialog', 'app', options)
     } else {
