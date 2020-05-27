@@ -21,7 +21,7 @@ const sidebarExtension = 'cf-ui-sidebar-extension'
 
 context('Sidebar extension', () => {
   beforeEach(() => {
-    cy.setAuthTokenToLocalStorage()
+    cy.setupBrowserStorage()
 
     cy.visit(entry(post.id))
     cy.findByTestId('workbench-title').should($title => {

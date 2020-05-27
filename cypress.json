@@ -22,8 +22,7 @@
     "*segment.io",
     "*segment.com",
     "*google-analytics.com",
-    "*wootric.com",
-    "*osano.com"
+    "*wootric.com"
   ],
   "chromeWebSecurity": false,
   "defaultCommandTimeout": 30000
