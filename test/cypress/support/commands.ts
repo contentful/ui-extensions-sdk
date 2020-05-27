@@ -4,7 +4,7 @@ declare global {
   namespace Cypress {
     interface Chainable<Subject = any> {
       captureIFrameAs(value: string): Chainable<Subject>
-      setAuthTokenToLocalStorage(): Chainable<Subject>
+      setupBrowserStorage(): Chainable<Subject>
       waitForIframeWithTestId(selector: string): Chainable<Subject>
       waitForPageLoad(page: string, testId: string): Chainable<Subject>
       checkForIframe(selector): Chainable<Subject>
@@ -19,10 +19,11 @@ Cypress.Commands.add('captureIFrameAs', { prevSubject: 'element' }, ($element, a
   cy.wrap($body).as(as)
 })
 
-Cypress.Commands.add('setAuthTokenToLocalStorage', function setAuthTokenToLocalStorage() {
+Cypress.Commands.add('setupBrowserStorage', function setupBrowserStorage() {
   const TOKEN = Cypress.env('managementToken')
   window.localStorage.setItem('token', TOKEN)
   window.sessionStorage.setItem('token', TOKEN)
+  window.localStorage.setItem('__disable_consentmanager', 'yes')
 })
 
 Cypress.Commands.add('waitForIframeWithTestId', function waitForIframe(testId) {

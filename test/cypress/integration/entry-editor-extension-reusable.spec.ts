@@ -25,7 +25,7 @@ const entryExtensionSelector = 'cf-ui-card'
 
 context('Entry editor extension', () => {
   beforeEach(() => {
-    cy.setAuthTokenToLocalStorage()
+    cy.setupBrowserStorage()
     cy.visit(entry(post.id))
     cy.findByTestId('workbench-title').should($title => {
       expect($title).to.exist
