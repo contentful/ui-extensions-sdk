@@ -47,7 +47,7 @@ export function openAssetTest(iframeSelector) {
 
 export function openAssetSlideInTest(iframeSelector, currentEntryId) {
   function clickSlideInClose() {
-    return cy.get('[data-test-id="slide-in-layer"] [data-test-id="breadcrumbs-back-btn"]').click()
+    return cy.get('[data-test-id="slide-in-layer"] [data-test-id="workbench-back-btn"]').click()
   }
 
   it('opens asset using sdk.navigator.openAsset (slideIn = true)', () => {
