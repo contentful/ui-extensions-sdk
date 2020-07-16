@@ -93,5 +93,18 @@ describe('createEntry()', () => {
         expect(entry.getSys()).to.equal(newSys)
       })
     })
+
+    describe('.metadata', () => {
+      it('should add a metadata field to the entry if passed in from web app', () => {
+        // original entry should not have metadata
+        expect(entry.metadata).to.be.equal(undefined)
+
+        // add metadata to entry
+        const metadata = { tags: [] }
+        entry = createEntry(channelStub, { ...entryData, metadata }, fieldInfo, createEntryFieldSpy)
+
+        expect(entry.metadata).to.equal(metadata)
+      })
+    })
   })
 })
