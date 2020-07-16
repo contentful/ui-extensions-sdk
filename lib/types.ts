@@ -132,12 +132,16 @@ export interface EntryFieldAPI {
 }
 
 export interface EntryAPI {
-  /** Returns metadata for an entry. */
+  /** Returns sys for an entry. */
   getSys: () => EntrySys
-  /** Calls the callback with metadata every time that metadata changes. */
+  /** Calls the callback with sys every time that sys changes. */
   onSysChanged: (callback: (sys: EntrySys) => void) => Function
   /** Allows to control the values of all other fields in the current entry. */
   fields: { [key: string]: EntryFieldAPI }
+  /** Optional metadata on an entry */
+  metadata?: {
+    tags?: Link[]
+  }
 }
 
 /* Content Type API */
