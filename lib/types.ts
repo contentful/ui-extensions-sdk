@@ -531,7 +531,7 @@ export interface ParametersAPI {
 
 export interface IdsAPI {
   user: string
-  extension: string
+  extension?: string
   app?: string
   space: string
   environment: string
@@ -599,13 +599,13 @@ export interface BaseExtensionSDK {
 export type EditorExtensionSDK = BaseExtensionSDK &
   SharedEditorSDK & {
     /** A set of IDs actual for the extension */
-    ids: Pick<IdsAPI, 'entry' | 'contentType' | 'environment' | 'space' | 'extension' | 'user'>
+    ids: Omit<IdsAPI, 'field'>
   }
 
 export type SidebarExtensionSDK = BaseExtensionSDK &
   SharedEditorSDK & {
     /** A set of IDs actual for the extension */
-    ids: Pick<IdsAPI, 'entry' | 'contentType' | 'environment' | 'space' | 'extension' | 'user'>
+    ids: Omit<IdsAPI, 'field'>
     /** Methods to update the size of the iframe the extension is contained within.  */
     window: WindowAPI
   }
@@ -622,7 +622,7 @@ export type FieldExtensionSDK = BaseExtensionSDK &
 
 export type DialogExtensionSDK = BaseExtensionSDK & {
   /** A set of IDs actual for the extension */
-  ids: Pick<IdsAPI, 'environment' | 'space' | 'extension' | 'user'>
+  ids: Omit<IdsAPI, 'field' | 'entry' | 'contentType'>
   /** Closes the dialog and resolves openExtension promise with data */
   close: (data?: any) => void
   /** Methods to update the size of the iframe the extension is contained within.  */
@@ -631,7 +631,7 @@ export type DialogExtensionSDK = BaseExtensionSDK & {
 
 export type PageExtensionSDK = BaseExtensionSDK & {
   /** A set of IDs actual for the extension */
-  ids: Pick<IdsAPI, 'environment' | 'space' | 'extension' | 'user'>
+  ids: Omit<IdsAPI, 'field' | 'entry' | 'contentType'>
 }
 
 export interface AppConfigAPI {
@@ -649,7 +649,7 @@ export interface AppConfigAPI {
 
 export type AppExtensionSDK = BaseExtensionSDK & {
   /** A set of IDs actual for the app */
-  ids: Pick<IdsAPI, 'environment' | 'space' | 'app' | 'user'>
+  ids: Omit<IdsAPI, 'extension' | 'field' | 'entry' | 'contentType' | 'app'> & { app: string }
   app: AppConfigAPI
 }
 
