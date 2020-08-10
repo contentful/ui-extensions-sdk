@@ -82,6 +82,9 @@ export default function createApp(channel) {
     getParameters() {
       return channel.call('callAppMethod', 'getParameters')
     },
+    getCurrentState() {
+      return channel.call('callAppMethod', 'getCurrentState')
+    },
     onConfigure(handler) {
       setHandler(HOOK_STAGE_PRE_INSTALL, handler)
     },
