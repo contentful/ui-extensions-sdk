@@ -196,6 +196,7 @@ export interface EditorInterface {
     widgetNamespace: string
     settings?: Object
   }
+  editors?: Array<EditorInterface['editor']>
 }
 
 /* Space API */
@@ -634,11 +635,23 @@ export type PageExtensionSDK = BaseExtensionSDK & {
   ids: Omit<IdsAPI, 'field' | 'entry' | 'contentType'>
 }
 
+interface AppStateEditorInterfaceItem {
+  controls?: Array<{ fieldId: string }>
+  sidebar?: { position: number }
+  editor?: boolean
+}
+
+export interface AppState {
+  EditorInterface: Record<ContentType['sys']['id'], AppStateEditorInterfaceItem>
+}
+
 export interface AppConfigAPI {
   /** Tells the web app that the app is loaded */
   setReady: () => Promise<void>
   /** Returns true if an App is installed **/
   isInstalled: () => Promise<boolean>
+  /** Returns current state of an App **/
+  getCurrentState: () => Promise<AppState>
   /** Returns parameters of an App, null otherwise **/
   getParameters: <T = Object>() => Promise<null | T>
   /** Registers a handler to be called to produce parameters for an App **/
