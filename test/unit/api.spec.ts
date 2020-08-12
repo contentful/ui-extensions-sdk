@@ -116,6 +116,7 @@ describe('createAPI()', () => {
       'setReady',
       'isInstalled',
       'getParameters',
+      'getCurrentState',
       'onConfigure',
       'onConfigurationCompleted'
     ])
