@@ -177,6 +177,12 @@ export interface ContentType {
   description: string
 }
 
+interface EditorWidget {
+  widgetId: string
+  widgetNamespace: string
+  settings?: Object
+}
+
 export interface EditorInterface {
   sys: Object
   controls?: Array<{
@@ -191,12 +197,8 @@ export interface EditorInterface {
     settings?: Object
     disabled?: boolean
   }>
-  editor?: {
-    widgetId: string
-    widgetNamespace: string
-    settings?: Object
-  }
-  editors?: Array<EditorInterface['editor']>
+  editor?: EditorWidget
+  editors?: EditorWidget[]
 }
 
 /* Space API */
