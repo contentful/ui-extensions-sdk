@@ -7,7 +7,7 @@ const isPromise = p => isObject(p) && isFunction(p.then)
 
 const handleHandlerError = err => {
   console.error(err)
-  return false
+  return Promise.resolve(false)
 }
 
 const runHandler = (handler, defaultResult, handlerArg?) => {
@@ -23,8 +23,7 @@ const runHandler = (handler, defaultResult, handlerArg?) => {
   try {
     maybeResultPromise = typeof handlerArg === 'undefined' ? handler() : handler(handlerArg)
   } catch (err) {
-    console.error(err)
-    return Promise.resolve(false)
+    return handleHandlerError(err)
   }
 
   // If handler is synchronous, we wrap the result with a promise
