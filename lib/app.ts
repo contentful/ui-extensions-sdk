@@ -5,6 +5,11 @@ const isObject = o => typeof o === 'object' && o !== null && !Array.isArray(o)
 const isFunction = f => typeof f === 'function'
 const isPromise = p => isObject(p) && isFunction(p.then)
 
+const handleHandlerError = err => {
+  console.error(err)
+  return false
+}
+
 const runHandler = (handler, defaultResult, handlerArg?) => {
   // Handler was not registered. Registering a handler is not
   // required. We resolve with the default provided in this case.
@@ -18,6 +23,7 @@ const runHandler = (handler, defaultResult, handlerArg?) => {
   try {
     maybeResultPromise = typeof handlerArg === 'undefined' ? handler() : handler(handlerArg)
   } catch (err) {
+    console.error(err)
     return Promise.resolve(false)
   }
 
@@ -29,19 +35,18 @@ const runHandler = (handler, defaultResult, handlerArg?) => {
   }
 
   return resultPromise
-    .then(
-      result => {
-        if (result instanceof Error || result === false) {
-          return false
-        } else if (!isObject(result)) {
-          return defaultResult
-        } else {
-          return result
-        }
-      },
-      () => false
-    )
-    .catch(() => false)
+    .then(result => {
+      if (result instanceof Error) {
+        return Promise.reject(result)
+      } else if (result === false) {
+        return false
+      } else if (!isObject(result)) {
+        return defaultResult
+      } else {
+        return result
+      }
+    }, handleHandlerError)
+    .catch(handleHandlerError)
 }
 
 export default function createApp(channel) {
