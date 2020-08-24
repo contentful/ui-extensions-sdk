@@ -64,11 +64,11 @@ export interface FieldAPI {
   locale: string
   /** Holds the type of the field the extension is attached to. */
   type: string
-  /** Indicates if a value for this field is required **/
+  /** Indicates if a value for this field is required */
   required: boolean
   /** A list of validations for this field that are defined in the content type. */
   validations: Object[]
-  /** Defines the shape of array items **/
+  /** Defines the shape of array items */
   items?: Items
 
   /** Gets the current value of the field and locale. */
@@ -100,11 +100,11 @@ export interface EntryFieldAPI {
   locales: string[]
   /** Holds the type of the field. */
   type: string
-  /** Indicates if a value for this field is required **/
+  /** Indicates if a value for this field is required */
   required: boolean
   /** A list of validations for this field that are defined in the content type. */
   validations: Object[]
-  /** Defines the shape of array items **/
+  /** Defines the shape of array items */
   items?: Items
 
   /** Gets the current value of the field and locale. */
@@ -650,15 +650,15 @@ export interface AppState {
 export interface AppConfigAPI {
   /** Tells the web app that the app is loaded */
   setReady: () => Promise<void>
-  /** Returns true if an App is installed **/
+  /** Returns true if an App is installed */
   isInstalled: () => Promise<boolean>
-  /** Returns current state of an App **/
-  getCurrentState: () => Promise<AppState>
-  /** Returns parameters of an App, null otherwise **/
+  /** Returns current state of an App */
+  getCurrentState: () => Promise<AppState | null>
+  /** Returns parameters of an App, null otherwise */
   getParameters: <T = Object>() => Promise<null | T>
-  /** Registers a handler to be called to produce parameters for an App **/
+  /** Registers a handler to be called to produce parameters for an App */
   onConfigure: (handler: Function) => Promise<void>
-  /** Registers a handler to be called once configuration was finished **/
+  /** Registers a handler to be called once configuration was finished */
   onConfigurationCompleted: (handler: Function) => Promise<void>
 }
 
