@@ -5,6 +5,7 @@
   "author": "Contentful GmbH",
   "license": "MIT",
   "main": "dist/cf-extension-api.js",
+  "module": "dist/cf-extension-api.esm.js",
   "types": "./typings.d.ts",
   "files": [
     "dist/cf-extension-api.js",
@@ -15,8 +16,8 @@
     "test": "ts-mocha 'test/unit/*.[jt]s'",
     "lint": "tsc -b && eslint '{lib,test}/**/*.{t,j}s'",
     "lint:fix": "eslint --fix lib/ test/",
-    "build": "npm run typings && parcel build lib/index.ts --no-source-maps --out-file cf-extension-api.js --global contentfulExtension",
-    "build:debug": "npm run typings && parcel build lib/index.ts --public-url '.' --out-file cf-extension-api.js --global contentfulExtension",
+    "build": "npm run typings && rollup -c --compact",
+    "build:debug": "npm run build -- --sourcemap",
     "typings": "tsc -b typings.tsconfig.json && mv lib/types.d.ts typings.d.ts && cat module-declaration.d.ts >> typings.d.ts",
     "prepublishOnly": "npm run build",
     "size": "echo \"Gzipped, estimate: $(gzip -9 -c dist/cf-extension-api.js | wc -c) bytes\"",
@@ -32,6 +33,9 @@
     "es6-promise": "^4.2.8"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^15.0.0",
+    "@rollup/plugin-node-resolve": "^9.0.0",
+    "@rollup/plugin-typescript": "^5.0.2",
     "@testing-library/cypress": "5.3.0",
     "@testing-library/dom": "6.12.2",
     "@types/chai-as-promised": "^7.1.2",
@@ -68,6 +72,8 @@
     "nanoid": "2.1.8",
     "parcel-bundler": "^1.12.4",
     "prettier": "1.17.1",
+    "rollup": "^2.26.6",
+    "rollup-plugin-terser": "^7.0.0",
     "sinon": "^7.5.0",
     "sinon-chai": "^3.5.0",
     "ts-mocha": "^7.0.0",
