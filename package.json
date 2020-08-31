@@ -5,7 +5,6 @@
   "author": "Contentful GmbH",
   "license": "MIT",
   "main": "dist/cf-extension-api.js",
-  "module": "dist/cf-extension-api.esm.js",
   "types": "./typings.d.ts",
   "files": [
     "dist/cf-extension-api.js",

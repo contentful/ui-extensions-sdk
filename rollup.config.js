@@ -26,6 +26,5 @@ module.exports = [
     file: pkg.main,
     format: 'umd',
     name: 'contentfulExtension'
-  }),
-  makeConfigForOutput([{ format: 'es', file: pkg.module }])
+  })
 ]
