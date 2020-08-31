@@ -1,12 +1,11 @@
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import typescript from "@rollup/plugin-typescript"
-import {terser} from "rollup-plugin-terser"
+const resolve = require('@rollup/plugin-node-resolve')
+const commonjs = require('@rollup/plugin-commonjs')
+const typescript = require('@rollup/plugin-typescript')
+const { terser } = require('rollup-plugin-terser')
 
-import * as pkg from './package.json'
+const pkg = require('./package.json')
 
-
-const makeConfigForOutput = (output) => ({
+const makeConfigForOutput = output => ({
   input: './lib/index.ts',
   output,
   plugins: [
@@ -14,9 +13,9 @@ const makeConfigForOutput = (output) => ({
     resolve({
       jsnext: true,
       main: true,
-      browser: true,
+      browser: true
     }),
-    commonjs({extensions: ['.ts', '.js']}),
+    commonjs({ extensions: ['.ts', '.js'] }),
     terser({
       format: {
         comments: false,
@@ -26,13 +25,11 @@ const makeConfigForOutput = (output) => ({
   ]
 })
 
-export default [
+module.exports = [
   makeConfigForOutput({
     file: pkg.main,
     format: 'umd',
-    name: 'contentfulExtension',
+    name: 'contentfulExtension'
   }),
-  makeConfigForOutput([
-    {format: 'es', file: pkg.module},
-  ])
+  makeConfigForOutput([{ format: 'es', file: pkg.module }])
 ]
