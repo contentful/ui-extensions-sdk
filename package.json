@@ -1,7 +1,7 @@
 {
   "name": "contentful-ui-extensions-sdk",
   "description": "SDK to develop custom UI Extension for the Contentful Web App",
-  "version": "3.18.0",
+  "version": "3.20.0",
   "author": "Contentful GmbH",
   "license": "MIT",
   "main": "dist/cf-extension-api.js",
