@@ -1,4 +1,4 @@
-const resolve = require('@rollup/plugin-node-resolve')
+const { nodeResolve } = require('@rollup/plugin-node-resolve')
 const commonjs = require('@rollup/plugin-commonjs')
 const typescript = require('@rollup/plugin-typescript')
 const { terser } = require('rollup-plugin-terser')
@@ -10,11 +10,7 @@ const makeConfigForOutput = output => ({
   output,
   plugins: [
     typescript(),
-    resolve({
-      jsnext: true,
-      main: true,
-      browser: true
-    }),
+    nodeResolve(),
     commonjs({ extensions: ['.ts', '.js'] }),
     terser({
       format: {
