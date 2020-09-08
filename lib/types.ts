@@ -601,13 +601,13 @@ export interface BaseExtensionSDK {
   ids: IdsAPI
 }
 
-export type EditorExtensionSDK = BaseExtensionSDK &
+export type EditorExtensionSDK = Omit<BaseExtensionSDK, 'ids'> &
   SharedEditorSDK & {
     /** A set of IDs actual for the extension */
     ids: Omit<IdsAPI, 'field'>
   }
 
-export type SidebarExtensionSDK = BaseExtensionSDK &
+export type SidebarExtensionSDK = Omit<BaseExtensionSDK, 'ids'> &
   SharedEditorSDK & {
     /** A set of IDs actual for the extension */
     ids: Omit<IdsAPI, 'field'>
@@ -617,15 +617,13 @@ export type SidebarExtensionSDK = BaseExtensionSDK &
 
 export type FieldExtensionSDK = BaseExtensionSDK &
   SharedEditorSDK & {
-    /** A set of IDs actual for the extension */
-    ids: IdsAPI
     /** Gives you access to the value and metadata of the field the extension is attached to. */
     field: FieldAPI
     /** Methods to update the size of the iframe the extension is contained within.  */
     window: WindowAPI
   }
 
-export type DialogExtensionSDK = BaseExtensionSDK & {
+export type DialogExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
   /** A set of IDs actual for the extension */
   ids: Omit<IdsAPI, 'field' | 'entry' | 'contentType'>
   /** Closes the dialog and resolves openExtension promise with data */
@@ -634,7 +632,7 @@ export type DialogExtensionSDK = BaseExtensionSDK & {
   window: WindowAPI
 }
 
-export type PageExtensionSDK = BaseExtensionSDK & {
+export type PageExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
   /** A set of IDs actual for the extension */
   ids: Omit<IdsAPI, 'field' | 'entry' | 'contentType'>
 }
@@ -664,7 +662,7 @@ export interface AppConfigAPI {
   onConfigurationCompleted: (handler: Function) => Promise<void>
 }
 
-export type AppExtensionSDK = BaseExtensionSDK & {
+export type AppExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
   /** A set of IDs actual for the app */
   ids: Omit<IdsAPI, 'extension' | 'field' | 'entry' | 'contentType' | 'app'> & { app: string }
   app: AppConfigAPI
