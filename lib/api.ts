@@ -8,6 +8,7 @@ import createEditor from './editor'
 import createNavigator from './navigator'
 import createApp from './app'
 import locations from './locations'
+import { BaseExtensionSDK } from './types'
 
 const DEFAULT_API_PRODUCERS = [
   makeSharedAPI,
@@ -35,7 +36,7 @@ export default function createAPI(channel, data, currentWindow) {
   }, {})
 }
 
-function makeSharedAPI(channel, data) {
+function makeSharedAPI(channel, data): BaseExtensionSDK {
   const { user, parameters, locales, ids, initialContentTypes } = data
   const currentLocation = data.location || locations.LOCATION_ENTRY_FIELD
 

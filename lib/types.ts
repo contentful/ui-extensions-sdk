@@ -555,6 +555,10 @@ export interface SharedEditorSDK {
     ) => Function
     onShowDisabledFieldsChanged: (callback: (value: boolean) => any) => Function
   }
+  /** Allows to read and update the value of any field of the current entry and to get the entry's metadata */
+  entry: EntryAPI
+  /** Information about the content type of the entry. */
+  contentType: ContentType
 }
 
 export type CrudAction = 'create' | 'read' | 'update' | 'delete'
@@ -575,10 +579,6 @@ export interface AccessAPI {
 }
 
 export interface BaseExtensionSDK {
-  /** Allows to read and update the value of any field of the current entry and to get the entry's metadata */
-  entry: EntryAPI
-  /** Information about the content type of the entry. */
-  contentType: ContentType
   /** Exposes methods that allow the extension to read and manipulate a wide range of objects in the space. */
   space: SpaceAPI
   /** Information about the current user and roles */
@@ -597,6 +597,8 @@ export interface BaseExtensionSDK {
   location: LocationAPI
   /** Exposes methods for checking user's access level */
   access: AccessAPI
+  /** Exposes relevant ids, keys may be ommited based on location */
+  ids: IdsAPI
 }
 
 export type EditorExtensionSDK = BaseExtensionSDK &
