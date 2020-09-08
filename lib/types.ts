@@ -258,7 +258,7 @@ export interface SpaceAPI {
     query?: InputArgs
   ) => Promise<CollectionResponse<T>>
   createUpload: (base64data: string) => void
-  waitUntilAssetProcessed: (assetId: string, locale: string) => void
+  waitUntilAssetProcessed: (assetId: string, locale: string) => Promise<void>
 
   /** Returns all users who belong to the space. */
   getUsers: <T = Object>() => Promise<CollectionResponse<T>>
