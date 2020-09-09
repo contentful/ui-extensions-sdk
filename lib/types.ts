@@ -657,9 +657,9 @@ export interface AppConfigAPI {
   /** Returns parameters of an App, null otherwise */
   getParameters: <T = Object>() => Promise<null | T>
   /** Registers a handler to be called to produce parameters for an App */
-  onConfigure: (handler: Function) => Promise<void>
+  onConfigure: (handler: Function) => void
   /** Registers a handler to be called once configuration was finished */
-  onConfigurationCompleted: (handler: Function) => Promise<void>
+  onConfigurationCompleted: (handler: Function) => void
 }
 
 export type AppExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
