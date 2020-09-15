@@ -637,6 +637,11 @@ export type PageExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
   ids: Omit<IdsAPI, 'field' | 'entry' | 'contentType'>
 }
 
+export const enum AppHookStages {
+  PreInstall = 'preInstall',
+  PostInstall = 'postInstall'
+}
+
 interface AppStateEditorInterfaceItem {
   controls?: Array<{ fieldId: string }>
   sidebar?: { position: number }

@@ -1,5 +1,4 @@
-const HOOK_STAGE_PRE_INSTALL = 'preInstall'
-const HOOK_STAGE_POST_INSTALL = 'postInstall'
+import { AppHookStages } from './types'
 
 const isObject = o => typeof o === 'object' && o !== null && !Array.isArray(o)
 const isFunction = f => typeof f === 'function'
@@ -50,8 +49,8 @@ const runHandler = (handler, defaultResult, handlerArg?) => {
 
 export default function createApp(channel) {
   const handlers = {
-    [HOOK_STAGE_PRE_INSTALL]: null,
-    [HOOK_STAGE_POST_INSTALL]: null
+    [AppHookStages.PreInstall]: null,
+    [AppHookStages.PostInstall]: null
   }
 
   const setHandler = (stage, handler) => {
@@ -63,11 +62,11 @@ export default function createApp(channel) {
   }
 
   channel.addHandler('appHook', ({ stage, installationRequestId, err }) => {
-    if (stage === HOOK_STAGE_PRE_INSTALL) {
+    if (stage === AppHookStages.PreInstall) {
       return runHandler(handlers[stage], {}).then(result => {
         return channel.send('appHookResult', { stage, installationRequestId, result })
       })
-    } else if (stage === HOOK_STAGE_POST_INSTALL) {
+    } else if (stage === AppHookStages.PostInstall) {
       return runHandler(handlers[stage], undefined, err || null).then(() => {
         return channel.send('appHookResult', { stage, installationRequestId })
       })
@@ -90,10 +89,10 @@ export default function createApp(channel) {
       return channel.call('callAppMethod', 'getCurrentState')
     },
     onConfigure(handler) {
-      setHandler(HOOK_STAGE_PRE_INSTALL, handler)
+      setHandler(AppHookStages.PreInstall, handler)
     },
     onConfigurationCompleted(handler) {
-      setHandler(HOOK_STAGE_POST_INSTALL, handler)
+      setHandler(AppHookStages.PostInstall, handler)
     }
   }
 }
