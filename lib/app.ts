@@ -1,16 +1,19 @@
+import { Channel } from './channel'
+
 const HOOK_STAGE_PRE_INSTALL = 'preInstall'
 const HOOK_STAGE_POST_INSTALL = 'postInstall'
 
-const isObject = o => typeof o === 'object' && o !== null && !Array.isArray(o)
-const isFunction = f => typeof f === 'function'
-const isPromise = p => isObject(p) && isFunction(p.then)
+const isObject = (o: any) => typeof o === 'object' && o !== null && !Array.isArray(o)
+const isFunction = (f: any) => typeof f === 'function'
+const isPromise = (p: any) => isObject(p) && isFunction(p.then)
 
-const handleHandlerError = err => {
+const handleHandlerError = (err: Error) => {
   console.error(err)
   return Promise.resolve(false)
 }
 
-const runHandler = (handler, defaultResult, handlerArg?) => {
+// TODO any
+const runHandler = (handler: Function, defaultResult: any, handlerArg?: any) => {
   // Handler was not registered. Registering a handler is not
   // required. We resolve with the default provided in this case.
   if (!isFunction(handler)) {
@@ -34,7 +37,7 @@ const runHandler = (handler, defaultResult, handlerArg?) => {
   }
 
   return resultPromise
-    .then(result => {
+    .then((result: any) => {
       if (result instanceof Error) {
         return Promise.reject(result)
       } else if (result === false) {
@@ -48,13 +51,13 @@ const runHandler = (handler, defaultResult, handlerArg?) => {
     .catch(handleHandlerError)
 }
 
-export default function createApp(channel) {
-  const handlers = {
+export default function createApp(channel: Channel) {
+  const handlers: { [key: string]: any } = {
     [HOOK_STAGE_PRE_INSTALL]: null,
     [HOOK_STAGE_POST_INSTALL]: null
   }
 
-  const setHandler = (stage, handler) => {
+  const setHandler = (stage: string, handler: Function) => {
     if (!isFunction(handler)) {
       throw new Error('Handler must be a function.')
     } else {
@@ -62,19 +65,30 @@ export default function createApp(channel) {
     }
   }
 
-  channel.addHandler('appHook', ({ stage, installationRequestId, err }) => {
-    if (stage === HOOK_STAGE_PRE_INSTALL) {
-      return runHandler(handlers[stage], {}).then(result => {
-        return channel.send('appHookResult', { stage, installationRequestId, result })
-      })
-    } else if (stage === HOOK_STAGE_POST_INSTALL) {
-      return runHandler(handlers[stage], undefined, err || null).then(() => {
-        return channel.send('appHookResult', { stage, installationRequestId })
-      })
-    } else {
-      return Promise.resolve()
+  channel.addHandler(
+    'appHook',
+    ({
+      stage,
+      installationRequestId,
+      err
+    }: {
+      stage: string
+      installationRequestId: string
+      err: Error
+    }) => {
+      if (stage === HOOK_STAGE_PRE_INSTALL) {
+        return runHandler(handlers[stage], {}).then((result: any) => {
+          return channel.send('appHookResult', { stage, installationRequestId, result })
+        })
+      } else if (stage === HOOK_STAGE_POST_INSTALL) {
+        return runHandler(handlers[stage], undefined, err || null).then(() => {
+          return channel.send('appHookResult', { stage, installationRequestId })
+        })
+      } else {
+        return Promise.resolve()
+      }
     }
-  })
+  )
 
   return {
     setReady() {
@@ -89,10 +103,10 @@ export default function createApp(channel) {
     getCurrentState() {
       return channel.call('callAppMethod', 'getCurrentState')
     },
-    onConfigure(handler) {
+    onConfigure(handler: Function) {
       setHandler(HOOK_STAGE_PRE_INSTALL, handler)
     },
-    onConfigurationCompleted(handler) {
+    onConfigurationCompleted(handler: Function) {
       setHandler(HOOK_STAGE_POST_INSTALL, handler)
     }
   }

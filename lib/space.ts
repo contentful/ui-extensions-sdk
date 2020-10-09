@@ -1,3 +1,5 @@
+import { ContentType } from '../typings'
+import { Channel } from './channel'
 import { SpaceAPI } from './types'
 
 const spaceMethods: Array<keyof SpaceAPI> = [
@@ -46,13 +48,14 @@ const spaceMethods: Array<keyof SpaceAPI> = [
   'getEntityScheduledActions'
 ]
 
-export default function createSpace(channel, initialContentTypes) {
+export default function createSpace(channel: Channel, initialContentTypes: ContentType[]) {
   const space = {} as SpaceAPI
 
   spaceMethods.forEach(methodName => {
-    space[methodName] = function(...args) {
+    // TODO remove use of "any" here
+    space[methodName] = function(...args: any[]) {
       return channel.call('callSpaceMethod', methodName, args)
-    }
+    } as any
   })
 
   space.getCachedContentTypes = () => {

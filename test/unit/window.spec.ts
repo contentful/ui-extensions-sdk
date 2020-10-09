@@ -14,7 +14,7 @@ describe(`createWindow()`, () => {
         modifyDOM = cb
       })
       channelSendSpy = sinon.spy()
-      window = createWindow(dom.window, { send: channelSendSpy })
+      window = createWindow(dom.window, { send: channelSendSpy } as any)
     })
 
     it(`has all expected member functions`, () => {

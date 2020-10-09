@@ -4,18 +4,19 @@ import Field from '../../lib/field'
 import FieldLocale from '../../lib/field-locale'
 
 describe(`Field`, () => {
-  let channelStub
+  // Is a Sinon Stub but also of type Channel
+  let channelStub: any
   beforeEach(() => {
     channelStub = {
       addHandler: sinon.stub(),
       call: sinon.stub()
-    }
+    } as any
   })
 
   describe(`construction error`, () => {
     it(`gets thrown if defaultLocale is not included in info.locales`, () => {
       expect(() => {
-        return new Field(channelStub, { id: 'x', locales: ['de-DE'], values: {} }, 'en-US')
+        return new Field(channelStub, { id: 'x', locales: ['de-DE'], values: {} } as any, 'en-US')
       }).to.throw('Unknown locale "en-US" for field "x"')
     })
   })
@@ -42,7 +43,7 @@ describe(`Field`, () => {
       }
     }
 
-    let field
+    let field: Field
     beforeEach(() => {
       const infoCopy = JSON.parse(JSON.stringify(info))
       field = new Field(channelStub, infoCopy, defaultLocale)
@@ -126,7 +127,9 @@ describe(`Field`, () => {
         }
         describe(`with locale set to "${locale}"`, () => {
           it(`returns the value for the given locale`, () => {
-            expect(field.getValue(locale)).to.equal(info.values[locale])
+            expect(field.getValue(locale)).to.equal(
+              (info.values as { [key: string]: string })[locale]
+            )
           })
         })
       })
@@ -146,7 +149,7 @@ describe(`Field`, () => {
       })
     })
 
-    function describeSetValue(msg, locale, localeOrDefault) {
+    function describeSetValue(msg: string, locale: string | undefined, localeOrDefault: string) {
       describe(msg, () => {
         const newValue = `new-value-${localeOrDefault}`
 
@@ -172,7 +175,7 @@ describe(`Field`, () => {
       })
     }
 
-    describeRemoveValue(`.removeValue()`, undefined)
+    describeRemoveValue(`.removeValue()`)
 
     describe(`.removeValue(locale)`, () => {
       info.locales.forEach(locale => {
@@ -186,7 +189,7 @@ describe(`Field`, () => {
       })
     })
 
-    function describeRemoveValue(msg, locale) {
+    function describeRemoveValue(msg: string, locale?: string) {
       describe(msg, () => {
         const localeParam = locale ? `"${locale}"` : 'undefined'
 
@@ -230,8 +233,8 @@ describe(`Field`, () => {
 
     describe(`injected channel propagating "valueChanged"`, () => {
       beforeEach(function() {
-        this.receiveValueChanged = (...handlerArgs) => {
-          channelStub.addHandler.args.forEach(args => {
+        this.receiveValueChanged = (...handlerArgs: any[]) => {
+          channelStub.addHandler.args.forEach((args: any) => {
             // Handler registered with channel.addHandler("valueChanged", handler)
             args[1](...handlerArgs)
           })
@@ -252,7 +255,7 @@ describe(`Field`, () => {
     })
 
     describe('getForLocale called with a locale', () => {
-      let result
+      let result: FieldLocale
       beforeEach(() => {
         result = field.getForLocale('en-US')
       })

@@ -1,7 +1,6 @@
+import { Channel } from './channel'
 import { MemoizedSignal } from './signal'
-import { FieldAPI, Items } from './types'
-
-const INFO_PROPS = ['id', 'locale', 'type', 'required', 'validations', 'items']
+import { FieldAPI, FieldInfo, Items } from './types'
 
 export default class FieldLocale implements FieldAPI {
   id: string
@@ -17,45 +16,51 @@ export default class FieldLocale implements FieldAPI {
   private _schemaErrorsChangedSignal: MemoizedSignal
   private _channel: any
 
-  constructor(channel, fieldInfo) {
-    INFO_PROPS.forEach(prop => {
-      const value = fieldInfo[prop]
-      if (typeof value !== 'undefined') {
-        this[prop] = fieldInfo[prop]
-      }
-    })
+  constructor(channel: Channel, info: FieldInfo) {
+    this.id = info.id
+    this.locale = info.locale
+    this.type = info.type
+    this.required = info.required
+    this.validations = info.validations
+    this.items = info.items
 
-    this._value = fieldInfo.value
+    this._value = info.value
     this._valueSignal = new MemoizedSignal(this._value)
     this._isDisabledSignal = new MemoizedSignal(undefined)
     this._schemaErrorsChangedSignal = new MemoizedSignal(undefined)
     this._channel = channel
 
-    channel.addHandler('valueChanged', (id, locale, value) => {
+    channel.addHandler('valueChanged', (id: string, locale: string, value: any) => {
       if (id === this.id && (!locale || locale === this.locale)) {
         this._value = value
         this._valueSignal.dispatch(value)
       }
     })
 
-    channel.addHandler('isDisabledChangedForFieldLocale', (id, locale, isDisabled) => {
-      if (id === this.id && locale === this.locale) {
-        this._isDisabledSignal.dispatch(isDisabled)
+    channel.addHandler(
+      'isDisabledChangedForFieldLocale',
+      (id: string, locale: string, isDisabled: boolean) => {
+        if (id === this.id && locale === this.locale) {
+          this._isDisabledSignal.dispatch(isDisabled)
+        }
       }
-    })
+    )
 
-    channel.addHandler('schemaErrorsChangedForFieldLocale', (id, locale, errors) => {
-      if (id === this.id && locale === this.locale) {
-        this._schemaErrorsChangedSignal.dispatch(errors)
+    channel.addHandler(
+      'schemaErrorsChangedForFieldLocale',
+      (id: string, locale: string, errors: Error[]) => {
+        if (id === this.id && locale === this.locale) {
+          this._schemaErrorsChangedSignal.dispatch(errors)
+        }
       }
-    })
+    )
   }
 
   getValue() {
     return this._value
   }
 
-  setValue(value) {
+  setValue(value: any) {
     this._value = value
     this._valueSignal.dispatch(value)
     return this._channel.call('setValue', this.id, this.locale, value)
@@ -66,19 +71,19 @@ export default class FieldLocale implements FieldAPI {
     return this._channel.call('removeValue', this.id, this.locale)
   }
 
-  setInvalid(isInvalid) {
+  setInvalid(isInvalid: boolean) {
     return this._channel.call('setInvalid', isInvalid, this.locale)
   }
 
-  onValueChanged(handler) {
+  onValueChanged(handler: (value: any) => any) {
     return this._valueSignal.attach(handler)
   }
 
-  onIsDisabledChanged(handler) {
+  onIsDisabledChanged(handler: (isDisabled: boolean) => any) {
     return this._isDisabledSignal.attach(handler)
   }
 
-  onSchemaErrorsChanged(handler) {
+  onSchemaErrorsChanged(handler: Function) {
     return this._schemaErrorsChangedSignal.attach(handler)
   }
 }

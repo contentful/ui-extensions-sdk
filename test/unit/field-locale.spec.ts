@@ -16,7 +16,7 @@ describe('FieldLocale', () => {
     }
   }
   let channelStub
-  let field
+  let field: FieldLocale
 
   beforeEach(() => {
     channelStub = {

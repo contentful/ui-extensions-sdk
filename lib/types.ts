@@ -55,8 +55,27 @@ export interface EntrySys {
   contentType: Link
 }
 
-/* Field API */
+export interface FieldInfo {
+  id: string
+  locale: string
+  type: string
+  required: boolean
+  validations: Object[]
+  items?: Items
+  value: any
+}
 
+export interface EntryFieldInfo {
+  id: string
+  locales: string[]
+  type: string
+  required: boolean
+  validations: Object[]
+  items?: Items
+  values: { [locale: string]: any }
+}
+
+/* Field API */
 export interface FieldAPI {
   /** The ID of a field is defined in an entry's content type. */
   id: string
@@ -85,10 +104,10 @@ export interface FieldAPI {
   onValueChanged: (callback: (value: any) => void) => () => void
   /** Calls the callback when the disabled status of the field changes.
    *  the returned function can be called to remove the handler function */
-  onIsDisabledChanged: (callback: Function) => () => void
+  onIsDisabledChanged: (callback: (isDisabled: boolean) => void) => () => boolean
   /** Calls the callback immediately with the current validation errors and whenever the field is re-validated.
    *  the returned function can be called to remove the handler function */
-  onSchemaErrorsChanged: (callback: Function) => () => void
+  onSchemaErrorsChanged: (callback: (errors: Error[]) => void) => () => void
 }
 
 /* Entry API */
@@ -116,14 +135,14 @@ export interface EntryFieldAPI {
   /** Calls the callback every time the value of the field is changed by an external event or when setValue() is called.
    *  the returned function can be called to remove the handler function */
   onValueChanged: {
-    (callback: (value: any) => void): () => () => void
-    (locale: string, callback: (value: any) => void): () => () => void
+    (callback: (value: any) => void): () => void
+    (locale: string, callback: (value: any) => void): () => void
   }
   /** Calls the callback when the disabled status of the field changes.
    *  the returned function can be called to remove the handler function */
   onIsDisabledChanged: {
-    (callback: (isDisabled: boolean) => void): () => () => void
-    (locale: string, callback: (isDisabled: boolean) => void): () => () => void
+    (callback: (isDisabled: boolean) => void): () => boolean
+    (locale: string, callback: (isDisabled: boolean) => void): () => boolean
   }
 
   /** Get an instance of FieldAPI for this field, specific to the locale that is
@@ -383,6 +402,13 @@ export interface OpenCustomWidgetOptions {
   parameters?: Object
 }
 
+export interface EntityDialogOptions {
+  locale?: string
+  contentTypes?: string[]
+  min?: number
+  max?: number
+}
+
 export interface DialogsAPI {
   /** Opens a simple alert window (which can only be closed). */
   openAlert: (options: OpenAlertOptions) => Promise<boolean>
@@ -595,7 +621,7 @@ export interface BaseExtensionSDK {
   parameters: ParametersAPI
   /** Exposes method to identify extension's location */
   location: LocationAPI
-  /** Exposes methods for checking user's access level */
+  /** Exposes metmessagehods for checking user's access level */
   access: AccessAPI
   /** Exposes relevant ids, keys may be ommited based on location */
   ids: IdsAPI

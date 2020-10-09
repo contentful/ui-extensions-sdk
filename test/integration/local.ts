@@ -23,7 +23,7 @@ function listAllEnvironmentVariables() {
     console.log(`${envvar}=${process.env[envvar]}`)
   })
   ;['CONTENTFUL_CMA_TOKEN'].forEach(envvar => {
-    console.log(`${envvar}=${process.env[envvar].slice(0, 5)}...`)
+    console.log(`${envvar}=${(process.env[envvar] || '').slice(0, 5)}...`)
   })
 }
 

@@ -1,14 +1,14 @@
 class Signal {
   private _id = 0
-  private _listeners = {}
+  private _listeners: { [key: string]: Function } = {}
 
-  dispatch(...args) {
+  dispatch(...args: any[]) {
     for (const key in this._listeners) {
       this._listeners[key](...args)
     }
   }
 
-  attach(listener) {
+  attach(listener: Function) {
     if (typeof listener !== 'function') {
       throw new Error('listener function expected')
     }
@@ -24,7 +24,7 @@ const memArgsSymbol = '__private__memoized__arguments__'
 class MemoizedSignal extends Signal {
   private [memArgsSymbol]: any[] = []
 
-  constructor(...memoizedArgs) {
+  constructor(...memoizedArgs: any[]) {
     super()
 
     if (!memoizedArgs.length) {
@@ -34,12 +34,12 @@ class MemoizedSignal extends Signal {
     this[memArgsSymbol] = memoizedArgs
   }
 
-  dispatch(...args) {
+  dispatch(...args: any[]) {
     this[memArgsSymbol] = args
     super.dispatch(...args)
   }
 
-  attach(listener) {
+  attach(listener: Function) {
     /*
      * attaching first so that we throw a sensible
      * error if listener is not a function without
