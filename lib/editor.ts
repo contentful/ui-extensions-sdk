@@ -1,4 +1,4 @@
-import { EditorInterface } from '../typings'
+import { EditorInterface, EditorLocaleSettings } from './types'
 import { Channel } from './channel'
 import { MemoizedSignal } from './signal'
 
@@ -6,8 +6,7 @@ export default function createEditor(channel: Channel, editorInterface: EditorIn
   const _localeSettingsSygnal = new MemoizedSignal(undefined)
   const _showDisabledFieldsSygnal = new MemoizedSignal(undefined)
 
-  // TODO any
-  channel.addHandler('localeSettingsChanged', (settings: any) => {
+  channel.addHandler('localeSettingsChanged', (settings: EditorLocaleSettings) => {
     _localeSettingsSygnal.dispatch(settings)
   })
 

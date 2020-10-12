@@ -75,6 +75,24 @@ export interface EntryFieldInfo {
   values: { [locale: string]: any }
 }
 
+export interface ConnectMessage {
+  id: string
+  location: Location[keyof Location]
+  parameters: ParametersAPI
+  locales: LocalesAPI
+  user: User
+  initialContentTypes: ContentType[]
+  ids: IdsAPI
+  contentType: ContentType
+  editorInterface?: EditorInterface
+  entry: {
+    sys: EntrySys
+    metadata?: any
+  }
+  fieldInfo: EntryFieldInfo[]
+  field?: FieldInfo
+}
+
 /* Field API */
 export interface FieldAPI {
   /** The ID of a field is defined in an entry's content type. */
@@ -569,16 +587,16 @@ export interface IdsAPI {
   contentType: string
 }
 
+export interface EditorLocaleSettings {
+  mode: 'multi' | 'single'
+  focused?: string
+  active?: Array<string>
+}
+
 export interface SharedEditorSDK {
   editor: {
     editorInterface: EditorInterface
-    onLocaleSettingsChanged: (
-      callback: (value: {
-        mode: 'multi' | 'single'
-        focused?: string
-        active?: Array<string>
-      }) => any
-    ) => Function
+    onLocaleSettingsChanged: (callback: (value: EditorLocaleSettings) => any) => Function
     onShowDisabledFieldsChanged: (callback: (value: boolean) => any) => Function
   }
   /** Allows to read and update the value of any field of the current entry and to get the entry's metadata */

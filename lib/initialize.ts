@@ -1,10 +1,10 @@
-import { KnownSDK } from './types'
+import { ConnectMessage, KnownSDK } from './types'
 import connect, { Channel } from './channel'
 
 export default function createInitializer(
   currentWindow: Window,
-  apiCreator: (channel: Channel, data: any, window: Window) => KnownSDK
-): <T extends KnownSDK = KnownSDK>(initCallback: (sdk: T) => any) => void {
+  apiCreator: (channel: Channel, data: ConnectMessage, window: Window) => KnownSDK
+) {
   const connectDeferred = createDeferred()
 
   connectDeferred.promise.then(([channel]: [Channel]) => {
@@ -20,29 +20,32 @@ export default function createInitializer(
     (...args) => connectDeferred.resolve(args)
   )
 
-  // TODO Replace sdk/customSdk [any] with api and customApi types
-  return function init(initCb: (sdk: any, customSdk: any) => any, { makeCustomApi = null } = {}) {
-    connectDeferred.promise.then(([channel, params, messageQueue]: [Channel, any, any]) => {
-      const api = apiCreator(channel, params, currentWindow)
+  return function init(
+    initCb: (sdk: KnownSDK, customSdk: any) => any,
+    { makeCustomApi = null } = {}
+  ) {
+    connectDeferred.promise.then(
+      ([channel, params, messageQueue]: [Channel, ConnectMessage, unknown[]]) => {
+        const api = apiCreator(channel, params, currentWindow)
 
-      let customApi
-      if (typeof makeCustomApi === 'function') {
-        // Reason for the typecast: https://github.com/microsoft/TypeScript/issues/14889
-        customApi = (makeCustomApi as any)(channel, params)
+        let customApi
+        if (typeof makeCustomApi === 'function') {
+          // Reason for the typecast: https://github.com/microsoft/TypeScript/issues/14889
+          customApi = (makeCustomApi as any)(channel, params)
+        }
+
+        // Handle pending incoming messages.
+        // APIs are created before so handlers are already
+        // registered on the channel.
+        messageQueue.forEach(m => {
+          // TODO Expose private handleMessage method
+          ;(channel as any)._handleMessage(m)
+        })
+
+        // Hand over control to the developer.
+        initCb(api, customApi)
       }
-
-      // Handle pending incoming messages.
-      // APIs are created before so handlers are already
-      // registered on the channel.
-      // TODO message has "id" or "method" attribute defined
-      messageQueue.forEach((m: any) => {
-        // TODO Expose private handleMessage method
-        ;(channel as any)._handleMessage(m)
-      })
-
-      // Hand over control to the developer.
-      initCb(api, customApi)
-    })
+    )
   }
 }
 

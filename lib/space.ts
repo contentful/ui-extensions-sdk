@@ -1,6 +1,5 @@
-import { ContentType } from '../typings'
+import { ContentType, SpaceAPI } from './types'
 import { Channel } from './channel'
-import { SpaceAPI } from './types'
 
 const spaceMethods: Array<keyof SpaceAPI> = [
   'getContentType',

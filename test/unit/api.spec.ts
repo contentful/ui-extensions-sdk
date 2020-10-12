@@ -2,6 +2,7 @@ import { makeDOM, mockMutationObserver, expect } from '../helpers'
 
 import createAPI from '../../lib/api'
 import locations from '../../lib/locations'
+import { AppExtensionSDK, ConnectMessage } from '../../lib/types'
 
 const sharedExpected = [
   'location',
@@ -19,7 +20,7 @@ const sharedExpected = [
 function test(expected: string[], location: string | undefined, expectedLocation = location) {
   const channel = { addHandler: () => {} } as any
 
-  const data = {
+  const data = ({
     location,
     user: 'USER',
     parameters: 'PARAMS',
@@ -45,7 +46,7 @@ function test(expected: string[], location: string | undefined, expectedLocation
     ids: {
       extension: 'my-test-id'
     }
-  }
+  } as unknown) as ConnectMessage
 
   const dom = makeDOM()
   mockMutationObserver(dom, () => {})
@@ -110,10 +111,9 @@ describe('createAPI()', () => {
   it('returns correct shape of the app API (app)', () => {
     const expected = ['app']
 
-    const api = test(expected, locations.LOCATION_APP_CONFIG)
+    const api = (test(expected, locations.LOCATION_APP_CONFIG) as unknown) as AppExtensionSDK
 
-    // TODO app not on this object?
-    expect((api as any).app).to.have.all.keys([
+    expect(api.app).to.have.all.keys([
       'setReady',
       'isInstalled',
       'getParameters',

@@ -54,8 +54,7 @@ export default class Field implements EntryFieldAPI {
     return this.setValue(undefined, locale)
   }
 
-  // TODO maybe swap argument positions to get rid of swap logic
-  onValueChanged(locale: string | Function, handler?: Function) {
+  onValueChanged(locale: string | ((value: any) => void), handler?: (value: any) => void) {
     const h = handler || locale
     if (!handler) {
       locale = ''
@@ -63,8 +62,10 @@ export default class Field implements EntryFieldAPI {
     return this._getFieldLocale(locale as string).onValueChanged(h as any)
   }
 
-  // TODO maybe swap argument positions to get rid of swap logic
-  onIsDisabledChanged(locale: string | Function, handler?: Function) {
+  onIsDisabledChanged(
+    locale: string | ((isDisabled: boolean) => void),
+    handler?: (isDisabled: boolean) => void
+  ) {
     const h = handler || locale
     if (!handler) {
       locale = ''

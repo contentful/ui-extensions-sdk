@@ -8,7 +8,7 @@ import createEditor from './editor'
 import createNavigator from './navigator'
 import createApp from './app'
 import locations from './locations'
-import { BaseExtensionSDK, EntryFieldInfo, FieldInfo, NavigatorAPI, KnownSDK } from './types'
+import { BaseExtensionSDK, EntryFieldInfo, NavigatorAPI, KnownSDK, ConnectMessage } from './types'
 import { Channel } from './channel'
 
 const DEFAULT_API_PRODUCERS = [
@@ -19,8 +19,8 @@ const DEFAULT_API_PRODUCERS = [
   makeWindowAPI
 ]
 
-type producerFunc = (channel: Channel, data: any, currentWindow: Window) => any
-const LOCATION_TO_API_PRODUCERS: { [location: string]: producerFunc[] } = {
+type ProducerFunc = (channel: Channel, data: ConnectMessage, currentWindow: Window) => any
+const LOCATION_TO_API_PRODUCERS: { [location: string]: ProducerFunc[] } = {
   [locations.LOCATION_ENTRY_FIELD]: DEFAULT_API_PRODUCERS,
   [locations.LOCATION_ENTRY_FIELD_SIDEBAR]: DEFAULT_API_PRODUCERS,
   [locations.LOCATION_ENTRY_SIDEBAR]: [makeSharedAPI, makeEntryAPI, makeEditorAPI, makeWindowAPI],
@@ -30,9 +30,11 @@ const LOCATION_TO_API_PRODUCERS: { [location: string]: producerFunc[] } = {
   [locations.LOCATION_APP_CONFIG]: [makeSharedAPI, makeAppAPI]
 }
 
-// TODO Remove any once we know payload
-// TODO data is directly received through event passthrough
-export default function createAPI(channel: Channel, data: any, currentWindow: Window): KnownSDK {
+export default function createAPI(
+  channel: Channel,
+  data: ConnectMessage,
+  currentWindow: Window
+): KnownSDK {
   const producers = LOCATION_TO_API_PRODUCERS[data.location as string] || DEFAULT_API_PRODUCERS
 
   return producers.reduce((api, produce) => {
@@ -40,7 +42,7 @@ export default function createAPI(channel: Channel, data: any, currentWindow: Wi
   }, {}) as any
 }
 
-function makeSharedAPI(channel: Channel, data: any): BaseExtensionSDK {
+function makeSharedAPI(channel: Channel, data: ConnectMessage): BaseExtensionSDK {
   const { user, parameters, locales, ids, initialContentTypes } = data
   const currentLocation = data.location || locations.LOCATION_ENTRY_FIELD
 
@@ -89,12 +91,7 @@ function makeEditorAPI(channel: Channel, data: any) {
 
 function makeEntryAPI(
   channel: Channel,
-  {
-    locales,
-    contentType,
-    entry,
-    fieldInfo
-  }: { locales: any; contentType: string; entry: any; fieldInfo: any }
+  { locales, contentType, entry, fieldInfo }: ConnectMessage
 ) {
   const createEntryField = (info: EntryFieldInfo) => new Field(channel, info, locales.default)
 
@@ -104,7 +101,10 @@ function makeEntryAPI(
   }
 }
 
-function makeFieldAPI(channel: Channel, { field }: { field: FieldInfo }) {
+function makeFieldAPI(channel: Channel, { field }: ConnectMessage) {
+  if (!field) {
+    throw new Error('FieldAPI called for location without "field" property defined.')
+  }
   return {
     field: new FieldLocale(channel, field)
   }
