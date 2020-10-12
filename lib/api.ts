@@ -19,8 +19,7 @@ const DEFAULT_API_PRODUCERS = [
   makeWindowAPI
 ]
 
-// TODO; typing for return value
-type producerFunc = (chanell: Channel, data: any, currentWindow: Window) => any
+type producerFunc = (channel: Channel, data: any, currentWindow: Window) => any
 const LOCATION_TO_API_PRODUCERS: { [location: string]: producerFunc[] } = {
   [locations.LOCATION_ENTRY_FIELD]: DEFAULT_API_PRODUCERS,
   [locations.LOCATION_ENTRY_FIELD_SIDEBAR]: DEFAULT_API_PRODUCERS,

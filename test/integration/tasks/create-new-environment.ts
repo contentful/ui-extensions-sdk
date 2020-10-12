@@ -2,7 +2,7 @@ import nanoid from 'nanoid'
 import { getCurrentSpace } from '../contentful-client'
 import { printStepTitle } from '../utils'
 
-const delay = num => {
+const delay = (num: number) => {
   return new Promise(resolve => {
     setTimeout(() => {
       resolve()

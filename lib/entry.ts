@@ -1,11 +1,18 @@
+import { Channel } from './channel'
 import { MemoizedSignal } from './signal'
+import { EntryFieldInfo } from './types'
 
-export default function createEntry(channel, entryData, fieldInfo, createEntryField) {
+export default function createEntry(
+  channel: Channel,
+  entryData: any,
+  fieldInfo: EntryFieldInfo[],
+  createEntryField: Function
+) {
   let sys = entryData.sys
   const sysChanged = new MemoizedSignal(sys)
   const entryMetadata = entryData.metadata
 
-  channel.addHandler('sysChanged', _sys => {
+  channel.addHandler('sysChanged', (_sys: any) => {
     sys = _sys
     sysChanged.dispatch(sys)
   })
@@ -14,10 +21,10 @@ export default function createEntry(channel, entryData, fieldInfo, createEntryFi
     getSys() {
       return sys
     },
-    onSysChanged(handler) {
+    onSysChanged(handler: Function) {
       return sysChanged.attach(handler)
     },
-    fields: fieldInfo.reduce((acc, info) => {
+    fields: fieldInfo.reduce((acc: any, info: EntryFieldInfo) => {
       acc[info.id] = createEntryField(info)
       return acc
     }, {}),

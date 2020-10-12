@@ -4,7 +4,7 @@ import { printStepTitle } from '../utils'
 export default async () => {
   printStepTitle('Deploy extensions to a new environment')
 
-  async function runExtensionScript(extensionId) {
+  async function runExtensionScript(extensionId: string) {
     await runScript('npm', ['run', 'deploy', '--prefix', `test/extensions/${extensionId}`])
   }
 

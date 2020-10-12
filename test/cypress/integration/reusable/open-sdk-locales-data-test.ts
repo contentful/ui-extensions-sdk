@@ -16,7 +16,7 @@ const expectedLocaleData = {
   }
 }
 
-export function verifySdkLocalesData(iframeSelector) {
+export function verifySdkLocalesData(iframeSelector: string) {
   cy.getSdk(iframeSelector).then(sdk => {
     expect(sdk.locales.available).to.deep.equal(expectedLocaleData.available)
     expect(sdk.locales.names).to.deep.equal(expectedLocaleData.names)
@@ -27,7 +27,7 @@ export function verifySdkLocalesData(iframeSelector) {
   })
 }
 
-export function openSdkLocalesDataTest(iframeSelector) {
+export function openSdkLocalesDataTest(iframeSelector: string) {
   it('sdk.locales static methods have expected values', () => {
     verifySdkLocalesData(iframeSelector)
   })

@@ -1,11 +1,11 @@
 import { Signal } from './signal'
 
 // TODO derive arg1 and arg2 shape of onConnect callback
+// TODO Both come through initial event.data over Channel
 export default function connect(
   currentWindow: Window,
   onConnect: (arg1: Channel, args2: any, arg3: any) => void
 ) {
-  // TODO derive params and messageQueue shape from waitForConnect callback
   waitForConnect(currentWindow, (params: any, messageQueue: any) => {
     const channel = new Channel(params.id, currentWindow)
     onConnect(channel, params, messageQueue)

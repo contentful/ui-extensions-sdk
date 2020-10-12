@@ -1,6 +1,6 @@
 import * as Constants from '../../../constants'
 
-export function checkSdkNavigationSlideInCallbackTest(iframeSelector) {
+export function checkSdkNavigationSlideInCallbackTest(iframeSelector: any) {
   it('sdk.navigator.onSlideInNavigation is called when slide-in editor is opened and when it is closed', () => {
     cy.getSdk(iframeSelector).then(async sdk => {
       const spy = cy.stub()

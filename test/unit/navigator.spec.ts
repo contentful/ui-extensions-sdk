@@ -1,6 +1,7 @@
 import { describeChannelCallingMethod } from '../helpers'
 
 import createNavigator from '../../lib/navigator'
+import { Channel } from '../../lib/channel'
 
 const SCENARIOS = [
   {
@@ -79,7 +80,7 @@ describe('createNavigator()', () => {
   describe('returned "navigator" object', () => {
     SCENARIOS.forEach(({ method, args, expected, channelMethod = 'navigateToContentEntity' }) => {
       describeChannelCallingMethod({
-        creator: channelStub => createNavigator(channelStub, 'test-id'),
+        creator: (channelStub: Channel) => createNavigator(channelStub, 'test-id' as any),
         methodName: method,
         channelMethod,
         args,

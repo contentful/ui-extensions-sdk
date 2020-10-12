@@ -5,12 +5,10 @@ import { Signal } from './signal'
 export default function createNavigator(channel: Channel, ids: IdsAPI): NavigatorAPI {
   const _onSlideInSignal = new Signal()
 
-  // TODO data shape
   channel.addHandler('navigateSlideIn', (data: any) => {
     _onSlideInSignal.dispatch(data)
   })
 
-  // TODO return Promise casting
   return {
     openEntry: (id, opts) => {
       return channel.call('navigateToContentEntity', {

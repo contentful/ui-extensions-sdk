@@ -1,6 +1,7 @@
 import { sinon, makeDOM, expect } from '../helpers'
 
 import initializeApi from '../../lib/initialize'
+import { Channel } from '../../lib/channel'
 
 describe('initializeApi(currentWindow, apiCreator)', function() {
   beforeEach(function() {
@@ -39,7 +40,7 @@ describe('initializeApi(currentWindow, apiCreator)', function() {
     })
 
     it('receives the result of the apiCreator', function(done) {
-      this.init(arg => {
+      this.init((arg: any) => {
         expect(arg).to.equal(this.api)
         done()
       })
@@ -51,7 +52,7 @@ describe('initializeApi(currentWindow, apiCreator)', function() {
       const makeCustomApi = sinon.stub().returns(customApi)
 
       this.init(
-        (_, arg) => {
+        (_: any, arg: any) => {
           expect(arg).to.equal(customApi)
           const [channel, params] = this.apiCreator.args[0]
           expect(makeCustomApi).to.be.calledWithExactly(channel, params)
@@ -77,9 +78,9 @@ describe('initializeApi(currentWindow, apiCreator)', function() {
   })
 
   it('calls handlers for queued messages', function() {
-    sendConnect(this.dom, null, [{ method: 'M', params: ['X', 'Y'] }])
+    sendConnect(this.dom, null as any, [{ method: 'M', params: ['X', 'Y'] }])
     const handler = sinon.stub()
-    this.apiCreator = function(channel) {
+    this.apiCreator = function(channel: Channel) {
       channel.addHandler('M', handler)
     }
     return this.initialize().then(() => {
@@ -91,7 +92,7 @@ describe('initializeApi(currentWindow, apiCreator)', function() {
   it('adds focus handlers', function() {
     const { Event } = this.dom.window
     const send = sinon.spy()
-    this.apiCreator = function(channel) {
+    this.apiCreator = function(channel: Channel) {
       channel.send = send
     }
     sendConnect(this.dom)

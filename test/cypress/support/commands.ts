@@ -7,7 +7,7 @@ declare global {
       setupBrowserStorage(): Chainable<Subject>
       waitForIframeWithTestId(selector: string): Chainable<Subject>
       waitForPageLoad(page: string, testId: string): Chainable<Subject>
-      checkForIframe(selector): Chainable<Subject>
+      checkForIframe(selector: string): Chainable<Subject>
       captureIFrameAs(selector: string): Chainable<Subject>
       getSdk(selector: string): Chainable<any>
     }

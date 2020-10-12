@@ -12,7 +12,6 @@ const handleHandlerError = (err: Error) => {
   return Promise.resolve(false)
 }
 
-// TODO any
 const runHandler = (handler: Function, defaultResult: any, handlerArg?: any) => {
   // Handler was not registered. Registering a handler is not
   // required. We resolve with the default provided in this case.

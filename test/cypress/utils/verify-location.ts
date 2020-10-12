@@ -1,6 +1,7 @@
 import locations from '../../../lib/locations'
+import { BaseExtensionSDK } from '../../../lib/types'
 
-export function verifyLocation(sdk, location) {
+export function verifyLocation(sdk: BaseExtensionSDK, location: string) {
   expect(sdk.location.is(location)).to.equal(true)
   let invalidLocations = Object.values(locations)
   invalidLocations = invalidLocations.filter(item => item !== location)

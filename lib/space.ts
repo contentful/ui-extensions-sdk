@@ -52,7 +52,6 @@ export default function createSpace(channel: Channel, initialContentTypes: Conte
   const space = {} as SpaceAPI
 
   spaceMethods.forEach(methodName => {
-    // TODO remove use of "any" here
     space[methodName] = function(...args: any[]) {
       return channel.call('callSpaceMethod', methodName, args)
     } as any

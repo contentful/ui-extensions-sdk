@@ -2,17 +2,17 @@ import { sinon, expect, describeChannelCallingMethod } from '../helpers'
 
 import createApp from '../../lib/app'
 
-const describeAppHookMessageExchange = ({ description, method, stage, sendsResultBack }) => {
+const describeAppHookMessageExchange = ({ description, method, stage, sendsResultBack }: any) => {
   describe(description, () => {
-    let channelStub
-    let app
+    let channelStub: any
+    let app: any
 
     beforeEach(() => {
       channelStub = { addHandler: sinon.spy(), send: sinon.spy() }
       app = createApp(channelStub)
     })
 
-    const test = async (handler, result) => {
+    const test = async (handler: Function | undefined, result: any) => {
       expect(channelStub.addHandler).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
       const [channelMethod, sendMessage] = channelStub.addHandler.args[0]
       expect(channelMethod).to.eql('appHook')

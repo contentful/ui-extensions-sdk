@@ -1,8 +1,7 @@
 import * as contentful from 'contentful-management'
-import { config } from 'dotenv'
 
 if (!process.env.CONTENTFUL_CMA_TOKEN) {
-  config()
+  require('dotenv').config()
 }
 
 export const client = contentful.createClient({

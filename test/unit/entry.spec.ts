@@ -1,6 +1,7 @@
 import { sinon, expect, describeAttachHandlerMember } from '../helpers'
 
 import createEntry from '../../lib/entry'
+import { EntryFieldInfo } from '../../lib/types'
 
 describe('createEntry()', () => {
   describe('returned "entry" object', () => {
@@ -21,11 +22,11 @@ describe('createEntry()', () => {
         locales: ['en-US'],
         values: {}
       }
-    ]
+    ] as EntryFieldInfo[]
 
-    let createEntryFieldSpy
-    let channelStub
-    let entry
+    let createEntryFieldSpy: any
+    let channelStub: any
+    let entry: any
     beforeEach(() => {
       createEntryFieldSpy = sinon.spy()
       channelStub = {
@@ -48,7 +49,7 @@ describe('createEntry()', () => {
 
       it('got instantiated with its related constructor given field info', () => {
         Object.getOwnPropertyNames(entry.fields).forEach(fieldId => {
-          const info = fieldInfo.reduce((acc, info) => {
+          const info = fieldInfo.reduce((acc: any, info) => {
             if (acc === false) {
               return info.id === fieldId ? info : false
             } else {

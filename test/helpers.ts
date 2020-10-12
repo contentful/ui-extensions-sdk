@@ -13,8 +13,8 @@ export const makeDOM = () => new JSDOM('<!DOCTYPE html>')
 
 export { sinon, expect }
 
-export function mockMutationObserver(dom, registerMutationTrigger) {
-  const MutationObserverMock = function(cb) {
+export function mockMutationObserver(dom: any, registerMutationTrigger: Function) {
+  const MutationObserverMock = function(cb: Function) {
     registerMutationTrigger(cb)
   }
   MutationObserverMock.prototype.observe = () => {}
@@ -28,7 +28,7 @@ export function mockMutationObserver(dom, registerMutationTrigger) {
   })
 }
 
-export function describeAttachHandlerMember(msg, attachHandlerFn) {
+export function describeAttachHandlerMember(msg: string, attachHandlerFn: Function) {
   describe(msg, () => {
     it('returns a function to detach the handler', () => {
       expect(attachHandlerFn()).to.be.a('function')
@@ -42,14 +42,14 @@ export function describeAttachHandlerMember(msg, attachHandlerFn) {
   })
 }
 
-export function describeChannelCallingMethod(spec) {
+export function describeChannelCallingMethod(spec: any) {
   const { creator, methodName, args } = spec
   const expectedCallArgs = spec.expectedCallArgs || args
   const channelMethod = spec.channelMethod || methodName
 
   describe(`.${methodName}()`, () => {
-    let object
-    let channelCallStub
+    let object: any
+    let channelCallStub: any
 
     beforeEach(() => {
       channelCallStub = sinon.stub()

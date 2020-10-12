@@ -3,11 +3,11 @@ import { describeAttachHandlerMember, sinon, expect } from '../helpers'
 import createEditor from '../../lib/editor'
 
 describe('createEditor()', () => {
-  const channelStub = {
+  const channelStub: any = {
     addHandler: sinon.spy()
   }
 
-  const editorInterfaceMock = {
+  const editorInterfaceMock: any = {
     sidebar: [],
     controls: []
   }

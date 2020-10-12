@@ -46,17 +46,13 @@ export default function createInitializer(
   }
 }
 
-// TODO I have a feeling this could be simpler
 function createDeferred<T = any>() {
   const deferred: {
-    // TODO Types
-    // promise: Promise<T>
-    // resolve: ((value: T | PromiseLike<T>) => void)
-    promise: any
-    resolve: any
+    promise: Promise<T>
+    resolve: (value: T | PromiseLike<T>) => void
   } = {
-    promise: null,
-    resolve: null
+    promise: null as any,
+    resolve: null as any
   }
 
   deferred.promise = new Promise<T>(resolve => {

@@ -1,13 +1,13 @@
 import { asset } from '../../utils/paths'
 import * as Constants from '../../../constants'
 
-export function openAssetExtension(iframeSelector) {
+export function openAssetExtension(iframeSelector: string) {
   cy.getSdk(iframeSelector).then(sdk => {
     sdk.navigator.openAsset(Constants.assets.testImage)
   })
 }
 
-export function openAssetSlideInExtension(iframeSelector) {
+export function openAssetSlideInExtension(iframeSelector: string) {
   return cy.getSdk(iframeSelector).then(sdk =>
     sdk.navigator
       .openAsset(Constants.assets.testImage, {
@@ -17,7 +17,7 @@ export function openAssetSlideInExtension(iframeSelector) {
   )
 }
 
-export function openAssetSlideInWaitExtension(iframeSelector, done) {
+export function openAssetSlideInWaitExtension(iframeSelector: string, done: Function) {
   cy.getSdk(iframeSelector).then(sdk => {
     sdk.navigator
       .openAsset(Constants.assets.testImage, {
@@ -27,25 +27,25 @@ export function openAssetSlideInWaitExtension(iframeSelector, done) {
   })
 }
 
-export function verifyAssetPageUrl(assetId) {
+export function verifyAssetPageUrl(assetId: string) {
   cy.url().should('eq', Cypress.config().baseUrl + asset(assetId))
 }
 
-export function verifyAssetSlideInUrl(assetId, previousEntryId) {
+export function verifyAssetSlideInUrl(assetId: string, previousEntryId: string) {
   cy.url().should(
     'eq',
     Cypress.config().baseUrl + asset(assetId) + `?previousEntries=${previousEntryId}`
   )
 }
 
-export function openAssetTest(iframeSelector) {
+export function openAssetTest(iframeSelector: string) {
   it('opens asset using sdk.navigator.openAsset', () => {
     openAssetExtension(iframeSelector)
     verifyAssetPageUrl(Constants.assets.testImage)
   })
 }
 
-export function openAssetSlideInTest(iframeSelector, currentEntryId) {
+export function openAssetSlideInTest(iframeSelector: string, currentEntryId: string) {
   function clickSlideInClose() {
     return cy.get('[data-test-id="slide-in-layer"] [data-test-id="workbench-back-btn"]').click()
   }
@@ -67,7 +67,7 @@ export function openAssetSlideInTest(iframeSelector, currentEntryId) {
     let closeClicked = false
 
     // callback should be called only after slide in is closed
-    openAssetSlideInWaitExtension(iframeSelector, result => {
+    openAssetSlideInWaitExtension(iframeSelector, (result: any) => {
       expect(result.navigated).to.be.equal(true)
       expect(closeClicked).to.be.equal(true)
       done()
