@@ -17,11 +17,11 @@ export default async () => {
 
   const environmentId = nanoid()
 
-  let environment = await space.createEnvironmentWithId(
+  let environment = (await space.createEnvironmentWithId(
     environmentId,
     { name: environmentId },
     'master'
-  )
+  )) as any
 
   let status = environment.sys.status.sys.id
 

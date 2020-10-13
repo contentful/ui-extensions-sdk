@@ -639,7 +639,7 @@ export interface BaseExtensionSDK {
   parameters: ParametersAPI
   /** Exposes method to identify extension's location */
   location: LocationAPI
-  /** Exposes metmessagehods for checking user's access level */
+  /** Exposes methods for checking user's access level */
   access: AccessAPI
   /** Exposes relevant ids, keys may be ommited based on location */
   ids: IdsAPI

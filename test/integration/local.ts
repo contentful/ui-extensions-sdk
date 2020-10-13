@@ -35,9 +35,9 @@ async function run() {
   listAllEnvironmentVariables()
 
   await createConfigurationFiles({
-    managementToken: config.managementToken,
-    spaceId: config.spaceId,
-    environmentId: config.environmentId
+    managementToken: config.managementToken as string,
+    spaceId: config.spaceId as string,
+    environmentId: config.environmentId as string
   })
 
   await buildExtensions({

@@ -1,10 +1,10 @@
-import * as contentful from 'contentful-management'
+import { createClient } from 'contentful-management'
 
 if (!process.env.CONTENTFUL_CMA_TOKEN) {
   require('dotenv').config()
 }
 
-export const client = contentful.createClient({
+export const client = createClient({
   accessToken: process.env.CONTENTFUL_CMA_TOKEN as string
 })
 

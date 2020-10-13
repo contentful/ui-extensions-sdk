@@ -1,6 +1,14 @@
 import { writeJSONFile, resolvePath, printStepTitle } from '../utils'
 
-export default async ({ managementToken, spaceId, environmentId }: any) => {
+export default async ({
+  managementToken,
+  spaceId,
+  environmentId
+}: {
+  managementToken: string
+  spaceId: string
+  environmentId: string
+}) => {
   printStepTitle('Creating configuration files based on environment variables')
 
   async function writeJSONForExtension(extensionId: string) {

@@ -66,8 +66,8 @@ const run = async () => {
   }
 
   await createConfigurationFiles({
-    managementToken: config.managementToken,
-    spaceId: config.spaceId,
+    managementToken: config.managementToken as string,
+    spaceId: config.spaceId as string,
     environmentId
   })
 
