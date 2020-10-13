@@ -31,7 +31,7 @@ describe('Signal', () => test(Signal))
 
 function test(SignalConstructor: any) {
   describe('instance', () => {
-    let signal: any
+    let signal: Signal
     let spies: any
     beforeEach(() => {
       signal = new SignalConstructor(40)
@@ -60,7 +60,7 @@ function test(SignalConstructor: any) {
       it('throws an error if listener is not a function', () => {
         ;['foo', undefined, 42].forEach(value => {
           expect(() => {
-            signal.attach(value)
+            signal.attach(value as any)
           }).to.throw()
         })
       })

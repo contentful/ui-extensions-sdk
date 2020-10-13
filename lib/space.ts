@@ -47,7 +47,10 @@ const spaceMethods: Array<keyof SpaceAPI> = [
   'getEntityScheduledActions'
 ]
 
-export default function createSpace(channel: Channel, initialContentTypes: ContentType[]) {
+export default function createSpace(
+  channel: Channel,
+  initialContentTypes: ContentType[]
+): SpaceAPI {
   const space = {} as SpaceAPI
 
   spaceMethods.forEach(methodName => {

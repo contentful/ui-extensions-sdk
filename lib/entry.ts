@@ -1,13 +1,13 @@
 import { Channel } from './channel'
 import { MemoizedSignal } from './signal'
-import { EntryFieldInfo } from './types'
+import { EntryAPI, EntryFieldInfo } from './types'
 
 export default function createEntry(
   channel: Channel,
   entryData: any,
   fieldInfo: EntryFieldInfo[],
   createEntryField: Function
-) {
+): EntryAPI {
   let sys = entryData.sys
   const sysChanged = new MemoizedSignal(sys)
   const entryMetadata = entryData.metadata

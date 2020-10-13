@@ -106,7 +106,7 @@ describe(`createWindow()`, () => {
   })
 })
 
-function fireViewportResize(dom: any) {
+function fireViewportResize(dom: Window) {
   const { Event } = dom.window
   dom.window.dispatchEvent(new Event('resize'))
 }

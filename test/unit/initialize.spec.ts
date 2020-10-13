@@ -108,7 +108,7 @@ describe('initializeApi(currentWindow, apiCreator)', function() {
     })
   })
 
-  function sendConnect(dom: { window: Window }, params?: object, messageQueue?: any[]) {
+  function sendConnect(dom: { window: Window }, params?: any, messageQueue?: any[]) {
     dom.window.postMessage(
       {
         method: 'connect',

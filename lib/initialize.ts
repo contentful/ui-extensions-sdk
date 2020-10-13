@@ -22,7 +22,7 @@ export default function createInitializer(
 
   return function init(
     initCb: (sdk: KnownSDK, customSdk: any) => any,
-    { makeCustomApi = null } = {}
+    { makeCustomApi }: { makeCustomApi?: Function } = {}
   ) {
     connectDeferred.promise.then(
       ([channel, params, messageQueue]: [Channel, ConnectMessage, unknown[]]) => {

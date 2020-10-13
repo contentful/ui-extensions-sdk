@@ -13,7 +13,7 @@ export const makeDOM = () => new JSDOM('<!DOCTYPE html>')
 
 export { sinon, expect }
 
-export function mockMutationObserver(dom: any, registerMutationTrigger: Function) {
+export function mockMutationObserver(dom: JSDOM, registerMutationTrigger: Function) {
   const MutationObserverMock = function(cb: Function) {
     registerMutationTrigger(cb)
   }
@@ -42,7 +42,13 @@ export function describeAttachHandlerMember(msg: string, attachHandlerFn: Functi
   })
 }
 
-export function describeChannelCallingMethod(spec: any) {
+export function describeChannelCallingMethod(spec: {
+  creator: Function
+  methodName: string
+  args: any
+  expectedCallArgs?: any
+  channelMethod?: string
+}) {
   const { creator, methodName, args } = spec
   const expectedCallArgs = spec.expectedCallArgs || args
   const channelMethod = spec.channelMethod || methodName

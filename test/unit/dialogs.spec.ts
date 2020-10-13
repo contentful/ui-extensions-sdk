@@ -9,7 +9,7 @@ const SIMPLE_DIALOGS = [
   ['openPrompt', 'prompt']
 ]
 
-const ENTITY_SELECTOR_DIALOGS = [
+const ENTITY_SELECTOR_DIALOGS: [string, string, boolean][] = [
   ['selectSingleEntry', 'Entry', false],
   ['selectSingleAsset', 'Asset', false],
   ['selectMultipleEntries', 'Entry', true],

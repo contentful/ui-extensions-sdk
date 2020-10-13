@@ -4,7 +4,6 @@ import Field from '../../lib/field'
 import FieldLocale from '../../lib/field-locale'
 
 describe(`Field`, () => {
-  // Is a Sinon Stub but also of type Channel
   let channelStub: any
   beforeEach(() => {
     channelStub = {

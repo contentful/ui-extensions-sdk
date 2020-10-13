@@ -1,7 +1,7 @@
 import { sinon, expect, describeAttachHandlerMember } from '../helpers'
 
 import createEntry from '../../lib/entry'
-import { EntryFieldInfo } from '../../lib/types'
+import { EntryAPI, EntryFieldInfo } from '../../lib/types'
 
 describe('createEntry()', () => {
   describe('returned "entry" object', () => {
@@ -26,7 +26,7 @@ describe('createEntry()', () => {
 
     let createEntryFieldSpy: any
     let channelStub: any
-    let entry: any
+    let entry: EntryAPI
     beforeEach(() => {
       createEntryFieldSpy = sinon.spy()
       channelStub = {

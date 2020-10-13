@@ -1,6 +1,7 @@
 import { Channel } from './channel'
+import { WindowAPI } from './types'
 
-export default function createWindow(currentWindow: Window, channel: Channel) {
+export default function createWindow(currentWindow: Window, channel: Channel): WindowAPI {
   // We assume MutationObserver was defined by the web-app
   const { document, MutationObserver } = currentWindow as any
 

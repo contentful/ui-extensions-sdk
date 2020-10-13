@@ -1,4 +1,5 @@
 import { Channel } from './channel'
+import { AppConfigAPI, AppState } from './types'
 
 const HOOK_STAGE_PRE_INSTALL = 'preInstall'
 const HOOK_STAGE_POST_INSTALL = 'postInstall'
@@ -50,7 +51,7 @@ const runHandler = (handler: Function, defaultResult: any, handlerArg?: any) => 
     .catch(handleHandlerError)
 }
 
-export default function createApp(channel: Channel) {
+export default function createApp(channel: Channel): AppConfigAPI {
   const handlers: { [key: string]: any } = {
     [HOOK_STAGE_PRE_INSTALL]: null,
     [HOOK_STAGE_POST_INSTALL]: null
@@ -91,16 +92,16 @@ export default function createApp(channel: Channel) {
 
   return {
     setReady() {
-      return channel.call('callAppMethod', 'setReady')
+      return channel.call('callAppMethod', 'setReady') as Promise<void>
     },
     isInstalled() {
-      return channel.call('callAppMethod', 'isInstalled')
+      return channel.call('callAppMethod', 'isInstalled') as Promise<boolean>
     },
     getParameters() {
-      return channel.call('callAppMethod', 'getParameters')
+      return channel.call('callAppMethod', 'getParameters') as Promise<any>
     },
     getCurrentState() {
-      return channel.call('callAppMethod', 'getCurrentState')
+      return channel.call('callAppMethod', 'getCurrentState') as Promise<AppState | null>
     },
     onConfigure(handler: Function) {
       setHandler(HOOK_STAGE_PRE_INSTALL, handler)

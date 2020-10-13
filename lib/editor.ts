@@ -1,8 +1,11 @@
-import { EditorInterface, EditorLocaleSettings } from './types'
+import { EditorInterface, EditorLocaleSettings, SharedEditorSDK } from './types'
 import { Channel } from './channel'
 import { MemoizedSignal } from './signal'
 
-export default function createEditor(channel: Channel, editorInterface: EditorInterface) {
+export default function createEditor(
+  channel: Channel,
+  editorInterface: EditorInterface
+): SharedEditorSDK['editor'] {
   const _localeSettingsSygnal = new MemoizedSignal(undefined)
   const _showDisabledFieldsSygnal = new MemoizedSignal(undefined)
 
