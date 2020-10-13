@@ -5,7 +5,7 @@ if (!process.env.CONTENTFUL_CMA_TOKEN) {
 }
 
 export const client = contentful.createClient({
-  accessToken: process.env.CONTENTFUL_CMA_TOKEN
+  accessToken: process.env.CONTENTFUL_CMA_TOKEN as string
 })
 
-export const getCurrentSpace = () => client.getSpace(process.env.CONTENTFUL_SPACE_ID)
+export const getCurrentSpace = () => client.getSpace(process.env.CONTENTFUL_SPACE_ID as string)
