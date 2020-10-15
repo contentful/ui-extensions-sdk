@@ -4,17 +4,17 @@ import createWindow from '../../lib/window'
 
 describe(`createWindow()`, () => {
   describe(`returned "window" object`, () => {
-    let dom
-    let window
-    let modifyDOM
-    let channelSendSpy
+    let dom: any
+    let window: any
+    let modifyDOM: any
+    let channelSendSpy: any
     beforeEach(() => {
       dom = makeDOM()
-      mockMutationObserver(dom, cb => {
+      mockMutationObserver(dom, (cb: Function) => {
         modifyDOM = cb
       })
       channelSendSpy = sinon.spy()
-      window = createWindow(dom.window, { send: channelSendSpy })
+      window = createWindow(dom.window, { send: channelSendSpy } as any)
     })
 
     it(`has all expected member functions`, () => {
@@ -24,7 +24,7 @@ describe(`createWindow()`, () => {
     })
 
     describe(`.startAutoResizer()`, () => {
-      let updateHeightSpy
+      let updateHeightSpy: any
       beforeEach(() => {
         updateHeightSpy = sinon.stub(window, 'updateHeight')
         window.startAutoResizer()
@@ -106,7 +106,7 @@ describe(`createWindow()`, () => {
   })
 })
 
-function fireViewportResize(dom) {
+function fireViewportResize(dom: Window) {
   const { Event } = dom.window
   dom.window.dispatchEvent(new Event('resize'))
 }

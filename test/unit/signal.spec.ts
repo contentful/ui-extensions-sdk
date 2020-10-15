@@ -29,10 +29,10 @@ describe('MemoizedSignal', () => {
 
 describe('Signal', () => test(Signal))
 
-function test(SignalConstructor) {
+function test(SignalConstructor: any) {
   describe('instance', () => {
-    let signal
-    let spies
+    let signal: Signal
+    let spies: any
     beforeEach(() => {
       signal = new SignalConstructor(40)
       spies = {
@@ -44,7 +44,7 @@ function test(SignalConstructor) {
           this.two.resetHistory()
           this.three.resetHistory()
         },
-        expectCallCount(obj) {
+        expectCallCount(obj: any) {
           for (const name in obj) {
             expect(this[name]).to.have.callCount(obj[name])
           }
@@ -60,7 +60,7 @@ function test(SignalConstructor) {
       it('throws an error if listener is not a function', () => {
         ;['foo', undefined, 42].forEach(value => {
           expect(() => {
-            signal.attach(value)
+            signal.attach(value as any)
           }).to.throw()
         })
       })

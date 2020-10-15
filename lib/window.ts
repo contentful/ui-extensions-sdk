@@ -1,11 +1,15 @@
-export default function createWindow(currentWindow, channel) {
-  const { document, MutationObserver } = currentWindow
+import { Channel } from './channel'
+import { WindowAPI } from './types'
+
+export default function createWindow(currentWindow: Window, channel: Channel): WindowAPI {
+  // We assume MutationObserver was defined by the web-app
+  const { document, MutationObserver } = currentWindow as any
 
   const autoUpdateHeight = () => {
     self.updateHeight()
   }
   const observer = new MutationObserver(autoUpdateHeight)
-  let oldHeight = null
+  let oldHeight: number
   let isAutoResizing = false
 
   const self = { startAutoResizer, stopAutoResizer, updateHeight }

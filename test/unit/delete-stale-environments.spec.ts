@@ -3,7 +3,7 @@ import environmentMocks from '../mocks/environments'
 import { expect } from '../helpers'
 
 describe('DeleteStaleEnvironments', () => {
-  let currentSpace
+  let currentSpace: any
   beforeEach(() => {
     currentSpace = () =>
       Promise.resolve({

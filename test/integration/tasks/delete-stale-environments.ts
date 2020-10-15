@@ -11,15 +11,15 @@ export default async (currentSpace = getCurrentSpace) => {
   const { items } = environments
 
   // filter for relevant environments
-  const isProtected = name => name === 'master' || name.includes('test')
+  const isProtected = (name: string) => name === 'master' || name.includes('test')
 
-  const isStaleEnvironment = timeStamp => {
+  const isStaleEnvironment = (timeStamp: string) => {
     const environmentDate = new Date(timeStamp).getTime()
     const difference = Date.now() - environmentDate
     return difference >= ONE_DAY_IN_MS
   }
-  const deletedEnvironmentIds = []
-  items.forEach(async environment => {
+  const deletedEnvironmentIds: string[] = []
+  items.forEach(async (environment: any) => {
     const {
       name,
       sys: { createdAt, id }

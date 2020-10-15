@@ -1,7 +1,7 @@
 import { getCurrentSpace } from '../contentful-client'
 import { printStepTitle } from '../utils'
 
-export default async environmentId => {
+export default async (environmentId: string) => {
   printStepTitle('Remove previously created environment')
 
   const space = await getCurrentSpace()

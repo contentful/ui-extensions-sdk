@@ -1,86 +1,96 @@
+import { Channel } from './channel'
 import FieldLocale from './field-locale'
-import { Items } from './types'
+import { EntryFieldAPI, EntryFieldInfo, Items } from './types'
 
-const INFO_PROPS = ['id', 'locales', 'type', 'required', 'validations', 'items']
-
-export default class Field {
+export default class Field implements EntryFieldAPI {
   private _defaultLocale: string
-  private _fieldLocales: FieldLocale[]
-  items: Items
+  private _fieldLocales: { [key: string]: FieldLocale }
+  id: string
+  locales: string[]
+  type: string
+  required: boolean
+  validations: Object[]
+  items?: Items
 
-  constructor(channel, info, defaultLocale) {
-    INFO_PROPS.forEach(prop => {
-      const value = info[prop]
-      if (typeof value !== 'undefined') {
-        this[prop] = info[prop]
-      }
-    })
+  constructor(channel: Channel, info: EntryFieldInfo, defaultLocale: string) {
+    this.id = info.id
+    this.locales = info.locales
+    this.type = info.type
+    this.required = info.required
+    this.validations = info.validations
+    this.items = info.items
 
     this._defaultLocale = defaultLocale
 
-    this._fieldLocales = info.locales.reduce((acc, locale) => {
-      const fieldLocale = new FieldLocale(channel, {
-        id: info.id,
-        type: info.type,
-        required: info.required,
-        validations: info.validations,
-        items: info.items,
-        locale,
-        value: info.values[locale]
-      })
+    this._fieldLocales = info.locales.reduce(
+      (acc: { [key: string]: FieldLocale }, locale: string) => {
+        const fieldLocale = new FieldLocale(channel, {
+          id: info.id,
+          type: info.type,
+          required: info.required,
+          validations: info.validations,
+          items: info.items,
+          locale,
+          value: info.values[locale]
+        })
 
-      return { ...acc, [locale]: fieldLocale }
-    }, {})
+        return { ...acc, [locale]: fieldLocale }
+      },
+      {}
+    )
 
-    assertHasLocale(this, defaultLocale)
+    this.assertHasLocale(defaultLocale)
   }
 
-  getValue(locale) {
+  getValue(locale?: string) {
     return this._getFieldLocale(locale).getValue()
   }
 
-  setValue(value, locale) {
+  setValue(value: any, locale?: string) {
     return this._getFieldLocale(locale).setValue(value)
   }
 
-  removeValue(locale) {
+  removeValue(locale?: string) {
     return this.setValue(undefined, locale)
   }
 
-  onValueChanged(locale, handler) {
+  onValueChanged(locale: string | ((value: any) => void), handler?: (value: any) => void) {
+    const h = handler || locale
     if (!handler) {
-      handler = locale
-      locale = undefined
+      locale = ''
     }
-    return this._getFieldLocale(locale).onValueChanged(handler)
+    return this._getFieldLocale(locale as string).onValueChanged(h as any)
   }
 
-  onIsDisabledChanged(locale, handler) {
+  onIsDisabledChanged(
+    locale: string | ((isDisabled: boolean) => void),
+    handler?: (isDisabled: boolean) => void
+  ) {
+    const h = handler || locale
     if (!handler) {
-      handler = locale
-      locale = undefined
+      locale = ''
     }
 
-    return this._getFieldLocale(locale).onIsDisabledChanged(handler)
+    return this._getFieldLocale(locale as string).onIsDisabledChanged(h as any)
   }
 
-  private _getFieldLocale(locale) {
+  private _getFieldLocale(locale?: string) {
     locale = locale || this._defaultLocale
-    assertHasLocale(this, locale)
+    this.assertHasLocale(locale)
     return this._fieldLocales[locale]
   }
 
-  getForLocale(locale) {
+  getForLocale(locale: string) {
     if (!locale) {
       throw new Error('getForLocale must be passed a locale')
     }
 
     return this._getFieldLocale(locale)
   }
-}
 
-function assertHasLocale(field, locale) {
-  if (!field._fieldLocales[locale]) {
-    throw new Error(`Unknown locale "${locale}" for field "${field.id}"`)
+  assertHasLocale(locale: string) {
+    if (!this._fieldLocales[locale]) {
+      throw new Error(`Unknown locale "${locale}" for field "${this.id}"`)
+    }
   }
 }

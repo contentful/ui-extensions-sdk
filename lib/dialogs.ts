@@ -1,7 +1,16 @@
-const isObject = o => typeof o === 'object' && o !== null && !Array.isArray(o)
-const prepareOptions = options => (isObject(options) ? options : {})
+import { Channel } from './channel'
+import {
+  DialogsAPI,
+  OpenCustomWidgetOptions,
+  OpenAlertOptions,
+  OpenConfirmOptions,
+  IdsAPI
+} from './types'
 
-export default function createDialogs(channel, ids) {
+const isObject = (o: any) => typeof o === 'object' && o !== null && !Array.isArray(o)
+const prepareOptions = (options: any) => (isObject(options) ? options : {})
+
+export default function createDialogs(channel: Channel, ids: IdsAPI): DialogsAPI {
   return {
     openAlert: openSimpleDialog.bind(null, 'alert'),
     openConfirm: openSimpleDialog.bind(null, 'confirm'),
@@ -15,11 +24,11 @@ export default function createDialogs(channel, ids) {
     selectMultipleAssets: openEntitySelector.bind(null, 'Asset', true)
   }
 
-  function openSimpleDialog(type, options?) {
-    return channel.call('openDialog', type, prepareOptions(options))
+  function openSimpleDialog(type: string, options?: OpenAlertOptions | OpenConfirmOptions) {
+    return channel.call('openDialog', type, prepareOptions(options)) as Promise<any>
   }
 
-  function openExtensionDialog(options?) {
+  function openExtensionDialog(options: OpenCustomWidgetOptions) {
     options = prepareOptions(options)
 
     // Use provided ID, default to the current extension.
@@ -31,7 +40,7 @@ export default function createDialogs(channel, ids) {
     }
   }
 
-  function openCurrentDialog(options?) {
+  function openCurrentDialog(options?: Omit<OpenCustomWidgetOptions, 'id'>) {
     if (ids.app) {
       return openCurrentAppDialog(options)
     } else {
@@ -42,22 +51,22 @@ export default function createDialogs(channel, ids) {
     }
   }
 
-  function openCurrentAppDialog(options?) {
+  function openCurrentAppDialog(options?: Omit<OpenCustomWidgetOptions, 'id'>) {
     options = prepareOptions(options)
-    // Force ID of the current app.
-    options = { ...options, id: ids.app }
-    if (options.id) {
-      return channel.call('openDialog', 'app', options)
+    if (ids.app) {
+      // Force ID of the current app.
+      const withForcedId = { ...options, id: ids.app }
+      return channel.call('openDialog', 'app', withForcedId)
     } else {
       throw new Error('Not in the app context.')
     }
   }
 
-  function openEntitySelector(entityType, multiple, options?) {
+  function openEntitySelector(entityType: string, multiple: boolean, options?: any) {
     options = prepareOptions(options)
     options.entityType = entityType
     options.multiple = multiple
 
-    return channel.call('openDialog', 'entitySelector', options)
+    return channel.call('openDialog', 'entitySelector', options) as Promise<any>
   }
 }

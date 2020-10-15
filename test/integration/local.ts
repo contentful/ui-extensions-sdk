@@ -23,7 +23,7 @@ function listAllEnvironmentVariables() {
     console.log(`${envvar}=${process.env[envvar]}`)
   })
   ;['CONTENTFUL_CMA_TOKEN'].forEach(envvar => {
-    console.log(`${envvar}=${process.env[envvar].slice(0, 5)}...`)
+    console.log(`${envvar}=${(process.env[envvar] || '').slice(0, 5)}...`)
   })
 }
 
@@ -35,9 +35,9 @@ async function run() {
   listAllEnvironmentVariables()
 
   await createConfigurationFiles({
-    managementToken: config.managementToken,
-    spaceId: config.spaceId,
-    environmentId: config.environmentId
+    managementToken: config.managementToken as string,
+    spaceId: config.spaceId as string,
+    environmentId: config.environmentId as string
   })
 
   await buildExtensions({

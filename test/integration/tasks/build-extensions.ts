@@ -1,7 +1,7 @@
 import runScript from '../run-script'
 import { printStepTitle } from '../utils'
 
-export default async ({ testLocalSdk }) => {
+export default async ({ testLocalSdk }: any) => {
   printStepTitle('Build extensions')
 
   async function buildExtension(extensionId: string) {

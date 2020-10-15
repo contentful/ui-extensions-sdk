@@ -2,7 +2,7 @@ import nanoid from 'nanoid'
 import { getCurrentSpace } from '../contentful-client'
 import { printStepTitle } from '../utils'
 
-const delay = num => {
+const delay = (num: number) => {
   return new Promise(resolve => {
     setTimeout(() => {
       resolve()
@@ -17,11 +17,11 @@ export default async () => {
 
   const environmentId = nanoid()
 
-  let environment = await space.createEnvironmentWithId(
+  let environment = (await space.createEnvironmentWithId(
     environmentId,
     { name: environmentId },
     'master'
-  )
+  )) as any
 
   let status = environment.sys.status.sys.id
 

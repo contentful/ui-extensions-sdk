@@ -15,17 +15,17 @@ describe('FieldLocale', () => {
       validations: 'VALIDATIONS OF ITEMS'
     }
   }
-  let channelStub
-  let field
+  let channelStub: any
+  let field: any
 
   beforeEach(() => {
     channelStub = {
       _handlers: {},
-      addHandler: function(method, cb) {
+      addHandler: function(method: string, cb: Function) {
         this._handlers[method] = cb
       },
       call: sinon.stub(),
-      receiveMethod: function(method, params) {
+      receiveMethod: function(method: string, params: any) {
         this._handlers[method](...params)
       }
     }
@@ -164,7 +164,7 @@ describe('FieldLocale', () => {
     })
   })
 
-  function testValueMethods(method, newValue?) {
+  function testValueMethods(method: string, newValue?: any) {
     beforeEach(() => {
       field[method](newValue)
     })
@@ -207,8 +207,8 @@ describe('FieldLocale', () => {
   }
 
   function testChannelSignal(
-    method,
-    message,
+    method: string,
+    message: any,
     messageArgs: any[] = ['VALUE'],
     methodArgs = messageArgs
   ) {

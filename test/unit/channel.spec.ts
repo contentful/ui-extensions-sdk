@@ -124,7 +124,7 @@ describe('channel connect', function() {
 
     describe('#addHandler()', function() {
       it('calls callback when message is received', function(done) {
-        this.channel.addHandler('method', function(...params) {
+        this.channel.addHandler('method', function(...params: any) {
           expect(params).to.deep.equal(['a', 'b', 'c'])
           done()
         })

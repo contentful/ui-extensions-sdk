@@ -2,6 +2,7 @@ import { makeDOM, mockMutationObserver, expect } from '../helpers'
 
 import createAPI from '../../lib/api'
 import locations from '../../lib/locations'
+import { AppExtensionSDK, ConnectMessage } from '../../lib/types'
 
 const sharedExpected = [
   'location',
@@ -16,10 +17,10 @@ const sharedExpected = [
   'access'
 ]
 
-function test(expected: string[], location: string, expectedLocation = location) {
-  const channel = { addHandler: () => {} }
+function test(expected: string[], location: string | undefined, expectedLocation = location) {
+  const channel = { addHandler: () => {} } as any
 
-  const data = {
+  const data = ({
     location,
     user: 'USER',
     parameters: 'PARAMS',
@@ -45,12 +46,12 @@ function test(expected: string[], location: string, expectedLocation = location)
     ids: {
       extension: 'my-test-id'
     }
-  }
+  } as unknown) as ConnectMessage
 
   const dom = makeDOM()
   mockMutationObserver(dom, () => {})
 
-  const api = createAPI(channel, data, dom.window)
+  const api = createAPI(channel, data, (dom.window as any) as Window)
 
   // Test location-specific API.
   expect(api).to.have.all.keys(sharedExpected.concat(expected))
@@ -69,7 +70,7 @@ function test(expected: string[], location: string, expectedLocation = location)
 
   // Test location methods (currently only `is`).
   expect(Object.keys(api.location)).to.deep.equal(['is'])
-  expect(api.location.is(expectedLocation)).to.equal(true)
+  expect(api.location.is(expectedLocation as string)).to.equal(true)
   expect(api.location.is('wat?')).to.equal(false)
 
   return api
@@ -110,7 +111,7 @@ describe('createAPI()', () => {
   it('returns correct shape of the app API (app)', () => {
     const expected = ['app']
 
-    const api = test(expected, locations.LOCATION_APP_CONFIG)
+    const api = (test(expected, locations.LOCATION_APP_CONFIG) as unknown) as AppExtensionSDK
 
     expect(api.app).to.have.all.keys([
       'setReady',

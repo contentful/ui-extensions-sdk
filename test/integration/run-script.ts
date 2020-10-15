@@ -1,9 +1,9 @@
 import spawn from 'cross-spawn'
 
-export default (command, args) => {
+export default (command: string, args: any) => {
   return new Promise((resolve, reject) => {
     const child = spawn(command, args, { stdio: 'inherit' })
-    child.on('close', code => {
+    child.on('close', (code: number) => {
       if (code !== 0) {
         reject(new Error(`${command} ${args.join(' ')}. Exit code: ${code}`))
       } else {

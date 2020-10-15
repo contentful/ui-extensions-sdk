@@ -8,7 +8,8 @@ import createEditor from './editor'
 import createNavigator from './navigator'
 import createApp from './app'
 import locations from './locations'
-import { BaseExtensionSDK } from './types'
+import { BaseExtensionSDK, EntryFieldInfo, NavigatorAPI, KnownSDK, ConnectMessage } from './types'
+import { Channel } from './channel'
 
 const DEFAULT_API_PRODUCERS = [
   makeSharedAPI,
@@ -18,7 +19,8 @@ const DEFAULT_API_PRODUCERS = [
   makeWindowAPI
 ]
 
-const LOCATION_TO_API_PRODUCERS = {
+type ProducerFunc = (channel: Channel, data: ConnectMessage, currentWindow: Window) => any
+const LOCATION_TO_API_PRODUCERS: { [location: string]: ProducerFunc[] } = {
   [locations.LOCATION_ENTRY_FIELD]: DEFAULT_API_PRODUCERS,
   [locations.LOCATION_ENTRY_FIELD_SIDEBAR]: DEFAULT_API_PRODUCERS,
   [locations.LOCATION_ENTRY_SIDEBAR]: [makeSharedAPI, makeEntryAPI, makeEditorAPI, makeWindowAPI],
@@ -28,15 +30,19 @@ const LOCATION_TO_API_PRODUCERS = {
   [locations.LOCATION_APP_CONFIG]: [makeSharedAPI, makeAppAPI]
 }
 
-export default function createAPI(channel, data, currentWindow) {
-  const producers = LOCATION_TO_API_PRODUCERS[data.location] || DEFAULT_API_PRODUCERS
+export default function createAPI(
+  channel: Channel,
+  data: ConnectMessage,
+  currentWindow: Window
+): KnownSDK {
+  const producers = LOCATION_TO_API_PRODUCERS[data.location as string] || DEFAULT_API_PRODUCERS
 
   return producers.reduce((api, produce) => {
     return { ...api, ...produce(channel, data, currentWindow) }
-  }, {})
+  }, {}) as any
 }
 
-function makeSharedAPI(channel, data): BaseExtensionSDK {
+function makeSharedAPI(channel: Channel, data: ConnectMessage): BaseExtensionSDK {
   const { user, parameters, locales, ids, initialContentTypes } = data
   const currentLocation = data.location || locations.LOCATION_ENTRY_FIELD
 
@@ -56,33 +62,38 @@ function makeSharedAPI(channel, data): BaseExtensionSDK {
     },
     space: createSpace(channel, initialContentTypes),
     dialogs: createDialogs(channel, ids),
-    navigator: createNavigator(channel, ids),
+    // Typecast because promises returned by navigator methods aren't typed
+    navigator: createNavigator(channel, ids) as NavigatorAPI,
     notifier: {
       success: message => channel.send('notify', { type: 'success', message }),
       error: message => channel.send('notify', { type: 'error', message })
     },
     ids,
     access: {
-      can: (action, entity) => channel.call('checkAccess', action, entity)
+      can: (action: string, entity: any) =>
+        channel.call('checkAccess', action, entity) as Promise<boolean>
     }
   }
 }
 
-function makeWindowAPI(channel, _data, currentWindow) {
+function makeWindowAPI(channel: Channel, _data: any, currentWindow: Window) {
   return {
     window: createWindow(currentWindow, channel)
   }
 }
 
-function makeEditorAPI(channel, data) {
+function makeEditorAPI(channel: Channel, data: any) {
   const { editorInterface } = data
   return {
     editor: createEditor(channel, editorInterface)
   }
 }
 
-function makeEntryAPI(channel, { locales, contentType, entry, fieldInfo }) {
-  const createEntryField = info => new Field(channel, info, locales.default)
+function makeEntryAPI(
+  channel: Channel,
+  { locales, contentType, entry, fieldInfo }: ConnectMessage
+) {
+  const createEntryField = (info: EntryFieldInfo) => new Field(channel, info, locales.default)
 
   return {
     contentType,
@@ -90,19 +101,22 @@ function makeEntryAPI(channel, { locales, contentType, entry, fieldInfo }) {
   }
 }
 
-function makeFieldAPI(channel, { field }) {
+function makeFieldAPI(channel: Channel, { field }: ConnectMessage) {
+  if (!field) {
+    throw new Error('FieldAPI called for location without "field" property defined.')
+  }
   return {
     field: new FieldLocale(channel, field)
   }
 }
 
-function makeDialogAPI(channel) {
+function makeDialogAPI(channel: Channel) {
   return {
-    close: data => channel.send('closeDialog', data)
+    close: (data: any) => channel.send('closeDialog', data)
   }
 }
 
-function makeAppAPI(channel) {
+function makeAppAPI(channel: Channel) {
   const app = createApp(channel)
 
   return {

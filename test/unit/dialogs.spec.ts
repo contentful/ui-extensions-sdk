@@ -1,6 +1,7 @@
 import { expect, describeChannelCallingMethod } from '../helpers'
 
 import createDialogs from '../../lib/dialogs'
+import { Channel } from '../../lib/channel'
 
 const SIMPLE_DIALOGS = [
   ['openAlert', 'alert'],
@@ -8,7 +9,7 @@ const SIMPLE_DIALOGS = [
   ['openPrompt', 'prompt']
 ]
 
-const ENTITY_SELECTOR_DIALOGS = [
+const ENTITY_SELECTOR_DIALOGS: [string, string, boolean][] = [
   ['selectSingleEntry', 'Entry', false],
   ['selectSingleAsset', 'Asset', false],
   ['selectMultipleEntries', 'Entry', true],
@@ -38,7 +39,8 @@ describe('createDialogs()', () => {
     })
 
     describeChannelCallingMethod({
-      creator: channelStub => createDialogs(channelStub, { extension: 'test-id' }),
+      creator: (channelStub: Channel) =>
+        createDialogs(channelStub, { extension: 'test-id' } as any),
       methodName: 'openExtension',
       channelMethod: 'openDialog',
       args: [{ test: true }],
@@ -46,7 +48,8 @@ describe('createDialogs()', () => {
     })
 
     describeChannelCallingMethod({
-      creator: channelStub => createDialogs(channelStub, { extension: 'test-id' }),
+      creator: (channelStub: Channel) =>
+        createDialogs(channelStub, { extension: 'test-id' } as any),
       methodName: 'openExtension',
       channelMethod: 'openDialog',
       args: [{ test: true, id: 'custom-test-id' }],
@@ -55,16 +58,16 @@ describe('createDialogs()', () => {
 
     describe('.openExtension()', () => {
       it('throws if no extension ID is provided (no ID option, app location)', () => {
-        const dialogs = createDialogs({ call: () => {} }, { app: 'some-app-id' })
+        const dialogs = createDialogs({ call: () => {} } as any, { app: 'some-app-id' } as any)
 
         expect(() => {
-          dialogs.openExtension({ test: true })
+          dialogs.openExtension({ test: true } as any)
         }).to.throw(/Extension ID not provided/)
       })
     })
 
     describeChannelCallingMethod({
-      creator: channelStub => createDialogs(channelStub, { app: 'app-id' }),
+      creator: (channelStub: Channel) => createDialogs(channelStub, { app: 'app-id' } as any),
       methodName: 'openCurrentApp',
       channelMethod: 'openDialog',
       args: [{ test: true }],
@@ -72,7 +75,7 @@ describe('createDialogs()', () => {
     })
 
     describeChannelCallingMethod({
-      creator: channelStub => createDialogs(channelStub, { app: 'app-id' }),
+      creator: (channelStub: Channel) => createDialogs(channelStub, { app: 'app-id' } as any),
       methodName: 'openCurrentApp',
       channelMethod: 'openDialog',
       args: [{ test: true, id: 'try-to-overwrite' }],
@@ -81,7 +84,7 @@ describe('createDialogs()', () => {
 
     describe('.openCurrentApp()', () => {
       it('throws if not in app context', () => {
-        const dialogs = createDialogs({ call: () => {} }, { extension: 'some-ext' })
+        const dialogs = createDialogs({ call: () => {} } as any, { extension: 'some-ext' } as any)
 
         expect(() => {
           dialogs.openCurrentApp()

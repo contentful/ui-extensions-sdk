@@ -22,11 +22,11 @@ function listAllEnvironmentVariables() {
     console.log(`${envvar}=${process.env[envvar]}`)
   })
   ;['CONTENTFUL_CMA_TOKEN'].forEach(envvar => {
-    console.log(`${envvar}=${process.env[envvar].slice(0, 5)}...`)
+    console.log(`${envvar}=${(process.env[envvar] || '').slice(0, 5)}...`)
   })
 }
 
-let environmentId
+let environmentId: any
 
 const cleanup = async () => {
   if (environmentId) {
@@ -66,8 +66,8 @@ const run = async () => {
   }
 
   await createConfigurationFiles({
-    managementToken: config.managementToken,
-    spaceId: config.spaceId,
+    managementToken: config.managementToken as string,
+    spaceId: config.spaceId as string,
     environmentId
   })
 
