@@ -175,7 +175,10 @@ export interface EntryAPI {
   onSysChanged: (callback: (sys: EntrySys) => void) => Function
   /** Allows to control the values of all other fields in the current entry. */
   fields: { [key: string]: EntryFieldAPI }
-  /** Optional metadata on an entry */
+  /**
+   * Optional metadata on an entry
+   * @deprecated
+   */
   metadata?: {
     tags?: Link[]
   }
