@@ -122,7 +122,7 @@ export interface FieldAPI {
   onValueChanged: (callback: (value: any) => void) => () => void
   /** Calls the callback when the disabled status of the field changes.
    *  the returned function can be called to remove the handler function */
-  onIsDisabledChanged: (callback: (isDisabled: boolean) => void) => () => boolean
+  onIsDisabledChanged: (callback: (isDisabled: boolean) => void) => () => void
   /** Calls the callback immediately with the current validation errors and whenever the field is re-validated.
    *  the returned function can be called to remove the handler function */
   onSchemaErrorsChanged: (callback: (errors: Error[]) => void) => () => void
@@ -159,8 +159,9 @@ export interface EntryFieldAPI {
   /** Calls the callback when the disabled status of the field changes.
    *  the returned function can be called to remove the handler function */
   onIsDisabledChanged: {
-    (callback: (isDisabled: boolean) => void): () => boolean
-    (locale: string, callback: (isDisabled: boolean) => void): () => boolean
+    (callback: (isDisabled: boolean) => void): () => void
+    (locale: string, callback: (isDisabled: boolean) => void): () => void
+    (...args: any[]): () => void
   }
 
   /** Get an instance of FieldAPI for this field, specific to the locale that is
