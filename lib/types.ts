@@ -509,7 +509,7 @@ export interface NavigatorSlideInfo {
 
 export interface NavigatorOpenResponse<T> {
   navigated: boolean
-  entity: T
+  entity?: T
   slide?: NavigatorSlideInfo
 }
 
