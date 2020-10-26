@@ -71,7 +71,7 @@
     "mocha": "^7.1.0",
     "mochawesome": "^6.1.1",
     "mochawesome-merge": "^4.0.2",
-    "mochawesome-report-generator": "^4.1.0",
+    "mochawesome-report-generator": "^5.1.0",
     "nanoid": "2.1.8",
     "prettier": "1.17.1",
     "rollup": "^2.26.6",
