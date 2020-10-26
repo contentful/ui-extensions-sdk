@@ -50,7 +50,7 @@
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "contentful-management": "^6.1.2",
-    "cross-spawn": "6.0.5",
+    "cross-spawn": "7.0.3",
     "cypress": "^4.4.1",
     "cypress-plugin-retries": "^1.5.2",
     "dotenv": "8.0.0",
