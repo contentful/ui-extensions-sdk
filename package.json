@@ -69,7 +69,7 @@
     "jsdom": "^15.2.1",
     "lint-staged": "9.2.0",
     "mocha": "^7.1.0",
-    "mochawesome": "^5.0.0",
+    "mochawesome": "^6.1.1",
     "mochawesome-merge": "^4.0.2",
     "mochawesome-report-generator": "^4.1.0",
     "nanoid": "2.1.8",
