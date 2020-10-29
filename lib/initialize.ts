@@ -22,8 +22,21 @@ export default function createInitializer(
 
   return function init(
     initCb: (sdk: KnownSDK, customSdk: any) => any,
-    { makeCustomApi }: { makeCustomApi?: Function } = {}
+    {
+      makeCustomApi,
+      supressIframeWarning
+    }: { makeCustomApi?: Function; supressIframeWarning?: boolean } = {
+      supressIframeWarning: false
+    }
   ) {
+    if (!supressIframeWarning && currentWindow.self === currentWindow.top) {
+      console.error(`Cannot use ui-extension-sdk outside of Contenful:
+
+In order for the ui-extension-sdk to function correctly, your app needs to be run in an iframe in the Contentful Web App.
+
+Learn more about local development with the ui-extension-sdk here:
+  https://www.contentful.com/developers/docs/extensibility/ui-extensions/faq/#how-can-i-use-the-ui-extension-sdk-locally`)
+    }
     connectDeferred.promise.then(
       ([channel, params, messageQueue]: [Channel, ConnectMessage, unknown[]]) => {
         const api = apiCreator(channel, params, currentWindow)
