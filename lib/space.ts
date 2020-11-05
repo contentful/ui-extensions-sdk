@@ -44,7 +44,9 @@ const spaceMethods: Array<keyof SpaceAPI> = [
   'getUsers',
 
   'getAllScheduledActions',
-  'getEntityScheduledActions'
+  'getEntityScheduledActions',
+
+  'signRequest'
 ]
 
 export default function createSpace(
