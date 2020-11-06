@@ -1,4 +1,4 @@
-import nanoid from 'nanoid'
+import { nanoid } from 'nanoid'
 import { getCurrentSpace } from '../contentful-client'
 import { printStepTitle } from '../utils'
 
