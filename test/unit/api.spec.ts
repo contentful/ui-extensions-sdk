@@ -14,7 +14,7 @@ const sharedExpected = [
   'navigator',
   'notifier',
   'ids',
-  'access'
+  'access',
 ]
 
 function test(expected: string[], location: string | undefined, expectedLocation = location) {
@@ -30,7 +30,7 @@ function test(expected: string[], location: string | undefined, expectedLocation
       names: 'NAMES',
       fallbacks: 'FALLBACK',
       optional: 'OPTIONAL',
-      direction: 'DIRECTION'
+      direction: 'DIRECTION',
     },
     contentType: 'CONTENT TYPE',
     entry: { sys: 'EID' },
@@ -40,12 +40,12 @@ function test(expected: string[], location: string | undefined, expectedLocation
       editorInterface: {
         controls: [],
         sidebar: [],
-        sys: {}
-      }
+        sys: {},
+      },
     },
     ids: {
-      extension: 'my-test-id'
-    }
+      extension: 'my-test-id',
+    },
   } as unknown) as ConnectMessage
 
   const dom = makeDOM()
@@ -63,7 +63,7 @@ function test(expected: string[], location: string | undefined, expectedLocation
     'names',
     'fallbacks',
     'optional',
-    'direction'
+    'direction',
   ])
   expect(api.notifier).to.have.all.keys(['success', 'error'])
   expect(api.access).to.have.all.keys(['can'])
@@ -119,7 +119,7 @@ describe('createAPI()', () => {
       'getParameters',
       'getCurrentState',
       'onConfigure',
-      'onConfigurationCompleted'
+      'onConfigurationCompleted',
     ])
   })
 })

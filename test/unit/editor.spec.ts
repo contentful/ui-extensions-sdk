@@ -6,12 +6,12 @@ import { EditorInterface } from '../../lib/types'
 
 describe('createEditor()', () => {
   const channelStub = ({
-    addHandler: sinon.spy()
+    addHandler: sinon.spy(),
   } as unknown) as Channel
 
   const editorInterfaceMock = ({
     sidebar: [],
-    controls: []
+    controls: [],
   } as unknown) as EditorInterface
 
   const editor = createEditor(channelStub, editorInterfaceMock)

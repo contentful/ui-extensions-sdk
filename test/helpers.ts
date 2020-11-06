@@ -14,7 +14,7 @@ export const makeDOM = () => new JSDOM('<!DOCTYPE html>')
 export { sinon, expect }
 
 export function mockMutationObserver(dom: JSDOM, registerMutationTrigger: Function) {
-  const MutationObserverMock = function(cb: Function) {
+  const MutationObserverMock = function (cb: Function) {
     registerMutationTrigger(cb)
   }
   MutationObserverMock.prototype.observe = () => {}
@@ -24,7 +24,7 @@ export function mockMutationObserver(dom: JSDOM, registerMutationTrigger: Functi
 
   Object.defineProperty(dom.window, 'MutationObserver', {
     writable: false,
-    value: MutationObserverMock
+    value: MutationObserverMock,
   })
 }
 
@@ -61,7 +61,7 @@ export function describeChannelCallingMethod(spec: {
       channelCallStub = sinon.stub()
       object = creator({
         call: channelCallStub,
-        addHandler: sinon.spy()
+        addHandler: sinon.spy(),
       })
     })
 

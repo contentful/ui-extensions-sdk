@@ -61,9 +61,9 @@ const describeAppHookMessageExchange = ({ description, method, stage, sendsResul
           () => {
             throw new Error()
           },
-          false
+          false,
         ],
-        ['returns empty hash of parameters if a non-object is returned', () => 1, {}]
+        ['returns empty hash of parameters if a non-object is returned', () => 1, {}],
       ] as const
 
       scenarios.forEach(([description, handler, result]) => {
@@ -81,10 +81,10 @@ const describeAppHookMessageExchange = ({ description, method, stage, sendsResul
           async () => {
             throw new Error()
           },
-          false
+          false,
         ],
         ['returns false when a promise rejects', () => Promise.reject(new Error()), false],
-        ['returns empty hash of parameters if a non-object is returned', async () => 1, {}]
+        ['returns empty hash of parameters if a non-object is returned', async () => 1, {}],
       ] as const
 
       scenarios.forEach(([description, handler, result]) => {
@@ -98,13 +98,13 @@ const APP_METHODS = ['setReady', 'isInstalled', 'getParameters']
 
 describe('createApp()', () => {
   describe('returned "app" object', () => {
-    APP_METHODS.forEach(appMethod => {
+    APP_METHODS.forEach((appMethod) => {
       describeChannelCallingMethod({
         creator: createApp,
         methodName: appMethod,
         channelMethod: 'callAppMethod',
         args: [],
-        expectedCallArgs: [appMethod]
+        expectedCallArgs: [appMethod],
       })
     })
 
@@ -112,14 +112,14 @@ describe('createApp()', () => {
       description: '.onConfigure(handler)',
       method: 'onConfigure',
       stage: 'preInstall',
-      sendsResultBack: true
+      sendsResultBack: true,
     })
 
     describeAppHookMessageExchange({
       description: '.onConfigurationCompleted(handler)',
       method: 'onConfigurationCompleted',
       stage: 'postInstall',
-      sendsResultBack: false
+      sendsResultBack: false,
     })
   })
 })

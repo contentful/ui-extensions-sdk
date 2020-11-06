@@ -54,7 +54,7 @@ const runHandler = (handler: Function, defaultResult: any, handlerArg?: any) => 
 export default function createApp(channel: Channel): AppConfigAPI {
   const handlers: { [key: string]: any } = {
     [HOOK_STAGE_PRE_INSTALL]: null,
-    [HOOK_STAGE_POST_INSTALL]: null
+    [HOOK_STAGE_POST_INSTALL]: null,
   }
 
   const setHandler = (stage: string, handler: Function) => {
@@ -70,7 +70,7 @@ export default function createApp(channel: Channel): AppConfigAPI {
     ({
       stage,
       installationRequestId,
-      err
+      err,
     }: {
       stage: string
       installationRequestId: string
@@ -108,6 +108,6 @@ export default function createApp(channel: Channel): AppConfigAPI {
     },
     onConfigurationCompleted(handler: Function) {
       setHandler(HOOK_STAGE_POST_INSTALL, handler)
-    }
+    },
   }
 }

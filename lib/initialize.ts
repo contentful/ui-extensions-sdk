@@ -15,18 +15,15 @@ export default function createInitializer(
 
   // We need to connect right away so we can record incoming
   // messages before `init` is called.
-  connect(
-    currentWindow,
-    (...args) => connectDeferred.resolve(args)
-  )
+  connect(currentWindow, (...args) => connectDeferred.resolve(args))
 
   return function init(
     initCb: (sdk: KnownSDK, customSdk: any) => any,
     {
       makeCustomApi,
-      supressIframeWarning
+      supressIframeWarning,
     }: { makeCustomApi?: Function; supressIframeWarning?: boolean } = {
-      supressIframeWarning: false
+      supressIframeWarning: false,
     }
   ) {
     if (!supressIframeWarning && currentWindow.self === currentWindow.top) {
@@ -50,7 +47,7 @@ Learn more about local development with the ui-extension-sdk here:
         // Handle pending incoming messages.
         // APIs are created before so handlers are already
         // registered on the channel.
-        messageQueue.forEach(m => {
+        messageQueue.forEach((m) => {
           // TODO Expose private handleMessage method
           ;(channel as any)._handleMessage(m)
         })
@@ -68,10 +65,10 @@ function createDeferred<T = any>() {
     resolve: (value: T | PromiseLike<T>) => void
   } = {
     promise: null as any,
-    resolve: null as any
+    resolve: null as any,
   }
 
-  deferred.promise = new Promise<T>(resolve => {
+  deferred.promise = new Promise<T>((resolve) => {
     deferred.resolve = resolve
   })
 

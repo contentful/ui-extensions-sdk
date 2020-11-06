@@ -352,7 +352,7 @@ export const enum PublicActionStatus {
   Scheduled = 'scheduled',
   Succeeded = 'succeeded',
   Failed = 'failed',
-  Canceled = 'canceled'
+  Canceled = 'canceled',
 }
 
 export type ScheduledActionActionType = 'publish' | 'unpublish'

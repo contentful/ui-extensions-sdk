@@ -18,10 +18,10 @@ export function printStepTitle(title: string) {
 export function writeJSONFile(path: string, obj: any) {
   fs.writeFileSync(path, JSON.stringify(obj, null, 2) + os.EOL, {
     encoding: 'utf8',
-    flag: 'w'
+    flag: 'w',
   })
 }
 
 export function sleep(duration: number) {
-  return new Promise(resolve => setTimeout(resolve, duration))
+  return new Promise((resolve) => setTimeout(resolve, duration))
 }

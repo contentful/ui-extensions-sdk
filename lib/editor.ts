@@ -24,6 +24,6 @@ export default function createEditor(
     },
     onShowDisabledFieldsChanged: (handler: Function) => {
       return _showDisabledFieldsSygnal.attach(handler)
-    }
+    },
   }
 }

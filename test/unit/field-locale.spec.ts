@@ -12,8 +12,8 @@ describe('FieldLocale', () => {
     items: {
       type: 'Link',
       linkType: 'Entry',
-      validations: 'VALIDATIONS OF ITEMS'
-    }
+      validations: 'VALIDATIONS OF ITEMS',
+    },
   }
   let channelStub: any
   let field: any
@@ -21,13 +21,13 @@ describe('FieldLocale', () => {
   beforeEach(() => {
     channelStub = {
       _handlers: {},
-      addHandler: function(method: string, cb: Function) {
+      addHandler: function (method: string, cb: Function) {
         this._handlers[method] = cb
       },
       call: sinon.stub(),
-      receiveMethod: function(method: string, params: any) {
+      receiveMethod: function (method: string, params: any) {
         this._handlers[method](...params)
-      }
+      },
     }
 
     const infoCopy = JSON.parse(JSON.stringify(info))
@@ -153,7 +153,7 @@ describe('FieldLocale', () => {
       sinon.assert.calledWithExactly(spy, 'VAL2')
     })
 
-    it('does not call handler when other field value changes', function() {
+    it('does not call handler when other field value changes', function () {
       const spy = sinon.spy()
       field.onValueChanged(spy)
       spy.resetHistory()
@@ -191,7 +191,7 @@ describe('FieldLocale', () => {
       expect(field[method]('val')).to.equal('PROMISE')
     })
 
-    it('calls onValueChanged handler', function() {
+    it('calls onValueChanged handler', function () {
       const spy = sinon.spy()
       field.onValueChanged(spy)
       spy.resetHistory()

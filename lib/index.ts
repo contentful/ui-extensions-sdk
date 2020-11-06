@@ -5,5 +5,5 @@ import locations from './locations'
 // `export = {}` to allow direct CommonJS `require()` instead of `require().default`
 export = {
   init: createInitializer(window, createAPI),
-  locations
+  locations,
 }
