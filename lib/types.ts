@@ -317,7 +317,7 @@ export interface SpaceAPI {
   /* Returns a list of scheduled actions for the currenst space & environment */
   getAllScheduledActions: () => Promise<ScheduledAction[]>
 
-  signRequest?: (request: CanonicalRequest) => Promise<AppSignedRequest>
+  signRequest?: (request: CanonicalRequest) => Promise<Record<string, string>>
 }
 
 export interface CanonicalRequest {
@@ -327,16 +327,7 @@ export interface CanonicalRequest {
   body?: string
 }
 
-export interface AppSignedRequest {
-  sys: {
-    type: 'AppSignedRequest'
-    appDefinition: { type: 'AppDefinition'; id: string }
-  }
-  additionalHeaders: Record<string, string>
-}
-
 /* Locales API */
-
 export interface LocalesAPI {
   /** The default locale code for the current space. */
   default: string

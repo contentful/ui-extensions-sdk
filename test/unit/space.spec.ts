@@ -42,7 +42,9 @@ const spaceMethods = [
   'processAsset',
   'waitUntilAssetProcessed',
 
-  'getUsers'
+  'getUsers',
+
+  'signRequest'
 ]
 
 describe('createSpace()', () => {
