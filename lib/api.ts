@@ -60,7 +60,7 @@ function makeSharedAPI(channel: Channel, data: ConnectMessage): BaseExtensionSDK
       optional: locales.optional,
       direction: locales.direction
     },
-    space: createSpace(channel, initialContentTypes),
+    space: createSpace(channel, initialContentTypes, ids),
     dialogs: createDialogs(channel, ids),
     // Typecast because promises returned by navigator methods aren't typed
     navigator: createNavigator(channel, ids) as NavigatorAPI,
