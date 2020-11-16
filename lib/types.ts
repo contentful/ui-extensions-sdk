@@ -153,7 +153,7 @@ export const enum PublicActionStatus {
   Scheduled = 'scheduled',
   Succeeded = 'succeeded',
   Failed = 'failed',
-  Canceled = 'canceled'
+  Canceled = 'canceled',
 }
 
 export type ScheduledActionActionType = 'publish' | 'unpublish'
@@ -272,6 +272,13 @@ export type CollectionResponse<T> = {
   sys: { type: string }
 }
 
+export interface CanonicalRequest {
+  method: 'GET' | 'PUT' | 'POST' | 'PATCH' | 'DELETE' | 'HEAD' | 'OPTIONS'
+  path: string
+  headers?: Record<string, string>
+  body?: string
+}
+
 export interface SpaceAPI {
   getCachedContentTypes: () => ContentType[]
   getContentType: <T = Object>(id: string) => Promise<T>
@@ -331,13 +338,6 @@ export interface SpaceAPI {
   getAllScheduledActions: () => Promise<ScheduledAction[]>
 
   signRequest?: (request: CanonicalRequest) => Promise<Record<string, string>>
-}
-
-export interface CanonicalRequest {
-  method: 'GET' | 'PUT' | 'POST' | 'PATCH' | 'DELETE' | 'HEAD' | 'OPTIONS'
-  path: string
-  headers?: Record<string, string>
-  body?: string
 }
 
 /* Locales API */
