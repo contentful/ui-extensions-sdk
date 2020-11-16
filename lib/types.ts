@@ -153,7 +153,7 @@ export const enum PublicActionStatus {
   Scheduled = 'scheduled',
   Succeeded = 'succeeded',
   Failed = 'failed',
-  Canceled = 'canceled',
+  Canceled = 'canceled'
 }
 
 export type ScheduledActionActionType = 'publish' | 'unpublish'
@@ -329,10 +329,18 @@ export interface SpaceAPI {
   ) => Promise<ScheduledAction[]>
   /* Returns a list of scheduled actions for the currenst space & environment */
   getAllScheduledActions: () => Promise<ScheduledAction[]>
+
+  signRequest?: (request: CanonicalRequest) => Promise<Record<string, string>>
+}
+
+export interface CanonicalRequest {
+  method: 'GET' | 'PUT' | 'POST' | 'PATCH' | 'DELETE' | 'HEAD' | 'OPTIONS'
+  path: string
+  headers?: Record<string, string>
+  body?: string
 }
 
 /* Locales API */
-
 export interface LocalesAPI {
   /** The default locale code for the current space. */
   default: string
