@@ -68,12 +68,18 @@ workflows:
   # run on every commit
   commit:
     jobs:
-      - unit
-      - integration
+      - unit:
+          context:
+            - docker-hub-auth
+      - integration:
+          context:
+            - docker-hub-auth
   # run in master every hour, 0:40, 1:40...
   schedule:
     jobs:
-      - integration
+      - integration:
+          context:
+            - docker-hub-auth
     triggers:
       - schedule:
           cron: '0 * * * *'
