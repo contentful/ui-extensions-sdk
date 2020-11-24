@@ -7,7 +7,7 @@ const locations: Locations = {
   LOCATION_DIALOG: 'dialog',
   LOCATION_ENTRY_EDITOR: 'entry-editor',
   LOCATION_PAGE: 'page',
-  LOCATION_APP_CONFIG: 'app-config'
+  LOCATION_APP_CONFIG: 'app-config',
 }
 
 export default locations

@@ -55,44 +55,6 @@ export interface EntrySys {
   contentType: Link
 }
 
-export interface FieldInfo {
-  id: string
-  locale: string
-  type: string
-  required: boolean
-  validations: Object[]
-  items?: Items
-  value: any
-}
-
-export interface EntryFieldInfo {
-  id: string
-  locales: string[]
-  type: string
-  required: boolean
-  validations: Object[]
-  items?: Items
-  values: { [locale: string]: any }
-}
-
-export interface ConnectMessage {
-  id: string
-  location: Location[keyof Location]
-  parameters: ParametersAPI
-  locales: LocalesAPI
-  user: User
-  initialContentTypes: ContentType[]
-  ids: IdsAPI
-  contentType: ContentType
-  editorInterface?: EditorInterface
-  entry: {
-    sys: EntrySys
-    metadata?: any
-  }
-  fieldInfo: EntryFieldInfo[]
-  field?: FieldInfo
-}
-
 /* Field API */
 export interface FieldAPI {
   /** The ID of a field is defined in an entry's content type. */
@@ -185,6 +147,57 @@ export interface EntryAPI {
   }
 }
 
+/* Scheduled Actions */
+
+export const enum PublicActionStatus {
+  Scheduled = 'scheduled',
+  Succeeded = 'succeeded',
+  Failed = 'failed',
+  Canceled = 'canceled',
+}
+
+export type ScheduledActionActionType = 'publish' | 'unpublish'
+
+export type ScheduledAction = {
+  sys: {
+    id: string
+    type: 'ScheduledAction'
+    /** ISO 8601 string */
+    createdAt: string
+    createdBy: Link
+    /** ISO 8601 string */
+    canceledAt?: string
+    canceledBy?: Link
+    space: {
+      sys: {
+        id: string
+        linkType: 'Space'
+        type: string
+      }
+    }
+    status: PublicActionStatus
+  }
+  entity: {
+    sys: {
+      id: string
+      linkType: EntityType
+      type: string
+    }
+  }
+  environment: {
+    sys: {
+      id: string
+      linkType: 'Environment'
+      type: string
+    }
+  }
+  scheduledFor: {
+    /** ISO 8601 string */
+    datetime: string
+  }
+  action: ScheduledActionActionType
+}
+
 /* Content Type API */
 
 export interface ContentTypeField {
@@ -259,6 +272,13 @@ export type CollectionResponse<T> = {
   sys: { type: string }
 }
 
+export interface CanonicalRequest {
+  method: 'GET' | 'PUT' | 'POST' | 'PATCH' | 'DELETE' | 'HEAD' | 'OPTIONS'
+  path: string
+  headers?: Record<string, string>
+  body?: string
+}
+
 export interface SpaceAPI {
   getCachedContentTypes: () => ContentType[]
   getContentType: <T = Object>(id: string) => Promise<T>
@@ -285,7 +305,7 @@ export interface SpaceAPI {
 
   getAsset: <T = Object>(id: string) => Promise<T>
   getAssets: <T = Object, InputArgs = SearchQuery>(
-    query?: SearchQuery
+    query?: InputArgs
   ) => Promise<CollectionResponse<T>>
   createAsset: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>
   updateAsset: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>
@@ -316,10 +336,11 @@ export interface SpaceAPI {
   ) => Promise<ScheduledAction[]>
   /* Returns a list of scheduled actions for the currenst space & environment */
   getAllScheduledActions: () => Promise<ScheduledAction[]>
+
+  signRequest?: (request: CanonicalRequest) => Promise<Record<string, string>>
 }
 
 /* Locales API */
-
 export interface LocalesAPI {
   /** The default locale code for the current space. */
   default: string
@@ -344,57 +365,6 @@ export interface WindowAPI {
   startAutoResizer: () => void
   /** Stops resizing the iframe automatically. */
   stopAutoResizer: () => void
-}
-
-/* Scheduled Actions */
-
-export const enum PublicActionStatus {
-  Scheduled = 'scheduled',
-  Succeeded = 'succeeded',
-  Failed = 'failed',
-  Canceled = 'canceled'
-}
-
-export type ScheduledActionActionType = 'publish' | 'unpublish'
-
-export type ScheduledAction = {
-  sys: {
-    id: string
-    type: 'ScheduledAction'
-    /** ISO 8601 string */
-    createdAt: string
-    createdBy: Link
-    /** ISO 8601 string */
-    canceledAt?: string
-    canceledBy?: Link
-    space: {
-      sys: {
-        id: string
-        linkType: 'Space'
-        type: string
-      }
-    }
-    status: PublicActionStatus
-  }
-  entity: {
-    sys: {
-      id: string
-      linkType: EntityType
-      type: string
-    }
-  }
-  environment: {
-    sys: {
-      id: string
-      linkType: 'Environment'
-      type: string
-    }
-  }
-  scheduledFor: {
-    /** ISO 8601 string */
-    datetime: string
-  }
-  action: ScheduledActionActionType
 }
 
 /* Dialogs API */
@@ -586,6 +556,7 @@ export interface IdsAPI {
   app?: string
   space: string
   environment: string
+  environmentAlias?: string
   field: string
   entry: string
   contentType: string
@@ -732,4 +703,42 @@ export interface Locations {
   LOCATION_ENTRY_EDITOR: 'entry-editor'
   LOCATION_PAGE: 'page'
   LOCATION_APP_CONFIG: 'app-config'
+}
+
+export interface FieldInfo {
+  id: string
+  locale: string
+  type: string
+  required: boolean
+  validations: Object[]
+  items?: Items
+  value: any
+}
+
+export interface EntryFieldInfo {
+  id: string
+  locales: string[]
+  type: string
+  required: boolean
+  validations: Object[]
+  items?: Items
+  values: { [locale: string]: any }
+}
+
+export interface ConnectMessage {
+  id: string
+  location: Location[keyof Location]
+  parameters: ParametersAPI
+  locales: LocalesAPI
+  user: User
+  initialContentTypes: ContentType[]
+  ids: IdsAPI
+  contentType: ContentType
+  editorInterface?: EditorInterface
+  entry: {
+    sys: EntrySys
+    metadata?: any
+  }
+  fieldInfo: EntryFieldInfo[]
+  field?: FieldInfo
 }

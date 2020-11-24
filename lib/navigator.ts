@@ -14,7 +14,7 @@ export default function createNavigator(channel: Channel, ids: IdsAPI): Navigato
       return channel.call('navigateToContentEntity', {
         ...opts,
         entityType: 'Entry',
-        id
+        id,
       }) as Promise<any>
     },
     openNewEntry: (contentTypeId: string, opts) => {
@@ -22,41 +22,41 @@ export default function createNavigator(channel: Channel, ids: IdsAPI): Navigato
         ...opts,
         entityType: 'Entry',
         id: null,
-        contentTypeId
+        contentTypeId,
       }) as Promise<any>
     },
     openBulkEditor: (entryId: string, opts) => {
       return channel.call('navigateToBulkEditor', {
         entryId,
-        ...opts
+        ...opts,
       }) as Promise<any>
     },
     openAsset: (id, opts) => {
       return channel.call('navigateToContentEntity', {
         ...opts,
         entityType: 'Asset',
-        id
+        id,
       }) as Promise<any>
     },
-    openNewAsset: opts => {
+    openNewAsset: (opts) => {
       return channel.call('navigateToContentEntity', {
         ...opts,
         entityType: 'Asset',
-        id: null
+        id: null,
       }) as Promise<any>
     },
-    openPageExtension: opts => {
+    openPageExtension: (opts) => {
       return channel.call('navigateToPage', {
         type: 'extension',
         id: ids.extension,
-        ...opts
+        ...opts,
       }) as Promise<any>
     },
-    openCurrentAppPage: opts => {
+    openCurrentAppPage: (opts) => {
       return channel.call('navigateToPage', { type: 'app', id: ids.app, ...opts }) as Promise<any>
     },
-    onSlideInNavigation: handler => {
+    onSlideInNavigation: (handler) => {
       return _onSlideInSignal.attach(handler)
-    }
+    },
   }
 }

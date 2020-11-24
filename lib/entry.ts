@@ -28,6 +28,6 @@ export default function createEntry(
       acc[info.id] = createEntryField(info)
       return acc
     }, {}),
-    ...(entryMetadata ? { metadata: entryMetadata } : {})
+    ...(entryMetadata ? { metadata: entryMetadata } : {}),
   }
 }

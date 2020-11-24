@@ -17,7 +17,7 @@
     "html": false,
     "json": true
   },
-  "blacklistHosts": [
+  "blockHosts": [
     "*intercomcdn.com",
     "*segment.io",
     "*segment.com",

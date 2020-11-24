@@ -6,14 +6,14 @@ import { Channel } from '../../lib/channel'
 const SIMPLE_DIALOGS = [
   ['openAlert', 'alert'],
   ['openConfirm', 'confirm'],
-  ['openPrompt', 'prompt']
+  ['openPrompt', 'prompt'],
 ]
 
 const ENTITY_SELECTOR_DIALOGS: [string, string, boolean][] = [
   ['selectSingleEntry', 'Entry', false],
   ['selectSingleAsset', 'Asset', false],
   ['selectMultipleEntries', 'Entry', true],
-  ['selectMultipleAssets', 'Asset', true]
+  ['selectMultipleAssets', 'Asset', true],
 ]
 
 describe('createDialogs()', () => {
@@ -24,7 +24,7 @@ describe('createDialogs()', () => {
         methodName: method,
         channelMethod: 'openDialog',
         args: [{ test: true }],
-        expectedCallArgs: [type, { test: true }]
+        expectedCallArgs: [type, { test: true }],
       })
     })
 
@@ -34,7 +34,7 @@ describe('createDialogs()', () => {
         methodName: method,
         channelMethod: 'openDialog',
         args: [{ test: true }],
-        expectedCallArgs: ['entitySelector', { test: true, entityType, multiple }]
+        expectedCallArgs: ['entitySelector', { test: true, entityType, multiple }],
       })
     })
 
@@ -44,7 +44,7 @@ describe('createDialogs()', () => {
       methodName: 'openExtension',
       channelMethod: 'openDialog',
       args: [{ test: true }],
-      expectedCallArgs: ['extension', { id: 'test-id', test: true }]
+      expectedCallArgs: ['extension', { id: 'test-id', test: true }],
     })
 
     describeChannelCallingMethod({
@@ -53,7 +53,7 @@ describe('createDialogs()', () => {
       methodName: 'openExtension',
       channelMethod: 'openDialog',
       args: [{ test: true, id: 'custom-test-id' }],
-      expectedCallArgs: ['extension', { id: 'custom-test-id', test: true }]
+      expectedCallArgs: ['extension', { id: 'custom-test-id', test: true }],
     })
 
     describe('.openExtension()', () => {
@@ -71,7 +71,7 @@ describe('createDialogs()', () => {
       methodName: 'openCurrentApp',
       channelMethod: 'openDialog',
       args: [{ test: true }],
-      expectedCallArgs: ['app', { id: 'app-id', test: true }]
+      expectedCallArgs: ['app', { id: 'app-id', test: true }],
     })
 
     describeChannelCallingMethod({
@@ -79,7 +79,7 @@ describe('createDialogs()', () => {
       methodName: 'openCurrentApp',
       channelMethod: 'openDialog',
       args: [{ test: true, id: 'try-to-overwrite' }],
-      expectedCallArgs: ['app', { id: 'app-id', test: true }]
+      expectedCallArgs: ['app', { id: 'app-id', test: true }],
     })
 
     describe('.openCurrentApp()', () => {

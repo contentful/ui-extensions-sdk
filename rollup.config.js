@@ -9,7 +9,9 @@ const makeConfigForOutput = output => ({
   input: './lib/index.ts',
   output,
   plugins: [
-    typescript(),
+    typescript({
+      exclude: ['test/**']
+    }),
     nodeResolve(),
     commonjs({ extensions: ['.ts', '.js'] }),
     terser({

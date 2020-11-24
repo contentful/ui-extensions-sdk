@@ -25,7 +25,7 @@ export default function createWindow(currentWindow: Window, channel: Channel): W
       attributes: true,
       childList: true,
       subtree: true,
-      characterData: true
+      characterData: true,
     })
     currentWindow.addEventListener('resize', autoUpdateHeight)
   }

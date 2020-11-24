@@ -1,9 +1,9 @@
 export const entries = {
-  testImageWrapper: '5ote3hzDHAT4z901csusDX'
+  testImageWrapper: '5ote3hzDHAT4z901csusDX',
 }
 
 export const assets = {
-  testImage: 'IE6B4J60aV9LIIikaS72D'
+  testImage: 'IE6B4J60aV9LIIikaS72D',
 }
 
 export const actionSelectors = {
@@ -14,5 +14,5 @@ export const actionSelectors = {
   openPageExtension: 'open-page-extension-button',
   openPageExtensionNoClose: 'open-page-extension-button-without-closing',
   dialogWrapper: 'my-dialog-extension',
-  sidebarButton: 'sidebar-button'
+  sidebarButton: 'sidebar-button',
 }

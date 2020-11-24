@@ -3,7 +3,7 @@ import { writeJSONFile, resolvePath, printStepTitle } from '../utils'
 export default async ({
   managementToken,
   spaceId,
-  environmentId
+  environmentId,
 }: {
   managementToken: string
   spaceId: string
@@ -16,7 +16,7 @@ export default async ({
       managementToken: managementToken,
       activeSpaceId: spaceId,
       activeEnvironmentId: environmentId,
-      host: 'api.contentful.com'
+      host: 'api.contentful.com',
     })
 
     console.log(`Created test/extensions/${extensionId}/.contentfulrc.json`)
@@ -28,6 +28,6 @@ export default async ({
   writeJSONFile(resolvePath('cypress.env.json'), {
     managementToken: managementToken,
     activeSpaceId: spaceId,
-    activeEnvironmentId: environmentId
+    activeEnvironmentId: environmentId,
   })
 }

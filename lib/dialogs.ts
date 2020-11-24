@@ -4,7 +4,7 @@ import {
   OpenCustomWidgetOptions,
   OpenAlertOptions,
   OpenConfirmOptions,
-  IdsAPI
+  IdsAPI,
 } from './types'
 
 const isObject = (o: any) => typeof o === 'object' && o !== null && !Array.isArray(o)
@@ -21,7 +21,7 @@ export default function createDialogs(channel: Channel, ids: IdsAPI): DialogsAPI
     selectSingleEntry: openEntitySelector.bind(null, 'Entry', false),
     selectSingleAsset: openEntitySelector.bind(null, 'Asset', false),
     selectMultipleEntries: openEntitySelector.bind(null, 'Entry', true),
-    selectMultipleAssets: openEntitySelector.bind(null, 'Asset', true)
+    selectMultipleAssets: openEntitySelector.bind(null, 'Asset', true),
   }
 
   function openSimpleDialog(type: string, options?: OpenAlertOptions | OpenConfirmOptions) {
@@ -46,7 +46,7 @@ export default function createDialogs(channel: Channel, ids: IdsAPI): DialogsAPI
     } else {
       return openExtensionDialog({
         ...options,
-        id: ids.extension
+        id: ids.extension,
       })
     }
   }

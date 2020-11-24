@@ -8,7 +8,7 @@ describe(`Field`, () => {
   beforeEach(() => {
     channelStub = {
       addHandler: sinon.stub(),
-      call: sinon.stub()
+      call: sinon.stub(),
     } as any
   })
 
@@ -30,7 +30,7 @@ describe(`Field`, () => {
       values: {
         'en-US': 'Hello',
         'it-IT': 'Ciao',
-        'de-DE': 'Hallo'
+        'de-DE': 'Hallo',
       },
       type: 'Array',
       required: true,
@@ -38,8 +38,8 @@ describe(`Field`, () => {
       items: {
         type: 'Link',
         linkType: 'Entry',
-        validations: 'VALIDATIONS OF ITEMS'
-      }
+        validations: 'VALIDATIONS OF ITEMS',
+      },
     }
 
     let field: Field
@@ -120,7 +120,7 @@ describe(`Field`, () => {
         }).to.throw('Unknown locale "some-unknown-locale" for field "some-field"')
       })
 
-      info.locales.forEach(locale => {
+      info.locales.forEach((locale) => {
         if (locale === defaultLocale) {
           return
         }
@@ -137,7 +137,7 @@ describe(`Field`, () => {
     describeSetValue(`.setValue(value)`, undefined, defaultLocale)
 
     describe(`.setValue(value, locale)`, () => {
-      info.locales.forEach(locale => {
+      info.locales.forEach((locale) => {
         describeSetValue(`with locale set to "${locale}"`, locale, locale)
       })
 
@@ -177,7 +177,7 @@ describe(`Field`, () => {
     describeRemoveValue(`.removeValue()`)
 
     describe(`.removeValue(locale)`, () => {
-      info.locales.forEach(locale => {
+      info.locales.forEach((locale) => {
         describeRemoveValue(`with locale set to "${locale}"`, locale)
       })
 
@@ -217,7 +217,7 @@ describe(`Field`, () => {
     })
 
     describe(`.onValueChanged(locale, handler)`, () => {
-      info.locales.forEach(locale => {
+      info.locales.forEach((locale) => {
         describeAttachHandlerMember(`with locale set to ${locale}`, () => {
           return field.onValueChanged(locale, () => {})
         })
@@ -231,7 +231,7 @@ describe(`Field`, () => {
     })
 
     describe(`injected channel propagating "valueChanged"`, () => {
-      beforeEach(function() {
+      beforeEach(function () {
         this.receiveValueChanged = (...handlerArgs: any[]) => {
           channelStub.addHandler.args.forEach((args: any) => {
             // Handler registered with channel.addHandler("valueChanged", handler)
@@ -240,14 +240,14 @@ describe(`Field`, () => {
         }
       })
 
-      it('does not update the value when receiving update for another field', function() {
+      it('does not update the value when receiving update for another field', function () {
         const oldValue = field.getValue()
         this.receiveValueChanged('other-id', defaultLocale, 'NEW')
 
         expect(oldValue).to.equal(field.getValue())
       })
 
-      it(`updates the value when receiving a change message`, function() {
+      it(`updates the value when receiving a change message`, function () {
         this.receiveValueChanged(field.id, defaultLocale, 'CHANGED')
         expect(field.getValue()).to.equal('CHANGED')
       })

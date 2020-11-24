@@ -89,7 +89,7 @@ function createSender(sourceId: string, targetWindow: Window) {
         source: sourceId,
         id: messageId,
         method,
-        params
+        params,
       },
       '*'
     )

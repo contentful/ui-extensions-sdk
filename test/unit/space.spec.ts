@@ -42,19 +42,21 @@ const spaceMethods = [
   'processAsset',
   'waitUntilAssetProcessed',
 
-  'getUsers'
+  'getUsers',
+
+  'signRequest',
 ]
 
 describe('createSpace()', () => {
   describe('returned "space" object', () => {
-    spaceMethods.forEach(spaceMethod => {
+    spaceMethods.forEach((spaceMethod) => {
       const args = ['foo', 42, {}]
       describeChannelCallingMethod({
         creator: createSpace,
         methodName: spaceMethod,
         channelMethod: 'callSpaceMethod',
         args: args,
-        expectedCallArgs: [spaceMethod, args]
+        expectedCallArgs: [spaceMethod, args],
       })
     })
   })
