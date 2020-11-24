@@ -11,13 +11,3 @@ update_configs:
       - match:
           dependency_type: "production"
           update_type: "in_range"
-  - package_manager: "javascript"
-    directory: "test/extensions/test-extensions"
-    update_schedule: "daily"
-    automerged_updates:
-      - match:
-          dependency_type: "development"
-          update_type: "all"
-      - match:
-          dependency_type: "production"
-          update_type: "in_range"
