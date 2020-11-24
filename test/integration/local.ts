@@ -10,7 +10,7 @@ const config = {
   spaceId: process.env.CONTENTFUL_SPACE_ID,
   baseUrl: process.env.CONTENTFUL_APP,
   environmentId: process.env.CONTENTFUL_LOCAL_TESTING_ENV,
-  testLocalSdk: process.env.TEST_LOCAL_SDK === 'true'
+  testLocalSdk: process.env.TEST_LOCAL_SDK === 'true',
 }
 
 function listAllEnvironmentVariables() {
@@ -18,11 +18,11 @@ function listAllEnvironmentVariables() {
     'CONTENTFUL_SPACE_ID',
     'CYPRESS_baseUrl',
     'TEST_LOCAL_SDK',
-    'CONTENTFUL_LOCAL_TESTING_ENV'
-  ].forEach(envvar => {
+    'CONTENTFUL_LOCAL_TESTING_ENV',
+  ].forEach((envvar) => {
     console.log(`${envvar}=${process.env[envvar]}`)
   })
-  ;['CONTENTFUL_CMA_TOKEN'].forEach(envvar => {
+  ;['CONTENTFUL_CMA_TOKEN'].forEach((envvar) => {
     console.log(`${envvar}=${(process.env[envvar] || '').slice(0, 5)}...`)
   })
 }
@@ -37,11 +37,11 @@ async function run() {
   await createConfigurationFiles({
     managementToken: config.managementToken as string,
     spaceId: config.spaceId as string,
-    environmentId: config.environmentId as string
+    environmentId: config.environmentId as string,
   })
 
   await buildExtensions({
-    testLocalSdk: config.testLocalSdk
+    testLocalSdk: config.testLocalSdk,
   })
 
   await deployExtensions()

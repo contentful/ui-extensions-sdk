@@ -47,7 +47,7 @@ const spaceMethods: Array<keyof SpaceAPI> = [
   'getAllScheduledActions',
   'getEntityScheduledActions',
 
-  'signRequest'
+  'signRequest',
 ]
 
 export default function createSpace(
@@ -57,11 +57,11 @@ export default function createSpace(
 ): SpaceAPI {
   const space = {} as SpaceAPI
 
-  spaceMethods.forEach(methodName => {
+  spaceMethods.forEach((methodName) => {
     if (methodName === 'signRequest' && ids && !ids.app) {
       return
     }
-    space[methodName] = function(...args: any[]) {
+    space[methodName] = function (...args: any[]) {
       return channel.call('callSpaceMethod', methodName, args)
     } as any
   })

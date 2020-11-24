@@ -48,7 +48,7 @@ function test(SignalConstructor: any) {
           for (const name in obj) {
             expect(this[name]).to.have.callCount(obj[name])
           }
-        }
+        },
       }
     })
 
@@ -58,7 +58,7 @@ function test(SignalConstructor: any) {
       })
 
       it('throws an error if listener is not a function', () => {
-        ;['foo', undefined, 42].forEach(value => {
+        ;['foo', undefined, 42].forEach((value) => {
           expect(() => {
             signal.attach(value as any)
           }).to.throw()

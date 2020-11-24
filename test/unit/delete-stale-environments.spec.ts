@@ -10,11 +10,11 @@ describe('DeleteStaleEnvironments', () => {
         getEnvironments: () =>
           Promise.resolve({
             ...environmentMocks,
-            items: environmentMocks.items.map(environment => ({
+            items: environmentMocks.items.map((environment) => ({
               ...environment,
-              delete: () => Promise.resolve()
-            }))
-          })
+              delete: () => Promise.resolve(),
+            })),
+          }),
       })
   })
 

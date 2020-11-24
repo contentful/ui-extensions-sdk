@@ -10,18 +10,18 @@ describe('createEntry()', () => {
       {
         id: 'field1',
         locales: ['en-US'],
-        values: {}
+        values: {},
       },
       {
         id: 'field2',
         locales: ['en-US'],
-        values: {}
+        values: {},
       },
       {
         id: 'field3',
         locales: ['en-US'],
-        values: {}
-      }
+        values: {},
+      },
     ] as EntryFieldInfo[]
 
     let createEntryFieldSpy: any
@@ -30,7 +30,7 @@ describe('createEntry()', () => {
     beforeEach(() => {
       createEntryFieldSpy = sinon.spy()
       channelStub = {
-        addHandler: sinon.spy()
+        addHandler: sinon.spy(),
       }
 
       entry = createEntry(channelStub, entryData, fieldInfo, createEntryFieldSpy)
@@ -43,12 +43,12 @@ describe('createEntry()', () => {
 
     describe('.fields[id]', () => {
       it('exists for each constructor given field info', () => {
-        const fieldIds = fieldInfo.map(info => info.id)
+        const fieldIds = fieldInfo.map((info) => info.id)
         expect(Object.getOwnPropertyNames(entry.fields)).to.deep.equal(fieldIds)
       })
 
       it('got instantiated with its related constructor given field info', () => {
-        Object.getOwnPropertyNames(entry.fields).forEach(fieldId => {
+        Object.getOwnPropertyNames(entry.fields).forEach((fieldId) => {
           const info = fieldInfo.reduce((acc: any, info) => {
             if (acc === false) {
               return info.id === fieldId ? info : false

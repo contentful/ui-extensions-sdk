@@ -22,7 +22,7 @@ export default async (currentSpace = getCurrentSpace) => {
   items.forEach(async (environment: any) => {
     const {
       name,
-      sys: { createdAt, id }
+      sys: { createdAt, id },
     } = environment
     if (!isProtected(name) && isStaleEnvironment(createdAt)) {
       try {

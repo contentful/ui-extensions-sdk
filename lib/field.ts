@@ -31,7 +31,7 @@ export default class Field implements EntryFieldAPI {
           validations: info.validations,
           items: info.items,
           locale,
-          value: info.values[locale]
+          value: info.values[locale],
         })
 
         return { ...acc, [locale]: fieldLocale }
