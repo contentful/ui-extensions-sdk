@@ -304,8 +304,8 @@ export interface SpaceAPI {
   ) => Promise<CollectionResponse<T>>
 
   getAsset: <T = Object>(id: string) => Promise<T>
-  getAssets: <T = Object, InputArgs = SearchQuery>( // eslint-disable-line @typescript-eslint/no-unused-vars
-    query?: SearchQuery
+  getAssets: <T = Object, InputArgs = SearchQuery>(
+    query?: InputArgs
   ) => Promise<CollectionResponse<T>>
   createAsset: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>
   updateAsset: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>
