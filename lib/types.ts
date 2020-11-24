@@ -556,6 +556,7 @@ export interface IdsAPI {
   app?: string
   space: string
   environment: string
+  environmentAlias?: string
   field: string
   entry: string
   contentType: string
