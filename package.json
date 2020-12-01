@@ -32,7 +32,7 @@
     "@rollup/plugin-commonjs": "16.0.0",
     "@rollup/plugin-node-resolve": "10.0.0",
     "@rollup/plugin-typescript": "8.0.0",
-    "@testing-library/cypress": "7.0.1",
+    "@testing-library/cypress": "7.0.2",
     "@testing-library/dom": "7.28.1",
     "@types/async-retry": "1.4.2",
     "@types/chai-as-promised": "7.1.3",
