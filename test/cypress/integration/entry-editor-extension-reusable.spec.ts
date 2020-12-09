@@ -9,15 +9,16 @@ import { openSdkLocalesDataTest } from './reusable/open-sdk-locales-data-test'
 import { checkSdkEntryDataTest } from './reusable/check-sdk-entry-data-test'
 import { checkSdkSpaceMethods } from './reusable/check-sdk-space-methods-test'
 import { checkSdkNavigationSlideInCallbackTest } from './reusable/check-sdk-navigation-slide-in-callback-test'
+import { entryValueChangedCallbackTest } from './reusable/entry-value-changed-callback-test'
 import {
   openSuccessNotificationTest,
-  openErrorNotificationTest
+  openErrorNotificationTest,
 } from './reusable/open-notifications-test'
 
 const post = {
   id: '5mwUiJB2kThfAG9ZnRNuNQ',
   title: 'My post with a custom entry editor',
-  body: 'body value'
+  body: 'body value',
 }
 
 const iframeSelector = '[data-test-id="cf-ui-workbench-content"] iframe'
@@ -27,7 +28,7 @@ context('Entry editor extension', () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
     cy.visit(entry(post.id))
-    cy.findByTestId('workbench-title').should($title => {
+    cy.findByTestId('workbench-title').should(($title) => {
       expect($title).to.exist
     })
 
@@ -68,4 +69,5 @@ context('Entry editor extension', () => {
   openSuccessNotificationTest(iframeSelector)
   openErrorNotificationTest(iframeSelector)
   checkSdkNavigationSlideInCallbackTest(iframeSelector)
+  entryValueChangedCallbackTest(iframeSelector)
 })
