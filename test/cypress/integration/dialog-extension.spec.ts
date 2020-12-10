@@ -39,25 +39,25 @@ context('Dialog extension', () => {
 
     cy.findByTestId('cf-ui-modal').within(() => {
       cy.waitForIframeWithTestId(dialogExtension)
-      cy.get('iframe').captureIFrameAs('extension')
+      cy.get('iframe').as('dialogExtension')
     })
   })
 
   it('opens page extension using sdk.navigator.openPageExtension (with closing dialog)', () => {
     openPageExtensionTest.openPageExtension(iframeDialogSelector)
-    cy.getSdk(iframeDialogSelector).then(sdk => {
+    cy.getSdk(iframeDialogSelector).then((sdk) => {
       sdk.close()
     })
     openPageExtensionTest.verifyPageExtensionUrl()
 
-    cy.get('@extension').should('not.be.visible')
+    cy.get('@dialogExtension').should('not.exist')
   })
 
   it('opens page extension using sdk.navigator.openPageExtension (without closing dialog)', () => {
     openPageExtensionTest.openPageExtension(iframeDialogSelector)
     openPageExtensionTest.verifyPageExtensionUrl()
 
-    cy.get('@extension').should('be.visible')
+    cy.get('@dialogExtension').should('be.exist')
   })
 
   it('verifies sdk.ids static methods have expected values', () => {
