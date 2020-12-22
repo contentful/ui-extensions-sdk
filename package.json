@@ -19,6 +19,7 @@
     "build:debug": "npm run build -- --sourcemap",
     "typings": "tsc -b typings.tsconfig.json && mv lib/types.d.ts typings.d.ts && cat module-declaration.d.ts >> typings.d.ts",
     "prepublishOnly": "npm run build",
+    "publish-all": "node scripts/deploy.js",
     "size": "echo \"Gzipped, estimate: $(gzip -9 -c dist/cf-extension-api.js | wc -c) bytes\"",
     "integration": "ts-node test/integration",
     "integration:local": "ts-node test/integration/local",
