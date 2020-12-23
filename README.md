@@ -28,7 +28,11 @@ information needs to be discussed, then the conversation should be handled via o
 
 ### publish
 
-Run `npm run publish-all` to publish all three packages:
+A new package version is automatically published to npm using [semantic-release](https://github.com/semantic-release/semantic-release).
+
+To manually publish the package, run `node ./scripts/publish.js`.
+
+We always publish three packages with identical data:
 
 - `contentful-ui-extensions-sdk`
 - `@contentful/ui-extensions-sdk`
