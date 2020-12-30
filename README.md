@@ -36,4 +36,5 @@ We always publish three packages with identical data:
 
 - `contentful-ui-extensions-sdk`
 - `@contentful/ui-extensions-sdk`
+- `contentful-app-sdk`
 - `@contentful/app-sdk`

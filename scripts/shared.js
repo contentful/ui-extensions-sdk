@@ -5,6 +5,7 @@ const fs = require('fs')
 const PACKAGES = [
   'contentful-ui-extensions-sdk',
   '@contentful/ui-extensions-sdk',
+  'contentful-app-sdk',
   '@contentful/app-sdk',
 ]
 const MODULE_MAIN_PATH = path.resolve(__dirname, '..')
