@@ -27,7 +27,8 @@
     "clean-reports": "rm -rf cypress/reports",
     "merge-report": "mochawesome-merge ./test/cypress/reports/separate-reports/*.json > ./test/cypress/reports/full_report.json",
     "generate-report": "npx mochawesome-report-generator --reportDir test/cypress/reports test/cypress/reports/full_report.json",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "publish-all": "node ./scripts/publish.js"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "17.0.0",
@@ -110,7 +111,7 @@
         "@semantic-release/exec",
         {
           "verifyConditionsCmd": "node ./scripts/verify.js",
-          "publishCmd": "node ./scripts/publish.js"
+          "publishCmd": "npm run publish-all"
         }
       ],
       [
