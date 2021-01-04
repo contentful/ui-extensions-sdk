@@ -63,6 +63,21 @@ jobs:
       - store_artifacts:
           path: test/cypress/videos
 
+  semantic-release:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      - run:
+          name: Setup NPM
+          command: |
+            echo $'@contentful:registry=https://registry.npmjs.org/
+            //registry.npmjs.org/:_authToken=${NPM_TOKEN}' >> ~/.npmrc
+      - run: npm ci
+      - run:
+          name: Releasing
+          command: npm run semantic-release
+
 workflows:
   version: 2
   # run on every commit
@@ -70,6 +85,15 @@ workflows:
     jobs:
       - unit
       - integration
+      - semantic-release:
+          requires:
+            - unit
+            - integration
+          filters:
+            branches:
+              only:
+                - master
+
   # run in master every hour, 0:40, 1:40...
   schedule:
     jobs:

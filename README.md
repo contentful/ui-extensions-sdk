@@ -23,3 +23,16 @@ Technical questions, feedback or feature request can be provided directly throug
 for this repository. However, if you are a paying customer or at any point business sensitive
 information needs to be discussed, then the conversation should be handled via our
 [support system](https://www.contentful.com/support/).
+
+## Development
+
+### publish
+
+A new package version is automatically published to npm using [semantic-release](https://github.com/semantic-release/semantic-release).
+
+To manually publish the package, run `node ./scripts/publish.js`.
+
+We always publish two packages with identical data:
+
+- `contentful-ui-extensions-sdk`
+- `@contentful/ui-extensions-sdk`
