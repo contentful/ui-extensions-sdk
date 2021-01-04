@@ -1,4 +1,4 @@
-# Contentful UI Extensions SDK and App SDK
+# Contentful UI Extensions SDK
 
 The UI Extensions SDK is a JavaScript library that allows developers to create custom Contentful Apps
 for the Contentful Web App. Every Contentful App has to include the library in its source.
@@ -32,9 +32,7 @@ A new package version is automatically published to npm using [semantic-release]
 
 To manually publish the package, run `node ./scripts/publish.js`.
 
-We always publish three packages with identical data:
+We always publish two packages with identical data:
 
 - `contentful-ui-extensions-sdk`
 - `@contentful/ui-extensions-sdk`
-- `contentful-app-sdk`
-- `@contentful/app-sdk`
