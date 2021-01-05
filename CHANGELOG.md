@@ -1,3 +1,10 @@
+# [3.27.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.26.1...v3.27.0) (2021-01-05)
+
+
+### Features
+
+* [EXT-2360] add test for onvaluechanged ([#431](https://github.com/contentful/ui-extensions-sdk/issues/431)) ([229d930](https://github.com/contentful/ui-extensions-sdk/commit/229d93072242deab7c38db5c675ccdd1c058e1f7))
+
 # [3.26.1](https://github.com/contentful/ui-extensions-sdk/compare/v3.26.0...v3.26.1) (2021-11-24)
 
 ### Features
