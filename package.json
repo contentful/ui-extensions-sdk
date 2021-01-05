@@ -108,6 +108,12 @@
       "@semantic-release/release-notes-generator",
       "@semantic-release/changelog",
       [
+        "@semantic-release/npm",
+        {
+          "npmPublish": false
+        }
+      ],
+      [
         "@semantic-release/exec",
         {
           "verifyConditionsCmd": "node ./scripts/verify.js",
@@ -117,6 +123,7 @@
       [
         "@semantic-release/git",
         {
+          "message": "chore: ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
           "assets": [
             "CHANGELOG.md",
             "package.json",
