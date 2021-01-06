@@ -75,6 +75,12 @@ const SCENARIOS = [
     expected: { id: 'app-id', page: '/something', type: 'app' },
     channelMethod: 'navigateToPage',
   },
+  {
+    method: 'openAppConfig',
+    args: [],
+    expected: undefined,
+    channelMethod: 'navigateToAppConfig',
+  },
 ]
 
 describe('createNavigator()', () => {
