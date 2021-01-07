@@ -55,6 +55,9 @@ export default function createNavigator(channel: Channel, ids: IdsAPI): Navigato
     openCurrentAppPage: (opts) => {
       return channel.call('navigateToPage', { type: 'app', id: ids.app, ...opts }) as Promise<any>
     },
+    openAppConfig: () => {
+      return channel.call('navigateToAppConfig') as Promise<void>
+    },
     onSlideInNavigation: (handler) => {
       return _onSlideInSignal.attach(handler)
     },

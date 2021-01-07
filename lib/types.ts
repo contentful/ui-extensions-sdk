@@ -521,6 +521,7 @@ export interface NavigatorAPI {
     navigated: boolean
     slide?: NavigatorSlideInfo
   }>
+  openAppConfig: () => Promise<void>
   onSlideInNavigation: (fn: (slide: NavigatorSlideInfo) => void) => Function
 }
 
