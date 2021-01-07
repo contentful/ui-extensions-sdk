@@ -1,3 +1,10 @@
+# [3.28.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.27.0...v3.28.0) (2021-01-07)
+
+
+### Features
+
+* add openAppConfig method ([#476](https://github.com/contentful/ui-extensions-sdk/issues/476)) ([80a808d](https://github.com/contentful/ui-extensions-sdk/commit/80a808d37ebcbb641a6fe3f472efecacc0a65af3))
+
 # [3.27.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.26.1...v3.27.0) (2021-01-05)
 
 
