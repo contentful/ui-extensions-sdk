@@ -72,7 +72,7 @@ jobs:
           name: Setup NPM
           command: |
             echo $'@contentful:registry=https://registry.npmjs.org/
-            //registry.npmjs.org/:_authToken=${NPM_AUTOMATION_TOKEN}' >> ~/.npmrc
+            //registry.npmjs.org/:_authToken=${NPM_TOKEN}' >> ~/.npmrc
       - run: npm ci
       - run:
           name: Releasing
