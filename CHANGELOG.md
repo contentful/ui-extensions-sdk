@@ -1,3 +1,10 @@
+## [3.29.1](https://github.com/contentful/ui-extensions-sdk/compare/v3.29.0...v3.29.1) (2021-01-08)
+
+
+### Bug Fixes
+
+* correct type for canEditAppConfig ([#481](https://github.com/contentful/ui-extensions-sdk/issues/481)) ([808521f](https://github.com/contentful/ui-extensions-sdk/commit/808521f47182775b8a6729fe11c46f8f02ef6729))
+
 # [3.29.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.28.1...v3.29.0) (2021-01-08)
 
 
