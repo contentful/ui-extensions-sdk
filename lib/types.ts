@@ -596,6 +596,8 @@ export interface AccessAPI {
     entity: 'ContentType' | ContentType | 'Asset' | 'Entry' | T
   ): Promise<boolean>
   can<T = Object>(action: ArchiveableAction, entity: 'Asset' | 'Entry' | T): Promise<boolean>
+  /** Whether the current user can edit app config */
+  canEditAppConfig: () => boolean
 }
 
 export interface BaseExtensionSDK {
