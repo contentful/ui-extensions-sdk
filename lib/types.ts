@@ -337,7 +337,7 @@ export interface SpaceAPI {
   /* Returns a list of scheduled actions for the currenst space & environment */
   getAllScheduledActions: () => Promise<ScheduledAction[]>
 
-  signRequest?: (request: CanonicalRequest) => Promise<Record<string, string>>
+  signRequest: (request: CanonicalRequest) => Promise<Record<string, string>>
 }
 
 /* Locales API */
