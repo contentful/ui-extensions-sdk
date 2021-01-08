@@ -1,3 +1,10 @@
+## [3.28.1](https://github.com/contentful/ui-extensions-sdk/compare/v3.28.0...v3.28.1) (2021-01-08)
+
+
+### Bug Fixes
+
+* make signRequest non optional ([#479](https://github.com/contentful/ui-extensions-sdk/issues/479)) ([0f932f1](https://github.com/contentful/ui-extensions-sdk/commit/0f932f18851ac976e8894553696cda2b374a9d8c))
+
 # [3.28.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.27.0...v3.28.0) (2021-01-07)
 
 
