@@ -1,3 +1,10 @@
+# [3.29.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.28.1...v3.29.0) (2021-01-08)
+
+
+### Features
+
+* add canEditAppConfig method ([#480](https://github.com/contentful/ui-extensions-sdk/issues/480)) ([594d37d](https://github.com/contentful/ui-extensions-sdk/commit/594d37d8183be0a4a0edb06a7193a5236ef22208))
+
 ## [3.28.1](https://github.com/contentful/ui-extensions-sdk/compare/v3.28.0...v3.28.1) (2021-01-08)
 
 
