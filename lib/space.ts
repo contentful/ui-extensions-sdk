@@ -1,6 +1,5 @@
 import { ContentType, SpaceAPI } from './types'
 import { Channel } from './channel'
-import { IdsAPI } from '../typings'
 
 const spaceMethods: Array<keyof SpaceAPI> = [
   'getContentType',
@@ -52,15 +51,11 @@ const spaceMethods: Array<keyof SpaceAPI> = [
 
 export default function createSpace(
   channel: Channel,
-  initialContentTypes: ContentType[],
-  ids: IdsAPI
+  initialContentTypes: ContentType[]
 ): SpaceAPI {
   const space = {} as SpaceAPI
 
   spaceMethods.forEach((methodName) => {
-    if (methodName === 'signRequest' && ids && !ids.app) {
-      return
-    }
     space[methodName] = function (...args: any[]) {
       return channel.call('callSpaceMethod', methodName, args)
     } as any
