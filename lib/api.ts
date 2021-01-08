@@ -72,7 +72,7 @@ function makeSharedAPI(channel: Channel, data: ConnectMessage): BaseExtensionSDK
     access: {
       can: (action: string, entity: any) =>
         channel.call('checkAccess', action, entity) as Promise<boolean>,
-      canEditAppConfig: () => channel.call('checkAppConfigAccess'),
+      canEditAppConfig: () => channel.call('checkAppConfigAccess') as Promise<boolean>,
     },
   }
 }
