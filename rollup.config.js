@@ -10,7 +10,8 @@ const makeConfigForOutput = output => ({
   output,
   plugins: [
     typescript({
-      exclude: ['test/**']
+      exclude: ['test/**'],
+      noEmitOnError: true
     }),
     nodeResolve(),
     commonjs({ extensions: ['.ts', '.js'] }),
