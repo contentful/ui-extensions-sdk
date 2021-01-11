@@ -1,3 +1,10 @@
+## [3.29.2](https://github.com/contentful/ui-extensions-sdk/compare/v3.29.1...v3.29.2) (2021-01-11)
+
+
+### Bug Fixes
+
+* emit build errors ([#484](https://github.com/contentful/ui-extensions-sdk/issues/484)) ([5a0f20d](https://github.com/contentful/ui-extensions-sdk/commit/5a0f20d1a126defc091442a336d8551454738051))
+
 ## [3.29.1](https://github.com/contentful/ui-extensions-sdk/compare/v3.29.0...v3.29.1) (2021-01-08)
 
 
