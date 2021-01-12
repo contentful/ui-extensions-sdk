@@ -337,7 +337,7 @@ export interface SpaceAPI {
   /* Returns a list of scheduled actions for the currenst space & environment */
   getAllScheduledActions: () => Promise<ScheduledAction[]>
 
-  signRequest?: (request: CanonicalRequest) => Promise<Record<string, string>>
+  signRequest: (request: CanonicalRequest) => Promise<Record<string, string>>
 }
 
 /* Locales API */
@@ -521,6 +521,7 @@ export interface NavigatorAPI {
     navigated: boolean
     slide?: NavigatorSlideInfo
   }>
+  openAppConfig: () => Promise<void>
   onSlideInNavigation: (fn: (slide: NavigatorSlideInfo) => void) => Function
 }
 
@@ -595,6 +596,8 @@ export interface AccessAPI {
     entity: 'ContentType' | ContentType | 'Asset' | 'Entry' | T
   ): Promise<boolean>
   can<T = Object>(action: ArchiveableAction, entity: 'Asset' | 'Entry' | T): Promise<boolean>
+  /** Whether the current user can edit app config */
+  canEditAppConfig: () => Promise<boolean>
 }
 
 export interface BaseExtensionSDK {

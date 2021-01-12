@@ -60,7 +60,7 @@ function makeSharedAPI(channel: Channel, data: ConnectMessage): BaseExtensionSDK
       optional: locales.optional,
       direction: locales.direction,
     },
-    space: createSpace(channel, initialContentTypes, ids),
+    space: createSpace(channel, initialContentTypes),
     dialogs: createDialogs(channel, ids),
     // Typecast because promises returned by navigator methods aren't typed
     navigator: createNavigator(channel, ids) as NavigatorAPI,
@@ -72,6 +72,7 @@ function makeSharedAPI(channel: Channel, data: ConnectMessage): BaseExtensionSDK
     access: {
       can: (action: string, entity: any) =>
         channel.call('checkAccess', action, entity) as Promise<boolean>,
+      canEditAppConfig: () => channel.call('checkAppConfigAccess') as Promise<boolean>,
     },
   }
 }
