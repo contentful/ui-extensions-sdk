@@ -1,3 +1,10 @@
+# [3.30.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.29.2...v3.30.0) (2021-01-13)
+
+
+### Features
+
+* generate typings ([#473](https://github.com/contentful/ui-extensions-sdk/issues/473)) ([1c9a69b](https://github.com/contentful/ui-extensions-sdk/commit/1c9a69b33e6833e7e16ae6de1e93de89409b73fd))
+
 ## [3.29.2](https://github.com/contentful/ui-extensions-sdk/compare/v3.29.1...v3.29.2) (2021-01-11)
 
 
