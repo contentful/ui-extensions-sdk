@@ -1,3 +1,10 @@
+# [3.31.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.30.0...v3.31.0) (2021-01-13)
+
+
+### Features
+
+* export module as contentfulApp ([#490](https://github.com/contentful/ui-extensions-sdk/issues/490)) ([0eb5aaa](https://github.com/contentful/ui-extensions-sdk/commit/0eb5aaa425adda39f5f800e64b906694d636b53d))
+
 # [3.30.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.29.2...v3.30.0) (2021-01-13)
 
 
