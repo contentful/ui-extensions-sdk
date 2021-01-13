@@ -21,6 +21,7 @@ module.exports = [
   makeConfigForOutput({
     file: pkg.main,
     format: 'umd',
-    name: 'contentfulExtension'
+    name: 'contentfulExtension',
+    footer: 'window.contentfulApp = window.contentfulExtension;'
   })
 ]
