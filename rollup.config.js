@@ -1,6 +1,4 @@
-const { nodeResolve } = require('@rollup/plugin-node-resolve')
-const commonjs = require('@rollup/plugin-commonjs')
-const typescript = require('@rollup/plugin-typescript')
+const typescript = require('rollup-plugin-typescript2')
 const { terser } = require('rollup-plugin-terser')
 
 const pkg = require('./package.json')
@@ -9,12 +7,7 @@ const makeConfigForOutput = output => ({
   input: './lib/index.ts',
   output,
   plugins: [
-    typescript({
-      exclude: ['test/**'],
-      noEmitOnError: true
-    }),
-    nodeResolve(),
-    commonjs({ extensions: ['.ts', '.js'] }),
+    typescript(),
     terser({
       format: {
         comments: false,

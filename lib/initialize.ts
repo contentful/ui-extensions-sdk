@@ -40,8 +40,7 @@ Learn more about local development with the ui-extension-sdk here:
 
         let customApi
         if (typeof makeCustomApi === 'function') {
-          // Reason for the typecast: https://github.com/microsoft/TypeScript/issues/14889
-          customApi = (makeCustomApi as any)(channel, params)
+          customApi = makeCustomApi(channel, params)
         }
 
         // Handle pending incoming messages.

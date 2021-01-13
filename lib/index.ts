@@ -1,9 +1,13 @@
 import createInitializer from './initialize'
 import createAPI from './api'
-import locations from './locations'
+import { KnownSDK } from './types'
 
-// `export = {}` to allow direct CommonJS `require()` instead of `require().default`
-export = {
-  init: createInitializer(window, createAPI),
-  locations,
-}
+export * from './types'
+export { default as locations } from './locations'
+
+type Init = <T extends KnownSDK = KnownSDK>(
+  initCallback: (sdk: T) => any,
+  options?: { supressIframeWarning?: boolean }
+) => void
+
+export const init = createInitializer(window, createAPI) as Init

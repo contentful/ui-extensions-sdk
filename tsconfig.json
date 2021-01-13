@@ -1,18 +1,15 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs",
+    "module": "ES2015",
     "lib": [
       "ESNext",
       "DOM"
     ],
     "strict": true,
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true
   },
-  "exclude": ["test/extensions"]
+  "include": ["lib"],
+  "exclude": ["test"]
 }
