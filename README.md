@@ -35,4 +35,4 @@ To manually publish the package, run `node ./scripts/publish.js`.
 We always publish two packages with identical data:
 
 - `contentful-ui-extensions-sdk`
-- `@contentful/ui-extensions-sdk`
+- `@contentful/app-sdk`
