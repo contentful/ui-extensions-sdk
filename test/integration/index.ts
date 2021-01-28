@@ -16,7 +16,7 @@ import runCypress from './tasks/run-cypress'
 import idsData from '../cypress/integration/fixtures/ids-data.json'
 
 const config = {
-  managementTokenAdmin: process.env.CONTENTFUL_CMA_TOKEN_ADMIN!,
+  managementTokenAdmin: process.env.CONTENTFUL_CMA_TOKEN!,
   managementTokenEditor: process.env.CONTENTFUL_CMA_TOKEN_EDITOR!,
   managementTokenEditorMasterOnly: process.env.CONTENTFUL_CMA_TOKEN_EDITOR_MASTER_ONLY!,
   spaceId: process.env.CONTENTFUL_SPACE_ID!,
@@ -36,7 +36,7 @@ function listAllEnvironmentVariables() {
     console.log(`${envvar}=${process.env[envvar]}`)
   })
   ;[
-    'CONTENTFUL_CMA_TOKEN_ADMIN',
+    'CONTENTFUL_CMA_TOKEN',
     'CONTENTFUL_CMA_TOKEN_EDITOR',
     'CONTENTFUL_CMA_TOKEN_EDITOR_MASTER_ONLY',
   ].forEach((envvar) => {
