@@ -75,14 +75,11 @@ describe('createEntry()', () => {
         ;['getTasks', 'getTask', 'createTask', 'updateTask', 'deleteTask'].forEach((methodName) => {
           const args = ['foo', 42, {}]
           describeChannelCallingMethod({
-            creator: createEntry,
+            creator: (channel) => createEntry(channel, {}, [], () => ({})),
             methodName,
             channelMethod: 'callEntryMethod',
             args: args,
             expectedCallArgs: [methodName, args],
-            makeCreatorArgs: () => {
-              return [{}, [{}], () => ({})]
-            },
           })
         })
       })
