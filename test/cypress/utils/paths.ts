@@ -7,6 +7,10 @@ export function entriesList() {
   return `/spaces/${activeSpaceId}/environments/${activeEnvironmentId}/entries`
 }
 
+export function pageExtensionMaster(extensionId: string) {
+  return `/spaces/${activeSpaceId}/extensions/${extensionId}`
+}
+
 export function pageExtension(extensionId: string) {
   return `/spaces/${activeSpaceId}/environments/${activeEnvironmentId}/extensions/${extensionId}`
 }
