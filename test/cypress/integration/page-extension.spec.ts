@@ -7,7 +7,7 @@ import idsData from './fixtures/ids-data.json'
 const iframeSelector = '[data-test-id="page-extension"] iframe'
 const pageExtensionId = 'my-page-extension'
 
-context('Page extension', () => {
+context(`Page extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
     cy.visit(pageExtension('test-extension'))

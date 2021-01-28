@@ -20,7 +20,7 @@ const iframePageSelector = '[data-test-id="page-extension"] iframe'
 const fieldUiTestId = 'cf-ui-text-input'
 const pageExtensionTestId = 'my-page-extension'
 
-context('Field extension', () => {
+context(`Field extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
     cy.visit(entry(post.id))

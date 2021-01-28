@@ -19,7 +19,7 @@ const iframeDialogSelector = '[data-test-id="cf-ui-modal"] iframe'
 const sidebarExtension = 'cf-ui-sidebar-extension'
 const dialogExtension = 'my-dialog-extension'
 
-context('Dialog extension', () => {
+context(`Dialog extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
 

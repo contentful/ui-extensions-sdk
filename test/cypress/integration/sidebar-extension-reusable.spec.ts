@@ -10,6 +10,7 @@ import {
   openSuccessNotificationTest,
   openErrorNotificationTest,
 } from './reusable/open-notifications-test'
+import { role } from '../utils/role'
 
 const post = {
   id: Cypress.env('entries').sidebarExtension,
@@ -19,7 +20,7 @@ const post = {
 const iframeSelector = '[data-test-id="entry-editor-sidebar"] iframe'
 const sidebarExtension = 'cf-ui-sidebar-extension'
 
-context('Sidebar extension', () => {
+context(`Sidebar extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
 

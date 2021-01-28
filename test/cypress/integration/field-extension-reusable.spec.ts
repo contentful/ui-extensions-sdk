@@ -13,6 +13,7 @@ import {
   openSuccessNotificationTest,
   openErrorNotificationTest,
 } from './reusable/open-notifications-test'
+import { role } from '../utils/role'
 
 const post = {
   id: Cypress.env('entries').fieldExtension,
@@ -22,7 +23,7 @@ const post = {
 const iframeSelector = '[data-field-api-name="title"] iframe'
 const fieldUiTestId = 'cf-ui-text-input'
 
-context('Field extension', () => {
+context(`Field extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
     cy.visit(entry(post.id))

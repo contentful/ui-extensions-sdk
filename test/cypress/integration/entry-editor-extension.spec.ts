@@ -17,7 +17,7 @@ const post = {
 const iframeSelector = '[data-test-id="cf-ui-workbench-content"] iframe'
 const entryExtensionSelector = 'cf-ui-card'
 
-context('Entry editor extension', () => {
+context(`Entry editor extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
     cy.visit(entry(post.id))
