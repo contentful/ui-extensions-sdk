@@ -11,7 +11,8 @@ export default async (currentSpace = getCurrentSpace) => {
   const { items } = environments
 
   // filter for relevant environments
-  const isProtected = (name: string) => name === 'master' || name.includes('test')
+  const isProtected = (name: string) =>
+    name === 'master' || name.includes('test') || name === 'master-base'
 
   const isStaleEnvironment = (timeStamp: string) => {
     const environmentDate = new Date(timeStamp).getTime()

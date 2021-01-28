@@ -1,3 +1,5 @@
+import { role } from './role'
+
 const activeSpaceId = Cypress.env('activeSpaceId')
 const activeEnvironmentId = Cypress.env('activeEnvironmentId')
 

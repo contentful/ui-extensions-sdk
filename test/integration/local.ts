@@ -3,14 +3,25 @@ require('dotenv').config()
 
 import buildExtensions from './tasks/build-extensions'
 import deployExtensions from './tasks/deploy-extensions'
-import createConfigurationFiles from './tasks/create-configuration-files'
+import {
+  createCypressConfiguration,
+  createExtensionConfiguration,
+} from './tasks/create-configuration-files'
+import idsData from '../cypress/integration/fixtures/ids-data.json'
 
 const config = {
-  managementToken: process.env.CONTENTFUL_CMA_TOKEN,
-  spaceId: process.env.CONTENTFUL_SPACE_ID,
-  baseUrl: process.env.CONTENTFUL_APP,
-  environmentId: process.env.CONTENTFUL_LOCAL_TESTING_ENV,
+  managementToken: process.env.CONTENTFUL_CMA_TOKEN!,
+  spaceId: process.env.CONTENTFUL_SPACE_ID!,
+  baseUrl: process.env.CONTENTFUL_APP!,
+  environmentId: process.env.CONTENTFUL_LOCAL_TESTING_ENV!,
   testLocalSdk: process.env.TEST_LOCAL_SDK === 'true',
+}
+
+const entryIds = {
+  entryEditorExtension: idsData.entryEditorExtension.entry,
+  fieldExtension: idsData.fieldExtension.entry,
+  sidebarExtension: idsData.sidebarExtension.entry,
+  onValueChanged: idsData.onValueChanged.entry,
 }
 
 function listAllEnvironmentVariables() {
@@ -34,17 +45,23 @@ async function run() {
 
   listAllEnvironmentVariables()
 
-  await createConfigurationFiles({
-    managementToken: config.managementToken as string,
-    spaceId: config.spaceId as string,
-    environmentId: config.environmentId as string,
+  await createExtensionConfiguration({
+    managementToken: config.managementToken,
+    spaceId: config.spaceId,
+    environmentId: config.environmentId,
   })
-
   await buildExtensions({
     testLocalSdk: config.testLocalSdk,
   })
-
   await deployExtensions()
+
+  await createCypressConfiguration({
+    managementToken: config.managementToken,
+    spaceId: config.spaceId,
+    environmentId: config.environmentId,
+    role: 'admin',
+    entries: entryIds,
+  })
 }
 
 /**

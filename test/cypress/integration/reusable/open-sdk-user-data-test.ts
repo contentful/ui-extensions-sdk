@@ -1,8 +1,9 @@
+import { role } from '../../utils/role'
 import userData from '../fixtures/user-data.json'
 
-export function verifySdkUserData(iframeSelector: string) {
-  cy.getSdk(iframeSelector).then(sdk => {
-    expect(sdk.user).to.deep.equal(userData)
+function verifySdkUserData(iframeSelector: string) {
+  cy.getSdk(iframeSelector).then((sdk) => {
+    expect(sdk.user).to.deep.equal(userData[role])
   })
 }
 

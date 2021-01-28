@@ -1,14 +1,7 @@
 import { entry } from '../utils/paths'
-import { verifyLocation } from '../utils/verify-location'
-import {
-  verifySdkInstallationParameters,
-  verifySdkInstanceParameters,
-} from '../utils/verify-parameters'
-import idsData from './fixtures/ids-data.json'
-import contentTypeData from './fixtures/content-type-data/entry-editor-ext.json'
 
 const post = {
-  id: '5KnnZPwiIq1RNctf1Q1uNl',
+  id: Cypress.env('entries').onValueChanged,
   title: 'My post to test onValueChanged',
   body: 'body value',
 }

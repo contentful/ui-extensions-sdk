@@ -15,7 +15,7 @@ import {
 } from './reusable/open-notifications-test'
 
 const post = {
-  id: '5mwUiJB2kThfAG9ZnRNuNQ',
+  id: Cypress.env('entries').entryEditorExtension,
   title: 'My post with a custom entry editor',
   body: 'body value',
 }
