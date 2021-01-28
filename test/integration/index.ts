@@ -96,24 +96,24 @@ const run = async () => {
   await deployExtensions()
 
   // Admin
-  // await createCypressConfiguration({
-  //   managementToken: config.managementTokenAdmin,
-  //   spaceId: config.spaceId,
-  //   environmentId: tempEnvironmentId,
-  //   role: 'admin',
-  //   entries: entryIds,
-  // })
-  // await runCypress('admin')
+  await createCypressConfiguration({
+    managementToken: config.managementTokenAdmin,
+    spaceId: config.spaceId,
+    environmentId: tempEnvironmentId,
+    role: 'admin',
+    entries: entryIds,
+  })
+  await runCypress('admin')
 
   // Editor
-  // await createCypressConfiguration({
-  //   managementToken: config.managementTokenEditor,
-  //   spaceId: config.spaceId,
-  //   environmentId: tempEnvironmentId,
-  //   role: 'editor',
-  //   entries: entryIds,
-  // })
-  // await runCypress('editor')
+  await createCypressConfiguration({
+    managementToken: config.managementTokenEditor,
+    spaceId: config.spaceId,
+    environmentId: tempEnvironmentId,
+    role: 'editor',
+    entries: entryIds,
+  })
+  await runCypress('editor')
 
   // Editor (master only)
   const newEntryIds = await copyEntries(entryIds)
