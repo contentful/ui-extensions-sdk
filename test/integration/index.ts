@@ -97,7 +97,7 @@ const run = async () => {
   //   role: 'admin',
   //   entries: entryIds,
   // })
-  // await runCypress()
+  // await runCypress('admin')
 
   // Editor
   // await createCypressConfiguration({
@@ -107,7 +107,7 @@ const run = async () => {
   //   role: 'editor',
   //   entries: entryIds,
   // })
-  // await runCypress()
+  // await runCypress('editor')
 
   // Editor (master only)
   const newEntryIds = await copyEntries(entryIds)
@@ -118,7 +118,7 @@ const run = async () => {
     role: 'editorMasterOnly',
     entries: newEntryIds,
   })
-  await runCypress()
+  await runCypress('editorMasterOnly')
 }
 ;(async function main() {
   try {
