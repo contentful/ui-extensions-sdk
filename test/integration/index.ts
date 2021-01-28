@@ -3,7 +3,7 @@ require('dotenv').config()
 
 import asyncRetry from 'async-retry'
 import buildExtensions from './tasks/build-extensions'
-import { copyEntries, deleteEntries } from './tasks/copy-entries'
+import copyEntries from './tasks/copy-entries'
 import {
   createCypressConfiguration,
   createExtensionConfiguration,
@@ -14,6 +14,7 @@ import deleteStaleEnvironments from './tasks/delete-stale-environments'
 import deployExtensions from './tasks/deploy-extensions'
 import runCypress from './tasks/run-cypress'
 import idsData from '../cypress/integration/fixtures/ids-data.json'
+import deleteEntries from './tasks/delete-entries'
 
 const config = {
   managementTokenAdmin: process.env.CONTENTFUL_CMA_TOKEN!,

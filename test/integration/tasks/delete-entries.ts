@@ -1,7 +1,7 @@
 import { getCurrentSpace } from '../contentful-client'
 import { printStepTitle } from '../utils'
 
-export async function deleteEntries(entries: { environmentId: string; entryId: string }[]) {
+export default async function deleteEntries(entries: { environmentId: string; entryId: string }[]) {
   printStepTitle('Deleting temporary entries')
 
   const space = await getCurrentSpace()
