@@ -48,10 +48,12 @@ export function describeChannelCallingMethod(spec: {
   args: any
   expectedCallArgs?: any
   channelMethod?: string
+  makeCreatorArgs?: () => any[]
 }) {
   const { creator, methodName, args } = spec
   const expectedCallArgs = spec.expectedCallArgs || args
   const channelMethod = spec.channelMethod || methodName
+  const makeCreatorArgs = spec.makeCreatorArgs || (() => [])
 
   describe(`.${methodName}()`, () => {
     let object: any
@@ -59,10 +61,13 @@ export function describeChannelCallingMethod(spec: {
 
     beforeEach(() => {
       channelCallStub = sinon.stub()
-      object = creator({
-        call: channelCallStub,
-        addHandler: sinon.spy(),
-      })
+      object = creator(
+        {
+          call: channelCallStub,
+          addHandler: sinon.spy(),
+        },
+        ...makeCreatorArgs()
+      )
     })
 
     it('is a function', () => {
