@@ -3,7 +3,7 @@ require('dotenv').config()
 
 import asyncRetry from 'async-retry'
 import buildExtensions from './tasks/build-extensions'
-import { copyEntries } from './tasks/copy-entries'
+import { copyEntries, deleteEntries } from './tasks/copy-entries'
 import {
   createCypressConfiguration,
   createExtensionConfiguration,
@@ -44,16 +44,21 @@ function listAllEnvironmentVariables() {
   })
 }
 
-let environmentId: any
+let tempEnvironmentId: any
+const tempEntries: { environmentId: string; entryId: string }[] = []
 
 const cleanup = async () => {
-  if (environmentId) {
+  if (tempEnvironmentId) {
     try {
-      await asyncRetry(() => deleteEnvironment(environmentId), { retries: 3 })
+      await asyncRetry(() => deleteEnvironment(tempEnvironmentId), { retries: 3 })
     } catch (e) {
       console.log(e)
       throw new Error('Failed to remove environment')
     }
+  }
+
+  if (tempEntries.length > 0) {
+    await deleteEntries(tempEntries)
   }
 }
 
@@ -71,7 +76,7 @@ const run = async () => {
   }
 
   try {
-    environmentId = await asyncRetry(
+    tempEnvironmentId = await asyncRetry(
       () => {
         return createEnvironment()
       },
@@ -85,7 +90,7 @@ const run = async () => {
   createExtensionConfiguration({
     managementToken: config.managementTokenAdmin,
     spaceId: config.spaceId,
-    environmentId,
+    environmentId: tempEnvironmentId,
   })
   await deployExtensions()
 
@@ -93,7 +98,7 @@ const run = async () => {
   // await createCypressConfiguration({
   //   managementToken: config.managementTokenAdmin,
   //   spaceId: config.spaceId,
-  //   environmentId,
+  //   environmentId: tempEnvironmentId,
   //   role: 'admin',
   //   entries: entryIds,
   // })
@@ -103,7 +108,7 @@ const run = async () => {
   // await createCypressConfiguration({
   //   managementToken: config.managementTokenEditor,
   //   spaceId: config.spaceId,
-  //   environmentId,
+  //   environmentId: tempEnvironmentId,
   //   role: 'editor',
   //   entries: entryIds,
   // })
@@ -111,6 +116,10 @@ const run = async () => {
 
   // Editor (master only)
   const newEntryIds = await copyEntries(entryIds)
+  tempEntries.push(
+    ...Object.keys(newEntryIds).map((entryId) => ({ environmentId: 'master-test', entryId }))
+  )
+
   await createCypressConfiguration({
     managementToken: config.managementTokenEditorMasterOnly,
     spaceId: config.spaceId,
