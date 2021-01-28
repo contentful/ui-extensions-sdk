@@ -118,7 +118,7 @@ const run = async () => {
   // Editor (master only)
   const newEntryIds = await copyEntries(entryIds)
   tempEntries.push(
-    ...Object.keys(newEntryIds).map((entryId) => ({ environmentId: 'master-test', entryId }))
+    ...Object.values(newEntryIds).map((entryId) => ({ environmentId: 'master-test', entryId }))
   )
 
   await createCypressConfiguration({

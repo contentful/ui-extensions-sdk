@@ -6,6 +6,8 @@ export default async function deleteEntries(entries: { environmentId: string; en
 
   const space = await getCurrentSpace()
   for (const { environmentId, entryId } of entries) {
+    console.log('Deleting', { environmentId, entryId })
+
     const environment = await space.getEnvironment(environmentId)
     const entry = await environment.getEntry(entryId)
     await entry.delete()
