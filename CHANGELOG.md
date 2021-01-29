@@ -1,3 +1,10 @@
+# [3.32.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.31.1...v3.32.0) (2021-01-29)
+
+
+### Features
+
+* add Task API to sdk.entry ([#516](https://github.com/contentful/ui-extensions-sdk/issues/516)) ([334097c](https://github.com/contentful/ui-extensions-sdk/commit/334097cf164b93b745bed53e740444b5db84a066))
+
 # [3.31.1](https://github.com/contentful/ui-extensions-sdk/compare/v3.31.0...v3.31.1) (2021-01-28)
 
 ### Documentation
