@@ -113,7 +113,7 @@ const run = async () => {
     role: 'editor',
     entries: entryIds,
   })
-  await runCypress('editor')
+  await runCypress('editor', true)
 
   // Editor (master only)
   const newEntryIds = await copyEntries(entryIds)
@@ -128,7 +128,7 @@ const run = async () => {
     role: 'editorMasterOnly',
     entries: newEntryIds,
   })
-  await runCypress('editorMasterOnly')
+  await runCypress('editorMasterOnly', true)
 }
 ;(async function main() {
   try {

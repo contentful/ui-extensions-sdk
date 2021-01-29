@@ -3,12 +3,10 @@ import '@testing-library/cypress/add-commands'
 declare global {
   namespace Cypress {
     interface Chainable<Subject = any> {
-      captureIFrameAs(value: string): Chainable<Subject>
+      captureIFrameAs(selector: string): Chainable<Subject>
       setupBrowserStorage(): Chainable<Subject>
       waitForIframeWithTestId(selector: string): Chainable<Subject>
       waitForPageLoad(page: string, testId: string): Chainable<Subject>
-      checkForIframe(selector: string): Chainable<Subject>
-      captureIFrameAs(selector: string): Chainable<Subject>
       getSdk(selector: string): Chainable<any>
     }
   }
@@ -27,15 +25,15 @@ Cypress.Commands.add('setupBrowserStorage', function setupBrowserStorage() {
 })
 
 Cypress.Commands.add('waitForIframeWithTestId', function waitForIframe(testId) {
-  cy.get('iframe').should($iframe => {
+  cy.get('iframe').should(($iframe) => {
     expect($iframe.contents().find(`[data-test-id="${testId}"]`)).to.exist
   })
 })
 
-Cypress.Commands.add('getSdk', function(selector) {
+Cypress.Commands.add('getSdk', function (selector) {
   return cy
     .window()
-    .then(win => {
+    .then((win) => {
       return win.document.querySelector(selector).contentWindow.window.sdk
     })
     .then(cy.wrap)
