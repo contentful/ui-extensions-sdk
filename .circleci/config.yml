@@ -1,8 +1,5 @@
 version: 2.1
 
-cache-key: &cache-key
-  key: dependency-cache-primary-{{ arch }}-{{ checksum ".nvmrc" }}-{{ checksum "package-lock.json" }}
-
 jobs:
   unit:
     docker:
@@ -14,17 +11,7 @@ jobs:
       CYPRESS_INSTALL_BINARY: 0
     steps:
       - checkout
-      - restore_cache: *cache-key
       - run: npm ci
-      - run:
-          name: Reverting "package-lock.json"
-          # `npm install` can modify `package-lock.json`. If it happens, we're caching dependencies
-          # with a wrong key. To mitigate this problem we restore the original lock file.
-          command: git checkout -- package-lock.json
-      - save_cache:
-          <<: *cache-key
-          paths:
-            - ./node_modules
       - run: npm run lint
       - run: npm test
       - run: npm run build
@@ -37,17 +24,7 @@ jobs:
           TERM: xterm
     steps:
       - checkout
-      - restore_cache: *cache-key
       - run: npm ci
-      - run:
-          name: Reverting "package-lock.json"
-          # `npm install` can modify `package-lock.json`. If it happens, we're caching dependencies
-          # with a wrong key. To mitigate this problem we restore the original lock file.
-          command: git checkout -- package-lock.json
-      - save_cache:
-          <<: *cache-key
-          paths:
-            - ./node_modules
       - run: npm run build
       - run:
           name: npm run integration
