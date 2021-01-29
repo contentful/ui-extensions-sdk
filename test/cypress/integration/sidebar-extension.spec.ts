@@ -95,11 +95,8 @@ context('Sidebar extension', () => {
         status: 'active',
       })
       expect(task.assignedTo.sys.id).to.equal(userId)
-      const newBody = 'New task description'
-      task.body = newBody
-      await sdk.entry.updateTask(task)
-      const updatedTask = await sdk.entry.getTask(task.sys.id)
-      expect(updatedTask.body).to.equal(newBody)
+      const sameTask = await sdk.entry.getTask(task.sys.id)
+      expect(sameTask.body).to.equal(task.body)
     })
   })
   /* Reusable tests */
