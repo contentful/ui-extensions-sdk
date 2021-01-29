@@ -7,11 +7,17 @@ import {
 } from '../utils/verify-parameters'
 import idsData from './fixtures/ids-data.json'
 import contentTypeData from './fixtures/content-type-data/sidebar-ext.json'
+import { ContentType, EntryAPI, SidebarExtensionSDK } from '../../../lib/types'
 
 const post = {
   id: '3MEimIRakHkmgmqvp1oIsM',
   title: 'My post with a custom sidebar'
 }
+
+// At the time of writing there's no way to turn off notifications for
+// assigned tasks, so this is a dummy user that we have created to absorb
+// the notifications
+const userId = '1C5PnMGIN7CC48PgORg8tp'
 
 const iframeSelector = '[data-test-id="entry-editor-sidebar"] iframe'
 const sidebarExtension = 'cf-ui-sidebar-extension'
@@ -68,6 +74,24 @@ context('Sidebar extension', () => {
     cy.getSdk(iframeSelector).then(() => {
       verifySdkInstallationParameters(iframeSelector)
       verifySdkInstanceParameters(iframeSelector)
+    })
+  })
+
+  it('creates, gets, and deletes a content type through spaceAPI', () => {
+    cy.getSdk(iframeSelector).then(async (sdk: SidebarExtensionSDK) => {
+      const ct = await sdk.space.createContentType<ContentType>({ name: 'Pog Blost', fields: [] })
+      const sameCt = await sdk.space.getContentType(ct.sys.id)
+      expect(ct).to.deep.equal(sameCt)
+      const deleteRes = await sdk.space.deleteContentType(ct.sys.id)
+      expect(deleteRes).to.equal(undefined)
+    })
+  })
+
+  it('calls tasks API on current entry', () => {
+    cy.getSdk(iframeSelector).then(async (sdk: SidebarExtensionSDK) => {
+      const tasks = await sdk.entry.getTasks()
+      expect(tasks.sys.type).to.equal('Array')
+      expect(tasks.items.length).to.equal(0)
     })
   })
 
