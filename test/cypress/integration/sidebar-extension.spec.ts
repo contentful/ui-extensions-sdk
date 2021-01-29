@@ -89,15 +89,11 @@ context('Sidebar extension', () => {
 
   it('calls tasks API on current entry', () => {
     cy.getSdk(iframeSelector).then(async (sdk: SidebarExtensionSDK) => {
-      const task = await sdk.entry.createTask({
-        assignedToId: userId,
-        body: "Can't publish this.",
-        status: 'active',
-      })
-      expect(task.assignedTo.sys.id).to.equal(userId)
-      const sameTask = await sdk.entry.getTask(task.sys.id)
-      expect(sameTask.body).to.equal(task.body)
+      const tasks = await sdk.entry.getTasks()
+      expect(tasks.sys.type).to.equal('Array')
+      expect(tasks.items.length).to.equal(0)
     })
   })
+
   /* Reusable tests */
 })
