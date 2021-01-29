@@ -14,10 +14,6 @@ const post = {
   title: 'My post with a custom sidebar'
 }
 
-const entryApiPost = {
-  id: '63gpU2K9212OoCsi77adYu',
-}
-
 // At the time of writing there's no way to turn off notifications for
 // assigned tasks, so this is a dummy user that we have created to absorb
 // the notifications
