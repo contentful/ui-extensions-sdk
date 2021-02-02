@@ -1,4 +1,9 @@
-import { sinon, expect, describeAttachHandlerMember } from '../helpers'
+import {
+  sinon,
+  expect,
+  describeAttachHandlerMember,
+  describeChannelCallingMethod,
+} from '../helpers'
 
 import createEntry from '../../lib/entry'
 import { EntryAPI, EntryFieldInfo } from '../../lib/types'
@@ -61,6 +66,21 @@ describe('createEntry()', () => {
           const fieldInstantiationCall = createEntryFieldSpy.withArgs(info).firstCall
 
           expect(fieldInstantiationCall).to.have.been.calledOn(field)
+        })
+      })
+    })
+
+    describe('entry methods', () => {
+      describe('calls task API methods', () => {
+        ;['getTasks', 'getTask', 'createTask', 'updateTask', 'deleteTask'].forEach((methodName) => {
+          const args = ['foo', 42, {}]
+          describeChannelCallingMethod({
+            creator: (channel) => createEntry(channel, {}, [], () => ({})),
+            methodName,
+            channelMethod: 'callEntryMethod',
+            args: args,
+            expectedCallArgs: [methodName, args],
+          })
         })
       })
     })

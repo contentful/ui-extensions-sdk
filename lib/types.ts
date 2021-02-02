@@ -35,6 +35,14 @@ export interface Link {
   }
 }
 
+export type CollectionResponse<T> = {
+  items: T[]
+  total: number
+  skip: number
+  limit: number
+  sys: { type: string }
+}
+
 export interface EntrySys {
   space: Link
   id: string
@@ -131,7 +139,44 @@ export interface EntryFieldAPI {
   getForLocale: (locale: string) => FieldAPI
 }
 
-export interface EntryAPI {
+type TaskState = 'active' | 'resolved'
+
+export interface TaskSys {
+  id: string
+  type: 'Task'
+  parentEntity: { sys: Link }
+  space: Link
+  environment: Link
+  createdBy: Link
+  createdAt: string
+  updatedBy: Link
+  updatedAt: string
+  version: number
+}
+
+export interface TaskInputData {
+  assignedToId: string
+  body: string
+  status: TaskState
+}
+
+export interface Task {
+  assignedTo: Link
+  body: string
+  status: TaskState
+  sys: TaskSys
+}
+
+/** Allows accessing the Task API for the current entry. */
+export interface TaskAPI {
+  getTask(id: string): Promise<Task>
+  getTasks(): Promise<CollectionResponse<Task>>
+  createTask(data: TaskInputData): Promise<Task>
+  updateTask(task: Task): Promise<Task>
+  deleteTask(task: Task): Promise<void>
+}
+
+export interface EntryAPI extends TaskAPI {
   /** Returns sys for an entry. */
   getSys: () => EntrySys
   /** Calls the callback with sys every time that sys changes. */
@@ -262,14 +307,6 @@ export interface SearchQuery {
   skip?: number
   limit?: number
   [key: string]: any
-}
-
-export type CollectionResponse<T> = {
-  items: T[]
-  total: number
-  skip: number
-  limit: number
-  sys: { type: string }
 }
 
 export interface CanonicalRequest {
