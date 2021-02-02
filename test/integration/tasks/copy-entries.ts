@@ -2,10 +2,10 @@ import { getCurrentSpace } from '../contentful-client'
 import { printStepTitle } from '../utils'
 
 export default async function copyEntries(entryIds: Record<string, string>) {
-  printStepTitle('Copying entries from master-base to master-test')
+  printStepTitle('Copying entries from test-base to master-test')
 
   const space = await getCurrentSpace()
-  const sourceEnvironment = await space.getEnvironment('master-base')
+  const sourceEnvironment = await space.getEnvironment('test-base')
   const targetEnvironment = await space.getEnvironment('master-test')
 
   const newEntryIds: Record<string, string> = {}
