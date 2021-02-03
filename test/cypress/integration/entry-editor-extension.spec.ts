@@ -1,26 +1,27 @@
 import { entry } from '../utils/paths'
+import { role } from '../utils/role'
 import { verifyLocation } from '../utils/verify-location'
 import {
   verifySdkInstallationParameters,
-  verifySdkInstanceParameters
+  verifySdkInstanceParameters,
 } from '../utils/verify-parameters'
 import idsData from './fixtures/ids-data.json'
 import contentTypeData from './fixtures/content-type-data/entry-editor-ext.json'
 
 const post = {
-  id: '5mwUiJB2kThfAG9ZnRNuNQ',
+  id: Cypress.env('entries').entryEditorExtension,
   title: 'My post with a custom entry editor',
-  body: 'body value'
+  body: 'body value',
 }
 
 const iframeSelector = '[data-test-id="cf-ui-workbench-content"] iframe'
 const entryExtensionSelector = 'cf-ui-card'
 
-context('Entry editor extension', () => {
+context(`Entry editor extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
     cy.visit(entry(post.id))
-    cy.findByTestId('workbench-title').should($title => {
+    cy.findByTestId('workbench-title').should(($title) => {
       expect($title).to.exist
     })
 
@@ -47,26 +48,26 @@ context('Entry editor extension', () => {
   })
 
   it('verifies sdk.ids static methods have expected values', () => {
-    cy.getSdk(iframeSelector).then(sdk => {
+    cy.getSdk(iframeSelector).then((sdk) => {
       expect(sdk.ids.contentType).to.equal(idsData.entryEditorExtension.contentType)
-      expect(sdk.ids.entry).to.equal(idsData.entryEditorExtension.entry)
+      expect(sdk.ids.entry).to.equal(post.id)
       expect(sdk.ids.field).to.equal(undefined)
       expect(sdk.ids.environment).to.equal(Cypress.env('activeEnvironmentId'))
       expect(sdk.ids.extension).to.equal(idsData.extension)
       expect(sdk.ids.space).to.equal(idsData.space)
-      expect(sdk.ids.user).to.equal(idsData.user)
+      expect(sdk.ids.user).to.equal(idsData.user[role])
     })
   })
 
   it('verifies sdk.contentType static methods have expected values', () => {
-    cy.getSdk(iframeSelector).then(sdk => {
+    cy.getSdk(iframeSelector).then((sdk) => {
       contentTypeData.sys.environment.sys.id = Cypress.env('activeEnvironmentId')
       expect(sdk.contentType).to.deep.equal(contentTypeData)
     })
   })
 
   it('verifies sdk.location.is entry-editor', () => {
-    cy.getSdk(iframeSelector).then(sdk => {
+    cy.getSdk(iframeSelector).then((sdk) => {
       verifyLocation(sdk, 'entry-editor')
     })
   })

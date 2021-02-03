@@ -1,4 +1,5 @@
 import { pageExtension } from '../utils/paths'
+import { role } from '../utils/role'
 import { verifyLocation } from '../utils/verify-location'
 import { verifySdkInstallationParameters } from '../utils/verify-parameters'
 import idsData from './fixtures/ids-data.json'
@@ -6,7 +7,7 @@ import idsData from './fixtures/ids-data.json'
 const iframeSelector = '[data-test-id="page-extension"] iframe'
 const pageExtensionId = 'my-page-extension'
 
-context('Page extension', () => {
+context(`Page extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
     cy.visit(pageExtension('test-extension'))
@@ -30,19 +31,19 @@ context('Page extension', () => {
   })
 
   it('verifies sdk.ids static methods have expected values', () => {
-    cy.getSdk(iframeSelector).then(sdk => {
+    cy.getSdk(iframeSelector).then((sdk) => {
       expect(sdk.ids.contentType).to.equal(undefined)
       expect(sdk.ids.entry).to.equal(undefined)
       expect(sdk.ids.field).to.equal(undefined)
       expect(sdk.ids.environment).to.equal(Cypress.env('activeEnvironmentId'))
       expect(sdk.ids.extension).to.equal(idsData.extension)
       expect(sdk.ids.space).to.equal(idsData.space)
-      expect(sdk.ids.user).to.equal(idsData.user)
+      expect(sdk.ids.user).to.equal(idsData.user[role])
     })
   })
 
   it('verifies sdk.location.is page', () => {
-    cy.getSdk(iframeSelector).then(sdk => {
+    cy.getSdk(iframeSelector).then((sdk) => {
       verifyLocation(sdk, 'page')
     })
   })
@@ -54,7 +55,7 @@ context('Page extension', () => {
   })
 
   it('verifies sdk.parameters.invocation has expected default value', () => {
-    cy.getSdk(iframeSelector).then(sdk => {
+    cy.getSdk(iframeSelector).then((sdk) => {
       expect(sdk.parameters.invocation).to.deep.equal({ path: '' })
     })
   })

@@ -11,22 +11,23 @@ import { checkSdkSpaceMethods } from './reusable/check-sdk-space-methods-test'
 import { checkSdkNavigationSlideInCallbackTest } from './reusable/check-sdk-navigation-slide-in-callback-test'
 import {
   openSuccessNotificationTest,
-  openErrorNotificationTest
+  openErrorNotificationTest,
 } from './reusable/open-notifications-test'
+import { role } from '../utils/role'
 
 const post = {
-  id: '1MDrvtuLDk0PcxS5nCkugC',
-  title: 'My first post'
+  id: Cypress.env('entries').fieldExtension,
+  title: 'My first post',
 }
 
 const iframeSelector = '[data-field-api-name="title"] iframe'
 const fieldUiTestId = 'cf-ui-text-input'
 
-context('Field extension', () => {
+context(`Field extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
     cy.visit(entry(post.id))
-    cy.findByTestId('workbench-title').should($title => {
+    cy.findByTestId('workbench-title').should(($title) => {
       expect($title).to.exist
     })
 
@@ -36,9 +37,7 @@ context('Field extension', () => {
 
   it('verifies field extension is rendered and onIsDisabledChanged handler is called', () => {
     cy.get('@extension').within(() => {
-      cy.findByTestId('cf-ui-text-input')
-        .should('exist')
-        .and('not.have.attr', 'disabled')
+      cy.findByTestId('cf-ui-text-input').should('exist').and('not.have.attr', 'disabled')
     })
   })
 

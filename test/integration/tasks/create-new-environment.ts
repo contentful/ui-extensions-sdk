@@ -20,7 +20,7 @@ export default async () => {
   let environment = (await space.createEnvironmentWithId(
     environmentId,
     { name: environmentId },
-    'master'
+    'test-base'
   )) as any
 
   let status = environment.sys.status.sys.id

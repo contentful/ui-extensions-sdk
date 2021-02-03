@@ -1,20 +1,66 @@
-{  
-   "sys":{  
-      "type":"User",
-      "id":"60txzLuZBFZht0aZu6C2jF"
-   },
-   "firstName":"Extensibility",
-   "lastName":"Testing",
-   "email":"team-extensibility+testing@contentful.com",
-   "avatarUrl":"https://www.gravatar.com/avatar/110302d0e16cd279620ffdce0b86ef7c?s=50&d=https%3A%2F%2Favatars.contentful.com%2Finitials%2Fv1%2FET%2F50",
-   "spaceMembership":{  
-      "sys":{  
-         "type":"SpaceMembership",
-         "id":"voxk9gcy69ri-60txzLuZBFZht0aZu6C2jF"
+{
+  "admin": {
+    "sys": {
+      "type": "User",
+      "id": "60txzLuZBFZht0aZu6C2jF"
+    },
+    "firstName": "Extensibility",
+    "lastName": "Testing",
+    "email": "team-extensibility+testing@contentful.com",
+    "avatarUrl": "https://www.gravatar.com/avatar/110302d0e16cd279620ffdce0b86ef7c?s=50&d=https%3A%2F%2Favatars.contentful.com%2Finitials%2Fv1%2FET%2F50",
+    "spaceMembership": {
+      "sys": {
+        "type": "SpaceMembership",
+        "id": "voxk9gcy69ri-60txzLuZBFZht0aZu6C2jF"
       },
-      "admin":true,
-      "roles":[  
-
+      "admin": true,
+      "roles": []
+    }
+  },
+  "editor": {
+    "sys": {
+      "type": "User",
+      "id": "7p08FEb4uWrGKcyt2wygpb"
+    },
+    "firstName": "Extensibility",
+    "lastName": "Testing (Editor)",
+    "email": "team-extensibility+testing-editor@contentful.com",
+    "avatarUrl": "https://www.gravatar.com/avatar/32258d2511fe07bf4c1a6b02784ac851?s=50&d=https%3A%2F%2Favatars.contentful.com%2Finitials%2Fv1%2FET%2F50",
+    "spaceMembership": {
+      "sys": {
+        "type": "SpaceMembership",
+        "id": "voxk9gcy69ri-7p08FEb4uWrGKcyt2wygpb"
+      },
+      "admin": false,
+      "roles": [
+        {
+          "name": "Editor",
+          "description": "Allows editing, publishing and archiving of content"
+        }
       ]
-   }
+    }
+  },
+  "editorMasterOnly": {
+    "sys": {
+      "type": "User",
+      "id": "4h5cViGnZ83aCEPh45WGCu"
+    },
+    "firstName": "Extensibility",
+    "lastName": "Testing (Editor, master only)",
+    "email": "team-extensibility+testing-editor-master-only@contentful.com",
+    "avatarUrl": "https://www.gravatar.com/avatar/144778adc7b0392ea339af6f1d9ebf82?s=50&d=https%3A%2F%2Favatars.contentful.com%2Finitials%2Fv1%2FET%2F50",
+    "spaceMembership": {
+      "sys": {
+        "type": "SpaceMembership",
+        "id": "voxk9gcy69ri-4h5cViGnZ83aCEPh45WGCu"
+      },
+      "admin": false,
+      "roles": [
+        {
+          "name": "Editor (master only)",
+          "description": "Allows editing, publishing and archiving of content"
+        }
+      ]
+    }
+  }
 }

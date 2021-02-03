@@ -1,14 +1,8 @@
 import { entry } from '../utils/paths'
-import { verifyLocation } from '../utils/verify-location'
-import {
-  verifySdkInstallationParameters,
-  verifySdkInstanceParameters,
-} from '../utils/verify-parameters'
-import idsData from './fixtures/ids-data.json'
-import contentTypeData from './fixtures/content-type-data/entry-editor-ext.json'
+import { role } from '../utils/role'
 
 const post = {
-  id: '5KnnZPwiIq1RNctf1Q1uNl',
+  id: Cypress.env('entries').onValueChanged,
   title: 'My post to test onValueChanged',
   body: 'body value',
 }
@@ -16,7 +10,7 @@ const post = {
 const iframeSelector = '[data-test-id="cf-ui-workbench-content"] iframe'
 const entryExtensionSelector = 'cf-ui-card'
 
-context('Entry editor extension', () => {
+context(`Entry editor extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
     cy.visit(entry(post.id))

@@ -7,13 +7,14 @@ import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
 import { openSdkLocalesDataTest } from './reusable/open-sdk-locales-data-test'
 import {
   openSuccessNotificationTest,
-  openErrorNotificationTest
+  openErrorNotificationTest,
 } from './reusable/open-notifications-test'
+import { role } from '../utils/role'
 
 const iframeSelector = '[data-test-id="page-extension"] iframe'
 const pageExtensionId = 'my-page-extension'
 
-context('Page extension', () => {
+context(`Page extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
     cy.visit(pageExtension('test-extension'))
