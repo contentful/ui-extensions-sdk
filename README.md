@@ -5,7 +5,7 @@ for the Contentful Web App. Every Contentful App has to include the library in i
 
 ## Resources
 
-- [App SDK reference](https://www.contentful.com/developers/docs/extensibility/ui-extensions/sdk/)
+- [App SDK reference](https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/)
 - [App Framework general documentation](https://www.contentful.com/developers/docs/extensibility/app-framework/)
 - [UI Extensions general documentation](https://www.contentful.com/developers/docs/extensibility/ui-extensions/)
 - [Contentful Apps Management HTTP API reference](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/app-definitions)
