@@ -1,3 +1,10 @@
+## [3.32.1](https://github.com/contentful/ui-extensions-sdk/compare/v3.32.0...v3.32.1) (2021-02-16)
+
+
+### Bug Fixes
+
+* link to App SDK reference ([#550](https://github.com/contentful/ui-extensions-sdk/issues/550)) ([be47635](https://github.com/contentful/ui-extensions-sdk/commit/be47635c3c5b621e501df3643292c6c2bd2ef417))
+
 # [3.32.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.31.1...v3.32.0) (2021-01-29)
 
 ### Features
