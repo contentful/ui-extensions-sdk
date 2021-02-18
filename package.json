@@ -76,7 +76,7 @@
     "mocha": "8.3.0",
     "mochawesome": "6.2.1",
     "mochawesome-merge": "4.2.0",
-    "mochawesome-report-generator": "5.1.0",
+    "mochawesome-report-generator": "5.2.0",
     "nanoid": "3.1.20",
     "prettier": "2.2.1",
     "rollup": "2.39.0",
