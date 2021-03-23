@@ -1,3 +1,10 @@
+## [3.32.2](https://github.com/contentful/ui-extensions-sdk/compare/v3.32.1...v3.32.2) (2021-03-23)
+
+
+### Bug Fixes
+
+* [EXT-2508] use husky v4 ([#611](https://github.com/contentful/ui-extensions-sdk/issues/611)) ([85e1d4f](https://github.com/contentful/ui-extensions-sdk/commit/85e1d4f43e710b747f0ecba9d35396d8dfaacc10))
+
 ## [3.32.1](https://github.com/contentful/ui-extensions-sdk/compare/v3.32.0...v3.32.1) (2021-02-16)
 
 
