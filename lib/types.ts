@@ -622,6 +622,43 @@ export type CrudAction = 'create' | 'read' | 'update' | 'delete'
 export type PublishableAction = 'publish' | 'unpublish'
 export type ArchiveableAction = 'archive' | 'unarchive'
 
+type Policy = {
+  actions: 'all' | any[]
+  effect: 'allow' | 'deny'
+}
+
+export interface TokenParams {
+  space: object
+  policies: Policy[]
+}
+
+export interface ApiKey {
+  sys: {
+    type: 'ApiKey' | 'PreviewApiKey'
+  }
+  space: object
+  policies: Policy[]
+}
+
+export type Action =
+  | 'create'
+  | 'read'
+  | 'update'
+  | 'delete'
+  | 'publish'
+  | 'unpublish'
+  | 'archive'
+  | 'unarchive'
+
+export type TypeName =
+  | 'Entry'
+  | 'Asset'
+  | 'ContentType'
+  | 'Extension'
+  | 'UIConfig'
+  | 'EditorInterface'
+  | 'UserUIConfig'
+
 export interface AccessAPI {
   can(action: 'read' | 'update', entity: 'EditorInterface' | EditorInterface): Promise<boolean>
   can<T = Object>(
@@ -635,6 +672,8 @@ export interface AccessAPI {
   can<T = Object>(action: ArchiveableAction, entity: 'Asset' | 'Entry' | T): Promise<boolean>
   /** Whether the current user can edit app config */
   canEditAppConfig: () => Promise<boolean>
+  forgeApiKey: (params: TokenParams) => Promise<ApiKey>
+  canPerform: (action: Action, entity: TypeName, apiKey: ApiKey) => Promise<boolean>
 }
 
 export interface BaseExtensionSDK {
