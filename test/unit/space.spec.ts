@@ -45,6 +45,11 @@ const spaceMethods = [
   'getUsers',
 
   'signRequest',
+
+  'createTag',
+  'readTags',
+  'updateTag',
+  'deleteTag',
 ]
 
 describe('createSpace()', () => {

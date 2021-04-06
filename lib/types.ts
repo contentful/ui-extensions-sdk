@@ -1,4 +1,5 @@
 export type EntityType = 'Entry' | 'Asset'
+export type TagVisibility = 'private' | 'public'
 
 export interface SpaceMembership {
   sys: {
@@ -30,9 +31,25 @@ export interface Items {
 export interface Link {
   sys: {
     id: string
-    type: string
+    type: 'Link'
     linkType: string
   }
+}
+
+export interface Tag {
+  sys: {
+    type: 'Tag'
+    id: string
+    space: Link
+    environment: Link
+    createdBy: Link
+    updatedBy: Link
+    createdAt: string
+    updatedAt: string
+    version: number
+    visibility: 'private' | 'public'
+  }
+  name: string
 }
 
 export type CollectionResponse<T> = {
@@ -375,6 +392,11 @@ export interface SpaceAPI {
   getAllScheduledActions: () => Promise<ScheduledAction[]>
 
   signRequest: (request: CanonicalRequest) => Promise<Record<string, string>>
+
+  createTag: (id: string, name: string, visibility?: TagVisibility) => Promise<Tag>
+  readTags: (skip: number, limit: number) => Promise<CollectionResponse<Tag>>
+  updateTag: (id: string, name: string, version: number) => Promise<Tag>
+  deleteTag: (id: string, version: number) => Promise<boolean>
 }
 
 /* Locales API */
