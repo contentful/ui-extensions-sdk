@@ -1,3 +1,10 @@
+# [3.33.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.32.2...v3.33.0) (2021-04-06)
+
+
+### Features
+
+* expose tags api ([3ae6b4b](https://github.com/contentful/ui-extensions-sdk/commit/3ae6b4b45a16f04cb931218b6df654e9bf97cc1b))
+
 ## [3.32.2](https://github.com/contentful/ui-extensions-sdk/compare/v3.32.1...v3.32.2) (2021-03-23)
 
 
