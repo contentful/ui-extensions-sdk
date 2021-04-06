@@ -57,7 +57,7 @@
     "chai-as-promised": "7.1.1",
     "contentful-management": "7.13.1",
     "cross-spawn": "7.0.3",
-    "cypress": "6.8.0",
+    "cypress": "6.9.0",
     "dotenv": "8.2.0",
     "eslint": "7.23.0",
     "eslint-config-prettier": "8.1.0",
