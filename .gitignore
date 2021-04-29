@@ -7,6 +7,7 @@
 !/dist/cf-extension.css
 !/dist/README.md
 !/dist/WARNING.txt
+/test-reports
 /test/cypress/reports
 /test/cypress/videos
 /test/cypress/screenshots
