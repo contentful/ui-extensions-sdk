@@ -17,7 +17,7 @@ jobs:
       - run: npm run build
       - run: npm run size
       - store_test_results:
-          path: test-reports
+          path: test/unit/reports
   integration:
     docker:
       - image: cypress/browsers:node12.18.0-chrome83-ff77

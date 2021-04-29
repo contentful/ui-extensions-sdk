@@ -18,7 +18,7 @@
     "dist/*.d.ts"
   ],
   "scripts": {
-    "test": "ts-mocha -p tsconfig.test.json 'test/unit/*.[jt]s' --reporter mocha-multi-reporters --reporter-options configFile=mocha.reporters.json",
+    "test": "ts-mocha -p tsconfig.test.json 'test/unit/*.[jt]s' --reporter mocha-multi-reporters --reporter-options configFile=mocha.unit-reporters.json",
     "lint": "eslint '{lib,test}/**/*.{t,j}s'",
     "lint:fix": "npm run lint -- --fix",
     "build": "rollup -c --compact",
