@@ -58,6 +58,7 @@
     "contentful-management": "7.15.0",
     "cross-spawn": "7.0.3",
     "cypress": "6.9.1",
+    "cypress-multi-reporters": "1.5.0",
     "dotenv": "8.2.0",
     "eslint": "7.24.0",
     "eslint-config-prettier": "8.2.0",

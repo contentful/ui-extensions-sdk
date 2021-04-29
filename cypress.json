@@ -10,12 +10,18 @@
   "testFiles": "**/*.spec.[jt]s",
   "ignoreTestFiles": "**/example*.js",
   "baseUrl": "https://app.contentful.com",
-  "reporter": "./node_modules/mochawesome/src/mochawesome.js",
+  "reporter": "cypress-multi-reporters",
   "reporterOptions": {
-    "reportDir": "./test/cypress/reports/separate-reports",
-    "overwrite": false,
-    "html": false,
-    "json": true
+    "reporterEnabled": "mochawesome, mocha-junit-reporter",
+    "mochawesomeReporterOptions": {
+      "reportDir": "./test/cypress/reports/separate-reports",
+      "overwrite": false,
+      "html": false,
+      "json": true
+    },
+    "mochaJunitReporterReporterOptions": {
+      "mochaFile": "./test/cypress/reports/reports-[hash].xml"
+    }
   },
   "blockHosts": [
     "*intercomcdn.com",
