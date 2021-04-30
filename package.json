@@ -18,7 +18,7 @@
     "dist/*.d.ts"
   ],
   "scripts": {
-    "test": "ts-mocha -p tsconfig.test.json 'test/unit/*.[jt]s'",
+    "test": "ts-mocha -p tsconfig.test.json 'test/unit/*.[jt]s' --reporter mocha-multi-reporters --reporter-options configFile=mocha.unit-reporters.json",
     "lint": "eslint '{lib,test}/**/*.{t,j}s'",
     "lint:fix": "npm run lint -- --fix",
     "build": "rollup -c --compact",
@@ -58,6 +58,7 @@
     "contentful-management": "7.15.0",
     "cross-spawn": "7.0.3",
     "cypress": "6.9.1",
+    "cypress-multi-reporters": "1.5.0",
     "dotenv": "8.2.0",
     "eslint": "7.24.0",
     "eslint-config-prettier": "8.2.0",
@@ -74,6 +75,8 @@
     "jsdom": "16.5.3",
     "lint-staged": "10.5.4",
     "mocha": "8.3.2",
+    "mocha-junit-reporter": "2.0.0",
+    "mocha-multi-reporters": "1.5.1",
     "mochawesome": "6.2.2",
     "mochawesome-merge": "4.2.0",
     "mochawesome-report-generator": "5.2.0",
