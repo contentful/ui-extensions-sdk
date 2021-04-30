@@ -58,6 +58,12 @@ export default function createNavigator(channel: Channel, ids: IdsAPI): Navigato
     openAppConfig: () => {
       return channel.call('navigateToAppConfig') as Promise<void>
     },
+    openEntriesList: () => {
+      return channel.call('navigateToSpaceEnvRoute', { route: 'entries' }) as Promise<void>
+    },
+    openAssetsList: () => {
+      return channel.call('navigateToSpaceEnvRoute', { route: 'assets' }) as Promise<void>
+    },
     onSlideInNavigation: (handler) => {
       return _onSlideInSignal.attach(handler)
     },

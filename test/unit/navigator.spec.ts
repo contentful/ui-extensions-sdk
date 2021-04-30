@@ -81,6 +81,18 @@ const SCENARIOS = [
     expected: undefined,
     channelMethod: 'navigateToAppConfig',
   },
+  {
+    method: 'openEntriesList',
+    args: [{ route: 'entries' }],
+    expected: undefined,
+    channelMethod: 'navigateToSpaceEnvRoute',
+  },
+  {
+    method: 'openAssetsList',
+    args: [{ route: 'assets' }],
+    expected: undefined,
+    channelMethod: 'navigateToSpaceEnvRoute',
+  },
 ]
 
 describe('createNavigator()', () => {
