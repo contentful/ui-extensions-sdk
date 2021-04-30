@@ -1,3 +1,10 @@
+# [3.34.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.33.0...v3.34.0) (2021-04-30)
+
+
+### Features
+
+* add navigate to lists methods ([ef5ee41](https://github.com/contentful/ui-extensions-sdk/commit/ef5ee4148911f51b333dbd0967d5fba2748de317))
+
 # [3.33.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.32.2...v3.33.0) (2021-04-06)
 
 
