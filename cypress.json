@@ -31,5 +31,6 @@
     "*wootric.com"
   ],
   "chromeWebSecurity": false,
-  "defaultCommandTimeout": 30000
+  "defaultCommandTimeout": 30000,
+  "retries": 2
 }
