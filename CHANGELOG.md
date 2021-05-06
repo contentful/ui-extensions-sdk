@@ -1,3 +1,10 @@
+## [3.34.1](https://github.com/contentful/ui-extensions-sdk/compare/v3.34.0...v3.34.1) (2021-05-06)
+
+
+### Bug Fixes
+
+* make options of dialogs.openExtension optional ([#681](https://github.com/contentful/ui-extensions-sdk/issues/681)) ([ca6d15b](https://github.com/contentful/ui-extensions-sdk/commit/ca6d15bf6c9979410296dfaa3f2ad3bd71ba33c4))
+
 # [3.34.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.33.0...v3.34.0) (2021-04-30)
 
 
