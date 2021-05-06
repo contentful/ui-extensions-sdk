@@ -1,4 +1,4 @@
-import { ConnectMessage, KnownSDK } from './types'
+import { ConnectMessage, KnownSDK } from './types/index'
 import connect, { Channel } from './channel'
 
 export default function createInitializer(

@@ -1,5 +1,5 @@
 import { Signal } from './signal'
-import { ConnectMessage } from './types'
+import { ConnectMessage } from './types/index'
 
 export default function connect(
   currentWindow: Window,

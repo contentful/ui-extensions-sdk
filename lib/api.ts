@@ -8,7 +8,13 @@ import createEditor from './editor'
 import createNavigator from './navigator'
 import createApp from './app'
 import locations from './locations'
-import { BaseExtensionSDK, EntryFieldInfo, NavigatorAPI, KnownSDK, ConnectMessage } from './types'
+import {
+  BaseExtensionSDK,
+  EntryFieldInfo,
+  NavigatorAPI,
+  KnownSDK,
+  ConnectMessage,
+} from './types/index'
 import { Channel } from './channel'
 
 const DEFAULT_API_PRODUCERS = [
