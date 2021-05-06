@@ -1,4 +1,4 @@
-import { EditorInterface, EditorLocaleSettings, SharedEditorSDK } from './types/index'
+import { EditorInterface, EditorLocaleSettings, SharedEditorSDK } from './types'
 import { Channel } from './channel'
 import { MemoizedSignal } from './signal'
 

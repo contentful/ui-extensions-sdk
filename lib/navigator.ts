@@ -1,4 +1,4 @@
-import { NavigatorAPI, IdsAPI } from './types/index'
+import { NavigatorAPI, IdsAPI } from './types'
 import { Channel } from './channel'
 import { Signal } from './signal'
 

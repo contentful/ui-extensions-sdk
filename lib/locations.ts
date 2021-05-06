@@ -1,4 +1,4 @@
-import { Locations } from './types/index'
+import { Locations } from './types'
 
 const locations: Locations = {
   LOCATION_ENTRY_FIELD: 'entry-field',

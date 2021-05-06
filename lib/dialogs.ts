@@ -5,7 +5,7 @@ import {
   OpenAlertOptions,
   OpenConfirmOptions,
   IdsAPI,
-} from './types/index'
+} from './types'
 
 const isObject = (o: any) => typeof o === 'object' && o !== null && !Array.isArray(o)
 const prepareOptions = (options: any) => (isObject(options) ? options : {})

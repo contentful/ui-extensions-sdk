@@ -1,5 +1,5 @@
 import { Channel } from './channel'
-import { WindowAPI } from './types/index'
+import { WindowAPI } from './types'
 
 export default function createWindow(currentWindow: Window, channel: Channel): WindowAPI {
   // We assume MutationObserver was defined by the web-app

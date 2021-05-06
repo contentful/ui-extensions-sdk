@@ -1,5 +1,5 @@
 import { Channel } from './channel'
-import { AppConfigAPI, AppState } from './types/index'
+import { AppConfigAPI, AppState } from './types'
 
 const HOOK_STAGE_PRE_INSTALL = 'preInstall'
 const HOOK_STAGE_POST_INSTALL = 'postInstall'

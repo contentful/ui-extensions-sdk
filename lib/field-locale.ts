@@ -1,6 +1,6 @@
 import { Channel } from './channel'
 import { MemoizedSignal } from './signal'
-import { FieldAPI, FieldInfo, Items } from './types/index'
+import { FieldAPI, FieldInfo, Items } from './types'
 
 export default class FieldLocale implements FieldAPI {
   id: string

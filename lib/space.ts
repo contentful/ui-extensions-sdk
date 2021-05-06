@@ -1,4 +1,4 @@
-import { ContentType, SpaceAPI } from './types/index'
+import { ContentType, SpaceAPI } from './types'
 import { Channel } from './channel'
 
 const spaceMethods: Array<keyof SpaceAPI> = [

@@ -1,6 +1,6 @@
 import { Channel } from './channel'
 import { MemoizedSignal } from './signal'
-import type { EntryAPI, EntryFieldInfo, TaskAPI } from './types/index'
+import { EntryAPI, EntryFieldInfo, TaskAPI } from './types'
 
 const taskMethods: Array<keyof TaskAPI> = [
   'getTask',

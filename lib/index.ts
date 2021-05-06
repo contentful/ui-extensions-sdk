@@ -1,8 +1,8 @@
 import createInitializer from './initialize'
 import createAPI from './api'
-import { KnownSDK } from './types/index'
+import { KnownSDK } from './types'
 
-export * from './types/index'
+export * from './types'
 export { default as locations } from './locations'
 
 type Init = <T extends KnownSDK = KnownSDK>(
