@@ -9,7 +9,8 @@ import { AppConfigAPI } from './app.types'
 import { NavigatorAPI } from './navigator.types'
 import { EntryFieldInfo, FieldInfo } from './field.types'
 
-interface User {
+/* User API */
+interface UserAPI {
   sys: {
     id: string
     type: string
@@ -120,7 +121,7 @@ export interface BaseExtensionSDK {
   /** Exposes methods that allow the extension to read and manipulate a wide range of objects in the space. */
   space: SpaceAPI
   /** Information about the current user and roles */
-  user: User
+  user: UserAPI
   /** Information about the current locales */
   locales: LocalesAPI
   /** Methods for opening UI dialogs: */
@@ -204,7 +205,7 @@ export interface ConnectMessage {
   location: Location[keyof Location]
   parameters: ParametersAPI
   locales: LocalesAPI
-  user: User
+  user: UserAPI
   initialContentTypes: ContentType[]
   ids: IdsAPI
   contentType: ContentType
