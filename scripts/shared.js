@@ -17,8 +17,8 @@ function getVersion() {
   return require(PACKAGE_JSON_PATH).version
 }
 
-function getTag() {
-  return process.env.CANARY ? 'canary' : 'latest'
+function getTag(isCanary) {
+  return isCanary ? 'canary' : 'latest'
 }
 
 function restorePackageJson() {
