@@ -9,10 +9,8 @@ const PACKAGE_JSON_PATH = path.resolve(MODULE_MAIN_PATH, 'package.json')
 const ORIGINAL_PACKAGE_JSON = require(PACKAGE_JSON_PATH)
 const CANARY_REGEXP = /\d+\.\d+\.\d+-alpha\.\d+/
 
-function assertVersion(version) {
-  if (process.env.CANARY && !CANARY_REGEXP.test(version)) {
-    throw new Error(`Canary version should be in the format x.y.z-alpha.n got ${version}`)
-  }
+function isCanary(version) {
+  return CANARY_REGEXP.test(version)
 }
 
 function getVersion() {
@@ -42,5 +40,5 @@ module.exports = {
   restorePackageJson,
   setPackageName,
   getTag,
-  assertVersion,
+  isCanary,
 }

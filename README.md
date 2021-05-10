@@ -42,21 +42,9 @@ This repository is published as two packages with identical data. We recommend u
 
 This package has two main development streams: `latest` and `canary`.
 
-To manually publish a canary release, run
-
-```shell
-# Dry run
-npm run verify:canary
-
-# Actual deployment
-npm run publish-all:canary
-```
-
-> **Note**
->
-> The default and stable releases are always published under the `latest` tag (as per npm convention).
-> Package released under the `canary` tag is to be considered experimental and potentially breaking.
-> You should not rely on it in production.
+The default and stable releases are always published under the `latest` tag (as per npm convention).
+The release under the `canary` tag is to be considered unstable and potentially breaking.
+You should not rely on it in production.
 
 ### File Structure
 

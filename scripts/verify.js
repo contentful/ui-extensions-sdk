@@ -1,6 +1,6 @@
 const spawn = require('cross-spawn')
 const {
-  assertVersion,
+  isCanary,
   getVersion,
   restorePackageJson,
   setPackageName,
@@ -18,8 +18,8 @@ try {
     console.log('')
     console.log(`📦 Deploying package: ${package} (dry run)`)
 
-    assertVersion(getVersion())
-    const tag = getTag()
+    const version = getVersion()
+    const tag = getTag(isCanary(version))
 
     console.log(` > 📝 Updating package name...`)
     setPackageName(package)
