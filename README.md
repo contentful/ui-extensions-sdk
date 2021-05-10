@@ -31,12 +31,32 @@ information needs to be discussed, then the conversation should be handled via o
 
 A new package version is automatically published to npm using [semantic-release](https://github.com/semantic-release/semantic-release).
 
-To manually publish the package, run `node ./scripts/publish.js`.
+To manually publish the package, run `npm run publish-all`.
 
 This repository is published as two packages with identical data. We recommend using `@contentful/app-sdk`.
 
 - `@contentful/app-sdk`
 - `contentful-ui-extensions-sdk`
+
+#### Canary releases
+
+This package has two main development streams: `latest` and `canary`.
+
+To manually publish a canary release, run
+
+```shell
+# Dry run
+npm run verify:canary
+
+# Actual deployment
+npm run publish-all:canary
+```
+
+> **Note**
+>
+> The default and stable releases are always published under the `latest` tag (as per npm convention).
+> Package released under the `canary` tag is to be considered experimental and potentially breaking.
+> You should not rely on it in production.
 
 ### File Structure
 
