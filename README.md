@@ -27,13 +27,50 @@ information needs to be discussed, then the conversation should be handled via o
 
 ## Development
 
-### publish
+### Publishing
 
 A new package version is automatically published to npm using [semantic-release](https://github.com/semantic-release/semantic-release).
 
-To manually publish the package, run `node ./scripts/publish.js`.
+To manually publish the package, run `npm run publish-all`.
 
 This repository is published as two packages with identical data. We recommend using `@contentful/app-sdk`.
 
 - `@contentful/app-sdk`
 - `contentful-ui-extensions-sdk`
+
+#### Canary releases
+
+This package has two main development streams: `latest` and `canary`.
+
+The default and stable releases are always published under the `latest` tag (as per npm convention).
+The release under the `canary` tag is to be considered unstable and potentially breaking.
+You should not rely on it in production.
+
+### File Structure
+
+#### `docs`
+
+Former home of the documentation and reference for this library. This is now deprecated and you should use links above.
+
+#### `lib`
+
+Includes the files constituting the SDK and the associated types.
+
+Top level files are split by feature. Most of them map 1-to-1 to an API (keep reading for the outliers). When APIs are
+considered too small to be in a separate file, they are part of the [`api`](./lib/api.ts) file.
+
+- [`channel`](./lib/channel.ts) and [`signal`](./lib/signal.ts) abstract the communication between an App and the host;
+- [`locations`](./lib/locations.ts) exports available location where you can run App;
+- [`initialize`](./lib/initialize.ts) creates an initializer to start an App within Contentful's App Framework.
+
+All the typings are in the [`types`](./lib/types) folder and they map 1-to-1 APIs, when they make sense.
+The [`entities`](./lib/types/entities.ts) file maps Contentful entities in TypeScript.
+[`utils`](./lib/types/utils.ts) includes utility types, meant to save on characters to type.
+
+#### `scripts`
+
+Includes utility tools for maintainers.
+
+#### `test`
+
+Includes integration tests (run by [Cypress](https://www.cypress.io/)) and unit tests (run by [mocha](https://mochajs.org/))
