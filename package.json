@@ -33,7 +33,8 @@
     "merge-report": "mochawesome-merge ./test/cypress/reports/separate-reports/*.json > ./test/cypress/reports/full_report.json",
     "generate-report": "npx mochawesome-report-generator --reportDir test/cypress/reports test/cypress/reports/full_report.json",
     "semantic-release": "semantic-release",
-    "publish-all": "node ./scripts/publish.js"
+    "publish-all": "node ./scripts/publish.js",
+    "verify": "node ./scripts/verify.js"
   },
   "devDependencies": {
     "@semantic-release/changelog": "5.0.1",
@@ -110,6 +111,14 @@
     ]
   },
   "release": {
+    "branches": [
+      "master",
+      {
+        "name": "canary",
+        "channel": "canary",
+        "prerelease": "alpha"
+      }
+    ],
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
