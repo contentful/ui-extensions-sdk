@@ -1,3 +1,15 @@
+# [4.0.0-alpha.1](https://github.com/contentful/ui-extensions-sdk/compare/v3.34.1...v4.0.0-alpha.1) (2021-05-10)
+
+
+### Features
+
+* improve space API typings  ([#684](https://github.com/contentful/ui-extensions-sdk/issues/684)) ([a57354c](https://github.com/contentful/ui-extensions-sdk/commit/a57354c32b78204d285aba897d213f201fec208c))
+
+
+### BREAKING CHANGES
+
+* old typings were too loose.
+
 # [3.38.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.37.0...v3.38.0) (2021-06-30)
 
 
