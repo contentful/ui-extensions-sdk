@@ -10,7 +10,7 @@ import { NavigatorAPI } from './navigator.types'
 import { EntryFieldInfo, FieldInfo } from './field.types'
 
 /* User API */
-interface UserAPI {
+export interface UserAPI {
   sys: {
     id: string
     type: string
