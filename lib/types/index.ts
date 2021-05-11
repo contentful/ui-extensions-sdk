@@ -66,7 +66,7 @@ export type {
   CollectionResponse,
   ContentEntitySys,
   ContentEntityType,
-  Item,
+  Items,
   Link,
   WithOptionalSys,
 } from './utils'

@@ -44,7 +44,7 @@ export type Metadata = {
   tags: Link<'Tag', 'Link'>[]
 }
 
-export interface Item {
+export interface Items {
   type: string
   linkType?: string
   validations?: Object[]

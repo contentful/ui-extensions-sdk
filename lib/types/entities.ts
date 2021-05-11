@@ -1,4 +1,4 @@
-import { ContentEntitySys, ContentEntityType, Item, Link, Metadata } from './utils'
+import { ContentEntitySys, ContentEntityType, Items, Link, Metadata } from './utils'
 
 export type TagVisibility = 'private' | 'public'
 
@@ -153,7 +153,7 @@ export interface ScheduledAction {
   action: ScheduledActionActionType
 }
 
-export interface ContentTypeField extends Item {
+export interface ContentTypeField extends Items {
   id: string
   name: string
   required: boolean
@@ -161,7 +161,7 @@ export interface ContentTypeField extends Item {
   disabled?: boolean
   omitted?: boolean
   deleted?: boolean
-  items?: Item
+  items?: Items
   apiName?: string
 }
 
