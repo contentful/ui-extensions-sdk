@@ -1,6 +1,6 @@
 import { ContentEntitySys, ContentEntityType, Items, Link, Metadata } from './utils'
 
-type TagVisibility = 'private' | 'public'
+export type TagVisibility = 'private' | 'public'
 
 export interface User {
   /**
@@ -53,8 +53,8 @@ export interface Tag {
     id: string
     space: Link
     environment: Link
-    createdBy: Link
-    updatedBy: Link
+    createdBy?: Link
+    updatedBy?: Link
     createdAt: string
     updatedAt: string
     version: number
@@ -114,13 +114,15 @@ export interface Task {
   sys: TaskSys
 }
 
-const enum PublicActionStatus {
-  Scheduled = 'scheduled',
-  Succeeded = 'succeeded',
-  Failed = 'failed',
-  Canceled = 'canceled',
+export enum ScheduledActionStatuses {
+  scheduled = 'scheduled',
+  inProgress = 'inProgress',
+  succeeded = 'succeeded',
+  failed = 'failed',
+  canceled = 'canceled',
 }
-
+// WARNING: This is using 'keyof' which looks at the left hand name, not the right hand value
+type PublicActionStatus = keyof typeof ScheduledActionStatuses
 type ScheduledActionActionType = 'publish' | 'unpublish'
 
 export interface ScheduledAction {
@@ -133,13 +135,7 @@ export interface ScheduledAction {
     /** ISO 8601 string */
     canceledAt?: string
     canceledBy?: Link
-    space: {
-      sys: {
-        id: string
-        linkType: 'Space'
-        type: string
-      }
-    }
+    space: Link
     status: PublicActionStatus
   }
   entity: {
@@ -149,13 +145,7 @@ export interface ScheduledAction {
       type: string
     }
   }
-  environment: {
-    sys: {
-      id: string
-      linkType: 'Environment'
-      type: string
-    }
-  }
+  environment?: Link
   scheduledFor: {
     /** ISO 8601 string */
     datetime: string
@@ -163,30 +153,32 @@ export interface ScheduledAction {
   action: ScheduledActionActionType
 }
 
-export interface ContentTypeField {
-  disabled: boolean
+export interface ContentTypeField extends Items {
   id: string
-  localized: boolean
   name: string
-  omitted: boolean
   required: boolean
-  type: string
-  validations: Object[]
-  linkType?: string
+  localized: boolean
+  disabled?: boolean
+  omitted?: boolean
+  deleted?: boolean
   items?: Items
+  apiName?: string
 }
 
 export interface ContentType {
   sys: {
     type: string
     id: string
-    version?: number
-    space?: Link
-    environment?: Link
-    createdAt?: string
+    version: number
     createdBy?: Link
-    updatedAt?: string
+    createdAt: string
     updatedBy?: Link
+    updatedAt: string
+    space: Link
+    environment: Link
+    firstPublishedAt?: string
+    publishedCounter?: number
+    publishedVersion?: number
   }
   fields: ContentTypeField[]
   name: string

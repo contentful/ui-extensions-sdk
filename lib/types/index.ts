@@ -17,6 +17,7 @@ export type {
   ParametersAPI,
   SharedEditorSDK,
   SidebarExtensionSDK,
+  UserAPI,
 } from './api.types'
 
 export type { AppConfigAPI, AppState } from './app.types'
@@ -39,6 +40,7 @@ export type {
   ScheduledAction,
   SpaceMembership,
   Tag,
+  TagVisibility,
   Task,
 } from './entities'
 
