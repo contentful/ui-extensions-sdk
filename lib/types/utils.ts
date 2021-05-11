@@ -2,11 +2,11 @@ export type WithOptionalSys<Type extends { sys: unknown }> = Omit<Type, 'sys'> &
   sys?: Type['sys']
 }
 
-export interface Link<Type = string> {
+export interface Link<LinkType = string, Type = string> {
   sys: {
     id: string
-    type: 'Link'
-    linkType: Type
+    type: Type
+    linkType: LinkType
   }
 }
 
@@ -18,7 +18,7 @@ export interface CollectionResponse<T> {
   sys: { type: string }
 }
 
-export type ContentEntityType = 'Entry' | 'Asset'
+export type ContentEntityType = 'Entry' | 'Asset' | string
 
 export interface ContentEntitySys {
   space: Link
@@ -27,24 +27,24 @@ export interface ContentEntitySys {
   createdAt: string
   updatedAt: string
   environment: Link
-  publishedVersion: number
+  publishedVersion?: number
   deletedVersion?: number
   archivedVersion?: number
-  publishedAt: string
-  firstPublishedAt: string
-  createdBy: Link
-  updatedBy: Link
-  publishedCounter: number
+  publishedAt?: string
+  firstPublishedAt?: string
+  createdBy?: Link
+  updatedBy?: Link
+  publishedCounter?: number
   version: number
-  publishedBy: Link
+  publishedBy?: Link
   contentType: Link
 }
 
-export type Metadata = Partial<{
-  tags: Link<'Tag'>[]
-}>
+export type Metadata = {
+  tags: Link<'Tag', 'Link'>[]
+}
 
-export interface Items {
+export interface Item {
   type: string
   linkType?: string
   validations?: Object[]

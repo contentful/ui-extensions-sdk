@@ -39,6 +39,7 @@ export type {
   ScheduledAction,
   SpaceMembership,
   Tag,
+  TagVisibility,
   Task,
 } from './entities'
 
@@ -65,7 +66,7 @@ export type {
   CollectionResponse,
   ContentEntitySys,
   ContentEntityType,
-  Items,
+  Item,
   Link,
   WithOptionalSys,
 } from './utils'
