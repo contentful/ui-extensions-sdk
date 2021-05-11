@@ -1,3 +1,15 @@
+# [4.0.0-alpha.3](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.2...v4.0.0-alpha.3) (2021-05-11)
+
+
+### Bug Fixes
+
+* add missing types also in files ([#707](https://github.com/contentful/ui-extensions-sdk/issues/707)) ([957c858](https://github.com/contentful/ui-extensions-sdk/commit/957c85805a683832ca7f856fe525d17195a910d2))
+
+
+### Reverts
+
+* bump cypress from 7.2.0 to 7.3.0 ([#706](https://github.com/contentful/ui-extensions-sdk/issues/706)) ([ebcdf01](https://github.com/contentful/ui-extensions-sdk/commit/ebcdf01c26c59707e5733f34d8897a9de9bfa462))
+
 # [4.0.0-alpha.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.1...v4.0.0-alpha.2) (2021-05-11)
 
 
