@@ -6,12 +6,11 @@ import {
   ContentType,
   EditorInterface,
   ScheduledAction,
-  SearchQuery,
   Tag,
-  TagVisibility,
   User,
+  TagVisibility,
 } from './entities'
-import { CollectionResponse, ContentEntityType, Link, WithOptionalSys } from './utils'
+import { CollectionResponse, ContentEntityType, Link, WithOptionalSys, SearchQuery } from './utils'
 
 type Snapshot<T> = {
   sys: {
@@ -34,7 +33,7 @@ export interface SpaceAPI {
   getCachedContentTypes: () => ContentType[]
   getContentType: (id: string) => Promise<ContentType>
   getContentTypes: () => Promise<CollectionResponse<ContentType>>
-  createContentType: (data: WithOptionalSys<ContentType>) => Promise<ContentType>
+  createContentType: (data: ContentType) => Promise<ContentType>
   updateContentType: (data: ContentType) => Promise<ContentType>
   deleteContentType: (data: ContentType) => Promise<void>
 
