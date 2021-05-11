@@ -93,11 +93,7 @@ export interface SpaceAPI {
   signRequest: (request: CanonicalRequest) => Promise<Record<string, string>>
 
   createTag: (id: string, name: string, visibility?: TagVisibility) => Promise<Tag>
-  /**
-   * @deprecated use `getTags` instead
-   */
   readTags: (skip: number, limit: number) => Promise<CollectionResponse<Tag>>
-  getTags: (skip: number, limit: number) => Promise<CollectionResponse<Tag>>
   updateTag: (id: string, name: string, version: number) => Promise<Tag>
   deleteTag: (id: string, version: number) => Promise<boolean>
 }
