@@ -1,7 +1,7 @@
 {
   "name": "contentful-ui-extensions-sdk",
   "description": "SDK to develop custom UI Extension for the Contentful Web App",
-  "version": "3.34.1",
+  "version": "3.34.2",
   "author": "Contentful GmbH",
   "license": "MIT",
   "repository": {

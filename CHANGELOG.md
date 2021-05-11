@@ -1,3 +1,10 @@
+## [3.34.2](https://github.com/contentful/ui-extensions-sdk/compare/v3.34.1...v3.34.2) (2021-05-11)
+
+
+### Reverts
+
+* bump cypress from 7.2.0 to 7.3.0 ([#706](https://github.com/contentful/ui-extensions-sdk/issues/706)) ([ebcdf01](https://github.com/contentful/ui-extensions-sdk/commit/ebcdf01c26c59707e5733f34d8897a9de9bfa462))
+
 ## [3.34.1](https://github.com/contentful/ui-extensions-sdk/compare/v3.34.0...v3.34.1) (2021-05-06)
 
 
