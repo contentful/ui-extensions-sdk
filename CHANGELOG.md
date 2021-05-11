@@ -1,3 +1,10 @@
+# [4.0.0-alpha.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.1...v4.0.0-alpha.2) (2021-05-11)
+
+
+### Bug Fixes
+
+* include typings in the release ([#699](https://github.com/contentful/ui-extensions-sdk/issues/699)) ([16b15e2](https://github.com/contentful/ui-extensions-sdk/commit/16b15e25ddcfd8a34a6f4c9732fc5e67929ac62b))
+
 # [4.0.0-alpha.1](https://github.com/contentful/ui-extensions-sdk/compare/v3.34.1...v4.0.0-alpha.1) (2021-05-10)
 
 
