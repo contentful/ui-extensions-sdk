@@ -6,18 +6,21 @@ export async function createCypressConfiguration({
   environmentId,
   role,
   entries,
+  aliasId,
 }: {
   managementToken: string
   spaceId: string
   environmentId: string
   role: string
   entries: Record<string, string>
+  aliasId: string
 }) {
   printStepTitle(`${role}: Creating Cypress configuration based on environment variables`)
   writeJSONFile(resolvePath('cypress.env.json'), {
     managementToken,
     activeSpaceId: spaceId,
     activeEnvironmentId: environmentId,
+    activeAliasId: aliasId,
     role,
     entries,
   })

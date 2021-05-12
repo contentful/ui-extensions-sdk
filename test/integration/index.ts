@@ -114,6 +114,7 @@ const run = async () => {
     environmentId: tempEnvironmentId,
     role: 'admin',
     entries: entryIds,
+    aliasId: tempAliasId,
   })
   await runCypress('admin')
 
@@ -124,6 +125,7 @@ const run = async () => {
     environmentId: tempEnvironmentId,
     role: 'editor',
     entries: entryIds,
+    aliasId: tempAliasId,
   })
   await runCypress('editor', true)
 
@@ -139,6 +141,7 @@ const run = async () => {
     environmentId: 'master-test',
     role: 'editorMasterOnly',
     entries: newEntryIds,
+    aliasId: '',
   })
   await runCypress('editorMasterOnly', true)
 }

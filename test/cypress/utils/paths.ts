@@ -2,9 +2,14 @@ import { role } from './role'
 
 const activeSpaceId = Cypress.env('activeSpaceId')
 const activeEnvironmentId = Cypress.env('activeEnvironmentId')
+const activeAliasId = Cypress.env('activeAliasId')
 
 export function entriesList() {
   return `/spaces/${activeSpaceId}/environments/${activeEnvironmentId}/entries`
+}
+
+export function entriesListAliased() {
+  return `/spaces/${activeSpaceId}/environments/${activeAliasId}/entries`
 }
 
 export function pageExtensionMaster(extensionId: string) {
@@ -17,6 +22,10 @@ export function pageExtension(extensionId: string) {
 
 export function entry(id: string) {
   return `${entriesList()}/${id}`
+}
+
+export function entryAliased(id: string) {
+  return `${entriesListAliased()}/${id}`
 }
 
 export function assetsList() {
