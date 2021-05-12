@@ -10,6 +10,7 @@ import {
 } from './tasks/create-configuration-files'
 import createEnvironment from './tasks/create-new-environment'
 import deleteEnvironment from './tasks/delete-new-environment'
+import deleteEnvironmentAlias from './tasks/delete-new-environment-alias'
 import deleteStaleEnvironments from './tasks/delete-stale-environments'
 import deployExtensions from './tasks/deploy-extensions'
 import runCypress from './tasks/run-cypress'
@@ -46,9 +47,18 @@ function listAllEnvironmentVariables() {
 }
 
 let tempEnvironmentId: any
+let tempAliasId: any
 const tempEntries: { environmentId: string; entryId: string }[] = []
 
 const cleanup = async () => {
+  if (tempAliasId) {
+    try {
+      await asyncRetry(() => deleteEnvironmentAlias(tempAliasId), { retries: 3 })
+    } catch (e) {
+      console.log(e)
+      throw new Error('Failed to remove environment alias')
+    }
+  }
   if (tempEnvironmentId) {
     try {
       await asyncRetry(() => deleteEnvironment(tempEnvironmentId), { retries: 3 })
@@ -77,12 +87,14 @@ const run = async () => {
   }
 
   try {
-    tempEnvironmentId = await asyncRetry(
+    const { environmentId, aliasId } = await asyncRetry(
       () => {
         return createEnvironment()
       },
       { retries: 3 }
     )
+    tempEnvironmentId = environmentId
+    tempAliasId = aliasId
   } catch (e) {
     console.log(e)
     throw new Error('Failed to create a new environment')
