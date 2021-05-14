@@ -25,7 +25,7 @@ context(`Aliased Entry editor extension (${role})`, () => {
   })
 
   it('verifies that onValueChanged is called with the initial value and updates', () => {
-    const environmentId = Cypress.env('activeEnvironmentId')
+    const aliasId = Cypress.env('activeAliasId')
     const spaceId = Cypress.env('activeSpaceId')
     cy.intercept({
       method: 'GET',
@@ -34,7 +34,7 @@ context(`Aliased Entry editor extension (${role})`, () => {
 
     cy.getSdk(iframeSelector).then(async (sdk) => {
       sdk.space.getContentTypes()
-      cy.wait('@contentTypesRequest').its('request.url').should('include', environmentId)
+      cy.wait('@contentTypesRequest').its('request.url').should('include', aliasId)
     })
   })
 })
