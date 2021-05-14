@@ -24,17 +24,23 @@ context(`Aliased Entry editor extension (${role})`, () => {
     })
   })
 
-  it('verifies that onValueChanged is called with the initial value and updates', () => {
+  it('verifies that API calls use the active Alias', () => {
     const aliasId = Cypress.env('activeAliasId')
     const spaceId = Cypress.env('activeSpaceId')
     cy.intercept({
       method: 'GET',
       url: `/spaces/${spaceId}/environments/*/content_types`,
     }).as('contentTypesRequest')
+    cy.intercept({
+      method: 'GET',
+      url: `spaces/${spaceId}/environments/*/entries/${post.id}/tasks`,
+    }).as('tasksRequest')
 
     cy.getSdk(iframeSelector).then(async (sdk) => {
       sdk.space.getContentTypes()
       cy.wait('@contentTypesRequest').its('request.url').should('include', aliasId)
+      sdk.entry.getTasks()
+      cy.wait('@tasksRequest').its('request.url').should('include', aliasId)
     })
   })
 })
