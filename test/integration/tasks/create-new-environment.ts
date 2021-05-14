@@ -23,9 +23,6 @@ export default async () => {
     'test-base'
   )) as any
 
-  const aliasId = nanoid()
-  const alias = (await space.createEnvironmentAliasWithId(aliasId, { environment })) as any
-
   let status = environment.sys.status.sys.id
 
   while (status !== 'ready') {
@@ -35,6 +32,11 @@ export default async () => {
   }
 
   console.log(`New "${environmentId}" environment is created`)
+
+  const aliasId = nanoid()
+  const alias = (await space.createEnvironmentAliasWithId(aliasId, { environment })) as any
+
+  console.log(`New "${aliasId}" alias is created`)
 
   return { environmentId, aliasId: alias.sys.id }
 }
