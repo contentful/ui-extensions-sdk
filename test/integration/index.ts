@@ -141,7 +141,7 @@ const run = async () => {
     environmentId: 'master-test',
     role: 'editorMasterOnly',
     entries: newEntryIds,
-    aliasId: '',
+    aliasId: tempAliasId,
   })
   await runCypress('editorMasterOnly', true)
 }
