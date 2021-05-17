@@ -14,7 +14,6 @@ const config = {
   spaceId: process.env.CONTENTFUL_SPACE_ID!,
   baseUrl: process.env.CONTENTFUL_APP!,
   environmentId: process.env.CONTENTFUL_LOCAL_TESTING_ENV!,
-  aliasId: process.env.CONTENTFUL_LOCAL_TESTING_ALIAS!,
   testLocalSdk: process.env.TEST_LOCAL_SDK === 'true',
 }
 
@@ -60,7 +59,6 @@ async function run() {
     managementToken: config.managementToken,
     spaceId: config.spaceId,
     environmentId: config.environmentId,
-    aliasId: config.aliasId,
     role: 'admin',
     entries: entryIds,
   })

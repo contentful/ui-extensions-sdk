@@ -33,10 +33,5 @@ export default async () => {
 
   console.log(`New "${environmentId}" environment is created`)
 
-  const aliasId = nanoid()
-  const alias = (await space.createEnvironmentAliasWithId(aliasId, { environment })) as any
-
-  console.log(`New "${aliasId}" alias is created`)
-
-  return { environmentId, aliasId: alias.sys.id }
+  return environmentId
 }
