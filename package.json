@@ -1,5 +1,5 @@
 {
-  "name": "contentful-ui-extensions-sdk",
+  "name": "@contentful/app-sdk",
   "description": "SDK to develop custom UI Extension for the Contentful Web App",
   "version": "4.0.0-alpha.3",
   "author": "Contentful GmbH",
