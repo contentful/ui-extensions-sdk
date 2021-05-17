@@ -12,6 +12,7 @@ import createEnvironment from './tasks/create-new-environment'
 import deleteEnvironment from './tasks/delete-new-environment'
 import deleteEnvironmentAlias from './tasks/delete-new-environment-alias'
 import deleteStaleEnvironments from './tasks/delete-stale-environments'
+import deleteStaleAliases from './tasks/delete-stale-aliases'
 import deployExtensions from './tasks/deploy-extensions'
 import runCypress from './tasks/run-cypress'
 import idsData from '../cypress/integration/fixtures/ids-data.json'
@@ -84,6 +85,12 @@ const run = async () => {
     await deleteStaleEnvironments()
   } catch (e) {
     console.error('Could not delete all stale environments')
+  }
+
+  try {
+    await deleteStaleAliases()
+  } catch (e) {
+    console.error('Could not delete all stale aliases')
   }
 
   try {
