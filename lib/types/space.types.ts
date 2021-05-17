@@ -10,7 +10,14 @@ import {
   User,
   TagVisibility,
 } from './entities'
-import { CollectionResponse, ContentEntityType, Link, WithOptionalSys, SearchQuery } from './utils'
+import {
+  CollectionResponse,
+  ContentEntityType,
+  Link,
+  WithOptionalId,
+  SearchQuery,
+  WithId,
+} from './utils'
 
 type Snapshot<T> = {
   sys: {
@@ -33,7 +40,7 @@ export interface SpaceAPI {
   getCachedContentTypes: () => ContentType[]
   getContentType: (id: string) => Promise<ContentType>
   getContentTypes: () => Promise<CollectionResponse<ContentType>>
-  createContentType: (data: ContentType) => Promise<ContentType>
+  createContentType: (data: WithId<ContentType>) => Promise<ContentType>
   updateContentType: (data: ContentType) => Promise<ContentType>
   deleteContentType: (data: ContentType) => Promise<void>
 
@@ -44,7 +51,7 @@ export interface SpaceAPI {
   ) => Promise<CollectionResponse<Entry<Fields>>>
   createEntry: <Fields>(
     contentTypeId: string,
-    data: WithOptionalSys<Entry<Fields>>
+    data: WithOptionalId<Entry<Fields>>
   ) => Promise<Entry<Fields>>
   updateEntry: <Fields>(data: Entry<Fields>) => Promise<Entry<Fields>>
   publishEntry: <Fields>(data: Entry<Fields>) => Promise<Entry<Fields>>
@@ -60,7 +67,7 @@ export interface SpaceAPI {
   getAssets: <Query extends SearchQuery = SearchQuery>(
     query?: Query
   ) => Promise<CollectionResponse<Asset>>
-  createAsset: (data: WithOptionalSys<Asset>) => Promise<Asset>
+  createAsset: (data: WithOptionalId<Asset>) => Promise<Asset>
   updateAsset: (data: Asset) => Promise<Asset>
   deleteAsset: (data: Asset) => Promise<void>
   publishAsset: (data: Asset) => Promise<Asset>
