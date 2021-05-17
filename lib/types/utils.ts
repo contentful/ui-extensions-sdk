@@ -3,7 +3,7 @@ type SysWithId = {
 }
 
 export type WithOptionalId<Type extends { sys: unknown }> = Omit<Type, 'sys'> & {
-  sys?: Omit<Type['sys'], 'id'> & Partial<SysWithId>
+  sys?: Partial<Omit<Type['sys'], 'id'> & SysWithId>
 }
 
 export type WithId<Type extends { sys: unknown }> = Omit<Type, 'sys'> & {
