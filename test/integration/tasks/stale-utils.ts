@@ -6,4 +6,4 @@ export const isStale = (timeStamp: string) => {
   return difference >= STALE_LIMIT
 }
 
-export const isProtected = (name: string) => name === 'master' || name.includes('test');
+export const isProtected = (name: string) => name === 'master' || name.includes('test')
