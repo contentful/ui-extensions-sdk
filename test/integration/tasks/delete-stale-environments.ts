@@ -1,7 +1,6 @@
 import { getCurrentSpace } from '../contentful-client'
 import { printStepTitle, sleep } from '../utils'
-
-const ONE_DAY_IN_MS = 60 * 60 * 24 * 1000
+import { isProtected, isStale } from './stale-utils'
 
 export default async (currentSpace = getCurrentSpace) => {
   printStepTitle('Removing stale environments')
@@ -9,22 +8,13 @@ export default async (currentSpace = getCurrentSpace) => {
   const space = await currentSpace()
   const environments = await space.getEnvironments()
   const { items } = environments
-
-  // filter for relevant environments
-  const isProtected = (name: string) => name === 'master' || name.includes('test')
-
-  const isStaleEnvironment = (timeStamp: string) => {
-    const environmentDate = new Date(timeStamp).getTime()
-    const difference = Date.now() - environmentDate
-    return difference >= ONE_DAY_IN_MS
-  }
   const deletedEnvironmentIds: string[] = []
   items.forEach(async (environment: any) => {
     const {
       name,
       sys: { createdAt, id },
     } = environment
-    if (!isProtected(name) && isStaleEnvironment(createdAt)) {
+    if (!isProtected(name) && isStale(createdAt)) {
       try {
         await environment.delete()
         deletedEnvironmentIds.push(id)
