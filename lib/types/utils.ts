@@ -1,5 +1,13 @@
-export type WithOptionalSys<Type extends { sys: unknown }> = Omit<Type, 'sys'> & {
-  sys?: Type['sys']
+type SysWithId = {
+  id: string
+}
+
+export type WithOptionalId<Type extends { sys: unknown }> = Omit<Type, 'sys'> & {
+  sys?: Partial<Omit<Type['sys'], 'id'> & SysWithId>
+}
+
+export type WithId<Type extends { sys: unknown }> = Omit<Type, 'sys'> & {
+  sys: Partial<Omit<Type['sys'], 'id'>> & SysWithId
 }
 
 export interface Link<LinkType = string, Type = string> {

@@ -69,7 +69,7 @@ export type {
   ContentEntityType,
   Items,
   Link,
-  WithOptionalSys,
+  WithOptionalId,
 } from './utils'
 
 export type { WindowAPI } from './window.types'
