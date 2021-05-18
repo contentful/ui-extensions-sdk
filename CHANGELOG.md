@@ -1,3 +1,10 @@
+# [4.0.0-alpha.5](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.4...v4.0.0-alpha.5) (2021-05-18)
+
+
+### Features
+
+* expose WithId ([#722](https://github.com/contentful/ui-extensions-sdk/issues/722)) ([80189db](https://github.com/contentful/ui-extensions-sdk/commit/80189dbdf5b7592a73e1ed4ec4fef40b0c85a1c8))
+
 # [4.0.0-alpha.4](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.3...v4.0.0-alpha.4) (2021-05-18)
 
 
