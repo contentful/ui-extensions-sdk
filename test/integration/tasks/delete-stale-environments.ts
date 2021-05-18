@@ -1,7 +1,7 @@
 import { getCurrentSpace } from '../contentful-client'
 import { printStepTitle, sleep } from '../utils'
 
-const ONE_DAY_IN_MS = 60 * 60 * 24 * 1000
+const ONE_DAY_IN_MS = 60 * 60 * 2 * 1000
 
 export default async (currentSpace = getCurrentSpace) => {
   printStepTitle('Removing stale environments')
