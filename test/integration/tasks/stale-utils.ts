@@ -1,4 +1,4 @@
-const STALE_LIMIT = 2 * 60 * 60 * 1000
+const STALE_LIMIT = 24 * 60 * 60 * 1000
 
 export const isStale = (timeStamp: string) => {
   const environmentDate = new Date(timeStamp).getTime()
