@@ -70,6 +70,7 @@ export type {
   Items,
   Link,
   WithOptionalId,
+  WithId,
 } from './utils'
 
 export type { WindowAPI } from './window.types'
