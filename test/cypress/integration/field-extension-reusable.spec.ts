@@ -1,8 +1,6 @@
-import { entry } from '../utils/paths'
-
 import { openPageExtensionTest } from './reusable/open-page-extension-test'
 import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
-import { openEntryTest, openEntrySlideInTest } from './reusable/open-entry-test'
+import { openEntryTest, openEntrySlideInTest, visitEntry } from './reusable/open-entry-test'
 import { openAssetTest, openAssetSlideInTest } from './reusable/open-asset-test'
 import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
 import { openSdkLocalesDataTest } from './reusable/open-sdk-locales-data-test'
@@ -26,7 +24,7 @@ const fieldUiTestId = 'cf-ui-text-input'
 context(`Field extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
-    cy.visit(entry(post.id))
+    visitEntry(post.id)
     cy.findByTestId('workbench-title').should(($title) => {
       expect($title).to.exist
     })

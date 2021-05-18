@@ -2,16 +2,30 @@ import { entry } from '../../utils/paths'
 import * as Constants from '../../../constants'
 
 export function openEntryExtension(iframeSelector: string) {
-  cy.getSdk(iframeSelector).then(sdk => {
+  cy.getSdk(iframeSelector).then((sdk) => {
     sdk.navigator.openEntry(Constants.entries.testImageWrapper)
   })
 }
 
 export function openEntrySlideInExtension(iframeSelector: string) {
-  cy.getSdk(iframeSelector).then(sdk => {
+  cy.getSdk(iframeSelector).then((sdk) => {
     sdk.navigator.openEntry(Constants.entries.testImageWrapper, {
-      slideIn: true
+      slideIn: true,
     })
+  })
+}
+
+export function visitEntry(id: string, noRetry?: boolean) {
+  cy.visit(entry(id))
+
+  cy.findByTestId('slide-in-base').then((base) => {
+    cy.intercept('GET', /entries/).as('getEntry')
+    cy.wait('@getEntry')
+    const hasError = base.find('div').find(`[data-test-id="emptystate-error"]`).length
+    if (hasError && !noRetry) {
+      cy.wait(1000)
+      visitEntry(id, true)
+    }
   })
 }
 

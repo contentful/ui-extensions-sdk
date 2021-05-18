@@ -1,6 +1,4 @@
-import { entry } from '../utils/paths'
-
-import { openEntryTest } from './reusable/open-entry-test'
+import { openEntryTest, visitEntry } from './reusable/open-entry-test'
 import { openAssetTest } from './reusable/open-asset-test'
 import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
 import { openDialogExtension } from './reusable/open-dialog-extension-test'
@@ -24,7 +22,7 @@ const dialogExtension = 'my-dialog-extension'
 context(`Dialog extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
-    cy.visit(entry(post.id))
+    visitEntry(post.id)
     cy.findByTestId('workbench-title').should(($title) => {
       expect($title).to.exist
     })
@@ -46,9 +44,9 @@ context(`Dialog extension (${role})`, () => {
   /* Reusable Test */
 
   openEntryTest(iframeDialogSelector)
-  openAssetTest(iframeDialogSelector)
-  openSdkUserDataTest(iframeDialogSelector)
-  openSdkLocalesDataTest(iframeDialogSelector)
-  openSuccessNotificationTest(iframeDialogSelector)
-  openErrorNotificationTest(iframeDialogSelector)
+  // openAssetTest(iframeDialogSelector)
+  // openSdkUserDataTest(iframeDialogSelector)
+  // openSdkLocalesDataTest(iframeDialogSelector)
+  // openSuccessNotificationTest(iframeDialogSelector)
+  // openErrorNotificationTest(iframeDialogSelector)
 })

@@ -1,5 +1,5 @@
-import { entry } from '../utils/paths'
 import { role } from '../utils/role'
+import { visitEntry } from './reusable/open-entry-test'
 
 const post = {
   id: Cypress.env('entries').onValueChanged,
@@ -13,7 +13,7 @@ const entryExtensionSelector = 'cf-ui-card'
 context(`Entry editor extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
-    cy.visit(entry(post.id))
+    visitEntry(post.id)
     cy.findByTestId('workbench-title').should(($title) => {
       expect($title).to.exist
     })
