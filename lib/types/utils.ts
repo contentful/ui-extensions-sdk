@@ -1,14 +1,19 @@
-type SysWithId = {
+type Sys = {
   id: string
+  type: string
+  [key: string]: any
 }
 
-export type WithOptionalId<Type extends { sys: unknown }> = Omit<Type, 'sys'> & {
-  sys?: Partial<Omit<Type['sys'], 'id'> & SysWithId>
+type Entity = {
+  sys: Sys
+  [key: string]: any
 }
 
-export type WithId<Type extends { sys: unknown }> = Omit<Type, 'sys'> & {
-  sys: Partial<Omit<Type['sys'], 'id'>> & SysWithId
-}
+type Optional<Type, Keys extends keyof Type> = Partial<Type> & Omit<Type, Keys>
+
+export type WithSysWithAtLeastId = { sys: { id: string; [key: string]: any } }
+export type WithId<Type extends Entity> = Omit<Type, 'sys'> & WithSysWithAtLeastId
+export type WithOptionalId<Type extends Entity> = Optional<Type, 'sys'> | WithId<Type>
 
 export interface Link<LinkType = string, Type = string> {
   sys: {

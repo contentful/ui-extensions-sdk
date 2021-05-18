@@ -1,4 +1,3 @@
-/* Space API */
 import { Entry } from './entry.types'
 import {
   Asset,
