@@ -18,15 +18,19 @@ export function openEntrySlideInExtension(iframeSelector: string) {
 export function visitEntry(id: string, noRetry?: boolean) {
   cy.visit(entry(id))
 
-  cy.findByTestId('slide-in-base').then((base) => {
-    cy.intercept('GET', /entries/).as('getEntry')
-    cy.wait('@getEntry')
-    const hasError = base.find('div').find(`[data-test-id="emptystate-error"]`).length
-    if (hasError && !noRetry) {
-      cy.wait(1000)
-      visitEntry(id, true)
-    }
-  })
+  if (!noRetry) {
+    // retry when there was an error on loading the entry
+    cy.findByTestId('slide-in-base').then((base) => {
+      cy.intercept('GET', /entries/).as('getEntry')
+      cy.wait('@getEntry')
+      // check if there an error rendered in the ui
+      const hasError = base.find('div').find(`[data-test-id="emptystate-error"]`).length
+      if (hasError) {
+        cy.wait(1000)
+        visitEntry(id, true)
+      }
+    })
+  }
 }
 
 export function verifyEntryPageUrl(entryId: string) {
