@@ -44,9 +44,9 @@ context(`Dialog extension (${role})`, () => {
   /* Reusable Test */
 
   openEntryTest(iframeDialogSelector)
-  // openAssetTest(iframeDialogSelector)
-  // openSdkUserDataTest(iframeDialogSelector)
-  // openSdkLocalesDataTest(iframeDialogSelector)
-  // openSuccessNotificationTest(iframeDialogSelector)
-  // openErrorNotificationTest(iframeDialogSelector)
+  openAssetTest(iframeDialogSelector)
+  openSdkUserDataTest(iframeDialogSelector)
+  openSdkLocalesDataTest(iframeDialogSelector)
+  openSuccessNotificationTest(iframeDialogSelector)
+  openErrorNotificationTest(iframeDialogSelector)
 })
