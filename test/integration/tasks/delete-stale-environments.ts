@@ -1,7 +1,7 @@
 import { getCurrentSpace } from '../contentful-client'
 import { printStepTitle, sleep } from '../utils'
 
-const ONE_DAY_IN_MS = 60 * 60 * 24 * 1000
+const TWO_HOURS_IN_MS = 60 * 60 * 2 * 1000
 
 export default async (currentSpace = getCurrentSpace) => {
   printStepTitle('Removing stale environments')
@@ -16,7 +16,7 @@ export default async (currentSpace = getCurrentSpace) => {
   const isStaleEnvironment = (timeStamp: string) => {
     const environmentDate = new Date(timeStamp).getTime()
     const difference = Date.now() - environmentDate
-    return difference >= ONE_DAY_IN_MS
+    return difference >= TWO_HOURS_IN_MS
   }
   const deletedEnvironmentIds: string[] = []
   items.forEach(async (environment: any) => {
