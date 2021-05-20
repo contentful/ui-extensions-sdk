@@ -1,4 +1,3 @@
-import { entry } from '../utils/paths'
 import { role } from '../utils/role'
 import { verifyLocation } from '../utils/verify-location'
 import {
@@ -23,7 +22,7 @@ context(`Dialog extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
 
-    cy.visit(entry(post.id))
+    cy.visitEntryWithRetry(post.id)
     cy.findByTestId('workbench-title').should(($title) => {
       expect($title).to.exist
     })

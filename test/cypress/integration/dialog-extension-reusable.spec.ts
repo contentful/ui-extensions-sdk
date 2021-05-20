@@ -1,5 +1,3 @@
-import { entry } from '../utils/paths'
-
 import { openEntryTest } from './reusable/open-entry-test'
 import { openAssetTest } from './reusable/open-asset-test'
 import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
@@ -24,7 +22,7 @@ const dialogExtension = 'my-dialog-extension'
 context(`Dialog extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
-    cy.visit(entry(post.id))
+    cy.visitEntryWithRetry(post.id)
     cy.findByTestId('workbench-title').should(($title) => {
       expect($title).to.exist
     })

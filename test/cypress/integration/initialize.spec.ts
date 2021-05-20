@@ -1,5 +1,5 @@
 import { actionSelectors } from '../../constants'
-import { entry, pageExtension } from '../utils/paths'
+import { pageExtension } from '../utils/paths'
 import { role } from '../utils/role'
 import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
 
@@ -9,7 +9,7 @@ context(`Initialize (${role})`, () => {
   })
 
   it('Entry Editor', () => {
-    cy.visit(entry(Cypress.env('entries').entryEditorExtension))
+    cy.visitEntryWithRetry(Cypress.env('entries').entryEditorExtension)
     cy.findByTestId('workbench-title').should(($title) => {
       expect($title).to.exist
     })
@@ -25,7 +25,7 @@ context(`Initialize (${role})`, () => {
   })
 
   it('Field Extension', () => {
-    cy.visit(entry(Cypress.env('entries').fieldExtension))
+    cy.visitEntryWithRetry(Cypress.env('entries').fieldExtension)
     cy.findByTestId('workbench-title').should(($title) => {
       expect($title).to.exist
     })
@@ -39,7 +39,7 @@ context(`Initialize (${role})`, () => {
   })
 
   it('Sidebar Extension', () => {
-    cy.visit(entry(Cypress.env('entries').sidebarExtension))
+    cy.visitEntryWithRetry(Cypress.env('entries').sidebarExtension)
     cy.findByTestId('workbench-title').should(($title) => {
       expect($title).to.exist
     })
@@ -70,7 +70,7 @@ context(`Initialize (${role})`, () => {
 
   describe('Dialog Extension', () => {
     beforeEach(() => {
-      cy.visit(entry(Cypress.env('entries').sidebarExtension))
+      cy.visitEntryWithRetry(Cypress.env('entries').sidebarExtension)
       cy.findByTestId('workbench-title').should(($title) => {
         expect($title).to.exist
       })
