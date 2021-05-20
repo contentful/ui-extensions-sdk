@@ -31,7 +31,7 @@ Cypress.Commands.add('waitForIframeWithTestId', function waitForIframe(testId) {
   })
 })
 
-Cypress.Commands.add('visitEntryWithRetry', function setupBrowserStorage(id) {
+Cypress.Commands.add('visitEntryWithRetry', function visitEntryWithRetry(id) {
   let statusCode: null | number = null
   cy.visit(entry(id))
   cy.intercept('GET', /entries/, (req) => {
