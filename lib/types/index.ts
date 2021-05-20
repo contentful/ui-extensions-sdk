@@ -42,9 +42,10 @@ export type {
   Tag,
   TagVisibility,
   Task,
+  Entry,
 } from './entities'
 
-export type { Entry, EntryAPI, TaskAPI, TaskInputData } from './entry.types'
+export type { EntryAPI, TaskAPI, TaskInputData } from './entry.types'
 
 export type { FieldInfo, EntryFieldInfo, EntryFieldAPI } from './field.types'
 

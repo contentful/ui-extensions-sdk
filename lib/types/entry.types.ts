@@ -36,9 +36,3 @@ export interface EntryAPI extends TaskAPI {
    */
   metadata?: Metadata
 }
-
-export type Entry<Fields = Record<string, any>> = {
-  sys: ContentEntitySys
-  metadata?: Metadata
-  fields: Fields
-}

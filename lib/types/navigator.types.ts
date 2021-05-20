@@ -1,3 +1,5 @@
+import { Asset, Entry, KeyValueMap } from './entities'
+
 export interface NavigatorAPIOptions {
   /** use `waitForClose` if you want promise to be resolved only after slide in editor is closed */
   slideIn?: boolean | { waitForClose: boolean }
@@ -36,22 +38,22 @@ export interface NavigatorOpenResponse<T> {
 
 export interface NavigatorAPI {
   /** Opens an existing entry in the current Web App session. */
-  openEntry: <T = Object>(
+  openEntry: <Fields extends KeyValueMap = KeyValueMap>(
     entryId: string,
     options?: NavigatorAPIOptions
-  ) => Promise<NavigatorOpenResponse<T>>
+  ) => Promise<NavigatorOpenResponse<Entry<Fields>>>
   /** Opens an existing asset in the current Web App session. */
-  openAsset: <T = Object>(
+  openAsset: (
     assetId: string,
     options?: NavigatorAPIOptions
-  ) => Promise<NavigatorOpenResponse<T>>
+  ) => Promise<NavigatorOpenResponse<Asset>>
   /** Opens a new entry in the current Web App session. */
-  openNewEntry: <T = Object>(
+  openNewEntry: <Fields extends KeyValueMap = KeyValueMap>(
     contentTypeId: string,
     options?: NavigatorAPIOptions
-  ) => Promise<NavigatorOpenResponse<T>>
+  ) => Promise<NavigatorOpenResponse<Entry<Fields>>>
   /** Opens a new asset in the current Web App session. */
-  openNewAsset: <T = Object>(options: NavigatorAPIOptions) => Promise<NavigatorOpenResponse<T>>
+  openNewAsset: (options: NavigatorAPIOptions) => Promise<NavigatorOpenResponse<Asset>>
   /** Navigates to a page extension in the current Web App session. Calling without `options` will navigate to the home route of your page extension. */
   openPageExtension: (options?: PageExtensionOptions) => Promise<NavigatorPageResponse>
   /** Navigates to the app's page location. */
