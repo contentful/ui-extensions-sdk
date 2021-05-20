@@ -1,5 +1,4 @@
-import { Asset } from './entities'
-import { Entry } from './entry.types'
+import { Asset, Entry, KeyValueMap } from './entities'
 
 export interface NavigatorAPIOptions {
   /** use `waitForClose` if you want promise to be resolved only after slide in editor is closed */
@@ -39,7 +38,7 @@ export interface NavigatorOpenResponse<T> {
 
 export interface NavigatorAPI {
   /** Opens an existing entry in the current Web App session. */
-  openEntry: <Fields>(
+  openEntry: <Fields extends KeyValueMap = KeyValueMap>(
     entryId: string,
     options?: NavigatorAPIOptions
   ) => Promise<NavigatorOpenResponse<Entry<Fields>>>
@@ -49,7 +48,7 @@ export interface NavigatorAPI {
     options?: NavigatorAPIOptions
   ) => Promise<NavigatorOpenResponse<Asset>>
   /** Opens a new entry in the current Web App session. */
-  openNewEntry: <Fields>(
+  openNewEntry: <Fields extends KeyValueMap = KeyValueMap>(
     contentTypeId: string,
     options?: NavigatorAPIOptions
   ) => Promise<NavigatorOpenResponse<Entry<Fields>>>
