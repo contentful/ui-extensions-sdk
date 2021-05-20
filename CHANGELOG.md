@@ -1,3 +1,10 @@
+# [4.0.0-alpha.6](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.5...v4.0.0-alpha.6) (2021-05-20)
+
+
+### Bug Fixes
+
+* navigator api types ([#725](https://github.com/contentful/ui-extensions-sdk/issues/725)) ([7cac2eb](https://github.com/contentful/ui-extensions-sdk/commit/7cac2eb08200bba51d95d5461f00011a3add771b)), closes [#718](https://github.com/contentful/ui-extensions-sdk/issues/718) [#719](https://github.com/contentful/ui-extensions-sdk/issues/719) [#715](https://github.com/contentful/ui-extensions-sdk/issues/715) [#720](https://github.com/contentful/ui-extensions-sdk/issues/720) [#723](https://github.com/contentful/ui-extensions-sdk/issues/723) [#721](https://github.com/contentful/ui-extensions-sdk/issues/721)
+
 # [4.0.0-alpha.5](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.4...v4.0.0-alpha.5) (2021-05-18)
 
 
