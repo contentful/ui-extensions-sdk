@@ -1,4 +1,3 @@
-import { Entry } from './entry.types'
 import {
   Asset,
   CanonicalRequest,
@@ -8,6 +7,8 @@ import {
   Tag,
   User,
   TagVisibility,
+  KeyValueMap,
+  Entry,
 } from './entities'
 import {
   CollectionResponse,
@@ -43,8 +44,10 @@ export interface SpaceAPI {
   updateContentType: (data: ContentType) => Promise<ContentType>
   deleteContentType: (data: ContentType) => Promise<void>
 
-  getEntry: <Fields>(id: string) => Promise<Entry<Fields>>
-  getEntrySnapshots: <Fields>(id: string) => Promise<CollectionResponse<Snapshot<Entry<Fields>>>>
+  getEntry: <Fields extends KeyValueMap = KeyValueMap>(id: string) => Promise<Entry<Fields>>
+  getEntrySnapshots: <Fields extends KeyValueMap = KeyValueMap>(
+    id: string
+  ) => Promise<CollectionResponse<Snapshot<Entry<Fields>>>>
   getEntries: <Fields, Query extends SearchQuery = SearchQuery>(
     query?: Query
   ) => Promise<CollectionResponse<Entry<Fields>>>
@@ -52,12 +55,22 @@ export interface SpaceAPI {
     contentTypeId: string,
     data: WithOptionalId<Entry<Fields>>
   ) => Promise<Entry<Fields>>
-  updateEntry: <Fields>(data: Entry<Fields>) => Promise<Entry<Fields>>
-  publishEntry: <Fields>(data: Entry<Fields>) => Promise<Entry<Fields>>
-  unpublishEntry: <Fields>(data: Entry<Fields>) => Promise<Entry<Fields>>
-  archiveEntry: <Fields>(data: Entry<Fields>) => Promise<Entry<Fields>>
-  unarchiveEntry: <Fields>(data: Entry<Fields>) => Promise<Entry<Fields>>
-  deleteEntry: <Fields>(data: Entry<Fields>) => Promise<void>
+  updateEntry: <Fields extends KeyValueMap = KeyValueMap>(
+    data: Entry<Fields>
+  ) => Promise<Entry<Fields>>
+  publishEntry: <Fields extends KeyValueMap = KeyValueMap>(
+    data: Entry<Fields>
+  ) => Promise<Entry<Fields>>
+  unpublishEntry: <Fields extends KeyValueMap = KeyValueMap>(
+    data: Entry<Fields>
+  ) => Promise<Entry<Fields>>
+  archiveEntry: <Fields extends KeyValueMap = KeyValueMap>(
+    data: Entry<Fields>
+  ) => Promise<Entry<Fields>>
+  unarchiveEntry: <Fields extends KeyValueMap = KeyValueMap>(
+    data: Entry<Fields>
+  ) => Promise<Entry<Fields>>
+  deleteEntry: <Fields extends KeyValueMap = KeyValueMap>(data: Entry<Fields>) => Promise<void>
   getPublishedEntries: <Fields, Query extends SearchQuery = SearchQuery>(
     query?: Query
   ) => Promise<CollectionResponse<Entry<Fields>>>
