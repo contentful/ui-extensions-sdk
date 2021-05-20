@@ -7,7 +7,6 @@ import {
 import idsData from './fixtures/ids-data.json'
 import { openDialogExtension } from './reusable/open-dialog-extension-test'
 import * as openPageExtensionTest from './reusable/open-page-extension-test'
-import { visitEntry } from './reusable/open-entry-test'
 
 const post = {
   id: Cypress.env('entries').sidebarExtension,
@@ -23,7 +22,7 @@ context(`Dialog extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
 
-    visitEntry(post.id)
+    cy.visitEntryWithRetry(post.id)
     cy.findByTestId('workbench-title').should(($title) => {
       expect($title).to.exist
     })

@@ -1,6 +1,6 @@
 import { openPageExtensionTest } from './reusable/open-page-extension-test'
 import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
-import { openEntrySlideInTest, openEntryTest, visitEntry } from './reusable/open-entry-test'
+import { openEntrySlideInTest, openEntryTest } from './reusable/open-entry-test'
 import { openAssetTest, openAssetSlideInTest } from './reusable/open-asset-test'
 import { openSdkUserDataTest } from './reusable/open-sdk-user-data-test'
 import { openSdkLocalesDataTest } from './reusable/open-sdk-locales-data-test'
@@ -25,7 +25,7 @@ const entryExtensionSelector = 'cf-ui-card'
 context(`Entry editor extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
-    visitEntry(post.id)
+    cy.visitEntryWithRetry(post.id)
     cy.findByTestId('workbench-title').should(($title) => {
       expect($title).to.exist
     })

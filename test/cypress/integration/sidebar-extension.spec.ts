@@ -8,7 +8,6 @@ import {
 import idsData from './fixtures/ids-data.json'
 import contentTypeData from './fixtures/content-type-data/sidebar-ext.json'
 import { ContentType, EntryAPI, SidebarExtensionSDK } from '../../../lib/types'
-import { visitEntry } from './reusable/open-entry-test'
 
 const post = {
   id: Cypress.env('entries').sidebarExtension,
@@ -26,7 +25,7 @@ const sidebarExtension = 'cf-ui-sidebar-extension'
 context(`Sidebar extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
-    visitEntry(post.id)
+    cy.visitEntryWithRetry(post.id)
     cy.findByTestId('workbench-title').should(($title) => {
       expect($title).to.exist
     })

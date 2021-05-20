@@ -8,7 +8,6 @@ import {
 import idsData from './fixtures/ids-data.json'
 import contentTypeData from './fixtures/content-type-data/field-ext.json'
 import parameters from './fixtures/parameters.json'
-import { visitEntry } from './reusable/open-entry-test'
 
 const post = {
   id: Cypress.env('entries').fieldExtension,
@@ -23,7 +22,7 @@ const pageExtensionTestId = 'my-page-extension'
 context(`Field extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
-    visitEntry(post.id)
+    cy.visitEntryWithRetry(post.id)
     cy.findByTestId('workbench-title').should(($title) => {
       expect($title).to.exist
     })

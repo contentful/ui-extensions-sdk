@@ -6,7 +6,6 @@ import {
 } from '../utils/verify-parameters'
 import idsData from './fixtures/ids-data.json'
 import contentTypeData from './fixtures/content-type-data/entry-editor-ext.json'
-import { visitEntry } from './reusable/open-entry-test'
 
 const post = {
   id: Cypress.env('entries').entryEditorExtension,
@@ -20,7 +19,7 @@ const entryExtensionSelector = 'cf-ui-card'
 context(`Entry editor extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
-    visitEntry(post.id)
+    cy.visitEntryWithRetry(post.id)
     cy.findByTestId('workbench-title').should(($title) => {
       expect($title).to.exist
     })

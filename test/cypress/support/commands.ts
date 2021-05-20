@@ -1,4 +1,5 @@
 import '@testing-library/cypress/add-commands'
+import { entry } from '../utils/paths'
 
 declare global {
   namespace Cypress {
@@ -27,6 +28,23 @@ Cypress.Commands.add('setupBrowserStorage', function setupBrowserStorage() {
 Cypress.Commands.add('waitForIframeWithTestId', function waitForIframe(testId) {
   cy.get('iframe').should(($iframe) => {
     expect($iframe.contents().find(`[data-test-id="${testId}"]`)).to.exist
+  })
+})
+
+Cypress.Commands.add('visitEntryWithRetry', function setupBrowserStorage(id) {
+  let statusCode: null | number = null
+  cy.visit(entry(id))
+  cy.intercept('GET', /entries/, (req) => {
+    req.on('response', (res) => {
+      statusCode = res.statusCode
+    })
+  }).as('getEntry')
+  cy.wait('@getEntry').then(() => {
+    // revisit on 429 error
+    if (statusCode === 429) {
+      cy.wait(1000)
+      cy.visit(entry(id))
+    }
   })
 })
 
