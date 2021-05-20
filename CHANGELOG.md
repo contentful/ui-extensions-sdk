@@ -1,3 +1,22 @@
+# [4.0.0-alpha.5](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.4...v4.0.0-alpha.5) (2021-05-18)
+
+
+### Features
+
+* expose WithId ([#722](https://github.com/contentful/ui-extensions-sdk/issues/722)) ([80189db](https://github.com/contentful/ui-extensions-sdk/commit/80189dbdf5b7592a73e1ed4ec4fef40b0c85a1c8))
+
+# [4.0.0-alpha.4](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.3...v4.0.0-alpha.4) (2021-05-18)
+
+
+### Bug Fixes
+
+* more explicit space api types ([#711](https://github.com/contentful/ui-extensions-sdk/issues/711)) ([42d63de](https://github.com/contentful/ui-extensions-sdk/commit/42d63dea5fd9a313918a9591311d716c3374ac60))
+
+
+### Reverts
+
+* "chore: test that SDK respects alias ([#710](https://github.com/contentful/ui-extensions-sdk/issues/710))" ([#717](https://github.com/contentful/ui-extensions-sdk/issues/717)) ([4ab6e48](https://github.com/contentful/ui-extensions-sdk/commit/4ab6e48237ef6d4cdd75c7721cd994539ced0ce2))
+
 # [4.0.0-alpha.3](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.2...v4.0.0-alpha.3) (2021-05-11)
 
 ### Bug Fixes
