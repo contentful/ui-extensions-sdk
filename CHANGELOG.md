@@ -1,3 +1,10 @@
+# [4.0.0-alpha.7](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.6...v4.0.0-alpha.7) (2021-05-26)
+
+
+### Features
+
+* better typings for user API ([#744](https://github.com/contentful/ui-extensions-sdk/issues/744)) ([29a6359](https://github.com/contentful/ui-extensions-sdk/commit/29a63594933f1063ac8734a9877fec6fa25928b9))
+
 # [4.0.0-alpha.6](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.5...v4.0.0-alpha.6) (2021-05-20)
 
 
