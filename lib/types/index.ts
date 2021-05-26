@@ -43,6 +43,7 @@ export type {
   TagVisibility,
   Task,
   Entry,
+  Role,
 } from './entities'
 
 export type { EntryAPI, TaskAPI, TaskInputData } from './entry.types'

@@ -1,4 +1,4 @@
-import { ContentType, EditorInterface, SpaceMembership } from './entities'
+import { ContentType, EditorInterface, SpaceMembership, Role } from './entities'
 import { EntryAPI } from './entry.types'
 import { SpaceAPI } from './space.types'
 import { WindowAPI } from './window.types'
@@ -10,6 +10,7 @@ import { NavigatorAPI } from './navigator.types'
 import { EntryFieldInfo, FieldInfo } from './field.types'
 
 /* User API */
+
 export interface UserAPI {
   sys: {
     id: string
@@ -19,7 +20,14 @@ export interface UserAPI {
   lastName: string
   email: string
   avatarUrl: string
-  spaceMembership: SpaceMembership
+  // Although called SpaceMembership, this type does not abide to entity
+  // with same name. Keeping it the same (with more precise types) for
+  // backwards compatibility
+  spaceMembership: {
+    sys: Pick<SpaceMembership['sys'], 'id' | 'type'>
+    admin: SpaceMembership['admin']
+    roles: Pick<Role, 'name' | 'description'>[]
+  }
 }
 
 /* Locales API */
