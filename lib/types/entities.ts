@@ -10,6 +10,7 @@ export type {
   SpaceMembershipProps as SpaceMembership,
   ContentFields as ContentTypeField,
   EntryProps as Entry,
+  RoleProps as Role,
   KeyValueMap,
 } from 'contentful-management/types'
 
