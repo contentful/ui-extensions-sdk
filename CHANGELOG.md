@@ -1,3 +1,10 @@
+# [4.0.0-alpha.8](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.7...v4.0.0-alpha.8) (2021-05-27)
+
+
+### Features
+
+* improve types for Field & Entry API ([#745](https://github.com/contentful/ui-extensions-sdk/issues/745)) ([4774448](https://github.com/contentful/ui-extensions-sdk/commit/4774448bd766b83fadfc7e989bee570ab068434c))
+
 # [4.0.0-alpha.7](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.6...v4.0.0-alpha.7) (2021-05-26)
 
 
