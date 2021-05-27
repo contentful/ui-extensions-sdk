@@ -1,6 +1,7 @@
 import { Channel } from './channel'
 import { MemoizedSignal } from './signal'
 import { FieldAPI, FieldInfo, Items } from './types'
+import { ValidationError } from './types/validation-error'
 
 export default class FieldLocale implements FieldAPI {
   id: string
@@ -48,7 +49,7 @@ export default class FieldLocale implements FieldAPI {
 
     channel.addHandler(
       'schemaErrorsChangedForFieldLocale',
-      (id: string, locale: string, errors: Error[]) => {
+      (id: string, locale: string, errors: ValidationError[]) => {
         if (id === this.id && locale === this.locale) {
           this._schemaErrorsChangedSignal.dispatch(errors)
         }

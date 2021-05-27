@@ -9,6 +9,7 @@ export type {
   EditorInterfaceProps as EditorInterface,
   SpaceMembershipProps as SpaceMembership,
   ContentFields as ContentTypeField,
+  ContentTypeFieldValidation,
   EntryProps as Entry,
   RoleProps as Role,
   KeyValueMap,
