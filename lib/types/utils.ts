@@ -1,3 +1,5 @@
+import { ContentTypeFieldValidation } from './entities'
+
 type Sys = {
   id: string
   type: string
@@ -60,7 +62,7 @@ export type Metadata = {
 export interface Items {
   type: string
   linkType?: string
-  validations?: Object[]
+  validations?: ContentTypeFieldValidation[]
 }
 
 export interface SearchQuery {

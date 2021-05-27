@@ -27,7 +27,7 @@ export interface EntryAPI extends TaskAPI {
   /** Returns sys for an entry. */
   getSys: () => ContentEntitySys
   /** Calls the callback with sys every time that sys changes. */
-  onSysChanged: (callback: (sys: ContentEntitySys) => void) => Function
+  onSysChanged: (callback: (sys: ContentEntitySys) => void) => () => void
   /** Allows to control the values of all other fields in the current entry. */
   fields: { [key: string]: EntryFieldAPI }
   /**
