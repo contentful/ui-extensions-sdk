@@ -1,3 +1,10 @@
+# [4.0.0-alpha.9](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.8...v4.0.0-alpha.9) (2021-05-28)
+
+
+### Features
+
+* remove files from dist that were kept for backwards compatibility ([#750](https://github.com/contentful/ui-extensions-sdk/issues/750)) ([dbed8c2](https://github.com/contentful/ui-extensions-sdk/commit/dbed8c29eb9bbfc45bc5c50944bed75e8b3616e1))
+
 # [4.0.0-alpha.8](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.7...v4.0.0-alpha.8) (2021-05-27)
 
 
