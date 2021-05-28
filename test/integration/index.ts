@@ -129,7 +129,7 @@ const run = async () => {
     managementToken: config.managementTokenEditorMasterOnly,
     spaceId: config.spaceId,
     environmentId: 'master-test',
-    aliasId: testAlias,
+    aliasId: testAliasId,
     role: 'editorMasterOnly',
     entries: newEntryIds,
   })

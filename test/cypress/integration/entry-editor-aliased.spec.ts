@@ -45,7 +45,7 @@ context(`Aliased Entry editor extension (${role})`, () => {
     })
   })
 
-  it('verifies that when not using alias API calls does not use the active Alias', () => {
+  it('verifies that when not using the alias, the API calls does not include it', () => {
     const aliasId = Cypress.env('activeAliasId')
     cy.visitEntryWithRetry(post.id)
     cy.findByTestId('workbench-title').should(($title) => {
