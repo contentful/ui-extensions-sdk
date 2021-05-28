@@ -22,9 +22,9 @@ export interface AppConfigAPI {
   /** Returns current state of an App */
   getCurrentState: () => Promise<AppState | null>
   /** Returns parameters of an App, null otherwise */
-  getParameters: <T = Object>() => Promise<null | T>
+  getParameters: <T extends Record<string, unknown>>() => Promise<null | T>
   /** Registers a handler to be called to produce parameters for an App */
-  onConfigure: (handler: Function) => void
+  onConfigure: (handler: () => void) => void
   /** Registers a handler to be called once configuration was finished */
-  onConfigurationCompleted: (handler: Function) => void
+  onConfigurationCompleted: (handler: () => void) => void
 }
