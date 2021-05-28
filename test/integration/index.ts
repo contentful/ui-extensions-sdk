@@ -1,4 +1,6 @@
 /* eslint-disable import/first */
+import { testAliasId } from './utils'
+
 require('dotenv').config()
 
 import asyncRetry from 'async-retry'
@@ -100,6 +102,7 @@ const run = async () => {
     managementToken: config.managementTokenAdmin,
     spaceId: config.spaceId,
     environmentId: tempEnvironmentId,
+    aliasId: testAliasId,
     role: 'admin',
     entries: entryIds,
   })
@@ -110,6 +113,7 @@ const run = async () => {
     managementToken: config.managementTokenEditor,
     spaceId: config.spaceId,
     environmentId: tempEnvironmentId,
+    aliasId: testAliasId,
     role: 'editor',
     entries: entryIds,
   })
@@ -125,6 +129,7 @@ const run = async () => {
     managementToken: config.managementTokenEditorMasterOnly,
     spaceId: config.spaceId,
     environmentId: 'master-test',
+    aliasId: testAlias,
     role: 'editorMasterOnly',
     entries: newEntryIds,
   })
