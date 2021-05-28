@@ -1,4 +1,4 @@
-import { ContentType } from './entities'
+import { ContentType, KeyValueMap } from './entities'
 
 interface AppStateEditorInterfaceItem {
   controls?: Array<{ fieldId: string; settings?: Record<string, any> }>
@@ -22,11 +22,11 @@ export interface AppConfigAPI {
   /** Returns current state of an App */
   getCurrentState: () => Promise<AppState | null>
   /** Returns parameters of an App, null otherwise */
-  getParameters: <T extends Record<string, unknown>>() => Promise<null | T>
+  getParameters: <T extends KeyValueMap = KeyValueMap>() => Promise<null | T>
   /** Registers a handler to be called to produce parameters for an App */
   onConfigure: (
     handler: () => {
-      parameters?: Record<string, unknown>
+      parameters?: KeyValueMap
       targetState?: AppState
     }
   ) => void

@@ -1,5 +1,6 @@
 import { Channel } from './channel'
 import { AppConfigAPI, AppState } from './types'
+import { KeyValueMap } from './types/entities'
 
 const HOOK_STAGE_PRE_INSTALL = 'preInstall'
 const HOOK_STAGE_POST_INSTALL = 'postInstall'
@@ -97,18 +98,15 @@ export default function createApp(channel: Channel): AppConfigAPI {
     isInstalled() {
       return channel.call('callAppMethod', 'isInstalled') as Promise<boolean>
     },
-    getParameters() {
-      return channel.call('callAppMethod', 'getParameters') as Promise<Record<
-        string,
-        unknown
-      > | null>
+    getParameters<T extends KeyValueMap = KeyValueMap>() {
+      return channel.call('callAppMethod', 'getParameters') as Promise<T | null>
     },
     getCurrentState() {
       return channel.call('callAppMethod', 'getCurrentState') as Promise<AppState | null>
     },
     onConfigure(
       handler: () => {
-        parameters?: Record<string, unknown>
+        parameters?: KeyValueMap
         targetState?: AppState
       }
     ) {
