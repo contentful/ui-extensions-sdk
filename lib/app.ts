@@ -98,15 +98,23 @@ export default function createApp(channel: Channel): AppConfigAPI {
       return channel.call('callAppMethod', 'isInstalled') as Promise<boolean>
     },
     getParameters() {
-      return channel.call('callAppMethod', 'getParameters') as Promise<any>
+      return channel.call('callAppMethod', 'getParameters') as Promise<Record<
+        string,
+        unknown
+      > | null>
     },
     getCurrentState() {
       return channel.call('callAppMethod', 'getCurrentState') as Promise<AppState | null>
     },
-    onConfigure(handler: Function) {
+    onConfigure(
+      handler: () => {
+        parameters?: Record<string, unknown>
+        targetState?: AppState
+      }
+    ) {
       setHandler(HOOK_STAGE_PRE_INSTALL, handler)
     },
-    onConfigurationCompleted(handler: Function) {
+    onConfigurationCompleted(handler: (err: null | { message: string }) => void) {
       setHandler(HOOK_STAGE_POST_INSTALL, handler)
     },
   }

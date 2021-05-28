@@ -24,7 +24,12 @@ export interface AppConfigAPI {
   /** Returns parameters of an App, null otherwise */
   getParameters: <T extends Record<string, unknown>>() => Promise<null | T>
   /** Registers a handler to be called to produce parameters for an App */
-  onConfigure: (handler: () => void) => void
+  onConfigure: (
+    handler: () => {
+      parameters?: Record<string, unknown>
+      targetState?: AppState
+    }
+  ) => void
   /** Registers a handler to be called once configuration was finished */
-  onConfigurationCompleted: (handler: () => void) => void
+  onConfigurationCompleted: (handler: (err: null | { message: string }) => void) => void
 }
