@@ -1,3 +1,10 @@
+# [4.0.0-alpha.10](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.9...v4.0.0-alpha.10) (2021-05-31)
+
+
+### Features
+
+* update AppConfigAPI types ([#753](https://github.com/contentful/ui-extensions-sdk/issues/753)) ([6876d0a](https://github.com/contentful/ui-extensions-sdk/commit/6876d0ad0f8214acdfb97783caa54740410b037d))
+
 # [4.0.0-alpha.9](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.8...v4.0.0-alpha.9) (2021-05-28)
 
 
