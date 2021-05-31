@@ -1,5 +1,3 @@
-import { entry } from '../utils/paths'
-
 import { openPageExtensionTest } from './reusable/open-page-extension-test'
 import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
 import { openEntryTest, openEntrySlideInTest } from './reusable/open-entry-test'
@@ -26,7 +24,7 @@ const fieldUiTestId = 'cf-ui-text-input'
 context(`Field extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
-    cy.visit(entry(post.id))
+    cy.visitEntryWithRetry(post.id)
     cy.findByTestId('workbench-title').should(($title) => {
       expect($title).to.exist
     })
