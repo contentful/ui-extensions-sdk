@@ -47,7 +47,8 @@ export default async () => {
         })
         console.log(`New alias "${testAliasId}" has been created`)
       } catch (e) {
-        console.log('Could not create the alias', e)
+        console.error('Could not create the alias', e)
+        throw e
       }
     } else {
       throw e
