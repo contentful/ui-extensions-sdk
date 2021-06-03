@@ -95,8 +95,8 @@ export default function createApp(channel: Channel): AppConfigAPI {
     setReady() {
       return channel.call('callAppMethod', 'setReady') as Promise<void>
     },
-    isInstalled() {
-      return channel.call('callAppMethod', 'isInstalled') as Promise<boolean>
+    getInstallation() {
+      return channel.call('callAppMethod', 'getInstallation') as KeyValueMap | null
     },
     getParameters<T extends KeyValueMap = KeyValueMap>() {
       return channel.call('callAppMethod', 'getParameters') as Promise<T | null>

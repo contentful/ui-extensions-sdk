@@ -18,7 +18,7 @@ export interface AppConfigAPI {
   /** Tells the web app that the app is loaded */
   setReady: () => Promise<void>
   /** Returns true if an App is installed */
-  isInstalled: () => Promise<boolean>
+  getInstallation: () => KeyValueMap | null
   /** Returns current state of an App */
   getCurrentState: () => Promise<AppState | null>
   /** Returns parameters of an App, null otherwise */
