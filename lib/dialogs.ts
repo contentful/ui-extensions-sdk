@@ -28,8 +28,8 @@ export default function createDialogs(channel: Channel, ids: IdsAPI): DialogsAPI
     return channel.call('openDialog', type, prepareOptions(options)) as Promise<any>
   }
 
-  function openExtensionDialog(options: OpenCustomWidgetOptions) {
-    options = prepareOptions(options)
+  function openExtensionDialog(optionsInput?: OpenCustomWidgetOptions) {
+    let options = prepareOptions(optionsInput)
 
     // Use provided ID, default to the current extension.
     options = { ...options, id: options.id || ids.extension }

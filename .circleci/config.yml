@@ -16,6 +16,8 @@ jobs:
       - run: npm test
       - run: npm run build
       - run: npm run size
+      - store_test_results:
+          path: test/unit/reports
   integration:
     docker:
       - image: cypress/browsers:node12.18.0-chrome83-ff77
@@ -31,8 +33,14 @@ jobs:
           command: |
             set -e
             npm run integration
-      - run: npm run merge-report
-      - run: npm run generate-report
+      - run: 
+          command: npm run merge-report
+          when: always
+      - run:
+          command: npm run generate-report        
+          when: always
+      - store_test_results:
+          path: test/cypress/reports
       - store_artifacts:
           path: test/cypress/reports
       - store_artifacts:

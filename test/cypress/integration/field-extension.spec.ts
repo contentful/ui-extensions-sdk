@@ -1,4 +1,3 @@
-import { entry } from '../utils/paths'
 import { openPageExtensionWithSubRoute } from './reusable/open-page-extension-test'
 import { role } from '../utils/role'
 import { verifyLocation } from '../utils/verify-location'
@@ -23,7 +22,7 @@ const pageExtensionTestId = 'my-page-extension'
 context(`Field extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
-    cy.visit(entry(post.id))
+    cy.visitEntryWithRetry(post.id)
     cy.findByTestId('workbench-title').should(($title) => {
       expect($title).to.exist
     })

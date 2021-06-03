@@ -1,3 +1,31 @@
+## [3.34.3](https://github.com/contentful/ui-extensions-sdk/compare/v3.34.2...v3.34.3) (2021-05-18)
+
+
+### Reverts
+
+* "chore: test that SDK respects alias ([#710](https://github.com/contentful/ui-extensions-sdk/issues/710))" ([#717](https://github.com/contentful/ui-extensions-sdk/issues/717)) ([4ab6e48](https://github.com/contentful/ui-extensions-sdk/commit/4ab6e48237ef6d4cdd75c7721cd994539ced0ce2))
+
+## [3.34.2](https://github.com/contentful/ui-extensions-sdk/compare/v3.34.1...v3.34.2) (2021-05-11)
+
+
+### Reverts
+
+* bump cypress from 7.2.0 to 7.3.0 ([#706](https://github.com/contentful/ui-extensions-sdk/issues/706)) ([ebcdf01](https://github.com/contentful/ui-extensions-sdk/commit/ebcdf01c26c59707e5733f34d8897a9de9bfa462))
+
+## [3.34.1](https://github.com/contentful/ui-extensions-sdk/compare/v3.34.0...v3.34.1) (2021-05-06)
+
+
+### Bug Fixes
+
+* make options of dialogs.openExtension optional ([#681](https://github.com/contentful/ui-extensions-sdk/issues/681)) ([ca6d15b](https://github.com/contentful/ui-extensions-sdk/commit/ca6d15bf6c9979410296dfaa3f2ad3bd71ba33c4))
+
+# [3.34.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.33.0...v3.34.0) (2021-04-30)
+
+
+### Features
+
+* add navigate to lists methods ([ef5ee41](https://github.com/contentful/ui-extensions-sdk/commit/ef5ee4148911f51b333dbd0967d5fba2748de317))
+
 # [3.33.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.32.2...v3.33.0) (2021-04-06)
 
 
