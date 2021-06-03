@@ -1,4 +1,3 @@
-import { entry } from '../utils/paths'
 import { role } from '../utils/role'
 
 const post = {
@@ -13,7 +12,7 @@ const entryExtensionSelector = 'cf-ui-card'
 context(`Entry editor extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
-    cy.visit(entry(post.id))
+    cy.visitEntryWithRetry(post.id)
     cy.findByTestId('workbench-title').should(($title) => {
       expect($title).to.exist
     })
