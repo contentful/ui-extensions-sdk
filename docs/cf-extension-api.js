@@ -92,7 +92,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var fieldInfo = _ref.fieldInfo;
 	  var contentType = _ref.contentType;
 
-
     (function () {
       try {
         var ct = contentType

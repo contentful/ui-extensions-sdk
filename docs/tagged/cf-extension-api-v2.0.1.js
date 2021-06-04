@@ -107,7 +107,6 @@ return /******/ (function(modules) { // webpackBootstrap
       }
     })();
 
-
 	  return {
 	    locales: locales,
 	    field: new _fieldLocale2.default(channel, field),

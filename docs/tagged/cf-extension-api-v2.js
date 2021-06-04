@@ -85,7 +85,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var init = exports.init = (0, _initialize2.default)(createWidgetAPI);
 
-    (function () {
+	function createWidgetAPI(channel, _ref) {
+	  var entry = _ref.entry;
+	  var locales = _ref.locales;
+	  var field = _ref.field;
+	  var fieldInfo = _ref.fieldInfo;
+	  var contentType = _ref.contentType;
+
+		(function () {
       try {
         var ct = contentType
         var sid
@@ -99,13 +106,6 @@ return /******/ (function(modules) { // webpackBootstrap
         // noop
       }
     })();
-
-	function createWidgetAPI(channel, _ref) {
-	  var entry = _ref.entry;
-	  var locales = _ref.locales;
-	  var field = _ref.field;
-	  var fieldInfo = _ref.fieldInfo;
-	  var contentType = _ref.contentType;
 	
 	  return {
 	    locales: locales,
