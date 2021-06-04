@@ -1,5 +1,6 @@
 import { Channel } from './channel'
 import { AppConfigAPI, AppState } from './types'
+import { OnConfigureHandler } from './types/app.types'
 import { KeyValueMap } from './types/entities'
 
 const HOOK_STAGE_PRE_INSTALL = 'preInstall'
@@ -104,12 +105,7 @@ export default function createApp(channel: Channel): AppConfigAPI {
     getCurrentState() {
       return channel.call('callAppMethod', 'getCurrentState') as Promise<AppState | null>
     },
-    onConfigure(
-      handler: () =>
-        | Promise<{ parameters?: KeyValueMap; targetState?: AppState }>
-        | { parameters?: KeyValueMap; targetState?: AppState }
-        | false
-    ) {
+    onConfigure(handler: OnConfigureHandler) {
       setHandler(HOOK_STAGE_PRE_INSTALL, handler)
     },
     onConfigurationCompleted(handler: (err: null | { message: string }) => void) {
