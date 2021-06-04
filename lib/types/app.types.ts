@@ -25,10 +25,10 @@ export interface AppConfigAPI {
   getParameters: <T extends KeyValueMap = KeyValueMap>() => Promise<null | T>
   /** Registers a handler to be called to produce parameters for an App */
   onConfigure: (
-    handler: () => {
-      parameters?: KeyValueMap
-      targetState?: AppState
-    }
+    handler: () =>
+      | Promise<{ parameters?: KeyValueMap; targetState?: AppState }>
+      | { parameters?: KeyValueMap; targetState?: AppState }
+      | false
   ) => void
   /** Registers a handler to be called once configuration was finished */
   onConfigurationCompleted: (handler: (err: null | { message: string }) => void) => void

@@ -105,10 +105,10 @@ export default function createApp(channel: Channel): AppConfigAPI {
       return channel.call('callAppMethod', 'getCurrentState') as Promise<AppState | null>
     },
     onConfigure(
-      handler: () => {
-        parameters?: KeyValueMap
-        targetState?: AppState
-      }
+      handler: () =>
+        | Promise<{ parameters?: KeyValueMap; targetState?: AppState }>
+        | { parameters?: KeyValueMap; targetState?: AppState }
+        | false
     ) {
       setHandler(HOOK_STAGE_PRE_INSTALL, handler)
     },
