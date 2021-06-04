@@ -20,7 +20,12 @@ export type {
   UserAPI,
 } from './api.types'
 
-export type { AppConfigAPI, AppState } from './app.types'
+export type {
+  AppConfigAPI,
+  AppState,
+  OnConfigureHandler,
+  OnConfigureHandlerReturn,
+} from './app.types'
 
 export type {
   DialogsAPI,
