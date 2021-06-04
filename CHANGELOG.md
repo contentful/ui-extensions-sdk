@@ -1,3 +1,10 @@
+# [4.0.0-alpha.11](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.10...v4.0.0-alpha.11) (2021-06-04)
+
+
+### Bug Fixes
+
+* update onConfigure type to match reference ([#765](https://github.com/contentful/ui-extensions-sdk/issues/765)) ([2819f13](https://github.com/contentful/ui-extensions-sdk/commit/2819f1325c24c5cb210d5dd071dfbef1ae875ac0))
+
 # [4.0.0-alpha.10](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.9...v4.0.0-alpha.10) (2021-05-31)
 
 
