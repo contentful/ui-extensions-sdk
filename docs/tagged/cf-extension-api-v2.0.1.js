@@ -84,7 +84,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var init = exports.init = (0, _initialize2.default)(createWidgetAPI);
-	
 	function createWidgetAPI(channel, _ref) {
 	  var entry = _ref.entry;
 	  var locales = _ref.locales;
@@ -92,20 +91,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var fieldInfo = _ref.fieldInfo;
 	  var contentType = _ref.contentType;
 
-    (function () {
-      try {
-        var ct = contentType
-        var sid
-        if (ct.sys && ct.sys.space && ct.sys.space.sys && ct.sys.space.sys.id) {
-          sid = ct.sys.space.sys.id
-        }
-        if (sid) {
-          fetch('https://api.contentful.com/uie-tracking?sid=' + sid)
-        }
-      } catch (e) {
-        // noop
-      }
-    })();
+		(function () {
+			try {
+				var ct = contentType
+				var sid
+				if (ct.sys && ct.sys.space && ct.sys.space.sys && ct.sys.space.sys.id) {
+					sid = ct.sys.space.sys.id
+				}
+				if (sid) {
+					fetch('https://api.contentful.com/uie-tracking?sid=' + sid)
+				}
+			} catch (e) {
+				// noop
+			}
+		})();
 
 	  return {
 	    locales: locales,
