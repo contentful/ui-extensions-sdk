@@ -14,6 +14,12 @@ export interface AppState {
   EditorInterface: Record<ContentType['sys']['id'], AppStateEditorInterfaceItem>
 }
 
+export type OnConfigureHandlerReturn =
+  | Promise<{ parameters?: KeyValueMap; targetState?: AppState }>
+  | { parameters?: KeyValueMap; targetState?: AppState }
+  | false
+export type OnConfigureHandler = () => OnConfigureHandlerReturn
+
 export interface AppConfigAPI {
   /** Tells the web app that the app is loaded */
   setReady: () => Promise<void>
@@ -24,12 +30,7 @@ export interface AppConfigAPI {
   /** Returns parameters of an App, null otherwise */
   getParameters: <T extends KeyValueMap = KeyValueMap>() => Promise<null | T>
   /** Registers a handler to be called to produce parameters for an App */
-  onConfigure: (
-    handler: () => {
-      parameters?: KeyValueMap
-      targetState?: AppState
-    }
-  ) => void
+  onConfigure: (handler: OnConfigureHandler) => void
   /** Registers a handler to be called once configuration was finished */
   onConfigurationCompleted: (handler: (err: null | { message: string }) => void) => void
 }
