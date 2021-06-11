@@ -175,6 +175,7 @@ export interface TaskInputData {
   assignedToId: string
   body: string
   status: TaskState
+  dueDate?: string
 }
 
 export interface Task {
@@ -182,6 +183,7 @@ export interface Task {
   body: string
   status: TaskState
   sys: TaskSys
+  dueDate?: string
 }
 
 /** Allows accessing the Task API for the current entry. */
