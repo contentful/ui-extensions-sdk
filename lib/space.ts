@@ -29,8 +29,10 @@ const spaceMethods: Array<keyof SpaceAPI> = [
 
   'publishEntry',
   'publishAsset',
+  'publishContentType',
   'unpublishEntry',
   'unpublishAsset',
+  'unpublishContentType',
 
   'archiveEntry',
   'archiveAsset',
