@@ -1,3 +1,10 @@
+# [4.0.0-alpha.13](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.12...v4.0.0-alpha.13) (2021-06-14)
+
+
+### Features
+
+* add due date as a task field type ([#783](https://github.com/contentful/ui-extensions-sdk/issues/783)) ([f2b216a](https://github.com/contentful/ui-extensions-sdk/commit/f2b216a6b5906e8b2a1a0c338bb4bf9504612e9b))
+
 # [4.0.0-alpha.12](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.11...v4.0.0-alpha.12) (2021-06-14)
 
 
