@@ -341,6 +341,8 @@ export interface SpaceAPI {
   getContentTypes: <T = Object>() => Promise<CollectionResponse<T>>
   createContentType: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>
   updateContentType: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>
+  publishContentType: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>
+  unpublishContentType: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>
   deleteContentType: <T = Object, InputArgs = any>(data: InputArgs) => Promise<T>
 
   getEntry: <T = Object>(id: string) => Promise<T>
