@@ -1,3 +1,10 @@
+# [4.0.0-alpha.12](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.11...v4.0.0-alpha.12) (2021-06-14)
+
+
+### Bug Fixes
+
+* change ContentType API to public type ([#788](https://github.com/contentful/ui-extensions-sdk/issues/788)) ([88742a1](https://github.com/contentful/ui-extensions-sdk/commit/88742a18b363840465a3f229f5d859af0682c0c0))
+
 # [4.0.0-alpha.11](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.10...v4.0.0-alpha.11) (2021-06-04)
 
 
