@@ -52,6 +52,8 @@ const spaceMethods: Array<keyof SpaceAPI> = [
   'readTags',
   'updateTag',
   'deleteTag',
+
+  'getTeams',
 ]
 
 export default function createSpace(

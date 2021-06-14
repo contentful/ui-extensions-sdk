@@ -36,6 +36,32 @@ export interface Link {
   }
 }
 
+export interface Team {
+  sys: {
+    space?: Link
+    status?: Link
+    publishedVersion?: number
+    archivedVersion?: number
+    archivedBy?: Link
+    archivedAt?: string
+    deletedVersion?: number
+    deletedBy?: Link
+    deletedAt?: string
+    id: string
+    type: string
+    memberCount: number
+    organization: {
+      sys: {
+        type: string
+        linkType: string
+        id: string
+      }
+    }
+  }
+  name: string
+  description: string
+}
+
 export interface Tag {
   sys: {
     type: 'Tag'
@@ -399,6 +425,8 @@ export interface SpaceAPI {
   readTags: (skip: number, limit: number) => Promise<CollectionResponse<Tag>>
   updateTag: (id: string, name: string, version: number) => Promise<Tag>
   deleteTag: (id: string, version: number) => Promise<boolean>
+
+  getTeams: () => Promise<CollectionResponse<Team>>
 }
 
 /* Locales API */
