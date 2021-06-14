@@ -1,8 +1,8 @@
-import { ContentType, EditorInterface, SpaceMembership, Role } from './entities'
+import { ContentType, EditorInterface, SpaceMembership, Role, ContentTypeField } from './entities'
 import { EntryAPI } from './entry.types'
 import { SpaceAPI } from './space.types'
 import { WindowAPI } from './window.types'
-import { ContentEntitySys, Metadata } from './utils'
+import { ContentEntitySys, Link, Metadata } from './utils'
 import { FieldAPI } from './field-locale.types'
 import { DialogsAPI } from './dialogs.types'
 import { AppConfigAPI } from './app.types'
@@ -82,6 +82,23 @@ export interface IdsAPI {
   field: string
   entry: string
   contentType: string
+}
+
+/** Content API */
+export interface ContentTypeAPI {
+  sys: {
+    id: string
+    type: 'ContentType'
+    revision: number
+    space: Link<'Space', 'Link'>
+    environment: Link<'Environment', 'Link'>
+    createdAt?: string
+    updatedAt?: string
+  }
+  fields: ContentTypeField[]
+  name: string
+  displayField: string
+  description: string
 }
 
 export interface EditorLocaleSettings {
@@ -216,7 +233,7 @@ export interface ConnectMessage {
   user: UserAPI
   initialContentTypes: ContentType[]
   ids: IdsAPI
-  contentType: ContentType
+  contentType: ContentTypeAPI
   editorInterface?: EditorInterface
   entry: {
     sys: ContentEntitySys
