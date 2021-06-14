@@ -149,6 +149,6 @@
     ]
   },
   "dependencies": {
-    "contentful-management": "^7.22.0"
+    "contentful-management": "^7.23.0"
   }
 }
