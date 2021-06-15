@@ -116,7 +116,7 @@ export interface SharedEditorSDK {
   /** Allows to read and update the value of any field of the current entry and to get the entry's metadata */
   entry: EntryAPI
   /** Information about the content type of the entry. */
-  contentType: ContentType
+  contentType: ContentTypeAPI
 }
 
 type CrudAction = 'create' | 'read' | 'update' | 'delete'
