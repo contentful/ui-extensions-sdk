@@ -1,3 +1,10 @@
+# [4.0.0-alpha.14](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.13...v4.0.0-alpha.14) (2021-06-15)
+
+
+### Bug Fixes
+
+* use correct typings in waitUntilAssetProcessed ([#792](https://github.com/contentful/ui-extensions-sdk/issues/792)) ([74a030a](https://github.com/contentful/ui-extensions-sdk/commit/74a030ab4351fccc5c3ff28f7a6d4d51e368521a))
+
 # [4.0.0-alpha.13](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.12...v4.0.0-alpha.13) (2021-06-14)
 
 
