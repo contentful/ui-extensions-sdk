@@ -3,6 +3,7 @@ export type {
   AppExtensionSDK,
   BaseExtensionSDK,
   ConnectMessage,
+  ContentTypeAPI,
   DialogExtensionSDK,
   EditorExtensionSDK,
   EditorLocaleSettings,
