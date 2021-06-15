@@ -1,3 +1,10 @@
+# [4.0.0-alpha.15](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.14...v4.0.0-alpha.15) (2021-06-15)
+
+
+### Bug Fixes
+
+* export ContentTypeAPI ([#793](https://github.com/contentful/ui-extensions-sdk/issues/793)) ([2f0f74e](https://github.com/contentful/ui-extensions-sdk/commit/2f0f74e7674604de88f3510343949885b333bdcd))
+
 # [4.0.0-alpha.14](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.13...v4.0.0-alpha.14) (2021-06-15)
 
 
