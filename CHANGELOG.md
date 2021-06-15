@@ -1,3 +1,10 @@
+# [4.0.0-alpha.16](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.15...v4.0.0-alpha.16) (2021-06-15)
+
+
+### Bug Fixes
+
+* set ContentTypeAPI in SharedEditorSDK ([#794](https://github.com/contentful/ui-extensions-sdk/issues/794)) ([b9fa7fc](https://github.com/contentful/ui-extensions-sdk/commit/b9fa7fc59fb23aa691f00401a9b0f8bbd57bcba2))
+
 # [4.0.0-alpha.15](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.14...v4.0.0-alpha.15) (2021-06-15)
 
 
