@@ -38,25 +38,17 @@ export interface Link {
 
 export interface Team {
   sys: {
-    space?: Link
-    status?: Link
-    publishedVersion?: number
-    archivedVersion?: number
-    archivedBy?: Link
-    archivedAt?: string
-    deletedVersion?: number
+    createdAt?: string
+    createdBy?: Link
+    id: string
+    memberCount: number
+    organization: Link
+    type: string
+    updatedAt?: string
+    updatedBy?: Link
+    version: number
     deletedBy?: Link
     deletedAt?: string
-    id: string
-    type: string
-    memberCount: number
-    organization: {
-      sys: {
-        type: string
-        linkType: string
-        id: string
-      }
-    }
   }
   name: string
   description: string
