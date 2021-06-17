@@ -1,5 +1,6 @@
 export type {
   TagProps as Tag,
+  TeamProps as Team,
   TagVisibility,
   UserProps as User,
   AssetProps as Asset,
