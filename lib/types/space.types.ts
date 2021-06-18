@@ -117,5 +117,5 @@ export interface SpaceAPI {
   updateTag: (id: string, name: string, version: number) => Promise<Tag>
   deleteTag: (id: string, version: number) => Promise<boolean>
 
-  getTeams: () => Promise<CollectionResponse<Team>>
+  getTeams: (query: QueryOptions) => Promise<CollectionResponse<Team>>
 }

@@ -14,6 +14,7 @@ export type {
   EntryProps as Entry,
   RoleProps as Role,
   KeyValueMap,
+  QueryOptions,
 } from 'contentful-management/types'
 
 export interface CanonicalRequest {
