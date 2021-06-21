@@ -1,3 +1,10 @@
+# [4.0.0-alpha.17](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.16...v4.0.0-alpha.17) (2021-06-21)
+
+
+### Features
+
+* add interface for space.getTeams to v4 [HOMER-84] ([#797](https://github.com/contentful/ui-extensions-sdk/issues/797)) ([0cfe659](https://github.com/contentful/ui-extensions-sdk/commit/0cfe659970233fdc90b62d799cd608d949f7e8f7))
+
 # [4.0.0-alpha.16](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.15...v4.0.0-alpha.16) (2021-06-15)
 
 
