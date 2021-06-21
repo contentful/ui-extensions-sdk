@@ -50,6 +50,8 @@ const spaceMethods = [
   'readTags',
   'updateTag',
   'deleteTag',
+
+  'getTeams',
 ]
 
 describe('createSpace()', () => {

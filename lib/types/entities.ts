@@ -1,5 +1,6 @@
 export type {
   TagProps as Tag,
+  TeamProps as Team,
   TagVisibility,
   UserProps as User,
   AssetProps as Asset,
@@ -13,6 +14,7 @@ export type {
   EntryProps as Entry,
   RoleProps as Role,
   KeyValueMap,
+  QueryOptions,
 } from 'contentful-management/types'
 
 export interface CanonicalRequest {
