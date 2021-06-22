@@ -24,6 +24,7 @@ jobs:
         environment:
           ## this enables colors in the output
           TERM: xterm
+    parallelism: 3
     steps:
       - checkout
       - run: npm ci
