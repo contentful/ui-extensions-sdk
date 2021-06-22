@@ -3,7 +3,7 @@ import { printStepTitle } from '../utils'
 
 export default async (role: string, initializeTestOnly: boolean = false) => {
   printStepTitle(`${role}: Runnings tests...`)
-  const args = ['run', '--browser', 'chrome', '--parallel']
+  const args = ['run', '--browser', 'chrome', '--parallel', '--record']
   if (initializeTestOnly) {
     args.push('--spec', 'test/cypress/integration/initialize.spec.ts')
   }
