@@ -7,7 +7,6 @@
   "videosFolder": "./test/cypress/videos",
   "video": true,
   "screenshotsFolder": "./test/cypress/screenshots",
-  "testFiles": "**/*.spec.[jt]s",
   "ignoreTestFiles": "**/example*.js",
   "baseUrl": "https://app.contentful.com",
   "reporter": "cypress-multi-reporters",
