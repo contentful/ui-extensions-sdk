@@ -27,6 +27,12 @@ jobs:
     parallelism: 3
     steps:
       - checkout
+      - run:
+          name: circle globs
+          command: |
+            echo $(circleci tests glob "**/*.spec.[jt]s")
+             circleci tests glob "**/*.spec.[jt]s" | xargs -n 1 echo
+
       - run: npm ci
       - run: npm run build
       - run:

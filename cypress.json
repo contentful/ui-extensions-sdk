@@ -32,6 +32,5 @@
   ],
   "chromeWebSecurity": false,
   "defaultCommandTimeout": 30000,
-  "retries": 2,
-  "projectId": "uie-integration"
+  "retries": 2
 }
