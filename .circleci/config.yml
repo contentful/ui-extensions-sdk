@@ -33,7 +33,7 @@ jobs:
           name: npm run integration
           command: |
             set -e
-            export TEST=$(circleci tests glob "**/*.spec.[jt]s" | circleci tests split)
+            export TEST=$(circleci tests glob "test/cypress/integration/**/*.spec.[jt]s" | circleci tests split)
 
             npm run integration
       - run: 

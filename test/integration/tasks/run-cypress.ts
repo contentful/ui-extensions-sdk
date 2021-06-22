@@ -13,7 +13,7 @@ export default async (role: string, initializeTestOnly: boolean = false) => {
   } else {
     // otherwise default
     console.log('Using default glob')
-    args.push('--spec', '**/*.spec.[jt]s')
+    args.push('--spec', 'test/cypress/integration/**/*.spec.[jt]s')
   }
   await runScript('./node_modules/.bin/cypress', args)
 }
