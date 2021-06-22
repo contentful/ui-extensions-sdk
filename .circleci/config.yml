@@ -31,7 +31,7 @@ jobs:
           name: circle globs
           command: |
             echo $(circleci tests glob "**/*.spec.[jt]s")
-             circleci tests glob "**/*.spec.[jt]s" | xargs -n 1 echo
+            circleci tests glob "**/*.spec.[jt]s" | circleci tests split --split-by=timings
 
       - run: npm ci
       - run: npm run build
