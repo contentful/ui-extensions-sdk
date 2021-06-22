@@ -27,18 +27,14 @@ jobs:
     parallelism: 3
     steps:
       - checkout
-      - run:
-          name: circle globs
-          command: |
-            echo $(circleci tests glob "**/*.spec.[jt]s")
-            circleci tests glob "**/*.spec.[jt]s" | circleci tests split --split-by=timings
-
       - run: npm ci
       - run: npm run build
       - run:
           name: npm run integration
           command: |
             set -e
+            TEST=$(circleci tests glob "**/*.spec.[jt]s" | circleci tests split)
+
             npm run integration
       - run: 
           command: npm run merge-report
