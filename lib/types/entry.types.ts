@@ -6,6 +6,7 @@ type TaskState = 'active' | 'resolved'
 
 export interface TaskInputData {
   assignedToId: string
+  assignedToType?: string
   body: string
   status: TaskState
   dueDate?: string
