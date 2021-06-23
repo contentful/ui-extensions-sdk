@@ -1,8 +1,8 @@
 version: 2.1
 parameters:
-  base_url:
+  ui_version:
     type: string
-    default: "https://app.contentful.com"
+    default: ""
 
 jobs:
   unit:
@@ -36,11 +36,9 @@ jobs:
       - run:
           name: npm run integration
           environment:
-            CYPRESS_baseUrl: << pipeline.parameters.base_url >>
+            UI_VERSION: << pipeline.parameters.ui_version >>
           command: |
             set -e
-            export URL=$(echo $CYPRESS_baseUrl)
-            echo $(echo $URL | fold -w 1 | tac | tr -d '\n' ; echo)
             export TEST=$(circleci tests glob "test/cypress/integration/**/*.spec.[jt]s" | circleci tests split)
 
             npm run integration
