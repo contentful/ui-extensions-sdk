@@ -36,7 +36,7 @@ jobs:
       - run:
           name: npm run integration
           environment:
-            UI_VERSION: << pipeline.parameters.ui_version >>
+            CYPRESS_uiVersion: << pipeline.parameters.ui_version >>
           command: |
             set -e
             export TEST=$(circleci tests glob "test/cypress/integration/**/*.spec.[jt]s" | circleci tests split)

@@ -5,9 +5,13 @@ declare global {
   namespace Cypress {
     interface Chainable<Subject = any> {
       captureIFrameAs(selector: string): Chainable<Subject>
+
       setupBrowserStorage(): Chainable<Subject>
+
       waitForIframeWithTestId(selector: string): Chainable<Subject>
+
       waitForPageLoad(page: string, testId: string): Chainable<Subject>
+
       getSdk(selector: string): Chainable<any>
     }
   }
@@ -20,8 +24,9 @@ Cypress.Commands.add('captureIFrameAs', { prevSubject: 'element' }, ($element, a
 
 Cypress.Commands.add('setupBrowserStorage', function setupBrowserStorage() {
   const TOKEN = Cypress.env('managementToken')
-  if (process.env.UI_VERSION) {
-    window.document.cookie = `ui_version=${process.env.UI_VERSION};`
+  const UI_VERSION = Cypress.env('uiVersion')
+  if (UI_VERSION) {
+    cy.setCookie('ui_version', UI_VERSION)
   }
   window.sessionStorage.setItem('token', TOKEN)
   window.localStorage.setItem('__disable_consentmanager', 'yes')
