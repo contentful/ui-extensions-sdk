@@ -1,3 +1,10 @@
+# [3.37.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.36.0...v3.37.0) (2021-06-23)
+
+
+### Features
+
+* add type parameter to create task input data ([#809](https://github.com/contentful/ui-extensions-sdk/issues/809)) ([e0fe688](https://github.com/contentful/ui-extensions-sdk/commit/e0fe688b3e07cf58abd20a0b1f9d82c7ea1e48e7))
+
 # [3.36.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.35.0...v3.36.0) (2021-06-17)
 
 
