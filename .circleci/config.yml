@@ -1,4 +1,8 @@
 version: 2.1
+parameters:
+  base_url:
+    type: string
+    default: "https://app.contentful.com"
 
 jobs:
   unit:
