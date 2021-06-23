@@ -28,7 +28,6 @@ jobs:
         environment:
           ## this enables colors in the output
           TERM: xterm
-          CYPRESS_baseUrl: << pipeline.parameters.base_url >>
     parallelism: 3
     steps:
       - checkout
@@ -36,6 +35,8 @@ jobs:
       - run: npm run build
       - run:
           name: npm run integration
+          environment:
+            CYPRESS_baseUrl: << pipeline.parameters.base_url >>
           command: |
             set -e
             export URL=$(echo $CYPRESS_baseUrl)
