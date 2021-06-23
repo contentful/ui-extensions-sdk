@@ -38,7 +38,7 @@ jobs:
           name: npm run integration
           command: |
             set -e
-            export URL=$(echo CYPRESS_baseUrl)
+            export URL=$(echo $CYPRESS_baseUrl)
             echo $URL
             export TEST=$(circleci tests glob "test/cypress/integration/**/*.spec.[jt]s" | circleci tests split)
 
