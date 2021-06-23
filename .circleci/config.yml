@@ -24,6 +24,7 @@ jobs:
         environment:
           ## this enables colors in the output
           TERM: xterm
+          CYPRESS_baseUrl: << pipeline.parameters.base_url >>
     parallelism: 3
     steps:
       - checkout
