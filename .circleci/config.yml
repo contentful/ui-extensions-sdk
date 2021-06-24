@@ -3,6 +3,9 @@ parameters:
   ui_version:
     type: string
     default: ""
+  base_url:
+    type: string
+    default: "https://app.contentful.com"
 
 jobs:
   unit:
@@ -22,13 +25,26 @@ jobs:
       - run: npm run size
       - store_test_results:
           path: test/unit/reports
+
+  integration-setup:
+    docker:
+      - image: cypress/browsers:node12.18.0-chrome83-ff77
+        environment:
+          ## this enables colors in the output
+          TERM: xterm
+    steps:
+      - checkout
+      - run: npm ci
+      - run: npm run build
+      - run: npm run integration:setup
+
   integration:
     docker:
       - image: cypress/browsers:node12.18.0-chrome83-ff77
         environment:
           ## this enables colors in the output
           TERM: xterm
-#    parallelism: 3
+    parallelism: 3
     steps:
       - checkout
       - run: npm ci
@@ -36,10 +52,11 @@ jobs:
       - run:
           name: npm run integration
           environment:
+            CYPRESS_baseUrl: << pipeline.parameters.base_url >>
             CYPRESS_uiVersion: << pipeline.parameters.ui_version >>
           command: |
             set -e
-            # export TEST=$(circleci tests glob "test/cypress/integration/**/*.spec.[jt]s" | circleci tests split)
+            export TEST=$(circleci tests glob "test/cypress/integration/**/*.spec.[jt]s" | circleci tests split)
 
             npm run integration
       - run: 
@@ -78,7 +95,9 @@ workflows:
   commit:
     jobs:
       - unit
-      - integration
+      - integration:
+          requires:
+            - integration-setup
       - semantic-release:
           requires:
             - unit

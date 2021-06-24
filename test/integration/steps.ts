@@ -50,7 +50,7 @@ function listAllEnvironmentVariables() {
 let tempEnvironmentId: any
 const tempEntries: { environmentId: string; entryId: string }[] = []
 
-const cleanup = async () => {
+export const cleanup = async () => {
   if (tempEnvironmentId) {
     try {
       await asyncRetry(() => deleteEnvironment(tempEnvironmentId), { retries: 3 })
@@ -65,7 +65,7 @@ const cleanup = async () => {
   }
 }
 
-const run = async () => {
+export const setup = async () => {
   await buildExtensions({
     testLocalSdk: config.testLocalSdk,
   })
@@ -90,13 +90,15 @@ const run = async () => {
     throw new Error('Failed to create a new environment')
   }
 
-  createExtensionConfiguration({
+  await createExtensionConfiguration({
     managementToken: config.managementTokenAdmin,
     spaceId: config.spaceId,
     environmentId: tempEnvironmentId,
   })
   await deployExtensions()
+}
 
+export const run = async () => {
   // Admin
   await createCypressConfiguration({
     managementToken: config.managementTokenAdmin,
@@ -135,13 +137,3 @@ const run = async () => {
   })
   await runCypress('editorMasterOnly', true)
 }
-;(async function main() {
-  try {
-    await run()
-    await cleanup()
-  } catch (err) {
-    console.log(err)
-    await cleanup()
-    process.exit(1)
-  }
-})()
