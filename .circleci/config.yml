@@ -95,6 +95,7 @@ workflows:
   commit:
     jobs:
       - unit
+      - integration-setup
       - integration:
           requires:
             - integration-setup
