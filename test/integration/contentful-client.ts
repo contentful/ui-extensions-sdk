@@ -5,6 +5,7 @@ if (!process.env.CONTENTFUL_CMA_TOKEN) {
 }
 
 export const client = createClient({
+  host: process.env.CONTENTFUL_HOST || 'api.contentful.com',
   accessToken: process.env.CONTENTFUL_CMA_TOKEN as string,
 })
 
