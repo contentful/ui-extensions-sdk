@@ -20,6 +20,7 @@ import deleteEntries from './tasks/delete-entries'
 
 const config = {
   managementTokenAdmin: process.env.CONTENTFUL_CMA_TOKEN!,
+  host: process.env.CONTENTFUL_HOST || 'api.contentful.com',
   managementTokenEditor: process.env.CONTENTFUL_CMA_TOKEN_EDITOR!,
   managementTokenEditorMasterOnly: process.env.CONTENTFUL_CMA_TOKEN_EDITOR_MASTER_ONLY!,
   spaceId: process.env.CONTENTFUL_SPACE_ID!,
@@ -90,10 +91,11 @@ const run = async () => {
     throw new Error('Failed to create a new environment')
   }
 
-  createExtensionConfiguration({
+  await createExtensionConfiguration({
     managementToken: config.managementTokenAdmin,
     spaceId: config.spaceId,
     environmentId: tempEnvironmentId,
+    host: config.host,
   })
   await deployExtensions()
 
