@@ -28,7 +28,7 @@ jobs:
         environment:
           ## this enables colors in the output
           TERM: xterm
-    parallelism: 3
+#    parallelism: 3
     steps:
       - checkout
       - run: npm ci
@@ -39,7 +39,7 @@ jobs:
             CYPRESS_uiVersion: << pipeline.parameters.ui_version >>
           command: |
             set -e
-            export TEST=$(circleci tests glob "test/cypress/integration/**/*.spec.[jt]s" | circleci tests split)
+            # export TEST=$(circleci tests glob "test/cypress/integration/**/*.spec.[jt]s" | circleci tests split)
 
             npm run integration
       - run: 
