@@ -53,7 +53,7 @@ export function openAssetSlideInTest(iframeSelector: string, currentEntryId: str
   it('opens asset using sdk.navigator.openAsset (slideIn = true)', () => {
     openAssetSlideInExtension(iframeSelector).then((result) => {
       expect(result.navigated).to.be.equal(true)
-      cy.get('[data-test-id="slide-in-layer"]').should('not.be.visible')
+      cy.get('[data-test-id="slide-in-layer"]').should('be.visible')
       verifyAssetSlideInUrl(Constants.assets.testImage, currentEntryId)
       clickSlideInClose()
     })
