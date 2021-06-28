@@ -1,15 +1,15 @@
 export default [
   {
     sys: {
-      space: { sys: { type: 'Link', linkType: 'Space', id: 'voxk9gcy69ri' } },
+      space: { sys: { type: 'Link', linkType: 'Space', id: Cypress.env('activeSpaceId') } },
       id: 'imageWrapper',
       type: 'ContentType',
-      createdAt: '2019-07-15T09:20:58.348Z',
-      updatedAt: '2019-07-15T09:20:58.348Z',
+      createdAt: 'NOT_IMPORTANT',
+      updatedAt: 'NOT_IMPORTANT',
       environment: {
-        sys: { id: Cypress.env('activeEnvironmentId'), type: 'Link', linkType: 'Environment' }
+        sys: { id: Cypress.env('activeEnvironmentId'), type: 'Link', linkType: 'Environment' },
       },
-      revision: 1
+      revision: 1,
     },
     name: 'ImageWrapper',
     description: '',
@@ -23,7 +23,7 @@ export default [
         required: false,
         validations: [],
         disabled: false,
-        omitted: false
+        omitted: false,
       },
       {
         id: 'tags',
@@ -34,7 +34,7 @@ export default [
         validations: [],
         disabled: false,
         omitted: false,
-        items: { type: 'Symbol', validations: [] }
+        items: { type: 'Symbol', validations: [] },
       },
       {
         id: 'image',
@@ -45,21 +45,21 @@ export default [
         validations: [],
         disabled: false,
         omitted: false,
-        linkType: 'Asset'
-      }
-    ]
+        linkType: 'Asset',
+      },
+    ],
   },
   {
     sys: {
-      space: { sys: { type: 'Link', linkType: 'Space', id: 'voxk9gcy69ri' } },
+      space: { sys: { type: 'Link', linkType: 'Space', id: Cypress.env('activeSpaceId') } },
       id: 'post',
       type: 'ContentType',
-      createdAt: '2019-06-03T13:35:42.101Z',
-      updatedAt: '2019-08-30T11:11:22.366Z',
+      createdAt: 'NOT_IMPORTANT',
+      updatedAt: 'NOT_IMPORTANT',
       environment: {
-        sys: { id: Cypress.env('activeEnvironmentId'), type: 'Link', linkType: 'Environment' }
+        sys: { id: Cypress.env('activeEnvironmentId'), type: 'Link', linkType: 'Environment' },
       },
-      revision: 8
+      revision: 8,
     },
     name: 'Post',
     description: null,
@@ -73,7 +73,7 @@ export default [
         required: true,
         validations: [],
         disabled: false,
-        omitted: false
+        omitted: false,
       },
       {
         id: 'body',
@@ -83,21 +83,21 @@ export default [
         required: false,
         validations: [],
         disabled: false,
-        omitted: false
-      }
-    ]
+        omitted: false,
+      },
+    ],
   },
   {
     sys: {
-      space: { sys: { type: 'Link', linkType: 'Space', id: 'voxk9gcy69ri' } },
+      space: { sys: { type: 'Link', linkType: 'Space', id: Cypress.env('activeSpaceId') } },
       id: 'postWithCustomEntryEditor',
       type: 'ContentType',
-      createdAt: '2019-07-09T12:04:59.371Z',
-      updatedAt: '2019-07-09T12:06:44.708Z',
+      createdAt: 'NOT_IMPORTANT',
+      updatedAt: 'NOT_IMPORTANT',
       environment: {
-        sys: { id: Cypress.env('activeEnvironmentId'), type: 'Link', linkType: 'Environment' }
+        sys: { id: Cypress.env('activeEnvironmentId'), type: 'Link', linkType: 'Environment' },
       },
-      revision: 5
+      revision: 5,
     },
     name: 'Post with Custom Entry Editor',
     description: '',
@@ -111,7 +111,7 @@ export default [
         required: true,
         validations: [],
         disabled: false,
-        omitted: false
+        omitted: false,
       },
       {
         id: 'body',
@@ -121,21 +121,21 @@ export default [
         required: false,
         validations: [],
         disabled: false,
-        omitted: false
-      }
-    ]
+        omitted: false,
+      },
+    ],
   },
   {
     sys: {
-      space: { sys: { type: 'Link', linkType: 'Space', id: 'voxk9gcy69ri' } },
+      space: { sys: { type: 'Link', linkType: 'Space', id: Cypress.env('activeSpaceId') } },
       id: 'postWithSidebar',
       type: 'ContentType',
-      createdAt: '2019-07-09T09:17:57.208Z',
-      updatedAt: '2019-07-09T09:56:52.352Z',
+      createdAt: 'NOT_IMPORTANT',
+      updatedAt: 'NOT_IMPORTANT',
       environment: {
-        sys: { id: Cypress.env('activeEnvironmentId'), type: 'Link', linkType: 'Environment' }
+        sys: { id: Cypress.env('activeEnvironmentId'), type: 'Link', linkType: 'Environment' },
       },
-      revision: 4
+      revision: 4,
     },
     name: 'Post with Sidebar',
     description: '',
@@ -149,7 +149,7 @@ export default [
         required: true,
         validations: [],
         disabled: false,
-        omitted: false
+        omitted: false,
       },
       {
         id: 'body',
@@ -159,8 +159,8 @@ export default [
         required: false,
         validations: [],
         disabled: false,
-        omitted: false
-      }
-    ]
-  }
+        omitted: false,
+      },
+    ],
+  },
 ]

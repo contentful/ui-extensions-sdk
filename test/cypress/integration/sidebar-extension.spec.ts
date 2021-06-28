@@ -6,7 +6,7 @@ import {
   verifySdkInstanceParameters,
 } from '../utils/verify-parameters'
 import idsData from './fixtures/ids-data.json'
-import contentTypeData from './fixtures/content-type-data/sidebar-ext.json'
+import contentTypeData from './fixtures/content-type-data/sidebar-ext'
 import { ContentType, EntryAPI, SidebarExtensionSDK } from '../../../lib/types'
 
 const post = {

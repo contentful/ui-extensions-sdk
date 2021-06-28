@@ -6,8 +6,9 @@ import {
   verifySdkInstanceParameters,
 } from '../utils/verify-parameters'
 import idsData from './fixtures/ids-data.json'
-import contentTypeData from './fixtures/content-type-data/field-ext.json'
+import contentTypeData from './fixtures/content-type-data/field-ext'
 import parameters from './fixtures/parameters.json'
+import { removeVariableData } from '../utils/remove-variable-data'
 
 const post = {
   id: Cypress.env('entries').fieldExtension,
@@ -49,10 +50,10 @@ context(`Field extension (${role})`, () => {
     })
   })
 
-  it('verifies sdk.contentType static methods have expected values', () => {
+  it.only('verifies sdk.contentType static methods have expected values', () => {
     cy.getSdk(iframeSelector).then((sdk) => {
       contentTypeData.sys.environment.sys.id = Cypress.env('activeEnvironmentId')
-      expect(sdk.contentType).to.deep.equal(contentTypeData)
+      expect(removeVariableData(sdk.contentType)).to.deep.equal(removeVariableData(contentTypeData))
     })
   })
 

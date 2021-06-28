@@ -17,6 +17,7 @@ import deployExtensions from './tasks/deploy-extensions'
 import runCypress from './tasks/run-cypress'
 import idsData from '../cypress/integration/fixtures/ids-data.json'
 import deleteEntries from './tasks/delete-entries'
+import { createFixtures } from './tasks/create-fixtures'
 
 const config = {
   managementTokenAdmin: process.env.CONTENTFUL_CMA_TOKEN!,
@@ -99,6 +100,8 @@ const run = async () => {
   })
   await deployExtensions()
 
+  await createFixtures()
+
   // Admin
   await createCypressConfiguration({
     managementToken: config.managementTokenAdmin,
@@ -108,6 +111,7 @@ const run = async () => {
     role: 'admin',
     entries: entryIds,
   })
+
   await runCypress('admin')
 
   // Editor

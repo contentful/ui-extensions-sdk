@@ -2,16 +2,16 @@
   "admin": {
     "sys": {
       "type": "User",
-      "id": "60txzLuZBFZht0aZu6C2jF"
+      "id": "40LBEcMHII22a8skCME9Aj"
     },
-    "firstName": "Extensibility",
-    "lastName": "Testing",
-    "email": "team-extensibility+testing@contentful.com",
-    "avatarUrl": "https://www.gravatar.com/avatar/110302d0e16cd279620ffdce0b86ef7c?s=50&d=https%3A%2F%2Favatars.contentful.com%2Finitials%2Fv1%2FET%2F50",
+    "firstName": "Team",
+    "lastName": "Extensibility",
+    "email": "team-extensibility+app-sdk-test@contentful.com",
+    "avatarUrl": "https://www.gravatar.com/avatar/ad0af9f9dd92e502d1debc7782451de3?s=50&d=https%3A%2F%2Favatars.flinkly.com%2Finitials%2Fv1%2FTE%2F50",
     "spaceMembership": {
       "sys": {
         "type": "SpaceMembership",
-        "id": "voxk9gcy69ri-60txzLuZBFZht0aZu6C2jF"
+        "id": "dsucjcncx9ya-40LBEcMHII22a8skCME9Aj"
       },
       "admin": true,
       "roles": []
@@ -20,16 +20,16 @@
   "editor": {
     "sys": {
       "type": "User",
-      "id": "7p08FEb4uWrGKcyt2wygpb"
+      "id": "4Qavd6zOemHk0t99Go1jHW"
     },
     "firstName": "Extensibility",
     "lastName": "Testing (Editor)",
     "email": "team-extensibility+testing-editor@contentful.com",
-    "avatarUrl": "https://www.gravatar.com/avatar/32258d2511fe07bf4c1a6b02784ac851?s=50&d=https%3A%2F%2Favatars.contentful.com%2Finitials%2Fv1%2FET%2F50",
+    "avatarUrl": "https://www.gravatar.com/avatar/32258d2511fe07bf4c1a6b02784ac851?s=50&d=https%3A%2F%2Favatars.flinkly.com%2Finitials%2Fv1%2FET%2F50",
     "spaceMembership": {
       "sys": {
         "type": "SpaceMembership",
-        "id": "voxk9gcy69ri-7p08FEb4uWrGKcyt2wygpb"
+        "id": "dsucjcncx9ya-4Qavd6zOemHk0t99Go1jHW"
       },
       "admin": false,
       "roles": [
@@ -43,16 +43,16 @@
   "editorMasterOnly": {
     "sys": {
       "type": "User",
-      "id": "4h5cViGnZ83aCEPh45WGCu"
+      "id": "6JAWEuriNiqafPQRI6n7CM"
     },
     "firstName": "Extensibility",
     "lastName": "Testing (Editor, master only)",
     "email": "team-extensibility+testing-editor-master-only@contentful.com",
-    "avatarUrl": "https://www.gravatar.com/avatar/144778adc7b0392ea339af6f1d9ebf82?s=50&d=https%3A%2F%2Favatars.contentful.com%2Finitials%2Fv1%2FET%2F50",
+    "avatarUrl": "https://www.gravatar.com/avatar/144778adc7b0392ea339af6f1d9ebf82?s=50&d=https%3A%2F%2Favatars.flinkly.com%2Finitials%2Fv1%2FET%2F50",
     "spaceMembership": {
       "sys": {
         "type": "SpaceMembership",
-        "id": "voxk9gcy69ri-4h5cViGnZ83aCEPh45WGCu"
+        "id": "dsucjcncx9ya-6JAWEuriNiqafPQRI6n7CM"
       },
       "admin": false,
       "roles": [
