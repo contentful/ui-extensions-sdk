@@ -1,9 +1,8 @@
 import { Channel } from './channel'
-import { Adapter, MakeRequest } from 'contentful-management/types'
+import { Adapter, MakeRequest, MakeRequestWithUserAgent } from 'contentful-management/types'
 
-const createMakeRequestCall = (channel: Channel): MakeRequest => {
-  // todo add real types
-  return (opts: unknown) => channel.call('CMA-Adapter-Call', opts)
+const createMakeRequestCall = (channel: Channel): MakeRequestWithUserAgent => {
+  return (opts: any) => channel.call('CMAAdapterCall', opts) as any
 }
 
 export function createAdapter(channel: Channel): Adapter {
