@@ -59,7 +59,7 @@ export function openAssetSlideInTest(iframeSelector: string, currentEntryId: str
     })
   })
 
-  it.only('opens asset using sdk.navigator.openAsset (slideIn = { waitForClose: true })', (done) => {
+  it('opens asset using sdk.navigator.openAsset (slideIn = { waitForClose: true })', (done) => {
     let closeClicked = false
     // callback should be called only after slide in is closed
     openAssetSlideInWaitExtension(iframeSelector, (result: any) => {
