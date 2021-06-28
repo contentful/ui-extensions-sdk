@@ -59,15 +59,19 @@ export function openAssetSlideInTest(iframeSelector: string, currentEntryId: str
     })
   })
 
-  it('opens asset using sdk.navigator.openAsset (slideIn = { waitForClose: true })', (done) => {
+  it.only('opens asset using sdk.navigator.openAsset (slideIn = { waitForClose: true })', (done) => {
+    let closeClicked = false
     // callback should be called only after slide in is closed
     openAssetSlideInWaitExtension(iframeSelector, (result: any) => {
       expect(result.navigated).to.be.equal(true)
-      cy.get('[data-test-id="slide-in-layer"]').should('not.be.visible')
-      done()
+      expect(closeClicked).to.be.equal(true)
     })
 
     verifyAssetSlideInUrl(Constants.assets.testImage, currentEntryId)
-    clickSlideInClose()
+    closeClicked = true
+    clickSlideInClose().then(() => {
+      cy.get('[data-test-id="slide-in-layer"]').should('not.be.visible')
+      done()
+    })
   })
 }
