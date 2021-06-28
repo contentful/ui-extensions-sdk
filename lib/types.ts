@@ -1,3 +1,5 @@
+import { Adapter } from 'contentful-management/types'
+
 export type EntityType = 'Entry' | 'Asset'
 export type TagVisibility = 'private' | 'public'
 
@@ -705,6 +707,8 @@ export interface BaseExtensionSDK {
   access: AccessAPI
   /** Exposes relevant ids, keys may be ommited based on location */
   ids: IdsAPI
+  /** TODO */
+  adapter: Adapter
 }
 
 export type EditorExtensionSDK = Omit<BaseExtensionSDK, 'ids'> &
@@ -772,6 +776,7 @@ export type AppExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
   /** A set of IDs actual for the app */
   ids: Omit<IdsAPI, 'extension' | 'field' | 'entry' | 'contentType' | 'app'> & { app: string }
   app: AppConfigAPI
+  adapter: Adapter
 }
 
 export type KnownSDK =
