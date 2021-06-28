@@ -100,7 +100,7 @@ const run = async () => {
   })
   await deployExtensions()
 
-  await createFixtures()
+  await createFixtures(config.spaceId)
 
   // Admin
   await createCypressConfiguration({
