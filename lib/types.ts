@@ -776,7 +776,6 @@ export type AppExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
   /** A set of IDs actual for the app */
   ids: Omit<IdsAPI, 'extension' | 'field' | 'entry' | 'contentType' | 'app'> & { app: string }
   app: AppConfigAPI
-  cmaAdapter: Adapter
 }
 
 export type KnownSDK =
