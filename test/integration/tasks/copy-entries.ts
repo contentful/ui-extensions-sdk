@@ -9,9 +9,11 @@ export default async function copyEntries(entryIds: Record<string, string>) {
   const newEntryIds: Record<string, string> = {}
   for (const [entryLabel, entryId] of Object.entries(entryIds)) {
     const entry = await plainClient.entry.get({ entryId, environmentId })
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { sys, ...rest } = entry
     const newEntry = await plainClient.entry.createWithId(
       { entryId, contentTypeId: entry.sys.contentType.sys.id, environmentId },
-      entry
+      rest
     )
     newEntryIds[entryLabel] = newEntry.sys.id
   }
