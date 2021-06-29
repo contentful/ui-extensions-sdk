@@ -11,8 +11,8 @@ export default async function copyEntries(entryIds: Record<string, string>) {
     const entry = await plainClient.entry.get({ entryId, environmentId })
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { sys, ...rest } = entry
-    const newEntry = await plainClient.entry.createWithId(
-      { entryId, contentTypeId: entry.sys.contentType.sys.id, environmentId },
+    const newEntry = await plainClient.entry.create(
+      { contentTypeId: entry.sys.contentType.sys.id, environmentId },
       rest
     )
     newEntryIds[entryLabel] = newEntry.sys.id
