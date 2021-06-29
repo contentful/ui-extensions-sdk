@@ -186,6 +186,8 @@ export interface TaskSys {
   createdAt: string
   updatedBy: Link
   updatedAt: string
+  resolvedBy?: Link
+  resolvedAt?: string
   version: number
 }
 
