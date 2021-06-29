@@ -3,10 +3,10 @@ import { printStepTitle, sleep } from '../utils'
 
 const TWO_HOURS_IN_MS = 60 * 60 * 2 * 1000
 
-export default async () => {
+export default async (client = plainClient) => {
   printStepTitle('Removing stale environments')
 
-  const environments = await plainClient.environment.getMany({})
+  const environments = await client.environment.getMany({})
   const { items } = environments
 
   // filter for relevant environments
