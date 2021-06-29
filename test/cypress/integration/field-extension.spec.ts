@@ -50,7 +50,7 @@ context(`Field extension (${role})`, () => {
     })
   })
 
-  it.only('verifies sdk.contentType static methods have expected values', () => {
+  it('verifies sdk.contentType static methods have expected values', () => {
     cy.getSdk(iframeSelector).then((sdk) => {
       contentTypeData.sys.environment.sys.id = Cypress.env('activeEnvironmentId')
       expect(removeVariableData(sdk.contentType)).to.deep.equal(removeVariableData(contentTypeData))

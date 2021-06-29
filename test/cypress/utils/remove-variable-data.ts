@@ -1,8 +1,12 @@
-export function removeVariableData(o: { sys: any }) {
-  const { createdAt, updatedAt, revision, ...rest } = o.sys
+/**
+ * Removes data from an object which is subject to change
+ * based on the environment
+ */
+export function removeVariableData(obj: { sys: any }) {
+  const { createdAt, updatedAt, revision, ...rest } = obj.sys
 
   return {
-    ...o,
+    ...obj,
     sys: rest,
   }
 }
