@@ -20,6 +20,10 @@ Cypress.Commands.add('captureIFrameAs', { prevSubject: 'element' }, ($element, a
 
 Cypress.Commands.add('setupBrowserStorage', function setupBrowserStorage() {
   const TOKEN = Cypress.env('managementToken')
+  const UI_VERSION = Cypress.env('uiVersion')
+  if (UI_VERSION) {
+    cy.setCookie('ui_version', UI_VERSION)
+  }
   window.localStorage.setItem('token', TOKEN)
   window.sessionStorage.setItem('token', TOKEN)
   window.localStorage.setItem('__disable_consentmanager', 'yes')
