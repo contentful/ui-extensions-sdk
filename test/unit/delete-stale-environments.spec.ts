@@ -1,12 +1,13 @@
 import deleteStaleEnvironments from '../integration/tasks/delete-stale-environments'
 import environmentMocks from '../mocks/environments'
 import { expect } from '../helpers'
+import { PlainClientAPI } from 'contentful-management'
 
 describe('DeleteStaleEnvironments', () => {
-  let plainClient: any
+  let plainClient: PlainClientAPI
   beforeEach(() => {
-    plainClient = () => ({
-      environments: {
+    plainClient = {
+      environment: {
         getMany: () =>
           Promise.resolve({
             ...environmentMocks,
@@ -16,7 +17,7 @@ describe('DeleteStaleEnvironments', () => {
             })),
           }),
       },
-    })
+    } as unknown as PlainClientAPI
   })
 
   it('should delete an environment that is older than one day and not a proteced environment', async () => {
