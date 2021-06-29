@@ -112,7 +112,7 @@ describe('createAPI()', () => {
   it('returns correct shape of the app API (app)', () => {
     const expected = ['app']
 
-    const api = test(expected, locations.LOCATION_APP_CONFIG as unknown) as AppExtensionSDK
+    const api = test(expected, locations.LOCATION_APP_CONFIG) as unknown as AppExtensionSDK
 
     expect(api.app).to.have.all.keys([
       'setReady',
