@@ -5,6 +5,7 @@ require('dotenv').config()
 
 import buildExtensions from './tasks/build-extensions'
 import deployExtensions from './tasks/deploy-extensions'
+import createNewEnvironment from './tasks/create-new-environment'
 import {
   createCypressConfiguration,
   createExtensionConfiguration,
@@ -43,6 +44,10 @@ async function run() {
   await createFixtures(config.spaceId)
 
   listAllEnvironmentVariables()
+
+  const eid = await createNewEnvironment()
+
+  config.environmentId = eid
 
   await createExtensionConfiguration({
     managementToken: config.managementToken,

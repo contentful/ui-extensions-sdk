@@ -14,7 +14,18 @@ export const client = createClient({
   accessToken: process.env.CONTENTFUL_CMA_TOKEN as string,
 })
 
-export const getCurrentSpace = () => client.getSpace(process.env.CONTENTFUL_SPACE_ID as string)
+export const plainClient = createClient(
+  {
+    host: process.env.CONTENTFUL_HOST || 'api.contentful.com',
+    accessToken: process.env.CONTENTFUL_CMA_TOKEN as string,
+  },
+  {
+    type: 'plain',
+    defaults: {
+      spaceId: process.env.CONTENTFUL_SPACE_ID as string,
+    },
+  }
+)
 
 function cleanUser(user: UserProps, spaceMember: SpaceMemberProps, roles: RoleProps[] = []) {
   const { firstName, lastName, email, avatarUrl } = user
@@ -42,13 +53,10 @@ function cleanUser(user: UserProps, spaceMember: SpaceMemberProps, roles: RolePr
 }
 
 export const getUsersByRole = async () => {
-  const space = await getCurrentSpace()
-  const organization = await client.getOrganization(space.sys.organization.sys.id)
-
   const [users, spaceMembers, spaceRoles] = await Promise.all([
-    organization.getUsers(),
-    space.getSpaceMembers(),
-    space.getRoles(),
+    plainClient.user.getManyForSpace({}),
+    plainClient.spaceMember.getMany({}),
+    plainClient.role.getMany({}),
   ])
 
   const result = {
@@ -68,8 +76,9 @@ export const getUsersByRole = async () => {
     if (sm.admin) {
       result.admin = cleanUser(user, sm)
     } else {
-      const roles = (sm.roles.map((i) => spaceRoles.items.find((j) => j.sys.id === i.sys.id)) ??
-        []) as RoleProps[]
+      const roles = sm.roles.map((i) =>
+        spaceRoles.items.find((j) => j.sys.id === i.sys.id)
+      ) as RoleProps[]
 
       if (!roles[0]) {
         continue

@@ -9,7 +9,7 @@
   "screenshotsFolder": "./test/cypress/screenshots",
   "testFiles": "**/*.spec.[jt]s",
   "ignoreTestFiles": "**/example*.js",
-  "baseUrl": "https://app.contentful.com",
+  "baseUrl": "https://app.flinkly.com",
   "reporter": "cypress-multi-reporters",
   "reporterOptions": {
     "reporterEnabled": "mochawesome, mocha-junit-reporter",

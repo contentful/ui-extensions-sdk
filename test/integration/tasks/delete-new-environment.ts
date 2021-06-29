@@ -1,14 +1,10 @@
-import { getCurrentSpace } from '../contentful-client'
+import { plainClient } from '../contentful-client'
 import { printStepTitle } from '../utils'
 
 export default async (environmentId: string) => {
   printStepTitle('Remove previously created environment')
 
-  const space = await getCurrentSpace()
-
-  const environment = await space.getEnvironment(environmentId)
-
-  await environment.delete()
+  await plainClient.environment.delete({ environmentId })
 
   console.log(`"${environmentId}" environment is deleted`)
 
