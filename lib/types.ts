@@ -707,7 +707,7 @@ export interface BaseExtensionSDK {
   access: AccessAPI
   /** Exposes relevant ids, keys may be ommited based on location */
   ids: IdsAPI
-  /** TODO */
+  /** the adapter that can be used for creating the cma client */
   adapter: Adapter
 }
 
