@@ -708,7 +708,7 @@ export interface BaseExtensionSDK {
   /** Exposes relevant ids, keys may be ommited based on location */
   ids: IdsAPI
   /** the adapter that can be used for creating the cma client */
-  adapter: Adapter
+  cmaAdapter: Adapter
 }
 
 export type EditorExtensionSDK = Omit<BaseExtensionSDK, 'ids'> &
@@ -776,7 +776,7 @@ export type AppExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
   /** A set of IDs actual for the app */
   ids: Omit<IdsAPI, 'extension' | 'field' | 'entry' | 'contentType' | 'app'> & { app: string }
   app: AppConfigAPI
-  adapter: Adapter
+  cmaAdapter: Adapter
 }
 
 export type KnownSDK =

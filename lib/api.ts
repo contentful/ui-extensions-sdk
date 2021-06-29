@@ -48,7 +48,7 @@ function makeSharedAPI(channel: Channel, data: ConnectMessage): BaseExtensionSDK
   const currentLocation = data.location || locations.LOCATION_ENTRY_FIELD
 
   return {
-    adapter: createAdapter(channel),
+    cmaAdapter: createAdapter(channel),
     location: {
       is: (tested) => currentLocation === tested,
     },
