@@ -7,7 +7,7 @@
     "firstName": "Team",
     "lastName": "Extensibility",
     "email": "team-extensibility+app-sdk-test@contentful.com",
-    "avatarUrl": "https://www.gravatar.com/avatar/ad0af9f9dd92e502d1debc7782451de3?s=50&d=https%3A%2F%2Favatars.flinkly.com%2Finitials%2Fv1%2FTE%2F50",
+    "avatarUrl": "NOT_IMPORTANT",
     "spaceMembership": {
       "sys": {
         "type": "SpaceMembership",
@@ -25,7 +25,7 @@
     "firstName": "Extensibility",
     "lastName": "Testing (Editor)",
     "email": "team-extensibility+testing-editor@contentful.com",
-    "avatarUrl": "https://www.gravatar.com/avatar/32258d2511fe07bf4c1a6b02784ac851?s=50&d=https%3A%2F%2Favatars.flinkly.com%2Finitials%2Fv1%2FET%2F50",
+    "avatarUrl": "NOT_IMPORTANT",
     "spaceMembership": {
       "sys": {
         "type": "SpaceMembership",
@@ -48,7 +48,7 @@
     "firstName": "Extensibility",
     "lastName": "Testing (Editor, master only)",
     "email": "team-extensibility+testing-editor-master-only@contentful.com",
-    "avatarUrl": "https://www.gravatar.com/avatar/144778adc7b0392ea339af6f1d9ebf82?s=50&d=https%3A%2F%2Favatars.flinkly.com%2Finitials%2Fv1%2FET%2F50",
+    "avatarUrl": "NOT_IMPORTANT",
     "spaceMembership": {
       "sys": {
         "type": "SpaceMembership",

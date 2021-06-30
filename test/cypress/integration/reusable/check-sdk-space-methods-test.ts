@@ -1,12 +1,13 @@
+import { ContentType } from '../../../../lib/types'
 import { removeVariableData } from '../../utils/remove-variable-data'
 import expectedContentTypes from '../fixtures/cached-content-types'
 
 export function verifySpaceGetCachedContentTypes(iframeSelector: string) {
   cy.getSdk(iframeSelector).then((sdk) => {
-    const cachedContentTypes = sdk.space.getCachedContentTypes()
+    const cachedContentTypes: ContentType[] = sdk.space.getCachedContentTypes()
 
-    for (const ct of cachedContentTypes) {
-      const expected = expectedContentTypes.find((i) => i.sys.id === ct.sys.id)!
+    for (const expected of expectedContentTypes) {
+      const ct = cachedContentTypes.find((i) => i.sys.id === expected.sys.id)!
 
       expect(removeVariableData(ct)).to.deep.equal(removeVariableData(expected))
     }
