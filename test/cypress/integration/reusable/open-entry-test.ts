@@ -2,15 +2,15 @@ import { entry } from '../../utils/paths'
 import * as Constants from '../../../constants'
 
 export function openEntryExtension(iframeSelector: string) {
-  cy.getSdk(iframeSelector).then(sdk => {
+  cy.getSdk(iframeSelector).then((sdk) => {
     sdk.navigator.openEntry(Constants.entries.testImageWrapper)
   })
 }
 
 export function openEntrySlideInExtension(iframeSelector: string) {
-  cy.getSdk(iframeSelector).then(sdk => {
+  cy.getSdk(iframeSelector).then((sdk) => {
     sdk.navigator.openEntry(Constants.entries.testImageWrapper, {
-      slideIn: true
+      slideIn: true,
     })
   })
 }

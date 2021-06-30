@@ -4,12 +4,14 @@ export async function createCypressConfiguration({
   managementToken,
   spaceId,
   environmentId,
+  aliasId,
   role,
   entries,
 }: {
   managementToken: string
   spaceId: string
   environmentId: string
+  aliasId: string
   role: string
   entries: Record<string, string>
 }) {
@@ -18,6 +20,7 @@ export async function createCypressConfiguration({
     managementToken,
     activeSpaceId: spaceId,
     activeEnvironmentId: environmentId,
+    activeAliasId: aliasId,
     role,
     entries,
   })
