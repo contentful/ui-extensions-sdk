@@ -1,3 +1,10 @@
+# [3.38.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.37.0...v3.38.0) (2021-06-30)
+
+
+### Features
+
+* add resolved info to tasks sys ([#822](https://github.com/contentful/ui-extensions-sdk/issues/822)) ([e0be824](https://github.com/contentful/ui-extensions-sdk/commit/e0be824956082aaa8fe00bd073f7354fb7dea51b))
+
 # [3.37.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.36.0...v3.37.0) (2021-06-23)
 
 
