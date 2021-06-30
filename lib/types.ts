@@ -707,7 +707,7 @@ export interface BaseExtensionSDK {
   access: AccessAPI
   /** Exposes relevant ids, keys may be ommited based on location */
   ids: IdsAPI
-  /** the adapter that can be used for creating the cma client */
+  /** Adapter to be injected in contentful-management client */
   cmaAdapter: Adapter
 }
 
