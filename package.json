@@ -1,7 +1,7 @@
 {
   "name": "contentful-ui-extensions-sdk",
   "description": "SDK to develop custom UI Extension for the Contentful Web App",
-  "version": "3.37.0",
+  "version": "3.38.0",
   "author": "Contentful GmbH",
   "license": "MIT",
   "repository": {
@@ -55,7 +55,7 @@
     "babel-eslint": "10.1.0",
     "chai": "4.3.4",
     "chai-as-promised": "7.1.1",
-    "contentful-management": "7.25.1",
+    "contentful-management": "7.27.0",
     "cross-spawn": "7.0.3",
     "cypress": "7.6.0",
     "cypress-multi-reporters": "1.5.0",
@@ -82,7 +82,7 @@
     "mochawesome-report-generator": "5.2.0",
     "nanoid": "3.1.23",
     "prettier": "2.3.2",
-    "rollup": "2.52.3",
+    "rollup": "2.52.4",
     "rollup-plugin-terser": "7.0.2",
     "rollup-plugin-typescript2": "0.30.0",
     "semantic-release": "17.4.2",
