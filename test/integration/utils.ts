@@ -3,6 +3,7 @@ import os from 'os'
 import path from 'path'
 
 const rootDirectory = fs.realpathSync(process.cwd())
+export const testAliasId = 'integration-test'
 export const resolvePath = (relativePath: string) => path.resolve(rootDirectory, relativePath)
 
 let stepCount = 1

@@ -1,4 +1,3 @@
-import { entry } from '../utils/paths'
 import * as Constants from '../../constants'
 import { role } from '../utils/role'
 import { verifyLocation } from '../utils/verify-location'
@@ -26,7 +25,7 @@ const sidebarExtension = 'cf-ui-sidebar-extension'
 context(`Sidebar extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
-    cy.visit(entry(post.id))
+    cy.visitEntryWithRetry(post.id)
     cy.findByTestId('workbench-title').should(($title) => {
       expect($title).to.exist
     })

@@ -1,4 +1,3 @@
-import { entry } from '../utils/paths'
 import { openPageExtensionTest } from './reusable/open-page-extension-test'
 import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
 import { openEntrySlideInTest, openEntryTest } from './reusable/open-entry-test'
@@ -23,8 +22,7 @@ const sidebarExtension = 'cf-ui-sidebar-extension'
 context(`Sidebar extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
-
-    cy.visit(entry(post.id))
+    cy.visitEntryWithRetry(post.id)
     cy.findByTestId('workbench-title').should(($title) => {
       expect($title).to.exist
     })

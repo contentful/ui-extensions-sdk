@@ -104,6 +104,38 @@
 * more explicit space api types ([#711](https://github.com/contentful/ui-extensions-sdk/issues/711)) ([42d63de](https://github.com/contentful/ui-extensions-sdk/commit/42d63dea5fd9a313918a9591311d716c3374ac60))
 
 
+# [3.38.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.37.0...v3.38.0) (2021-06-30)
+
+
+### Features
+
+* add resolved info to tasks sys ([#822](https://github.com/contentful/ui-extensions-sdk/issues/822)) ([e0be824](https://github.com/contentful/ui-extensions-sdk/commit/e0be824956082aaa8fe00bd073f7354fb7dea51b))
+
+# [3.37.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.36.0...v3.37.0) (2021-06-23)
+
+
+### Features
+
+* add type parameter to create task input data ([#809](https://github.com/contentful/ui-extensions-sdk/issues/809)) ([e0fe688](https://github.com/contentful/ui-extensions-sdk/commit/e0fe688b3e07cf58abd20a0b1f9d82c7ea1e48e7))
+
+# [3.36.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.35.0...v3.36.0) (2021-06-17)
+
+
+### Features
+
+* add interface for space.getTeams [HOMER-75] ([#789](https://github.com/contentful/ui-extensions-sdk/issues/789)) ([a5b8dac](https://github.com/contentful/ui-extensions-sdk/commit/a5b8dac92293d2e58ba7625ca4a310d182f3cabf))
+
+# [3.35.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.34.3...v3.35.0) (2021-06-11)
+
+
+### Features
+
+* add due date as a task field type ([#776](https://github.com/contentful/ui-extensions-sdk/issues/776)) ([ed0bf60](https://github.com/contentful/ui-extensions-sdk/commit/ed0bf60ce877665a3558555346c6bf0c9274bb49))
+
+## [3.34.3](https://github.com/contentful/ui-extensions-sdk/compare/v3.34.2...v3.34.3) (2021-05-18)
+>>>>>>> master
+
+
 ### Reverts
 
 * "chore: test that SDK respects alias ([#710](https://github.com/contentful/ui-extensions-sdk/issues/710))" ([#717](https://github.com/contentful/ui-extensions-sdk/issues/717)) ([4ab6e48](https://github.com/contentful/ui-extensions-sdk/commit/4ab6e48237ef6d4cdd75c7721cd994539ced0ce2))
