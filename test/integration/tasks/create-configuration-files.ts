@@ -31,10 +31,12 @@ export async function createExtensionConfiguration({
   managementToken,
   spaceId,
   environmentId,
+  host,
 }: {
   managementToken: string
   spaceId: string
   environmentId: string
+  host?: string
 }) {
   printStepTitle('Creating extension configuration based on environment variables')
   const extensionId = 'test-extension'
@@ -43,7 +45,7 @@ export async function createExtensionConfiguration({
     managementToken,
     activeSpaceId: spaceId,
     activeEnvironmentId: environmentId,
-    host: 'api.contentful.com',
+    host: host || 'api.contentful.com',
   })
 
   console.log(`Created test/extensions/${extensionId}/.contentfulrc.json`)
