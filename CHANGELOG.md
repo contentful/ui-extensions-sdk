@@ -1,3 +1,10 @@
+# [4.0.0-alpha.19](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.18...v4.0.0-alpha.19) (2021-07-01)
+
+
+### Features
+
+* [] add cma adapter to sdk ([#816](https://github.com/contentful/ui-extensions-sdk/issues/816)) ([24dab4e](https://github.com/contentful/ui-extensions-sdk/commit/24dab4e019b9f028d8739ee173373c701d36d732))
+
 # [4.0.0-alpha.18](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.17...v4.0.0-alpha.18) (2021-06-23)
 
 
