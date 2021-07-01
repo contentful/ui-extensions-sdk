@@ -78,6 +78,7 @@ workflows:
             branches:
               only:
                 - master
+                - canary
 
   # run in master every hour, 0:40, 1:40...
   schedule:

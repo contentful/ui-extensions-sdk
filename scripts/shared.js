@@ -7,9 +7,18 @@ const MODULE_MAIN_PATH = path.resolve(__dirname, '..')
 const PACKAGE_JSON_PATH = path.resolve(MODULE_MAIN_PATH, 'package.json')
 
 const ORIGINAL_PACKAGE_JSON = require(PACKAGE_JSON_PATH)
+const CANARY_REGEXP = /\d+\.\d+\.\d+-alpha\.\d+/
+
+function isCanary(version) {
+  return CANARY_REGEXP.test(version)
+}
 
 function getVersion() {
   return require(PACKAGE_JSON_PATH).version
+}
+
+function getTag(isCanary) {
+  return isCanary ? 'canary' : 'latest'
 }
 
 function restorePackageJson() {
@@ -30,4 +39,6 @@ module.exports = {
   getVersion,
   restorePackageJson,
   setPackageName,
+  getTag,
+  isCanary,
 }
