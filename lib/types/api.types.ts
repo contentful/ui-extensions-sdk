@@ -8,6 +8,7 @@ import { DialogsAPI } from './dialogs.types'
 import { AppConfigAPI } from './app.types'
 import { NavigatorAPI } from './navigator.types'
 import { EntryFieldInfo, FieldInfo } from './field.types'
+import { Adapter } from 'contentful-management/types'
 
 /* User API */
 
@@ -163,6 +164,8 @@ export interface BaseExtensionSDK {
   access: AccessAPI
   /** Exposes relevant ids, keys may be ommited based on location */
   ids: IdsAPI
+  /** Adapter to be injected in contentful-management client */
+  cmaAdapter: Adapter
 }
 
 export type EditorExtensionSDK = Omit<BaseExtensionSDK, 'ids'> &
