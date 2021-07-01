@@ -21,7 +21,7 @@ const sharedExpected = [
 function test(expected: string[], location: string | undefined, expectedLocation = location) {
   const channel = { addHandler: () => {} } as any
 
-  const data = {
+  const data = ({
     location,
     user: 'USER',
     parameters: 'PARAMS',
@@ -47,12 +47,12 @@ function test(expected: string[], location: string | undefined, expectedLocation
     ids: {
       extension: 'my-test-id',
     },
-  } as unknown as ConnectMessage
+  } as unknown) as ConnectMessage
 
   const dom = makeDOM()
   mockMutationObserver(dom, () => {})
 
-  const api = createAPI(channel, data, dom.window as any as Window)
+  const api = createAPI(channel, data, (dom.window as any) as Window)
 
   // Test location-specific API.
   expect(api).to.have.all.keys(sharedExpected.concat(expected))
@@ -112,7 +112,7 @@ describe('createAPI()', () => {
   it('returns correct shape of the app API (app)', () => {
     const expected = ['app']
 
-    const api = test(expected, locations.LOCATION_APP_CONFIG) as unknown as AppExtensionSDK
+    const api = (test(expected, locations.LOCATION_APP_CONFIG) as unknown) as AppExtensionSDK
 
     expect(api.app).to.have.all.keys([
       'setReady',

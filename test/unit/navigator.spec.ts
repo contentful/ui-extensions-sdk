@@ -100,7 +100,7 @@ describe('createNavigator()', () => {
     SCENARIOS.forEach(({ method, args, expected, channelMethod = 'navigateToContentEntity' }) => {
       describeChannelCallingMethod({
         creator: (channelStub: Channel) =>
-          createNavigator(channelStub, 'test-id' as unknown as IdsAPI),
+          createNavigator(channelStub, ('test-id' as unknown) as IdsAPI),
         methodName: method,
         channelMethod,
         args,

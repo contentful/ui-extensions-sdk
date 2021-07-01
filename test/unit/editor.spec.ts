@@ -5,14 +5,14 @@ import { Channel } from '../../lib/channel'
 import { EditorInterface } from '../../lib/types'
 
 describe('createEditor()', () => {
-  const channelStub = {
+  const channelStub = ({
     addHandler: sinon.spy(),
-  } as unknown as Channel
+  } as unknown) as Channel
 
-  const editorInterfaceMock = {
+  const editorInterfaceMock = ({
     sidebar: [],
     controls: [],
-  } as unknown as EditorInterface
+  } as unknown) as EditorInterface
 
   const editor = createEditor(channelStub, editorInterfaceMock)
 
