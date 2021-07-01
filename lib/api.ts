@@ -10,6 +10,7 @@ import createApp from './app'
 import locations from './locations'
 import { BaseExtensionSDK, EntryFieldInfo, NavigatorAPI, KnownSDK, ConnectMessage } from './types'
 import { Channel } from './channel'
+import { createAdapter } from './cmaAdapter'
 
 const DEFAULT_API_PRODUCERS = [
   makeSharedAPI,
@@ -47,6 +48,7 @@ function makeSharedAPI(channel: Channel, data: ConnectMessage): BaseExtensionSDK
   const currentLocation = data.location || locations.LOCATION_ENTRY_FIELD
 
   return {
+    cmaAdapter: createAdapter(channel),
     location: {
       is: (tested) => currentLocation === tested,
     },
