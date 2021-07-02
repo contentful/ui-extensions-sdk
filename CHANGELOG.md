@@ -1,3 +1,10 @@
+# [4.0.0-alpha.21](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.20...v4.0.0-alpha.21) (2021-07-02)
+
+
+### Bug Fixes
+
+* bump version ([#835](https://github.com/contentful/ui-extensions-sdk/issues/835)) ([1f125af](https://github.com/contentful/ui-extensions-sdk/commit/1f125af52d8e2af0fc01e341bc4e2839e3354df4))
+
 # [4.0.0-alpha.20](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.19...v4.0.0-alpha.20) (2021-07-02)
 
 
