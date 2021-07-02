@@ -1,3 +1,10 @@
+# [4.0.0-alpha.20](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.19...v4.0.0-alpha.20) (2021-07-02)
+
+
+### Bug Fixes
+
+* make adapter optional ([#831](https://github.com/contentful/ui-extensions-sdk/issues/831)) ([a737f82](https://github.com/contentful/ui-extensions-sdk/commit/a737f82aeec965e380dbc5aeb06fd36969306f90))
+
 # [4.0.0-alpha.19](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.18...v4.0.0-alpha.19) (2021-07-01)
 
 
