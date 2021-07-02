@@ -150,6 +150,6 @@
     ]
   },
   "dependencies": {
-    "contentful-management": "7.27.0"
+    "contentful-management": "^7.27.0"
   }
 }
