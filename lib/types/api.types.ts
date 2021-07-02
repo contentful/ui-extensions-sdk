@@ -165,7 +165,7 @@ export interface BaseExtensionSDK {
   /** Exposes relevant ids, keys may be ommited based on location */
   ids: IdsAPI
   /** Adapter to be injected in contentful-management client */
-  cmaAdapter: Adapter
+  cmaAdapter?: Adapter
 }
 
 export type EditorExtensionSDK = Omit<BaseExtensionSDK, 'ids'> &
