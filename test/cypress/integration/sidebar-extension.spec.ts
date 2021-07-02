@@ -6,8 +6,9 @@ import {
   verifySdkInstanceParameters,
 } from '../utils/verify-parameters'
 import idsData from './fixtures/ids-data.json'
-import contentTypeData from './fixtures/content-type-data/sidebar-ext.json'
+import contentTypeData from './fixtures/content-type-data/sidebar-ext'
 import { ContentType, EntryAPI, SidebarExtensionSDK } from '../../../lib/types'
+import { removeVariableData } from '../utils/remove-variable-data'
 
 const post = {
   id: Cypress.env('entries').sidebarExtension,
@@ -58,7 +59,7 @@ context(`Sidebar extension (${role})`, () => {
   it('verifies sdk.contentType static methods have expected values', () => {
     cy.getSdk(iframeSelector).then((sdk) => {
       contentTypeData.sys.environment.sys.id = Cypress.env('activeEnvironmentId')
-      expect(sdk.contentType).to.deep.equal(contentTypeData)
+      expect(removeVariableData(sdk.contentType)).to.deep.equal(removeVariableData(contentTypeData))
     })
   })
 

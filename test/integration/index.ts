@@ -15,23 +15,17 @@ import deleteEnvironment from './tasks/delete-new-environment'
 import deleteStaleEnvironments from './tasks/delete-stale-environments'
 import deployExtensions from './tasks/deploy-extensions'
 import runCypress from './tasks/run-cypress'
-import idsData from '../cypress/integration/fixtures/ids-data.json'
 import deleteEntries from './tasks/delete-entries'
+import { createFixtures } from './tasks/create-fixtures'
 
 const config = {
   managementTokenAdmin: process.env.CONTENTFUL_CMA_TOKEN!,
+  host: process.env.CONTENTFUL_HOST || 'api.contentful.com',
   managementTokenEditor: process.env.CONTENTFUL_CMA_TOKEN_EDITOR!,
   managementTokenEditorMasterOnly: process.env.CONTENTFUL_CMA_TOKEN_EDITOR_MASTER_ONLY!,
   spaceId: process.env.CONTENTFUL_SPACE_ID!,
   baseUrl: process.env.CONTENTFUL_APP!,
   testLocalSdk: process.env.TEST_LOCAL_SDK === 'true',
-}
-
-const entryIds = {
-  entryEditorExtension: idsData.entryEditorExtension.entry,
-  fieldExtension: idsData.fieldExtension.entry,
-  sidebarExtension: idsData.sidebarExtension.entry,
-  onValueChanged: idsData.onValueChanged.entry,
 }
 
 function listAllEnvironmentVariables() {
@@ -90,12 +84,23 @@ const run = async () => {
     throw new Error('Failed to create a new environment')
   }
 
-  createExtensionConfiguration({
+  await createExtensionConfiguration({
     managementToken: config.managementTokenAdmin,
     spaceId: config.spaceId,
     environmentId: tempEnvironmentId,
+    host: config.host,
   })
   await deployExtensions()
+
+  await createFixtures(config.spaceId)
+
+  const idsData = require('../cypress/integration/fixtures/ids-data.json')
+  const entryIds = {
+    entryEditorExtension: idsData.entryEditorExtension.entry,
+    fieldExtension: idsData.fieldExtension.entry,
+    sidebarExtension: idsData.sidebarExtension.entry,
+    onValueChanged: idsData.onValueChanged.entry,
+  }
 
   // Admin
   await createCypressConfiguration({
@@ -106,6 +111,7 @@ const run = async () => {
     role: 'admin',
     entries: entryIds,
   })
+
   await runCypress('admin')
 
   // Editor

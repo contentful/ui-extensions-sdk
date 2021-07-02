@@ -1,13 +1,12 @@
-import { getCurrentSpace } from '../contentful-client'
+import { plainClient } from '../contentful-client'
 import { printStepTitle, sleep } from '../utils'
 
 const TWO_HOURS_IN_MS = 60 * 60 * 2 * 1000
 
-export default async (currentSpace = getCurrentSpace) => {
+export default async (client = plainClient) => {
   printStepTitle('Removing stale environments')
 
-  const space = await currentSpace()
-  const environments = await space.getEnvironments()
+  const environments = await client.environment.getMany({})
   const { items } = environments
 
   // filter for relevant environments
