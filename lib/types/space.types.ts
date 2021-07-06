@@ -10,6 +10,7 @@ import {
   TagVisibility,
   KeyValueMap,
   Entry,
+  QueryOptions,
 } from './entities'
 import {
   CollectionResponse,
