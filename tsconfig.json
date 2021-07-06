@@ -8,8 +8,9 @@
     ],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "declaration": true
+    "declaration": true,
+    "skipLibCheck": true,
   },
   "include": ["lib/**/*"],
-  "exclude": ["test"]
+  "exclude": ["test", "node_modules"]
 }

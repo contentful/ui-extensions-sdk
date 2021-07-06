@@ -67,6 +67,7 @@ export type {
   NavigatorSlideInfo,
   PageExtensionOptions,
 } from './navigator.types'
+
 export type { SpaceAPI } from './space.types'
 
 export type {

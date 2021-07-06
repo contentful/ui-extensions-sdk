@@ -72,3 +72,11 @@ export interface SearchQuery {
 
   [key: string]: any
 }
+
+export type SerializedJSONValue =
+  | null
+  | string
+  | number
+  | boolean
+  | Array<SerializedJSONValue>
+  | { [key: string]: SerializedJSONValue }
