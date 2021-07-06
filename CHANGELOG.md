@@ -1,3 +1,10 @@
+# [4.0.0-alpha.22](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.21...v4.0.0-alpha.22) (2021-07-06)
+
+
+### Bug Fixes
+
+* missing space types and SerializedJSONValue ([#837](https://github.com/contentful/ui-extensions-sdk/issues/837)) ([3dda7f0](https://github.com/contentful/ui-extensions-sdk/commit/3dda7f00093ca39f82f010b2c391862410ee48ec))
+
 # [4.0.0-alpha.21](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.20...v4.0.0-alpha.21) (2021-07-02)
 
 
