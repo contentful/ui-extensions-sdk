@@ -1,5 +1,5 @@
 import { ContentTypeFieldValidation } from './entities'
-import type { Items } from './utils'
+import type { Items, SerializedJSONValue } from './utils'
 import { ValidationError } from './validation-error'
 
 export interface FieldAPI {
@@ -19,7 +19,7 @@ export interface FieldAPI {
   /** Gets the current value of the field and locale. */
   getValue: () => any
   /** Sets the value for the field and locale.  */
-  setValue: <Value = any>(value: Value) => Promise<Value>
+  setValue: <Value = any>(value: Value) => Promise<SerializedJSONValue | undefined>
   /** Removes the value for the field and locale. */
   removeValue: () => Promise<void>
   /** Communicates to the web application if the field is in a valid state or not. */
