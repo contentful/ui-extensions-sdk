@@ -21,7 +21,7 @@
     "test": "ts-mocha -p tsconfig.test.json 'test/unit/*.[jt]s' --reporter mocha-multi-reporters --reporter-options configFile=mocha.unit-reporters.json",
     "lint": "eslint '{lib,test}/**/*.{t,j}s'",
     "lint:fix": "npm run lint -- --fix",
-    "build": "rollup -c --compact",
+    "build": "npm run check-types && rollup -c --compact",
     "build:debug": "npm run build -- --sourcemap",
     "prepublishOnly": "npm run build",
     "size": "echo \"Gzipped, estimate: $(gzip -9 -c dist/cf-extension-api.js | wc -c) bytes\"",
@@ -34,7 +34,8 @@
     "generate-report": "npx mochawesome-report-generator --reportDir test/cypress/reports test/cypress/reports/full_report.json",
     "semantic-release": "semantic-release",
     "publish-all": "node ./scripts/publish.js",
-    "verify": "node ./scripts/verify.js"
+    "verify": "node ./scripts/verify.js",
+    "check-types": "tsc --noEmit -m commonjs"
   },
   "devDependencies": {
     "@semantic-release/changelog": "5.0.1",
@@ -56,6 +57,7 @@
     "babel-eslint": "10.1.0",
     "chai": "4.3.4",
     "chai-as-promised": "7.1.1",
+    "contentful-management": "^7.27.0",
     "cross-spawn": "7.0.3",
     "cypress": "7.6.0",
     "cypress-multi-reporters": "1.5.0",
@@ -149,7 +151,7 @@
       "@semantic-release/github"
     ]
   },
-  "dependencies": {
+  "peerDependencies": {
     "contentful-management": "^7.27.0"
   }
 }

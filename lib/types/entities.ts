@@ -1,7 +1,6 @@
 export type {
   TagProps as Tag,
   TeamProps as Team,
-  TagVisibility,
   UserProps as User,
   AssetProps as Asset,
   TaskProps as Task,
@@ -16,6 +15,8 @@ export type {
   KeyValueMap,
   QueryOptions,
 } from 'contentful-management/types'
+
+export type { TagVisibility } from 'contentful-management/dist/typings/entities/tag'
 
 export interface CanonicalRequest {
   method: 'GET' | 'PUT' | 'POST' | 'PATCH' | 'DELETE' | 'HEAD' | 'OPTIONS'
