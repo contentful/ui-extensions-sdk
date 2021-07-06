@@ -14,9 +14,8 @@ export type {
   RoleProps as Role,
   KeyValueMap,
   QueryOptions,
+  TagVisibility,
 } from 'contentful-management/types'
-
-export type { TagVisibility } from 'contentful-management/dist/typings/entities/tag'
 
 export interface CanonicalRequest {
   method: 'GET' | 'PUT' | 'POST' | 'PATCH' | 'DELETE' | 'HEAD' | 'OPTIONS'
