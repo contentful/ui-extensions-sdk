@@ -1,3 +1,10 @@
+# [4.0.0-alpha.23](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.22...v4.0.0-alpha.23) (2021-07-07)
+
+
+### Bug Fixes
+
+* use type export ([#841](https://github.com/contentful/ui-extensions-sdk/issues/841)) ([899535f](https://github.com/contentful/ui-extensions-sdk/commit/899535feb4939ea70c79abe3c309524eaede1e10))
+
 # [4.0.0-alpha.22](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.21...v4.0.0-alpha.22) (2021-07-06)
 
 
