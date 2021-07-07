@@ -83,3 +83,5 @@ export type {
 } from './utils'
 
 export type { WindowAPI } from './window.types'
+
+export { SerializedJSONValue } from './utils'
