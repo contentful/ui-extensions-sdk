@@ -80,6 +80,7 @@ export type {
   Link,
   WithOptionalId,
   WithId,
+  SerializedJSONValue,
 } from './utils'
 
 export type { WindowAPI } from './window.types'
