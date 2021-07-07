@@ -1,4 +1,4 @@
-import { Items } from './utils'
+import { Items, SerializedJSONValue } from './utils'
 import { FieldAPI } from './field-locale.types'
 import { ContentTypeFieldValidation } from './entities'
 
@@ -39,7 +39,7 @@ export interface EntryFieldAPI {
   /** Gets the current value of the field and locale. */
   getValue: (locale?: string) => any
   /** Sets the value for the field and locale.  */
-  setValue: <Value = any>(value: Value, locale?: string) => Promise<Value>
+  setValue: <Value = any>(value: Value, locale?: string) => Promise<SerializedJSONValue | undefined>
   /** Removes the value for the field and locale. */
   removeValue: (locale?: string) => Promise<void>
   /** Calls the callback every time the value of the field is changed by an external event or when setValue() is called.
