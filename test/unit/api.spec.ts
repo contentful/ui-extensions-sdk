@@ -9,6 +9,7 @@ const sharedExpected = [
   'user',
   'parameters',
   'locales',
+  'teams',
   'space',
   'dialogs',
   'navigator',
