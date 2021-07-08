@@ -2,9 +2,8 @@ import { actionSelectors } from '../../constants'
 import { pageExtension } from '../utils/paths'
 import { role } from '../utils/role'
 import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
-import { AssertionError } from 'chai'
 
-context.only(`Initialize (${role})`, () => {
+context(`Initialize (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
   })
@@ -12,8 +11,6 @@ context.only(`Initialize (${role})`, () => {
   it('Entry Editor', () => {
     cy.visitEntryWithRetry(Cypress.env('entries').entryEditorExtension)
     cy.findByTestId('workbench-title').should(($title) => {
-      throw new AssertionError('ERRROR')
-
       expect($title).to.exist
     })
 
