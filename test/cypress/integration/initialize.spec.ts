@@ -10,10 +10,10 @@ context.only(`Initialize (${role})`, () => {
   })
 
   it('Entry Editor', () => {
-    throw new AssertionError('ERRROR')
-
     cy.visitEntryWithRetry(Cypress.env('entries').entryEditorExtension)
     cy.findByTestId('workbench-title').should(($title) => {
+      throw new AssertionError('ERRROR')
+
       expect($title).to.exist
     })
 
