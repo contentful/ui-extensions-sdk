@@ -8,6 +8,7 @@ export type {
   ContentTypeProps as ContentType,
   EditorInterfaceProps as EditorInterface,
   SpaceMembershipProps as SpaceMembership,
+  TeamMembershipProps as TeamMembership,
   ContentFields as ContentTypeField,
   ContentTypeFieldValidation,
   EntryProps as Entry,

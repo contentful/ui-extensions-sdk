@@ -19,6 +19,7 @@ export type {
   SharedEditorSDK,
   SidebarExtensionSDK,
   UserAPI,
+  TeamsAPI,
 } from './api.types'
 
 export type {

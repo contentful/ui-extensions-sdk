@@ -1,4 +1,11 @@
-import { ContentType, EditorInterface, SpaceMembership, Role, ContentTypeField } from './entities'
+import {
+  ContentType,
+  EditorInterface,
+  SpaceMembership,
+  Role,
+  ContentTypeField,
+  TeamMembership,
+} from './entities'
 import { EntryAPI } from './entry.types'
 import { SpaceAPI } from './space.types'
 import { WindowAPI } from './window.types'
@@ -29,6 +36,11 @@ export interface UserAPI {
     admin: SpaceMembership['admin']
     roles: Pick<Role, 'name' | 'description'>[]
   }
+}
+
+/* Teams API */
+export interface TeamsAPI {
+  teamMemberships: TeamMembership[]
 }
 
 /* Locales API */
@@ -148,6 +160,8 @@ export interface BaseExtensionSDK {
   space: SpaceAPI
   /** Information about the current user and roles */
   user: UserAPI
+  /** Information about the teams of the current user */
+  teams: TeamsAPI
   /** Information about the current locales */
   locales: LocalesAPI
   /** Methods for opening UI dialogs: */
@@ -234,6 +248,7 @@ export interface ConnectMessage {
   parameters: ParametersAPI
   locales: LocalesAPI
   user: UserAPI
+  teams: TeamsAPI
   initialContentTypes: ContentType[]
   ids: IdsAPI
   contentType: ContentTypeAPI
