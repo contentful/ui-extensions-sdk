@@ -11,7 +11,8 @@ context(`Initialize (${role})`, () => {
   it('Entry Editor', () => {
     cy.visitEntryWithRetry(Cypress.env('entries').entryEditorExtension)
     cy.findByTestId('workbench-title').should(($title) => {
-      expect($title).to.exist
+      // THIS IS PURPOSELY WRONG TO TEST WHETHER CIRCLE CATCHES THE ERROR
+      expect($title).to.not.exist
     })
 
     cy.waitForIframeWithTestId('cf-ui-card')
