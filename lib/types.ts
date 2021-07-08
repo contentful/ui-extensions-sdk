@@ -36,6 +36,27 @@ export interface Link {
   }
 }
 
+export interface TeamMembership {
+  admin: boolean
+  sys: {
+    id: string
+    type: string
+    version: number
+    team: Link
+    organization: Link
+    createdBy: Link
+    createdAt: string
+    updatedBy: Link
+    updatedAt: string
+    organizationMembership: Link
+    user: Link
+  }
+}
+
+export interface Teams {
+  teamMemberShips: TeamMembership[]
+}
+
 export interface Team {
   sys: {
     createdAt?: string
@@ -691,6 +712,8 @@ export interface BaseExtensionSDK {
   space: SpaceAPI
   /** Information about the current user and roles */
   user: User
+  /** Information about the teams of the current user */
+  teams: Teams
   /** Information about the current locales */
   locales: LocalesAPI
   /** Methods for opening UI dialogs: */
@@ -820,6 +843,7 @@ export interface ConnectMessage {
   parameters: ParametersAPI
   locales: LocalesAPI
   user: User
+  teams: Teams
   initialContentTypes: ContentType[]
   ids: IdsAPI
   contentType: ContentType
