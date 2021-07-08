@@ -2,17 +2,19 @@ import { actionSelectors } from '../../constants'
 import { pageExtension } from '../utils/paths'
 import { role } from '../utils/role'
 import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
+import AssertionError = Chai.AssertionError
 
-context(`Initialize (${role})`, () => {
+context.only(`Initialize (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
   })
 
   it('Entry Editor', () => {
+    throw new AssertionError('ERRROR')
+
     cy.visitEntryWithRetry(Cypress.env('entries').entryEditorExtension)
     cy.findByTestId('workbench-title').should(($title) => {
-      // THIS IS PURPOSELY WRONG TO TEST WHETHER CIRCLE CATCHES THE ERROR
-      expect($title).to.not.exist
+      expect($title).to.exist
     })
 
     cy.waitForIframeWithTestId('cf-ui-card')
