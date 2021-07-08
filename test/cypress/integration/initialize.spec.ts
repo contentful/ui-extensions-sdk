@@ -2,7 +2,7 @@ import { actionSelectors } from '../../constants'
 import { pageExtension } from '../utils/paths'
 import { role } from '../utils/role'
 import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
-import AssertionError = Chai.AssertionError
+import { AssertionError } from 'chai'
 
 context.only(`Initialize (${role})`, () => {
   beforeEach(() => {
