@@ -30,9 +30,7 @@ jobs:
       - run: npm run build
       - run:
           name: npm run integration
-          command: |
-            set -e
-            npm run integration
+          command: npm run integration
       - run: 
           command: npm run merge-report
           when: always
