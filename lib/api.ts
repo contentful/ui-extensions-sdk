@@ -44,7 +44,7 @@ export default function createAPI(
 }
 
 function makeSharedAPI(channel: Channel, data: ConnectMessage): BaseExtensionSDK {
-  const { user, parameters, locales, ids, initialContentTypes, teams } = data
+  const { user, parameters, locales, ids, initialContentTypes } = data
   const currentLocation = data.location || locations.LOCATION_ENTRY_FIELD
 
   return {
@@ -53,7 +53,6 @@ function makeSharedAPI(channel: Channel, data: ConnectMessage): BaseExtensionSDK
       is: (tested) => currentLocation === tested,
     },
     user,
-    teams,
     parameters,
     locales: {
       available: locales.available,

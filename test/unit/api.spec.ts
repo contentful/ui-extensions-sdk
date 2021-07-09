@@ -10,7 +10,6 @@ const sharedExpected = [
   'parameters',
   'locales',
   'space',
-  'teams',
   'dialogs',
   'navigator',
   'notifier',
@@ -25,7 +24,6 @@ function test(expected: string[], location: string | undefined, expectedLocation
   const data = {
     location,
     user: 'USER',
-    teams: 'TEAMS',
     parameters: 'PARAMS',
     locales: {
       available: 'AVAIL',

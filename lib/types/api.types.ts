@@ -36,10 +36,6 @@ export interface UserAPI {
     admin: SpaceMembership['admin']
     roles: Pick<Role, 'name' | 'description'>[]
   }
-}
-
-/* Teams API */
-export interface TeamsAPI {
   teamMemberships: TeamMembership[]
 }
 
@@ -160,8 +156,6 @@ export interface BaseExtensionSDK {
   space: SpaceAPI
   /** Information about the current user and roles */
   user: UserAPI
-  /** Information about the teams of the current user */
-  teams: TeamsAPI
   /** Information about the current locales */
   locales: LocalesAPI
   /** Methods for opening UI dialogs: */
@@ -248,7 +242,6 @@ export interface ConnectMessage {
   parameters: ParametersAPI
   locales: LocalesAPI
   user: UserAPI
-  teams: TeamsAPI
   initialContentTypes: ContentType[]
   ids: IdsAPI
   contentType: ContentTypeAPI
