@@ -9,7 +9,6 @@ context(`Initialize (${role})`, () => {
   })
 
   it('Entry Editor', () => {
-    throw new Error('kaboom')
     cy.visitEntryWithRetry(Cypress.env('entries').entryEditorExtension)
     cy.findByTestId('workbench-title').should(($title) => {
       expect($title).to.exist
