@@ -45,7 +45,7 @@
     "@types/chai-as-promised": "7.1.4",
     "@types/cross-spawn": "6.0.2",
     "@types/fs-extra": "9.0.11",
-    "@types/jsdom": "16.2.12",
+    "@types/jsdom": "16.2.13",
     "@types/nanoid": "3.0.0",
     "@types/sinon": "^10.0.0",
     "@types/sinon-chai": "^3.2.5",
