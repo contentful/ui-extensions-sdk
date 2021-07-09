@@ -147,8 +147,8 @@ const run = async () => {
     await run()
     await cleanup()
   } catch (err) {
-    console.log(err)
-    await cleanup()
+    console.error(err)
+    await cleanup().catch(console.error)
     process.exit(1)
   }
 })()
