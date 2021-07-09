@@ -45,6 +45,7 @@ let tempEnvironmentId: any
 const tempEntries: { environmentId: string; entryId: string }[] = []
 
 const cleanup = async () => {
+  throw new Error('boom')
   if (tempEnvironmentId) {
     try {
       await asyncRetry(() => deleteEnvironment(tempEnvironmentId), { retries: 3 })
@@ -102,28 +103,28 @@ const run = async () => {
     onValueChanged: idsData.onValueChanged.entry,
   }
 
-  // Admin
-  await createCypressConfiguration({
-    managementToken: config.managementTokenAdmin,
-    spaceId: config.spaceId,
-    environmentId: tempEnvironmentId,
-    aliasId: testAliasId,
-    role: 'admin',
-    entries: entryIds,
-  })
-
-  await runCypress('admin')
-
-  // Editor
-  await createCypressConfiguration({
-    managementToken: config.managementTokenEditor,
-    spaceId: config.spaceId,
-    environmentId: tempEnvironmentId,
-    aliasId: testAliasId,
-    role: 'editor',
-    entries: entryIds,
-  })
-  await runCypress('editor', true)
+  // // Admin
+  // await createCypressConfiguration({
+  //   managementToken: config.managementTokenAdmin,
+  //   spaceId: config.spaceId,
+  //   environmentId: tempEnvironmentId,
+  //   aliasId: testAliasId,
+  //   role: 'admin',
+  //   entries: entryIds,
+  // })
+  //
+  // await runCypress('admin')
+  //
+  // // Editor
+  // await createCypressConfiguration({
+  //   managementToken: config.managementTokenEditor,
+  //   spaceId: config.spaceId,
+  //   environmentId: tempEnvironmentId,
+  //   aliasId: testAliasId,
+  //   role: 'editor',
+  //   entries: entryIds,
+  // })
+  // await runCypress('editor', true)
 
   // Editor (master only)
   const newEntryIds = await copyEntries(entryIds)
