@@ -15,8 +15,8 @@ export interface AppState {
 }
 
 export type OnConfigureHandlerReturn =
-  | Promise<{ parameters?: KeyValueMap; targetState?: AppState }>
-  | { parameters?: KeyValueMap; targetState?: AppState }
+  | Promise<{ parameters?: KeyValueMap | null; targetState?: AppState | null }>
+  | { parameters?: KeyValueMap | null; targetState?: AppState | null }
   | false
 export type OnConfigureHandler = () => OnConfigureHandlerReturn
 
