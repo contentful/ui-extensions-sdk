@@ -12,14 +12,7 @@ import {
   Entry,
   QueryOptions,
 } from './entities'
-import {
-  CollectionResponse,
-  ContentEntityType,
-  Link,
-  WithOptionalId,
-  SearchQuery,
-  WithId,
-} from './utils'
+import { CollectionResponse, ContentEntityType, Link, WithOptionalId, SearchQuery } from './utils'
 
 type Snapshot<T> = {
   sys: {
