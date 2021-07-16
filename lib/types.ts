@@ -98,9 +98,9 @@ export interface EntrySys {
   contentType: Link
 }
 
-export type Metadata = {
+export interface Metadata {
   tags?: Link[]
-} | undefined
+}
 
 /* Field API */
 export interface FieldAPI {
@@ -231,9 +231,9 @@ export interface EntryAPI extends TaskAPI {
    * Optional metadata on an entry
    * @deprecated
    */
-  metadata?: Metadata,
-  getMetadata: () => Metadata,
-  onMetadataChanged: (callback: (metadata: Metadata) => void) => Function,
+  metadata?: Metadata | undefined
+  getMetadata: () => Metadata | undefined
+  onMetadataChanged: (callback: (metadata?: Metadata) => void) => Function
 }
 
 /* Scheduled Actions */
