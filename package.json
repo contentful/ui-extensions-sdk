@@ -152,6 +152,6 @@
     ]
   },
   "peerDependencies": {
-    "contentful-management": "^7.27.1"
+    "contentful-management": "^7.29.0"
   }
 }
