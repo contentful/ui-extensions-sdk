@@ -54,7 +54,7 @@ export default function createEntry(
     getMetadata() {
       return metadata
     },
-    onMetadataChanged(handler: Function) {
+    onMetadataChanged(handler: VoidFunction) {
       return metadataChanged.attach(handler)
     },
     ...taskApi,

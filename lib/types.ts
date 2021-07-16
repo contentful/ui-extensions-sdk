@@ -231,9 +231,9 @@ export interface EntryAPI extends TaskAPI {
    * Optional metadata on an entry
    * @deprecated
    */
-  metadata?: Metadata | undefined
+  metadata?: Metadata
   getMetadata: () => Metadata | undefined
-  onMetadataChanged: (callback: (metadata?: Metadata) => void) => Function
+  onMetadataChanged: (callback: (metadata?: Metadata) => void) => VoidFunction
 }
 
 /* Scheduled Actions */
