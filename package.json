@@ -37,6 +37,9 @@
     "verify": "node ./scripts/verify.js",
     "check-types": "tsc --noEmit -m commonjs"
   },
+  "dependencies": {
+    "contentful-management": "^7.27.1"
+  },
   "devDependencies": {
     "@semantic-release/changelog": "5.0.1",
     "@semantic-release/exec": "5.0.0",
@@ -57,7 +60,6 @@
     "babel-eslint": "10.1.0",
     "chai": "4.3.4",
     "chai-as-promised": "7.1.1",
-    "contentful-management": "^7.27.1",
     "cross-spawn": "7.0.3",
     "cypress": "7.6.0",
     "cypress-multi-reporters": "1.5.0",
@@ -150,8 +152,5 @@
       ],
       "@semantic-release/github"
     ]
-  },
-  "peerDependencies": {
-    "contentful-management": "^7.27.1"
   }
 }
