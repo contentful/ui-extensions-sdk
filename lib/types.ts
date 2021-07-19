@@ -98,6 +98,10 @@ export interface EntrySys {
   contentType: Link
 }
 
+export interface Metadata {
+  tags?: Link[]
+}
+
 /* Field API */
 export interface FieldAPI {
   /** The ID of a field is defined in an entry's content type. */
@@ -227,9 +231,9 @@ export interface EntryAPI extends TaskAPI {
    * Optional metadata on an entry
    * @deprecated
    */
-  metadata?: {
-    tags?: Link[]
-  }
+  metadata?: Metadata
+  getMetadata: () => Metadata | undefined
+  onMetadataChanged: (callback: (metadata?: Metadata) => void) => VoidFunction
 }
 
 /* Scheduled Actions */
