@@ -50,6 +50,7 @@ export type {
   Task,
   Entry,
   Role,
+  Metadata,
 } from './entities'
 
 export type { EntryAPI, TaskAPI, TaskInputData } from './entry.types'
@@ -72,7 +73,6 @@ export type { SpaceAPI } from './space.types'
 
 export type {
   SearchQuery,
-  Metadata,
   CollectionResponse,
   ContentEntitySys,
   ContentEntityType,
