@@ -17,6 +17,7 @@ import deployExtensions from './tasks/deploy-extensions'
 import runCypress from './tasks/run-cypress'
 import deleteEntries from './tasks/delete-entries'
 import { createFixtures } from './tasks/create-fixtures'
+import deleteStaleEntries from './tasks/delete-stale-entries'
 
 const config = {
   managementTokenAdmin: process.env.CONTENTFUL_CMA_TOKEN!,
@@ -70,6 +71,12 @@ const run = async () => {
     await deleteStaleEnvironments()
   } catch (e) {
     console.error('Could not delete all stale environments')
+  }
+
+  try {
+    await deleteStaleEntries()
+  } catch (e) {
+    console.error('Could not delete all stale entries')
   }
 
   try {

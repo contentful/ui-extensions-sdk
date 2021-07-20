@@ -8,14 +8,8 @@ describe('DeleteStaleEnvironments', () => {
   beforeEach(() => {
     plainClient = {
       environment: {
-        getMany: () =>
-          Promise.resolve({
-            ...environmentMocks,
-            items: environmentMocks.items.map((environment) => ({
-              ...environment,
-              delete: () => Promise.resolve(),
-            })),
-          }),
+        getMany: () => Promise.resolve(environmentMocks),
+        delete: () => Promise.resolve(),
       },
     } as unknown as PlainClientAPI
   })
