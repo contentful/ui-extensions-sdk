@@ -1,3 +1,10 @@
+# [4.0.0-alpha.25](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.24...v4.0.0-alpha.25) (2021-07-20)
+
+
+### Bug Fixes
+
+* change type of delete contenttype to accept only the id ([#866](https://github.com/contentful/ui-extensions-sdk/issues/866)) ([57b27dc](https://github.com/contentful/ui-extensions-sdk/commit/57b27dca9848f78b25e4d5823b2b16cae2a3115c))
+
 # [4.0.0-alpha.24](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.23...v4.0.0-alpha.24) (2021-07-20)
 
 
