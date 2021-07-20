@@ -23,6 +23,10 @@ export default async (client = plainClient) => {
         const id = entry.sys.id
 
         try {
+          if (entry.sys.publishedVersion) {
+            await client.entry.unpublish({ entryId: id, environmentId: 'master-test' })
+          }
+
           await client.entry.delete({ entryId: id, environmentId: 'master-test' })
           console.log(`Deleted entry ${id}`)
           return id
