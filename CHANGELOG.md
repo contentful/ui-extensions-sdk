@@ -1,3 +1,10 @@
+# [4.0.0-alpha.26](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.25...v4.0.0-alpha.26) (2021-07-20)
+
+
+### Bug Fixes
+
+* fix type imports ([#874](https://github.com/contentful/ui-extensions-sdk/issues/874)) ([4866e80](https://github.com/contentful/ui-extensions-sdk/commit/4866e8066154def9db10187dc7ae48a13b211606))
+
 # [4.0.0-alpha.25](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.24...v4.0.0-alpha.25) (2021-07-20)
 
 
