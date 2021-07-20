@@ -1,5 +1,6 @@
+import { EnvironmentProps } from 'contentful-management/types'
 import { plainClient } from '../contentful-client'
-import { printStepTitle, sleep } from '../utils'
+import { printStepTitle } from '../utils'
 
 const TWO_HOURS_IN_MS = 60 * 60 * 2 * 1000
 
@@ -10,33 +11,33 @@ export default async (client = plainClient) => {
   const { items: environments } = environmentCollection
 
   // filter for relevant environments
-  const isProtected = (name: string) => name === 'master' || name.includes('test')
+  const isProtected = (environment: EnvironmentProps) =>
+    environment.name === 'master' || environment.name.includes('test')
 
-  const isStaleEnvironment = (timeStamp: string) => {
-    const environmentDate = new Date(timeStamp).getTime()
+  const isStaleEnvironment = (environment: EnvironmentProps) => {
+    const environmentDate = new Date(environment.sys.createdAt).getTime()
     const difference = Date.now() - environmentDate
     return difference >= TWO_HOURS_IN_MS
   }
-  const deletedEnvironmentIds: string[] = []
 
-  for (const environment of environments) {
-    const {
-      name,
-      sys: { createdAt, id },
-    } = environment
-    if (isProtected(name) || !isStaleEnvironment(createdAt)) {
-      continue
-    }
+  const promiseResults = await Promise.allSettled(
+    environments
+      .filter((environment) => !isProtected(environment))
+      .filter((environment) => isStaleEnvironment(environment))
+      .map(async (environment) => {
+        const id = environment.sys.id
 
-    try {
-      await client.environment.delete(id)
-      deletedEnvironmentIds.push(id)
-      console.log(`Deleted environment ${id}`)
-      await sleep(200)
-    } catch (error) {
-      console.error(`Could not delete environment ${environment.sys.id}`)
-    }
-  }
+        try {
+          await client.environment.delete({ environmentId: id })
+          console.log(`Deleted environment ${id}`)
+          return id
+        } catch (error) {
+          console.error(`Could not delete environment ${id}`)
+        }
+      })
+  )
 
-  return deletedEnvironmentIds
+  return promiseResults
+    .filter((r): r is PromiseFulfilledResult<string> => r.status === 'fulfilled')
+    .map((r) => r.value)
 }
