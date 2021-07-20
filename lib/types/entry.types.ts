@@ -1,6 +1,6 @@
-import { Task } from './entities'
+import { Metadata, Task } from './entities'
 import { EntryFieldAPI } from './field.types'
-import { CollectionResponse, ContentEntitySys, Metadata } from './utils'
+import { CollectionResponse, ContentEntitySys } from './utils'
 
 type TaskState = 'active' | 'resolved'
 

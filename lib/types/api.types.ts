@@ -1,8 +1,15 @@
-import { ContentType, EditorInterface, SpaceMembership, Role, ContentTypeField } from './entities'
+import {
+  ContentType,
+  EditorInterface,
+  SpaceMembership,
+  Role,
+  ContentTypeField,
+  Metadata,
+} from './entities'
 import { EntryAPI } from './entry.types'
 import { SpaceAPI } from './space.types'
 import { WindowAPI } from './window.types'
-import { ContentEntitySys, Link, Metadata } from './utils'
+import { ContentEntitySys, Link } from './utils'
 import { FieldAPI } from './field-locale.types'
 import { DialogsAPI } from './dialogs.types'
 import { AppConfigAPI } from './app.types'

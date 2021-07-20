@@ -15,6 +15,7 @@ export type {
   KeyValueMap,
   QueryOptions,
   TagVisibility,
+  MetadataProps as Metadata,
 } from 'contentful-management/types'
 
 export interface CanonicalRequest {
