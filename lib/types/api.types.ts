@@ -1,8 +1,15 @@
-import { ContentType, EditorInterface, SpaceMembership, Role, ContentTypeField } from './entities'
+import {
+  ContentType,
+  EditorInterface,
+  SpaceMembership,
+  Role,
+  ContentTypeField,
+  Metadata,
+} from './entities'
 import { EntryAPI } from './entry.types'
 import { SpaceAPI } from './space.types'
 import { WindowAPI } from './window.types'
-import { ContentEntitySys, Link, Metadata } from './utils'
+import { ContentEntitySys, Link } from './utils'
 import { FieldAPI } from './field-locale.types'
 import { DialogsAPI } from './dialogs.types'
 import { AppConfigAPI } from './app.types'
@@ -143,6 +150,8 @@ export interface AccessAPI {
   canEditAppConfig: () => Promise<boolean>
 }
 
+type EntryScopedIds = 'field' | 'entry' | 'contentType'
+
 export interface BaseExtensionSDK {
   /** Exposes methods that allow the extension to read and manipulate a wide range of objects in the space. */
   space: SpaceAPI
@@ -163,7 +172,7 @@ export interface BaseExtensionSDK {
   /** Exposes methods for checking user's access level */
   access: AccessAPI
   /** Exposes relevant ids, keys may be ommited based on location */
-  ids: IdsAPI
+  ids: Omit<IdsAPI, EntryScopedIds>
   /** Adapter to be injected in contentful-management client */
   cmaAdapter?: Adapter
 }
@@ -192,7 +201,7 @@ export type FieldExtensionSDK = BaseExtensionSDK &
 
 export type DialogExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
   /** A set of IDs actual for the extension */
-  ids: Omit<IdsAPI, 'field' | 'entry' | 'contentType'>
+  ids: Omit<IdsAPI, EntryScopedIds>
   /** Closes the dialog and resolves openExtension promise with data */
   close: (data?: any) => void
   /** Methods to update the size of the iframe the extension is contained within.  */
@@ -201,12 +210,12 @@ export type DialogExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
 
 export type PageExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
   /** A set of IDs actual for the extension */
-  ids: Omit<IdsAPI, 'field' | 'entry' | 'contentType'>
+  ids: Omit<IdsAPI, EntryScopedIds>
 }
 
 export type AppExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
   /** A set of IDs actual for the app */
-  ids: Omit<IdsAPI, 'extension' | 'field' | 'entry' | 'contentType' | 'app'> & { app: string }
+  ids: Omit<IdsAPI, EntryScopedIds | 'extension' | 'app'> & { app: string }
   app: AppConfigAPI
 }
 

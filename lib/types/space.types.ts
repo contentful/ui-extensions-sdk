@@ -34,10 +34,12 @@ type Snapshot<T> = {
 export interface SpaceAPI {
   getCachedContentTypes: () => ContentType[]
   getContentType: (id: string) => Promise<ContentType>
-  getContentTypes: () => Promise<CollectionResponse<ContentType>>
+  getContentTypes: <Query extends SearchQuery = SearchQuery>(
+    query?: Query
+  ) => Promise<CollectionResponse<ContentType>>
   createContentType: (data: WithOptionalId<ContentType>) => Promise<ContentType>
   updateContentType: (data: ContentType) => Promise<ContentType>
-  deleteContentType: (data: ContentType) => Promise<void>
+  deleteContentType: (contentTypeId: string) => Promise<void>
 
   getEntry: <Fields extends KeyValueMap = KeyValueMap>(id: string) => Promise<Entry<Fields>>
   getEntrySnapshots: <Fields extends KeyValueMap = KeyValueMap>(

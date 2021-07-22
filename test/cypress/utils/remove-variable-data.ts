@@ -13,7 +13,8 @@ const isUser = (o: any): o is User => o.sys.type === 'User'
  */
 export function removeVariableData(obj: EnrichedContentType | User) {
   if (isUser(obj)) {
-    const { avatarUrl, ...user } = obj
+    // @ts-expect-error for tasks app EAP we allow passing in the teamMemberships but do not expose public types
+    const { avatarUrl, teamMemberships, ...user } = obj
 
     return user
   }

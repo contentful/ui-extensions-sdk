@@ -55,10 +55,6 @@ export interface ContentEntitySys {
   contentType: Link
 }
 
-export type Metadata = {
-  tags: Link<'Tag', 'Link'>[]
-}
-
 export interface Items {
   type: string
   linkType?: string
