@@ -16,6 +16,7 @@ describe('DeleteStaleEnvironments', () => {
               delete: () => Promise.resolve(),
             })),
           }),
+        delete: () => Promise.resolve(),
       },
     } as unknown as PlainClientAPI
   })
