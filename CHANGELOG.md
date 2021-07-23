@@ -1,3 +1,10 @@
+# [4.0.0-alpha.29](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.28...v4.0.0-alpha.29) (2021-07-23)
+
+
+### Bug Fixes
+
+* [] update create contentType function with optional id ([#859](https://github.com/contentful/ui-extensions-sdk/issues/859)) ([8d1f562](https://github.com/contentful/ui-extensions-sdk/commit/8d1f562c7ef5df875286a77dfc487baf25f07947))
+
 # [4.0.0-alpha.28](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.27...v4.0.0-alpha.28) (2021-07-23)
 
 
