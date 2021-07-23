@@ -2,7 +2,11 @@
 
 ## Writing tests and running them locally
 
-1. Create `.env` file at the root of the repository with the following variables:
+1. Create a test environment in our testing space. This environment should be a copy of `test-base`.
+
+Environments without the word `test` in their name are automatically deleted after two hours. So, choose a name like `<firstname>-test`.
+
+2. Create `.env` file at the root of the repository with the following variables:
 
 ```bash
 # Generate PAT token here: https://www.contentful.com/r/knowledgebase/personal-access-tokens/
@@ -19,7 +23,7 @@ TEST_LOCAL_SDK=true
 CONTENTFUL_LOCAL_TESTING_ENV=<envinonment-name-that-you-will-use-for-testing>
 ```
 
-2. Run the following commands
+3. Run the following commands
 
 ```bash
 # install all build dependencies
@@ -30,12 +34,12 @@ npm run build
 npm run integration:local
 ```
 
-3. Open Cypress in development mode
+4. Open Cypress in development mode
 
 ```bash
 npm run cypress:open
 ```
 
-4. Edit cypress tests
+5. Edit cypress tests
 
 Edit exising tests or create a new one in `test/cypress/integration` folder.

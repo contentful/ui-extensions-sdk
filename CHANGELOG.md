@@ -1,3 +1,10 @@
+# [4.0.0-alpha.27](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.26...v4.0.0-alpha.27) (2021-07-23)
+
+
+### Bug Fixes
+
+* add query support in getContentTypes ([#877](https://github.com/contentful/ui-extensions-sdk/issues/877)) ([596cc32](https://github.com/contentful/ui-extensions-sdk/commit/596cc320120df9304b1e948c126ff260dad085c2))
+
 # [4.0.0-alpha.26](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.25...v4.0.0-alpha.26) (2021-07-20)
 
 
@@ -161,6 +168,13 @@
 
 * more explicit space api types ([#711](https://github.com/contentful/ui-extensions-sdk/issues/711)) ([42d63de](https://github.com/contentful/ui-extensions-sdk/commit/42d63dea5fd9a313918a9591311d716c3374ac60))
 
+
+# [3.39.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.38.0...v3.39.0) (2021-07-20)
+
+
+### Features
+
+* Add typings and expose metadata methods ([#865](https://github.com/contentful/ui-extensions-sdk/issues/865)) ([b0bbaad](https://github.com/contentful/ui-extensions-sdk/commit/b0bbaad477114f7929d974b8bce8c3c03f05f4bf))
 
 # [3.38.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.37.0...v3.38.0) (2021-06-30)
 
