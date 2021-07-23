@@ -1,3 +1,10 @@
+# [4.0.0-alpha.28](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.27...v4.0.0-alpha.28) (2021-07-23)
+
+
+### Bug Fixes
+
+* Update canary with master ([#879](https://github.com/contentful/ui-extensions-sdk/issues/879)) ([9c1c84d](https://github.com/contentful/ui-extensions-sdk/commit/9c1c84dd550aa276d7c40b6fa09b2ea47f14b4da))
+
 # [4.0.0-alpha.27](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.26...v4.0.0-alpha.27) (2021-07-23)
 
 
