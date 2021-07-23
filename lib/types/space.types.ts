@@ -12,14 +12,7 @@ import {
   Entry,
   QueryOptions,
 } from './entities'
-import {
-  CollectionResponse,
-  ContentEntityType,
-  Link,
-  WithOptionalId,
-  SearchQuery,
-  WithId,
-} from './utils'
+import { CollectionResponse, ContentEntityType, Link, WithOptionalId, SearchQuery } from './utils'
 
 type Snapshot<T> = {
   sys: {
@@ -44,7 +37,7 @@ export interface SpaceAPI {
   getContentTypes: <Query extends SearchQuery = SearchQuery>(
     query?: Query
   ) => Promise<CollectionResponse<ContentType>>
-  createContentType: (data: WithId<ContentType>) => Promise<ContentType>
+  createContentType: (data: WithOptionalId<ContentType>) => Promise<ContentType>
   updateContentType: (data: ContentType) => Promise<ContentType>
   deleteContentType: (contentTypeId: string) => Promise<void>
 
