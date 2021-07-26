@@ -1,3 +1,10 @@
+# [4.0.0-alpha.30](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.29...v4.0.0-alpha.30) (2021-07-26)
+
+
+### Bug Fixes
+
+* cmaAdapter is never undefined ([#881](https://github.com/contentful/ui-extensions-sdk/issues/881)) ([57f457d](https://github.com/contentful/ui-extensions-sdk/commit/57f457d8d4112b6c3a316f1e2a0bbfda2291aa5e))
+
 # [4.0.0-alpha.29](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.28...v4.0.0-alpha.29) (2021-07-23)
 
 
