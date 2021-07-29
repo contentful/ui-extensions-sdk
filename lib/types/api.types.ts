@@ -66,7 +66,7 @@ export interface NotifierAPI {
 /* Location API */
 
 export interface LocationAPI {
-  /** Checks the location in which your extension is running */
+  /** Checks the location in which your app is running */
   is: (type: string) => boolean
 }
 
@@ -153,7 +153,7 @@ export interface AccessAPI {
 type EntryScopedIds = 'field' | 'entry' | 'contentType'
 
 export interface BaseExtensionSDK {
-  /** Exposes methods that allow the extension to read and manipulate a wide range of objects in the space. */
+  /** Exposes methods that allow the app to read and manipulate a wide range of objects in the space. */
   space: SpaceAPI
   /** Information about the current user and roles */
   user: UserAPI
@@ -165,9 +165,9 @@ export interface BaseExtensionSDK {
   navigator: NavigatorAPI
   /** Methods for displaying notifications. */
   notifier: NotifierAPI
-  /** Exposes extension configuration parameters */
+  /** Exposes app configuration parameters */
   parameters: ParametersAPI
-  /** Exposes method to identify extension's location */
+  /** Exposes method to identify app's location */
   location: LocationAPI
   /** Exposes methods for checking user's access level */
   access: AccessAPI
@@ -179,37 +179,37 @@ export interface BaseExtensionSDK {
 
 export type EditorExtensionSDK = Omit<BaseExtensionSDK, 'ids'> &
   SharedEditorSDK & {
-    /** A set of IDs actual for the extension */
+    /** A set of IDs actual for the app */
     ids: Omit<IdsAPI, 'field'>
   }
 
 export type SidebarExtensionSDK = Omit<BaseExtensionSDK, 'ids'> &
   SharedEditorSDK & {
-    /** A set of IDs actual for the extension */
+    /** A set of IDs actual for the app */
     ids: Omit<IdsAPI, 'field'>
-    /** Methods to update the size of the iframe the extension is contained within.  */
+    /** Methods to update the size of the iframe the app is contained within.  */
     window: WindowAPI
   }
 
 export type FieldExtensionSDK = BaseExtensionSDK &
   SharedEditorSDK & {
-    /** Gives you access to the value and metadata of the field the extension is attached to. */
+    /** Gives you access to the value and metadata of the field the app is attached to. */
     field: FieldAPI
-    /** Methods to update the size of the iframe the extension is contained within.  */
+    /** Methods to update the size of the iframe the app is contained within.  */
     window: WindowAPI
   }
 
 export type DialogExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
-  /** A set of IDs actual for the extension */
+  /** A set of IDs actual for the app */
   ids: Omit<IdsAPI, EntryScopedIds>
-  /** Closes the dialog and resolves openExtension promise with data */
+  /** Closes the dialog and resolves openCurrentApp promise with data */
   close: (data?: any) => void
-  /** Methods to update the size of the iframe the extension is contained within.  */
+  /** Methods to update the size of the iframe the app is contained within.  */
   window: WindowAPI
 }
 
 export type PageExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
-  /** A set of IDs actual for the extension */
+  /** A set of IDs actual for the app */
   ids: Omit<IdsAPI, EntryScopedIds>
 }
 
