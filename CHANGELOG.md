@@ -1,3 +1,10 @@
+# [4.0.0-alpha.31](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.30...v4.0.0-alpha.31) (2021-07-29)
+
+
+### Bug Fixes
+
+* adjust comments to mention apps instead of extensions ([#880](https://github.com/contentful/ui-extensions-sdk/issues/880)) ([f5fcc8f](https://github.com/contentful/ui-extensions-sdk/commit/f5fcc8f49084b02bb7de25bf84985580ca856139))
+
 # [4.0.0-alpha.30](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.29...v4.0.0-alpha.30) (2021-07-26)
 
 
