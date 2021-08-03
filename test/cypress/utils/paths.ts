@@ -33,3 +33,7 @@ export function assetsList() {
 export function asset(id: string) {
   return `${assetsList()}/${id}`
 }
+
+export function assetSlideIn(id: string) {
+  return entry('asset:' + id)
+}
