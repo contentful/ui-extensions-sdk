@@ -41,7 +41,23 @@ export default function createWindow(currentWindow: Window, channel: Channel): W
 
   function updateHeight(height: number | null = null) {
     if (height === null) {
-      height = Math.ceil(document.documentElement.getBoundingClientRect().height)
+      const documentHeight = Math.ceil(document.documentElement.getBoundingClientRect().height)
+      const fullDocumentHeight = Math.max(
+        document.body.scrollHeight,
+        document.body.offsetHeight,
+        document.body.clientHeight,
+        document.documentElement.clientHeight,
+        document.documentElement.scrollHeight,
+        document.documentElement.offsetHeight
+      )
+
+      if (documentHeight !== fullDocumentHeight) {
+        const allAbsolutePositionedElems = document.querySelectorAll('[data-position-absolute]')
+
+        height = allAbsolutePositionedElems.length > 0 ? fullDocumentHeight : documentHeight
+      } else {
+        height = documentHeight
+      }
     }
 
     if (height !== oldHeight) {
