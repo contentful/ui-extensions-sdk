@@ -118,7 +118,7 @@ const run = async () => {
     environmentId: 'master',
     aliasId: testAliasId,
     role: 'permissionTest',
-    entries: entryIds,
+    entries: { ...entryIds, onValueChanged: '2ubPQqjlehLUDNdTRuCaW8' },
   })
 
   await runCypress('permission', { permissionTestOnly: true })
