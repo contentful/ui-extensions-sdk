@@ -17,10 +17,11 @@
     "entry": "5KnnZPwiIq1RNctf1Q1uNl"
   },
   "extension": "test-extension",
-  "space": "dsucjcncx9ya",
+  "space": "voxk9gcy69ri",
   "user": {
-    "admin": "40LBEcMHII22a8skCME9Aj",
-    "editor": "4Qavd6zOemHk0t99Go1jHW",
-    "editorMasterOnly": "6JAWEuriNiqafPQRI6n7CM"
+    "admin": "60txzLuZBFZht0aZu6C2jF",
+    "editor": "7p08FEb4uWrGKcyt2wygpb",
+    "editorMasterOnly": "4h5cViGnZ83aCEPh45WGCu",
+    "permissionTest": "0nyyCIBv8seP5iv1eXw3ck"
   }
 }
