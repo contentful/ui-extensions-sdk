@@ -24,10 +24,7 @@ context(`Entry editor extension (${role})`, () => {
   })
 
   it('verifies that access.can works with custom role', () => {
-    console.log(post)
     cy.getSdk(iframeSelector).then(async (sdk) => {
-      console.log(sdk.entry.fields)
-      console.log(post.id)
       sdk.access
         .can('update', {
           sys: { type: 'Entry', id: post.id },
