@@ -7,7 +7,19 @@ const post = {
 const iframeSelector = '[data-test-id="cf-ui-workbench-content"] iframe'
 const entryExtensionSelector = 'cf-ui-card'
 
+// @ts-expect-error "cy.state" is not in the "cy" type
+const getMochaContext = () => cy.state('runnable').ctx
+const skip = () => {
+  const ctx = getMochaContext()
+  return ctx.skip()
+}
+
 context(`Entry editor extension (${role})`, () => {
+  before(() => {
+    if (role !== 'permissionTest') {
+      return skip()
+    }
+  })
   beforeEach(() => {
     cy.setupBrowserStorage()
     cy.visitEntryWithRetry(post.id)
