@@ -91,10 +91,9 @@ export const getUsersByRole = async () => {
         continue
       }
 
-      const roleKey = roleMap[roles[0].name]
+      const roleKey: keyof typeof result = roleMap[roles[0].name]
 
       if (roleKey) {
-        // @ts-expect-error
         result[roleKey] = cleanUser(user, sm, roles)
       } else {
         result.editor = cleanUser(user, sm, roles)
