@@ -32,6 +32,7 @@ export async function createFixtures(spaceId: string) {
     },
     onValueChanged: {
       entry: '5KnnZPwiIq1RNctf1Q1uNl',
+      contentType: 'postWithCustomEntryEditor',
     },
     extension: 'test-extension',
     space: spaceId,

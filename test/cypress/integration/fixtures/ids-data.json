@@ -14,7 +14,8 @@
     "field": "title"
   },
   "onValueChanged": {
-    "entry": "5KnnZPwiIq1RNctf1Q1uNl"
+    "entry": "5KnnZPwiIq1RNctf1Q1uNl",
+    "contentType": "postWithCustomEntryEditor"
   },
   "extension": "test-extension",
   "space": "voxk9gcy69ri",

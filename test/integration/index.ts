@@ -111,6 +111,12 @@ const run = async () => {
     onValueChanged: idsData.onValueChanged.entry,
   }
 
+  // Editor (master only)
+  const newEntryIds = await copyEntries(entryIds)
+  tempEntries.push(
+    ...Object.values(newEntryIds).map((entryId) => ({ environmentId: 'master-test', entryId }))
+  )
+
   // Permission test only
   await createCypressConfiguration({
     managementToken: config.managementTokenPermissionTestOnly,
@@ -118,7 +124,7 @@ const run = async () => {
     environmentId: 'master',
     aliasId: testAliasId,
     role: 'permissionTest',
-    entries: { ...entryIds, onValueChanged: '4PSOfkR7JR3urgk9moD7AF' },
+    entries: newEntryIds,
   })
 
   await runCypress('permission', { permissionTestOnly: true })
@@ -145,12 +151,6 @@ const run = async () => {
     entries: entryIds,
   })
   await runCypress('editor', { initializeTestOnly: true })
-
-  // Editor (master only)
-  const newEntryIds = await copyEntries(entryIds)
-  tempEntries.push(
-    ...Object.values(newEntryIds).map((entryId) => ({ environmentId: 'master-test', entryId }))
-  )
 
   await createCypressConfiguration({
     managementToken: config.managementTokenEditorMasterOnly,

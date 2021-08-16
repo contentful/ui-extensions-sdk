@@ -1,6 +1,4 @@
 import { role } from '../utils/role'
-import { entry, usersList } from '../utils/paths'
-import { plainClient } from '../../integration/contentful-client'
 
 const post = {
   id: Cypress.env('entries').onValueChanged,
@@ -25,45 +23,36 @@ context(`Entry editor extension (${role})`, () => {
 
   it('verifies that access.can works with custom role', () => {
     cy.getSdk(iframeSelector).then(async (sdk) => {
-      sdk.access
-        .can('update', {
-          sys: { type: 'Entry', id: post.id },
-          fields: {
-            title: { 'en-US': 'hello!' },
-          },
-        })
-        .then((can: boolean) => {
-          console.log({ can })
-          expect(can).to.be.equal(true)
-        })
-      sdk.access
-        .can('update', {
-          sys: { type: 'Entry', id: post.id },
-          fields: {
-            body: { 'en-US': 'hello!' },
-          },
-        })
-        .then((can: boolean) => {
-          console.log({ can })
-          expect(can).to.be.equal(false)
-        })
+      const canTitle = await sdk.access.can('update', {
+        sys: { type: 'Entry', id: post.id },
+        fields: {
+          title: { 'en-US': 'hello!' },
+        },
+      })
+      expect(canTitle).to.be.equal(false)
+
+      const canBody = await sdk.access.can('update', {
+        sys: { type: 'Entry', id: post.id },
+        fields: {
+          body: { 'en-US': 'hello!' },
+        },
+      })
+      expect(canBody).to.be.equal(true)
     })
-    //   const spy = cy.stub()
-    //   sdk.entry.fields.body.onValueChanged(spy)
-    //   expect(spy).to.be.calledOnce
-    //   expect(spy).to.be.calledWith('body value')
-    //
-    //   spy.reset()
-    //
-    //   cy.get('@extension').within(() => {
-    //     cy.findByTestId('body-field').should('exist').and('have.value', post.body)
-    //     expect(spy).not.to.be.called
-    //     cy.findByTestId('body-field')
-    //       .type('updating')
-    //       .then(() => {
-    //         expect(spy).to.be.called
-    //       })
-    //   })
-    // })
+  })
+  it('verifies that you cannot change fields when not allowed', () => {
+    cy.getSdk(iframeSelector).then(async (sdk) => {
+      const newValue = `The current time is: ${Date.now()}`
+      try {
+        await sdk.entry.fields.title.setValue(newValue)
+      } catch (err) {
+        expect(err.code.code).to.be.equal('NOT ENOUGH PERMISSIONS')
+      }
+      // check that the value has not been changed
+      const returnValueNotChanged = await sdk.entry.fields.body.getValue()
+      expect(returnValueNotChanged).to.not.be.equal(newValue)
+      const returnValue = await sdk.entry.fields.body.setValue(newValue)
+      expect(returnValue).to.be.equal(newValue)
+    })
   })
 })
