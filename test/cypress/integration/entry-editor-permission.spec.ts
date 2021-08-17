@@ -58,7 +58,8 @@ context(`Entry editor extension (${role})`, () => {
       try {
         await sdk.entry.fields.title.setValue(newValue)
       } catch (err) {
-        expect(err.code.code).to.be.equal('NOT ENOUGH PERMISSIONS')
+        const errorCode = err.code.code || err.code
+        expect(errorCode).to.be.equal('NOT ENOUGH PERMISSIONS')
       }
       // check that the value has not been changed
       const returnValueNotChanged = await sdk.entry.fields.body.getValue()
