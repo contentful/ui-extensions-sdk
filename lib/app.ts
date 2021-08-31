@@ -8,7 +8,7 @@ const isObject = (o: any) => typeof o === 'object' && o !== null && !Array.isArr
 const isFunction = (f: any) => typeof f === 'function'
 const isPromise = (p: any) => isObject(p) && isFunction(p.then)
 
-const handleHandlerError = (err: Error) => {
+const handleHandlerError = (err: unknown) => {
   console.error(err)
   return Promise.resolve(false)
 }
