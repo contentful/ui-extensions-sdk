@@ -1,4 +1,8 @@
 import { role } from '../utils/role'
+import '@testing-library/cypress/add-commands'
+import { configure } from '@testing-library/cypress'
+
+configure({ testIdAttribute: 'data-test-id' })
 
 const post = {
   id: Cypress.env('entries').onValueChanged,
