@@ -1,5 +1,6 @@
 import '@testing-library/cypress/add-commands'
 import { entry } from '../utils/paths'
+import { configure } from '@testing-library/cypress'
 
 declare global {
   namespace Cypress {
@@ -19,6 +20,8 @@ Cypress.Commands.add('captureIFrameAs', { prevSubject: 'element' }, ($element, a
 })
 
 Cypress.Commands.add('setupBrowserStorage', function setupBrowserStorage() {
+  configure({ testIdAttribute: 'data-test-id' })
+
   const TOKEN = Cypress.env('managementToken')
   const UI_VERSION = Cypress.env('uiVersion')
   if (UI_VERSION) {
