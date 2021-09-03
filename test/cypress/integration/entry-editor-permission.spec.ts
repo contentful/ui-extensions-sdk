@@ -23,9 +23,6 @@ context(`Entry editor extension (${role})`, () => {
   beforeEach(() => {
     cy.setupBrowserStorage()
     cy.visitEntryWithRetry(post.id)
-    cy.findByTestId('workbench-title').should(($title) => {
-      expect($title).to.exist
-    })
 
     cy.waitForIframeWithTestId(entryExtensionSelector)
     cy.get('[data-test-id="cf-ui-workbench-content"]').within(() => {
