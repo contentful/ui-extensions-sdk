@@ -11,7 +11,7 @@ function verifySdkUserData(iframeSelector: string) {
     const actualKeys = Object.keys(actual)
     const expectedKeys = Object.keys(expected)
 
-    expect(actualKeys.sort()).to.equal(expectedKeys.sort())
+    expect(actualKeys.sort()).to.deep.equal(expectedKeys.sort())
 
     for (const key of actualKeys) {
       // @ts-expect-error We have no index access, but this gives better error reports
