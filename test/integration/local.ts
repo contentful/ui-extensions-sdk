@@ -38,7 +38,7 @@ function listAllEnvironmentVariables() {
 
 async function run() {
   if (config.environmentId === 'master') {
-    throw new Error('Do not run tests on `master` enviroment.')
+    throw new Error('Do not run tests on `master` environment.')
   }
 
   await createFixtures(config.spaceId)
@@ -67,7 +67,7 @@ async function run() {
     spaceId: config.spaceId,
     environmentId: config.environmentId,
     aliasId: config.aliasId,
-    role: 'admin',
+    role: 'editorMasterOnly',
     entries: {
       entryEditorExtension: idsData.entryEditorExtension.entry,
       fieldExtension: idsData.fieldExtension.entry,
