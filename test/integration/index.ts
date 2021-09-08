@@ -121,7 +121,7 @@ const run = async () => {
   await createCypressConfiguration({
     managementToken: config.managementTokenPermissionTestOnly,
     spaceId: config.spaceId,
-    environmentId: 'master',
+    environmentId: tempEnvironmentId,
     aliasId: testAliasId,
     role: 'permissionTest',
     entries: newEntryIds,

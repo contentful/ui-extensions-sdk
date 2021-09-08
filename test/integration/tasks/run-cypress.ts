@@ -9,8 +9,7 @@ export default async (
   const args = ['run', '--browser', 'chrome']
   if (options?.initializeTestOnly) {
     args.push('--spec', 'test/cypress/integration/initialize.spec.ts')
-  }
-  if (options?.permissionTestOnly) {
+  } else if (options?.permissionTestOnly) {
     args.push('--spec', 'test/cypress/integration/entry-editor-permission.spec.ts')
   }
   await runScript('./node_modules/.bin/cypress', args)
