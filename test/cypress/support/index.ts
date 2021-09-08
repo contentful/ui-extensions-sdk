@@ -7,8 +7,17 @@ import './commands'
 configure({ testIdAttribute: 'data-test-id' })
 
 Cypress.on('uncaught:exception', (error: Error) => {
-  console.log('An unexpected exception has been thrown in your apps code.')
-  console.error(error)
+  const log = Cypress.log({
+    name: 'Uncaught Exception',
+    message: `Uncaught ${error.name} - ${error.message}`,
+    consoleProps: () => {
+      const { name, message, ...details } = error
 
-  return error
+      return {
+        name,
+        message,
+        details,
+      }
+    },
+  })
 })
