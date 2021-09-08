@@ -67,7 +67,7 @@ async function run() {
     spaceId: config.spaceId,
     environmentId: config.environmentId,
     aliasId: config.aliasId,
-    role: 'editorMasterOnly',
+    role: 'admin',
     entries: {
       entryEditorExtension: idsData.entryEditorExtension.entry,
       fieldExtension: idsData.fieldExtension.entry,
