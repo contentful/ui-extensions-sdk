@@ -33,9 +33,15 @@ Cypress.Commands.add('setupBrowserStorage', function setupBrowserStorage() {
 })
 
 Cypress.Commands.add('waitForIframeWithTestId', function waitForIframe(testId) {
-  cy.get('iframe').within(($iframe) => {
-    return cy.wrap($iframe.contents()).get(`[data-test-id="${testId}"]`).should('exist')
-  })
+  return cy
+    .get('iframe')
+    .its('0.contentDocument')
+    .should('exist')
+    .its('body')
+    .should('not.be.undefined')
+    .then(cy.wrap)
+    .get(`[data-test-id="${testId}"]`)
+    .should('exist')
 })
 
 Cypress.Commands.add('visitEntryWithRetry', function visitEntryWithRetry(id) {
