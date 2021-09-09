@@ -33,8 +33,8 @@ Cypress.Commands.add('setupBrowserStorage', function setupBrowserStorage() {
 })
 
 Cypress.Commands.add('waitForIframeWithTestId', function waitForIframe(testId) {
-  cy.get('iframe').should(($iframe) => {
-    expect($iframe.contents().find(`[data-test-id="${testId}"]`)).to.exist
+  cy.get('iframe').within(($iframe) => {
+    return cy.wrap($iframe.contents()).get(`[data-test-id="${testId}"]`).should('exist')
   })
 })
 
