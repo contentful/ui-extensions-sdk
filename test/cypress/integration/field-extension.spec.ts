@@ -74,7 +74,7 @@ context(`Field extension (${role})`, () => {
 
   it('verifies opened page extension contains path in sdk.parameteres.invocation)', () => {
     openPageExtensionWithSubRoute(iframeSelector)
-    cy.waitForIframeWithTestId(pageExtensionTestId)
+    cy.waitForIframeWithTestId(pageExtensionTestId, 'page')
     cy.getSdk(iframePageSelector).then((sdk) => {
       expect(sdk.parameters.invocation).to.deep.equal({ path: location.pathname })
     })

@@ -13,14 +13,14 @@ context(`Page extension (${role})`, () => {
     cy.visit(pageExtension('test-extension'))
 
     cy.findByTestId('page-extension').within(() => {
-      cy.waitForIframeWithTestId(pageExtensionId)
+      cy.waitForIframeWithTestId(pageExtensionId, 'page')
       cy.get('iframe').captureIFrameAs('extension')
     })
   })
 
   it('opens a page extension and tests navigating within the page', () => {
     cy.get('@extension').within(() => {
-      cy.findByTestId('my-page-extension').should('exist')
+      cy.findByTestId(pageExtensionId).should('exist')
     })
 
     cy.get('@extension').within(() => {

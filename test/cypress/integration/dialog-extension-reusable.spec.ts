@@ -36,7 +36,7 @@ context(`Dialog extension (${role})`, () => {
     openDialogExtension(iframeSidebarSelector)
 
     cy.findByTestId('cf-ui-modal').within(() => {
-      cy.waitForIframeWithTestId(dialogExtension)
+      cy.waitForIframeWithTestId(dialogExtension, 'dialog')
       cy.get('iframe').captureIFrameAs('extension')
     })
   })

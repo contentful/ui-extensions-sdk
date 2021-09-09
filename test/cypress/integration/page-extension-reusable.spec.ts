@@ -20,7 +20,7 @@ context(`Page extension (${role})`, () => {
     cy.visit(pageExtension('test-extension'))
 
     cy.findByTestId('page-extension').within(() => {
-      cy.waitForIframeWithTestId(pageExtensionId)
+      cy.waitForIframeWithTestId(pageExtensionId, 'page')
       cy.get('iframe').captureIFrameAs('extension')
     })
   })
