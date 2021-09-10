@@ -11,6 +11,7 @@ import {
   KeyValueMap,
   Entry,
   QueryOptions,
+  Upload,
 } from './entities'
 import { CollectionResponse, ContentEntityType, Link, WithOptionalId, SearchQuery } from './utils'
 
@@ -87,7 +88,7 @@ export interface SpaceAPI {
   getPublishedAssets: <Query extends SearchQuery = SearchQuery>(
     query?: Query
   ) => Promise<CollectionResponse<Asset>>
-  createUpload: (base64data: string) => Promise<void>
+  createUpload: (base64data: string) => Promise<Upload>
   waitUntilAssetProcessed: (assetId: string, locale: string) => Promise<Asset>
 
   /** Returns all users who belong to the space. */

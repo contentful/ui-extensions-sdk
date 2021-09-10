@@ -16,6 +16,7 @@ export type {
   QueryOptions,
   TagVisibility,
   MetadataProps as Metadata,
+  UploadProps as Upload,
 } from 'contentful-management/types'
 
 export interface CanonicalRequest {
