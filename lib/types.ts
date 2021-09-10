@@ -1,6 +1,13 @@
 export type EntityType = 'Entry' | 'Asset'
 export type TagVisibility = 'private' | 'public'
 
+export interface Upload {
+  sys: {
+    id: string
+    type: 'Upload' | string
+  }
+}
+
 export interface SpaceMembership {
   sys: {
     id: string
@@ -399,7 +406,7 @@ export interface SpaceAPI {
   getPublishedAssets: <T = Object, InputArgs = SearchQuery>(
     query?: InputArgs
   ) => Promise<CollectionResponse<T>>
-  createUpload: (base64data: string) => void
+  createUpload: (base64data: string) => Promise<Upload>
   waitUntilAssetProcessed: (assetId: string, locale: string) => Promise<void>
 
   /** Returns all users who belong to the space. */
