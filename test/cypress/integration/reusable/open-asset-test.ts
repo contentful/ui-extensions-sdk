@@ -1,4 +1,4 @@
-import { asset } from '../../utils/paths'
+import { asset, assetSlideIn } from '../../utils/paths'
 import * as Constants from '../../../constants'
 
 export function openAssetExtension(iframeSelector: string) {
@@ -34,7 +34,7 @@ export function verifyAssetPageUrl(assetId: string) {
 export function verifyAssetSlideInUrl(assetId: string, previousEntryId: string) {
   cy.url().should(
     'eq',
-    Cypress.config().baseUrl + asset(assetId) + `?previousEntries=${previousEntryId}`
+    Cypress.config().baseUrl + assetSlideIn(assetId) + `?previousEntries=${previousEntryId}`
   )
 }
 
