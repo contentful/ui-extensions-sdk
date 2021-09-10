@@ -1,0 +1,158 @@
+{
+  "name": "contentful-ui-extensions-sdk",
+  "description": "SDK to develop custom UI Extension for the Contentful Web App",
+  "version": "4.0.0-alpha.31",
+  "author": "Contentful GmbH",
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/contentful/ui-extensions-sdk.git",
+    "type": "git"
+  },
+  "homepage": "https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/",
+  "main": "dist/cf-extension-api.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/cf-extension-api.js",
+    "dist/cf-extension-api.js.map",
+    "dist/cf-extension.css",
+    "dist/**/*.d.ts"
+  ],
+  "scripts": {
+    "test": "ts-mocha -p tsconfig.test.json 'test/unit/*.[jt]s' --reporter mocha-multi-reporters --reporter-options configFile=mocha.unit-reporters.json",
+    "lint": "eslint '{lib,test}/**/*.{t,j}s'",
+    "lint:fix": "npm run lint -- --fix",
+    "build": "npm run check-types && rollup -c --compact",
+    "build:debug": "npm run build -- --sourcemap",
+    "prepublishOnly": "npm run build",
+    "size": "echo \"Gzipped, estimate: $(gzip -9 -c dist/cf-extension-api.js | wc -c) bytes\"",
+    "integration": "ts-node -P tsconfig.test.json test/integration",
+    "integration:local": "ts-node -P tsconfig.test.json test/integration/local",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run --browser chrome",
+    "clean-reports": "rm -rf cypress/reports",
+    "merge-report": "mochawesome-merge ./test/cypress/reports/separate-reports/*.json > ./test/cypress/reports/full_report.json",
+    "generate-report": "npx mochawesome-report-generator --reportDir test/cypress/reports test/cypress/reports/full_report.json",
+    "semantic-release": "semantic-release",
+    "publish-all": "node ./scripts/publish.js",
+    "verify": "node ./scripts/verify.js",
+    "check-types": "tsc --noEmit -m commonjs"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "5.0.1",
+    "@semantic-release/exec": "5.0.0",
+    "@semantic-release/git": "9.0.1",
+    "@testing-library/cypress": "8.0.1",
+    "@testing-library/dom": "8.3.0",
+    "@types/async-retry": "1.4.3",
+    "@types/chai-as-promised": "7.1.4",
+    "@types/cross-spawn": "6.0.2",
+    "@types/fs-extra": "9.0.12",
+    "@types/jsdom": "16.2.13",
+    "@types/nanoid": "3.0.0",
+    "@types/sinon": "^10.0.0",
+    "@types/sinon-chai": "^3.2.5",
+    "@typescript-eslint/eslint-plugin": "4.31.0",
+    "@typescript-eslint/parser": "4.31.0",
+    "async-retry": "1.3.3",
+    "babel-eslint": "10.1.0",
+    "chai": "4.3.4",
+    "chai-as-promised": "7.1.1",
+    "contentful-management": "7.37.0",
+    "cross-spawn": "7.0.3",
+    "cypress": "8.3.1",
+    "cypress-multi-reporters": "1.5.0",
+    "cypress-terminal-report": "^3.3.2",
+    "dotenv": "10.0.0",
+    "eslint": "7.32.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-config-standard": "16.0.3",
+    "eslint-plugin-cypress": "2.11.3",
+    "eslint-plugin-import": "2.24.2",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-prettier": "4.0.0",
+    "eslint-plugin-promise": "5.1.0",
+    "eslint-plugin-react": "7.25.1",
+    "eslint-plugin-standard": "5.0.0",
+    "fs-extra": "10.0.0",
+    "husky": "4.3.8",
+    "jsdom": "17.0.0",
+    "lint-staged": "11.1.2",
+    "mocha": "8.4.0",
+    "mocha-junit-reporter": "2.0.0",
+    "mocha-multi-reporters": "1.5.1",
+    "mochawesome": "6.2.2",
+    "mochawesome-merge": "4.2.0",
+    "mochawesome-report-generator": "5.2.0",
+    "nanoid": "3.1.25",
+    "prettier": "2.4.0",
+    "rollup": "2.56.3",
+    "rollup-plugin-terser": "7.0.2",
+    "rollup-plugin-typescript2": "0.30.0",
+    "semantic-release": "17.4.2",
+    "sinon": "11.1.2",
+    "sinon-chai": "3.7.0",
+    "ts-mocha": "8.0.0",
+    "ts-node": "10.2.1",
+    "tslib": "2.3.1",
+    "typescript": "4.4.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ],
+    "*.md": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "release": {
+    "branches": [
+      "master",
+      {
+        "name": "canary",
+        "channel": "canary",
+        "prerelease": "alpha"
+      }
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      [
+        "@semantic-release/npm",
+        {
+          "npmPublish": false
+        }
+      ],
+      [
+        "@semantic-release/exec",
+        {
+          "verifyConditionsCmd": "node ./scripts/verify.js",
+          "publishCmd": "npm run publish-all"
+        }
+      ],
+      [
+        "@semantic-release/git",
+        {
+          "message": "chore: ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
+          "assets": [
+            "CHANGELOG.md",
+            "package.json",
+            "package-lock.json"
+          ]
+        }
+      ],
+      "@semantic-release/github"
+    ]
+  },
+  "peerDependencies": {
+    "contentful-management": "^7.30.0"
+  }
+}
