@@ -7,7 +7,7 @@ declare global {
     interface Chainable<Subject = any> {
       captureIFrameAs(selector: string): Chainable<Subject>
       setupBrowserStorage(): Chainable<Subject>
-      waitForIframeWithTestId(selector: string): Chainable<Subject>
+      waitForIframeWithTestId(selector: string, location?: string): Chainable<Subject>
       waitForPageLoad(page: string, testId: string): Chainable<Subject>
       getSdk(selector: string): Chainable<any>
     }
@@ -32,10 +32,14 @@ Cypress.Commands.add('setupBrowserStorage', function setupBrowserStorage() {
   window.localStorage.setItem('__disable_consentmanager', 'yes')
 })
 
-Cypress.Commands.add('waitForIframeWithTestId', function waitForIframe(testId) {
-  cy.get('iframe').should(($iframe) => {
-    expect($iframe.contents().find(`[data-test-id="${testId}"]`)).to.exist
-  })
+Cypress.Commands.add('waitForIframeWithTestId', function waitForIframe(testId, location) {
+  return cy
+    .get(location ? `iframe[data-location="${location}"]` : 'iframe')
+    .its('0.contentDocument.body')
+    .should('not.be.empty')
+    .then(cy.wrap)
+    .find(`[data-test-id="${testId}"]`)
+    .should('exist')
 })
 
 Cypress.Commands.add('visitEntryWithRetry', function visitEntryWithRetry(id) {

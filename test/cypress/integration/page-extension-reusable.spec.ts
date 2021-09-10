@@ -10,6 +10,7 @@ import {
   openErrorNotificationTest,
 } from './reusable/open-notifications-test'
 import { role } from '../utils/role'
+import { widgetLocation } from '../../constants'
 
 const iframeSelector = '[data-test-id="page-extension"] iframe'
 const pageExtensionId = 'my-page-extension'
@@ -20,7 +21,7 @@ context(`Page extension (${role})`, () => {
     cy.visit(pageExtension('test-extension'))
 
     cy.findByTestId('page-extension').within(() => {
-      cy.waitForIframeWithTestId(pageExtensionId)
+      cy.waitForIframeWithTestId(pageExtensionId, widgetLocation.page)
       cy.get('iframe').captureIFrameAs('extension')
     })
   })

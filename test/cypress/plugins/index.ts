@@ -6,4 +6,6 @@ export default (on: Cypress.PluginEvents) => {
       launchOptions.args.push('--disable-site-isolation-trials')
     }
   })
+
+  require('cypress-terminal-report/src/installLogsPrinter')(on)
 }
