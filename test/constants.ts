@@ -16,3 +16,14 @@ export const actionSelectors = {
   dialogWrapper: 'my-dialog-extension',
   sidebarButton: 'sidebar-button',
 }
+
+export const widgetLocation = {
+  entryField: 'entry-field',
+  // @deprecated
+  entryFieldSidebar: 'entry-field-sidebar',
+  entrySidebar: 'entry-sidebar',
+  dialog: 'dialog',
+  entryEditor: 'entry-editor',
+  page: 'page',
+  appConfig: 'app-config',
+}

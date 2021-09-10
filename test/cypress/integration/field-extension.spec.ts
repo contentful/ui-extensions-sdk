@@ -9,6 +9,7 @@ import idsData from './fixtures/ids-data.json'
 import contentTypeData from './fixtures/content-type-data/field-ext'
 import parameters from './fixtures/parameters.json'
 import { removeVariableData } from '../utils/remove-variable-data'
+import { widgetLocation } from '../../constants'
 
 const post = {
   id: Cypress.env('entries').fieldExtension,
@@ -28,7 +29,7 @@ context(`Field extension (${role})`, () => {
       expect($title).to.exist
     })
 
-    cy.waitForIframeWithTestId(fieldUiTestId)
+    cy.waitForIframeWithTestId(fieldUiTestId, widgetLocation.entryField)
     cy.get(iframeSelector).captureIFrameAs('extension')
   })
 
@@ -74,7 +75,7 @@ context(`Field extension (${role})`, () => {
 
   it('verifies opened page extension contains path in sdk.parameteres.invocation)', () => {
     openPageExtensionWithSubRoute(iframeSelector)
-    cy.waitForIframeWithTestId(pageExtensionTestId, 'page')
+    cy.waitForIframeWithTestId(pageExtensionTestId, widgetLocation.page)
     cy.getSdk(iframePageSelector).then((sdk) => {
       expect(sdk.parameters.invocation).to.deep.equal({ path: location.pathname })
     })

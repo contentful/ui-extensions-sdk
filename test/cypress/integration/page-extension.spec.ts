@@ -3,6 +3,7 @@ import { role } from '../utils/role'
 import { verifyLocation } from '../utils/verify-location'
 import { verifySdkInstallationParameters } from '../utils/verify-parameters'
 import idsData from './fixtures/ids-data.json'
+import { widgetLocation } from '../../constants'
 
 const iframeSelector = '[data-test-id="page-extension"] iframe'
 const pageExtensionId = 'my-page-extension'
@@ -13,7 +14,7 @@ context(`Page extension (${role})`, () => {
     cy.visit(pageExtension('test-extension'))
 
     cy.findByTestId('page-extension').within(() => {
-      cy.waitForIframeWithTestId(pageExtensionId, 'page')
+      cy.waitForIframeWithTestId(pageExtensionId, widgetLocation.page)
       cy.get('iframe').captureIFrameAs('extension')
     })
   })

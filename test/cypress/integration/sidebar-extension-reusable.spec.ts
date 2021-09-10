@@ -10,6 +10,7 @@ import {
   openErrorNotificationTest,
 } from './reusable/open-notifications-test'
 import { role } from '../utils/role'
+import { widgetLocation } from '../../constants'
 
 const post = {
   id: Cypress.env('entries').sidebarExtension,
@@ -27,7 +28,7 @@ context(`Sidebar extension (${role})`, () => {
       expect($title).to.exist
     })
 
-    cy.waitForIframeWithTestId(sidebarExtension)
+    cy.waitForIframeWithTestId(sidebarExtension, widgetLocation.entrySidebar)
 
     cy.findByTestId('entry-editor-sidebar').within(() => {
       cy.get('iframe').should('have.length', 1).captureIFrameAs('extension')

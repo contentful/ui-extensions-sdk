@@ -1,4 +1,4 @@
-import { actionSelectors } from '../../constants'
+import { actionSelectors, widgetLocation } from '../../constants'
 import { pageExtension } from '../utils/paths'
 import { role } from '../utils/role'
 import { openDialogExtensionTest } from './reusable/open-dialog-extension-test'
@@ -44,7 +44,7 @@ context(`Initialize (${role})`, () => {
       expect($title).to.exist
     })
 
-    cy.waitForIframeWithTestId('cf-ui-sidebar-extension')
+    cy.waitForIframeWithTestId('cf-ui-sidebar-extension', widgetLocation.entrySidebar)
 
     cy.findByTestId('entry-editor-sidebar').within(() => {
       cy.get('iframe').should('have.length', 1).captureIFrameAs('sidebarExtension')
@@ -59,7 +59,7 @@ context(`Initialize (${role})`, () => {
     cy.visit(pageExtension('test-extension'))
 
     cy.findByTestId('page-extension').within(() => {
-      cy.waitForIframeWithTestId('my-page-extension', 'page')
+      cy.waitForIframeWithTestId('my-page-extension', widgetLocation.page)
       cy.get('iframe').captureIFrameAs('pageExtension')
     })
 
@@ -75,7 +75,7 @@ context(`Initialize (${role})`, () => {
         expect($title).to.exist
       })
 
-      cy.waitForIframeWithTestId('cf-ui-sidebar-extension')
+      cy.waitForIframeWithTestId('cf-ui-sidebar-extension', widgetLocation.entrySidebar)
 
       cy.findByTestId('entry-editor-sidebar').within(() => {
         cy.get('iframe').should('have.length', 1).captureIFrameAs('sidebarExtension')

@@ -7,6 +7,7 @@ import {
 import idsData from './fixtures/ids-data.json'
 import { openDialogExtension } from './reusable/open-dialog-extension-test'
 import * as openPageExtensionTest from './reusable/open-page-extension-test'
+import { widgetLocation } from '../../constants'
 
 const post = {
   id: Cypress.env('entries').sidebarExtension,
@@ -27,7 +28,7 @@ context(`Dialog extension (${role})`, () => {
       expect($title).to.exist
     })
 
-    cy.waitForIframeWithTestId(sidebarExtension)
+    cy.waitForIframeWithTestId(sidebarExtension, widgetLocation.entrySidebar)
 
     cy.findByTestId('entry-editor-sidebar').within(() => {
       cy.get('iframe').should('have.length', 1).captureIFrameAs('sidebarExtension')
@@ -36,7 +37,7 @@ context(`Dialog extension (${role})`, () => {
     openDialogExtension(iframeSidebarSelector)
 
     cy.findByTestId('cf-ui-modal').within(() => {
-      cy.waitForIframeWithTestId(dialogExtension, 'dialog')
+      cy.waitForIframeWithTestId(dialogExtension, widgetLocation.dialog)
       cy.get('iframe').as('dialogExtension')
     })
   })

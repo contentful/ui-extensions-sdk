@@ -1,4 +1,4 @@
-import { actionSelectors } from '../../../constants'
+import { actionSelectors, widgetLocation } from '../../../constants'
 
 export function openDialogExtension(iframeSelector: string) {
   cy.getSdk(iframeSelector).then((sdk) => {
@@ -15,7 +15,7 @@ export function checkThatDialogIsOpened() {
 }
 
 export function checkThatExtensionInDialogIsRendered(testId = actionSelectors.dialogWrapper) {
-  cy.waitForIframeWithTestId(actionSelectors.dialogWrapper, 'dialog')
+  cy.waitForIframeWithTestId(actionSelectors.dialogWrapper, widgetLocation.dialog)
   cy.findByTestId('cf-ui-modal').within(() => {
     cy.get('iframe').captureIFrameAs('dialogExtension')
   })
