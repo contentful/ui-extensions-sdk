@@ -1,3 +1,10 @@
+## [3.39.1](https://github.com/contentful/ui-extensions-sdk/compare/v3.39.0...v3.39.1) (2021-09-10)
+
+
+### Bug Fixes
+
+* create upload types ([#961](https://github.com/contentful/ui-extensions-sdk/issues/961)) ([a65b320](https://github.com/contentful/ui-extensions-sdk/commit/a65b32046087763708f521b5b2dbb92ac22c6579))
+
 # [3.39.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.38.0...v3.39.0) (2021-07-20)
 
 
