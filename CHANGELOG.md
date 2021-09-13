@@ -1,3 +1,10 @@
+# [4.0.0-alpha.32](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.31...v4.0.0-alpha.32) (2021-09-13)
+
+
+### Bug Fixes
+
+* EXT-3073 typings ([#960](https://github.com/contentful/ui-extensions-sdk/issues/960)) ([e66f421](https://github.com/contentful/ui-extensions-sdk/commit/e66f42116200db13be0ab320ec9f195f4c57af1e))
+
 # [4.0.0-alpha.31](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.30...v4.0.0-alpha.31) (2021-07-29)
 
 ### Bug Fixes
