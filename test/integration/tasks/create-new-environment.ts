@@ -37,7 +37,7 @@ export default async () => {
 
   try {
     await plainClient.environmentAlias.get({ environmentAliasId: testAliasId })
-  } catch (e) {
+  } catch (e: any) {
     if (JSON.parse(e.message).status === 404) {
       console.log(`"${testAliasId}" is not available, lets try to create it`)
       try {

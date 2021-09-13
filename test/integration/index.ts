@@ -24,6 +24,7 @@ const config = {
   host: process.env.CONTENTFUL_HOST || 'api.contentful.com',
   managementTokenEditor: process.env.CONTENTFUL_CMA_TOKEN_EDITOR!,
   managementTokenEditorMasterOnly: process.env.CONTENTFUL_CMA_TOKEN_EDITOR_MASTER_ONLY!,
+  managementTokenPermissionTestOnly: process.env.CONTENTFUL_CMA_TOKEN_PERMISSION_TEST_ONLY!,
   spaceId: process.env.CONTENTFUL_SPACE_ID!,
   baseUrl: process.env.CONTENTFUL_APP!,
   testLocalSdk: process.env.TEST_LOCAL_SDK === 'true',
@@ -37,6 +38,7 @@ function listAllEnvironmentVariables() {
     'CONTENTFUL_CMA_TOKEN',
     'CONTENTFUL_CMA_TOKEN_EDITOR',
     'CONTENTFUL_CMA_TOKEN_EDITOR_MASTER_ONLY',
+    'CONTENTFUL_CMA_TOKEN_PERMISSION_TEST_ONLY',
   ].forEach((envvar) => {
     console.log(`${envvar}=${(process.env[envvar] || '').slice(0, 5)}...`)
   })
@@ -109,6 +111,24 @@ const run = async () => {
     onValueChanged: idsData.onValueChanged.entry,
   }
 
+  // Editor (master only)
+  const newEntryIds = await copyEntries(entryIds)
+  tempEntries.push(
+    ...Object.values(newEntryIds).map((entryId) => ({ environmentId: 'master-test', entryId }))
+  )
+
+  // Permission test only
+  await createCypressConfiguration({
+    managementToken: config.managementTokenPermissionTestOnly,
+    spaceId: config.spaceId,
+    environmentId: 'master',
+    aliasId: testAliasId,
+    role: 'permissionTest',
+    entries: newEntryIds,
+  })
+
+  await runCypress('permission', { permissionTestOnly: true })
+
   // Admin
   await createCypressConfiguration({
     managementToken: config.managementTokenAdmin,
@@ -130,13 +150,7 @@ const run = async () => {
     role: 'editor',
     entries: entryIds,
   })
-  await runCypress('editor', true)
-
-  // Editor (master only)
-  const newEntryIds = await copyEntries(entryIds)
-  tempEntries.push(
-    ...Object.values(newEntryIds).map((entryId) => ({ environmentId: 'master-test', entryId }))
-  )
+  await runCypress('editor', { initializeTestOnly: true })
 
   await createCypressConfiguration({
     managementToken: config.managementTokenEditorMasterOnly,
@@ -146,7 +160,7 @@ const run = async () => {
     role: 'editorMasterOnly',
     entries: newEntryIds,
   })
-  await runCypress('editorMasterOnly', true)
+  await runCypress('editorMasterOnly', { initializeTestOnly: true })
 }
 ;(async function main() {
   try {

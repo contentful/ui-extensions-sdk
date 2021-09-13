@@ -9,6 +9,7 @@ import idsData from './fixtures/ids-data.json'
 import contentTypeData from './fixtures/content-type-data/sidebar-ext'
 import { ContentType, EntryAPI, SidebarExtensionSDK } from '../../../lib/types'
 import { removeVariableData } from '../utils/remove-variable-data'
+import { widgetLocation } from '../../constants'
 
 const post = {
   id: Cypress.env('entries').sidebarExtension,
@@ -31,7 +32,7 @@ context(`Sidebar extension (${role})`, () => {
       expect($title).to.exist
     })
 
-    cy.waitForIframeWithTestId(sidebarExtension)
+    cy.waitForIframeWithTestId(sidebarExtension, widgetLocation.entrySidebar)
 
     cy.findByTestId('entry-editor-sidebar').within(() => {
       cy.get('iframe').should('have.length', 1).captureIFrameAs('extension')

@@ -7,6 +7,7 @@ import {
 import idsData from './fixtures/ids-data.json'
 import contentTypeData from './fixtures/content-type-data/entry-editor-ext'
 import { removeVariableData } from '../utils/remove-variable-data'
+import { widgetLocation } from '../../constants'
 
 const post = {
   id: Cypress.env('entries').entryEditorExtension,
@@ -25,7 +26,7 @@ context(`Entry editor extension (${role})`, () => {
       expect($title).to.exist
     })
 
-    cy.waitForIframeWithTestId(entryExtensionSelector)
+    cy.waitForIframeWithTestId(entryExtensionSelector, widgetLocation.entryEditor)
     cy.get('[data-test-id="cf-ui-workbench-content"]').within(() => {
       cy.get('iframe').captureIFrameAs('extension')
     })
