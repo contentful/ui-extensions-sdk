@@ -52,6 +52,12 @@ function cleanUser(user: UserProps, spaceMember: SpaceMemberProps, roles: RolePr
   }
 }
 
+const roleMap: any = {
+  Editor: 'editor',
+  'Editor (master only)': 'editorMasterOnly',
+  PermissionTest: 'permissionTest',
+}
+
 export const getUsersByRole = async () => {
   const [users, spaceMembers, spaceRoles] = await Promise.all([
     plainClient.user.getManyForSpace({}),
@@ -63,6 +69,7 @@ export const getUsersByRole = async () => {
     admin: {} as ReturnType<typeof cleanUser>,
     editor: {} as ReturnType<typeof cleanUser>,
     editorMasterOnly: {} as ReturnType<typeof cleanUser>,
+    permissionTest: {} as ReturnType<typeof cleanUser>,
   }
 
   for (const user of users.items) {
@@ -84,12 +91,12 @@ export const getUsersByRole = async () => {
         continue
       }
 
-      const isEditor = roles[0].name === 'Editor'
+      const roleKey: keyof typeof result = roleMap[roles[0].name]
 
-      if (isEditor) {
-        result.editor = cleanUser(user, sm, roles)
+      if (roleKey) {
+        result[roleKey] = cleanUser(user, sm, roles)
       } else {
-        result.editorMasterOnly = cleanUser(user, sm, roles)
+        result.editor = cleanUser(user, sm, roles)
       }
     }
   }

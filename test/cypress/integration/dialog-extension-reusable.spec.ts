@@ -8,6 +8,7 @@ import {
   openErrorNotificationTest,
 } from './reusable/open-notifications-test'
 import { role } from '../utils/role'
+import { widgetLocation } from '../../constants'
 
 const post = {
   id: Cypress.env('entries').sidebarExtension,
@@ -27,7 +28,7 @@ context(`Dialog extension (${role})`, () => {
       expect($title).to.exist
     })
 
-    cy.waitForIframeWithTestId(sidebarExtension)
+    cy.waitForIframeWithTestId(sidebarExtension, widgetLocation.entrySidebar)
 
     cy.findByTestId('entry-editor-sidebar').within(() => {
       cy.get('iframe').should('have.length', 1).captureIFrameAs('sidebarExtension')
@@ -36,7 +37,7 @@ context(`Dialog extension (${role})`, () => {
     openDialogExtension(iframeSidebarSelector)
 
     cy.findByTestId('cf-ui-modal').within(() => {
-      cy.waitForIframeWithTestId(dialogExtension)
+      cy.waitForIframeWithTestId(dialogExtension, widgetLocation.dialog)
       cy.get('iframe').captureIFrameAs('extension')
     })
   })

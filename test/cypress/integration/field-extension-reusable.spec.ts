@@ -12,6 +12,7 @@ import {
   openErrorNotificationTest,
 } from './reusable/open-notifications-test'
 import { role } from '../utils/role'
+import { widgetLocation } from '../../constants'
 
 const post = {
   id: Cypress.env('entries').fieldExtension,
@@ -29,7 +30,7 @@ context(`Field extension (${role})`, () => {
       expect($title).to.exist
     })
 
-    cy.waitForIframeWithTestId(fieldUiTestId)
+    cy.waitForIframeWithTestId(fieldUiTestId, widgetLocation.entryField)
     cy.get(iframeSelector).captureIFrameAs('extension')
   })
 
