@@ -235,7 +235,7 @@ export interface SpaceAPI {
   createUpload: (base64data: string) => Promise<void>
   /**
    * @deprecated since version 4.0.0
-   * Consider using TODO - what method?
+   * Consider polling `cma.asset.get` instead
    * See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details
    */
   waitUntilAssetProcessed: (assetId: string, locale: string) => Promise<Asset>
@@ -283,7 +283,7 @@ export interface SpaceAPI {
 
   /**
    * @deprecated since version 4.0.0
-   * Consider using TODO - which method?
+   * Consider using `cma.appSignedRequest.create` instead
    * See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details
    */
   signRequest: (request: CanonicalRequest) => Promise<Record<string, string>>
