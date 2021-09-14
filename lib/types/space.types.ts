@@ -242,7 +242,7 @@ export interface SpaceAPI {
 
   /**
    * @deprecated since version 4.0.0
-   * Consider using `cma.user.getManyForSpace` or `cma.user.getManyForOrganization` instead
+   * Consider using `cma.user.getManyForSpace` instead
    * See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details
    * Returns all users who belong to the space.
    */
