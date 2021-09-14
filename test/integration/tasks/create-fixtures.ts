@@ -4,12 +4,13 @@ import { getUsersByRole } from '../contentful-client'
 export async function createFixtures(spaceId: string) {
   printStepTitle('Creating fixtures based on environment variables')
 
-  const { admin, editor, editorMasterOnly } = await getUsersByRole()
+  const { admin, editor, editorMasterOnly, permissionTest } = await getUsersByRole()
 
   writeJSONFile(resolvePath(`test/cypress/integration/fixtures/user-data.json`), {
     admin,
     editor,
     editorMasterOnly,
+    permissionTest,
   })
 
   console.log(`Created test/cypress/integration/fixtures/user-data.json`)
@@ -31,6 +32,7 @@ export async function createFixtures(spaceId: string) {
     },
     onValueChanged: {
       entry: '5KnnZPwiIq1RNctf1Q1uNl',
+      contentType: 'postWithCustomEntryEditor',
     },
     extension: 'test-extension',
     space: spaceId,
@@ -38,6 +40,7 @@ export async function createFixtures(spaceId: string) {
       admin: admin.sys.id,
       editor: editor.sys.id,
       editorMasterOnly: editorMasterOnly.sys.id,
+      permissionTest: permissionTest.sys.id,
     },
   })
 

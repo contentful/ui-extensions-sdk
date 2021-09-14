@@ -1,4 +1,5 @@
 import { role } from '../utils/role'
+import { widgetLocation } from '../../constants'
 
 const post = {
   id: Cypress.env('entries').onValueChanged,
@@ -17,7 +18,7 @@ context(`Entry editor extension (${role})`, () => {
       expect($title).to.exist
     })
 
-    cy.waitForIframeWithTestId(entryExtensionSelector)
+    cy.waitForIframeWithTestId(entryExtensionSelector, widgetLocation.entryEditor)
     cy.get('[data-test-id="cf-ui-workbench-content"]').within(() => {
       cy.get('iframe').captureIFrameAs('extension')
     })

@@ -11,6 +11,7 @@ import {
   KeyValueMap,
   Entry,
   QueryOptions,
+  Upload,
 } from './entities'
 import { CollectionResponse, ContentEntityType, Link, WithOptionalId, SearchQuery } from './utils'
 
@@ -232,7 +233,7 @@ export interface SpaceAPI {
    * Consider using `cma.upload.create` instead
    * See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details
    */
-  createUpload: (base64data: string) => Promise<void>
+  createUpload: (base64data: string) => Promise<Upload>
   /**
    * @deprecated since version 4.0.0
    * Consider polling `cma.asset.get` instead

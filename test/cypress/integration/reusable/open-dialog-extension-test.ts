@@ -1,23 +1,21 @@
-import { actionSelectors } from '../../../constants'
+import { actionSelectors, widgetLocation } from '../../../constants'
 
 export function openDialogExtension(iframeSelector: string) {
-  cy.getSdk(iframeSelector).then(sdk => {
+  cy.getSdk(iframeSelector).then((sdk) => {
     sdk.dialogs.openExtension({
       title: 'My awesome dialog extension',
-      parameters: { test: true, value: 'invocation-parameter' }
+      parameters: { test: true, value: 'invocation-parameter' },
     })
   })
 }
 
 export function checkThatDialogIsOpened() {
   const dialogTitle = 'My awesome dialog extension'
-  cy.findByTestId('cf-ui-modal')
-    .should('exist')
-    .and('contain', dialogTitle)
+  cy.findByTestId('cf-ui-modal').should('exist').and('contain', dialogTitle)
 }
 
 export function checkThatExtensionInDialogIsRendered(testId = actionSelectors.dialogWrapper) {
-  cy.waitForIframeWithTestId(actionSelectors.dialogWrapper)
+  cy.waitForIframeWithTestId(actionSelectors.dialogWrapper, widgetLocation.dialog)
   cy.findByTestId('cf-ui-modal').within(() => {
     cy.get('iframe').captureIFrameAs('dialogExtension')
   })
