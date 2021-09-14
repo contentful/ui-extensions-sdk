@@ -153,7 +153,9 @@ export interface AccessAPI {
 type EntryScopedIds = 'field' | 'entry' | 'contentType'
 
 export interface BaseExtensionSDK {
-  /** Exposes methods that allow the app to read and manipulate a wide range of objects in the space. */
+  /** @deprecated since version 4.0.0 consider using the CMA instead
+   * See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details
+   */
   space: SpaceAPI
   /** Information about the current user and roles */
   user: UserAPI
