@@ -1,3 +1,10 @@
+# [4.0.0-alpha.33](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.32...v4.0.0-alpha.33) (2021-09-14)
+
+
+### Features
+
+* [EXT-2970] add space api deprecation warnings ([#949](https://github.com/contentful/ui-extensions-sdk/issues/949)) ([784e8bb](https://github.com/contentful/ui-extensions-sdk/commit/784e8bbf17d91721f26b35ee307409bb24717bad))
+
 # [4.0.0-alpha.32](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.31...v4.0.0-alpha.32) (2021-09-13)
 
 
