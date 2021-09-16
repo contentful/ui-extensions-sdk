@@ -681,6 +681,11 @@ export interface SharedEditorSDK {
 export type CrudAction = 'create' | 'read' | 'update' | 'delete'
 export type PublishableAction = 'publish' | 'unpublish'
 export type ArchiveableAction = 'archive' | 'unarchive'
+type JSONPatchItem = {
+  op: 'remove' | 'replace' | 'add'
+  path: string
+  value?: any
+}
 
 export interface AccessAPI {
   can(action: 'read' | 'update', entity: 'EditorInterface' | EditorInterface): Promise<boolean>
@@ -693,6 +698,11 @@ export interface AccessAPI {
     entity: 'ContentType' | ContentType | 'Asset' | 'Entry' | T
   ): Promise<boolean>
   can<T = Object>(action: ArchiveableAction, entity: 'Asset' | 'Entry' | T): Promise<boolean>
+  can<T = Object>(
+    action: 'patch',
+    entity: 'Asset' | 'Entry' | T,
+    patch?: JSONPatchItem[]
+  ): Promise<boolean>
   /** Whether the current user can edit app config */
   canEditAppConfig: () => Promise<boolean>
 }
