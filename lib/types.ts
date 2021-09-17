@@ -701,7 +701,7 @@ export interface AccessAPI {
   can<T = Object>(
     action: 'patch',
     entity: 'Asset' | 'Entry' | T,
-    patch?: JSONPatchItem[]
+    patch: JSONPatchItem[]
   ): Promise<boolean>
   /** Whether the current user can edit app config */
   canEditAppConfig: () => Promise<boolean>
