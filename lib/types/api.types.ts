@@ -5,6 +5,9 @@ import {
   Role,
   ContentTypeField,
   Metadata,
+  Entry,
+  Task,
+  Asset,
 } from './entities'
 import { EntryAPI } from './entry.types'
 import { SpaceAPI } from './space.types'
@@ -135,6 +138,7 @@ type JSONPatchItem = {
   path: string
   value?: any
 }
+type PatchEntity = Entry | Task | Asset | 'Asset' | 'Entry' | 'Task'
 
 export interface AccessAPI {
   can(action: 'read' | 'update', entity: 'EditorInterface' | EditorInterface): Promise<boolean>
@@ -151,11 +155,7 @@ export interface AccessAPI {
 
   can<T = Object>(action: ArchiveableAction, entity: 'Asset' | 'Entry' | T): Promise<boolean>
 
-  can<T = Object>(
-    action: 'patch',
-    entity: 'Asset' | 'Entry' | T,
-    patch?: JSONPatchItem[]
-  ): Promise<boolean>
+  can(action: 'patch', entity: PatchEntity, patch: JSONPatchItem[]): Promise<boolean>
 
   /** Whether the current user can edit app config */
   canEditAppConfig: () => Promise<boolean>
