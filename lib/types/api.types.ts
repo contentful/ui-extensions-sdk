@@ -155,7 +155,7 @@ export interface AccessAPI {
 
   can<T = Object>(action: ArchiveableAction, entity: 'Asset' | 'Entry' | T): Promise<boolean>
 
-  can(action: 'patch', entity: PatchEntity, patch: JSONPatchItem[]): Promise<boolean>
+  can(action: 'update', entity: PatchEntity, patch: JSONPatchItem[]): Promise<boolean>
 
   /** Whether the current user can edit app config */
   canEditAppConfig: () => Promise<boolean>
