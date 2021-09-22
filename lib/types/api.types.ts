@@ -138,7 +138,7 @@ type JSONPatchItem = {
   path: string
   value?: any
 }
-type PatchEntity = Entry | Task | Asset | 'Asset' | 'Entry' | 'Task'
+type PatchEntity = Entry | Task | Asset
 
 export interface AccessAPI {
   can(action: 'read' | 'update', entity: 'EditorInterface' | EditorInterface): Promise<boolean>
