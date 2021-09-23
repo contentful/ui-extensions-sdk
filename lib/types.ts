@@ -699,7 +699,7 @@ export interface AccessAPI {
   ): Promise<boolean>
   can<T = Object>(action: ArchiveableAction, entity: 'Asset' | 'Entry' | T): Promise<boolean>
   can<T = Object>(
-    action: 'patch',
+    action: 'update',
     entity: 'Asset' | 'Entry' | T,
     patch: JSONPatchItem[]
   ): Promise<boolean>
