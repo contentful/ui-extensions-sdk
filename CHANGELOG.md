@@ -1,3 +1,10 @@
+## [3.40.1](https://github.com/contentful/ui-extensions-sdk/compare/v3.40.0...v3.40.1) (2021-09-23)
+
+
+### Bug Fixes
+
+* **AccessSDK:** patch action isn't supported ([#987](https://github.com/contentful/ui-extensions-sdk/issues/987)) ([7aff0ae](https://github.com/contentful/ui-extensions-sdk/commit/7aff0aeb4d3680e33a2ab7173a78982c55fa3677))
+
 # [3.40.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.39.2...v3.40.0) (2021-09-17)
 
 
