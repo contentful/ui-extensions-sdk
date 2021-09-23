@@ -40,7 +40,7 @@
     "@semantic-release/exec": "5.0.0",
     "@semantic-release/git": "9.0.1",
     "@testing-library/cypress": "8.0.1",
-    "@testing-library/dom": "8.5.0",
+    "@testing-library/dom": "8.6.0",
     "@types/async-retry": "1.4.3",
     "@types/chai-as-promised": "7.1.4",
     "@types/cross-spawn": "6.0.2",
