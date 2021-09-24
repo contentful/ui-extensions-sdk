@@ -5,6 +5,9 @@ import {
   Role,
   ContentTypeField,
   Metadata,
+  Entry,
+  Task,
+  Asset,
 } from './entities'
 import { EntryAPI } from './entry.types'
 import { SpaceAPI } from './space.types'
@@ -130,6 +133,12 @@ export interface SharedEditorSDK {
 type CrudAction = 'create' | 'read' | 'update' | 'delete'
 type PublishableAction = 'publish' | 'unpublish'
 type ArchiveableAction = 'archive' | 'unarchive'
+type JSONPatchItem = {
+  op: 'remove' | 'replace' | 'add'
+  path: string
+  value?: any
+}
+type PatchEntity = Entry | Task | Asset
 
 export interface AccessAPI {
   can(action: 'read' | 'update', entity: 'EditorInterface' | EditorInterface): Promise<boolean>
@@ -145,6 +154,8 @@ export interface AccessAPI {
   ): Promise<boolean>
 
   can<T = Object>(action: ArchiveableAction, entity: 'Asset' | 'Entry' | T): Promise<boolean>
+
+  can(action: 'update', entity: PatchEntity, patch: JSONPatchItem[]): Promise<boolean>
 
   /** Whether the current user can edit app config */
   canEditAppConfig: () => Promise<boolean>
