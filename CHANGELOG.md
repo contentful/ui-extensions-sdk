@@ -1,3 +1,10 @@
+# [4.0.0-alpha.34](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.33...v4.0.0-alpha.34) (2021-09-24)
+
+
+### Features
+
+* **AccessAPI:** add support for JSON patches in access sdk [EXT-3041] ([#972](https://github.com/contentful/ui-extensions-sdk/issues/972)) ([8fad304](https://github.com/contentful/ui-extensions-sdk/commit/8fad304a945393e6f32346034e9c69873eb767d1))
+
 # [4.0.0-alpha.33](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.32...v4.0.0-alpha.33) (2021-09-14)
 
 
