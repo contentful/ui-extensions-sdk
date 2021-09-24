@@ -84,15 +84,23 @@ function createSender(sourceId: string, targetWindow: Window) {
   return function send(method: string, params: any) {
     const messageId = messageCount++
 
-    targetWindow.postMessage(
-      {
-        source: sourceId,
-        id: messageId,
-        method,
-        params,
-      },
-      '*'
-    )
+    try {
+      targetWindow.postMessage(
+        {
+          source: sourceId,
+          id: messageId,
+          method,
+          params,
+        },
+        '*'
+      )
+    } catch (e) {
+      if ((e as Error).name === 'DataCloneError') {
+        throw new Error('Params are incorrect.')
+      }
+
+      throw e
+    }
 
     return messageId
   }
