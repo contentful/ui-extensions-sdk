@@ -15,10 +15,9 @@ export interface AppState {
 }
 
 export type OnConfigureHandlerReturn =
-  | Promise<{ parameters?: KeyValueMap | null; targetState?: AppState | null }>
   | { parameters?: KeyValueMap | null; targetState?: AppState | null }
   | false
-export type OnConfigureHandler = () => OnConfigureHandlerReturn
+export type OnConfigureHandler = () => OnConfigureHandlerReturn | Promise<OnConfigureHandlerReturn>
 
 export interface AppConfigAPI {
   /** Tells the web app that the app is loaded */
