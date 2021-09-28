@@ -95,8 +95,10 @@ function createSender(sourceId: string, targetWindow: Window) {
         '*'
       )
     } catch (e) {
-      if ((e as Error).name === 'DataCloneError') {
-        throw new Error('Params are incorrect.')
+      if ((e as Error).name === 'DataCloneError' && method === 'openDialog') {
+        console.warn(
+          'Error: openCurrent(App) parameters must not be functions or DOM elements. Instead, use the App SDK within the target location. Learn more about the dialog location: https://ctfl.io/app-sdk-dialog'
+        )
       }
 
       throw e
