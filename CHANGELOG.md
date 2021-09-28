@@ -1,3 +1,10 @@
+# [4.0.0-alpha.35](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.34...v4.0.0-alpha.35) (2021-09-28)
+
+
+### Bug Fixes
+
+* remove Promise<...> type from OnConfigureHandlerReturn ([#992](https://github.com/contentful/ui-extensions-sdk/issues/992)) ([19bbfbb](https://github.com/contentful/ui-extensions-sdk/commit/19bbfbb469cfb7904d05eb90df9e4f061e59f563))
+
 # [4.0.0-alpha.34](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.33...v4.0.0-alpha.34) (2021-09-24)
 
 
