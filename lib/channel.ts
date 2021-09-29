@@ -96,8 +96,8 @@ function createSender(sourceId: string, targetWindow: Window) {
       )
     } catch (e) {
       if (e instanceof DOMException && e.name === 'DataCloneError' && method === 'openDialog') {
-        console.warn(
-          'Error: openCurrent(App) parameters must not be functions or DOM elements. Instead, use the App SDK within the target location. Learn more about the dialog location: https://ctfl.io/app-sdk-dialog'
+        console.error(
+          'Error: openCurrent[App] parameters could not be parsed. You likely tried to pass functions or DOM elements as a parameter. Tip: Use the App SDK directly within the dialog location.\n\nLearn more about the dialog location: https://ctfl.io/app-sdk-dialog'
         )
       }
 
