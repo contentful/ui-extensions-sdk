@@ -1,3 +1,10 @@
+# [3.41.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.40.1...v3.41.0) (2021-09-29)
+
+
+### Features
+
+* Include patch in message ([#997](https://github.com/contentful/ui-extensions-sdk/issues/997)) ([0a97537](https://github.com/contentful/ui-extensions-sdk/commit/0a97537e3426dfb9a2c95365ae4c96eeb848d8b4))
+
 ## [3.40.1](https://github.com/contentful/ui-extensions-sdk/compare/v3.40.0...v3.40.1) (2021-09-23)
 
 
