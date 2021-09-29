@@ -681,7 +681,7 @@ export interface SharedEditorSDK {
 export type CrudAction = 'create' | 'read' | 'update' | 'delete'
 export type PublishableAction = 'publish' | 'unpublish'
 export type ArchiveableAction = 'archive' | 'unarchive'
-type JSONPatchItem = {
+export type JSONPatchItem = {
   op: 'remove' | 'replace' | 'add'
   path: string
   value?: any
