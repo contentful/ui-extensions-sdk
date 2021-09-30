@@ -19,6 +19,7 @@ export type {
   SharedEditorSDK,
   SidebarExtensionSDK,
   UserAPI,
+  JSONPatchItem,
 } from './api.types'
 
 export type {

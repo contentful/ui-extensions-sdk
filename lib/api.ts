@@ -8,7 +8,14 @@ import createEditor from './editor'
 import createNavigator from './navigator'
 import createApp from './app'
 import locations from './locations'
-import { BaseExtensionSDK, EntryFieldInfo, NavigatorAPI, KnownSDK, ConnectMessage } from './types'
+import {
+  BaseExtensionSDK,
+  EntryFieldInfo,
+  NavigatorAPI,
+  KnownSDK,
+  ConnectMessage,
+  JSONPatchItem,
+} from './types'
 import { Channel } from './channel'
 import { createAdapter } from './cmaAdapter'
 
@@ -72,8 +79,8 @@ function makeSharedAPI(channel: Channel, data: ConnectMessage): BaseExtensionSDK
     },
     ids,
     access: {
-      can: (action: string, entity: any) =>
-        channel.call('checkAccess', action, entity) as Promise<boolean>,
+      can: (action: string, entity: any, patch?: JSONPatchItem[]) =>
+        channel.call('checkAccess', action, entity, patch) as Promise<boolean>,
       canEditAppConfig: () => channel.call('checkAppConfigAccess') as Promise<boolean>,
     },
   }
