@@ -1,3 +1,10 @@
+# [4.0.0-alpha.36](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.35...v4.0.0-alpha.36) (2021-09-30)
+
+
+### Bug Fixes
+
+* add patch in message for canary ([#999](https://github.com/contentful/ui-extensions-sdk/issues/999)) ([54b46d7](https://github.com/contentful/ui-extensions-sdk/commit/54b46d7c2d6885f4c50ea1d300c6151d2d16c808))
+
 # [4.0.0-alpha.35](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0-alpha.34...v4.0.0-alpha.35) (2021-09-28)
 
 
