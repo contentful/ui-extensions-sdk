@@ -1,3 +1,10 @@
+# [3.42.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.41.0...v3.42.0) (2021-10-01)
+
+
+### Features
+
+* show better warning for DATA_CLONE_ERR [EXT-2761] ([#989](https://github.com/contentful/ui-extensions-sdk/issues/989)) ([fb82d86](https://github.com/contentful/ui-extensions-sdk/commit/fb82d866c4ffc97554673ea8e32bc8b81fa5f33c))
+
 # [3.41.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.40.1...v3.41.0) (2021-09-29)
 
 
