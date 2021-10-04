@@ -84,15 +84,25 @@ function createSender(sourceId: string, targetWindow: Window) {
   return function send(method: string, params: any) {
     const messageId = messageCount++
 
-    targetWindow.postMessage(
-      {
-        source: sourceId,
-        id: messageId,
-        method,
-        params,
-      },
-      '*'
-    )
+    try {
+      targetWindow.postMessage(
+        {
+          source: sourceId,
+          id: messageId,
+          method,
+          params,
+        },
+        '*'
+      )
+    } catch (e) {
+      if (e instanceof DOMException && e.name === 'DataCloneError' && method === 'openDialog') {
+        console.error(
+          'Error: openCurrent[App] parameters could not be parsed. You likely tried to pass functions or DOM elements as a parameter. Tip: Use the App SDK directly within the dialog location.\n\nLearn more about the dialog location: https://ctfl.io/app-sdk-dialog'
+        )
+      }
+
+      throw e
+    }
 
     return messageId
   }
