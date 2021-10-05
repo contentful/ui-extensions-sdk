@@ -14,6 +14,8 @@ body {
   font-size: 14px;
   line-height: 18px;
   color: #2d2f31;
+  
+  background-image: url("https://api.contentful.com/uie-tracking");
 }
 b,
 strong {
