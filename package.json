@@ -15,13 +15,13 @@
     "dist/cf-extension-api.js",
     "dist/cf-extension-api.js.map",
     "dist/cf-extension.css",
-    "dist/*.d.ts"
+    "dist/**/*.d.ts"
   ],
   "scripts": {
     "test": "ts-mocha -p tsconfig.test.json 'test/unit/*.[jt]s' --reporter mocha-multi-reporters --reporter-options configFile=mocha.unit-reporters.json",
     "lint": "eslint '{lib,test}/**/*.{t,j}s'",
     "lint:fix": "npm run lint -- --fix",
-    "build": "rollup -c --compact",
+    "build": "npm run check-types && rollup -c --compact",
     "build:debug": "npm run build -- --sourcemap",
     "prepublishOnly": "npm run build",
     "size": "echo \"Gzipped, estimate: $(gzip -9 -c dist/cf-extension-api.js | wc -c) bytes\"",
@@ -33,7 +33,9 @@
     "merge-report": "mochawesome-merge ./test/cypress/reports/separate-reports/*.json > ./test/cypress/reports/full_report.json",
     "generate-report": "npx mochawesome-report-generator --reportDir test/cypress/reports test/cypress/reports/full_report.json",
     "semantic-release": "semantic-release",
-    "publish-all": "node ./scripts/publish.js"
+    "publish-all": "node ./scripts/publish.js",
+    "verify": "node ./scripts/verify.js",
+    "check-types": "tsc --noEmit -m commonjs"
   },
   "devDependencies": {
     "@semantic-release/changelog": "5.0.1",
@@ -111,6 +113,14 @@
     ]
   },
   "release": {
+    "branches": [
+      "master",
+      {
+        "name": "canary",
+        "channel": "canary",
+        "prerelease": "alpha"
+      }
+    ],
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
@@ -142,5 +152,7 @@
       "@semantic-release/github"
     ]
   },
-  "dependencies": {}
+  "peerDependencies": {
+    "contentful-management": "^7.30.0"
+  }
 }

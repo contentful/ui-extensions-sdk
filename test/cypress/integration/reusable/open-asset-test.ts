@@ -2,26 +2,26 @@ import { asset, assetSlideIn } from '../../utils/paths'
 import * as Constants from '../../../constants'
 
 export function openAssetExtension(iframeSelector: string) {
-  cy.getSdk(iframeSelector).then(sdk => {
+  cy.getSdk(iframeSelector).then((sdk) => {
     sdk.navigator.openAsset(Constants.assets.testImage)
   })
 }
 
 export function openAssetSlideInExtension(iframeSelector: string) {
-  return cy.getSdk(iframeSelector).then(sdk =>
+  return cy.getSdk(iframeSelector).then((sdk) =>
     sdk.navigator
       .openAsset(Constants.assets.testImage, {
-        slideIn: true
+        slideIn: true,
       })
       .then(cy.wrap)
   )
 }
 
 export function openAssetSlideInWaitExtension(iframeSelector: string, done: Function) {
-  cy.getSdk(iframeSelector).then(sdk => {
+  cy.getSdk(iframeSelector).then((sdk) => {
     sdk.navigator
       .openAsset(Constants.assets.testImage, {
-        slideIn: { waitForClose: true }
+        slideIn: { waitForClose: true },
       })
       .then(done)
   })
@@ -51,7 +51,7 @@ export function openAssetSlideInTest(iframeSelector: string, currentEntryId: str
   }
 
   it('opens asset using sdk.navigator.openAsset (slideIn = true)', () => {
-    openAssetSlideInExtension(iframeSelector).then(result => {
+    openAssetSlideInExtension(iframeSelector).then((result) => {
       expect(result.navigated).to.be.equal(true)
       cy.get('[data-test-id="slide-in-layer"]').should('be.visible')
       verifyAssetSlideInUrl(Constants.assets.testImage, currentEntryId)
@@ -59,7 +59,7 @@ export function openAssetSlideInTest(iframeSelector: string, currentEntryId: str
     })
   })
 
-  it('opens asset using sdk.navigator.openAsset (slideIn = { waitForClose: true })', done => {
+  it('opens asset using sdk.navigator.openAsset (slideIn = { waitForClose: true })', (done) => {
     let closeClicked = false
     // callback should be called only after slide in is closed
     openAssetSlideInWaitExtension(iframeSelector, (result: any) => {

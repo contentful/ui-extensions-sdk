@@ -15,6 +15,7 @@ const sharedExpected = [
   'notifier',
   'ids',
   'access',
+  'cmaAdapter',
 ]
 
 function test(expected: string[], location: string | undefined, expectedLocation = location) {

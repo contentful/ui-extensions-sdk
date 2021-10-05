@@ -1,121 +1,104 @@
 # [3.42.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.41.0...v3.42.0) (2021-10-01)
 
-
 ### Features
 
-* show better warning for DATA_CLONE_ERR [EXT-2761] ([#989](https://github.com/contentful/ui-extensions-sdk/issues/989)) ([fb82d86](https://github.com/contentful/ui-extensions-sdk/commit/fb82d866c4ffc97554673ea8e32bc8b81fa5f33c))
+- show better warning for DATA_CLONE_ERR [EXT-2761] ([#989](https://github.com/contentful/ui-extensions-sdk/issues/989)) ([fb82d86](https://github.com/contentful/ui-extensions-sdk/commit/fb82d866c4ffc97554673ea8e32bc8b81fa5f33c))
 
 # [3.41.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.40.1...v3.41.0) (2021-09-29)
 
-
 ### Features
 
-* Include patch in message ([#997](https://github.com/contentful/ui-extensions-sdk/issues/997)) ([0a97537](https://github.com/contentful/ui-extensions-sdk/commit/0a97537e3426dfb9a2c95365ae4c96eeb848d8b4))
+- Include patch in message ([#997](https://github.com/contentful/ui-extensions-sdk/issues/997)) ([0a97537](https://github.com/contentful/ui-extensions-sdk/commit/0a97537e3426dfb9a2c95365ae4c96eeb848d8b4))
 
 ## [3.40.1](https://github.com/contentful/ui-extensions-sdk/compare/v3.40.0...v3.40.1) (2021-09-23)
 
-
 ### Bug Fixes
 
-* **AccessSDK:** patch action isn't supported ([#987](https://github.com/contentful/ui-extensions-sdk/issues/987)) ([7aff0ae](https://github.com/contentful/ui-extensions-sdk/commit/7aff0aeb4d3680e33a2ab7173a78982c55fa3677))
+- **AccessSDK:** patch action isn't supported ([#987](https://github.com/contentful/ui-extensions-sdk/issues/987)) ([7aff0ae](https://github.com/contentful/ui-extensions-sdk/commit/7aff0aeb4d3680e33a2ab7173a78982c55fa3677))
 
 # [3.40.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.39.2...v3.40.0) (2021-09-17)
 
-
 ### Features
 
-* **AccessAPI:** add support for JSON patches in access sdk [EXT-3041] ([#974](https://github.com/contentful/ui-extensions-sdk/issues/974)) ([a720fc2](https://github.com/contentful/ui-extensions-sdk/commit/a720fc223b19419f61fb5df917540834966dbd83))
+- **AccessAPI:** add support for JSON patches in access sdk [EXT-3041] ([#974](https://github.com/contentful/ui-extensions-sdk/issues/974)) ([a720fc2](https://github.com/contentful/ui-extensions-sdk/commit/a720fc223b19419f61fb5df917540834966dbd83))
 
 ## [3.39.1](https://github.com/contentful/ui-extensions-sdk/compare/v3.39.0...v3.39.1) (2021-09-10)
 
-
 ### Bug Fixes
 
-* create upload types ([#961](https://github.com/contentful/ui-extensions-sdk/issues/961)) ([a65b320](https://github.com/contentful/ui-extensions-sdk/commit/a65b32046087763708f521b5b2dbb92ac22c6579))
+- create upload types ([#961](https://github.com/contentful/ui-extensions-sdk/issues/961)) ([a65b320](https://github.com/contentful/ui-extensions-sdk/commit/a65b32046087763708f521b5b2dbb92ac22c6579))
 
 # [3.39.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.38.0...v3.39.0) (2021-07-20)
 
-
 ### Features
 
-* Add typings and expose metadata methods ([#865](https://github.com/contentful/ui-extensions-sdk/issues/865)) ([b0bbaad](https://github.com/contentful/ui-extensions-sdk/commit/b0bbaad477114f7929d974b8bce8c3c03f05f4bf))
+- Add typings and expose metadata methods ([#865](https://github.com/contentful/ui-extensions-sdk/issues/865)) ([b0bbaad](https://github.com/contentful/ui-extensions-sdk/commit/b0bbaad477114f7929d974b8bce8c3c03f05f4bf))
 
 # [3.38.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.37.0...v3.38.0) (2021-06-30)
 
-
 ### Features
 
-* add resolved info to tasks sys ([#822](https://github.com/contentful/ui-extensions-sdk/issues/822)) ([e0be824](https://github.com/contentful/ui-extensions-sdk/commit/e0be824956082aaa8fe00bd073f7354fb7dea51b))
+- add resolved info to tasks sys ([#822](https://github.com/contentful/ui-extensions-sdk/issues/822)) ([e0be824](https://github.com/contentful/ui-extensions-sdk/commit/e0be824956082aaa8fe00bd073f7354fb7dea51b))
 
 # [3.37.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.36.0...v3.37.0) (2021-06-23)
 
-
 ### Features
 
-* add type parameter to create task input data ([#809](https://github.com/contentful/ui-extensions-sdk/issues/809)) ([e0fe688](https://github.com/contentful/ui-extensions-sdk/commit/e0fe688b3e07cf58abd20a0b1f9d82c7ea1e48e7))
+- add type parameter to create task input data ([#809](https://github.com/contentful/ui-extensions-sdk/issues/809)) ([e0fe688](https://github.com/contentful/ui-extensions-sdk/commit/e0fe688b3e07cf58abd20a0b1f9d82c7ea1e48e7))
 
 # [3.36.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.35.0...v3.36.0) (2021-06-17)
 
-
 ### Features
 
-* add interface for space.getTeams [HOMER-75] ([#789](https://github.com/contentful/ui-extensions-sdk/issues/789)) ([a5b8dac](https://github.com/contentful/ui-extensions-sdk/commit/a5b8dac92293d2e58ba7625ca4a310d182f3cabf))
+- add interface for space.getTeams [HOMER-75] ([#789](https://github.com/contentful/ui-extensions-sdk/issues/789)) ([a5b8dac](https://github.com/contentful/ui-extensions-sdk/commit/a5b8dac92293d2e58ba7625ca4a310d182f3cabf))
 
 # [3.35.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.34.3...v3.35.0) (2021-06-11)
 
-
 ### Features
 
-* add due date as a task field type ([#776](https://github.com/contentful/ui-extensions-sdk/issues/776)) ([ed0bf60](https://github.com/contentful/ui-extensions-sdk/commit/ed0bf60ce877665a3558555346c6bf0c9274bb49))
+- add due date as a task field type ([#776](https://github.com/contentful/ui-extensions-sdk/issues/776)) ([ed0bf60](https://github.com/contentful/ui-extensions-sdk/commit/ed0bf60ce877665a3558555346c6bf0c9274bb49))
 
 ## [3.34.3](https://github.com/contentful/ui-extensions-sdk/compare/v3.34.2...v3.34.3) (2021-05-18)
 
-
 ### Reverts
 
-* "chore: test that SDK respects alias ([#710](https://github.com/contentful/ui-extensions-sdk/issues/710))" ([#717](https://github.com/contentful/ui-extensions-sdk/issues/717)) ([4ab6e48](https://github.com/contentful/ui-extensions-sdk/commit/4ab6e48237ef6d4cdd75c7721cd994539ced0ce2))
+- "chore: test that SDK respects alias ([#710](https://github.com/contentful/ui-extensions-sdk/issues/710))" ([#717](https://github.com/contentful/ui-extensions-sdk/issues/717)) ([4ab6e48](https://github.com/contentful/ui-extensions-sdk/commit/4ab6e48237ef6d4cdd75c7721cd994539ced0ce2))
 
 ## [3.34.2](https://github.com/contentful/ui-extensions-sdk/compare/v3.34.1...v3.34.2) (2021-05-11)
 
-
 ### Reverts
 
-* bump cypress from 7.2.0 to 7.3.0 ([#706](https://github.com/contentful/ui-extensions-sdk/issues/706)) ([ebcdf01](https://github.com/contentful/ui-extensions-sdk/commit/ebcdf01c26c59707e5733f34d8897a9de9bfa462))
+- bump cypress from 7.2.0 to 7.3.0 ([#706](https://github.com/contentful/ui-extensions-sdk/issues/706)) ([ebcdf01](https://github.com/contentful/ui-extensions-sdk/commit/ebcdf01c26c59707e5733f34d8897a9de9bfa462))
 
 ## [3.34.1](https://github.com/contentful/ui-extensions-sdk/compare/v3.34.0...v3.34.1) (2021-05-06)
 
-
 ### Bug Fixes
 
-* make options of dialogs.openExtension optional ([#681](https://github.com/contentful/ui-extensions-sdk/issues/681)) ([ca6d15b](https://github.com/contentful/ui-extensions-sdk/commit/ca6d15bf6c9979410296dfaa3f2ad3bd71ba33c4))
+- make options of dialogs.openExtension optional ([#681](https://github.com/contentful/ui-extensions-sdk/issues/681)) ([ca6d15b](https://github.com/contentful/ui-extensions-sdk/commit/ca6d15bf6c9979410296dfaa3f2ad3bd71ba33c4))
 
 # [3.34.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.33.0...v3.34.0) (2021-04-30)
 
-
 ### Features
 
-* add navigate to lists methods ([ef5ee41](https://github.com/contentful/ui-extensions-sdk/commit/ef5ee4148911f51b333dbd0967d5fba2748de317))
+- add navigate to lists methods ([ef5ee41](https://github.com/contentful/ui-extensions-sdk/commit/ef5ee4148911f51b333dbd0967d5fba2748de317))
 
 # [3.33.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.32.2...v3.33.0) (2021-04-06)
 
-
 ### Features
 
-* expose tags api ([3ae6b4b](https://github.com/contentful/ui-extensions-sdk/commit/3ae6b4b45a16f04cb931218b6df654e9bf97cc1b))
+- expose tags api ([3ae6b4b](https://github.com/contentful/ui-extensions-sdk/commit/3ae6b4b45a16f04cb931218b6df654e9bf97cc1b))
 
 ## [3.32.2](https://github.com/contentful/ui-extensions-sdk/compare/v3.32.1...v3.32.2) (2021-03-23)
 
-
 ### Bug Fixes
 
-* [EXT-2508] use husky v4 ([#611](https://github.com/contentful/ui-extensions-sdk/issues/611)) ([85e1d4f](https://github.com/contentful/ui-extensions-sdk/commit/85e1d4f43e710b747f0ecba9d35396d8dfaacc10))
+- [EXT-2508] use husky v4 ([#611](https://github.com/contentful/ui-extensions-sdk/issues/611)) ([85e1d4f](https://github.com/contentful/ui-extensions-sdk/commit/85e1d4f43e710b747f0ecba9d35396d8dfaacc10))
 
 ## [3.32.1](https://github.com/contentful/ui-extensions-sdk/compare/v3.32.0...v3.32.1) (2021-02-16)
 
-
 ### Bug Fixes
 
-* link to App SDK reference ([#550](https://github.com/contentful/ui-extensions-sdk/issues/550)) ([be47635](https://github.com/contentful/ui-extensions-sdk/commit/be47635c3c5b621e501df3643292c6c2bd2ef417))
+- link to App SDK reference ([#550](https://github.com/contentful/ui-extensions-sdk/issues/550)) ([be47635](https://github.com/contentful/ui-extensions-sdk/commit/be47635c3c5b621e501df3643292c6c2bd2ef417))
 
 # [3.32.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.31.1...v3.32.0) (2021-01-29)
 

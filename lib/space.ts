@@ -64,6 +64,11 @@ export default function createSpace(
 
   spaceMethods.forEach((methodName) => {
     space[methodName] = function (...args: any[]) {
+      console.warn(
+        `You called ${String(
+          methodName
+        )} on the Space API. Since version 4.0.0 the Space API and its methods are deprecated. We recommend that you use the CMA client instead. See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details.`
+      )
       return channel.call('callSpaceMethod', methodName, args)
     } as any
   })
