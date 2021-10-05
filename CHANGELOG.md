@@ -1,3 +1,13 @@
+# [4.0.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.42.0...v4.0.0) (2021-10-05)
+
+
+* feat!: App SDK v4 (#1008) ([08e1309](https://github.com/contentful/ui-extensions-sdk/commit/08e130967be1e14e2970043e633c87dad7dc709a)), closes [#1008](https://github.com/contentful/ui-extensions-sdk/issues/1008)
+
+
+### BREAKING CHANGES
+
+* breaking changes in typings, new `cmaAdapter`, Space API deprecation
+
 # [3.42.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.41.0...v3.42.0) (2021-10-01)
 
 ### Features
