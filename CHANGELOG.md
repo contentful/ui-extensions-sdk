@@ -1,12 +1,47 @@
 # [4.0.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.42.0...v4.0.0) (2021-10-05)
 
+This major release of the Contentful App SDK provides two great features to make app development for Contentful even easier.
 
-* feat!: App SDK v4 (#1008) ([08e1309](https://github.com/contentful/ui-extensions-sdk/commit/08e130967be1e14e2970043e633c87dad7dc709a)), closes [#1008](https://github.com/contentful/ui-extensions-sdk/issues/1008)
+## Contentful Management API Adapter
 
+You can now use the [`contentful-management` library](https://github.com/contentful/contentful-management.js) within apps. This gives you access to a huge load of APIs that were previously not available. Also, you can reuse existing code utilising the `contentful-management` library which makes it easier to convert your custom Contentful scripts to convenient apps.
 
-### BREAKING CHANGES
+After installing the library, a new client can be created using the `cmaAdapter` which is exposed by the App SDK. There is no need to deal with authentication and tokens.
 
-* breaking changes in typings, new `cmaAdapter`, Space API deprecation
+```javascript
+import { createClient } from 'contentful-management'
+
+const nestedClient = createClient({ apiAdapter: sdk.cmaAdapter })
+
+const cma = createClient(
+  { apiAdapter: sdk.cmaAdapter },
+  {
+    type: 'plain',
+    defaults: {
+      environmentId: sdk.ids.environment,
+      spaceId: sdk.ids.space,
+    },
+  }
+)
+```
+
+Please note that not all methods are available. You can only use methods that access entities within the app’s space environment.
+
+## Deprecation of Space API
+
+The Space API (`sdk.space`) is deprecated and will be removed in a future major update of the App SDK. We recommend using the new CMA Adapters to replace existing Space API functionality.
+
+## Typings revamp
+
+In the previous version of the App SDK app developers sometimes struggled with our provided types. For version 4 we took the opportunity to revamp and significantly improve the types of the whole library. These changes are likely to break existing TypeScript apps as we are more specific about each property and also changed the usage of generics on API methods.
+The new types of the App SDK now align with the types of the `contentful-management` library.
+To get the best development experience, you need to install `contentful-management` as a separate dependency.
+
+```bash
+npm install contentful-management
+```
+
+We do not include this dependency by default to keep your dependency tree clean and ensure small bundle sizes and short build times.
 
 # [3.42.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.41.0...v3.42.0) (2021-10-01)
 
