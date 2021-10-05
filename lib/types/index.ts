@@ -84,4 +84,6 @@ export type {
   SerializedJSONValue,
 } from './utils'
 
+export type { ValidationError } from './validation-error'
+
 export type { WindowAPI } from './window.types'
