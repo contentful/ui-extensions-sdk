@@ -1,9 +1,3 @@
-## [3.34.3](https://github.com/contentful/ui-extensions-sdk/compare/v3.34.2...v3.34.3) (2021-05-18)
-
-### Reverts
-
-- "chore: test that SDK respects alias ([#710](https://github.com/contentful/ui-extensions-sdk/issues/710))" ([#717](https://github.com/contentful/ui-extensions-sdk/issues/717)) ([4ab6e48](https://github.com/contentful/ui-extensions-sdk/commit/4ab6e48237ef6d4cdd75c7721cd994539ced0ce2))
-
 # [3.42.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.41.0...v3.42.0) (2021-10-01)
 
 ### Features
