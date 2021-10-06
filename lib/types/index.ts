@@ -1,9 +1,11 @@
 export type {
   AccessAPI,
   AppExtensionSDK,
+  ArchiveableAction,
   BaseExtensionSDK,
   ConnectMessage,
   ContentTypeAPI,
+  CrudAction,
   DialogExtensionSDK,
   EditorExtensionSDK,
   EditorLocaleSettings,
@@ -16,6 +18,7 @@ export type {
   NotifierAPI,
   PageExtensionSDK,
   ParametersAPI,
+  PublishableAction,
   SharedEditorSDK,
   SidebarExtensionSDK,
   UserAPI,
@@ -84,6 +87,21 @@ export type {
   SerializedJSONValue,
 } from './utils'
 
-export type { ValidationError } from './validation-error'
+export type {
+  DateRangeValidationError,
+  InValidationError,
+  LinkContentTypeValidationError,
+  LinkMimetypeGroupValidationError,
+  NotResolvableValidationError,
+  ProhibitRegexpValidationError,
+  RangeValidationError,
+  RegexpValidationError,
+  RequiredValidationError,
+  SizeValidationError,
+  TypeValidationError,
+  UniqueValidationError,
+  UnknownValidationError,
+  ValidationError,
+} from './validation-error'
 
 export type { WindowAPI } from './window.types'
