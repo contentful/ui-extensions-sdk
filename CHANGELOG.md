@@ -1,3 +1,17 @@
+# [4.1.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.1...v4.1.0) (2021-10-05)
+
+
+### Features
+
+* [] export validation error type ([#1011](https://github.com/contentful/ui-extensions-sdk/issues/1011)) ([983407e](https://github.com/contentful/ui-extensions-sdk/commit/983407ebffe0b818c01a80bf4fa6f2a6c301aa5d))
+
+## [4.0.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0...v4.0.1) (2021-10-05)
+
+
+### Bug Fixes
+
+* measure old css file usage ([#1010](https://github.com/contentful/ui-extensions-sdk/issues/1010)) ([7dcd079](https://github.com/contentful/ui-extensions-sdk/commit/7dcd079c5f17f0a4e01e48e8184f0285dd0e9e1b))
+
 # [4.0.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.42.0...v4.0.0) (2021-10-05)
 
 This major release of the Contentful App SDK provides two great features to make app development for Contentful even easier.
