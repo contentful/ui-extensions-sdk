@@ -1,3 +1,10 @@
+# [4.2.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.1.1...v4.2.0) (2021-10-06)
+
+
+### Features
+
+* export Action and ValidationError types ([#1018](https://github.com/contentful/ui-extensions-sdk/issues/1018)) ([dcff361](https://github.com/contentful/ui-extensions-sdk/commit/dcff361863c5ed1d6448d834277db26385cd6f8a))
+
 ## [4.1.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.1.0...v4.1.1) (2021-10-06)
 
 
