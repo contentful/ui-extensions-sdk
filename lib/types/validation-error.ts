@@ -1,3 +1,6 @@
+import { Link } from './utils'
+import { Entry } from './entities'
+
 export interface BaseValidationError {
   name: string
   message?: string
@@ -30,7 +33,7 @@ export interface RequiredValidationError extends BaseValidationError {
 
 export interface UniqueValidationError extends BaseValidationError {
   name: 'unique'
-  conflicting: string[]
+  conflicting: Link<Entry>[]
 }
 
 export interface ProhibitRegexpValidationError extends BaseValidationError {
