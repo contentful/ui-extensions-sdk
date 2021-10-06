@@ -50,7 +50,7 @@ export interface LinkMimetypeGroupValidationError extends BaseValidationError {
 
 export interface LinkContentTypeValidationError extends BaseValidationError {
   name: 'linkContentType'
-  contentTypeId: string
+  contentTypeId: string[]
 }
 
 export interface DateRangeValidationError extends BaseValidationError {
