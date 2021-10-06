@@ -1,3 +1,10 @@
+## [4.1.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.1.0...v4.1.1) (2021-10-06)
+
+
+### Bug Fixes
+
+* [3161] use correct type for conflicting errors ([#1017](https://github.com/contentful/ui-extensions-sdk/issues/1017)) ([621a1d0](https://github.com/contentful/ui-extensions-sdk/commit/621a1d0d8f4e7b1ab45278377ba58fff76e09a4f))
+
 # [4.1.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.1...v4.1.0) (2021-10-05)
 
 
