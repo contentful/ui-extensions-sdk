@@ -130,9 +130,9 @@ export interface SharedEditorSDK {
   contentType: ContentTypeAPI
 }
 
-type CrudAction = 'create' | 'read' | 'update' | 'delete'
-type PublishableAction = 'publish' | 'unpublish'
-type ArchiveableAction = 'archive' | 'unarchive'
+export type CrudAction = 'create' | 'read' | 'update' | 'delete'
+export type PublishableAction = 'publish' | 'unpublish'
+export type ArchiveableAction = 'archive' | 'unarchive'
 export type JSONPatchItem = {
   op: 'remove' | 'replace' | 'add'
   path: string
