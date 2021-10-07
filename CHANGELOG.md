@@ -1,3 +1,10 @@
+## [4.2.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.2.0...v4.2.1) (2021-10-07)
+
+
+### Bug Fixes
+
+* LinkContentTypeValidationError contains a list of content types ([#1021](https://github.com/contentful/ui-extensions-sdk/issues/1021)) ([64a8c05](https://github.com/contentful/ui-extensions-sdk/commit/64a8c05a022275f85a5138d9186de98e9079aadb))
+
 # [4.2.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.1.1...v4.2.0) (2021-10-06)
 
 
