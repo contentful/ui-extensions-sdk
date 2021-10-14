@@ -43,6 +43,9 @@ export default function createEntry(
     getSys() {
       return sys
     },
+    publish() {
+      return channel.call('entryPublish')
+    },
     onSysChanged(handler: Function) {
       return sysChanged.attach(handler)
     },
