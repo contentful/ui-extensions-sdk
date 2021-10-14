@@ -83,7 +83,7 @@
     "mochawesome": "6.3.1",
     "mochawesome-merge": "4.2.0",
     "mochawesome-report-generator": "5.2.0",
-    "nanoid": "3.1.29",
+    "nanoid": "3.1.30",
     "prettier": "2.4.1",
     "rollup": "2.58.0",
     "rollup-plugin-terser": "7.0.2",
