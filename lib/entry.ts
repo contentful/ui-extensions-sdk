@@ -49,6 +49,9 @@ export default function createEntry(
     unpublish() {
       return channel.call('callEntryMethod', 'unpublish')
     },
+    save() {
+      return channel.call('callEntryMethod', 'save')
+    },
     onSysChanged(handler: Function) {
       return sysChanged.attach(handler)
     },
