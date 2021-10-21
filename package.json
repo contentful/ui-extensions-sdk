@@ -42,7 +42,7 @@
     "@semantic-release/exec": "5.0.0",
     "@semantic-release/git": "9.0.1",
     "@testing-library/cypress": "8.0.1",
-    "@testing-library/dom": "8.9.0",
+    "@testing-library/dom": "8.10.1",
     "@types/async-retry": "1.4.3",
     "@types/chai-as-promised": "7.1.4",
     "@types/cross-spawn": "6.0.2",
@@ -57,9 +57,9 @@
     "babel-eslint": "10.1.0",
     "chai": "4.3.4",
     "chai-as-promised": "7.1.1",
-    "contentful-management": "7.42.3",
+    "contentful-management": "7.44.2",
     "cross-spawn": "7.0.3",
-    "cypress": "8.5.0",
+    "cypress": "8.6.0",
     "cypress-multi-reporters": "1.5.0",
     "cypress-terminal-report": "^3.3.2",
     "dotenv": "10.0.0",
@@ -67,7 +67,7 @@
     "eslint-config-prettier": "8.3.0",
     "eslint-config-standard": "16.0.3",
     "eslint-plugin-cypress": "2.12.1",
-    "eslint-plugin-import": "2.24.2",
+    "eslint-plugin-import": "2.25.2",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-prettier": "4.0.0",
     "eslint-plugin-promise": "5.1.0",
@@ -94,7 +94,7 @@
     "ts-mocha": "8.0.0",
     "ts-node": "10.3.0",
     "tslib": "2.3.1",
-    "typescript": "4.4.3"
+    "typescript": "4.4.4"
   },
   "husky": {
     "hooks": {
