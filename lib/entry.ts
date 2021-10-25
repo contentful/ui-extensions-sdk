@@ -44,13 +44,13 @@ export default function createEntry(
       return sys
     },
     publish() {
-      return channel.call('callEntryMethod', 'publish')
+      return channel.call<void>('callEntryMethod', 'publish')
     },
     unpublish() {
-      return channel.call('callEntryMethod', 'unpublish')
+      return channel.call<void>('callEntryMethod', 'unpublish')
     },
     save() {
-      return channel.call('callEntryMethod', 'save')
+      return channel.call<void>('callEntryMethod', 'save')
     },
     onSysChanged(handler: Function) {
       return sysChanged.attach(handler)
