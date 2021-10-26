@@ -1,3 +1,10 @@
+# [4.3.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.2.1...v4.3.0) (2021-10-26)
+
+
+### Features
+
+* [EXT-2755] add save and (un)publish command ([#1040](https://github.com/contentful/ui-extensions-sdk/issues/1040)) ([f1a4de4](https://github.com/contentful/ui-extensions-sdk/commit/f1a4de47dfc73ad1624cf0292745ce594b6250eb))
+
 ## [4.2.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.2.0...v4.2.1) (2021-10-07)
 
 
