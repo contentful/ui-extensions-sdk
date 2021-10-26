@@ -59,7 +59,7 @@
     "chai-as-promised": "7.1.1",
     "contentful-management": "7.44.2",
     "cross-spawn": "7.0.3",
-    "cypress": "8.6.0",
+    "cypress": "8.7.0",
     "cypress-multi-reporters": "1.5.0",
     "cypress-terminal-report": "^3.3.2",
     "dotenv": "10.0.0",
