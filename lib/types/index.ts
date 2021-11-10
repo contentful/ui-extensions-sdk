@@ -41,20 +41,21 @@ export type {
 } from './dialogs.types'
 
 export type {
-  User,
   Asset,
-  ContentType,
   CanonicalRequest,
-  EditorInterface,
+  ContentType,
   ContentTypeField,
+  EditorInterface,
+  Entry,
+  Metadata,
+  Role,
   ScheduledAction,
   SpaceMembership,
   Tag,
   TagVisibility,
   Task,
-  Entry,
-  Role,
-  Metadata,
+  Team,
+  User,
 } from './entities'
 
 export type { EntryAPI, TaskAPI, TaskInputData } from './entry.types'
