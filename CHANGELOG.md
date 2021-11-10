@@ -1,3 +1,10 @@
+## [4.3.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.0...v4.3.1) (2021-11-10)
+
+
+### Bug Fixes
+
+* export team type ([#1072](https://github.com/contentful/ui-extensions-sdk/issues/1072)) ([2845c96](https://github.com/contentful/ui-extensions-sdk/commit/2845c966f663df42a0fd47aaf4b34acee18565d6))
+
 # [4.3.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.2.1...v4.3.0) (2021-10-26)
 
 
