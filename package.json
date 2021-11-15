@@ -41,7 +41,7 @@
     "@semantic-release/changelog": "5.0.1",
     "@semantic-release/exec": "5.0.0",
     "@semantic-release/git": "9.0.1",
-    "@testing-library/cypress": "8.0.1",
+    "@testing-library/cypress": "8.0.2",
     "@testing-library/dom": "8.11.1",
     "@types/async-retry": "1.4.3",
     "@types/chai-as-promised": "7.1.4",
