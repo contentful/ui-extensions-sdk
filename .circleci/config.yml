@@ -40,25 +40,11 @@ workflows:
   commit:
     jobs:
       - unit
-      - integration
       - semantic-release:
           requires:
             - unit
-            - integration
           filters:
             branches:
               only:
                 - master
                 - canary
-
-  # run in master every hour, 0:40, 1:40...
-  schedule:
-    jobs:
-      - integration
-    triggers:
-      - schedule:
-          cron: '0 * * * *'
-          filters:
-            branches:
-              only:
-                - master
