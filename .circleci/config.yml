@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   unit:
     docker:
-      - image: cimg/node
+      - image: cimg/node:16.13.0
         environment:
           ## this enables colors in the output
           TERM: xterm
