@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   unit:
     docker:
-      - image: cypress/browsers:node12.18.0-chrome83-ff77
+      - image: cimg/node
         environment:
           ## this enables colors in the output
           TERM: xterm
