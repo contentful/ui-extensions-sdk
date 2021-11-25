@@ -87,7 +87,7 @@
     "prettier": "2.4.1",
     "rollup": "2.60.1",
     "rollup-plugin-terser": "7.0.2",
-    "rollup-plugin-typescript2": "0.31.0",
+    "rollup-plugin-typescript2": "0.31.1",
     "semantic-release": "17.4.2",
     "sinon": "12.0.1",
     "sinon-chai": "3.7.0",
