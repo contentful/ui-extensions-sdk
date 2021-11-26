@@ -10,11 +10,6 @@ updates:
   - dependency-name: husky
     versions:
     - ">=5.0.0"
-  - dependency-name: cypress
-    versions:
-    - 6.7.0
-    - 6.9.0
-    - 7.1.0
   - dependency-name: contentful-management
     versions:
     - 7.14.1

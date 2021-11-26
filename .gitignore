@@ -8,14 +8,7 @@
 !/dist/README.md
 !/dist/WARNING.txt
 
-/test/cypress/reports
-/test/cypress/videos
-/test/cypress/screenshots
-/test/cypress/integration/fixtures/ids-data.json
-/test/cypress/integration/fixtures/user-data.json
-
 /test/unit/reports
-cypress.env.json
 .env
 .env.local
 .envrc

@@ -3,12 +3,10 @@ version: 2.1
 jobs:
   unit:
     docker:
-      - image: cypress/browsers:node12.18.0-chrome83-ff77
+      - image: cimg/node:16.13.0
         environment:
           ## this enables colors in the output
           TERM: xterm
-    environment:
-      CYPRESS_INSTALL_BINARY: 0
     steps:
       - checkout
       - run: npm ci
@@ -18,33 +16,6 @@ jobs:
       - run: npm run size
       - store_test_results:
           path: test/unit/reports
-  integration:
-    docker:
-      - image: cypress/browsers:node12.18.0-chrome83-ff77
-        environment:
-          ## this enables colors in the output
-          TERM: xterm
-    steps:
-      - checkout
-      - run: npm ci
-      - run: npm run build
-      - run:
-          name: npm run integration
-          command: npm run integration
-      - run: 
-          command: npm run merge-report
-          when: always
-      - run:
-          command: npm run generate-report        
-          when: always
-      - store_test_results:
-          path: test/cypress/reports
-      - store_artifacts:
-          path: test/cypress/reports
-      - store_artifacts:
-          path: test/cypress/screenshots
-      - store_artifacts:
-          path: test/cypress/videos
 
   semantic-release:
     docker:
@@ -67,25 +38,11 @@ workflows:
   commit:
     jobs:
       - unit
-      - integration
       - semantic-release:
           requires:
             - unit
-            - integration
           filters:
             branches:
               only:
                 - master
                 - canary
-
-  # run in master every hour, 0:40, 1:40...
-  schedule:
-    jobs:
-      - integration
-    triggers:
-      - schedule:
-          cron: '0 * * * *'
-          filters:
-            branches:
-              only:
-                - master
