@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   unit:
     docker:
-      - image: cimg/node:16.13.0
+      - image: cimg/node:16.13.2
         environment:
           ## this enables colors in the output
           TERM: xterm
@@ -19,7 +19,7 @@ jobs:
 
   semantic-release:
     docker:
-      - image: circleci/node:12
+      - image: circleci/node:16.13.2
     steps:
       - checkout
       - run:
