@@ -35,7 +35,8 @@ describe('initializeApi(currentWindow, apiCreator)', function () {
       const cb = sinon.spy()
       sendConnect(this.dom)
       await wait()
-      await this.init(cb)
+      this.init(cb)
+      await wait()
       expect(cb).to.be.called // eslint-disable-line no-unused-expressions
     })
 
