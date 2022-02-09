@@ -33,7 +33,7 @@
     "lint-staged": "lint-staged"
   },
   "devDependencies": {
-    "@semantic-release/changelog": "5.0.1",
+    "@semantic-release/changelog": "6.0.1",
     "@semantic-release/exec": "5.0.0",
     "@semantic-release/git": "9.0.1",
     "@testing-library/dom": "8.11.3",
