@@ -1,51 +1,50 @@
-## [4.3.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.0...v4.3.1) (2021-11-10)
-
+## [4.3.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.1...v4.3.2) (2022-02-09)
 
 ### Bug Fixes
 
-* export team type ([#1072](https://github.com/contentful/ui-extensions-sdk/issues/1072)) ([2845c96](https://github.com/contentful/ui-extensions-sdk/commit/2845c966f663df42a0fd47aaf4b34acee18565d6))
+- return same SDK instance when calling `init` multiple times ([#1173](https://github.com/contentful/ui-extensions-sdk/issues/1173)) ([8acc077](https://github.com/contentful/ui-extensions-sdk/commit/8acc077ca5f168ed22a292f624f98384e775ab62))
+
+## [4.3.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.0...v4.3.1) (2021-11-10)
+
+### Bug Fixes
+
+- export team type ([#1072](https://github.com/contentful/ui-extensions-sdk/issues/1072)) ([2845c96](https://github.com/contentful/ui-extensions-sdk/commit/2845c966f663df42a0fd47aaf4b34acee18565d6))
 
 # [4.3.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.2.1...v4.3.0) (2021-10-26)
 
-
 ### Features
 
-* [EXT-2755] add save and (un)publish command ([#1040](https://github.com/contentful/ui-extensions-sdk/issues/1040)) ([f1a4de4](https://github.com/contentful/ui-extensions-sdk/commit/f1a4de47dfc73ad1624cf0292745ce594b6250eb))
+- [EXT-2755] add save and (un)publish command ([#1040](https://github.com/contentful/ui-extensions-sdk/issues/1040)) ([f1a4de4](https://github.com/contentful/ui-extensions-sdk/commit/f1a4de47dfc73ad1624cf0292745ce594b6250eb))
 
 ## [4.2.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.2.0...v4.2.1) (2021-10-07)
 
-
 ### Bug Fixes
 
-* LinkContentTypeValidationError contains a list of content types ([#1021](https://github.com/contentful/ui-extensions-sdk/issues/1021)) ([64a8c05](https://github.com/contentful/ui-extensions-sdk/commit/64a8c05a022275f85a5138d9186de98e9079aadb))
+- LinkContentTypeValidationError contains a list of content types ([#1021](https://github.com/contentful/ui-extensions-sdk/issues/1021)) ([64a8c05](https://github.com/contentful/ui-extensions-sdk/commit/64a8c05a022275f85a5138d9186de98e9079aadb))
 
 # [4.2.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.1.1...v4.2.0) (2021-10-06)
 
-
 ### Features
 
-* export Action and ValidationError types ([#1018](https://github.com/contentful/ui-extensions-sdk/issues/1018)) ([dcff361](https://github.com/contentful/ui-extensions-sdk/commit/dcff361863c5ed1d6448d834277db26385cd6f8a))
+- export Action and ValidationError types ([#1018](https://github.com/contentful/ui-extensions-sdk/issues/1018)) ([dcff361](https://github.com/contentful/ui-extensions-sdk/commit/dcff361863c5ed1d6448d834277db26385cd6f8a))
 
 ## [4.1.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.1.0...v4.1.1) (2021-10-06)
 
-
 ### Bug Fixes
 
-* [3161] use correct type for conflicting errors ([#1017](https://github.com/contentful/ui-extensions-sdk/issues/1017)) ([621a1d0](https://github.com/contentful/ui-extensions-sdk/commit/621a1d0d8f4e7b1ab45278377ba58fff76e09a4f))
+- [3161] use correct type for conflicting errors ([#1017](https://github.com/contentful/ui-extensions-sdk/issues/1017)) ([621a1d0](https://github.com/contentful/ui-extensions-sdk/commit/621a1d0d8f4e7b1ab45278377ba58fff76e09a4f))
 
 # [4.1.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.1...v4.1.0) (2021-10-05)
 
-
 ### Features
 
-* [] export validation error type ([#1011](https://github.com/contentful/ui-extensions-sdk/issues/1011)) ([983407e](https://github.com/contentful/ui-extensions-sdk/commit/983407ebffe0b818c01a80bf4fa6f2a6c301aa5d))
+- [] export validation error type ([#1011](https://github.com/contentful/ui-extensions-sdk/issues/1011)) ([983407e](https://github.com/contentful/ui-extensions-sdk/commit/983407ebffe0b818c01a80bf4fa6f2a6c301aa5d))
 
 ## [4.0.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.0.0...v4.0.1) (2021-10-05)
 
-
 ### Bug Fixes
 
-* measure old css file usage ([#1010](https://github.com/contentful/ui-extensions-sdk/issues/1010)) ([7dcd079](https://github.com/contentful/ui-extensions-sdk/commit/7dcd079c5f17f0a4e01e48e8184f0285dd0e9e1b))
+- measure old css file usage ([#1010](https://github.com/contentful/ui-extensions-sdk/issues/1010)) ([7dcd079](https://github.com/contentful/ui-extensions-sdk/commit/7dcd079c5f17f0a4e01e48e8184f0285dd0e9e1b))
 
 # [4.0.0](https://github.com/contentful/ui-extensions-sdk/compare/v3.42.0...v4.0.0) (2021-10-05)
 
