@@ -64,6 +64,19 @@ describe('initializeApi(currentWindow, apiCreator)', function () {
 
       sendConnect(this.dom)
     })
+
+    it('receives same sdk instance when init is called twice', async function () {
+      const cbA = sinon.spy()
+      const cbB = sinon.spy()
+      sendConnect(this.dom)
+      this.init(cbA)
+      this.init(cbB)
+      await wait()
+
+      expect(cbA).to.be.called // eslint-disable-line no-unused-expressions
+      expect(cbB).to.be.called // eslint-disable-line no-unused-expressions
+      expect(cbA.getCall(0).args[0]).to.eq(cbB.getCall(0).args[0])
+    })
   })
 
   it('calls apiCreator with channel and params', function () {
