@@ -38,25 +38,23 @@ Learn more about local development with the ui-extension-sdk here:
     }
 
     if (!initializedSdks) {
-      initializedSdks = new Promise((resolve) => {
-        connectDeferred.promise.then(([channel, params, messageQueue]) => {
-          const api = apiCreator(channel, params, currentWindow)
+      initializedSdks = connectDeferred.promise.then(([channel, params, messageQueue]) => {
+        const api = apiCreator(channel, params, currentWindow)
 
-          let customApi
-          if (typeof makeCustomApi === 'function') {
-            customApi = makeCustomApi(channel, params)
-          }
+        let customApi
+        if (typeof makeCustomApi === 'function') {
+          customApi = makeCustomApi(channel, params)
+        }
 
-          // Handle pending incoming messages.
-          // APIs are created before so handlers are already
-          // registered on the channel.
-          messageQueue.forEach((m) => {
-            // TODO Expose private handleMessage method
-            ;(channel as any)._handleMessage(m)
-          })
-
-          resolve([api, customApi])
+        // Handle pending incoming messages.
+        // APIs are created before so handlers are already
+        // registered on the channel.
+        messageQueue.forEach((m) => {
+          // TODO Expose private handleMessage method
+          ;(channel as any)._handleMessage(m)
         })
+
+        return [api, customApi]
       })
     }
 
