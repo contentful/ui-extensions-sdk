@@ -51,7 +51,7 @@
     "chai-as-promised": "7.1.1",
     "contentful-management": "8.1.0",
     "cross-spawn": "7.0.3",
-    "eslint": "7.32.0",
+    "eslint": "8.8.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-config-standard": "16.0.3",
     "eslint-plugin-import": "2.25.4",
