@@ -192,13 +192,13 @@ export interface BaseExtensionSDK {
 
 export type EditorExtensionSDK = Omit<BaseExtensionSDK, 'ids'> &
   SharedEditorSDK & {
-    /** A set of IDs actual for the app */
+    /** A set of IDs for the app */
     ids: Omit<IdsAPI, 'field'>
   }
 
 export type SidebarExtensionSDK = Omit<BaseExtensionSDK, 'ids'> &
   SharedEditorSDK & {
-    /** A set of IDs actual for the app */
+    /** A set of IDs for the app */
     ids: Omit<IdsAPI, 'field'>
     /** Methods to update the size of the iframe the app is contained within.  */
     window: WindowAPI
@@ -206,6 +206,8 @@ export type SidebarExtensionSDK = Omit<BaseExtensionSDK, 'ids'> &
 
 export type FieldExtensionSDK = BaseExtensionSDK &
   SharedEditorSDK & {
+    /** A set of IDs for the app */
+    ids: IdsAPI
     /** Gives you access to the value and metadata of the field the app is attached to. */
     field: FieldAPI
     /** Methods to update the size of the iframe the app is contained within.  */
@@ -213,7 +215,7 @@ export type FieldExtensionSDK = BaseExtensionSDK &
   }
 
 export type DialogExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
-  /** A set of IDs actual for the app */
+  /** A set of IDs for the app */
   ids: Omit<IdsAPI, EntryScopedIds>
   /** Closes the dialog and resolves openCurrentApp promise with data */
   close: (data?: any) => void
