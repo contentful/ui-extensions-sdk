@@ -1,3 +1,9 @@
+## [4.3.3](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.2...v4.3.3) (2022-02-14)
+
+### Bug Fixes
+
+- [EXT-3363] use correct IDS api for fields ([#1184](https://github.com/contentful/ui-extensions-sdk/issues/1184)) ([84daaa2](https://github.com/contentful/ui-extensions-sdk/commit/84daaa21fd371cbfef8bd9ec0ba6b606ba689869))
+
 ## [4.3.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.1...v4.3.2) (2022-02-09)
 
 ### Bug Fixes
