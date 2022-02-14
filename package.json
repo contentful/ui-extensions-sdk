@@ -37,7 +37,7 @@
     "@semantic-release/exec": "6.0.3",
     "@semantic-release/git": "10.0.1",
     "@testing-library/dom": "8.11.3",
-    "@types/chai-as-promised": "7.1.4",
+    "@types/chai-as-promised": "7.1.5",
     "@types/cross-spawn": "6.0.2",
     "@types/fs-extra": "9.0.13",
     "@types/jsdom": "16.2.14",
