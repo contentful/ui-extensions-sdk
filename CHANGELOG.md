@@ -1,3 +1,9 @@
+## [4.3.4](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.3...v4.3.4) (2022-02-21)
+
+### Bug Fixes
+
+- support contentful-management v8 and later ([#1190](https://github.com/contentful/ui-extensions-sdk/issues/1190)) ([45fdefe](https://github.com/contentful/ui-extensions-sdk/commit/45fdefe10abda5ae69703a5e1dd981152966fddc))
+
 ## [4.3.3](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.2...v4.3.3) (2022-02-14)
 
 ### Bug Fixes
