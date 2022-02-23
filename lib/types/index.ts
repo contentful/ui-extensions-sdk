@@ -106,3 +106,11 @@ export type {
 } from './validation-error'
 
 export type { WindowAPI } from './window.types'
+
+export type {
+  EntryListExtraDataType,
+  OnEntryListUpdatedHandlerReturn,
+  OnEntryListUpdatedHandlerProps,
+  OnEntryListUpdatedHandler,
+  EntryListAPI,
+} from './entryList.types'

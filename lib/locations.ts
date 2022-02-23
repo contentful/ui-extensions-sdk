@@ -8,6 +8,7 @@ const locations: Locations = {
   LOCATION_ENTRY_EDITOR: 'entry-editor',
   LOCATION_PAGE: 'page',
   LOCATION_APP_CONFIG: 'app-config',
+  LOCATION_ENTRY_LIST: 'entry-list',
 }
 
 export default locations
