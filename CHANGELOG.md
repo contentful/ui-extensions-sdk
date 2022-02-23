@@ -1,3 +1,9 @@
+## [4.3.5](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.4...v4.3.5) (2022-02-23)
+
+### Bug Fixes
+
+- explicitly state 5.0.0 deprecation plan ([#1194](https://github.com/contentful/ui-extensions-sdk/issues/1194)) ([6a73271](https://github.com/contentful/ui-extensions-sdk/commit/6a7327116f99f7ee3791e111ea37e6670d600127))
+
 ## [4.3.4](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.3...v4.3.4) (2022-02-21)
 
 ### Bug Fixes
