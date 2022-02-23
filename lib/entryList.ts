@@ -41,7 +41,7 @@ export default function createEntryList(channel: Channel): EntryListAPI {
   return {
     onEntryListUpdated(handler: OnEntryListUpdatedHandler) {
       if (!isFunction(handler)) {
-        throw new Error('OnEntryListUpdated handler must be a function.')
+        throw new Error('OnEntryListUpdated handler must be a function')
       } else {
         _handler = handler
       }
