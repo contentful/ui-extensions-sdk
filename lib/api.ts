@@ -8,7 +8,7 @@ import createEditor from './editor'
 import createNavigator from './navigator'
 import createApp from './app'
 import locations from './locations'
-import createEntryList from './entryList'
+import createEntryList from './entry-list'
 import {
   BaseExtensionSDK,
   EntryFieldInfo,

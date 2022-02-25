@@ -113,4 +113,4 @@ export type {
   OnEntryListUpdatedHandlerProps,
   OnEntryListUpdatedHandler,
   EntryListAPI,
-} from './entryList.types'
+} from './entry-list.types'
