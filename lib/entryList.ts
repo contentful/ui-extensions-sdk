@@ -30,7 +30,7 @@ export default function createEntryList(channel: Channel): EntryListAPI {
   let _handler: OnEntryListUpdatedHandler | null = null
 
   channel.addHandler(
-    'entryList',
+    'entryListUpdated',
     ({ msgId, props }: { msgId: string; props: OnEntryListUpdatedHandlerProps }) => {
       return runHandler(_handler, props).then((result: OnEntryListUpdatedHandlerReturn) => {
         return channel.send('entryListResult', { msgId, result })

@@ -32,7 +32,7 @@ describe('createEntryList()', () => {
       ) => {
         expect(channelStub.addHandler).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
         const [channelMethod, sendMessage] = channelStub.addHandler.args[0]
-        expect(channelMethod).to.eql('entryList')
+        expect(channelMethod).to.eql('entryListUpdated')
 
         if (handler) {
           entryList.onEntryListUpdated(handler)
