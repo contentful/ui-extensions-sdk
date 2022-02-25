@@ -19,7 +19,7 @@ import { AppConfigAPI } from './app.types'
 import { NavigatorAPI } from './navigator.types'
 import { EntryFieldInfo, FieldInfo } from './field.types'
 import { Adapter } from 'contentful-management/types'
-import { EntryListAPI } from './entryList.types'
+import { EntryListAPI } from './entry-list.types'
 
 /* User API */
 

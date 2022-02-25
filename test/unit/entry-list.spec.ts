@@ -1,6 +1,6 @@
 import { sinon, expect } from '../helpers'
 
-import createEntryList from '../../lib/entryList'
+import createEntryList from '../../lib/entry-list'
 import {
   EntryListAPI,
   OnEntryListUpdatedHandler,
