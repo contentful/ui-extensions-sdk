@@ -1,3 +1,6 @@
+// TODO: specify entries type
+export type EntryListEntriesType = any
+
 export type EntryListExtraDataType = {
   values: { [entryId: string]: string }
 }
@@ -5,8 +8,7 @@ export type EntryListExtraDataType = {
 export type OnEntryListUpdatedHandlerReturn = { data: EntryListExtraDataType } | false
 
 export type OnEntryListUpdatedHandlerProps = {
-  // TODO: specify entries type
-  entries: any
+  entries: EntryListEntriesType
 }
 
 export type OnEntryListUpdatedHandler = (
