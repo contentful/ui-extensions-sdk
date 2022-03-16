@@ -6,26 +6,6 @@ import {
   OnEntryListUpdatedHandlerReturn,
 } from './types'
 
-const isFunction = (f: any) => typeof f === 'function'
-
-const runHandler = async (
-  handler: OnEntryListUpdatedHandler | null,
-  handlerArg: OnEntryListUpdatedHandlerProps
-) => {
-  try {
-    // Handler was not registered. Registering a handler is required.
-    if (!handler) {
-      throw new Error('Registering an onEntryListUpdated handler is required')
-    }
-
-    // await will accept both async and sync functions, no need for the isPromise check
-    return await handler(handlerArg)
-  } catch (error) {
-    console.error(error)
-    return false
-  }
-}
-
 export default function createEntryList(channel: Channel): EntryListAPI {
   let _handler: OnEntryListUpdatedHandler | null = null
 
@@ -47,4 +27,54 @@ export default function createEntryList(channel: Channel): EntryListAPI {
       }
     },
   }
+}
+
+const isFunction = (f: any) => typeof f === 'function'
+
+const runHandler = async (
+  handler: OnEntryListUpdatedHandler | null,
+  handlerArg: OnEntryListUpdatedHandlerProps
+) => {
+  try {
+    // Handler was not registered. Registering a handler is required.
+    if (!handler) {
+      throw new Error('Registering an onEntryListUpdated handler is required')
+    }
+
+    // await will accept both async and sync functions, no need for the isPromise check
+    const result = await handler(handlerArg)
+    return validateResult(result)
+  } catch (error) {
+    console.error(error)
+    return false
+  }
+}
+
+const validateResult = (result: OnEntryListUpdatedHandlerReturn) => {
+  if (result === false || isDataValid(result.data)) {
+    return result
+  }
+
+  throw new Error(`EntryListResult is not valid.`)
+}
+
+const schema: Record<string, (value: unknown) => boolean> = {
+  values: (value) =>
+    typeof value === 'object' &&
+    Object.keys(value as Record<string, unknown>).length > 0 &&
+    Object.values(value as Record<string, unknown>).every((item) => typeof item === 'string'),
+}
+
+const isDataValid = (data: Record<string, unknown>) => {
+  return Object.keys(data).every((key: string) => {
+    if (!(key in schema)) {
+      throw new Error(`EntryListResult data is invalid. Key "${key}" is not allowed.`)
+    }
+
+    if (!schema[key](data[key])) {
+      throw new Error(`EntryListResult data is invalid. Invalid value of key "${key}"`)
+    }
+
+    return true
+  })
 }
