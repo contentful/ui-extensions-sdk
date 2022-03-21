@@ -81,7 +81,7 @@ describe('createEntryList()', () => {
       it('returns false when a promise rejects', () =>
         test(() => Promise.reject(new Error()), false))
 
-      it('returns false if the result data hasn`t valid key', () =>
+      it('returns false if the result data has invalid key', () =>
         test(
           () => ({
             data: {
@@ -93,7 +93,7 @@ describe('createEntryList()', () => {
           false
         ))
 
-      it('returns false if the result data hasn`t valid values type', () =>
+      it('returns false if the result data has an invalid value type', () =>
         test(
           () => ({
             data: {

@@ -11,25 +11,22 @@ export default function createEntryList(channel: Channel): EntryListAPI {
 
   channel.addHandler(
     'entryListUpdated',
-    ({ msgId, props }: { msgId: string; props: OnEntryListUpdatedHandlerProps }) => {
-      return runHandler(_handler, props).then((result: OnEntryListUpdatedHandlerReturn) => {
-        return channel.send('entryListResult', { msgId, result })
-      })
+    async ({ msgId, props }: { msgId: string; props: OnEntryListUpdatedHandlerProps }) => {
+      const result = await runHandler(_handler, props)
+      return channel.send('entryListResult', { msgId, result })
     }
   )
 
   return {
     onEntryListUpdated(handler: OnEntryListUpdatedHandler) {
-      if (!isFunction(handler)) {
+      if (!(typeof handler === 'function')) {
         throw new Error('OnEntryListUpdated handler must be a function')
-      } else {
-        _handler = handler
       }
+
+      _handler = handler
     },
   }
 }
-
-const isFunction = (f: any) => typeof f === 'function'
 
 const runHandler = async (
   handler: OnEntryListUpdatedHandler | null,
@@ -43,7 +40,9 @@ const runHandler = async (
 
     // await will accept both async and sync functions, no need for the isPromise check
     const result = await handler(handlerArg)
-    return validateResult(result)
+    validateResult(result)
+
+    return result
   } catch (error) {
     console.error(error)
     return false
@@ -51,8 +50,13 @@ const runHandler = async (
 }
 
 const validateResult = (result: OnEntryListUpdatedHandlerReturn) => {
-  if (result === false || isDataValid(result.data)) {
-    return result
+  if (result === false) {
+    return
+  }
+
+  if (typeof result === 'object' && result.data) {
+    validateData(result.data)
+    return
   }
 
   throw new Error(`EntryListResult is not valid.`)
@@ -65,16 +69,20 @@ const schema: Record<string, (value: unknown) => boolean> = {
     Object.values(value as Record<string, unknown>).every((item) => typeof item === 'string'),
 }
 
-const isDataValid = (data: Record<string, unknown>) => {
-  return Object.keys(data).every((key: string) => {
+const validateData = (data: Record<string, unknown>) => {
+  const dataKeys = Object.keys(data)
+
+  if (dataKeys.length === 0) {
+    throw new Error(`EntryListResult data is invalid.`)
+  }
+
+  dataKeys.forEach((key: string) => {
     if (!(key in schema)) {
       throw new Error(`EntryListResult data is invalid. Key "${key}" is not allowed.`)
     }
 
     if (!schema[key](data[key])) {
-      throw new Error(`EntryListResult data is invalid. Invalid value of key "${key}"`)
+      throw new Error(`EntryListResult data is invalid. Invalid value of key "${key}."`)
     }
-
-    return true
   })
 }
