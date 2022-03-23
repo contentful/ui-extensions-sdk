@@ -5,17 +5,24 @@ import {
   OnEntryListUpdatedHandlerProps,
   OnEntryListUpdatedHandlerReturn,
 } from './types'
+import { MemoizedSignal } from './signal'
 
 export default function createEntryList(channel: Channel): EntryListAPI {
   let _handler: OnEntryListUpdatedHandler | null = null
+  const entryListCachedData = new MemoizedSignal(undefined)
 
-  channel.addHandler(
-    'entryListUpdated',
-    async ({ msgId, props }: { msgId: string; props: OnEntryListUpdatedHandlerProps }) => {
-      const result = await runHandler(_handler, props)
-      return channel.send('entryListResult', { msgId, result })
-    }
-  )
+  const entryListUpdatedHandler = async ({
+    msgId,
+    props,
+  }: {
+    msgId: string
+    props: OnEntryListUpdatedHandlerProps
+  }) => {
+    const result = await runHandler(_handler, props)
+    return channel.send('entryListResult', { msgId, result })
+  }
+
+  channel.addHandler('entryListUpdated', (args: any) => entryListCachedData.dispatch(args))
 
   return {
     onEntryListUpdated(handler: OnEntryListUpdatedHandler) {
@@ -24,6 +31,7 @@ export default function createEntryList(channel: Channel): EntryListAPI {
       }
 
       _handler = handler
+      entryListCachedData.attach(entryListUpdatedHandler)
     },
   }
 }

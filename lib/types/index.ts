@@ -23,6 +23,7 @@ export type {
   SidebarExtensionSDK,
   UserAPI,
   JSONPatchItem,
+  EntryListExtensionSDK,
 } from './api.types'
 
 export type {
