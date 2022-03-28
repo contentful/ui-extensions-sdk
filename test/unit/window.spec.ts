@@ -44,7 +44,13 @@ describe(`createWindow()`, () => {
             expect(updateHeightSpy).to.have.callCount(1)
             done()
           })
-          modifyDOM()
+          modifyDOM([
+            {
+              type: 'childList',
+              addedNodes: [],
+              removedNodes: [],
+            },
+          ])
         })
 
         it(`listens to global "resize" event and invokes .updateHeight()`, () => {
