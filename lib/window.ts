@@ -1,5 +1,5 @@
 import { Channel } from './channel'
-import { WindowAPI } from './types'
+import { WindowAPI } from './types/window.types'
 
 export default function createWindow(currentWindow: Window, channel: Channel): WindowAPI {
   // We assume MutationObserver was defined by the web-app
@@ -8,12 +8,49 @@ export default function createWindow(currentWindow: Window, channel: Channel): W
   const autoUpdateHeight = () => {
     self.updateHeight()
   }
-  const observer = new MutationObserver(autoUpdateHeight)
+
+  const heightObserverCallback = (mutations: Array<MutationRecord>) => {
+    checkAbsolutePositionedElems(mutations)
+    autoUpdateHeight()
+  }
+
+  const observer = new MutationObserver(heightObserverCallback)
   let oldHeight: number
   let isAutoResizing = false
+  const absolutePositionedElems: Set<Node> = new Set()
 
   const self = { startAutoResizer, stopAutoResizer, updateHeight }
   return self
+
+  function checkAbsolutePositionedElems(mutations: Array<MutationRecord>) {
+    mutations.forEach((mutation) => {
+      if (mutation.type === 'attributes') {
+        if (mutation.target.nodeType === 1) {
+          const node = mutation.target
+          const computedStyle = window.getComputedStyle(node as Element)
+          if (computedStyle.position === 'absolute' && computedStyle.display !== 'none') {
+            absolutePositionedElems.add(node)
+          } else {
+            absolutePositionedElems.delete(node)
+          }
+        }
+      } else if (mutation.type === 'childList') {
+        if (mutation.addedNodes.length > 0) {
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeType === 1) {
+              const computedStyle = window.getComputedStyle(node as Element)
+              if (computedStyle.position === 'absolute') absolutePositionedElems.add(node)
+            }
+          })
+        }
+        if (mutation.removedNodes.length > 0) {
+          mutation.removedNodes.forEach((node) => {
+            absolutePositionedElems.delete(node)
+          })
+        }
+      }
+    })
+  }
 
   function startAutoResizer() {
     self.updateHeight()
@@ -52,9 +89,7 @@ export default function createWindow(currentWindow: Window, channel: Channel): W
       )
 
       if (documentHeight !== fullDocumentHeight) {
-        const allAbsolutePositionedElems = document.querySelectorAll('[data-position-absolute]')
-
-        height = allAbsolutePositionedElems.length > 0 ? fullDocumentHeight : documentHeight
+        height = absolutePositionedElems.size > 0 ? fullDocumentHeight : documentHeight
       } else {
         height = documentHeight
       }
