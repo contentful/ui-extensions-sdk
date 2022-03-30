@@ -5,39 +5,35 @@ import {
   OnEntryListUpdatedHandlerProps,
   OnEntryListUpdatedHandlerReturn,
 } from './types'
-import { MemoizedSignal } from './signal'
+
+interface Message {
+  msgId: string
+  props: OnEntryListUpdatedHandlerProps
+}
 
 export default function createEntryList(channel: Channel): EntryListAPI {
   let _handler: OnEntryListUpdatedHandler | null = null
-  const entryListCachedData = new MemoizedSignal(undefined)
+  let cachedMessage: Message | undefined
 
-  const entryListUpdatedHandler = async (
-    args:
-      | {
-          msgId: string
-          props: OnEntryListUpdatedHandlerProps
-        }
-      | undefined
-  ) => {
-    if (!args) {
-      return
-    }
+  const entryListUpdatedHandler = async (message: Message) => {
+    cachedMessage = message
 
-    const { msgId, props } = args
-    const result = await runHandler(_handler, props)
-    return channel.send('entryListResult', { msgId, result })
+    const result = await runHandler(_handler, message.props)
+    return channel.send('entryListResult', { msgId: message.msgId, result })
   }
 
-  channel.addHandler('entryListUpdated', (args: any) => entryListCachedData.dispatch(args))
+  channel.addHandler('entryListUpdated', entryListUpdatedHandler)
 
   return {
     onEntryListUpdated(handler: OnEntryListUpdatedHandler) {
-      if (!(typeof handler === 'function')) {
+      if (typeof handler !== 'function') {
         throw new Error('OnEntryListUpdated handler must be a function')
       }
 
       _handler = handler
-      entryListCachedData.attach(entryListUpdatedHandler)
+      if (cachedMessage) {
+        entryListUpdatedHandler(cachedMessage)
+      }
     },
   }
 }
