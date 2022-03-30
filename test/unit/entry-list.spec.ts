@@ -64,8 +64,6 @@ describe('createEntryList()', () => {
         sinon.assert.calledOnce(second)
       })
 
-      it('returns false when handler is not defined', () => test(undefined, false))
-
       it('returns result when handler is sync function', () => test(() => DATA_STUB, DATA_STUB))
 
       it('returns result when handler is async function', () =>

@@ -12,11 +12,15 @@ interface Message {
 }
 
 export default function createEntryList(channel: Channel): EntryListAPI {
-  let _handler: OnEntryListUpdatedHandler | null = null
+  let _handler: OnEntryListUpdatedHandler | undefined
   let cachedMessage: Message | undefined
 
   const entryListUpdatedHandler = async (message: Message) => {
     cachedMessage = message
+
+    if (!_handler) {
+      return
+    }
 
     const result = await runHandler(_handler, message.props)
     return channel.send('entryListResult', { msgId: message.msgId, result })
@@ -39,15 +43,10 @@ export default function createEntryList(channel: Channel): EntryListAPI {
 }
 
 const runHandler = async (
-  handler: OnEntryListUpdatedHandler | null,
+  handler: OnEntryListUpdatedHandler,
   handlerArg: OnEntryListUpdatedHandlerProps
 ) => {
   try {
-    // Handler was not registered. Registering a handler is required.
-    if (!handler) {
-      throw new Error('Registering an onEntryListUpdated handler is required')
-    }
-
     // await will accept both async and sync functions, no need for the isPromise check
     const result = await handler(handlerArg)
     validateResult(result)
