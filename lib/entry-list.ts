@@ -11,13 +11,19 @@ export default function createEntryList(channel: Channel): EntryListAPI {
   let _handler: OnEntryListUpdatedHandler | null = null
   const entryListCachedData = new MemoizedSignal(undefined)
 
-  const entryListUpdatedHandler = async ({
-    msgId,
-    props,
-  }: {
-    msgId: string
-    props: OnEntryListUpdatedHandlerProps
-  }) => {
+  const entryListUpdatedHandler = async (
+    args:
+      | {
+          msgId: string
+          props: OnEntryListUpdatedHandlerProps
+        }
+      | undefined
+  ) => {
+    if (!args) {
+      return
+    }
+
+    const { msgId, props } = args
     const result = await runHandler(_handler, props)
     return channel.send('entryListResult', { msgId, result })
   }
@@ -62,12 +68,12 @@ const validateResult = (result: OnEntryListUpdatedHandlerReturn) => {
     return
   }
 
-  if (typeof result === 'object' && result.data) {
-    validateData(result.data)
+  if (typeof result === 'object') {
+    validateData(result)
     return
   }
 
-  throw new Error(`EntryListResult is not valid.`)
+  throw new Error(`EntryListResult is invalid.`)
 }
 
 const schema: Record<string, (value: unknown) => boolean> = {

@@ -5,7 +5,7 @@ export type EntryListExtraDataType = {
   values: { [entryId: string]: string }
 }
 
-export type OnEntryListUpdatedHandlerReturn = { data: EntryListExtraDataType } | false
+export type OnEntryListUpdatedHandlerReturn = EntryListExtraDataType | false
 
 export type OnEntryListUpdatedHandlerProps = {
   entries: EntryListEntriesType

@@ -8,10 +8,8 @@ import {
 } from '../../lib/types'
 
 const DATA_STUB: OnEntryListUpdatedHandlerReturn = {
-  data: {
-    values: {
-      entryId: 'value',
-    },
+  values: {
+    entryId: 'value',
   },
 }
 
@@ -83,24 +81,21 @@ describe('createEntryList()', () => {
 
       it('returns false if the result data has invalid key', () =>
         test(
-          () => ({
-            data: {
+          () =>
+            ({
               wrongKey: {
                 entryId: 'value',
               },
-            } as any,
-          }),
+            } as any),
           false
         ))
 
       it('returns false if the result data has an invalid value type', () =>
         test(
           () => ({
-            data: {
-              values: {
-                entryId: {},
-              },
-            } as any,
+            values: {
+              entryId: {} as any,
+            },
           }),
           false
         ))
@@ -108,9 +103,7 @@ describe('createEntryList()', () => {
       it('returns false if the result data has empty values', () =>
         test(
           () => ({
-            data: {
-              values: {},
-            } as any,
+            values: {},
           }),
           false
         ))
