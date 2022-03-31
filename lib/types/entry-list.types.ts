@@ -1,6 +1,5 @@
 import { EntryProps } from 'contentful-management/types'
 
-// TODO: specify entries type
 export type EntryListEntriesType = EntryProps[]
 
 export type EntryListExtraDataType = {
