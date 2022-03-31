@@ -10,14 +10,17 @@ export default function createWindow(currentWindow: Window, channel: Channel): W
   }
 
   const heightObserverCallback = (mutations: Array<MutationRecord>) => {
-    checkAbsolutePositionedElems(mutations)
+    if (checkAbsoluteElements) {
+      checkAbsolutePositionedElems(mutations)
+    }
     autoUpdateHeight()
   }
 
   const observer = new MutationObserver(heightObserverCallback)
   let oldHeight: number
   let isAutoResizing = false
-  const absolutePositionedElems: Set<Node> = new Set()
+  let checkAbsoluteElements = false
+  const absolutePositionedElems: Set<Element> = new Set()
 
   const self = { startAutoResizer, stopAutoResizer, updateHeight }
   return self
@@ -25,9 +28,9 @@ export default function createWindow(currentWindow: Window, channel: Channel): W
   function checkAbsolutePositionedElems(mutations: Array<MutationRecord>) {
     mutations.forEach((mutation) => {
       if (mutation.type === 'attributes') {
-        if (mutation.target.nodeType === 1) {
-          const node = mutation.target
-          const computedStyle = window.getComputedStyle(node as Element)
+        if (mutation.target.nodeType === Node.ELEMENT_NODE) {
+          const node = mutation.target as Element
+          const computedStyle = window.getComputedStyle(node)
           if (computedStyle.position === 'absolute' && computedStyle.display !== 'none') {
             absolutePositionedElems.add(node)
           } else {
@@ -35,25 +38,24 @@ export default function createWindow(currentWindow: Window, channel: Channel): W
           }
         }
       } else if (mutation.type === 'childList') {
-        if (mutation.addedNodes.length > 0) {
-          mutation.addedNodes.forEach((node) => {
-            if (node.nodeType === 1) {
-              const computedStyle = window.getComputedStyle(node as Element)
-              if (computedStyle.position === 'absolute') absolutePositionedElems.add(node)
-            }
-          })
-        }
-        if (mutation.removedNodes.length > 0) {
-          mutation.removedNodes.forEach((node) => {
-            absolutePositionedElems.delete(node)
-          })
-        }
+        mutation.addedNodes.forEach((node) => {
+          const element = node as Element
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            const computedStyle = window.getComputedStyle(element)
+            if (computedStyle.position === 'absolute') absolutePositionedElems.add(element)
+          }
+        })
+        mutation.removedNodes.forEach((node) => {
+          const element = node as Element
+          absolutePositionedElems.delete(element)
+        })
       }
     })
   }
 
-  function startAutoResizer() {
+  function startAutoResizer({ absoluteElements = false } = {}) {
     self.updateHeight()
+    checkAbsoluteElements = Boolean(absoluteElements)
     if (isAutoResizing) {
       return
     }
@@ -80,11 +82,7 @@ export default function createWindow(currentWindow: Window, channel: Channel): W
     if (height === null) {
       const documentHeight = Math.ceil(document.documentElement.getBoundingClientRect().height)
       const fullDocumentHeight = Math.max(
-        document.body.scrollHeight,
         document.body.offsetHeight,
-        document.body.clientHeight,
-        document.documentElement.clientHeight,
-        document.documentElement.scrollHeight,
         document.documentElement.offsetHeight
       )
 
