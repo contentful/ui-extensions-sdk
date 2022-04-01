@@ -73,4 +73,4 @@ Includes utility tools for maintainers.
 
 #### `test`
 
-Includes integration tests (run by [Cypress](https://www.cypress.io/)) and unit tests (run by [mocha](https://mochajs.org/))
+Includes unit tests (run by [mocha](https://mochajs.org/))

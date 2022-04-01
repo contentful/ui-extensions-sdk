@@ -1,3 +1,5 @@
+import { Link } from './utils'
+
 export interface BaseValidationError {
   name: string
   message?: string
@@ -30,7 +32,7 @@ export interface RequiredValidationError extends BaseValidationError {
 
 export interface UniqueValidationError extends BaseValidationError {
   name: 'unique'
-  conflicting: string[]
+  conflicting: Link<'Entry', 'Link'>[]
 }
 
 export interface ProhibitRegexpValidationError extends BaseValidationError {
@@ -48,7 +50,7 @@ export interface LinkMimetypeGroupValidationError extends BaseValidationError {
 
 export interface LinkContentTypeValidationError extends BaseValidationError {
   name: 'linkContentType'
-  contentTypeId: string
+  contentTypeId: string[]
 }
 
 export interface DateRangeValidationError extends BaseValidationError {
