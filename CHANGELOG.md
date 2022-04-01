@@ -1,3 +1,9 @@
+# [4.4.0-alpha.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.5...v4.4.0-alpha.1) (2022-04-01)
+
+### Features
+
+- add entry list location ([bf72726](https://github.com/contentful/ui-extensions-sdk/commit/bf727265e3872b75c1f02eb940b5879fe31c7781))
+
 ## [4.3.5](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.4...v4.3.5) (2022-02-23)
 
 ### Bug Fixes
