@@ -28,6 +28,12 @@ export interface TaskAPI {
 export interface EntryAPI extends TaskAPI {
   /** Returns sys for an entry. */
   getSys: () => ContentEntitySys
+  /** Publish the entry */
+  publish: () => Promise<void>
+  /** Unpublish the entry */
+  unpublish: () => Promise<void>
+  /** Saves the current changes of the entry */
+  save: () => Promise<void>
   /** Calls the callback with sys every time that sys changes. */
   onSysChanged: (callback: (sys: ContentEntitySys) => void) => () => void
   /** Allows to control the values of all other fields in the current entry. */

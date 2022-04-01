@@ -1,9 +1,11 @@
 export type {
   AccessAPI,
   AppExtensionSDK,
+  ArchiveableAction,
   BaseExtensionSDK,
   ConnectMessage,
   ContentTypeAPI,
+  CrudAction,
   DialogExtensionSDK,
   EditorExtensionSDK,
   EditorLocaleSettings,
@@ -16,6 +18,7 @@ export type {
   NotifierAPI,
   PageExtensionSDK,
   ParametersAPI,
+  PublishableAction,
   SharedEditorSDK,
   SidebarExtensionSDK,
   UserAPI,
@@ -38,20 +41,21 @@ export type {
 } from './dialogs.types'
 
 export type {
-  User,
   Asset,
-  ContentType,
   CanonicalRequest,
-  EditorInterface,
+  ContentType,
   ContentTypeField,
+  EditorInterface,
+  Entry,
+  Metadata,
+  Role,
   ScheduledAction,
   SpaceMembership,
   Tag,
   TagVisibility,
   Task,
-  Entry,
-  Role,
-  Metadata,
+  Team,
+  User,
 } from './entities'
 
 export type { EntryAPI, TaskAPI, TaskInputData } from './entry.types'
@@ -83,5 +87,22 @@ export type {
   WithId,
   SerializedJSONValue,
 } from './utils'
+
+export type {
+  DateRangeValidationError,
+  InValidationError,
+  LinkContentTypeValidationError,
+  LinkMimetypeGroupValidationError,
+  NotResolvableValidationError,
+  ProhibitRegexpValidationError,
+  RangeValidationError,
+  RegexpValidationError,
+  RequiredValidationError,
+  SizeValidationError,
+  TypeValidationError,
+  UniqueValidationError,
+  UnknownValidationError,
+  ValidationError,
+} from './validation-error'
 
 export type { WindowAPI } from './window.types'
