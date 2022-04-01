@@ -23,6 +23,7 @@ export type {
   SidebarExtensionSDK,
   UserAPI,
   JSONPatchItem,
+  EntryListExtensionSDK,
 } from './api.types'
 
 export type {
@@ -106,3 +107,12 @@ export type {
 } from './validation-error'
 
 export type { WindowAPI } from './window.types'
+
+export type {
+  EntryListExtraDataType,
+  OnEntryListUpdatedHandlerReturn,
+  OnEntryListUpdatedHandlerProps,
+  OnEntryListUpdatedHandler,
+  EntryListAPI,
+  EntryListEntriesType,
+} from './entry-list.types'
