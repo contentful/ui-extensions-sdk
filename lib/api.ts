@@ -35,7 +35,7 @@ const LOCATION_TO_API_PRODUCERS: { [location: string]: ProducerFunc[] } = {
   [locations.LOCATION_ENTRY_EDITOR]: [makeSharedAPI, makeEntryAPI, makeEditorAPI],
   [locations.LOCATION_DIALOG]: [makeSharedAPI, makeDialogAPI, makeWindowAPI],
   [locations.LOCATION_PAGE]: [makeSharedAPI],
-  [locations.LOCATION_APP_CONFIG]: [makeSharedAPI, makeAppAPI]
+  [locations.LOCATION_APP_CONFIG]: [makeSharedAPI, makeAppAPI],
 }
 
 export default function createAPI(
@@ -57,7 +57,7 @@ function makeSharedAPI(channel: Channel, data: ConnectMessage): BaseExtensionSDK
   return {
     cmaAdapter: createAdapter(channel),
     location: {
-      is: tested => currentLocation === tested
+      is: (tested) => currentLocation === tested,
     },
     user,
     parameters,
@@ -67,7 +67,7 @@ function makeSharedAPI(channel: Channel, data: ConnectMessage): BaseExtensionSDK
       names: locales.names,
       fallbacks: locales.fallbacks,
       optional: locales.optional,
-      direction: locales.direction
+      direction: locales.direction,
     },
     space: createSpace(channel, initialContentTypes),
     dialogs: createDialogs(channel, ids),
@@ -76,27 +76,27 @@ function makeSharedAPI(channel: Channel, data: ConnectMessage): BaseExtensionSDK
     notifier: {
       success: (message: string) => channel.send('notify', { type: 'success', message }),
       error: (message: string) => channel.send('notify', { type: 'error', message }),
-      warning: (message: string) => channel.send('notify', { type: 'warning', message })
+      warning: (message: string) => channel.send('notify', { type: 'warning', message }),
     },
     ids,
     access: {
       can: (action: string, entity: any, patch?: JSONPatchItem[]) =>
         channel.call('checkAccess', action, entity, patch) as Promise<boolean>,
-      canEditAppConfig: () => channel.call('checkAppConfigAccess') as Promise<boolean>
-    }
+      canEditAppConfig: () => channel.call('checkAppConfigAccess') as Promise<boolean>,
+    },
   }
 }
 
 function makeWindowAPI(channel: Channel, _data: any, currentWindow: Window) {
   return {
-    window: createWindow(currentWindow, channel)
+    window: createWindow(currentWindow, channel),
   }
 }
 
 function makeEditorAPI(channel: Channel, data: any) {
   const { editorInterface } = data
   return {
-    editor: createEditor(channel, editorInterface)
+    editor: createEditor(channel, editorInterface),
   }
 }
 
@@ -108,7 +108,7 @@ function makeEntryAPI(
 
   return {
     contentType,
-    entry: createEntry(channel, entry, fieldInfo, createEntryField)
+    entry: createEntry(channel, entry, fieldInfo, createEntryField),
   }
 }
 
@@ -117,13 +117,13 @@ function makeFieldAPI(channel: Channel, { field }: ConnectMessage) {
     throw new Error('FieldAPI called for location without "field" property defined.')
   }
   return {
-    field: new FieldLocale(channel, field)
+    field: new FieldLocale(channel, field),
   }
 }
 
 function makeDialogAPI(channel: Channel) {
   return {
-    close: (data: any) => channel.send('closeDialog', data)
+    close: (data: any) => channel.send('closeDialog', data),
   }
 }
 
@@ -131,6 +131,6 @@ function makeAppAPI(channel: Channel) {
   const app = createApp(channel)
 
   return {
-    app
+    app,
   }
 }
