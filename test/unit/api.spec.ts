@@ -66,7 +66,7 @@ function test(expected: string[], location: string | undefined, expectedLocation
     'optional',
     'direction',
   ])
-  expect(api.notifier).to.have.all.keys(['success', 'error'])
+  expect(api.notifier).to.have.all.keys(['success', 'error', 'warning'])
   expect(api.access).to.have.all.keys(['can', 'canEditAppConfig'])
 
   // Test location methods (currently only `is`).
