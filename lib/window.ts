@@ -81,13 +81,13 @@ export default function createWindow(currentWindow: Window, channel: Channel): W
   function updateHeight(height: number | null = null) {
     if (height === null) {
       const documentHeight = Math.ceil(document.documentElement.getBoundingClientRect().height)
-      const fullDocumentHeight = Math.max(
-        document.body.offsetHeight,
-        document.documentElement.offsetHeight
-      )
 
-      if (documentHeight !== fullDocumentHeight) {
-        height = absolutePositionedElems.size > 0 ? fullDocumentHeight : documentHeight
+      if (absolutePositionedElems.size) {
+        let maxHeight = documentHeight
+        absolutePositionedElems.forEach((element) => {
+          maxHeight = Math.max(element.getBoundingClientRect().bottom, maxHeight)
+        })
+        height = maxHeight
       } else {
         height = documentHeight
       }
