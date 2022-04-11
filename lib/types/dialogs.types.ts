@@ -20,7 +20,7 @@ export interface OpenCustomWidgetOptions {
   title?: string
   shouldCloseOnOverlayClick?: boolean
   shouldCloseOnEscapePress?: boolean
-  parameters?: Object
+  parameters?: any
 }
 
 export interface EntityDialogOptions {

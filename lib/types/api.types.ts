@@ -78,7 +78,7 @@ export interface LocationAPI {
 export interface ParametersAPI {
   installation: KeyValueMap
   instance: KeyValueMap
-  invocation?: KeyValueMap
+  invocation?: any
 }
 
 /* IDs */
