@@ -12,7 +12,7 @@ import {
 import { EntryAPI } from './entry.types'
 import { SpaceAPI } from './space.types'
 import { WindowAPI } from './window.types'
-import { ContentEntitySys, Link } from './utils'
+import { ContentEntitySys, Link, SerializedJSONValue } from './utils'
 import { FieldAPI } from './field-locale.types'
 import { DialogsAPI } from './dialogs.types'
 import { AppConfigAPI } from './app.types'
@@ -78,7 +78,7 @@ export interface LocationAPI {
 export interface ParametersAPI {
   installation: KeyValueMap
   instance: KeyValueMap
-  invocation?: any
+  invocation?: SerializedJSONValue
 }
 
 /* IDs */

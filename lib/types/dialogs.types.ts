@@ -1,3 +1,4 @@
+import { SerializedJSONValue } from './utils'
 export interface OpenAlertOptions {
   title: string
   message: string
@@ -20,7 +21,7 @@ export interface OpenCustomWidgetOptions {
   title?: string
   shouldCloseOnOverlayClick?: boolean
   shouldCloseOnEscapePress?: boolean
-  parameters?: any
+  parameters?: SerializedJSONValue
 }
 
 export interface EntityDialogOptions {
