@@ -10,10 +10,10 @@ export default function createWindow(currentWindow: Window, channel: Channel): W
   }
 
   const heightObserverCallback = (mutations: Array<MutationRecord>) => {
-    if (checkAbsoluteElements) {
-      checkAbsolutePositionedElems(mutations)
+    checkAbsolutePositionedElems(mutations)
+    if (isAutoResizing) {
+      autoUpdateHeight()
     }
-    autoUpdateHeight()
   }
 
   const observer = new MutationObserver(heightObserverCallback)
@@ -21,6 +21,14 @@ export default function createWindow(currentWindow: Window, channel: Channel): W
   let isAutoResizing = false
   let checkAbsoluteElements = false
   const absolutePositionedElems: Set<Element> = new Set()
+
+  // Start observer to get absolute elements
+  observer.observe(document.body, {
+    attributes: true,
+    childList: true,
+    subtree: true,
+    characterData: true,
+  })
 
   const self = { startAutoResizer, stopAutoResizer, updateHeight }
   return self
@@ -60,12 +68,6 @@ export default function createWindow(currentWindow: Window, channel: Channel): W
       return
     }
     isAutoResizing = true
-    observer.observe(document.body, {
-      attributes: true,
-      childList: true,
-      subtree: true,
-      characterData: true,
-    })
     currentWindow.addEventListener('resize', autoUpdateHeight)
   }
 
@@ -74,7 +76,6 @@ export default function createWindow(currentWindow: Window, channel: Channel): W
       return
     }
     isAutoResizing = false
-    observer.disconnect()
     currentWindow.removeEventListener('resize', autoUpdateHeight)
   }
 
@@ -82,7 +83,8 @@ export default function createWindow(currentWindow: Window, channel: Channel): W
     if (height === null) {
       const documentHeight = Math.ceil(document.documentElement.getBoundingClientRect().height)
 
-      if (absolutePositionedElems.size) {
+      // Only check for absolute elements if option is provided to startAutoResizer
+      if (checkAbsoluteElements && absolutePositionedElems.size) {
         let maxHeight = documentHeight
         absolutePositionedElems.forEach((element) => {
           maxHeight = Math.max(element.getBoundingClientRect().bottom, maxHeight)

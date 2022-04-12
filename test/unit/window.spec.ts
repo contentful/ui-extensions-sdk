@@ -65,14 +65,6 @@ describe(`createWindow()`, () => {
           updateHeightSpy.reset()
         })
 
-        it(`stops observing DOM and does not invoke updateHeight()`, (done) => {
-          setTimeout(() => {
-            expect(updateHeightSpy).to.have.callCount(0)
-            done()
-          }, 0)
-          modifyDOM()
-        })
-
         it(`stops listening to "resize" event does not invoke .updateHeight()`, () => {
           fireViewportResize(dom)
           expect(updateHeightSpy).to.have.callCount(0)
