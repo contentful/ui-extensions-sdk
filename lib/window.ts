@@ -62,8 +62,8 @@ export default function createWindow(currentWindow: Window, channel: Channel): W
   }
 
   function startAutoResizer({ absoluteElements = false } = {}) {
-    self.updateHeight()
     checkAbsoluteElements = Boolean(absoluteElements)
+    self.updateHeight()
     if (isAutoResizing) {
       return
     }
