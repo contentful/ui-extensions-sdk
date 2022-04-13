@@ -1,3 +1,9 @@
+## [4.3.7](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.6...v4.3.7) (2022-04-13)
+
+### Bug Fixes
+
+- make openNewAsset options param optional ([#1239](https://github.com/contentful/ui-extensions-sdk/issues/1239)) ([bdf3336](https://github.com/contentful/ui-extensions-sdk/commit/bdf333645d1522f8458ceb55bc0d9226cfffb26a))
+
 ## [4.3.6](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.5...v4.3.6) (2022-04-12)
 
 ### Bug Fixes
