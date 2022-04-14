@@ -74,19 +74,15 @@ const validateResult = (result: OnEntryListUpdatedHandlerReturn) => {
 const schema: Record<string, (value: unknown) => void> = {
   values: (value) => {
     if (typeof value !== 'object') {
-      throw new Error(`Entry List location app data is invalid: 'values' should be an object.`)
+      throw new Error(`Entry List location app data is invalid: 'values' must be an object.`)
     }
 
-    const values = Object.values(value as Record<string, unknown>)
-    if (values.length === 0) {
-      // we allow passing empty values object
-      return
-    }
-
-    const areValuesValid = values.every((item) => typeof item === 'string')
+    const areValuesValid = Object.values(value as Record<string, unknown>).every(
+      (item) => typeof item === 'string'
+    )
     if (!areValuesValid) {
       throw new Error(
-        `Entry List location app data is invalid: 'values' object should have a values of type 'string'.`
+        `Entry List location app data is invalid: 'values' object should only have values of type 'string'.`
       )
     }
   },

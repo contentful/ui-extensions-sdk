@@ -1,9 +1,3 @@
-# [4.4.0-alpha.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.5...v4.4.0-alpha.1) (2022-04-01)
-
-### Features
-
-- add entry list location ([bf72726](https://github.com/contentful/ui-extensions-sdk/commit/bf727265e3872b75c1f02eb940b5879fe31c7781))
-
 ## [4.3.7](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.6...v4.3.7) (2022-04-13)
 
 ### Bug Fixes
@@ -15,6 +9,12 @@
 ### Bug Fixes
 
 - [] improved types for ParametersAPI ([#1236](https://github.com/contentful/ui-extensions-sdk/issues/1236)) ([abf53c0](https://github.com/contentful/ui-extensions-sdk/commit/abf53c0f4fcc73ffd43e37e4960a277a1d259e98))
+
+# [4.4.0-alpha.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.5...v4.4.0-alpha.1) (2022-04-01)
+
+### Features
+
+- add entry list location ([bf72726](https://github.com/contentful/ui-extensions-sdk/commit/bf727265e3872b75c1f02eb940b5879fe31c7781))
 
 ## [4.3.5](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.4...v4.3.5) (2022-02-23)
 
