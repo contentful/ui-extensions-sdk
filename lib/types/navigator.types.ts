@@ -53,7 +53,7 @@ export interface NavigatorAPI {
     options?: NavigatorAPIOptions
   ) => Promise<NavigatorOpenResponse<Entry<Fields>>>
   /** Opens a new asset in the current Web App session. */
-  openNewAsset: (options: NavigatorAPIOptions) => Promise<NavigatorOpenResponse<Asset>>
+  openNewAsset: (options?: NavigatorAPIOptions) => Promise<NavigatorOpenResponse<Asset>>
   /** Navigates to a page extension in the current Web App session. Calling without `options` will navigate to the home route of your page extension. */
   openPageExtension: (options?: PageExtensionOptions) => Promise<NavigatorPageResponse>
   /** Navigates to the app's page location. */

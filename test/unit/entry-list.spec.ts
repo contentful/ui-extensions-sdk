@@ -97,14 +97,6 @@ describe('createEntryList()', () => {
           }),
           false
         ))
-
-      it('returns false if the result data has empty values', () =>
-        test(
-          () => ({
-            values: {},
-          }),
-          false
-        ))
     })
   })
 })
