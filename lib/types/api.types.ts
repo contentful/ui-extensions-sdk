@@ -12,13 +12,13 @@ import {
 import { EntryAPI } from './entry.types'
 import { SpaceAPI } from './space.types'
 import { WindowAPI } from './window.types'
-import { ContentEntitySys, Link } from './utils'
+import { ContentEntitySys, Link, SerializedJSONValue } from './utils'
 import { FieldAPI } from './field-locale.types'
 import { DialogsAPI } from './dialogs.types'
 import { AppConfigAPI } from './app.types'
 import { NavigatorAPI } from './navigator.types'
 import { EntryFieldInfo, FieldInfo } from './field.types'
-import { Adapter } from 'contentful-management/types'
+import { Adapter, KeyValueMap } from 'contentful-management/types'
 import { EntryListAPI } from './entry-list.types'
 
 /* User API */
@@ -77,9 +77,9 @@ export interface LocationAPI {
 /* Parameters API */
 
 export interface ParametersAPI {
-  installation: Object
-  instance: Object
-  invocation?: Object
+  installation: KeyValueMap
+  instance: KeyValueMap
+  invocation?: SerializedJSONValue
 }
 
 /* IDs */
