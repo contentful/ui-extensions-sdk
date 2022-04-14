@@ -1,3 +1,12 @@
+# [4.4.0-alpha.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.4.0-alpha.1...v4.4.0-alpha.2) (2022-04-14)
+
+### Bug Fixes
+
+- [] improved types for ParametersAPI ([#1236](https://github.com/contentful/ui-extensions-sdk/issues/1236)) ([abf53c0](https://github.com/contentful/ui-extensions-sdk/commit/abf53c0f4fcc73ffd43e37e4960a277a1d259e98))
+- address PR review ([d006374](https://github.com/contentful/ui-extensions-sdk/commit/d00637457e2a7815aea4671a8e8c5c75bef602ad))
+- entry list location fixes ([a7d9585](https://github.com/contentful/ui-extensions-sdk/commit/a7d9585cfd33d333836e702c659537359e276373))
+- make openNewAsset options param optional ([#1239](https://github.com/contentful/ui-extensions-sdk/issues/1239)) ([bdf3336](https://github.com/contentful/ui-extensions-sdk/commit/bdf333645d1522f8458ceb55bc0d9226cfffb26a))
+
 ## [4.3.7](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.6...v4.3.7) (2022-04-13)
 
 ### Bug Fixes
