@@ -68,30 +68,42 @@ const validateResult = (result: OnEntryListUpdatedHandlerReturn) => {
     return
   }
 
-  throw new Error(`EntryListResult is invalid.`)
+  throw new Error(`Entry List location app data is invalid.`)
 }
 
-const schema: Record<string, (value: unknown) => boolean> = {
-  values: (value) =>
-    typeof value === 'object' &&
-    Object.keys(value as Record<string, unknown>).length > 0 &&
-    Object.values(value as Record<string, unknown>).every((item) => typeof item === 'string'),
+const schema: Record<string, (value: unknown) => void> = {
+  values: (value) => {
+    if (typeof value !== 'object') {
+      throw new Error(`Entry List location app data is invalid: 'values' should be an object.`)
+    }
+
+    const values = Object.values(value as Record<string, unknown>)
+    if (values.length === 0) {
+      // we allow passing empty values object
+      return
+    }
+
+    const areValuesValid = values.every((item) => typeof item === 'string')
+    if (!areValuesValid) {
+      throw new Error(
+        `Entry List location app data is invalid: 'values' object should have a values of type 'string'.`
+      )
+    }
+  },
 }
 
 const validateData = (data: Record<string, unknown>) => {
   const dataKeys = Object.keys(data)
 
   if (dataKeys.length === 0) {
-    throw new Error(`EntryListResult data is invalid.`)
+    throw new Error(`Entry List location app data is invalid.`)
   }
 
   dataKeys.forEach((key: string) => {
     if (!(key in schema)) {
-      throw new Error(`EntryListResult data is invalid. Key "${key}" is not allowed.`)
+      throw new Error(`Entry List location app data is invalid. Key '${key}' is not allowed.`)
     }
 
-    if (!schema[key](data[key])) {
-      throw new Error(`EntryListResult data is invalid. Invalid value of key "${key}."`)
-    }
+    schema[key](data[key])
   })
 }
