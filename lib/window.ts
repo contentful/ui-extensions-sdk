@@ -107,7 +107,7 @@ export default function createWindow(currentWindow: Window, channel: Channel): W
       if (checkAbsoluteElements && absolutePositionedElems.size) {
         let maxHeight = documentHeight
         absolutePositionedElems.forEach((element) => {
-          if (element) maxHeight = Math.max(element.getBoundingClientRect().bottom, maxHeight)
+          maxHeight = Math.max(element.getBoundingClientRect().bottom, maxHeight)
         })
         height = maxHeight
       } else {
