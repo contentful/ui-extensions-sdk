@@ -33,50 +33,57 @@ export default function createWindow(currentWindow: Window, channel: Channel): W
   const self = { startAutoResizer, stopAutoResizer, updateHeight }
   return self
 
-  function checkAbsoluteElementStyle({
-    type,
-    element,
-  }: {
-    type: MutationRecordType
-    element: Element
-  }) {
+  function checkAbsoluteElementStyle(type: MutationRecordType, element: Element) {
     const computedStyle = getComputedStyle(element)
     const isNegativeBottom =
       !isNaN(parseInt(computedStyle.bottom)) && parseInt(computedStyle.bottom) < 0
-    if (type === 'attributes') {
-      return (
-        computedStyle.position === 'absolute' &&
-        computedStyle.display !== 'none' &&
-        !isNegativeBottom
-      )
-    } else if (type === 'childList') {
-      return computedStyle.position === 'absolute' && !isNegativeBottom
+
+    if (computedStyle.position !== 'absolute') {
+      return false
+    }
+
+    if (isNegativeBottom) {
+      return false
+    }
+
+    switch (type) {
+      case 'attributes':
+        return computedStyle.display !== 'none'
+
+      default:
+        return true
     }
   }
 
   function checkAbsolutePositionedElems(mutations: Array<MutationRecord>) {
     mutations.forEach((mutation) => {
-      if (mutation.type === 'attributes') {
-        if (mutation.target.nodeType === Node.ELEMENT_NODE) {
-          const element = mutation.target as Element
-          if (checkAbsoluteElementStyle({ type: mutation.type, element })) {
-            absolutePositionedElems.add(element)
-          } else {
-            absolutePositionedElems.delete(element)
-          }
-        }
-      } else if (mutation.type === 'childList') {
-        mutation.addedNodes.forEach((node) => {
-          const element = node as Element
-          if (node.nodeType === Node.ELEMENT_NODE) {
-            if (checkAbsoluteElementStyle({ type: mutation.type, element }))
+      switch (mutation.type) {
+        case 'attributes':
+          if (mutation.target.nodeType === Node.ELEMENT_NODE) {
+            const element = mutation.target as Element
+            if (checkAbsoluteElementStyle(mutation.type, element)) {
               absolutePositionedElems.add(element)
+            } else {
+              absolutePositionedElems.delete(element)
+            }
           }
-        })
-        mutation.removedNodes.forEach((node) => {
-          const element = node as Element
-          absolutePositionedElems.delete(element)
-        })
+          break
+
+        case 'childList':
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              const element = node as Element
+              if (checkAbsoluteElementStyle(mutation.type, element)) {
+                absolutePositionedElems.add(element)
+              }
+            }
+          })
+
+          mutation.removedNodes.forEach((node) => {
+            const element = node as Element
+            absolutePositionedElems.delete(element)
+          })
+          break
       }
     })
   }
