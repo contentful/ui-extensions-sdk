@@ -35,14 +35,8 @@ export default function createWindow(currentWindow: Window, channel: Channel): W
 
   function checkAbsoluteElementStyle(type: MutationRecordType, element: Element) {
     const computedStyle = getComputedStyle(element)
-    const isNegativeBottom =
-      !isNaN(parseInt(computedStyle.bottom)) && parseInt(computedStyle.bottom) < 0
 
     if (computedStyle.position !== 'absolute') {
-      return false
-    }
-
-    if (isNegativeBottom) {
       return false
     }
 
