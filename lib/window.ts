@@ -33,24 +33,44 @@ export default function createWindow(currentWindow: Window, channel: Channel): W
   const self = { startAutoResizer, stopAutoResizer, updateHeight }
   return self
 
+  function checkAbsoluteElementStyle({
+    type,
+    element,
+  }: {
+    type: MutationRecordType
+    element: Element
+  }) {
+    const computedStyle = getComputedStyle(element)
+    const isNegativeBottom =
+      !isNaN(parseInt(computedStyle.bottom)) && parseInt(computedStyle.bottom) < 0
+    if (type === 'attributes') {
+      return (
+        computedStyle.position === 'absolute' &&
+        computedStyle.display !== 'none' &&
+        !isNegativeBottom
+      )
+    } else if (type === 'childList') {
+      return computedStyle.position === 'absolute' && !isNegativeBottom
+    }
+  }
+
   function checkAbsolutePositionedElems(mutations: Array<MutationRecord>) {
     mutations.forEach((mutation) => {
       if (mutation.type === 'attributes') {
         if (mutation.target.nodeType === Node.ELEMENT_NODE) {
-          const node = mutation.target as Element
-          const computedStyle = window.getComputedStyle(node)
-          if (computedStyle.position === 'absolute' && computedStyle.display !== 'none') {
-            absolutePositionedElems.add(node)
+          const element = mutation.target as Element
+          if (checkAbsoluteElementStyle({ type: mutation.type, element })) {
+            absolutePositionedElems.add(element)
           } else {
-            absolutePositionedElems.delete(node)
+            absolutePositionedElems.delete(element)
           }
         }
       } else if (mutation.type === 'childList') {
         mutation.addedNodes.forEach((node) => {
           const element = node as Element
           if (node.nodeType === Node.ELEMENT_NODE) {
-            const computedStyle = window.getComputedStyle(element)
-            if (computedStyle.position === 'absolute') absolutePositionedElems.add(element)
+            if (checkAbsoluteElementStyle({ type: mutation.type, element }))
+              absolutePositionedElems.add(element)
           }
         })
         mutation.removedNodes.forEach((node) => {
@@ -87,7 +107,7 @@ export default function createWindow(currentWindow: Window, channel: Channel): W
       if (checkAbsoluteElements && absolutePositionedElems.size) {
         let maxHeight = documentHeight
         absolutePositionedElems.forEach((element) => {
-          maxHeight = Math.max(element.getBoundingClientRect().bottom, maxHeight)
+          if (element) maxHeight = Math.max(element.getBoundingClientRect().bottom, maxHeight)
         })
         height = maxHeight
       } else {
