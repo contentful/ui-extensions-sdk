@@ -74,8 +74,9 @@ function makeSharedAPI(channel: Channel, data: ConnectMessage): BaseExtensionSDK
     // Typecast because promises returned by navigator methods aren't typed
     navigator: createNavigator(channel, ids) as NavigatorAPI,
     notifier: {
-      success: (message) => channel.send('notify', { type: 'success', message }),
-      error: (message) => channel.send('notify', { type: 'error', message }),
+      success: (message: string) => channel.send('notify', { type: 'success', message }),
+      error: (message: string) => channel.send('notify', { type: 'error', message }),
+      warning: (message: string) => channel.send('notify', { type: 'warning', message }),
     },
     ids,
     access: {
