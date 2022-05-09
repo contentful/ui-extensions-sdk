@@ -71,7 +71,7 @@
     "mochawesome-merge": "4.2.1",
     "mochawesome-report-generator": "6.2.0",
     "prettier": "2.6.2",
-    "rollup": "2.72.0",
+    "rollup": "2.72.1",
     "rollup-plugin-terser": "7.0.2",
     "rollup-plugin-typescript2": "0.31.2",
     "semantic-release": "19.0.2",
