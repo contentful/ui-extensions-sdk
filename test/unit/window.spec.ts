@@ -51,7 +51,7 @@ describe(`createWindow()`, () => {
           modifyDOM()
         })
 
-        it(`listens to resizing and invokes .updateHeight()`, (done) => {
+        it(`listens to size changes and invokes .updateHeight()`, (done) => {
           updateHeightSpy.restore()
           updateHeightSpy = sinon.stub(window, 'updateHeight').callsFake(() => {
             expect(updateHeightSpy).to.have.callCount(1)
