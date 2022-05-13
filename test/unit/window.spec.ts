@@ -1,4 +1,4 @@
-import { sinon, makeDOM, mockMutationObserver, expect } from '../helpers'
+import { sinon, makeDOM, mockMutationObserver, expect, mockResizeObserver } from '../helpers'
 
 import createWindow from '../../lib/window'
 
@@ -7,11 +7,15 @@ describe(`createWindow()`, () => {
     let dom: any
     let window: any
     let modifyDOM: any
+    let resizeDOM: any
     let channelSendSpy: any
     beforeEach(() => {
       dom = makeDOM()
       mockMutationObserver(dom, (cb: Function) => {
         modifyDOM = cb
+      })
+      mockResizeObserver(dom, (cb: Function) => {
+        resizeDOM = cb
       })
       channelSendSpy = sinon.spy()
       window = createWindow(dom.window, { send: channelSendSpy } as any)
@@ -38,7 +42,7 @@ describe(`createWindow()`, () => {
       })
 
       describe(`after auto resizer got started`, () => {
-        it(`listens to DOM changes and invokes .updateHeigt()`, (done) => {
+        it(`listens to DOM changes and invokes .updateHeight()`, (done) => {
           updateHeightSpy.restore()
           updateHeightSpy = sinon.stub(window, 'updateHeight').callsFake(() => {
             expect(updateHeightSpy).to.have.callCount(1)
@@ -47,8 +51,9 @@ describe(`createWindow()`, () => {
           modifyDOM()
         })
 
-        it(`listens to global "resize" event and invokes .updateHeight()`, () => {
+        it(`reacts to global "resize" event and invokes .updateHeight()`, () => {
           fireViewportResize(dom)
+          resizeDOM()
           expect(updateHeightSpy).to.have.callCount(2)
         })
       })

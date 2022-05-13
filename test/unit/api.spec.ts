@@ -1,4 +1,4 @@
-import { makeDOM, mockMutationObserver, expect } from '../helpers'
+import { makeDOM, mockMutationObserver, expect, mockResizeObserver } from '../helpers'
 
 import createAPI from '../../lib/api'
 import locations from '../../lib/locations'
@@ -51,6 +51,7 @@ function test(expected: string[], location: string | undefined, expectedLocation
 
   const dom = makeDOM()
   mockMutationObserver(dom, () => {})
+  mockResizeObserver(dom, () => {})
 
   const api = createAPI(channel, data, dom.window as any as Window)
 
