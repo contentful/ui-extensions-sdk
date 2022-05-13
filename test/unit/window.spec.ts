@@ -51,10 +51,13 @@ describe(`createWindow()`, () => {
           modifyDOM()
         })
 
-        it(`reacts to global "resize" event and invokes .updateHeight()`, () => {
-          fireViewportResize(dom)
+        it(`listens to resizing and invokes .updateHeight()`, (done) => {
+          updateHeightSpy.restore()
+          updateHeightSpy = sinon.stub(window, 'updateHeight').callsFake(() => {
+            expect(updateHeightSpy).to.have.callCount(1)
+            done()
+          })
           resizeDOM()
-          expect(updateHeightSpy).to.have.callCount(2)
         })
       })
 
@@ -72,9 +75,12 @@ describe(`createWindow()`, () => {
           modifyDOM()
         })
 
-        it(`stops listening to "resize" event does not invoke .updateHeight()`, () => {
-          fireViewportResize(dom)
-          expect(updateHeightSpy).to.have.callCount(0)
+        it(`stops observing size changes and does not invoke updateHeight()`, (done) => {
+          setTimeout(() => {
+            expect(updateHeightSpy).to.have.callCount(0)
+            done()
+          }, 0)
+          resizeDOM()
         })
       })
     })
@@ -110,8 +116,3 @@ describe(`createWindow()`, () => {
     })
   })
 })
-
-function fireViewportResize(dom: Window) {
-  const { Event } = dom.window
-  dom.window.dispatchEvent(new Event('resize'))
-}
