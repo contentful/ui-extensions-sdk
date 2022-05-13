@@ -1,3 +1,9 @@
+# [4.4.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.7...v4.4.0) (2022-05-09)
+
+### Features
+
+- add warning notification support [SHE-785] ([#1232](https://github.com/contentful/ui-extensions-sdk/issues/1232)) ([be30251](https://github.com/contentful/ui-extensions-sdk/commit/be3025109432ff24b56155d9f9177ba89107d850))
+
 ## [4.3.7](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.6...v4.3.7) (2022-04-13)
 
 ### Bug Fixes
