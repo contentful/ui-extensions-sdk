@@ -1,3 +1,9 @@
+## [4.4.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.4.0...v4.4.1) (2022-05-16)
+
+### Bug Fixes
+
+- Use ResizeObserver to track iframe body size changes [EXT-3733] ([#1263](https://github.com/contentful/ui-extensions-sdk/issues/1263)) ([391b282](https://github.com/contentful/ui-extensions-sdk/commit/391b282842c7c92e98f1c645d0f9189a6d96cb36))
+
 # [4.4.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.7...v4.4.0) (2022-05-09)
 
 ### Features
