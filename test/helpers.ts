@@ -28,6 +28,21 @@ export function mockMutationObserver(dom: JSDOM, registerMutationTrigger: Functi
   })
 }
 
+export function mockResizeObserver(dom, registerResizeTrigger: Function) {
+  const ResizeObserverMock = function (cb: Function) {
+    registerResizeTrigger(cb)
+  }
+  ResizeObserverMock.prototype.observe = () => {}
+  ResizeObserverMock.prototype.disconnect = () => {
+    registerResizeTrigger(() => {})
+  }
+
+  Object.defineProperty(dom.window, 'ResizeObserver', {
+    writable: false,
+    value: ResizeObserverMock,
+  })
+}
+
 export function describeAttachHandlerMember(msg: string, attachHandlerFn: Function) {
   describe(msg, () => {
     it('returns a function to detach the handler', () => {
