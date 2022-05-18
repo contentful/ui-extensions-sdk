@@ -2,13 +2,14 @@ import { Channel } from './channel'
 import { WindowAPI } from './types'
 
 export default function createWindow(currentWindow: Window, channel: Channel): WindowAPI {
-  // We assume MutationObserver was defined by the web-app
-  const { document, MutationObserver } = currentWindow as any
+  // We assume MutationObserver and ResizeObserver were defined by the web-app
+  const { document, MutationObserver, ResizeObserver } = currentWindow as any
 
   const autoUpdateHeight = () => {
     self.updateHeight()
   }
-  const observer = new MutationObserver(autoUpdateHeight)
+  const mutationObserver = new MutationObserver(autoUpdateHeight)
+  const resizeObserver = new ResizeObserver(autoUpdateHeight)
   let oldHeight: number
   let isAutoResizing = false
 
@@ -21,13 +22,13 @@ export default function createWindow(currentWindow: Window, channel: Channel): W
       return
     }
     isAutoResizing = true
-    observer.observe(document.body, {
+    mutationObserver.observe(document.body, {
       attributes: true,
       childList: true,
       subtree: true,
       characterData: true,
     })
-    currentWindow.addEventListener('resize', autoUpdateHeight)
+    resizeObserver.observe(document.body)
   }
 
   function stopAutoResizer() {
@@ -35,8 +36,8 @@ export default function createWindow(currentWindow: Window, channel: Channel): W
       return
     }
     isAutoResizing = false
-    observer.disconnect()
-    currentWindow.removeEventListener('resize', autoUpdateHeight)
+    mutationObserver.disconnect()
+    resizeObserver.disconnect()
   }
 
   function updateHeight(height: number | null = null) {

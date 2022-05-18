@@ -65,6 +65,8 @@ export interface NotifierAPI {
   success: (message: string) => void
   /** Displays an error notification in the notification area of the Web App. */
   error: (message: string) => void
+  /** Displays a warning notification in the notification area of the Web App. */
+  warning: (message: string) => void
 }
 
 /* Location API */
@@ -87,6 +89,7 @@ export interface ParametersAPI {
 export interface IdsAPI {
   user: string
   extension?: string
+  organization: string
   app?: string
   space: string
   environment: string

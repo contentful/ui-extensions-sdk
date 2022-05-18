@@ -1,3 +1,15 @@
+# [4.5.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.4.1...v4.5.0) (2022-05-18)
+
+### Features
+
+- add organization to sdk.ids ([#1271](https://github.com/contentful/ui-extensions-sdk/issues/1271)) ([b3eca1c](https://github.com/contentful/ui-extensions-sdk/commit/b3eca1c9eee3511564270b710d48ba532aaa5dba))
+
+## [4.4.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.4.0...v4.4.1) (2022-05-16)
+
+### Bug Fixes
+
+- Use ResizeObserver to track iframe body size changes [EXT-3733] ([#1263](https://github.com/contentful/ui-extensions-sdk/issues/1263)) ([391b282](https://github.com/contentful/ui-extensions-sdk/commit/391b282842c7c92e98f1c645d0f9189a6d96cb36))
+
 # [4.4.0-alpha.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.4.0-alpha.1...v4.4.0-alpha.2) (2022-04-14)
 
 ### Bug Fixes
@@ -6,6 +18,12 @@
 - address PR review ([d006374](https://github.com/contentful/ui-extensions-sdk/commit/d00637457e2a7815aea4671a8e8c5c75bef602ad))
 - entry list location fixes ([a7d9585](https://github.com/contentful/ui-extensions-sdk/commit/a7d9585cfd33d333836e702c659537359e276373))
 - make openNewAsset options param optional ([#1239](https://github.com/contentful/ui-extensions-sdk/issues/1239)) ([bdf3336](https://github.com/contentful/ui-extensions-sdk/commit/bdf333645d1522f8458ceb55bc0d9226cfffb26a))
+
+# [4.4.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.7...v4.4.0) (2022-05-09)
+
+### Features
+
+- add warning notification support [SHE-785] ([#1232](https://github.com/contentful/ui-extensions-sdk/issues/1232)) ([be30251](https://github.com/contentful/ui-extensions-sdk/commit/be3025109432ff24b56155d9f9177ba89107d850))
 
 ## [4.3.7](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.6...v4.3.7) (2022-04-13)
 
