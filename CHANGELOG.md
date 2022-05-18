@@ -1,3 +1,9 @@
+# [4.5.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.4.1...v4.5.0) (2022-05-18)
+
+### Features
+
+- add organization to sdk.ids ([#1271](https://github.com/contentful/ui-extensions-sdk/issues/1271)) ([b3eca1c](https://github.com/contentful/ui-extensions-sdk/commit/b3eca1c9eee3511564270b710d48ba532aaa5dba))
+
 ## [4.4.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.4.0...v4.4.1) (2022-05-16)
 
 ### Bug Fixes
