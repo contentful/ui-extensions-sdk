@@ -88,6 +88,7 @@ export interface ParametersAPI {
 export interface IdsAPI {
   user: string
   extension?: string
+  organization: string
   app?: string
   space: string
   environment: string
