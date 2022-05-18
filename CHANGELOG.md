@@ -1,3 +1,14 @@
+# [4.6.0-alpha.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.5.0...v4.6.0-alpha.1) (2022-05-18)
+
+### Bug Fixes
+
+- address PR review ([d006374](https://github.com/contentful/ui-extensions-sdk/commit/d00637457e2a7815aea4671a8e8c5c75bef602ad))
+- entry list location fixes ([a7d9585](https://github.com/contentful/ui-extensions-sdk/commit/a7d9585cfd33d333836e702c659537359e276373))
+
+### Features
+
+- add entry list location ([bf72726](https://github.com/contentful/ui-extensions-sdk/commit/bf727265e3872b75c1f02eb940b5879fe31c7781))
+
 # [4.5.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.4.1...v4.5.0) (2022-05-18)
 
 ### Features
