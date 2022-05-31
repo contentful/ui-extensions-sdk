@@ -2,28 +2,26 @@ import { Channel } from './channel'
 import { WindowAPI } from './types/window.types'
 
 export default function createWindow(currentWindow: Window, channel: Channel): WindowAPI {
-  // We assume MutationObserver was defined by the web-app
-  const { document, MutationObserver } = currentWindow as any
+  // We assume MutationObserver and ResizeObserver were defined by the web-app
+  const { document, MutationObserver, ResizeObserver } = currentWindow as any
 
-  const autoUpdateHeight = () => {
-    self.updateHeight()
-  }
-
-  const heightObserverCallback = (mutations: Array<MutationRecord>) => {
-    checkAbsolutePositionedElems(mutations)
-    if (isAutoResizing) {
-      autoUpdateHeight()
-    }
-  }
-
-  const observer = new MutationObserver(heightObserverCallback)
   let oldHeight: number
   let isAutoResizing = false
   let checkAbsoluteElements = false
   const absolutePositionedElems: Set<Element> = new Set()
 
-  // Start observer to get absolute elements
-  observer.observe(document.body, {
+  const mutationObserver = new MutationObserver((mutations: Array<MutationRecord>) => {
+    checkAbsolutePositionedElems(mutations)
+    if (isAutoResizing) {
+      self.updateHeight()
+    }
+  })
+
+  const resizeObserver = new ResizeObserver(() => {
+    self.updateHeight()
+  })
+
+  mutationObserver.observe(document.body, {
     attributes: true,
     childList: true,
     subtree: true,
@@ -89,7 +87,7 @@ export default function createWindow(currentWindow: Window, channel: Channel): W
       return
     }
     isAutoResizing = true
-    currentWindow.addEventListener('resize', autoUpdateHeight)
+    resizeObserver.observe(document.body)
   }
 
   function stopAutoResizer() {
@@ -97,7 +95,7 @@ export default function createWindow(currentWindow: Window, channel: Channel): W
       return
     }
     isAutoResizing = false
-    currentWindow.removeEventListener('resize', autoUpdateHeight)
+    resizeObserver.disconnect()
   }
 
   function updateHeight(height: number | null = null) {

@@ -1,4 +1,4 @@
-import { sinon, makeDOM, mockMutationObserver, expect } from '../helpers'
+import { sinon, makeDOM, mockMutationObserver, expect, mockResizeObserver } from '../helpers'
 
 import createWindow from '../../lib/window'
 
@@ -7,11 +7,15 @@ describe(`createWindow()`, () => {
     let dom: any
     let window: any
     let modifyDOM: any
+    let resizeDOM: any
     let channelSendSpy: any
     beforeEach(() => {
       dom = makeDOM()
       mockMutationObserver(dom, (cb: Function) => {
         modifyDOM = cb
+      })
+      mockResizeObserver(dom, (cb: Function) => {
+        resizeDOM = cb
       })
       channelSendSpy = sinon.spy()
       window = createWindow(dom.window, { send: channelSendSpy } as any)
@@ -38,7 +42,7 @@ describe(`createWindow()`, () => {
       })
 
       describe(`after auto resizer got started`, () => {
-        it(`listens to DOM changes and invokes .updateHeigt()`, (done) => {
+        it(`listens to DOM changes and invokes .updateHeight()`, (done) => {
           updateHeightSpy.restore()
           updateHeightSpy = sinon.stub(window, 'updateHeight').callsFake(() => {
             expect(updateHeightSpy).to.have.callCount(1)
@@ -53,9 +57,13 @@ describe(`createWindow()`, () => {
           ])
         })
 
-        it(`listens to global "resize" event and invokes .updateHeight()`, () => {
-          fireViewportResize(dom)
-          expect(updateHeightSpy).to.have.callCount(2)
+        it(`listens to size changes and invokes .updateHeight()`, (done) => {
+          updateHeightSpy.restore()
+          updateHeightSpy = sinon.stub(window, 'updateHeight').callsFake(() => {
+            expect(updateHeightSpy).to.have.callCount(1)
+            done()
+          })
+          resizeDOM()
         })
       })
 
@@ -65,9 +73,20 @@ describe(`createWindow()`, () => {
           updateHeightSpy.reset()
         })
 
-        it(`stops listening to "resize" event does not invoke .updateHeight()`, () => {
-          fireViewportResize(dom)
-          expect(updateHeightSpy).to.have.callCount(0)
+        it(`does not invoke updateHeight()`, (done) => {
+          setTimeout(() => {
+            expect(updateHeightSpy).to.have.callCount(0)
+            done()
+          }, 0)
+          modifyDOM([])
+        })
+
+        it(`stops observing size changes and does not invoke updateHeight()`, (done) => {
+          setTimeout(() => {
+            expect(updateHeightSpy).to.have.callCount(0)
+            done()
+          }, 0)
+          resizeDOM()
         })
       })
     })
@@ -103,8 +122,3 @@ describe(`createWindow()`, () => {
     })
   })
 })
-
-function fireViewportResize(dom: Window) {
-  const { Event } = dom.window
-  dom.window.dispatchEvent(new Event('resize'))
-}
