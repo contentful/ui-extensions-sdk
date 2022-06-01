@@ -1,3 +1,9 @@
+# [4.6.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.5.0...v4.6.0) (2022-06-01)
+
+### Features
+
+- add option to include absolute elements in auto resizer ([#901](https://github.com/contentful/ui-extensions-sdk/issues/901)) ([0269b00](https://github.com/contentful/ui-extensions-sdk/commit/0269b008cce52af63adef26cb68e163c56c3f2e0))
+
 # [4.5.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.4.1...v4.5.0) (2022-05-18)
 
 ### Features
