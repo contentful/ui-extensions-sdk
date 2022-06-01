@@ -48,7 +48,13 @@ describe(`createWindow()`, () => {
             expect(updateHeightSpy).to.have.callCount(1)
             done()
           })
-          modifyDOM()
+          modifyDOM([
+            {
+              type: 'childList',
+              addedNodes: [],
+              removedNodes: [],
+            },
+          ])
         })
 
         it(`listens to size changes and invokes .updateHeight()`, (done) => {
@@ -67,12 +73,12 @@ describe(`createWindow()`, () => {
           updateHeightSpy.reset()
         })
 
-        it(`stops observing DOM and does not invoke updateHeight()`, (done) => {
+        it(`does not invoke updateHeight()`, (done) => {
           setTimeout(() => {
             expect(updateHeightSpy).to.have.callCount(0)
             done()
           }, 0)
-          modifyDOM()
+          modifyDOM([])
         })
 
         it(`stops observing size changes and does not invoke updateHeight()`, (done) => {
