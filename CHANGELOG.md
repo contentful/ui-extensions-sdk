@@ -1,3 +1,9 @@
+# [4.8.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.7.0...v4.8.0) (2022-06-15)
+
+### Features
+
+- exported workflow definition type ([#1295](https://github.com/contentful/ui-extensions-sdk/issues/1295)) ([490e5db](https://github.com/contentful/ui-extensions-sdk/commit/490e5dba4e899134155cf21c3fff2ef772692c0b))
+
 # [4.7.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.6.0...v4.7.0) (2022-06-15)
 
 ### Features
