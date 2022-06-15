@@ -1,3 +1,9 @@
+# [4.7.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.6.0...v4.7.0) (2022-06-15)
+
+### Features
+
+- added worflowdefinition type to exported entities and to api.types ([#1294](https://github.com/contentful/ui-extensions-sdk/issues/1294)) ([b2d917f](https://github.com/contentful/ui-extensions-sdk/commit/b2d917fb7f261a27a00661486594d8d0e2f5ac25))
+
 # [4.6.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.5.0...v4.6.0) (2022-06-01)
 
 ### Features
