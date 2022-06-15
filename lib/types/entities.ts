@@ -17,6 +17,7 @@ export type {
   TeamProps as Team,
   UploadProps as Upload,
   UserProps as User,
+  WorkflowDefinitionProps as WorkflowDefinition,
 } from 'contentful-management/types'
 
 export interface CanonicalRequest {

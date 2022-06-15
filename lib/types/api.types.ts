@@ -8,6 +8,7 @@ import {
   Entry,
   Task,
   Asset,
+  WorkflowDefinition,
 } from './entities'
 import { EntryAPI } from './entry.types'
 import { SpaceAPI } from './space.types'
@@ -141,7 +142,7 @@ export type JSONPatchItem = {
   path: string
   value?: any
 }
-type PatchEntity = Entry | Task | Asset
+type PatchEntity = Entry | Task | Asset | WorkflowDefinition
 
 export interface AccessAPI {
   can(action: 'read' | 'update', entity: 'EditorInterface' | EditorInterface): Promise<boolean>
