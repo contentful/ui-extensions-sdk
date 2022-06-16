@@ -1,3 +1,5 @@
+# [4.8.0-alpha.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.8.0...v4.8.0-alpha.1) (2022-06-16)
+
 # [4.8.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.7.0...v4.8.0) (2022-06-15)
 
 ### Features
@@ -16,6 +18,17 @@
 
 - add option to include absolute elements in auto resizer ([#901](https://github.com/contentful/ui-extensions-sdk/issues/901)) ([0269b00](https://github.com/contentful/ui-extensions-sdk/commit/0269b008cce52af63adef26cb68e163c56c3f2e0))
 
+# [4.6.0-alpha.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.5.0...v4.6.0-alpha.1) (2022-05-18)
+
+### Bug Fixes
+
+- address PR review ([d006374](https://github.com/contentful/ui-extensions-sdk/commit/d00637457e2a7815aea4671a8e8c5c75bef602ad))
+- entry list location fixes ([a7d9585](https://github.com/contentful/ui-extensions-sdk/commit/a7d9585cfd33d333836e702c659537359e276373))
+
+### Features
+
+- add entry list location ([bf72726](https://github.com/contentful/ui-extensions-sdk/commit/bf727265e3872b75c1f02eb940b5879fe31c7781))
+
 # [4.5.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.4.1...v4.5.0) (2022-05-18)
 
 ### Features
@@ -27,6 +40,15 @@
 ### Bug Fixes
 
 - Use ResizeObserver to track iframe body size changes [EXT-3733] ([#1263](https://github.com/contentful/ui-extensions-sdk/issues/1263)) ([391b282](https://github.com/contentful/ui-extensions-sdk/commit/391b282842c7c92e98f1c645d0f9189a6d96cb36))
+
+# [4.4.0-alpha.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.4.0-alpha.1...v4.4.0-alpha.2) (2022-04-14)
+
+### Bug Fixes
+
+- [] improved types for ParametersAPI ([#1236](https://github.com/contentful/ui-extensions-sdk/issues/1236)) ([abf53c0](https://github.com/contentful/ui-extensions-sdk/commit/abf53c0f4fcc73ffd43e37e4960a277a1d259e98))
+- address PR review ([d006374](https://github.com/contentful/ui-extensions-sdk/commit/d00637457e2a7815aea4671a8e8c5c75bef602ad))
+- entry list location fixes ([a7d9585](https://github.com/contentful/ui-extensions-sdk/commit/a7d9585cfd33d333836e702c659537359e276373))
+- make openNewAsset options param optional ([#1239](https://github.com/contentful/ui-extensions-sdk/issues/1239)) ([bdf3336](https://github.com/contentful/ui-extensions-sdk/commit/bdf333645d1522f8458ceb55bc0d9226cfffb26a))
 
 # [4.4.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.7...v4.4.0) (2022-05-09)
 
@@ -45,6 +67,12 @@
 ### Bug Fixes
 
 - [] improved types for ParametersAPI ([#1236](https://github.com/contentful/ui-extensions-sdk/issues/1236)) ([abf53c0](https://github.com/contentful/ui-extensions-sdk/commit/abf53c0f4fcc73ffd43e37e4960a277a1d259e98))
+
+# [4.4.0-alpha.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.5...v4.4.0-alpha.1) (2022-04-01)
+
+### Features
+
+- add entry list location ([bf72726](https://github.com/contentful/ui-extensions-sdk/commit/bf727265e3872b75c1f02eb940b5879fe31c7781))
 
 ## [4.3.5](https://github.com/contentful/ui-extensions-sdk/compare/v4.3.4...v4.3.5) (2022-02-23)
 

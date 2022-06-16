@@ -20,6 +20,7 @@ import { AppConfigAPI } from './app.types'
 import { NavigatorAPI } from './navigator.types'
 import { EntryFieldInfo, FieldInfo } from './field.types'
 import { Adapter, KeyValueMap } from 'contentful-management/types'
+import { EntryListAPI } from './entry-list.types'
 
 /* User API */
 
@@ -238,6 +239,12 @@ export type AppExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
   app: AppConfigAPI
 }
 
+export type EntryListExtensionSDK = BaseExtensionSDK & {
+  /** A set of IDs actual for the app */
+  ids: Omit<IdsAPI, EntryScopedIds>
+  entryList: EntryListAPI
+}
+
 export type KnownSDK =
   | FieldExtensionSDK
   | SidebarExtensionSDK
@@ -245,6 +252,7 @@ export type KnownSDK =
   | EditorExtensionSDK
   | PageExtensionSDK
   | AppExtensionSDK
+  | EntryListExtensionSDK
 
 export interface Locations {
   LOCATION_ENTRY_FIELD: 'entry-field'
@@ -254,6 +262,7 @@ export interface Locations {
   LOCATION_ENTRY_EDITOR: 'entry-editor'
   LOCATION_PAGE: 'page'
   LOCATION_APP_CONFIG: 'app-config'
+  LOCATION_ENTRY_LIST: 'entry-list'
 }
 
 export interface ConnectMessage {
