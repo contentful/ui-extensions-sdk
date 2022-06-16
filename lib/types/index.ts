@@ -57,6 +57,7 @@ export type {
   Task,
   Team,
   User,
+  WorkflowDefinition,
 } from './entities'
 
 export type { EntryAPI, TaskAPI, TaskInputData } from './entry.types'

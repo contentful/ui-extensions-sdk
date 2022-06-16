@@ -1,3 +1,23 @@
+# [4.8.0-alpha.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.8.0...v4.8.0-alpha.1) (2022-06-16)
+
+# [4.8.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.7.0...v4.8.0) (2022-06-15)
+
+### Features
+
+- exported workflow definition type ([#1295](https://github.com/contentful/ui-extensions-sdk/issues/1295)) ([490e5db](https://github.com/contentful/ui-extensions-sdk/commit/490e5dba4e899134155cf21c3fff2ef772692c0b))
+
+# [4.7.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.6.0...v4.7.0) (2022-06-15)
+
+### Features
+
+- added worflowdefinition type to exported entities and to api.types ([#1294](https://github.com/contentful/ui-extensions-sdk/issues/1294)) ([b2d917f](https://github.com/contentful/ui-extensions-sdk/commit/b2d917fb7f261a27a00661486594d8d0e2f5ac25))
+
+# [4.6.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.5.0...v4.6.0) (2022-06-01)
+
+### Features
+
+- add option to include absolute elements in auto resizer ([#901](https://github.com/contentful/ui-extensions-sdk/issues/901)) ([0269b00](https://github.com/contentful/ui-extensions-sdk/commit/0269b008cce52af63adef26cb68e163c56c3f2e0))
+
 # [4.6.0-alpha.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.5.0...v4.6.0-alpha.1) (2022-05-18)
 
 ### Bug Fixes

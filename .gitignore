@@ -12,3 +12,7 @@
 .env
 .env.local
 .envrc
+
+# editors
+.vscode/
+.idea/
