@@ -4,6 +4,7 @@
   "version": "4.8.0",
   "author": "Contentful GmbH",
   "license": "MIT",
+  "sideEffects": true,
   "repository": {
     "url": "https://github.com/contentful/ui-extensions-sdk.git",
     "type": "git"
