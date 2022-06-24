@@ -34,7 +34,7 @@ export default function createInitializer(
 In order for the App SDK to function correctly, your app needs to be run in an iframe in the Contentful Web App, Compose or Launch.
 
 Learn more about local development with the App SDK here:
-  https://www.contentful.com/developers/docs/extensibility/ui-extensions/faq/#how-can-i-use-the-ui-extension-sdk-locally`)
+  https://www.contentful.com/developers/docs/extensibility/ui-extensions/faq/#how-can-i-develop-with-the-ui-extension-sdk-locally`)
     }
 
     if (!initializedSdks) {
