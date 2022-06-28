@@ -2,21 +2,29 @@ import { ConnectMessage, KnownSDK } from './types'
 import connect, { Channel } from './channel'
 
 export default function createInitializer(
-  currentWindow: Window,
-  apiCreator: (channel: Channel, data: ConnectMessage, window: Window) => KnownSDK
+  currentGlobal: typeof globalThis,
+  apiCreator: (channel: Channel, data: ConnectMessage, currentGlobal: typeof globalThis) => KnownSDK
 ) {
+  if (
+    typeof currentGlobal.window === 'undefined' ||
+    typeof currentGlobal.document === 'undefined'
+  ) {
+    // make `init` a noop if window or document is not available
+    return () => {}
+  }
+
   const connectDeferred =
     createDeferred<[channel: Channel, message: ConnectMessage, messageQueue: unknown[]]>()
 
   connectDeferred.promise.then(([channel]) => {
-    const { document } = currentWindow
+    const { document } = currentGlobal
     document.addEventListener('focus', () => channel.send('setActive', true), true)
     document.addEventListener('blur', () => channel.send('setActive', false), true)
   })
 
   // We need to connect right away so we can record incoming
   // messages before `init` is called.
-  connect(currentWindow, (...args) => connectDeferred.resolve(args))
+  connect(currentGlobal, (...args) => connectDeferred.resolve(args))
 
   let initializedSdks: Promise<[sdk: KnownSDK, customSdk: any]> | undefined
   return function init(
@@ -28,7 +36,7 @@ export default function createInitializer(
       supressIframeWarning: false,
     }
   ) {
-    if (!supressIframeWarning && currentWindow.self === currentWindow.top) {
+    if (!supressIframeWarning && currentGlobal.self === currentGlobal.top) {
       console.error(`Cannot use App SDK outside of Contenful:
 
 In order for the App SDK to function correctly, your app needs to be run in an iframe in the Contentful Web App, Compose or Launch.
@@ -39,7 +47,7 @@ Learn more about local development with the App SDK here:
 
     if (!initializedSdks) {
       initializedSdks = connectDeferred.promise.then(([channel, params, messageQueue]) => {
-        const api = apiCreator(channel, params, currentWindow)
+        const api = apiCreator(channel, params, currentGlobal)
 
         let customApi
         if (typeof makeCustomApi === 'function') {

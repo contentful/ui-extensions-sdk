@@ -27,7 +27,11 @@ const DEFAULT_API_PRODUCERS = [
   makeWindowAPI,
 ]
 
-type ProducerFunc = (channel: Channel, data: ConnectMessage, currentWindow: Window) => any
+type ProducerFunc = (
+  channel: Channel,
+  data: ConnectMessage,
+  currentGlobal: typeof globalThis
+) => any
 const LOCATION_TO_API_PRODUCERS: { [location: string]: ProducerFunc[] } = {
   [locations.LOCATION_ENTRY_FIELD]: DEFAULT_API_PRODUCERS,
   [locations.LOCATION_ENTRY_FIELD_SIDEBAR]: DEFAULT_API_PRODUCERS,
@@ -41,12 +45,12 @@ const LOCATION_TO_API_PRODUCERS: { [location: string]: ProducerFunc[] } = {
 export default function createAPI(
   channel: Channel,
   data: ConnectMessage,
-  currentWindow: Window
+  currentGlobal: typeof globalThis
 ): KnownSDK {
   const producers = LOCATION_TO_API_PRODUCERS[data.location as string] || DEFAULT_API_PRODUCERS
 
   return producers.reduce((api, produce) => {
-    return { ...api, ...produce(channel, data, currentWindow) }
+    return { ...api, ...produce(channel, data, currentGlobal) }
   }, {}) as any
 }
 
@@ -87,9 +91,9 @@ function makeSharedAPI(channel: Channel, data: ConnectMessage): BaseExtensionSDK
   }
 }
 
-function makeWindowAPI(channel: Channel, _data: any, currentWindow: Window) {
+function makeWindowAPI(channel: Channel, _data: any, currentGlobal: typeof globalThis) {
   return {
-    window: createWindow(currentWindow, channel),
+    window: createWindow(currentGlobal, channel),
   }
 }
 
