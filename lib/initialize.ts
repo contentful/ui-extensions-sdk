@@ -29,12 +29,12 @@ export default function createInitializer(
     }
   ) {
     if (!supressIframeWarning && currentWindow.self === currentWindow.top) {
-      console.error(`Cannot use ui-extension-sdk outside of Contenful:
+      console.error(`Cannot use App SDK outside of Contenful:
 
-In order for the ui-extension-sdk to function correctly, your app needs to be run in an iframe in the Contentful Web App.
+In order for the App SDK to function correctly, your app needs to be run in an iframe in the Contentful Web App, Compose or Launch.
 
-Learn more about local development with the ui-extension-sdk here:
-  https://www.contentful.com/developers/docs/extensibility/ui-extensions/faq/#how-can-i-use-the-ui-extension-sdk-locally`)
+Learn more about local development with the App SDK here:
+  https://www.contentful.com/developers/docs/extensibility/ui-extensions/faq/#how-can-i-develop-with-the-ui-extension-sdk-locally`)
     }
 
     if (!initializedSdks) {
