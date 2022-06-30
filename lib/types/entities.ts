@@ -11,6 +11,7 @@ export type {
   RoleProps as Role,
   ScheduledActionProps as ScheduledAction,
   SpaceMembershipProps as SpaceMembership,
+  SpaceProps as Space,
   TagProps as Tag,
   TagVisibility,
   TaskProps as Task,

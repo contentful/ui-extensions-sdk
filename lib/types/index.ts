@@ -50,6 +50,7 @@ export type {
   Metadata,
   Role,
   ScheduledAction,
+  Space,
   SpaceMembership,
   Tag,
   TagVisibility,
