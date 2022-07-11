@@ -22,6 +22,6 @@ module.exports = [
     file: pkg.main,
     format: 'umd',
     name: 'contentfulExtension',
-    footer: 'window.contentfulApp = window.contentfulExtension;'
+    footer: 'globalThis.contentfulApp = globalThis.contentfulExtension;'
   })
 ]

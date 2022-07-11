@@ -3,7 +3,7 @@ import { sinon, makeDOM, expect } from '../helpers'
 import initializeApi from '../../lib/initialize'
 import { Channel } from '../../lib/channel'
 
-describe('initializeApi(currentWindow, apiCreator)', function () {
+describe('initializeApi(currentGlobal, apiCreator)', function () {
   beforeEach(function () {
     this.dom = makeDOM()
     this.apiCreator = sinon.stub().returns({})
