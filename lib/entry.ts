@@ -44,7 +44,7 @@ export default function createEntry(
       return sys
     },
     publish(options?: { skipUiValidation?: boolean }) {
-      return channel.call<void>('callEntryMethod', 'publish', options)
+      return channel.call<void>('callEntryMethod', 'publish', [options])
     },
     unpublish() {
       return channel.call<void>('callEntryMethod', 'unpublish')
