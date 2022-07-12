@@ -1,3 +1,9 @@
+# [4.9.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.8.1...v4.9.0) (2022-07-12)
+
+### Features
+
+- [] add option to entry publish method ([#1306](https://github.com/contentful/ui-extensions-sdk/issues/1306)) ([e6aaab1](https://github.com/contentful/ui-extensions-sdk/commit/e6aaab1f414e535a66b7d1679be82ef210d750b9))
+
 ## [4.8.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.8.0...v4.8.1) (2022-06-28)
 
 ### Bug Fixes
