@@ -1,5 +1,6 @@
 import { ConnectMessage, KnownSDK } from './types'
 import connect, { Channel } from './channel'
+import { createDeferred } from './util/deferred'
 
 export default function createInitializer(
   currentGlobal: typeof globalThis,
@@ -36,13 +37,8 @@ export default function createInitializer(
       supressIframeWarning: false,
     }
   ) {
-    if (!supressIframeWarning && currentGlobal.self === currentGlobal.top) {
-      console.error(`Cannot use App SDK outside of Contenful:
-
-In order for the App SDK to function correctly, your app needs to be run in an iframe in the Contentful Web App, Compose or Launch.
-
-Learn more about local development with the App SDK here:
-  https://www.contentful.com/developers/docs/extensibility/ui-extensions/faq/#how-can-i-develop-with-the-ui-extension-sdk-locally`)
+    if (!supressIframeWarning) {
+      warnIfOutsideOfContentful(currentGlobal)
     }
 
     if (!initializedSdks) {
@@ -73,18 +69,13 @@ Learn more about local development with the App SDK here:
   }
 }
 
-function createDeferred<T = any>() {
-  const deferred: {
-    promise: Promise<T>
-    resolve: (value: T | PromiseLike<T>) => void
-  } = {
-    promise: null as any,
-    resolve: null as any,
+function warnIfOutsideOfContentful(currentGlobal: typeof globalThis) {
+  if (currentGlobal.self === currentGlobal.top) {
+    console.error(`Cannot use App SDK outside of Contenful:
+
+In order for the App SDK to function correctly, your app needs to be run in an iframe in the Contentful Web App, Compose or Launch.
+
+Learn more about local development with the App SDK here:
+https://www.contentful.com/developers/docs/extensibility/ui-extensions/faq/#how-can-i-develop-with-the-ui-extension-sdk-locally`)
   }
-
-  deferred.promise = new Promise<T>((resolve) => {
-    deferred.resolve = resolve
-  })
-
-  return deferred
 }
