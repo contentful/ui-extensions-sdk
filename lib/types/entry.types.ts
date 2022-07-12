@@ -29,7 +29,7 @@ export interface EntryAPI extends TaskAPI {
   /** Returns sys for an entry. */
   getSys: () => ContentEntitySys
   /** Publish the entry */
-  publish: () => Promise<void>
+  publish: (options?: { skipUiValidation?: boolean }) => Promise<void>
   /** Unpublish the entry */
   unpublish: () => Promise<void>
   /** Saves the current changes of the entry */
