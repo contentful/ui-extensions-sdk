@@ -2,22 +2,22 @@ import { Signal } from './signal'
 import { ConnectMessage } from './types'
 
 export default function connect(
-  currentWindow: Window,
+  currentGlobal: typeof globalThis,
   onConnect: (channel: Channel, message: ConnectMessage, messageQueue: unknown[]) => void
 ) {
-  waitForConnect(currentWindow, (params: ConnectMessage, messageQueue: unknown[]) => {
-    const channel = new Channel(params.id, currentWindow)
+  waitForConnect(currentGlobal, (params: ConnectMessage, messageQueue: unknown[]) => {
+    const channel = new Channel(params.id, currentGlobal)
     onConnect(channel, params, messageQueue)
   })
 }
 
-function waitForConnect(currentWindow: Window, onConnect: Function) {
-  currentWindow.addEventListener('message', listener)
+function waitForConnect(currentGlobal: typeof globalThis, onConnect: Function) {
+  currentGlobal.addEventListener('message', listener)
 
   function listener(event: MessageEvent) {
     const message = event.data
     if (message.method === 'connect') {
-      currentWindow.removeEventListener('message', listener)
+      currentGlobal.removeEventListener('message', listener)
       onConnect(...message.params)
     }
   }
@@ -28,10 +28,10 @@ export class Channel {
   private _responseHandlers: { [method: string]: any } = {}
   private _send: ReturnType<typeof createSender>
 
-  constructor(sourceId: string, currentWindow: Window) {
-    this._send = createSender(sourceId, currentWindow.parent)
+  constructor(sourceId: string, currentGlobal: typeof globalThis) {
+    this._send = createSender(sourceId, currentGlobal.parent)
 
-    currentWindow.addEventListener('message', (event: MessageEvent) => {
+    currentGlobal.addEventListener('message', (event: MessageEvent) => {
       this._handleMessage(event.data)
     })
   }

@@ -1,9 +1,11 @@
 import { Channel } from './channel'
 import { WindowAPI } from './types/window.types'
 
-export default function createWindow(currentWindow: Window, channel: Channel): WindowAPI {
-  // We assume MutationObserver and ResizeObserver were defined by the web-app
-  const { document, MutationObserver, ResizeObserver } = currentWindow as any
+export default function createWindow(
+  currentGlobal: typeof globalThis,
+  channel: Channel
+): WindowAPI {
+  const { document, MutationObserver, ResizeObserver } = currentGlobal
 
   let oldHeight: number
   let isAutoResizing = false

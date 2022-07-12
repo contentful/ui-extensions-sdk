@@ -10,4 +10,4 @@ type Init = <T extends KnownSDK = KnownSDK>(
   options?: { supressIframeWarning?: boolean }
 ) => void
 
-export const init = createInitializer(window, createAPI) as Init
+export const init = createInitializer(globalThis, createAPI) as Init

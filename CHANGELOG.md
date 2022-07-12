@@ -1,3 +1,10 @@
+## [4.8.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.8.0...v4.8.1) (2022-06-28)
+
+### Bug Fixes
+
+- make init a noop for non-browser environments ([#1308](https://github.com/contentful/ui-extensions-sdk/issues/1308)) ([253c5c8](https://github.com/contentful/ui-extensions-sdk/commit/253c5c8e3e5c3e7f7047f8826e436923f778eb93))
+- use App SDK instead of UI Extensions in error message ([#1307](https://github.com/contentful/ui-extensions-sdk/issues/1307)) ([06ec441](https://github.com/contentful/ui-extensions-sdk/commit/06ec44182a4439776aaf83669d9db5497a6c93c6))
+
 # [4.8.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.7.0...v4.8.0) (2022-06-15)
 
 ### Features
