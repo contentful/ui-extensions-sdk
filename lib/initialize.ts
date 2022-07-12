@@ -1,6 +1,6 @@
 import { ConnectMessage, KnownSDK } from './types'
 import { connect, Channel, sendInitMessage } from './channel'
-import { createDeferred } from './util/deferred'
+import { createDeferred } from './utils/deferred'
 
 export function createInitializer(
   currentGlobal: typeof globalThis,
