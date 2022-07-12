@@ -14,8 +14,7 @@ export default function createInitializer(
     return () => {}
   }
 
-  const connectDeferred =
-    createDeferred<[channel: Channel, message: ConnectMessage, messageQueue: unknown[]]>()
+  const connectDeferred = createDeferred<[channel: Channel, message: ConnectMessage]>()
 
   connectDeferred.promise.then(([channel]) => {
     const { document } = currentGlobal
@@ -42,21 +41,13 @@ export default function createInitializer(
     }
 
     if (!initializedSdks) {
-      initializedSdks = connectDeferred.promise.then(([channel, params, messageQueue]) => {
+      initializedSdks = connectDeferred.promise.then(([channel, params]) => {
         const api = apiCreator(channel, params, currentGlobal)
 
         let customApi
         if (typeof makeCustomApi === 'function') {
           customApi = makeCustomApi(channel, params)
         }
-
-        // Handle pending incoming messages.
-        // APIs are created before so handlers are already
-        // registered on the channel.
-        messageQueue.forEach((m) => {
-          // TODO Expose private handleMessage method
-          ;(channel as any)._handleMessage(m)
-        })
 
         return [api, customApi]
       })
