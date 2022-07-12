@@ -1,8 +1,8 @@
 import { ConnectMessage, KnownSDK } from './types'
-import connect, { Channel } from './channel'
+import { connect, Channel } from './channel'
 import { createDeferred } from './util/deferred'
 
-export default function createInitializer(
+export function createInitializer(
   currentGlobal: typeof globalThis,
   apiCreator: (channel: Channel, data: ConnectMessage, currentGlobal: typeof globalThis) => KnownSDK
 ) {

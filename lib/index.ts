@@ -1,4 +1,4 @@
-import createInitializer from './initialize'
+import { createInitializer } from './initialize'
 import createAPI from './api'
 import { KnownSDK } from './types'
 
