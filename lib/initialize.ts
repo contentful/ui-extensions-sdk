@@ -1,5 +1,5 @@
 import { ConnectMessage, KnownSDK } from './types'
-import { connect, Channel } from './channel'
+import { connect, Channel, sendInitMessage } from './channel'
 import { createDeferred } from './util/deferred'
 
 export function createInitializer(
@@ -51,6 +51,10 @@ export function createInitializer(
 
         return [api, customApi]
       })
+
+      if (!connectDeferred.isFulfilled) {
+        sendInitMessage(currentGlobal)
+      }
     }
 
     initializedSdks.then(([sdk, customSdk]) =>

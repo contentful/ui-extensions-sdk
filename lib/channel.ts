@@ -113,3 +113,15 @@ function createSender(sourceId: string, targetWindow: Window) {
     return messageId
   }
 }
+
+export function sendInitMessage(currentGlobal: typeof globalThis) {
+  const targetWindow = currentGlobal.parent
+
+  // The app is not connected yet so we can't provide an `id` or `source`
+  targetWindow.postMessage(
+    {
+      method: 'init',
+    },
+    '*'
+  )
+}
