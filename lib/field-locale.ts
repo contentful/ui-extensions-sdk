@@ -73,7 +73,7 @@ export default class FieldLocale implements FieldAPI {
   }
 
   setInvalid(isInvalid: boolean) {
-    return this._channel.call('setInvalid', isInvalid, this.locale)
+    return this._channel.call('setInvalid', isInvalid, this.locale, this.id)
   }
 
   onValueChanged(handler: (value: any) => any) {
