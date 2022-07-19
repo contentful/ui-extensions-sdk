@@ -249,7 +249,7 @@ export type KnownSDK =
   | EditorExtensionSDK
   | PageExtensionSDK
   | AppExtensionSDK
-  | PageExtensionSDK
+  | HomeExtensionSDK
 
 export interface Locations {
   LOCATION_ENTRY_FIELD: 'entry-field'
