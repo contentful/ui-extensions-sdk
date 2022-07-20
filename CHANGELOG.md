@@ -1,3 +1,9 @@
+# [4.10.0-alpha.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.9.0...v4.10.0-alpha.1) (2022-07-20)
+
+### Features
+
+- init can be called at any time ([#1319](https://github.com/contentful/ui-extensions-sdk/issues/1319)) ([63122f7](https://github.com/contentful/ui-extensions-sdk/commit/63122f7a1f09d1d2f4fd86f7c9e64c89e76e54b3))
+
 # [4.9.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.8.1...v4.9.0) (2022-07-12)
 
 ### Features
