@@ -1,13 +1,13 @@
 import { sinon, makeDOM, expect } from '../helpers'
 
-import initializeApi from '../../lib/initialize'
+import { createInitializer } from '../../lib/initialize'
 import { Channel } from '../../lib/channel'
 
 describe('initializeApi(currentGlobal, apiCreator)', function () {
   beforeEach(function () {
     this.dom = makeDOM()
     this.apiCreator = sinon.stub().returns({})
-    const init = initializeApi(this.dom.window, (...args) => this.apiCreator(...args))
+    const init = createInitializer(this.dom.window, (...args) => this.apiCreator(...args))
     this.initialize = function () {
       return new Promise((resolve) => init(resolve))
     }
@@ -17,7 +17,7 @@ describe('initializeApi(currentGlobal, apiCreator)', function () {
     beforeEach(function () {
       this.api = {}
       this.apiCreator = sinon.stub().returns(this.api)
-      this.init = initializeApi(this.dom.window, this.apiCreator)
+      this.init = createInitializer(this.dom.window, this.apiCreator)
     })
 
     it('is not invoked before connecting', function () {

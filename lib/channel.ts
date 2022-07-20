@@ -1,7 +1,7 @@
 import { Signal } from './signal'
 import { ConnectMessage } from './types'
 
-export default function connect(
+export function connect(
   currentGlobal: typeof globalThis,
   onConnect: (channel: Channel, message: ConnectMessage, messageQueue: unknown[]) => void
 ) {
@@ -25,7 +25,13 @@ function waitForConnect(currentGlobal: typeof globalThis, onConnect: Function) {
 
 export class Channel {
   private _messageHandlers: { [method: string]: Signal } = {}
-  private _responseHandlers: { [method: string]: any } = {}
+  private _responseHandlers: {
+    [method: string]: {
+      resolve: (value: any) => void
+      reject: (reason?: any) => void
+    }
+  } = {}
+
   private _send: ReturnType<typeof createSender>
 
   constructor(sourceId: string, currentGlobal: typeof globalThis) {
@@ -106,4 +112,16 @@ function createSender(sourceId: string, targetWindow: Window) {
 
     return messageId
   }
+}
+
+export function sendInitMessage(currentGlobal: typeof globalThis) {
+  const targetWindow = currentGlobal.parent
+
+  // The app is not connected yet so we can't provide an `id` or `source`
+  targetWindow.postMessage(
+    {
+      method: 'init',
+    },
+    '*'
+  )
 }

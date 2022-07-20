@@ -1,6 +1,6 @@
 import { sinon, makeDOM, expect } from '../helpers'
 
-import connect from '../../lib/channel'
+import { connect } from '../../lib/channel'
 
 describe('channel connect', function () {
   beforeEach(function () {
