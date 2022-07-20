@@ -3,11 +3,11 @@ import { ConnectMessage } from './types'
 
 export function connect(
   currentGlobal: typeof globalThis,
-  onConnect: (channel: Channel, message: ConnectMessage) => void
+  onConnect: (channel: Channel, message: ConnectMessage, messageQueue: unknown[]) => void
 ) {
-  waitForConnect(currentGlobal, (params: ConnectMessage) => {
+  waitForConnect(currentGlobal, (params: ConnectMessage, messageQueue: unknown[]) => {
     const channel = new Channel(params.id, currentGlobal)
-    onConnect(channel, params)
+    onConnect(channel, params, messageQueue)
   })
 }
 

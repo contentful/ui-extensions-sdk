@@ -91,6 +91,18 @@ describe('initializeApi(currentGlobal, apiCreator)', function () {
     })
   })
 
+  it('calls handlers for queued messages', function () {
+    sendConnect(this.dom, null as any, [{ method: 'M', params: ['X', 'Y'] }])
+    const handler = sinon.stub()
+    this.apiCreator = function (channel: Channel) {
+      channel.addHandler('M', handler)
+    }
+    return this.initialize().then(() => {
+      expect(handler).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
+      expect(handler).to.have.been.calledWithExactly('X', 'Y')
+    })
+  })
+
   it('adds focus handlers', function () {
     const { Event } = this.dom.window
     const send = sinon.spy()
@@ -110,11 +122,11 @@ describe('initializeApi(currentGlobal, apiCreator)', function () {
     })
   })
 
-  function sendConnect(dom: { window: Window }, params?: any) {
+  function sendConnect(dom: { window: Window }, params?: any, messageQueue?: any[]) {
     dom.window.postMessage(
       {
         method: 'connect',
-        params: [params || { id: 'foo' }],
+        params: [params || { id: 'foo' }, messageQueue || []],
       },
       '*'
     )
