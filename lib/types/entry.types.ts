@@ -12,11 +12,17 @@ export interface TaskInputData {
   dueDate?: string
 }
 
+export interface BasicQueryOptions {
+  skip?: number
+  limit?: number
+  [key: string]: any
+}
+
 /** Allows accessing the Task API for the current entry. */
 export interface TaskAPI {
   getTask(id: string): Promise<Task>
 
-  getTasks(): Promise<CollectionResponse<Task>>
+  getTasks(query: BasicQueryOptions): Promise<CollectionResponse<Task>>
 
   createTask(data: TaskInputData): Promise<Task>
 
