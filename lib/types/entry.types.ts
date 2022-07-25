@@ -1,6 +1,6 @@
 import { Metadata, Task } from './entities'
 import { EntryFieldAPI } from './field.types'
-import { CollectionResponse, ContentEntitySys } from './utils'
+import { CollectionResponse, ContentEntitySys, SearchQuery } from './utils'
 
 type TaskState = 'active' | 'resolved'
 
@@ -16,7 +16,7 @@ export interface TaskInputData {
 export interface TaskAPI {
   getTask(id: string): Promise<Task>
 
-  getTasks(): Promise<CollectionResponse<Task>>
+  getTasks(query: SearchQuery): Promise<CollectionResponse<Task>>
 
   createTask(data: TaskInputData): Promise<Task>
 
