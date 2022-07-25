@@ -1,6 +1,6 @@
 import { Metadata, Task } from './entities'
 import { EntryFieldAPI } from './field.types'
-import { CollectionResponse, ContentEntitySys } from './utils'
+import { CollectionResponse, ContentEntitySys, SearchQuery } from './utils'
 
 type TaskState = 'active' | 'resolved'
 
@@ -12,17 +12,11 @@ export interface TaskInputData {
   dueDate?: string
 }
 
-export interface BasicQueryOptions {
-  skip?: number
-  limit?: number
-  [key: string]: any
-}
-
 /** Allows accessing the Task API for the current entry. */
 export interface TaskAPI {
   getTask(id: string): Promise<Task>
 
-  getTasks(query: BasicQueryOptions): Promise<CollectionResponse<Task>>
+  getTasks(query: SearchQuery): Promise<CollectionResponse<Task>>
 
   createTask(data: TaskInputData): Promise<Task>
 
