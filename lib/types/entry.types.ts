@@ -16,7 +16,7 @@ export interface TaskInputData {
 export interface TaskAPI {
   getTask(id: string): Promise<Task>
 
-  getTasks(query: SearchQuery): Promise<CollectionResponse<Task>>
+  getTasks(query?: SearchQuery): Promise<CollectionResponse<Task>>
 
   createTask(data: TaskInputData): Promise<Task>
 
