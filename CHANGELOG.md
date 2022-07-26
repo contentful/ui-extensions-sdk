@@ -1,3 +1,9 @@
+# [4.10.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.9.0...v4.10.0) (2022-07-26)
+
+### Features
+
+- add query param to getTasks ([#1335](https://github.com/contentful/ui-extensions-sdk/issues/1335)) ([8e79721](https://github.com/contentful/ui-extensions-sdk/commit/8e79721b9a60adb181e67c87831674dd78145588))
+
 # [4.9.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.8.1...v4.9.0) (2022-07-12)
 
 ### Features
