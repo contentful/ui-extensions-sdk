@@ -1,3 +1,9 @@
+## [4.11.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.11.0...v4.11.1) (2022-08-02)
+
+### Bug Fixes
+
+- add missing properties to new `init` method ([#1338](https://github.com/contentful/ui-extensions-sdk/issues/1338)) ([4370508](https://github.com/contentful/ui-extensions-sdk/commit/4370508149337e6b7355f700b7d24f67f80434c7))
+
 # [4.11.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.10.0...v4.11.0) (2022-08-01)
 
 ### Features
