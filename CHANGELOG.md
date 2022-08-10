@@ -1,3 +1,9 @@
+# [4.10.0-alpha.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.10.0-alpha.1...v4.10.0-alpha.2) (2022-08-10)
+
+### Features
+
+- update canary with master ([#1340](https://github.com/contentful/ui-extensions-sdk/issues/1340)) ([46860c0](https://github.com/contentful/ui-extensions-sdk/commit/46860c037cd1af9816c5c5f63e7dd7512ec87610)), closes [#1329](https://github.com/contentful/ui-extensions-sdk/issues/1329) [#1331](https://github.com/contentful/ui-extensions-sdk/issues/1331) [#1332](https://github.com/contentful/ui-extensions-sdk/issues/1332) [#1330](https://github.com/contentful/ui-extensions-sdk/issues/1330) [#1334](https://github.com/contentful/ui-extensions-sdk/issues/1334) [#1336](https://github.com/contentful/ui-extensions-sdk/issues/1336) [#1335](https://github.com/contentful/ui-extensions-sdk/issues/1335) [#1335](https://github.com/contentful/ui-extensions-sdk/issues/1335) [#1337](https://github.com/contentful/ui-extensions-sdk/issues/1337) [#1319](https://github.com/contentful/ui-extensions-sdk/issues/1319) [#1319](https://github.com/contentful/ui-extensions-sdk/issues/1319) [#1338](https://github.com/contentful/ui-extensions-sdk/issues/1338) [#1338](https://github.com/contentful/ui-extensions-sdk/issues/1338) [#1339](https://github.com/contentful/ui-extensions-sdk/issues/1339)
+
 ## [4.11.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.11.0...v4.11.1) (2022-08-02)
 
 ### Bug Fixes
