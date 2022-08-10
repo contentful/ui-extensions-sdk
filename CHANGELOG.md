@@ -1,8 +1,26 @@
+## [4.11.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.11.0...v4.11.1) (2022-08-02)
+
+### Bug Fixes
+
+- add missing properties to new `init` method ([#1338](https://github.com/contentful/ui-extensions-sdk/issues/1338)) ([4370508](https://github.com/contentful/ui-extensions-sdk/commit/4370508149337e6b7355f700b7d24f67f80434c7))
+
+# [4.11.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.10.0...v4.11.0) (2022-08-01)
+
+### Features
+
+- `init` can be called at any time ([#1319](https://github.com/contentful/ui-extensions-sdk/issues/1319)) ([d95d441](https://github.com/contentful/ui-extensions-sdk/commit/d95d44131de72f9ecbb4cac4f2439bd6dd05a912))
+
 # [4.10.0-alpha.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.9.0...v4.10.0-alpha.1) (2022-07-20)
 
 ### Features
 
 - init can be called at any time ([#1319](https://github.com/contentful/ui-extensions-sdk/issues/1319)) ([63122f7](https://github.com/contentful/ui-extensions-sdk/commit/63122f7a1f09d1d2f4fd86f7c9e64c89e76e54b3))
+
+# [4.10.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.9.0...v4.10.0) (2022-07-26)
+
+### Features
+
+- add query param to getTasks ([#1335](https://github.com/contentful/ui-extensions-sdk/issues/1335)) ([8e79721](https://github.com/contentful/ui-extensions-sdk/commit/8e79721b9a60adb181e67c87831674dd78145588))
 
 # [4.9.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.8.1...v4.9.0) (2022-07-12)
 

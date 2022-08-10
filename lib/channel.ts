@@ -85,10 +85,17 @@ export class Channel {
   }
 }
 
-function createSender(sourceId: string, targetWindow: Window) {
+const messageCounter = createMessageCounter()
+function createMessageCounter() {
   let messageCount = 0
+  return {
+    getMessageId: () => messageCount++,
+  }
+}
+
+function createSender(sourceId: string, targetWindow: Window) {
   return function send(method: string, params: any) {
-    const messageId = messageCount++
+    const messageId = messageCounter.getMessageId()
 
     try {
       targetWindow.postMessage(
@@ -114,14 +121,19 @@ function createSender(sourceId: string, targetWindow: Window) {
   }
 }
 
-export function sendInitMessage(currentGlobal: typeof globalThis) {
+export function sendInitMessage(currentGlobal: typeof globalThis): number {
+  const messageId = messageCounter.getMessageId()
   const targetWindow = currentGlobal.parent
 
-  // The app is not connected yet so we can't provide an `id` or `source`
+  // The app is not connected yet so we can't provide a `source`
   targetWindow.postMessage(
     {
+      id: messageId,
       method: 'init',
+      params: [],
     },
     '*'
   )
+
+  return messageId
 }
