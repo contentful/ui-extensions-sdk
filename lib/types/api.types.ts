@@ -232,6 +232,10 @@ export type PageExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
   ids: Omit<IdsAPI, EntryScopedIds>
 }
 
+export type HomeExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
+  ids: Omit<IdsAPI, EntryScopedIds>
+}
+
 export type AppExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
   /** A set of IDs actual for the app */
   ids: Omit<IdsAPI, EntryScopedIds | 'extension' | 'app'> & { app: string }
@@ -245,6 +249,7 @@ export type KnownSDK =
   | EditorExtensionSDK
   | PageExtensionSDK
   | AppExtensionSDK
+  | HomeExtensionSDK
 
 export interface Locations {
   LOCATION_ENTRY_FIELD: 'entry-field'
@@ -253,6 +258,7 @@ export interface Locations {
   LOCATION_DIALOG: 'dialog'
   LOCATION_ENTRY_EDITOR: 'entry-editor'
   LOCATION_PAGE: 'page'
+  LOCATION_HOME: 'home'
   LOCATION_APP_CONFIG: 'app-config'
 }
 

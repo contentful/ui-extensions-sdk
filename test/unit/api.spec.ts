@@ -110,6 +110,18 @@ describe('createAPI()', () => {
     test(expected, locations.LOCATION_DIALOG)
   })
 
+  it('returns correct shape of the home API (home)', () => {
+    const expected = []
+
+    test(expected, locations.LOCATION_HOME)
+  })
+
+  it('returns correct shape of the page API (page)', () => {
+    const expected = []
+
+    test(expected, locations.LOCATION_PAGE)
+  })
+
   it('returns correct shape of the app API (app)', () => {
     const expected = ['app']
 
