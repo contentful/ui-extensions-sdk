@@ -1,3 +1,9 @@
+# [4.10.0-alpha.3](https://github.com/contentful/ui-extensions-sdk/compare/v4.10.0-alpha.2...v4.10.0-alpha.3) (2022-08-10)
+
+### Features
+
+- add home location [EXT-3684] ([#1322](https://github.com/contentful/ui-extensions-sdk/issues/1322)) ([527ad19](https://github.com/contentful/ui-extensions-sdk/commit/527ad198b8b49861b17f98d02cc917ac89f29bab))
+
 # [4.10.0-alpha.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.10.0-alpha.1...v4.10.0-alpha.2) (2022-08-10)
 
 ### Features
