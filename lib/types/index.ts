@@ -10,6 +10,7 @@ export type {
   EditorExtensionSDK,
   EditorLocaleSettings,
   FieldExtensionSDK,
+  HomeExtensionSDK,
   IdsAPI,
   KnownSDK,
   LocalesAPI,

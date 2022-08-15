@@ -39,6 +39,7 @@ const LOCATION_TO_API_PRODUCERS: { [location: string]: ProducerFunc[] } = {
   [locations.LOCATION_ENTRY_EDITOR]: [makeSharedAPI, makeEntryAPI, makeEditorAPI],
   [locations.LOCATION_DIALOG]: [makeSharedAPI, makeDialogAPI, makeWindowAPI],
   [locations.LOCATION_PAGE]: [makeSharedAPI],
+  [locations.LOCATION_HOME]: [makeSharedAPI],
   [locations.LOCATION_APP_CONFIG]: [makeSharedAPI, makeAppAPI],
 }
 
