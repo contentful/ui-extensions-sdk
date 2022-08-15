@@ -1,3 +1,9 @@
+# [4.12.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.11.1...v4.12.0) (2022-08-15)
+
+### Features
+
+- ui-config updates [EXT-3738] ([#1344](https://github.com/contentful/ui-extensions-sdk/issues/1344)) ([524a701](https://github.com/contentful/ui-extensions-sdk/commit/524a701c43597a874218cdc458924b82087aa8c8))
+
 # [4.10.0-alpha.3](https://github.com/contentful/ui-extensions-sdk/compare/v4.10.0-alpha.2...v4.10.0-alpha.3) (2022-08-10)
 
 ### Features
@@ -21,6 +27,7 @@
 ### Features
 
 - `init` can be called at any time ([#1319](https://github.com/contentful/ui-extensions-sdk/issues/1319)) ([d95d441](https://github.com/contentful/ui-extensions-sdk/commit/d95d44131de72f9ecbb4cac4f2439bd6dd05a912))
+
 
 # [4.10.0-alpha.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.9.0...v4.10.0-alpha.1) (2022-07-20)
 
