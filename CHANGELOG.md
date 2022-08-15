@@ -1,3 +1,9 @@
+# [4.12.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.11.1...v4.12.0) (2022-08-15)
+
+### Features
+
+- ui-config updates [EXT-3738] ([#1344](https://github.com/contentful/ui-extensions-sdk/issues/1344)) ([524a701](https://github.com/contentful/ui-extensions-sdk/commit/524a701c43597a874218cdc458924b82087aa8c8))
+
 ## [4.11.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.11.0...v4.11.1) (2022-08-02)
 
 ### Bug Fixes
