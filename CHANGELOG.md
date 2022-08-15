@@ -1,3 +1,9 @@
+# [4.10.0-alpha.4](https://github.com/contentful/ui-extensions-sdk/compare/v4.10.0-alpha.3...v4.10.0-alpha.4) (2022-08-15)
+
+### Features
+
+- update from master [] ([#1347](https://github.com/contentful/ui-extensions-sdk/issues/1347)) ([6145531](https://github.com/contentful/ui-extensions-sdk/commit/6145531d05becb467cd6fb68dca49507a6e18fcb)), closes [#1329](https://github.com/contentful/ui-extensions-sdk/issues/1329) [#1331](https://github.com/contentful/ui-extensions-sdk/issues/1331) [#1332](https://github.com/contentful/ui-extensions-sdk/issues/1332) [#1330](https://github.com/contentful/ui-extensions-sdk/issues/1330) [#1334](https://github.com/contentful/ui-extensions-sdk/issues/1334) [#1336](https://github.com/contentful/ui-extensions-sdk/issues/1336) [#1335](https://github.com/contentful/ui-extensions-sdk/issues/1335) [#1335](https://github.com/contentful/ui-extensions-sdk/issues/1335) [#1337](https://github.com/contentful/ui-extensions-sdk/issues/1337) [#1319](https://github.com/contentful/ui-extensions-sdk/issues/1319) [#1319](https://github.com/contentful/ui-extensions-sdk/issues/1319) [#1338](https://github.com/contentful/ui-extensions-sdk/issues/1338) [#1338](https://github.com/contentful/ui-extensions-sdk/issues/1338) [#1339](https://github.com/contentful/ui-extensions-sdk/issues/1339) [#1341](https://github.com/contentful/ui-extensions-sdk/issues/1341) [#1342](https://github.com/contentful/ui-extensions-sdk/issues/1342) [#1343](https://github.com/contentful/ui-extensions-sdk/issues/1343) [#1344](https://github.com/contentful/ui-extensions-sdk/issues/1344) [#1344](https://github.com/contentful/ui-extensions-sdk/issues/1344) [#1346](https://github.com/contentful/ui-extensions-sdk/issues/1346)
+
 # [4.12.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.11.1...v4.12.0) (2022-08-15)
 
 ### Features
@@ -27,7 +33,6 @@
 ### Features
 
 - `init` can be called at any time ([#1319](https://github.com/contentful/ui-extensions-sdk/issues/1319)) ([d95d441](https://github.com/contentful/ui-extensions-sdk/commit/d95d44131de72f9ecbb4cac4f2439bd6dd05a912))
-
 
 # [4.10.0-alpha.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.9.0...v4.10.0-alpha.1) (2022-07-20)
 
