@@ -33,7 +33,7 @@ export interface CollectionResponse<T> {
   sys: { type: string }
 }
 
-export type ContentEntityType = 'Entry' | 'Asset' | string
+export type ContentEntityType = 'Entry' | 'Asset'
 
 export interface ContentEntitySys {
   space: Link
