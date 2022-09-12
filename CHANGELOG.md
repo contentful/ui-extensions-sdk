@@ -1,3 +1,9 @@
+## [4.12.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.12.0...v4.12.1) (2022-09-12)
+
+### Bug Fixes
+
+- make ContentEntityType more specific ([#1328](https://github.com/contentful/ui-extensions-sdk/issues/1328)) ([99bda6e](https://github.com/contentful/ui-extensions-sdk/commit/99bda6ef13c91bc3f4bb06ae486f1875b7045895))
+
 # [4.12.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.11.1...v4.12.0) (2022-08-15)
 
 ### Features
