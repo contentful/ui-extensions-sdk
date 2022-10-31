@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  vault: contentful/vault@1
+
 jobs:
   unit:
     docker:
@@ -9,11 +12,23 @@ jobs:
           TERM: xterm
     steps:
       - checkout
-      - run: npm ci
-      - run: npm run lint
-      - run: npm test
-      - run: npm run build
-      - run: npm run size
+      - vault/get-secrets:
+          template-preset: "npm-read"
+      - run:
+          name: Npm Install
+          command: npm ci
+      - run:
+          name: Run linter
+          command: npm run lint
+      - run:
+          name: Run test
+          command: npm test
+      - run:
+          name: Building
+          command: npm run build
+      - run:
+          name: Sizing
+          command: npm run size
       - store_test_results:
           path: test/unit/reports
 
@@ -22,6 +37,8 @@ jobs:
       - image: cimg/node:16.13.2
     steps:
       - checkout
+      - vault/get-secrets:
+          template-preset: "semantic-release"
       - run:
           name: Setup NPM
           command: |
@@ -37,8 +54,12 @@ workflows:
   # run on every commit
   commit:
     jobs:
-      - unit
+      - unit:
+          context:
+            - vault
       - semantic-release:
+          context:
+            - vault
           requires:
             - unit
           filters:
