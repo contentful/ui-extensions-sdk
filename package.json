@@ -62,7 +62,7 @@
     "eslint-plugin-promise": "6.1.1",
     "eslint-plugin-react": "7.31.11",
     "eslint-plugin-standard": "5.0.0",
-    "fs-extra": "10.1.0",
+    "fs-extra": "11.0.0",
     "husky": "8.0.2",
     "jsdom": "20.0.3",
     "lint-staged": "13.0.4",
