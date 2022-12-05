@@ -65,7 +65,7 @@
     "fs-extra": "11.1.0",
     "husky": "8.0.2",
     "jsdom": "20.0.3",
-    "lint-staged": "13.0.4",
+    "lint-staged": "13.1.0",
     "mocha": "10.1.0",
     "mocha-junit-reporter": "2.2.0",
     "mocha-multi-reporters": "1.5.1",
