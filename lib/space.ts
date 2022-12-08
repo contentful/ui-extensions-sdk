@@ -54,6 +54,10 @@ const spaceMethods: Array<keyof SpaceAPI> = [
   'deleteTag',
 
   'getTeams',
+
+  'onTaskCreated' as keyof SpaceAPI,
+  'onTaskUpdated' as keyof SpaceAPI,
+  'onTaskDeleted' as keyof SpaceAPI,
 ]
 
 export default function createSpace(
