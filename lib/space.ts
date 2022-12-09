@@ -1,5 +1,6 @@
 import { ContentType, SpaceAPI } from './types'
 import { Channel } from './channel'
+import { Signal } from './signal'
 
 const spaceMethods: Array<keyof SpaceAPI> = [
   'getContentType',
@@ -54,32 +55,59 @@ const spaceMethods: Array<keyof SpaceAPI> = [
   'deleteTag',
 
   'getTeams',
-
-  'onTaskCreated' as keyof SpaceAPI,
-  'onTaskUpdated' as keyof SpaceAPI,
-  'onTaskDeleted' as keyof SpaceAPI,
 ]
 
 export default function createSpace(
   channel: Channel,
   initialContentTypes: ContentType[]
 ): SpaceAPI {
-  const space = {} as SpaceAPI
+  const spaceApi = {} as SpaceAPI
+
+  const taskCreated = new Signal()
+  const taskUpdated = new Signal()
+  const taskDeleted = new Signal()
+
+  channel.addHandler(
+    'spaceCallbacks',
+    ({ method, params }: { method: string; params: { entityType: string; entityId: string } }) => {
+      if (method === 'taskCreated') {
+        taskCreated.dispatch(params.entityType, params.entityId)
+      } else if (method === 'taskUpdated') {
+        taskUpdated.dispatch(params.entityType, params.entityId)
+      } else if (method === 'taskDeleted') {
+        taskDeleted.dispatch(params.entityType, params.entityId)
+      } else {
+        console.error('Unexpected space callback method', method)
+      }
+    }
+  )
 
   spaceMethods.forEach((methodName) => {
-    space[methodName] = function (...args: any[]) {
-      console.warn(
-        `You called ${String(
-          methodName
-        )} on the Space API. Since version 4.0.0 the Space API and its methods are deprecated, and they will be removed from version 5.0.0 on. We recommend that you use the CMA client instead. See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details.`
-      )
-      return channel.call('callSpaceMethod', methodName, args)
-    } as any
+    if (methodName)
+      spaceApi[methodName] = function (...args: any[]) {
+        console.warn(
+          `You called ${String(
+            methodName
+          )} on the Space API. Since version 4.0.0 the Space API and its methods are deprecated, and they will be removed from version 5.0.0 on. We recommend that you use the CMA client instead. See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details.`
+        )
+        return channel.call('callSpaceMethod', methodName, args)
+      } as any
   })
 
-  space.getCachedContentTypes = () => {
+  spaceApi.getCachedContentTypes = () => {
     return [...initialContentTypes]
   }
 
-  return space
+  return {
+    ...spaceApi,
+    onTaskCreated(handler: Function) {
+      return taskCreated.attach(handler)
+    },
+    onTaskUpdated(handler: Function) {
+      return taskUpdated.attach(handler)
+    },
+    onTaskDeleted(handler: Function) {
+      return taskDeleted.attach(handler)
+    },
+  } as SpaceAPI
 }
