@@ -1,6 +1,6 @@
 import { PlainClientAPI, AlphaWorkflowExtension } from 'contentful-management/types'
 
-export type PlainClientAPIWithAdapter = {
+export type InAppPlainClientAPI = {
   appAction: Pick<PlainClientAPI['appAction'], 'get' | 'getMany' | 'getManyForEnvironment'>
   appDefinition: Pick<PlainClientAPI['appDefinition'], 'get' | 'getInstallationsForOrg'>
   appInstallation: Pick<PlainClientAPI['appInstallation'], 'getForOrganization'>
@@ -31,4 +31,4 @@ export type PlainClientAPIWithAdapter = {
   userUIConfig: PlainClientAPI['userUIConfig']
 }
 
-export type AlphaPlainClientAPIWithAdapter = PlainClientAPIWithAdapter & AlphaWorkflowExtension
+export type AlphaInAppPlainClientAPI = InAppPlainClientAPI & AlphaWorkflowExtension
