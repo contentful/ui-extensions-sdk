@@ -108,3 +108,5 @@ export type {
 } from './validation-error'
 
 export type { WindowAPI } from './window.types'
+
+export type { InAppPlainClientAPI } from './plainClient.types'
