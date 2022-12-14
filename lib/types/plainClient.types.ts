@@ -1,4 +1,4 @@
-import { PlainClientAPI, AlphaWorkflowExtension } from 'contentful-management/types'
+import { PlainClientAPI, AlphaWorkflowExtension } from 'contentful-management'
 
 export type InAppPlainClientAPI = {
   appAction: Pick<PlainClientAPI['appAction'], 'get' | 'getMany' | 'getManyForEnvironment'>
