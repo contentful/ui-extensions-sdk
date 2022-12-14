@@ -1,4 +1,4 @@
-import { PlainClientAPI, AlphaExtensions } from 'contentful-management'
+import { PlainClientAPI } from 'contentful-management'
 
 export type InAppPlainClientAPI = {
   appAction: Pick<PlainClientAPI['appAction'], 'get' | 'getMany' | 'getManyForEnvironment'>
@@ -30,5 +30,3 @@ export type InAppPlainClientAPI = {
   uiConfig: PlainClientAPI['uiConfig']
   userUIConfig: PlainClientAPI['userUIConfig']
 }
-
-export type AlphaInAppPlainClientAPI = InAppPlainClientAPI & AlphaExtensions
