@@ -109,4 +109,4 @@ export type {
 
 export type { WindowAPI } from './window.types'
 
-export type { InAppPlainClientAPI } from './plainClient.types'
+export type { CMAClient } from './cmaClient.types'

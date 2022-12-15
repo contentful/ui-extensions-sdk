@@ -1,6 +1,6 @@
 import { PlainClientAPI } from 'contentful-management'
 
-export type InAppPlainClientAPI = {
+export type CMAClient = {
   appAction: Pick<PlainClientAPI['appAction'], 'get' | 'getMany' | 'getManyForEnvironment'>
   appDefinition: Pick<PlainClientAPI['appDefinition'], 'get' | 'getInstallationsForOrg'>
   appInstallation: Pick<PlainClientAPI['appInstallation'], 'getForOrganization'>
