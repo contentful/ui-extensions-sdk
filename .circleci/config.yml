@@ -12,8 +12,6 @@ jobs:
           TERM: xterm
     steps:
       - checkout
-      - vault/get-secrets:
-          template-preset: "npm-read"
       - run:
           name: Npm Install
           command: npm ci
