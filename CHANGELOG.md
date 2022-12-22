@@ -1,3 +1,9 @@
+# [4.14.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.13.0...v4.14.0) (2022-12-22)
+
+### Features
+
+- add type for CMA client ([#1430](https://github.com/contentful/ui-extensions-sdk/issues/1430)) ([8eb1847](https://github.com/contentful/ui-extensions-sdk/commit/8eb1847b7d779393d0a11c1fe4567c6879dc705f))
+
 # [4.13.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.12.1...v4.13.0) (2022-10-24)
 
 ### Features
