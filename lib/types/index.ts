@@ -108,3 +108,5 @@ export type {
 } from './validation-error'
 
 export type { WindowAPI } from './window.types'
+
+export type { CMAClient } from './cmaClient.types'
