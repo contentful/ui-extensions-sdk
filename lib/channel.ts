@@ -24,7 +24,7 @@ function waitForConnect(currentGlobal: typeof globalThis, onConnect: Function) {
 }
 
 export class Channel {
-  private _messageHandlers: { [method: string]: Signal } = {}
+  private _messageHandlers: { [method: string]: Signal<any[]> } = {}
   private _responseHandlers: {
     [method: string]: {
       resolve: (value: any) => void
@@ -54,9 +54,9 @@ export class Channel {
     this._send(method, params)
   }
 
-  addHandler(method: string, handler: Function) {
+  addHandler(method: string, handler: (...args: any[]) => void) {
     if (!(method in this._messageHandlers)) {
-      this._messageHandlers[method] = new Signal()
+      this._messageHandlers[method] = new Signal<any[]>()
     }
     return this._messageHandlers[method].attach(handler)
   }
