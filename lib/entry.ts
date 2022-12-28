@@ -19,7 +19,7 @@ export default function createEntry(
   let sys = entryData.sys
   const sysChanged = new MemoizedSignal<[ContentEntitySys]>(sys)
   let metadata = entryData.metadata
-  const metadataChanged = new MemoizedSignal<[Metadata]>(metadata)
+  const metadataChanged = new MemoizedSignal<[Metadata | undefined]>(metadata)
 
   channel.addHandler('sysChanged', (newSys: Metadata) => {
     sys = newSys
