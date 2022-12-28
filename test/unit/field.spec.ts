@@ -15,7 +15,11 @@ describe(`Field`, () => {
   describe(`construction error`, () => {
     it(`gets thrown if defaultLocale is not included in info.locales`, () => {
       expect(() => {
-        return new Field(channelStub, { id: 'x', locales: ['de-DE'], values: {} } as any, 'en-US')
+        return new Field(
+          channelStub,
+          { id: 'x', locales: ['de-DE'], values: {}, isDisabled: {}, schemaErrors: {} } as any,
+          'en-US'
+        )
       }).to.throw('Unknown locale "en-US" for field "x"')
     })
   })
@@ -32,6 +36,8 @@ describe(`Field`, () => {
         'it-IT': 'Ciao',
         'de-DE': 'Hallo',
       },
+      isDisabled: { 'en-US': false, 'it-IT': false, 'de-DE': false },
+      schemaErrors: { 'en-US': [], 'it-IT': [], 'de-DE': [] },
       type: 'Array',
       required: true,
       validations: 'VALIDATIONS',

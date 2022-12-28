@@ -272,6 +272,10 @@ export interface ConnectMessage {
   ids: IdsAPI
   contentType: ContentTypeAPI
   editorInterface?: EditorInterface
+  editor?: {
+    localeSettings: EditorLocaleSettings
+    showDisabledFields: boolean
+  }
   entry: {
     sys: ContentEntitySys
     metadata?: Metadata

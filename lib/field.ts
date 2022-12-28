@@ -32,6 +32,8 @@ export default class Field implements EntryFieldAPI {
           items: info.items,
           locale,
           value: info.values[locale],
+          isDisabled: info.isDisabled[locale],
+          schemaErrors: info.schemaErrors[locale],
         })
 
         return { ...acc, [locale]: fieldLocale }

@@ -1,31 +1,31 @@
 import { EditorInterface, EditorLocaleSettings, SharedEditorSDK } from './types'
 import { Channel } from './channel'
 import { MemoizedSignal } from './signal'
+import { ConnectMessage } from './types/api.types'
 
 export default function createEditor(
   channel: Channel,
+  editorData: Exclude<ConnectMessage['editor'], undefined>,
   editorInterface: EditorInterface
 ): SharedEditorSDK['editor'] {
-  // @ts-expect-error Missing default value
-  const _localeSettingsSygnal = new MemoizedSignal<[EditorLocaleSettings]>([undefined])
-  // @ts-expect-error Missing default value
-  const _showDisabledFieldsSygnal = new MemoizedSignal<[boolean]>([undefined])
+  const localeSettingsSignal = new MemoizedSignal<[EditorLocaleSettings]>(editorData.localeSettings)
+  const showDisabledFieldsSignal = new MemoizedSignal<[boolean]>(editorData.showDisabledFields)
 
   channel.addHandler('localeSettingsChanged', (settings: EditorLocaleSettings) => {
-    _localeSettingsSygnal.dispatch(settings)
+    localeSettingsSignal.dispatch(settings)
   })
 
   channel.addHandler('showDisabledFieldsChanged', (showDisabledFields: boolean) => {
-    _showDisabledFieldsSygnal.dispatch(showDisabledFields)
+    showDisabledFieldsSignal.dispatch(showDisabledFields)
   })
 
   return {
     editorInterface,
     onLocaleSettingsChanged: (handler: (localeSettings: EditorLocaleSettings) => void) => {
-      return _localeSettingsSygnal.attach(handler)
+      return localeSettingsSignal.attach(handler)
     },
     onShowDisabledFieldsChanged: (handler: (showDisabledFields: boolean) => void) => {
-      return _showDisabledFieldsSygnal.attach(handler)
+      return showDisabledFieldsSignal.attach(handler)
     },
   }
 }
