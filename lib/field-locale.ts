@@ -1,6 +1,6 @@
 import { Channel } from './channel'
 import { MemoizedSignal } from './signal'
-import { FieldAPI, FieldInfo, Items } from './types'
+import { FieldAPI, FieldInfo, Items, SerializedJSONValue } from './types'
 import { ValidationError } from './types/validation-error'
 
 export default class FieldLocale implements FieldAPI {
@@ -61,15 +61,20 @@ export default class FieldLocale implements FieldAPI {
     return this._value
   }
 
-  setValue(value: any) {
+  async setValue(value: any) {
     this._value = value
     this._valueSignal.dispatch(value)
-    return this._channel.call('setValue', this.id, this.locale, value)
+    return await this._channel.call<SerializedJSONValue | undefined>(
+      'setValue',
+      this.id,
+      this.locale,
+      value
+    )
   }
 
-  removeValue() {
+  async removeValue() {
     this._value = undefined
-    return this._channel.call('removeValue', this.id, this.locale)
+    await this._channel.call('removeValue', this.id, this.locale)
   }
 
   setInvalid(isInvalid: boolean) {

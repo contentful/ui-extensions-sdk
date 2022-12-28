@@ -48,12 +48,12 @@ export default class Field implements EntryFieldAPI {
     return this._getFieldLocale(locale).getValue()
   }
 
-  setValue(value: any, locale?: string) {
-    return this._getFieldLocale(locale).setValue(value)
+  async setValue(value: any, locale?: string) {
+    return await this._getFieldLocale(locale).setValue(value)
   }
 
-  removeValue(locale?: string) {
-    return this.setValue(undefined, locale)
+  async removeValue(locale?: string) {
+    await this.setValue(undefined, locale)
   }
 
   onValueChanged(locale: string | ((value: any) => void), handler?: (value: any) => void) {
