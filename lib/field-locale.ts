@@ -28,9 +28,9 @@ export default class FieldLocale implements FieldAPI {
     this._value = info.value
     this._valueSignal = new MemoizedSignal(this._value)
     // @ts-expect-error Missing default value
-    this._isDisabledSignal = new MemoizedSignal(undefined)
+    this._isDisabledSignal = new MemoizedSignal<[boolean]>(undefined)
     // @ts-expect-error Missing default value
-    this._schemaErrorsChangedSignal = new MemoizedSignal(undefined)
+    this._schemaErrorsChangedSignal = new MemoizedSignal<[ValidationError[]]>(undefined)
     this._channel = channel
 
     channel.addHandler('valueChanged', (id: string, locale: string, value: any) => {
