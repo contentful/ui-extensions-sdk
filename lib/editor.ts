@@ -6,8 +6,10 @@ export default function createEditor(
   channel: Channel,
   editorInterface: EditorInterface
 ): SharedEditorSDK['editor'] {
-  const _localeSettingsSygnal = new MemoizedSignal(undefined)
-  const _showDisabledFieldsSygnal = new MemoizedSignal(undefined)
+  // @ts-expect-error Missing default value
+  const _localeSettingsSygnal = new MemoizedSignal<[EditorLocaleSettings]>([undefined])
+  // @ts-expect-error Missing default value
+  const _showDisabledFieldsSygnal = new MemoizedSignal<[boolean]>([undefined])
 
   channel.addHandler('localeSettingsChanged', (settings: EditorLocaleSettings) => {
     _localeSettingsSygnal.dispatch(settings)
@@ -19,10 +21,10 @@ export default function createEditor(
 
   return {
     editorInterface,
-    onLocaleSettingsChanged: (handler: Function) => {
+    onLocaleSettingsChanged: (handler: (localeSettings: EditorLocaleSettings) => void) => {
       return _localeSettingsSygnal.attach(handler)
     },
-    onShowDisabledFieldsChanged: (handler: Function) => {
+    onShowDisabledFieldsChanged: (handler: (showDisabledFields: boolean) => void) => {
       return _showDisabledFieldsSygnal.attach(handler)
     },
   }

@@ -12,9 +12,9 @@ export default class FieldLocale implements FieldAPI {
   items?: Items
   private _value: any
 
-  private _valueSignal: MemoizedSignal
-  private _isDisabledSignal: MemoizedSignal
-  private _schemaErrorsChangedSignal: MemoizedSignal
+  private _valueSignal: MemoizedSignal<[any]>
+  private _isDisabledSignal: MemoizedSignal<[boolean]>
+  private _schemaErrorsChangedSignal: MemoizedSignal<[ValidationError[]]>
   private _channel: any
 
   constructor(channel: Channel, info: FieldInfo) {
@@ -27,8 +27,10 @@ export default class FieldLocale implements FieldAPI {
 
     this._value = info.value
     this._valueSignal = new MemoizedSignal(this._value)
-    this._isDisabledSignal = new MemoizedSignal(undefined)
-    this._schemaErrorsChangedSignal = new MemoizedSignal(undefined)
+    // @ts-expect-error Missing default value
+    this._isDisabledSignal = new MemoizedSignal<[boolean]>(undefined)
+    // @ts-expect-error Missing default value
+    this._schemaErrorsChangedSignal = new MemoizedSignal<[ValidationError[]]>(undefined)
     this._channel = channel
 
     channel.addHandler('valueChanged', (id: string, locale: string, value: any) => {
@@ -84,7 +86,7 @@ export default class FieldLocale implements FieldAPI {
     return this._isDisabledSignal.attach(handler)
   }
 
-  onSchemaErrorsChanged(handler: Function) {
+  onSchemaErrorsChanged(handler: (errors: ValidationError[]) => void) {
     return this._schemaErrorsChangedSignal.attach(handler)
   }
 }
