@@ -1,6 +1,6 @@
-type Listener<T extends any[]> = (...args: T) => void
+type Listener<T extends unknown[]> = (...args: T) => void
 
-export class Signal<T extends any[]> {
+export class Signal<T extends unknown[]> {
   private _id = 0
   private _listeners: { [key: string]: Listener<T> } = {}
 
@@ -21,7 +21,7 @@ export class Signal<T extends any[]> {
   }
 }
 
-export class MemoizedSignal<T extends any[]> extends Signal<T> {
+export class MemoizedSignal<T extends unknown[]> extends Signal<T> {
   private _memoizedArgs: T
 
   constructor(...memoizedArgs: T) {
