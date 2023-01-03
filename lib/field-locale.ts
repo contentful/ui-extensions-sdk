@@ -85,8 +85,16 @@ export default class FieldLocale implements FieldAPI {
     return this._valueSignal.attach(handler)
   }
 
+  getIsDisabled(): boolean {
+    return this._isDisabledSignal.getMemoizedArgs()[0]
+  }
+
   onIsDisabledChanged(handler: (isDisabled: boolean) => any) {
     return this._isDisabledSignal.attach(handler)
+  }
+
+  getSchemaErrors(): ValidationError[] {
+    return this._schemaErrorsChangedSignal.getMemoizedArgs()[0]
   }
 
   onSchemaErrorsChanged(handler: (errors: ValidationError[]) => void) {

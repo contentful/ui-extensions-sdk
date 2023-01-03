@@ -21,8 +21,14 @@ export default function createEditor(
 
   return {
     editorInterface,
+    getLocaleSettings(): EditorLocaleSettings {
+      return localeSettingsSignal.getMemoizedArgs()[0]
+    },
     onLocaleSettingsChanged: (handler: (localeSettings: EditorLocaleSettings) => void) => {
       return localeSettingsSignal.attach(handler)
+    },
+    getShowDisabledFields(): boolean {
+      return showDisabledFieldsSignal.getMemoizedArgs()[0]
     },
     onShowDisabledFieldsChanged: (handler: (showDisabledFields: boolean) => void) => {
       return showDisabledFieldsSignal.attach(handler)

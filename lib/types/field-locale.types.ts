@@ -29,12 +29,34 @@ export interface FieldAPI {
    *  the returned function can be called to remove the handler function
    **/
   onValueChanged: (callback: (value: any) => void) => () => void
-  /** Calls the callback when the disabled status of the field changes.
-   *  the returned function can be called to remove the handler function
-   **/
+
+  /**
+   * Returns whether the current field is disabled
+   *
+   * The disabled state can change. To always work with the latest settings, use `onIsDisabledChanged`.
+   */
+  getIsDisabled(): boolean
+
+  /**
+   * Subscribes to changes to this field's disabled state
+   *
+   * @param callback Function that is called every time this field's disabled state changes. Called immidiately with the current state.
+   * @returns Function to unsubscribe. `callback` won't be called anymore.
+   */
   onIsDisabledChanged: (callback: (isDisabled: boolean) => void) => () => void
-  /** Calls the callback immediately with the current validation errors and whenever the field is re-validated.
-   *  the returned function can be called to remove the handler function
-   **/
+
+  /**
+   * Returns the current validation errors
+   *
+   * The schema errors can change. To always work with the latest errors, use `onSchemaErrorsChanged`.
+   */
+  getSchemaErrors(): ValidationError[]
+
+  /**
+   * Subscribes to schema errors
+   *
+   * @param callback Function that is called every time the schema errors change. Called immediately with the current errors.
+   * @returns Function to unsubscribe. `callback` won't be called anymore.
+   */
   onSchemaErrorsChanged: (callback: (errors: ValidationError[]) => void) => () => void
 }

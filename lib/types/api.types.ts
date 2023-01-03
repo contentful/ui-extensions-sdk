@@ -125,14 +125,47 @@ export interface EditorLocaleSettings {
 export interface SharedEditorSDK {
   editor: {
     editorInterface: EditorInterface
+
+    /**
+     * Returns the current locale settings
+     *
+     * The locale setting can change. To always work with the latest settings, use `onLocaleSettingsChanged`.
+     */
+    getLocaleSettings(): EditorLocaleSettings
+
+    /**
+     * Subscribes to changes of the editor's locale settings
+     *
+     * @param callback Function that is called every time the locale settings change. Called immidiately with the current setting.
+     * @returns Function to unsubscribe. `callback` won't be called anymore.
+     */
     onLocaleSettingsChanged: (
       callback: (localeSettings: EditorLocaleSettings) => void
     ) => () => void
-    onShowDisabledFieldsChanged: (callback: (showDisabledFields: boolean) => any) => () => void
+
+    /**
+     * Returns whether or not disabled fields are displayed
+     *
+     * This setting can change. To always work with the latest settings, use `onShowDisabledFieldsChanged`.
+     */
+    getShowDisabledFields(): boolean
+
+    /**
+     * Subscribes to changes of whether or not disabled fields are displayed
+     *
+     * @param callback Function that is called every time the setting whether or not disabled fields are displayed changes. Called immediately with the current state.
+     * @returns Function to unsubscribe. `callback` won't be called anymore.
+     */
+    onShowDisabledFieldsChanged: (callback: (showDisabledFields: boolean) => void) => () => void
   }
-  /** Allows to read and update the value of any field of the current entry and to get the entry's metadata */
+
+  /**
+   * Allows to read and update the value of any field of the current entry and to get the entry's metadata
+   */
   entry: EntryAPI
-  /** Information about the content type of the entry. */
+  /**
+   * Information about the content type of the entry.
+   */
   contentType: ContentTypeAPI
 }
 
