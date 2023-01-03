@@ -1,3 +1,9 @@
+## [4.14.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.14.0...v4.14.1) (2022-12-29)
+
+### Bug Fixes
+
+- types of sdk.editor & sdk.navigator ([#1441](https://github.com/contentful/ui-extensions-sdk/issues/1441)) ([b514498](https://github.com/contentful/ui-extensions-sdk/commit/b514498ea67bdad219a1ac766a546fa25df898f3))
+
 # [4.14.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.13.0...v4.14.0) (2022-12-22)
 
 ### Features

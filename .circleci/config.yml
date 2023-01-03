@@ -48,7 +48,6 @@ jobs:
           command: npm run semantic-release
 
 workflows:
-  version: 2
   # run on every commit
   commit:
     jobs:

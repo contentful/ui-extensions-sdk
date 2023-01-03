@@ -125,8 +125,10 @@ export interface EditorLocaleSettings {
 export interface SharedEditorSDK {
   editor: {
     editorInterface: EditorInterface
-    onLocaleSettingsChanged: (callback: (value: EditorLocaleSettings) => any) => Function
-    onShowDisabledFieldsChanged: (callback: (value: boolean) => any) => Function
+    onLocaleSettingsChanged: (
+      callback: (localeSettings: EditorLocaleSettings) => void
+    ) => () => void
+    onShowDisabledFieldsChanged: (callback: (showDisabledFields: boolean) => any) => () => void
   }
   /** Allows to read and update the value of any field of the current entry and to get the entry's metadata */
   entry: EntryAPI
