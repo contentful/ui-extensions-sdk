@@ -46,7 +46,7 @@ export interface FieldAPI {
   onIsDisabledChanged: (callback: (isDisabled: boolean) => void) => () => void
 
   /**
-   * Returns the current validation errors
+   * Returns the field's validation errors
    *
    * The schema errors can change. To always work with the latest errors, use `onSchemaErrorsChanged`.
    */
