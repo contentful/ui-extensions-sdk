@@ -51,7 +51,7 @@
     "babel-eslint": "10.1.0",
     "chai": "4.3.7",
     "chai-as-promised": "7.1.1",
-    "contentful-management": "10.27.3",
+    "contentful-management": "10.27.4",
     "cross-spawn": "7.0.3",
     "eslint": "7.32.0",
     "eslint-config-prettier": "8.6.0",
