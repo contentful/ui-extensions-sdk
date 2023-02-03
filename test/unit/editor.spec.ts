@@ -37,14 +37,14 @@ describe('createEditor()', () => {
     })
   })
 
-  describe('.onShowDisabledFieldsChanged(handler)', () => {
+  describe('.onShowHiddenFieldsChanged(handler)', () => {
     describeAttachHandlerMember('default behaviour', () => {
-      return editor.onShowDisabledFieldsChanged(() => {})
+      return editor.onShowHiddenFieldsChanged(() => {})
     })
 
     it('calls cb with initial value', () => {
       const cb = sinon.stub()
-      editor.onShowDisabledFieldsChanged(cb)
+      editor.onShowHiddenFieldsChanged(cb)
       expect(cb).to.have.been.calledWith(editorDataMock.showDisabledFields)
     })
   })

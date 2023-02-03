@@ -9,14 +9,14 @@ export default function createEditor(
   editorInterface: EditorInterface
 ): SharedEditorSDK['editor'] {
   const localeSettingsSignal = new MemoizedSignal<[EditorLocaleSettings]>(editorData.localeSettings)
-  const showDisabledFieldsSignal = new MemoizedSignal<[boolean]>(editorData.showDisabledFields)
+  const showHiddenFieldsSignal = new MemoizedSignal<[boolean]>(editorData.showDisabledFields)
 
   channel.addHandler('localeSettingsChanged', (settings: EditorLocaleSettings) => {
     localeSettingsSignal.dispatch(settings)
   })
 
-  channel.addHandler('showDisabledFieldsChanged', (showDisabledFields: boolean) => {
-    showDisabledFieldsSignal.dispatch(showDisabledFields)
+  channel.addHandler('showDisabledFieldsChanged', (showHiddenFields: boolean) => {
+    showHiddenFieldsSignal.dispatch(showHiddenFields)
   })
 
   return {
@@ -24,14 +24,17 @@ export default function createEditor(
     getLocaleSettings(): EditorLocaleSettings {
       return localeSettingsSignal.getMemoizedArgs()[0]
     },
-    onLocaleSettingsChanged: (handler: (localeSettings: EditorLocaleSettings) => void) => {
+    onLocaleSettingsChanged: (handler) => {
       return localeSettingsSignal.attach(handler)
     },
-    getShowDisabledFields(): boolean {
-      return showDisabledFieldsSignal.getMemoizedArgs()[0]
+    onShowDisabledFieldsChanged: (handler) => {
+      return showHiddenFieldsSignal.attach(handler)
     },
-    onShowDisabledFieldsChanged: (handler: (showDisabledFields: boolean) => void) => {
-      return showDisabledFieldsSignal.attach(handler)
+    getShowHiddenFields(): boolean {
+      return showHiddenFieldsSignal.getMemoizedArgs()[0]
+    },
+    onShowHiddenFieldsChanged: (handler) => {
+      return showHiddenFieldsSignal.attach(handler)
     },
   }
 }
