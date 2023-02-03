@@ -1,6 +1,6 @@
 import { Channel } from './channel'
 import { MemoizedSignal } from './signal'
-import { ContentEntitySys, EntryAPI, EntryFieldInfo, Metadata, TaskAPI } from './types'
+import { EntryAPI, EntryFieldInfo, EntrySys, Metadata, TaskAPI } from './types'
 
 const taskMethods: Array<keyof TaskAPI> = [
   'getTask',
@@ -17,7 +17,7 @@ export default function createEntry(
   createEntryField: Function
 ): EntryAPI {
   let sys = entryData.sys
-  const sysChanged = new MemoizedSignal<[ContentEntitySys]>(sys)
+  const sysChanged = new MemoizedSignal<[EntrySys]>(sys)
   let metadata = entryData.metadata
   const metadataChanged = new MemoizedSignal<[Metadata | undefined]>(metadata)
 
@@ -52,7 +52,7 @@ export default function createEntry(
     save() {
       return channel.call<void>('callEntryMethod', 'save')
     },
-    onSysChanged(handler: (sys: ContentEntitySys) => void) {
+    onSysChanged(handler: (sys: EntrySys) => void) {
       return sysChanged.attach(handler)
     },
     fields: fieldInfo.reduce((acc: any, info: EntryFieldInfo) => {
