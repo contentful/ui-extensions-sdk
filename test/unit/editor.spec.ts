@@ -19,7 +19,7 @@ describe('createEditor()', () => {
     controls: [],
   } as unknown as EditorInterface
 
-  const editor = createEditor(channelStub, editorDataMock, editorInterfaceMock)
+  const editor = createEditor(channelStub, editorInterfaceMock, editorDataMock)
 
   it('should return editorInterface', () => {
     expect(editor.editorInterface).to.equal(editorInterfaceMock)

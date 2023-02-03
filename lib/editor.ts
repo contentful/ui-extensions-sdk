@@ -5,8 +5,8 @@ import { ConnectMessage } from './types/api.types'
 
 export default function createEditor(
   channel: Channel,
-  editorData: Exclude<ConnectMessage['editor'], undefined>,
-  editorInterface: EditorInterface
+  editorInterface: EditorInterface,
+  editorData: Exclude<ConnectMessage['editor'], undefined>
 ): SharedEditorSDK['editor'] {
   const localeSettingsSignal = new MemoizedSignal<[EditorLocaleSettings]>(editorData.localeSettings)
   const showHiddenFieldsSignal = new MemoizedSignal<[boolean]>(editorData.showDisabledFields)

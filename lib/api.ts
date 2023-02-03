@@ -101,7 +101,7 @@ function makeWindowAPI(channel: Channel, _data: any, currentGlobal: typeof globa
 function makeEditorAPI(channel: Channel, data: any) {
   const { editorInterface, editor } = data
   return {
-    editor: createEditor(channel, editor, editorInterface),
+    editor: createEditor(channel, editorInterface, editor),
   }
 }
 
