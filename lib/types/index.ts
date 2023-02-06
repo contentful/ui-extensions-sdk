@@ -81,6 +81,7 @@ export type { SpaceAPI } from './space.types'
 export type {
   SearchQuery,
   CollectionResponse,
+  EntrySys,
   ContentEntitySys,
   ContentEntityType,
   Items,

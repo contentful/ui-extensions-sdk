@@ -25,6 +25,9 @@ updates:
     - 2.41.5
     - 2.42.4
     - 2.43.1
+  - dependency-name: semantic-release
+    versions:
+    - ">=20.0.0"
   commit-message:
     prefix: chore
     include: scope
