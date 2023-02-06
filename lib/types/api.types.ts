@@ -318,7 +318,7 @@ export interface ConnectMessage {
   editorInterface?: EditorInterface
   editor?: {
     localeSettings: EditorLocaleSettings
-    showDisabledFields: boolean
+    showHiddenFields: boolean
   }
   entry: {
     sys: EntrySys

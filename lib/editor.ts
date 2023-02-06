@@ -9,13 +9,13 @@ export default function createEditor(
   editorData: Exclude<ConnectMessage['editor'], undefined>
 ): SharedEditorSDK['editor'] {
   const localeSettingsSignal = new MemoizedSignal<[EditorLocaleSettings]>(editorData.localeSettings)
-  const showHiddenFieldsSignal = new MemoizedSignal<[boolean]>(editorData.showDisabledFields)
+  const showHiddenFieldsSignal = new MemoizedSignal<[boolean]>(editorData.showHiddenFields)
 
   channel.addHandler('localeSettingsChanged', (settings: EditorLocaleSettings) => {
     localeSettingsSignal.dispatch(settings)
   })
 
-  channel.addHandler('showDisabledFieldsChanged', (showHiddenFields: boolean) => {
+  channel.addHandler('showHiddenFieldsChanged', (showHiddenFields: boolean) => {
     showHiddenFieldsSignal.dispatch(showHiddenFields)
   })
 
@@ -27,6 +27,9 @@ export default function createEditor(
     onLocaleSettingsChanged: (handler) => {
       return localeSettingsSignal.attach(handler)
     },
+    /**
+     * @deprecated
+     */
     onShowDisabledFieldsChanged: (handler) => {
       return showHiddenFieldsSignal.attach(handler)
     },

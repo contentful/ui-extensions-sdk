@@ -11,7 +11,7 @@ describe('createEditor()', () => {
 
   const editorDataMock: Exclude<ConnectMessage['editor'], undefined> = {
     localeSettings: { mode: 'multi' },
-    showDisabledFields: false,
+    showHiddenFields: false,
   }
 
   const editorInterfaceMock = {
@@ -45,7 +45,7 @@ describe('createEditor()', () => {
     it('calls cb with initial value', () => {
       const cb = sinon.stub()
       editor.onShowHiddenFieldsChanged(cb)
-      expect(cb).to.have.been.calledWith(editorDataMock.showDisabledFields)
+      expect(cb).to.have.been.calledWith(editorDataMock.showHiddenFields)
     })
   })
 })
