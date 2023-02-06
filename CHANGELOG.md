@@ -1,3 +1,9 @@
+# [4.15.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.14.1...v4.15.0) (2023-02-06)
+
+### Features
+
+- expose automation tags on entry.sys [] ([#1468](https://github.com/contentful/ui-extensions-sdk/issues/1468)) ([a5cde02](https://github.com/contentful/ui-extensions-sdk/commit/a5cde02ee68012afbd898e442f65ca6a4f1e9410))
+
 ## [4.14.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.14.0...v4.14.1) (2022-12-29)
 
 ### Bug Fixes
