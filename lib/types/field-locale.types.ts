@@ -33,7 +33,7 @@ export interface FieldAPI {
   /**
    * Returns whether the current field is disabled
    *
-   * The disabled state can change. To always work with the latest settings, use `onIsDisabledChanged`.
+   * The disabled state can change. To always work with the latest state, use `onIsDisabledChanged`.
    */
   getIsDisabled(): boolean
 
