@@ -1,6 +1,6 @@
 import { Metadata, Task } from './entities'
 import { EntryFieldAPI } from './field.types'
-import { CollectionResponse, ContentEntitySys, SearchQuery } from './utils'
+import { CollectionResponse, EntrySys, SearchQuery } from './utils'
 
 type TaskState = 'active' | 'resolved'
 
@@ -27,7 +27,7 @@ export interface TaskAPI {
 
 export interface EntryAPI extends TaskAPI {
   /** Returns sys for an entry. */
-  getSys: () => ContentEntitySys
+  getSys: () => EntrySys
   /** Publish the entry */
   publish: (options?: { skipUiValidation?: boolean }) => Promise<void>
   /** Unpublish the entry */
@@ -35,7 +35,7 @@ export interface EntryAPI extends TaskAPI {
   /** Saves the current changes of the entry */
   save: () => Promise<void>
   /** Calls the callback with sys every time that sys changes. */
-  onSysChanged: (callback: (sys: ContentEntitySys) => void) => () => void
+  onSysChanged: (callback: (sys: EntrySys) => void) => () => void
   /** Allows to control the values of all other fields in the current entry. */
   fields: { [key: string]: EntryFieldAPI }
   /**

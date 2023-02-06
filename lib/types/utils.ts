@@ -35,7 +35,7 @@ export interface CollectionResponse<T> {
 
 export type ContentEntityType = 'Entry' | 'Asset'
 
-export interface ContentEntitySys {
+export type ContentEntitySys = {
   space: Link
   id: string
   type: ContentEntityType
@@ -53,6 +53,11 @@ export interface ContentEntitySys {
   version: number
   publishedBy?: Link
   contentType: Link
+}
+
+export interface EntrySys extends ContentEntitySys {
+  type: 'Entry'
+  automationTags: Link<'Tag'>[]
 }
 
 export interface Items {

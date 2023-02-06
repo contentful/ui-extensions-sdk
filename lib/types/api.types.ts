@@ -13,7 +13,7 @@ import {
 import { EntryAPI } from './entry.types'
 import { SpaceAPI } from './space.types'
 import { WindowAPI } from './window.types'
-import { ContentEntitySys, Link, SerializedJSONValue } from './utils'
+import { EntrySys, Link, SerializedJSONValue } from './utils'
 import { FieldAPI } from './field-locale.types'
 import { DialogsAPI } from './dialogs.types'
 import { AppConfigAPI } from './app.types'
@@ -275,7 +275,7 @@ export interface ConnectMessage {
   contentType: ContentTypeAPI
   editorInterface?: EditorInterface
   entry: {
-    sys: ContentEntitySys
+    sys: EntrySys
     metadata?: Metadata
   }
   fieldInfo: EntryFieldInfo[]
