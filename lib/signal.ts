@@ -50,4 +50,8 @@ export class MemoizedSignal<T extends unknown[]> extends Signal<T> {
     listener(...this._memoizedArgs)
     return detachListener
   }
+
+  getMemoizedArgs(): T {
+    return this._memoizedArgs
+  }
 }

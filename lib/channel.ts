@@ -56,7 +56,7 @@ export class Channel {
 
   addHandler<T extends unknown[]>(method: string, handler: (...args: T) => void) {
     if (!(method in this._messageHandlers)) {
-      this._messageHandlers[method] = new Signal<T>()
+      this._messageHandlers[method] = new Signal()
     }
     return this._messageHandlers[method].attach(handler)
   }

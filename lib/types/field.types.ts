@@ -1,6 +1,7 @@
 import { Items, SerializedJSONValue } from './utils'
 import { FieldAPI } from './field-locale.types'
 import { ContentTypeFieldValidation } from './entities'
+import { ValidationError } from './validation-error'
 
 export interface FieldInfo {
   id: string
@@ -10,6 +11,8 @@ export interface FieldInfo {
   validations: ContentTypeFieldValidation[]
   items?: Items
   value: any
+  isDisabled: boolean
+  schemaErrors: ValidationError[]
 }
 
 export interface EntryFieldInfo {
@@ -20,6 +23,8 @@ export interface EntryFieldInfo {
   validations: ContentTypeFieldValidation[]
   items?: Items
   values: { [locale: string]: any }
+  isDisabled: { [locale: string]: boolean }
+  schemaErrors: { [locale: string]: ValidationError[] }
 }
 
 export interface EntryFieldAPI {

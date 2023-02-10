@@ -92,8 +92,8 @@ export function describeChannelCallingMethod(spec: {
     })
 
     it('returns the promise returned by internal channel.call()', () => {
-      channelCallStub.withArgs(channelMethod).returns('PROMISE')
-      expect(object[methodName]()).to.equal('PROMISE')
+      channelCallStub.withArgs(channelMethod).returns(Promise.resolve('PROMISE'))
+      expect(object[methodName]()).to.eventually.equal('PROMISE')
     })
   })
 }
