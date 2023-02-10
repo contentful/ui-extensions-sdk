@@ -1,3 +1,9 @@
+# [4.16.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.15.0...v4.16.0) (2023-02-10)
+
+### Features
+
+- initial values & getters for field/editor API ([#1444](https://github.com/contentful/ui-extensions-sdk/issues/1444)) ([fa98f30](https://github.com/contentful/ui-extensions-sdk/commit/fa98f309293f794359e44ac2eda2178ad25c5e6f))
+
 # [4.15.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.14.1...v4.15.0) (2023-02-06)
 
 ### Features
