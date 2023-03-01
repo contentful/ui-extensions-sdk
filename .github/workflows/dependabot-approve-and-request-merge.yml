@@ -1,4 +1,4 @@
-ame: "dependabot approve-and-request-merge"
+name: "dependabot approve-and-request-merge"
 
 on: pull_request_target
 
