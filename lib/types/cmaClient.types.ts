@@ -12,7 +12,7 @@ export type CMAClient = {
   contentType: PlainClientAPI['contentType']
   editorInterface: PlainClientAPI['editorInterface']
   environment: Pick<PlainClientAPI['environment'], 'get'>
-  environmentAlias: Pick<PlainClientAPI['environmentAlias'], 'get'>
+  environmentAlias: Pick<PlainClientAPI['environmentAlias'], 'get' | 'getMany'>
   entry: PlainClientAPI['entry']
   locale: PlainClientAPI['locale']
   release: PlainClientAPI['release']
