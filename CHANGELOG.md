@@ -1,3 +1,9 @@
+# [4.17.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.16.0...v4.17.0) (2023-03-29)
+
+### Features
+
+- **Entities:** add more supported entities to app sdk's cma [EXT-4359] ([#1501](https://github.com/contentful/ui-extensions-sdk/issues/1501)) ([43e6c96](https://github.com/contentful/ui-extensions-sdk/commit/43e6c96d5c94428a717b64d3b4c0edee4982e6e0))
+
 # [4.16.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.15.0...v4.16.0) (2023-02-10)
 
 ### Features
