@@ -2,6 +2,7 @@ import { PlainClientAPI } from 'contentful-management'
 
 export type CMAClient = {
   appAction: Pick<PlainClientAPI['appAction'], 'get' | 'getMany' | 'getManyForEnvironment'>
+  appActionCall: Pick<PlainClientAPI['appActionCall'], 'create'>
   appDefinition: Pick<PlainClientAPI['appDefinition'], 'get' | 'getInstallationsForOrg'>
   appInstallation: Pick<PlainClientAPI['appInstallation'], 'getForOrganization'>
   asset: PlainClientAPI['asset']
@@ -29,4 +30,7 @@ export type CMAClient = {
   tag: PlainClientAPI['tag']
   uiConfig: PlainClientAPI['uiConfig']
   userUIConfig: PlainClientAPI['userUIConfig']
+  workflow: PlainClientAPI['workflow']
+  workflowDefinition: PlainClientAPI['workflowDefinition']
+  workflowsChangelog: PlainClientAPI['workflowsChangelog']
 }
