@@ -1,11 +1,11 @@
 import { createInitializer } from './initialize'
 import createAPI from './api'
-import { KnownSDK } from './types'
+import { KnownAppSDK } from './types'
 
 export * from './types'
 export { default as locations } from './locations'
 
-type Init = <T extends KnownSDK = KnownSDK>(
+type Init = <T extends KnownAppSDK = KnownAppSDK>(
   initCallback: (sdk: T) => any,
   options?: { supressIframeWarning?: boolean }
 ) => void
