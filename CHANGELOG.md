@@ -1,3 +1,9 @@
+## [4.17.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.17.0...v4.17.1) (2023-04-05)
+
+### Bug Fixes
+
+- [] Deprecate XXXExtensionSDK types in favour of XXXAppSDK ([#1505](https://github.com/contentful/ui-extensions-sdk/issues/1505)) ([a8ee8e7](https://github.com/contentful/ui-extensions-sdk/commit/a8ee8e7a430fbc9e31392603b7f14f30fe307eab))
+
 # [4.17.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.16.0...v4.17.0) (2023-03-29)
 
 ### Features
