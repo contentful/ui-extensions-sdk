@@ -211,99 +211,6 @@ export interface AccessAPI {
 
 type EntryScopedIds = 'field' | 'entry' | 'contentType'
 
-/** @deprecated consider using BaseAppSDK */
-export interface BaseExtensionSDK {
-  /** @deprecated since version 4.0.0 consider using the CMA instead
-   * See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details
-   */
-  space: SpaceAPI
-  /** Information about the current user and roles */
-  user: UserAPI
-  /** Information about the current locales */
-  locales: LocalesAPI
-  /** Methods for opening UI dialogs: */
-  dialogs: DialogsAPI
-  /** Methods for navigating between entities stored in a Contentful space. */
-  navigator: NavigatorAPI
-  /** Methods for displaying notifications. */
-  notifier: NotifierAPI
-  /** Exposes app configuration parameters */
-  parameters: ParametersAPI
-  /** Exposes method to identify app's location */
-  location: LocationAPI
-  /** Exposes methods for checking user's access level */
-  access: AccessAPI
-  /** Exposes relevant ids, keys may be ommited based on location */
-  ids: Omit<IdsAPI, EntryScopedIds>
-  /** Adapter to be injected in contentful-management client */
-  cmaAdapter: Adapter
-}
-
-/** @deprecated consider using EditorAppSDK */
-export type EditorExtensionSDK = Omit<BaseExtensionSDK, 'ids'> &
-  SharedEditorSDK & {
-    /** A set of IDs for the app */
-    ids: Omit<IdsAPI, 'field'>
-  }
-
-/** @deprecated consider using SidebarAppSDK */
-export type SidebarExtensionSDK = Omit<BaseExtensionSDK, 'ids'> &
-  SharedEditorSDK & {
-    /** A set of IDs for the app */
-    ids: Omit<IdsAPI, 'field'>
-    /** Methods to update the size of the iframe the app is contained within.  */
-    window: WindowAPI
-  }
-
-/** @deprecated consider using FieldAppSDK */
-export type FieldExtensionSDK = BaseExtensionSDK &
-  SharedEditorSDK & {
-    /** A set of IDs for the app */
-    ids: IdsAPI
-    /** Gives you access to the value and metadata of the field the app is attached to. */
-    field: FieldAPI
-    /** Methods to update the size of the iframe the app is contained within.  */
-    window: WindowAPI
-  }
-
-/** @deprecated consider using DialogAppSDK */
-export type DialogExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
-  /** A set of IDs for the app */
-  ids: Omit<IdsAPI, EntryScopedIds>
-  /** Closes the dialog and resolves openCurrentApp promise with data */
-  close: (data?: any) => void
-  /** Methods to update the size of the iframe the app is contained within.  */
-  window: WindowAPI
-}
-
-/** @deprecated consider using PageAppSDK */
-export type PageExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
-  /** A set of IDs actual for the app */
-  ids: Omit<IdsAPI, EntryScopedIds>
-}
-
-/** @deprecated consider using HomeAppSDK */
-export type HomeExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
-  ids: Omit<IdsAPI, EntryScopedIds>
-}
-
-/** @deprecated consider using ConfigAppSDK */
-export type AppExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
-  /** A set of IDs actual for the app */
-  ids: Omit<IdsAPI, EntryScopedIds | 'extension' | 'app'> & { app: string }
-  app: AppConfigAPI
-}
-
-/** @deprecated consider using KnownAppSDK */
-export type KnownSDK =
-  | FieldExtensionSDK
-  | SidebarExtensionSDK
-  | DialogExtensionSDK
-  | EditorExtensionSDK
-  | PageExtensionSDK
-  | AppExtensionSDK
-  | HomeExtensionSDK
-
 export interface BaseAppSDK {
   /** @deprecated since version 4.0.0 consider using the CMA instead
    * See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details
@@ -387,6 +294,33 @@ export type KnownAppSDK =
   | PageAppSDK
   | ConfigAppSDK
   | HomeAppSDK
+
+/** @deprecated consider using {@link BaseAppSDK} */
+export type BaseExtensionSDK = BaseAppSDK
+
+/** @deprecated consider using {@link EditorAppSDK} */
+export type EditorExtensionSDK = EditorAppSDK
+
+/** @deprecated consider using {@link SidebarAppSDK} */
+export type SidebarExtensionSDK = SidebarAppSDK
+
+/** @deprecated consider using {@link FieldAppSDK} */
+export type FieldExtensionSDK = FieldAppSDK
+
+/** @deprecated consider using {@link DialogAppSDK} */
+export type DialogExtensionSDK = DialogAppSDK
+
+/** @deprecated consider using {@link PageAppSDK} */
+export type PageExtensionSDK = PageAppSDK
+
+/** @deprecated consider using {@link HomeAppSDK} */
+export type HomeExtensionSDK = HomeAppSDK
+
+/** @deprecated consider using {@link ConfigAppSDK} */
+export type AppExtensionSDK = ConfigAppSDK
+
+/** @deprecated consider using {@link KnownAppSDK} */
+export type KnownSDK = KnownAppSDK
 
 export interface Locations {
   LOCATION_ENTRY_FIELD: 'entry-field'
