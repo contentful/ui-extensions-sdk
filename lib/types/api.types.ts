@@ -211,7 +211,7 @@ export interface AccessAPI {
 
 type EntryScopedIds = 'field' | 'entry' | 'contentType'
 
-export interface BaseExtensionSDK {
+export interface BaseAppSDK {
   /** @deprecated since version 4.0.0 consider using the CMA instead
    * See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details
    */
@@ -238,13 +238,13 @@ export interface BaseExtensionSDK {
   cmaAdapter: Adapter
 }
 
-export type EditorExtensionSDK = Omit<BaseExtensionSDK, 'ids'> &
+export type EditorAppSDK = Omit<BaseAppSDK, 'ids'> &
   SharedEditorSDK & {
     /** A set of IDs for the app */
     ids: Omit<IdsAPI, 'field'>
   }
 
-export type SidebarExtensionSDK = Omit<BaseExtensionSDK, 'ids'> &
+export type SidebarAppSDK = Omit<BaseAppSDK, 'ids'> &
   SharedEditorSDK & {
     /** A set of IDs for the app */
     ids: Omit<IdsAPI, 'field'>
@@ -252,7 +252,7 @@ export type SidebarExtensionSDK = Omit<BaseExtensionSDK, 'ids'> &
     window: WindowAPI
   }
 
-export type FieldExtensionSDK = BaseExtensionSDK &
+export type FieldAppSDK = BaseAppSDK &
   SharedEditorSDK & {
     /** A set of IDs for the app */
     ids: IdsAPI
@@ -262,7 +262,7 @@ export type FieldExtensionSDK = BaseExtensionSDK &
     window: WindowAPI
   }
 
-export type DialogExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
+export type DialogAppSDK = Omit<BaseAppSDK, 'ids'> & {
   /** A set of IDs for the app */
   ids: Omit<IdsAPI, EntryScopedIds>
   /** Closes the dialog and resolves openCurrentApp promise with data */
@@ -271,29 +271,56 @@ export type DialogExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
   window: WindowAPI
 }
 
-export type PageExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
+export type PageAppSDK = Omit<BaseAppSDK, 'ids'> & {
   /** A set of IDs actual for the app */
   ids: Omit<IdsAPI, EntryScopedIds>
 }
 
-export type HomeExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
+export type HomeAppSDK = Omit<BaseAppSDK, 'ids'> & {
   ids: Omit<IdsAPI, EntryScopedIds>
 }
 
-export type AppExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
+export type ConfigAppSDK = Omit<BaseAppSDK, 'ids'> & {
   /** A set of IDs actual for the app */
   ids: Omit<IdsAPI, EntryScopedIds | 'extension' | 'app'> & { app: string }
   app: AppConfigAPI
 }
 
-export type KnownSDK =
-  | FieldExtensionSDK
-  | SidebarExtensionSDK
-  | DialogExtensionSDK
-  | EditorExtensionSDK
-  | PageExtensionSDK
-  | AppExtensionSDK
-  | HomeExtensionSDK
+export type KnownAppSDK =
+  | FieldAppSDK
+  | SidebarAppSDK
+  | DialogAppSDK
+  | EditorAppSDK
+  | PageAppSDK
+  | ConfigAppSDK
+  | HomeAppSDK
+
+/** @deprecated consider using {@link BaseAppSDK} */
+export type BaseExtensionSDK = BaseAppSDK
+
+/** @deprecated consider using {@link EditorAppSDK} */
+export type EditorExtensionSDK = EditorAppSDK
+
+/** @deprecated consider using {@link SidebarAppSDK} */
+export type SidebarExtensionSDK = SidebarAppSDK
+
+/** @deprecated consider using {@link FieldAppSDK} */
+export type FieldExtensionSDK = FieldAppSDK
+
+/** @deprecated consider using {@link DialogAppSDK} */
+export type DialogExtensionSDK = DialogAppSDK
+
+/** @deprecated consider using {@link PageAppSDK} */
+export type PageExtensionSDK = PageAppSDK
+
+/** @deprecated consider using {@link HomeAppSDK} */
+export type HomeExtensionSDK = HomeAppSDK
+
+/** @deprecated consider using {@link ConfigAppSDK} */
+export type AppExtensionSDK = ConfigAppSDK
+
+/** @deprecated consider using {@link KnownAppSDK} */
+export type KnownSDK = KnownAppSDK
 
 export interface Locations {
   LOCATION_ENTRY_FIELD: 'entry-field'
