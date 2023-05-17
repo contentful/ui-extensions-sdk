@@ -2,7 +2,10 @@ import { PlainClientAPI } from 'contentful-management'
 
 export type CMAClient = {
   appAction: Pick<PlainClientAPI['appAction'], 'get' | 'getMany' | 'getManyForEnvironment'>
-  appActionCall: Pick<PlainClientAPI['appActionCall'], 'create'>
+  appActionCall: Pick<
+    PlainClientAPI['appActionCall'],
+    'create' | 'getCallDetails' | 'createWithResponse'
+  >
   appDefinition: Pick<PlainClientAPI['appDefinition'], 'get' | 'getInstallationsForOrg'>
   appInstallation: Pick<PlainClientAPI['appInstallation'], 'getForOrganization'>
   asset: PlainClientAPI['asset']
