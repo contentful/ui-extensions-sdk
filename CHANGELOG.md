@@ -1,3 +1,9 @@
+## [4.17.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.17.1...v4.17.2) (2023-05-17)
+
+### Bug Fixes
+
+- exposed createWithResponse function[] ([#1522](https://github.com/contentful/ui-extensions-sdk/issues/1522)) ([2255541](https://github.com/contentful/ui-extensions-sdk/commit/2255541c5e535c98a45977258fcea8a99b9fa1a7))
+
 ## [4.17.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.17.0...v4.17.1) (2023-04-05)
 
 ### Bug Fixes
