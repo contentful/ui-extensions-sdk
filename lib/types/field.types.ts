@@ -5,6 +5,7 @@ import { ValidationError } from './validation-error'
 
 export interface FieldInfo {
   id: string
+  name: string
   locale: string
   type: string
   required: boolean
@@ -17,6 +18,7 @@ export interface FieldInfo {
 
 export interface EntryFieldInfo {
   id: string
+  name: string
   locales: string[]
   type: string
   required: boolean
@@ -30,6 +32,8 @@ export interface EntryFieldInfo {
 export interface EntryFieldAPI {
   /** The ID of a field is defined in an entry's content type. */
   id: string
+  /** The name of the field */
+  name: string
   /** The list of locales for the field. */
   locales: string[]
   /** Holds the type of the field. */

@@ -5,6 +5,8 @@ import { ValidationError } from './validation-error'
 export interface FieldAPI {
   /** The ID of a field is defined in an entry's content type. */
   id: string
+  /** The name of the field */
+  name: string
   /** The current locale of a field the app is attached to. */
   locale: string
   /** Holds the type of the field the app is attached to. */
