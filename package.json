@@ -34,6 +34,7 @@
     "lint-staged": "lint-staged"
   },
   "devDependencies": {
+    "@contentful/experience-tracking": "^2.3.3",
     "@semantic-release/changelog": "6.0.3",
     "@semantic-release/exec": "6.0.3",
     "@semantic-release/git": "10.0.1",

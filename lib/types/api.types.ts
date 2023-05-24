@@ -20,6 +20,7 @@ import { AppConfigAPI } from './app.types'
 import { NavigatorAPI } from './navigator.types'
 import { EntryFieldInfo, FieldInfo } from './field.types'
 import { Adapter, KeyValueMap } from 'contentful-management/types'
+import { UserConsent } from '@contentful/experience-tracking'
 
 /* User API */
 
@@ -40,6 +41,7 @@ export interface UserAPI {
     admin: SpaceMembership['admin']
     roles: Pick<Role, 'name' | 'description'>[]
   }
+  consentRecord?: UserConsent
 }
 
 /* Locales API */
@@ -353,4 +355,5 @@ export interface ConnectMessage {
   }
   fieldInfo: EntryFieldInfo[]
   field?: FieldInfo
+  trackingClient: any
 }
