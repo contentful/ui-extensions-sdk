@@ -13,6 +13,11 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Setup NPM
+          command: |
+            echo $'@contentful:registry=https://registry.npmjs.org/
+            //registry.npmjs.org/:_authToken=${NPM_TOKEN}' >> ~/.npmrc
+      - run:
           name: Npm Install
           command: npm ci
       - run:
@@ -36,7 +41,7 @@ jobs:
     steps:
       - checkout
       - vault/get-secrets:
-          template-preset: "semantic-release-ecosystem"
+          template-preset: 'semantic-release-ecosystem'
       - run:
           name: Setup NPM
           command: |
