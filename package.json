@@ -136,8 +136,5 @@
   },
   "peerDependencies": {
     "contentful-management": ">=7.30.0"
-  },
-  "dependencies": {
-    "@contentful/experience-tracking": "^2.3.3"
   }
 }

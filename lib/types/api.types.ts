@@ -20,9 +20,28 @@ import { AppConfigAPI } from './app.types'
 import { NavigatorAPI } from './navigator.types'
 import { EntryFieldInfo, FieldInfo } from './field.types'
 import { Adapter, KeyValueMap } from 'contentful-management/types'
-import { UserConsent } from '@contentful/experience-tracking'
 
 /* User API */
+export declare const ACCEPT = 'ACCEPT'
+export declare const DENY = 'DENY'
+declare type ConsentRecordKey =
+  | 'ANALYTICS'
+  | 'ESSENTIAL'
+  | 'MARKETING'
+  | 'PERSONALIZATION'
+  | 'OPT_OUT'
+  | 'STORAGE'
+
+declare type ConsentData = {
+  uuid: string
+  expirationDate: string | null
+  consentRecord: Record<ConsentRecordKey, 'ACCEPT' | 'DENY'>
+  rawConsentRecord: string
+}
+
+export interface UserConsent {
+  [key: string]: ConsentData
+}
 
 export interface UserAPI {
   sys: {
