@@ -355,5 +355,4 @@ export interface ConnectMessage {
   }
   fieldInfo: EntryFieldInfo[]
   field?: FieldInfo
-  trackingClient: any
 }
