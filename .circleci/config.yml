@@ -12,6 +12,8 @@ jobs:
           TERM: xterm
     steps:
       - checkout
+      - vault/get-secrets:
+          template-preset: 'semantic-release-ecosystem'
       - run:
           name: Setup NPM
           command: |
