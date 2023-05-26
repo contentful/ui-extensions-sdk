@@ -1,6 +1,6 @@
 import { Channel } from './channel'
 import { MemoizedSignal } from './signal'
-import { FieldAPI, FieldInfo, Items, SerializedJSONValue } from './types'
+import { FieldAPI, FieldInfo, SerializedJSONValue } from './types'
 import { FieldLocaleType } from './types/utils'
 import { ValidationError } from './types/validation-error'
 
@@ -10,7 +10,7 @@ export default class FieldLocale implements FieldAPI {
   type: FieldLocaleType
   required: boolean
   validations: any[]
-  items: Items
+  items: never
   private _value: any
 
   private _valueSignal: MemoizedSignal<[any]>

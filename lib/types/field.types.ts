@@ -38,7 +38,7 @@ export interface EntryFieldAPI {
   /** A list of validations for this field that are defined in the content type. */
   validations: ContentTypeFieldValidation[]
   /** Defines the shape of array items */
-  items: Items
+  items: FieldLocaleType extends { type: 'Array' } ? Items : never
   /** Gets the current value of the field and locale. */
   getValue: (locale?: string) => any
   /** Sets the value for the field and locale.  */
