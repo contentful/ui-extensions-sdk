@@ -3,28 +3,69 @@ import { FieldAPI } from './field-locale.types'
 import { ContentTypeFieldValidation } from './entities'
 import { ValidationError } from './validation-error'
 
-export interface FieldInfo {
+interface FieldInfoBase {
   id: string
   locale: string
-  type: FieldLocaleType
   required: boolean
   validations: ContentTypeFieldValidation[]
   value: any
   isDisabled: boolean
   schemaErrors: ValidationError[]
-  items: FieldLocaleType extends { type: 'Array' } ? Items : never
 }
-export interface EntryFieldInfo {
+
+interface SymbolFieldInfo extends FieldInfoBase {
+  type: 'Symbol'
+}
+
+interface NumberFieldInfo extends FieldInfoBase {
+  type: 'Number'
+}
+
+export interface ArrayFieldInfo extends FieldInfoBase {
+  type: 'Array'
+  items: Items
+}
+
+interface ReferenceFieldInfo extends FieldInfoBase {
+  type: 'Reference'
+  linkType: 'Entry' | 'Asset'
+}
+
+export type FieldInfo = SymbolFieldInfo | NumberFieldInfo | ArrayFieldInfo | ReferenceFieldInfo
+
+export interface EntryFieldInfoBase {
   id: string
   locales: string[]
-  type: FieldLocaleType
   required: boolean
   validations: ContentTypeFieldValidation[]
   values: { [locale: string]: any }
   isDisabled: { [locale: string]: boolean }
-  items: FieldLocaleType extends { type: 'Array' } ? Items : never
   schemaErrors: { [locale: string]: ValidationError[] }
 }
+
+interface SymbolEntryFieldInfo extends EntryFieldInfoBase {
+  type: 'Symbol'
+}
+
+interface NumberEntryFieldInfo extends EntryFieldInfoBase {
+  type: 'Number'
+}
+
+interface ArrayEntryFieldInfo extends EntryFieldInfoBase {
+  type: 'Array'
+  items: Items
+}
+
+interface ReferenceEntryFieldInfo extends EntryFieldInfoBase {
+  type: 'Reference'
+  linkType: 'Entry' | 'Asset'
+}
+
+export type EntryFieldInfo =
+  | SymbolEntryFieldInfo
+  | NumberEntryFieldInfo
+  | ArrayEntryFieldInfo
+  | ReferenceEntryFieldInfo
 
 export interface EntryFieldAPI {
   /** The ID of a field is defined in an entry's content type. */
@@ -38,7 +79,7 @@ export interface EntryFieldAPI {
   /** A list of validations for this field that are defined in the content type. */
   validations: ContentTypeFieldValidation[]
   /** Defines the shape of array items */
-  items: FieldLocaleType extends { type: 'Array' } ? Items : never
+  items?: Items
   /** Gets the current value of the field and locale. */
   getValue: (locale?: string) => any
   /** Sets the value for the field and locale.  */

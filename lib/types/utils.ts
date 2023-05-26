@@ -61,16 +61,22 @@ export interface EntrySys extends ContentEntitySys {
 }
 
 type FieldType = 'Symbol' | 'Number' | 'Array' | 'Reference'
-export interface Items {
+export interface ItemsBase {
   type: FieldType
-  linkType?: FieldType extends 'Reference' ? 'Entry' | 'Asset' : never
   validations?: ContentTypeFieldValidation[]
 }
+export interface ReferenceItems extends ItemsBase {
+  type: 'Reference'
+  linkType: 'Entry' | 'Asset'
+}
 
-export type FieldLocaleType =
-  | { type: 'Symbol' }
-  | { type: 'Number' }
-  | { type: 'Array'; items: Items }
+export interface PrimitiveItems extends ItemsBase {
+  type: 'Symbol' | 'Number' | 'Array'
+}
+
+export type Items = PrimitiveItems | ReferenceItems
+
+export type FieldLocaleType = 'Symbol' | 'Number' | 'Array' | 'Reference'
 
 export interface SearchQuery {
   order?: string
