@@ -7,7 +7,6 @@
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
     "skipLibCheck": true,
-    "moduleResolution": "node"
   },
   "include": ["lib/**/*"],
   "exclude": ["test", "node_modules"]
