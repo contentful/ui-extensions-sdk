@@ -1,5 +1,5 @@
 import { ContentTypeFieldValidation } from './entities'
-import type { SerializedJSONValue, FieldLocaleType } from './utils'
+import type { SerializedJSONValue, FieldLocaleType, Items } from './utils'
 import { ValidationError } from './validation-error'
 
 export interface FieldAPI {
@@ -13,7 +13,8 @@ export interface FieldAPI {
   required: boolean
   /** A list of validations for this field that are defined in the content type. */
   validations: ContentTypeFieldValidation[]
-
+  /** Defines the shape of array items */
+  items: Items
   /** Gets the current value of the field and locale. */
   getValue: () => any
   /** Sets the value for the field and locale.  */

@@ -1,4 +1,4 @@
-import { Items, SerializedJSONValue, FieldLocaleType } from './utils'
+import { SerializedJSONValue, FieldLocaleType, Items } from './utils'
 import { FieldAPI } from './field-locale.types'
 import { ContentTypeFieldValidation } from './entities'
 import { ValidationError } from './validation-error'
@@ -12,17 +12,17 @@ export interface FieldInfo {
   value: any
   isDisabled: boolean
   schemaErrors: ValidationError[]
+  items: FieldLocaleType extends { type: 'Array' } ? Items : never
 }
-
 export interface EntryFieldInfo {
   id: string
   locales: string[]
   type: FieldLocaleType
   required: boolean
   validations: ContentTypeFieldValidation[]
-  items?: Items
   values: { [locale: string]: any }
   isDisabled: { [locale: string]: boolean }
+  items: FieldLocaleType extends { type: 'Array' } ? Items : never
   schemaErrors: { [locale: string]: ValidationError[] }
 }
 
@@ -38,8 +38,7 @@ export interface EntryFieldAPI {
   /** A list of validations for this field that are defined in the content type. */
   validations: ContentTypeFieldValidation[]
   /** Defines the shape of array items */
-  items?: Items
-
+  items: Items
   /** Gets the current value of the field and locale. */
   getValue: (locale?: string) => any
   /** Sets the value for the field and locale.  */

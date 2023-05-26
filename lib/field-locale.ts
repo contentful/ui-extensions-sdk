@@ -10,7 +10,7 @@ export default class FieldLocale implements FieldAPI {
   type: FieldLocaleType
   required: boolean
   validations: any[]
-  items?: Items
+  items: Items
   private _value: any
 
   private _valueSignal: MemoizedSignal<[any]>
@@ -24,6 +24,7 @@ export default class FieldLocale implements FieldAPI {
     this.type = info.type
     this.required = info.required
     this.validations = info.validations
+    this.items = info.items
     this._value = info.value
     this._valueSignal = new MemoizedSignal(this._value)
     this._isDisabledSignal = new MemoizedSignal<[boolean]>(info.isDisabled)

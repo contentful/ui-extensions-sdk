@@ -60,12 +60,17 @@ export interface EntrySys extends ContentEntitySys {
   automationTags: Link<'Tag'>[]
 }
 
-type FieldType = 'Symbol' | 'Number' | 'Array'
+type FieldType = 'Symbol' | 'Number' | 'Array' | 'Reference'
 export interface Items {
   type: FieldType
-  linkType: 'Entry' | 'Asset'
-  validations: ContentTypeFieldValidation[]
+  linkType?: FieldType extends 'Reference' ? 'Entry' | 'Asset' : never
+  validations?: ContentTypeFieldValidation[]
 }
+
+export type FieldLocaleType =
+  | { type: 'Symbol' }
+  | { type: 'Number' }
+  | { type: 'Array'; items: Items }
 
 export interface SearchQuery {
   order?: string
@@ -74,12 +79,6 @@ export interface SearchQuery {
 
   [key: string]: any
 }
-
-export type FieldLocaleType =
-  | { type: 'Symbol' }
-  | { type: 'Number' }
-  | { type: 'Array'; items: Items }
-  | { type: 'Reference'; linkType: 'Entry' | 'Asset' }
 
 export type SerializedJSONValue =
   | null

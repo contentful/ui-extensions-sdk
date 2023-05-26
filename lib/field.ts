@@ -11,7 +11,7 @@ export default class Field implements EntryFieldAPI {
   type: FieldLocaleType
   required: boolean
   validations: Object[]
-  items?: Items
+  items: Items
 
   constructor(channel: Channel, info: EntryFieldInfo, defaultLocale: string) {
     this.id = info.id
@@ -30,6 +30,7 @@ export default class Field implements EntryFieldAPI {
           type: info.type,
           required: info.required,
           validations: info.validations,
+          items: info.items,
           locale,
           value: info.values[locale],
           isDisabled: info.isDisabled[locale],
