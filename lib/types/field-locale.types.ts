@@ -9,6 +9,8 @@ export interface FieldAPI {
   locale: string
   /** Holds the type of the field the app is attached to. */
   type: string
+  /** Link type of the field if it's a mono reference field */
+  linkType?: string
   /** Indicates if a value for this field is required */
   required: boolean
   /** A list of validations for this field that are defined in the content type. */

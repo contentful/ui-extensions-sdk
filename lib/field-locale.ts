@@ -7,6 +7,7 @@ export default class FieldLocale implements FieldAPI {
   id: string
   locale: string
   type: string
+  linkType?: string
   required: boolean
   validations: any[]
   items?: Items
@@ -21,6 +22,7 @@ export default class FieldLocale implements FieldAPI {
     this.id = info.id
     this.locale = info.locale
     this.type = info.type
+    this.linkType = info.linkType
     this.required = info.required
     this.validations = info.validations
     this.items = info.items

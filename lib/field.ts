@@ -8,6 +8,7 @@ export default class Field implements EntryFieldAPI {
   id: string
   locales: string[]
   type: string
+  linkType?: string
   required: boolean
   validations: Object[]
   items?: Items
@@ -16,6 +17,7 @@ export default class Field implements EntryFieldAPI {
     this.id = info.id
     this.locales = info.locales
     this.type = info.type
+    this.linkType = info.linkType
     this.required = info.required
     this.validations = info.validations
     this.items = info.items
@@ -27,6 +29,7 @@ export default class Field implements EntryFieldAPI {
         const fieldLocale = new FieldLocale(channel, {
           id: info.id,
           type: info.type,
+          linkType: info.linkType,
           required: info.required,
           validations: info.validations,
           items: info.items,

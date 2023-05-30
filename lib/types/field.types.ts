@@ -7,6 +7,7 @@ export interface FieldInfo {
   id: string
   locale: string
   type: string
+  linkType?: string
   required: boolean
   validations: ContentTypeFieldValidation[]
   items?: Items
@@ -19,6 +20,7 @@ export interface EntryFieldInfo {
   id: string
   locales: string[]
   type: string
+  linkType?: string
   required: boolean
   validations: ContentTypeFieldValidation[]
   items?: Items
@@ -34,6 +36,8 @@ export interface EntryFieldAPI {
   locales: string[]
   /** Holds the type of the field. */
   type: string
+  /** Link type of the field if it's a mono reference field */
+  linkType?: string
   /** Indicates if a value for this field is required */
   required: boolean
   /** A list of validations for this field that are defined in the content type. */
