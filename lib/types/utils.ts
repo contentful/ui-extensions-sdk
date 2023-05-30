@@ -60,7 +60,7 @@ export interface EntrySys extends ContentEntitySys {
   automationTags: Link<'Tag'>[]
 }
 
-type FieldType = 'Symbol' | 'Number' | 'Array' | 'Reference'
+export type FieldType = 'Symbol' | 'Number' | 'Array' | 'Reference'
 export interface ItemsBase {
   type: FieldType
   validations?: ContentTypeFieldValidation[]
@@ -75,8 +75,6 @@ export interface PrimitiveItems extends ItemsBase {
 }
 
 export type Items = PrimitiveItems | ReferenceItems
-
-export type FieldLocaleType = 'Symbol' | 'Number' | 'Array' | 'Reference'
 
 export interface SearchQuery {
   order?: string

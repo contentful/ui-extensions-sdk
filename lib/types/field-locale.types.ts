@@ -1,5 +1,5 @@
 import { ContentTypeFieldValidation } from './entities'
-import type { SerializedJSONValue, FieldLocaleType, Items } from './utils'
+import type { SerializedJSONValue, FieldType, Items } from './utils'
 import { ValidationError } from './validation-error'
 
 export interface FieldAPI {
@@ -8,7 +8,7 @@ export interface FieldAPI {
   /** The current locale of a field the app is attached to. */
   locale: string
   /** Holds the type of the field the app is attached to. */
-  type: FieldLocaleType
+  type: FieldType
   /** Indicates if a value for this field is required */
   required: boolean
   /** A list of validations for this field that are defined in the content type. */

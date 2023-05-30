@@ -1,17 +1,18 @@
 import { Channel } from './channel'
 import FieldLocale from './field-locale'
-import { EntryFieldAPI, EntryFieldInfo } from './types'
-import { FieldLocaleType, Items } from './types/utils'
+import { EntryFieldAPI, EntryFieldInfo, FieldInfo } from './types'
+import { ArrayEntryFieldInfo } from './types/field.types'
+import { FieldType, Items } from './types/utils'
 
 export default class Field implements EntryFieldAPI {
   private _defaultLocale: string
   private _fieldLocales: { [key: string]: FieldLocale }
   id: string
   locales: string[]
-  type: FieldLocaleType
+  type: FieldType
   required: boolean
   validations: Object[]
-  items?: Items
+  items: Items | undefined
 
   constructor(channel: Channel, info: EntryFieldInfo, defaultLocale: string) {
     this.id = info.id
@@ -19,7 +20,7 @@ export default class Field implements EntryFieldAPI {
     this.type = info.type
     this.required = info.required
     this.validations = info.validations
-    this.items = info.type === 'Array' ? info.items : undefined
+    this.items = (info as ArrayEntryFieldInfo)?.items
 
     this._defaultLocale = defaultLocale
 
@@ -30,12 +31,12 @@ export default class Field implements EntryFieldAPI {
           type: info.type,
           required: info.required,
           validations: info.validations,
-          items: info.type === 'Array' ? info.items : undefined,
+          items: (info as ArrayEntryFieldInfo)?.items,
           locale,
           value: info.values[locale],
           isDisabled: info.isDisabled[locale],
           schemaErrors: info.schemaErrors[locale],
-        })
+        } as FieldInfo)
 
         return { ...acc, [locale]: fieldLocale }
       },

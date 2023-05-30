@@ -1,4 +1,4 @@
-import { SerializedJSONValue, FieldLocaleType, Items } from './utils'
+import { SerializedJSONValue, FieldType, Items } from './utils'
 import { FieldAPI } from './field-locale.types'
 import { ContentTypeFieldValidation } from './entities'
 import { ValidationError } from './validation-error'
@@ -21,7 +21,7 @@ interface NumberFieldInfo extends FieldInfoBase {
   type: 'Number'
 }
 
-export interface ArrayFieldInfo extends FieldInfoBase {
+interface ArrayFieldInfo extends FieldInfoBase {
   type: 'Array'
   items: Items
 }
@@ -51,7 +51,7 @@ interface NumberEntryFieldInfo extends EntryFieldInfoBase {
   type: 'Number'
 }
 
-interface ArrayEntryFieldInfo extends EntryFieldInfoBase {
+export interface ArrayEntryFieldInfo extends EntryFieldInfoBase {
   type: 'Array'
   items: Items
 }
@@ -73,7 +73,7 @@ export interface EntryFieldAPI {
   /** The list of locales for the field. */
   locales: string[]
   /** Holds the type of the field. */
-  type: FieldLocaleType
+  type: FieldType
   /** Indicates if a value for this field is required */
   required: boolean
   /** A list of validations for this field that are defined in the content type. */
