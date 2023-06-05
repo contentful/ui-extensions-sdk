@@ -60,21 +60,32 @@ export interface EntrySys extends ContentEntitySys {
   automationTags: Link<'Tag'>[]
 }
 
-export type FieldType = 'Symbol' | 'Number' | 'Array' | 'Reference'
+export type FieldType =
+  | 'Symbol'
+  | 'Text'
+  | 'RichText'
+  | 'Number'
+  | 'Integer'
+  | 'Array'
+  | 'Link'
+  | 'Object'
+  | 'Date'
+  | 'Location'
+
 export interface ItemsBase {
-  type: FieldType
   validations?: ContentTypeFieldValidation[]
 }
+
 export interface ReferenceItems extends ItemsBase {
-  type: 'Reference'
+  type: 'Link'
   linkType: 'Entry' | 'Asset'
 }
 
-export interface PrimitiveItems extends ItemsBase {
-  type: 'Symbol' | 'Number' | 'Array'
+export interface SymbolItems extends ItemsBase {
+  type: 'Symbol'
 }
 
-export type Items = PrimitiveItems | ReferenceItems
+export type Items = SymbolItems | ReferenceItems
 
 export interface SearchQuery {
   order?: string

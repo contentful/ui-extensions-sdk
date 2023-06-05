@@ -13,12 +13,8 @@ interface FieldInfoBase {
   schemaErrors: ValidationError[]
 }
 
-interface SymbolFieldInfo extends FieldInfoBase {
-  type: 'Symbol'
-}
-
-interface NumberFieldInfo extends FieldInfoBase {
-  type: 'Number'
+interface SimpleFieldInfo extends FieldInfoBase {
+  type: Exclude<FieldType, 'Array' | 'Link'>
 }
 
 interface ArrayFieldInfo extends FieldInfoBase {
@@ -26,12 +22,12 @@ interface ArrayFieldInfo extends FieldInfoBase {
   items: Items
 }
 
-interface ReferenceFieldInfo extends FieldInfoBase {
-  type: 'Reference'
+interface LinkFieldInfo extends FieldInfoBase {
+  type: 'Link'
   linkType: 'Entry' | 'Asset'
 }
 
-export type FieldInfo = SymbolFieldInfo | NumberFieldInfo | ArrayFieldInfo | ReferenceFieldInfo
+export type FieldInfo = SimpleFieldInfo | ArrayFieldInfo | LinkFieldInfo
 
 export interface EntryFieldInfoBase {
   id: string
@@ -43,12 +39,8 @@ export interface EntryFieldInfoBase {
   schemaErrors: { [locale: string]: ValidationError[] }
 }
 
-interface SymbolEntryFieldInfo extends EntryFieldInfoBase {
-  type: 'Symbol'
-}
-
-interface NumberEntryFieldInfo extends EntryFieldInfoBase {
-  type: 'Number'
+interface SimpleEntryFieldInfo extends EntryFieldInfoBase {
+  type: Exclude<FieldType, 'Array' | 'Link'>
 }
 
 export interface ArrayEntryFieldInfo extends EntryFieldInfoBase {
@@ -56,16 +48,12 @@ export interface ArrayEntryFieldInfo extends EntryFieldInfoBase {
   items: Items
 }
 
-interface ReferenceEntryFieldInfo extends EntryFieldInfoBase {
-  type: 'Reference'
+interface LinkEntryFieldInfo extends EntryFieldInfoBase {
+  type: 'Link'
   linkType: 'Entry' | 'Asset'
 }
 
-export type EntryFieldInfo =
-  | SymbolEntryFieldInfo
-  | NumberEntryFieldInfo
-  | ArrayEntryFieldInfo
-  | ReferenceEntryFieldInfo
+export type EntryFieldInfo = SimpleEntryFieldInfo | ArrayEntryFieldInfo | LinkEntryFieldInfo
 
 export interface EntryFieldAPI {
   /** The ID of a field is defined in an entry's content type. */
