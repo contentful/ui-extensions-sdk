@@ -9,7 +9,7 @@ export default class FieldLocale implements FieldAPI {
   type: FieldType
   required: boolean
   validations: any[]
-  items: Items | undefined
+  items?: Items
   private _value: any
 
   private _valueSignal: MemoizedSignal<[any]>
