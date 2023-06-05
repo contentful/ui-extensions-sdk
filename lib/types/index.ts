@@ -93,6 +93,7 @@ export type {
   EntrySys,
   ContentEntitySys,
   ContentEntityType,
+  FieldType,
   Items,
   Link,
   WithOptionalId,

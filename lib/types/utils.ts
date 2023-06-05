@@ -72,20 +72,20 @@ export type FieldType =
   | 'Date'
   | 'Location'
 
-export interface ItemsBase {
+interface ItemsBase {
   validations?: ContentTypeFieldValidation[]
 }
 
-export interface ReferenceItems extends ItemsBase {
+interface LinkItems extends ItemsBase {
   type: 'Link'
   linkType: 'Entry' | 'Asset'
 }
 
-export interface SymbolItems extends ItemsBase {
+interface SymbolItems extends ItemsBase {
   type: 'Symbol'
 }
 
-export type Items = SymbolItems | ReferenceItems
+export type Items = SymbolItems | LinkItems
 
 export interface SearchQuery {
   order?: string

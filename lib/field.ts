@@ -1,8 +1,7 @@
 import { Channel } from './channel'
 import FieldLocale from './field-locale'
-import { EntryFieldAPI, EntryFieldInfo, FieldInfo } from './types'
+import { EntryFieldAPI, EntryFieldInfo, FieldType, FieldInfo, Items } from './types'
 import { ArrayEntryFieldInfo } from './types/field.types'
-import { FieldType, Items } from './types/utils'
 
 export default class Field implements EntryFieldAPI {
   private _defaultLocale: string
@@ -20,7 +19,7 @@ export default class Field implements EntryFieldAPI {
     this.type = info.type
     this.required = info.required
     this.validations = info.validations
-    this.items = (info as ArrayEntryFieldInfo)?.items
+    this.items = (info as ArrayEntryFieldInfo).items
 
     this._defaultLocale = defaultLocale
 
@@ -31,7 +30,7 @@ export default class Field implements EntryFieldAPI {
           type: info.type,
           required: info.required,
           validations: info.validations,
-          items: (info as ArrayEntryFieldInfo)?.items,
+          items: (info as ArrayEntryFieldInfo).items,
           locale,
           value: info.values[locale],
           isDisabled: info.isDisabled[locale],
