@@ -79,10 +79,14 @@ export interface LocationAPI {
 
 /* Parameters API */
 
-export interface ParametersAPI {
-  installation: KeyValueMap
-  instance: KeyValueMap
-  invocation?: SerializedJSONValue
+export interface ParametersAPI<
+  InstallationParameters extends KeyValueMap,
+  InstanceParameters extends KeyValueMap,
+  InvocationParameters extends SerializedJSONValue
+> {
+  installation: InstallationParameters
+  instance: InstanceParameters
+  invocation: InvocationParameters
 }
 
 /* IDs */
@@ -212,7 +216,11 @@ export interface AccessAPI {
 
 type EntryScopedIds = 'field' | 'entry' | 'contentType'
 
-export interface BaseAppSDK {
+export interface BaseAppSDK<
+  InstallationParameters extends KeyValueMap,
+  InstanceParameters extends KeyValueMap,
+  InvocationParameters extends SerializedJSONValue
+> {
   /** @deprecated since version 4.0.0 consider using the CMA instead
    * See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details
    */
@@ -228,7 +236,7 @@ export interface BaseAppSDK {
   /** Methods for displaying notifications. */
   notifier: NotifierAPI
   /** Exposes app configuration parameters */
-  parameters: ParametersAPI
+  parameters: ParametersAPI<InstallationParameters, InstanceParameters, InvocationParameters>
   /** Exposes method to identify app's location */
   location: LocationAPI
   /** Exposes methods for checking user's access level */
@@ -241,13 +249,19 @@ export interface BaseAppSDK {
   cma: CMAClient
 }
 
-export type EditorAppSDK = Omit<BaseAppSDK, 'ids'> &
+export type EditorAppSDK<
+  InstallationParameters extends KeyValueMap = KeyValueMap,
+  InstanceParameters extends KeyValueMap = KeyValueMap
+> = Omit<BaseAppSDK<InstallationParameters, InstanceParameters, never>, 'ids'> &
   SharedEditorSDK & {
     /** A set of IDs for the app */
     ids: Omit<IdsAPI, 'field'>
   }
 
-export type SidebarAppSDK = Omit<BaseAppSDK, 'ids'> &
+export type SidebarAppSDK<
+  InstallationParameters extends KeyValueMap = KeyValueMap,
+  InstanceParameters extends KeyValueMap = KeyValueMap
+> = Omit<BaseAppSDK<InstallationParameters, InstanceParameters, never>, 'ids'> &
   SharedEditorSDK & {
     /** A set of IDs for the app */
     ids: Omit<IdsAPI, 'field'>
@@ -255,7 +269,10 @@ export type SidebarAppSDK = Omit<BaseAppSDK, 'ids'> &
     window: WindowAPI
   }
 
-export type FieldAppSDK = BaseAppSDK &
+export type FieldAppSDK<
+  InstallationParameters extends KeyValueMap = KeyValueMap,
+  InstanceParameters extends KeyValueMap = KeyValueMap
+> = BaseAppSDK<InstallationParameters, InstanceParameters, never> &
   SharedEditorSDK & {
     /** A set of IDs for the app */
     ids: IdsAPI
@@ -265,7 +282,11 @@ export type FieldAppSDK = BaseAppSDK &
     window: WindowAPI
   }
 
-export type DialogAppSDK = Omit<BaseAppSDK, 'ids'> & {
+export type DialogAppSDK<
+  InstallationParameters extends KeyValueMap = KeyValueMap,
+  InstanceParameters extends KeyValueMap = KeyValueMap,
+  InvocationParameters extends SerializedJSONValue = SerializedJSONValue
+> = Omit<BaseAppSDK<InstallationParameters, InstanceParameters, InvocationParameters>, 'ids'> & {
   /** A set of IDs for the app */
   ids: Omit<IdsAPI, EntryScopedIds>
   /** Closes the dialog and resolves openCurrentApp promise with data */
@@ -274,56 +295,70 @@ export type DialogAppSDK = Omit<BaseAppSDK, 'ids'> & {
   window: WindowAPI
 }
 
-export type PageAppSDK = Omit<BaseAppSDK, 'ids'> & {
+export type PageAppSDK<
+  InstallationParameters extends KeyValueMap = KeyValueMap,
+  InstanceParameters extends KeyValueMap = KeyValueMap,
+  InvocationParameters extends SerializedJSONValue = { path: string }
+> = Omit<BaseAppSDK<InstallationParameters, InstanceParameters, InvocationParameters>, 'ids'> & {
   /** A set of IDs actual for the app */
   ids: Omit<IdsAPI, EntryScopedIds>
 }
 
-export type HomeAppSDK = Omit<BaseAppSDK, 'ids'> & {
+export type HomeAppSDK<
+  InstallationParameters extends KeyValueMap = KeyValueMap,
+  InstanceParameters extends KeyValueMap = KeyValueMap
+> = Omit<BaseAppSDK<InstallationParameters, InstanceParameters, never>, 'ids'> & {
   ids: Omit<IdsAPI, EntryScopedIds>
 }
 
-export type ConfigAppSDK = Omit<BaseAppSDK, 'ids'> & {
+export type ConfigAppSDK<
+  InstallationParameters extends KeyValueMap = KeyValueMap,
+  InstanceParameters extends KeyValueMap = KeyValueMap
+> = Omit<BaseAppSDK<InstallationParameters, InstanceParameters, never>, 'ids'> & {
   /** A set of IDs actual for the app */
   ids: Omit<IdsAPI, EntryScopedIds | 'extension' | 'app'> & { app: string }
   app: AppConfigAPI
 }
 
-export type KnownAppSDK =
-  | FieldAppSDK
-  | SidebarAppSDK
-  | DialogAppSDK
-  | EditorAppSDK
-  | PageAppSDK
-  | ConfigAppSDK
-  | HomeAppSDK
+export type KnownAppSDK<
+  InstallationParameters extends KeyValueMap = KeyValueMap,
+  InstanceParameters extends KeyValueMap = KeyValueMap,
+  InvocationParameters extends SerializedJSONValue = SerializedJSONValue
+> =
+  | FieldAppSDK<InstallationParameters, InstanceParameters>
+  | SidebarAppSDK<InstallationParameters, InstanceParameters>
+  | DialogAppSDK<InstallationParameters, InstanceParameters, InvocationParameters>
+  | EditorAppSDK<InstallationParameters, InstanceParameters>
+  | PageAppSDK<InstallationParameters, InstanceParameters, InvocationParameters>
+  | ConfigAppSDK<InstallationParameters, InstanceParameters>
+  | HomeAppSDK<InstallationParameters, InstanceParameters>
 
 /** @deprecated consider using {@link BaseAppSDK} */
-export type BaseExtensionSDK = BaseAppSDK
+export type BaseExtensionSDK = BaseAppSDK<KeyValueMap, KeyValueMap, never>
 
 /** @deprecated consider using {@link EditorAppSDK} */
-export type EditorExtensionSDK = EditorAppSDK
+export type EditorExtensionSDK = EditorAppSDK<KeyValueMap, KeyValueMap>
 
 /** @deprecated consider using {@link SidebarAppSDK} */
-export type SidebarExtensionSDK = SidebarAppSDK
+export type SidebarExtensionSDK = SidebarAppSDK<KeyValueMap, KeyValueMap>
 
 /** @deprecated consider using {@link FieldAppSDK} */
-export type FieldExtensionSDK = FieldAppSDK
+export type FieldExtensionSDK = FieldAppSDK<KeyValueMap, KeyValueMap>
 
 /** @deprecated consider using {@link DialogAppSDK} */
-export type DialogExtensionSDK = DialogAppSDK
+export type DialogExtensionSDK = DialogAppSDK<KeyValueMap, KeyValueMap>
 
 /** @deprecated consider using {@link PageAppSDK} */
-export type PageExtensionSDK = PageAppSDK
+export type PageExtensionSDK = PageAppSDK<KeyValueMap, KeyValueMap, { path: string }>
 
 /** @deprecated consider using {@link HomeAppSDK} */
-export type HomeExtensionSDK = HomeAppSDK
+export type HomeExtensionSDK = HomeAppSDK<KeyValueMap, KeyValueMap>
 
 /** @deprecated consider using {@link ConfigAppSDK} */
-export type AppExtensionSDK = ConfigAppSDK
+export type AppExtensionSDK = ConfigAppSDK<KeyValueMap, KeyValueMap>
 
 /** @deprecated consider using {@link KnownAppSDK} */
-export type KnownSDK = KnownAppSDK
+export type KnownSDK = KnownAppSDK<KeyValueMap, KeyValueMap, SerializedJSONValue>
 
 export interface Locations {
   LOCATION_ENTRY_FIELD: 'entry-field'
@@ -339,7 +374,7 @@ export interface Locations {
 export interface ConnectMessage {
   id: string
   location: Location[keyof Location]
-  parameters: ParametersAPI
+  parameters: ParametersAPI<KeyValueMap, KeyValueMap, never>
   locales: LocalesAPI
   user: UserAPI
   initialContentTypes: ContentType[]
