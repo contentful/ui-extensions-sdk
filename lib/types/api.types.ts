@@ -20,6 +20,7 @@ import { AppConfigAPI } from './app.types'
 import { NavigatorAPI } from './navigator.types'
 import { EntryFieldInfo, FieldInfo } from './field.types'
 import { Adapter, KeyValueMap } from 'contentful-management/types'
+import type { PlainClientAPI } from 'contentful-management'
 
 /* User API */
 
@@ -236,6 +237,8 @@ export interface BaseAppSDK {
   ids: Omit<IdsAPI, EntryScopedIds>
   /** Adapter to be injected in contentful-management client */
   cmaAdapter: Adapter
+  /** A PlainClientAPI initialized with default params */
+  cma: PlainClientAPI
 }
 
 export type EditorAppSDK = Omit<BaseAppSDK, 'ids'> &
