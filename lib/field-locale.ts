@@ -1,9 +1,10 @@
 import { Channel } from './channel'
 import { MemoizedSignal } from './signal'
-import { FieldAPI, FieldInfo, FieldType, Items, SerializedJSONValue } from './types'
+import { FieldInfo, FieldType, Items, SerializedJSONValue } from './types'
+import { ExhaustiveFieldAPI } from './types/field-locale.types'
 import { ValidationError } from './types/validation-error'
 
-export default class FieldLocale implements FieldAPI {
+export default class FieldLocale implements ExhaustiveFieldAPI {
   id: string
   locale: string
   type: FieldType

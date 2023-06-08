@@ -13,7 +13,7 @@ interface FieldInfoBase {
   schemaErrors: ValidationError[]
 }
 
-interface SimpleFieldInfo extends FieldInfoBase {
+interface BasicFieldInfo extends FieldInfoBase {
   type: Exclude<FieldType, 'Array' | 'Link'>
 }
 
@@ -27,9 +27,9 @@ interface LinkFieldInfo extends FieldInfoBase {
   linkType: 'Entry' | 'Asset'
 }
 
-export type FieldInfo = SimpleFieldInfo | ArrayFieldInfo | LinkFieldInfo
+export type FieldInfo = BasicFieldInfo | ArrayFieldInfo | LinkFieldInfo
 
-export interface EntryFieldInfoBase {
+interface EntryFieldInfoBase {
   id: string
   locales: string[]
   required: boolean
@@ -39,7 +39,7 @@ export interface EntryFieldInfoBase {
   schemaErrors: { [locale: string]: ValidationError[] }
 }
 
-interface SimpleEntryFieldInfo extends EntryFieldInfoBase {
+interface BasicEntryFieldInfo extends EntryFieldInfoBase {
   type: Exclude<FieldType, 'Array' | 'Link'>
 }
 
@@ -53,21 +53,17 @@ interface LinkEntryFieldInfo extends EntryFieldInfoBase {
   linkType: 'Entry' | 'Asset'
 }
 
-export type EntryFieldInfo = SimpleEntryFieldInfo | ArrayEntryFieldInfo | LinkEntryFieldInfo
+export type EntryFieldInfo = BasicEntryFieldInfo | ArrayEntryFieldInfo | LinkEntryFieldInfo
 
-export interface EntryFieldAPI {
+export interface EntryFieldAPIBase {
   /** The ID of a field is defined in an entry's content type. */
   id: string
   /** The list of locales for the field. */
   locales: string[]
-  /** Holds the type of the field. */
-  type: FieldType
   /** Indicates if a value for this field is required */
   required: boolean
   /** A list of validations for this field that are defined in the content type. */
   validations: ContentTypeFieldValidation[]
-  /** Defines the shape of array items */
-  items?: Items
   /** Gets the current value of the field and locale. */
   getValue: (locale?: string) => any
   /** Sets the value for the field and locale.  */
@@ -94,3 +90,22 @@ export interface EntryFieldAPI {
    **/
   getForLocale: (locale: string) => FieldAPI
 }
+
+interface BasicEntryFieldAPI extends EntryFieldAPIBase {
+  /** Holds the type of the field. */
+  type: Exclude<FieldType, 'Array'>
+}
+
+interface ArrayEntryFieldAPI extends EntryFieldAPIBase {
+  /** Holds the type of the field. */
+  type: 'Array'
+  /** Defines the shape of array items */
+  items: Items
+}
+
+export interface ExhaustiveEntryFieldAPI extends EntryFieldAPIBase {
+  type: FieldType
+  items?: Items
+}
+
+export type EntryFieldAPI = BasicEntryFieldAPI | ArrayEntryFieldAPI

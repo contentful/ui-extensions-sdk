@@ -2,7 +2,7 @@ import { ContentTypeFieldValidation } from './entities'
 import type { SerializedJSONValue, FieldType, Items } from './utils'
 import { ValidationError } from './validation-error'
 
-export interface FieldAPI {
+interface FieldAPIBase {
   /** The ID of a field is defined in an entry's content type. */
   id: string
   /** The current locale of a field the app is attached to. */
@@ -13,8 +13,6 @@ export interface FieldAPI {
   required: boolean
   /** A list of validations for this field that are defined in the content type. */
   validations: ContentTypeFieldValidation[]
-  /** Defines the shape of array items */
-  items?: Items
   /** Gets the current value of the field and locale. */
   getValue: () => any
   /** Sets the value for the field and locale.  */
@@ -59,3 +57,22 @@ export interface FieldAPI {
    */
   onSchemaErrorsChanged: (callback: (errors: ValidationError[]) => void) => () => void
 }
+
+interface BasicFieldAPI extends FieldAPIBase {
+  /** Holds the type of the field. */
+  type: Exclude<FieldType, 'Array'>
+}
+
+interface ArrayFieldAPI extends FieldAPIBase {
+  /** Holds the type of the field. */
+  type: 'Array'
+  /** Defines the shape of array items */
+  items: Items
+}
+
+export interface ExhaustiveFieldAPI extends FieldAPIBase {
+  type: FieldType
+  items?: Items
+}
+
+export type FieldAPI = BasicFieldAPI | ArrayFieldAPI
