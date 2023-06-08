@@ -1,11 +1,11 @@
 import { Channel } from './channel'
 import FieldLocale from './field-locale'
-import { EntryFieldInfo, FieldType, FieldInfo, Items } from './types'
-import { ExhaustiveEntryFieldAPI } from './types/field.types'
+import { EntryFieldInfo, FieldType, Items, FieldAPI } from './types'
+import { ExhaustiveEntryFieldAPI, FieldInfo } from './types/field.types'
 
 export default class Field implements ExhaustiveEntryFieldAPI {
   private _defaultLocale: string
-  private _fieldLocales: { [key: string]: FieldLocale }
+  private _fieldLocales: { [key: string]: FieldAPI }
   id: string
   locales: string[]
   type: FieldType
@@ -25,24 +25,22 @@ export default class Field implements ExhaustiveEntryFieldAPI {
 
     this._defaultLocale = defaultLocale
 
-    this._fieldLocales = info.locales.reduce(
-      (acc: { [key: string]: FieldLocale }, locale: string) => {
-        const fieldLocale = new FieldLocale(channel, {
-          id: info.id,
-          type: info.type,
-          required: info.required,
-          validations: info.validations,
-          items: info.type === 'Array' ? info.items : undefined,
-          locale,
-          value: info.values[locale],
-          isDisabled: info.isDisabled[locale],
-          schemaErrors: info.schemaErrors[locale],
-        } as FieldInfo)
+    this._fieldLocales = info.locales.reduce((acc: { [key: string]: FieldAPI }, locale: string) => {
+      const fieldLocale = new FieldLocale(channel, {
+        id: info.id,
+        type: info.type,
+        required: info.required,
+        validations: info.validations,
+        locale,
+        items: info.type === 'Array' ? info.items : undefined,
+        linkType: info.type === 'Link' ? info.linkType : undefined,
+        value: info.values[locale],
+        isDisabled: info.isDisabled[locale],
+        schemaErrors: info.schemaErrors[locale],
+      } as FieldInfo) as FieldAPI
 
-        return { ...acc, [locale]: fieldLocale }
-      },
-      {}
-    )
+      return { ...acc, [locale]: fieldLocale }
+    }, {})
 
     this.assertHasLocale(defaultLocale)
   }

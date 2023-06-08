@@ -3,6 +3,8 @@ import { FieldAPI } from './field-locale.types'
 import { ContentTypeFieldValidation } from './entities'
 import { ValidationError } from './validation-error'
 
+export type LinkType = 'Entry' | 'Asset'
+
 interface FieldInfoBase {
   id: string
   locale: string
@@ -24,7 +26,7 @@ interface ArrayFieldInfo extends FieldInfoBase {
 
 interface LinkFieldInfo extends FieldInfoBase {
   type: 'Link'
-  linkType: 'Entry' | 'Asset'
+  linkType: LinkType
 }
 
 export type FieldInfo = BasicFieldInfo | ArrayFieldInfo | LinkFieldInfo
