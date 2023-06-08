@@ -7,8 +7,6 @@ interface FieldAPIBase {
   id: string
   /** The current locale of a field the app is attached to. */
   locale: string
-  /** Holds the type of the field the app is attached to. */
-  type: FieldType
   /** Indicates if a value for this field is required */
   required: boolean
   /** A list of validations for this field that are defined in the content type. */

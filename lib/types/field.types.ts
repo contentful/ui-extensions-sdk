@@ -43,7 +43,7 @@ interface BasicEntryFieldInfo extends EntryFieldInfoBase {
   type: Exclude<FieldType, 'Array' | 'Link'>
 }
 
-export interface ArrayEntryFieldInfo extends EntryFieldInfoBase {
+interface ArrayEntryFieldInfo extends EntryFieldInfoBase {
   type: 'Array'
   items: Items
 }

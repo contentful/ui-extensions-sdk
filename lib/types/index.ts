@@ -71,7 +71,7 @@ export type {
 
 export type { EntryAPI, TaskAPI, TaskInputData } from './entry.types'
 
-export type { FieldInfo, EntryFieldInfo, EntryFieldAPI, ArrayEntryFieldInfo } from './field.types'
+export type { FieldInfo, EntryFieldInfo, EntryFieldAPI } from './field.types'
 
 export type { FieldAPI } from './field-locale.types'
 

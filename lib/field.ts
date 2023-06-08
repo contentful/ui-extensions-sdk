@@ -1,6 +1,6 @@
 import { Channel } from './channel'
 import FieldLocale from './field-locale'
-import { EntryFieldInfo, FieldType, FieldInfo, Items, ArrayEntryFieldInfo } from './types'
+import { EntryFieldInfo, FieldType, FieldInfo, Items } from './types'
 import { ExhaustiveEntryFieldAPI } from './types/field.types'
 
 export default class Field implements ExhaustiveEntryFieldAPI {
@@ -32,7 +32,7 @@ export default class Field implements ExhaustiveEntryFieldAPI {
           type: info.type,
           required: info.required,
           validations: info.validations,
-          items: (info as ArrayEntryFieldInfo).items,
+          items: info.type === 'Array' ? info.items : undefined,
           locale,
           value: info.values[locale],
           isDisabled: info.isDisabled[locale],
