@@ -1,6 +1,5 @@
 import { ContentTypeFieldValidation } from './entities'
-import { LinkType } from './field.types'
-import type { SerializedJSONValue, FieldType, Items } from './utils'
+import type { SerializedJSONValue, FieldType, Items, FieldLinkType } from './utils'
 import { ValidationError } from './validation-error'
 
 interface FieldAPIBase {
@@ -59,7 +58,7 @@ interface FieldAPIBase {
 
 interface BasicFieldAPI extends FieldAPIBase {
   /** Holds the type of the field. */
-  type: Exclude<FieldType, 'Array'>
+  type: Exclude<FieldType, 'Array' | 'Link'>
 }
 
 interface ArrayFieldAPI extends FieldAPIBase {
@@ -73,13 +72,13 @@ interface LinkFieldAPI extends FieldAPIBase {
   /** Holds the type of the field. */
   type: 'Link'
   /** Type of linked resource */
-  linkType: LinkType
+  linkType: FieldLinkType
 }
 
 export interface ExhaustiveFieldAPI extends FieldAPIBase {
   type: FieldType
   items?: Items
-  linkType?: LinkType
+  linkType?: FieldLinkType
 }
 
 export type FieldAPI = BasicFieldAPI | ArrayFieldAPI | LinkFieldAPI

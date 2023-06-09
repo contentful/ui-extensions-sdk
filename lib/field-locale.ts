@@ -2,7 +2,7 @@ import { Channel } from './channel'
 import { MemoizedSignal } from './signal'
 import { FieldInfo, FieldType, Items, SerializedJSONValue } from './types'
 import { ExhaustiveFieldAPI } from './types/field-locale.types'
-import { LinkType } from './types/field.types'
+import { FieldLinkType } from './types/utils'
 import { ValidationError } from './types/validation-error'
 
 export default class FieldLocale implements ExhaustiveFieldAPI {
@@ -12,7 +12,7 @@ export default class FieldLocale implements ExhaustiveFieldAPI {
   required: boolean
   validations: any[]
   items?: Items
-  linkType?: LinkType
+  linkType?: FieldLinkType
   private _value: any
 
   private _valueSignal: MemoizedSignal<[any]>

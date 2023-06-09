@@ -72,13 +72,15 @@ export type FieldType =
   | 'Date'
   | 'Location'
 
+export type FieldLinkType = 'Entry' | 'Asset'
+
 interface ItemsBase {
   validations?: ContentTypeFieldValidation[]
 }
 
 interface LinkItems extends ItemsBase {
   type: 'Link'
-  linkType: 'Entry' | 'Asset'
+  linkType: FieldLinkType
 }
 
 interface SymbolItems extends ItemsBase {

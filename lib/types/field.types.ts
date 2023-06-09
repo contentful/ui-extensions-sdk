@@ -1,9 +1,7 @@
-import { SerializedJSONValue, FieldType, Items } from './utils'
+import { SerializedJSONValue, FieldType, Items, FieldLinkType } from './utils'
 import { FieldAPI } from './field-locale.types'
 import { ContentTypeFieldValidation } from './entities'
 import { ValidationError } from './validation-error'
-
-export type LinkType = 'Entry' | 'Asset'
 
 interface FieldInfoBase {
   id: string
@@ -26,7 +24,7 @@ interface ArrayFieldInfo extends FieldInfoBase {
 
 interface LinkFieldInfo extends FieldInfoBase {
   type: 'Link'
-  linkType: LinkType
+  linkType: FieldLinkType
 }
 
 export type FieldInfo = BasicFieldInfo | ArrayFieldInfo | LinkFieldInfo
@@ -52,7 +50,7 @@ interface ArrayEntryFieldInfo extends EntryFieldInfoBase {
 
 interface LinkEntryFieldInfo extends EntryFieldInfoBase {
   type: 'Link'
-  linkType: 'Entry' | 'Asset'
+  linkType: FieldLinkType
 }
 
 export type EntryFieldInfo = BasicEntryFieldInfo | ArrayEntryFieldInfo | LinkEntryFieldInfo
@@ -95,7 +93,7 @@ export interface EntryFieldAPIBase {
 
 interface BasicEntryFieldAPI extends EntryFieldAPIBase {
   /** Holds the type of the field. */
-  type: Exclude<FieldType, 'Array'>
+  type: Exclude<FieldType, 'Array' | 'Link'>
 }
 
 interface ArrayEntryFieldAPI extends EntryFieldAPIBase {
@@ -105,9 +103,17 @@ interface ArrayEntryFieldAPI extends EntryFieldAPIBase {
   items: Items
 }
 
+interface LinkEntryFieldAPI extends EntryFieldAPIBase {
+  /** Holds the type of the field. */
+  type: 'Link'
+  /** Type of linked resource */
+  linkType: FieldLinkType
+}
+
 export interface ExhaustiveEntryFieldAPI extends EntryFieldAPIBase {
   type: FieldType
   items?: Items
+  linkType?: FieldLinkType
 }
 
-export type EntryFieldAPI = BasicEntryFieldAPI | ArrayEntryFieldAPI
+export type EntryFieldAPI = BasicEntryFieldAPI | ArrayEntryFieldAPI | LinkEntryFieldAPI
