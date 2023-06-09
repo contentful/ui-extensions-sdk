@@ -1,6 +1,6 @@
 import { Channel } from './channel'
 import FieldLocale from './field-locale'
-import { EntryFieldInfo, FieldType, Items, FieldAPI } from './types'
+import { EntryFieldInfo, FieldType, Items, FieldAPI, FieldLinkType } from './types'
 import { ExhaustiveEntryFieldAPI, FieldInfo } from './types/field.types'
 
 export default class Field implements ExhaustiveEntryFieldAPI {
@@ -12,6 +12,7 @@ export default class Field implements ExhaustiveEntryFieldAPI {
   required: boolean
   validations: Object[]
   items?: Items
+  linkType?: FieldLinkType
 
   constructor(channel: Channel, info: EntryFieldInfo, defaultLocale: string) {
     this.id = info.id
@@ -21,6 +22,9 @@ export default class Field implements ExhaustiveEntryFieldAPI {
     this.validations = info.validations
     if (info.type === 'Array') {
       this.items = info.items
+    }
+    if (info.type === 'Link') {
+      this.linkType = info.linkType
     }
 
     this._defaultLocale = defaultLocale
