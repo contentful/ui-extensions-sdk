@@ -64,7 +64,7 @@ function makeSharedAPI(channel: Channel, data: ConnectMessage): BaseAppSDK {
     cma: createCMAClient(ids, channel),
     cmaAdapter: createAdapter(channel),
     location: {
-      is: (tested: any) => currentLocation === tested,
+      is: (tested: string) => currentLocation === tested,
     },
     user,
     parameters,
