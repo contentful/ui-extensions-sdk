@@ -33,6 +33,9 @@
     "prepare": "husky install",
     "lint-staged": "lint-staged"
   },
+  "dependencies": {
+    "contentful-management": ">=7.30.0"
+  },
   "devDependencies": {
     "@semantic-release/changelog": "6.0.3",
     "@semantic-release/exec": "6.0.3",
@@ -133,8 +136,5 @@
       ],
       "@semantic-release/github"
     ]
-  },
-  "peerDependencies": {
-    "contentful-management": ">=7.30.0"
   }
 }
