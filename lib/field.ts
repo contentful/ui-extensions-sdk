@@ -6,6 +6,7 @@ export default class Field implements EntryFieldAPI {
   private _defaultLocale: string
   private _fieldLocales: { [key: string]: FieldLocale }
   id: string
+  name: string
   locales: string[]
   type: string
   required: boolean
@@ -14,6 +15,7 @@ export default class Field implements EntryFieldAPI {
 
   constructor(channel: Channel, info: EntryFieldInfo, defaultLocale: string) {
     this.id = info.id
+    this.name = info.name
     this.locales = info.locales
     this.type = info.type
     this.required = info.required
@@ -26,6 +28,7 @@ export default class Field implements EntryFieldAPI {
       (acc: { [key: string]: FieldLocale }, locale: string) => {
         const fieldLocale = new FieldLocale(channel, {
           id: info.id,
+          name: info.name,
           type: info.type,
           required: info.required,
           validations: info.validations,
