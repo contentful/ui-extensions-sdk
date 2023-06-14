@@ -5,6 +5,7 @@ import { ValidationError } from './validation-error'
 
 interface FieldInfoBase {
   id: string
+  name: string
   locale: string
   required: boolean
   validations: ContentTypeFieldValidation[]
@@ -31,6 +32,7 @@ export type FieldInfo = BasicFieldInfo | ArrayFieldInfo | LinkFieldInfo
 
 interface EntryFieldInfoBase {
   id: string
+  name: string
   locales: string[]
   required: boolean
   validations: ContentTypeFieldValidation[]
@@ -58,6 +60,8 @@ export type EntryFieldInfo = BasicEntryFieldInfo | ArrayEntryFieldInfo | LinkEnt
 export interface EntryFieldAPIBase {
   /** The ID of a field is defined in an entry's content type. */
   id: string
+  /** The name of the field */
+  name: string
   /** The list of locales for the field. */
   locales: string[]
   /** Indicates if a value for this field is required */

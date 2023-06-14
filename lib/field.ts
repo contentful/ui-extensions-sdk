@@ -7,6 +7,7 @@ export default class Field implements ExhaustiveEntryFieldAPI {
   private _defaultLocale: string
   private _fieldLocales: { [key: string]: FieldAPI }
   id: string
+  name: string
   locales: string[]
   type: FieldType
   required: boolean
@@ -16,6 +17,7 @@ export default class Field implements ExhaustiveEntryFieldAPI {
 
   constructor(channel: Channel, info: EntryFieldInfo, defaultLocale: string) {
     this.id = info.id
+    this.name = info.name
     this.locales = info.locales
     this.type = info.type
     this.required = info.required
@@ -32,6 +34,7 @@ export default class Field implements ExhaustiveEntryFieldAPI {
     this._fieldLocales = info.locales.reduce((acc: { [key: string]: FieldAPI }, locale: string) => {
       const fieldLocale = new FieldLocale(channel, {
         id: info.id,
+        name: info.name,
         type: info.type,
         required: info.required,
         validations: info.validations,
