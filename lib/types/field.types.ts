@@ -1,50 +1,73 @@
-import { Items, SerializedJSONValue } from './utils'
+import { SerializedJSONValue, FieldType, Items, FieldLinkType } from './utils'
 import { FieldAPI } from './field-locale.types'
 import { ContentTypeFieldValidation } from './entities'
 import { ValidationError } from './validation-error'
 
-export interface FieldInfo {
+interface FieldInfoBase {
   id: string
   name: string
   locale: string
-  type: string
   required: boolean
   validations: ContentTypeFieldValidation[]
-  items?: Items
   value: any
   isDisabled: boolean
   schemaErrors: ValidationError[]
 }
 
-export interface EntryFieldInfo {
+interface BasicFieldInfo extends FieldInfoBase {
+  type: Exclude<FieldType, 'Array' | 'Link'>
+}
+
+interface ArrayFieldInfo extends FieldInfoBase {
+  type: 'Array'
+  items: Items
+}
+
+interface LinkFieldInfo extends FieldInfoBase {
+  type: 'Link'
+  linkType: FieldLinkType
+}
+
+export type FieldInfo = BasicFieldInfo | ArrayFieldInfo | LinkFieldInfo
+
+interface EntryFieldInfoBase {
   id: string
   name: string
   locales: string[]
-  type: string
   required: boolean
   validations: ContentTypeFieldValidation[]
-  items?: Items
   values: { [locale: string]: any }
   isDisabled: { [locale: string]: boolean }
   schemaErrors: { [locale: string]: ValidationError[] }
 }
 
-export interface EntryFieldAPI {
+interface BasicEntryFieldInfo extends EntryFieldInfoBase {
+  type: Exclude<FieldType, 'Array' | 'Link'>
+}
+
+interface ArrayEntryFieldInfo extends EntryFieldInfoBase {
+  type: 'Array'
+  items: Items
+}
+
+interface LinkEntryFieldInfo extends EntryFieldInfoBase {
+  type: 'Link'
+  linkType: FieldLinkType
+}
+
+export type EntryFieldInfo = BasicEntryFieldInfo | ArrayEntryFieldInfo | LinkEntryFieldInfo
+
+export interface EntryFieldAPIBase {
   /** The ID of a field is defined in an entry's content type. */
   id: string
   /** The name of the field */
   name: string
   /** The list of locales for the field. */
   locales: string[]
-  /** Holds the type of the field. */
-  type: string
   /** Indicates if a value for this field is required */
   required: boolean
   /** A list of validations for this field that are defined in the content type. */
   validations: ContentTypeFieldValidation[]
-  /** Defines the shape of array items */
-  items?: Items
-
   /** Gets the current value of the field and locale. */
   getValue: (locale?: string) => any
   /** Sets the value for the field and locale.  */
@@ -71,3 +94,30 @@ export interface EntryFieldAPI {
    **/
   getForLocale: (locale: string) => FieldAPI
 }
+
+interface BasicEntryFieldAPI extends EntryFieldAPIBase {
+  /** Holds the type of the field. */
+  type: Exclude<FieldType, 'Array' | 'Link'>
+}
+
+interface ArrayEntryFieldAPI extends EntryFieldAPIBase {
+  /** Holds the type of the field. */
+  type: 'Array'
+  /** Defines the shape of array items */
+  items: Items
+}
+
+interface LinkEntryFieldAPI extends EntryFieldAPIBase {
+  /** Holds the type of the field. */
+  type: 'Link'
+  /** Type of linked resource */
+  linkType: FieldLinkType
+}
+
+export interface ExhaustiveEntryFieldAPI extends EntryFieldAPIBase {
+  type: FieldType
+  items?: Items
+  linkType?: FieldLinkType
+}
+
+export type EntryFieldAPI = BasicEntryFieldAPI | ArrayEntryFieldAPI | LinkEntryFieldAPI

@@ -1,16 +1,18 @@
 import { Channel } from './channel'
 import { MemoizedSignal } from './signal'
-import { FieldAPI, FieldInfo, Items, SerializedJSONValue } from './types'
+import { FieldInfo, FieldType, FieldLinkType, Items, SerializedJSONValue } from './types'
+import { ExhaustiveFieldAPI } from './types/field-locale.types'
 import { ValidationError } from './types/validation-error'
 
-export default class FieldLocale implements FieldAPI {
+export default class FieldLocale implements ExhaustiveFieldAPI {
   id: string
   name: string
   locale: string
-  type: string
+  type: FieldType
   required: boolean
   validations: any[]
   items?: Items
+  linkType?: FieldLinkType
   private _value: any
 
   private _valueSignal: MemoizedSignal<[any]>
@@ -25,8 +27,12 @@ export default class FieldLocale implements FieldAPI {
     this.type = info.type
     this.required = info.required
     this.validations = info.validations
-    this.items = info.items
-
+    if (info.type === 'Array') {
+      this.items = info.items
+    }
+    if (info.type === 'Link') {
+      this.linkType = info.linkType
+    }
     this._value = info.value
     this._valueSignal = new MemoizedSignal(this._value)
     this._isDisabledSignal = new MemoizedSignal<[boolean]>(info.isDisabled)
