@@ -5,6 +5,7 @@ import { ValidationError } from './types/validation-error'
 
 export default class FieldLocale implements FieldAPI {
   id: string
+  name: string
   locale: string
   type: string
   required: boolean
@@ -19,6 +20,7 @@ export default class FieldLocale implements FieldAPI {
 
   constructor(channel: Channel, info: FieldInfo) {
     this.id = info.id
+    this.name = info.name
     this.locale = info.locale
     this.type = info.type
     this.required = info.required

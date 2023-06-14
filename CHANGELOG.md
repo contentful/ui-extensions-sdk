@@ -1,3 +1,9 @@
+# [4.18.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.17.2...v4.18.0) (2023-06-14)
+
+### Features
+
+- [EXT-3265] Add field name prop ([#1527](https://github.com/contentful/ui-extensions-sdk/issues/1527)) ([4477e90](https://github.com/contentful/ui-extensions-sdk/commit/4477e90734440c10586b13cda424a6f78512eb39))
+
 ## [4.17.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.17.1...v4.17.2) (2023-05-17)
 
 ### Bug Fixes
