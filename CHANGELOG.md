@@ -1,3 +1,9 @@
+# [4.19.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.18.0...v4.19.0) (2023-06-14)
+
+### Features
+
+- [EXT-3648][EXT-4380] Improve sdk.field types ([#1529](https://github.com/contentful/ui-extensions-sdk/issues/1529)) ([ec0da5a](https://github.com/contentful/ui-extensions-sdk/commit/ec0da5a2ed399c18b1a479bcaa193cc480172c71))
+
 # [4.18.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.17.2...v4.18.0) (2023-06-14)
 
 ### Features
