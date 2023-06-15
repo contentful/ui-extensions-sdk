@@ -37,7 +37,7 @@
     "@semantic-release/changelog": "6.0.3",
     "@semantic-release/exec": "6.0.3",
     "@semantic-release/git": "10.0.1",
-    "@testing-library/dom": "9.3.0",
+    "@testing-library/dom": "9.3.1",
     "@types/chai-as-promised": "7.1.5",
     "@types/cross-spawn": "6.0.2",
     "@types/fs-extra": "11.0.1",
