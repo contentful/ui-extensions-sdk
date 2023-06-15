@@ -71,6 +71,7 @@ export type FieldType =
   | 'Object'
   | 'Date'
   | 'Location'
+  | 'Boolean'
 
 export type FieldLinkType = 'Entry' | 'Asset'
 
