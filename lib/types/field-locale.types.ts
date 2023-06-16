@@ -1,23 +1,18 @@
 import { ContentTypeFieldValidation } from './entities'
-import type { Items, SerializedJSONValue } from './utils'
+import type { SerializedJSONValue, FieldType, Items, FieldLinkType } from './utils'
 import { ValidationError } from './validation-error'
 
-export interface FieldAPI {
+interface FieldAPIBase {
   /** The ID of a field is defined in an entry's content type. */
   id: string
   /** The name of the field */
   name: string
   /** The current locale of a field the app is attached to. */
   locale: string
-  /** Holds the type of the field the app is attached to. */
-  type: string
   /** Indicates if a value for this field is required */
   required: boolean
   /** A list of validations for this field that are defined in the content type. */
   validations: ContentTypeFieldValidation[]
-  /** Defines the shape of array items */
-  items?: Items
-
   /** Gets the current value of the field and locale. */
   getValue: () => any
   /** Sets the value for the field and locale.  */
@@ -62,3 +57,30 @@ export interface FieldAPI {
    */
   onSchemaErrorsChanged: (callback: (errors: ValidationError[]) => void) => () => void
 }
+
+interface BasicFieldAPI extends FieldAPIBase {
+  /** Holds the type of the field. */
+  type: Exclude<FieldType, 'Array' | 'Link'>
+}
+
+interface ArrayFieldAPI extends FieldAPIBase {
+  /** Holds the type of the field. */
+  type: 'Array'
+  /** Defines the shape of array items */
+  items: Items
+}
+
+interface LinkFieldAPI extends FieldAPIBase {
+  /** Holds the type of the field. */
+  type: 'Link'
+  /** Type of linked resource */
+  linkType: FieldLinkType
+}
+
+export interface ExhaustiveFieldAPI extends FieldAPIBase {
+  type: FieldType
+  items?: Items
+  linkType?: FieldLinkType
+}
+
+export type FieldAPI = BasicFieldAPI | ArrayFieldAPI | LinkFieldAPI

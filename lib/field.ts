@@ -1,17 +1,19 @@
 import { Channel } from './channel'
 import FieldLocale from './field-locale'
-import { EntryFieldAPI, EntryFieldInfo, Items } from './types'
+import { EntryFieldInfo, FieldType, Items, FieldAPI, FieldLinkType } from './types'
+import { ExhaustiveEntryFieldAPI, FieldInfo } from './types/field.types'
 
-export default class Field implements EntryFieldAPI {
+export default class Field implements ExhaustiveEntryFieldAPI {
   private _defaultLocale: string
-  private _fieldLocales: { [key: string]: FieldLocale }
+  private _fieldLocales: { [key: string]: FieldAPI }
   id: string
   name: string
   locales: string[]
-  type: string
+  type: FieldType
   required: boolean
   validations: Object[]
   items?: Items
+  linkType?: FieldLinkType
 
   constructor(channel: Channel, info: EntryFieldInfo, defaultLocale: string) {
     this.id = info.id
@@ -20,29 +22,32 @@ export default class Field implements EntryFieldAPI {
     this.type = info.type
     this.required = info.required
     this.validations = info.validations
-    this.items = info.items
+    if (info.type === 'Array') {
+      this.items = info.items
+    }
+    if (info.type === 'Link') {
+      this.linkType = info.linkType
+    }
 
     this._defaultLocale = defaultLocale
 
-    this._fieldLocales = info.locales.reduce(
-      (acc: { [key: string]: FieldLocale }, locale: string) => {
-        const fieldLocale = new FieldLocale(channel, {
-          id: info.id,
-          name: info.name,
-          type: info.type,
-          required: info.required,
-          validations: info.validations,
-          items: info.items,
-          locale,
-          value: info.values[locale],
-          isDisabled: info.isDisabled[locale],
-          schemaErrors: info.schemaErrors[locale],
-        })
+    this._fieldLocales = info.locales.reduce((acc: { [key: string]: FieldAPI }, locale: string) => {
+      const fieldLocale = new FieldLocale(channel, {
+        id: info.id,
+        name: info.name,
+        type: info.type,
+        required: info.required,
+        validations: info.validations,
+        locale,
+        items: info.type === 'Array' ? info.items : undefined,
+        linkType: info.type === 'Link' ? info.linkType : undefined,
+        value: info.values[locale],
+        isDisabled: info.isDisabled[locale],
+        schemaErrors: info.schemaErrors[locale],
+      } as FieldInfo) as FieldAPI
 
-        return { ...acc, [locale]: fieldLocale }
-      },
-      {}
-    )
+      return { ...acc, [locale]: fieldLocale }
+    }, {})
 
     this.assertHasLocale(defaultLocale)
   }
