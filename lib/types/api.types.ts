@@ -327,11 +327,11 @@ export type KnownAppSDK<
 > =
   | FieldAppSDK<InstallationParameters, InstanceParameters>
   | SidebarAppSDK<InstallationParameters, InstanceParameters>
-  | DialogAppSDK<InstallationParameters, InstanceParameters, InvocationParameters>
+  | DialogAppSDK<InstallationParameters, InvocationParameters>
   | EditorAppSDK<InstallationParameters, InstanceParameters>
-  | PageAppSDK<InstallationParameters, InstanceParameters, InvocationParameters>
-  | ConfigAppSDK<InstallationParameters, InstanceParameters>
-  | HomeAppSDK<InstallationParameters, InstanceParameters>
+  | PageAppSDK<InstallationParameters>
+  | ConfigAppSDK<InstallationParameters>
+  | HomeAppSDK<InstallationParameters>
 
 /** @deprecated consider using {@link BaseAppSDK} */
 export type BaseExtensionSDK = BaseAppSDK<KeyValueMap, KeyValueMap, never>
