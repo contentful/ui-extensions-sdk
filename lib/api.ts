@@ -18,6 +18,7 @@ import {
 } from './types'
 import { Channel } from './channel'
 import { createAdapter } from './cmaAdapter'
+import { createCMAClient } from './cma'
 
 const DEFAULT_API_PRODUCERS = [
   makeSharedAPI,
@@ -60,9 +61,10 @@ function makeSharedAPI(channel: Channel, data: ConnectMessage): BaseAppSDK {
   const currentLocation = data.location || locations.LOCATION_ENTRY_FIELD
 
   return {
+    cma: createCMAClient(ids, channel),
     cmaAdapter: createAdapter(channel),
     location: {
-      is: (tested) => currentLocation === tested,
+      is: (tested: string) => currentLocation === tested,
     },
     user,
     parameters,
