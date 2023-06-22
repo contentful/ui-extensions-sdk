@@ -20,7 +20,6 @@ import { AppConfigAPI } from './app.types'
 import { NavigatorAPI } from './navigator.types'
 import { EntryFieldInfo, FieldInfo } from './field.types'
 import type { Adapter, KeyValueMap, PlainClientAPI } from 'contentful-management/types'
-// import { PlainClientAPI } from 'contentful-management'
 
 /* User API */
 
