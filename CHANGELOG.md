@@ -1,3 +1,9 @@
+# [4.21.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.20.0...v4.21.0) (2023-06-22)
+
+### Features
+
+- adds optional types for parameters [EXT-4381] ([#1538](https://github.com/contentful/ui-extensions-sdk/issues/1538)) ([7cbad71](https://github.com/contentful/ui-extensions-sdk/commit/7cbad718111ba830b0c75921c06bfae437515411))
+
 # [4.20.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.19.1...v4.20.0) (2023-06-22)
 
 ### Features
