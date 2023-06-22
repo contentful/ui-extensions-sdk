@@ -356,7 +356,7 @@ export type HomeExtensionSDK = HomeAppSDK<KeyValueMap, KeyValueMap>
 export type AppExtensionSDK = ConfigAppSDK<KeyValueMap, KeyValueMap>
 
 /** @deprecated consider using {@link KnownAppSDK} */
-export type KnownSDK = KnownAppSDK<KeyValueMap, KeyValueMap, SerializedJSONValue>
+export type KnownSDK = KnownAppSDK
 
 export interface Locations {
   LOCATION_ENTRY_FIELD: 'entry-field'
