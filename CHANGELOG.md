@@ -1,3 +1,9 @@
+# [4.20.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.19.1...v4.20.0) (2023-06-22)
+
+### Features
+
+- expose cma in the sdk [EXT-3599] ([#1536](https://github.com/contentful/ui-extensions-sdk/issues/1536)) ([942c5e0](https://github.com/contentful/ui-extensions-sdk/commit/942c5e0b98b651652a4c1fd5edcac3cd69ba0e9e))
+
 ## [4.19.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.19.0...v4.19.1) (2023-06-15)
 
 ### Bug Fixes
