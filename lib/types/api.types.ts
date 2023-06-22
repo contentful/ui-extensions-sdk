@@ -284,9 +284,8 @@ export type FieldAppSDK<
 
 export type DialogAppSDK<
   InstallationParameters extends KeyValueMap = KeyValueMap,
-  InstanceParameters extends KeyValueMap = KeyValueMap,
   InvocationParameters extends SerializedJSONValue = SerializedJSONValue
-> = Omit<BaseAppSDK<InstallationParameters, InstanceParameters, InvocationParameters>, 'ids'> & {
+> = Omit<BaseAppSDK<InstallationParameters, never, InvocationParameters>, 'ids'> & {```
   /** A set of IDs for the app */
   ids: Omit<IdsAPI, EntryScopedIds>
   /** Closes the dialog and resolves openCurrentApp promise with data */
@@ -295,26 +294,25 @@ export type DialogAppSDK<
   window: WindowAPI
 }
 
-export type PageAppSDK<
-  InstallationParameters extends KeyValueMap = KeyValueMap,
-  InstanceParameters extends KeyValueMap = KeyValueMap,
-  InvocationParameters extends SerializedJSONValue = { path: string }
-> = Omit<BaseAppSDK<InstallationParameters, InstanceParameters, InvocationParameters>, 'ids'> & {
+export type PageAppSDK<InstallationParameters extends KeyValueMap = KeyValueMap> = Omit<
+  BaseAppSDK<InstallationParameters, never, { path: string }>,
+  'ids'
+> & {
   /** A set of IDs actual for the app */
   ids: Omit<IdsAPI, EntryScopedIds>
 }
 
-export type HomeAppSDK<
-  InstallationParameters extends KeyValueMap = KeyValueMap,
-  InstanceParameters extends KeyValueMap = KeyValueMap
-> = Omit<BaseAppSDK<InstallationParameters, InstanceParameters, never>, 'ids'> & {
+export type HomeAppSDK<InstallationParameters extends KeyValueMap = KeyValueMap> = Omit<
+  BaseAppSDK<InstallationParameters, never, never>,
+  'ids'
+> & {
   ids: Omit<IdsAPI, EntryScopedIds>
 }
 
-export type ConfigAppSDK<
-  InstallationParameters extends KeyValueMap = KeyValueMap,
-  InstanceParameters extends KeyValueMap = KeyValueMap
-> = Omit<BaseAppSDK<InstallationParameters, InstanceParameters, never>, 'ids'> & {
+export type ConfigAppSDK<InstallationParameters extends KeyValueMap = KeyValueMap> = Omit<
+  BaseAppSDK<InstallationParameters, never, never>,
+  'ids'
+> & {
   /** A set of IDs actual for the app */
   ids: Omit<IdsAPI, EntryScopedIds | 'extension' | 'app'> & { app: string }
   app: AppConfigAPI
