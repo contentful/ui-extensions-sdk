@@ -11,6 +11,7 @@
   },
   "homepage": "https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/",
   "main": "dist/cf-extension-api.js",
+  "unpkg": "dist/cf-extension-api.bundled.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist/cf-extension-api.js",
@@ -37,6 +38,7 @@
     "contentful-management": ">=7.30.0"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.2",
     "@rollup/plugin-node-resolve": "^15.1.0",
     "@semantic-release/changelog": "6.0.3",
     "@semantic-release/exec": "6.0.3",
