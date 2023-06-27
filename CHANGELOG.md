@@ -1,14 +1,108 @@
-# [4.10.0-alpha.4](https://github.com/contentful/ui-extensions-sdk/compare/v4.10.0-alpha.3...v4.10.0-alpha.4) (2022-08-15)
+## [4.21.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.21.0...v4.21.1) (2023-06-23)
+
+### Bug Fixes
+
+- revert expose cma in the sdk [EXT-3599] ([#1549](https://github.com/contentful/ui-extensions-sdk/issues/1549)) ([7b58c94](https://github.com/contentful/ui-extensions-sdk/commit/7b58c9403d4af01bc409b1a2e77ccac193ab9c20))
+
+### Reverts
+
+- expose cma in the sdk [EXT-3599] ([#1548](https://github.com/contentful/ui-extensions-sdk/issues/1548)) ([9b8684f](https://github.com/contentful/ui-extensions-sdk/commit/9b8684fec4694fc68f0971a3b0be8bb9c48c20f2))
+
+# [4.21.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.20.0...v4.21.0) (2023-06-22)
 
 ### Features
 
-- update from master [] ([#1347](https://github.com/contentful/ui-extensions-sdk/issues/1347)) ([6145531](https://github.com/contentful/ui-extensions-sdk/commit/6145531d05becb467cd6fb68dca49507a6e18fcb)), closes [#1329](https://github.com/contentful/ui-extensions-sdk/issues/1329) [#1331](https://github.com/contentful/ui-extensions-sdk/issues/1331) [#1332](https://github.com/contentful/ui-extensions-sdk/issues/1332) [#1330](https://github.com/contentful/ui-extensions-sdk/issues/1330) [#1334](https://github.com/contentful/ui-extensions-sdk/issues/1334) [#1336](https://github.com/contentful/ui-extensions-sdk/issues/1336) [#1335](https://github.com/contentful/ui-extensions-sdk/issues/1335) [#1335](https://github.com/contentful/ui-extensions-sdk/issues/1335) [#1337](https://github.com/contentful/ui-extensions-sdk/issues/1337) [#1319](https://github.com/contentful/ui-extensions-sdk/issues/1319) [#1319](https://github.com/contentful/ui-extensions-sdk/issues/1319) [#1338](https://github.com/contentful/ui-extensions-sdk/issues/1338) [#1338](https://github.com/contentful/ui-extensions-sdk/issues/1338) [#1339](https://github.com/contentful/ui-extensions-sdk/issues/1339) [#1341](https://github.com/contentful/ui-extensions-sdk/issues/1341) [#1342](https://github.com/contentful/ui-extensions-sdk/issues/1342) [#1343](https://github.com/contentful/ui-extensions-sdk/issues/1343) [#1344](https://github.com/contentful/ui-extensions-sdk/issues/1344) [#1344](https://github.com/contentful/ui-extensions-sdk/issues/1344) [#1346](https://github.com/contentful/ui-extensions-sdk/issues/1346)
+- adds optional types for parameters [EXT-4381] ([#1538](https://github.com/contentful/ui-extensions-sdk/issues/1538)) ([7cbad71](https://github.com/contentful/ui-extensions-sdk/commit/7cbad718111ba830b0c75921c06bfae437515411))
+
+# [4.20.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.19.1...v4.20.0) (2023-06-22)
+
+### Features
+
+- expose cma in the sdk [EXT-3599] ([#1536](https://github.com/contentful/ui-extensions-sdk/issues/1536)) ([942c5e0](https://github.com/contentful/ui-extensions-sdk/commit/942c5e0b98b651652a4c1fd5edcac3cd69ba0e9e))
+
+## [4.19.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.19.0...v4.19.1) (2023-06-15)
+
+### Bug Fixes
+
+- [] Add boolean field type ([#1541](https://github.com/contentful/ui-extensions-sdk/issues/1541)) ([ba52bdf](https://github.com/contentful/ui-extensions-sdk/commit/ba52bdfc5a100348bc576ab6d0b13cfe17b36d47))
+
+# [4.19.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.18.0...v4.19.0) (2023-06-14)
+
+### Features
+
+- [EXT-3648][EXT-4380] Improve sdk.field types ([#1529](https://github.com/contentful/ui-extensions-sdk/issues/1529)) ([ec0da5a](https://github.com/contentful/ui-extensions-sdk/commit/ec0da5a2ed399c18b1a479bcaa193cc480172c71))
+
+# [4.18.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.17.2...v4.18.0) (2023-06-14)
+
+### Features
+
+- [EXT-3265] Add field name prop ([#1527](https://github.com/contentful/ui-extensions-sdk/issues/1527)) ([4477e90](https://github.com/contentful/ui-extensions-sdk/commit/4477e90734440c10586b13cda424a6f78512eb39))
+
+## [4.17.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.17.1...v4.17.2) (2023-05-17)
+
+### Bug Fixes
+
+- exposed createWithResponse function[] ([#1522](https://github.com/contentful/ui-extensions-sdk/issues/1522)) ([2255541](https://github.com/contentful/ui-extensions-sdk/commit/2255541c5e535c98a45977258fcea8a99b9fa1a7))
+
+## [4.17.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.17.0...v4.17.1) (2023-04-05)
+
+### Bug Fixes
+
+- [] Deprecate XXXExtensionSDK types in favour of XXXAppSDK ([#1505](https://github.com/contentful/ui-extensions-sdk/issues/1505)) ([a8ee8e7](https://github.com/contentful/ui-extensions-sdk/commit/a8ee8e7a430fbc9e31392603b7f14f30fe307eab))
+
+# [4.17.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.16.0...v4.17.0) (2023-03-29)
+
+### Features
+
+- **Entities:** add more supported entities to app sdk's cma [EXT-4359] ([#1501](https://github.com/contentful/ui-extensions-sdk/issues/1501)) ([43e6c96](https://github.com/contentful/ui-extensions-sdk/commit/43e6c96d5c94428a717b64d3b4c0edee4982e6e0))
+
+# [4.16.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.15.0...v4.16.0) (2023-02-10)
+
+### Features
+
+- initial values & getters for field/editor API ([#1444](https://github.com/contentful/ui-extensions-sdk/issues/1444)) ([fa98f30](https://github.com/contentful/ui-extensions-sdk/commit/fa98f309293f794359e44ac2eda2178ad25c5e6f))
+
+# [4.15.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.14.1...v4.15.0) (2023-02-06)
+
+### Features
+
+- expose automation tags on entry.sys [] ([#1468](https://github.com/contentful/ui-extensions-sdk/issues/1468)) ([a5cde02](https://github.com/contentful/ui-extensions-sdk/commit/a5cde02ee68012afbd898e442f65ca6a4f1e9410))
+
+## [4.14.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.14.0...v4.14.1) (2022-12-29)
+
+### Bug Fixes
+
+- types of sdk.editor & sdk.navigator ([#1441](https://github.com/contentful/ui-extensions-sdk/issues/1441)) ([b514498](https://github.com/contentful/ui-extensions-sdk/commit/b514498ea67bdad219a1ac766a546fa25df898f3))
+
+# [4.14.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.13.0...v4.14.0) (2022-12-22)
+
+### Features
+
+- add type for CMA client ([#1430](https://github.com/contentful/ui-extensions-sdk/issues/1430)) ([8eb1847](https://github.com/contentful/ui-extensions-sdk/commit/8eb1847b7d779393d0a11c1fe4567c6879dc705f))
+
+# [4.13.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.12.1...v4.13.0) (2022-10-24)
+
+### Features
+
+- add home location [EXT-3684] ([#1388](https://github.com/contentful/ui-extensions-sdk/issues/1388)) ([9193e43](https://github.com/contentful/ui-extensions-sdk/commit/9193e433e3265a5a4bdc2e23d0a8dcad74b15771))
+
+## [4.12.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.12.0...v4.12.1) (2022-09-12)
+
+### Bug Fixes
+
+- make ContentEntityType more specific ([#1328](https://github.com/contentful/ui-extensions-sdk/issues/1328)) ([99bda6e](https://github.com/contentful/ui-extensions-sdk/commit/99bda6ef13c91bc3f4bb06ae486f1875b7045895))
 
 # [4.12.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.11.1...v4.12.0) (2022-08-15)
 
 ### Features
 
 - ui-config updates [EXT-3738] ([#1344](https://github.com/contentful/ui-extensions-sdk/issues/1344)) ([524a701](https://github.com/contentful/ui-extensions-sdk/commit/524a701c43597a874218cdc458924b82087aa8c8))
+
+# [4.10.0-alpha.4](https://github.com/contentful/ui-extensions-sdk/compare/v4.10.0-alpha.3...v4.10.0-alpha.4) (2022-08-15)
+
+### Features
+
+- update from master [] ([#1347](https://github.com/contentful/ui-extensions-sdk/issues/1347)) ([6145531](https://github.com/contentful/ui-extensions-sdk/commit/6145531d05becb467cd6fb68dca49507a6e18fcb)), closes [#1329](https://github.com/contentful/ui-extensions-sdk/issues/1329) [#1331](https://github.com/contentful/ui-extensions-sdk/issues/1331) [#1332](https://github.com/contentful/ui-extensions-sdk/issues/1332) [#1330](https://github.com/contentful/ui-extensions-sdk/issues/1330) [#1334](https://github.com/contentful/ui-extensions-sdk/issues/1334) [#1336](https://github.com/contentful/ui-extensions-sdk/issues/1336) [#1335](https://github.com/contentful/ui-extensions-sdk/issues/1335) [#1335](https://github.com/contentful/ui-extensions-sdk/issues/1335) [#1337](https://github.com/contentful/ui-extensions-sdk/issues/1337) [#1319](https://github.com/contentful/ui-extensions-sdk/issues/1319) [#1319](https://github.com/contentful/ui-extensions-sdk/issues/1319) [#1338](https://github.com/contentful/ui-extensions-sdk/issues/1338) [#1338](https://github.com/contentful/ui-extensions-sdk/issues/1338) [#1339](https://github.com/contentful/ui-extensions-sdk/issues/1339) [#1341](https://github.com/contentful/ui-extensions-sdk/issues/1341) [#1342](https://github.com/contentful/ui-extensions-sdk/issues/1342) [#1343](https://github.com/contentful/ui-extensions-sdk/issues/1343) [#1344](https://github.com/contentful/ui-extensions-sdk/issues/1344) [#1344](https://github.com/contentful/ui-extensions-sdk/issues/1344) [#1346](https://github.com/contentful/ui-extensions-sdk/issues/1346)
 
 # [4.10.0-alpha.3](https://github.com/contentful/ui-extensions-sdk/compare/v4.10.0-alpha.2...v4.10.0-alpha.3) (2022-08-10)
 

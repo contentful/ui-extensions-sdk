@@ -1,6 +1,7 @@
 import { Channel } from './channel'
 import { MemoizedSignal } from './signal'
-import { EntryAPI, EntryFieldInfo, Metadata, TaskAPI } from './types'
+import { EntryAPI, EntryFieldInfo, EntrySys, Metadata, TaskAPI } from './types'
+import { ExhaustiveEntryFieldAPI } from './types/field.types'
 
 const taskMethods: Array<keyof TaskAPI> = [
   'getTask',
@@ -14,20 +15,20 @@ export default function createEntry(
   channel: Channel,
   entryData: any,
   fieldInfo: EntryFieldInfo[],
-  createEntryField: Function
+  createEntryField: (info: EntryFieldInfo) => ExhaustiveEntryFieldAPI
 ): EntryAPI {
   let sys = entryData.sys
-  const sysChanged = new MemoizedSignal(sys)
+  const sysChanged = new MemoizedSignal<[EntrySys]>(sys)
   let metadata = entryData.metadata
-  const metadataChanged = new MemoizedSignal(metadata)
+  const metadataChanged = new MemoizedSignal<[Metadata | undefined]>(metadata)
 
-  channel.addHandler('sysChanged', (_sys: any) => {
-    sys = _sys
+  channel.addHandler('sysChanged', (newSys: Metadata) => {
+    sys = newSys
     sysChanged.dispatch(sys)
   })
 
-  channel.addHandler('metadataChanged', (_metadata: Metadata) => {
-    metadata = _metadata
+  channel.addHandler('metadataChanged', (newMetadata: Metadata) => {
+    metadata = newMetadata
     metadataChanged.dispatch(metadata)
   })
 
@@ -52,7 +53,7 @@ export default function createEntry(
     save() {
       return channel.call<void>('callEntryMethod', 'save')
     },
-    onSysChanged(handler: Function) {
+    onSysChanged(handler: (sys: EntrySys) => void) {
       return sysChanged.attach(handler)
     },
     fields: fieldInfo.reduce((acc: any, info: EntryFieldInfo) => {

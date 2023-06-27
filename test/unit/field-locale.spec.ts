@@ -187,8 +187,8 @@ describe('FieldLocale', () => {
     })
 
     it('returns the promise returned by internal channel.call()', () => {
-      channelStub.call.withArgs(method).returns('PROMISE')
-      expect(field[method]('val')).to.equal('PROMISE')
+      channelStub.call.withArgs(method).returns(Promise.resolve('PROMISE'))
+      expect(field[method]('val')).to.eventually.equal('PROMISE')
     })
 
     it('calls onValueChanged handler', function () {

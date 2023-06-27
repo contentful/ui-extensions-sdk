@@ -2,7 +2,7 @@ import { makeDOM, mockMutationObserver, expect, mockResizeObserver } from '../he
 
 import createAPI from '../../lib/api'
 import locations from '../../lib/locations'
-import { AppExtensionSDK, ConnectMessage } from '../../lib/types'
+import { ConfigAppSDK, ConnectMessage } from '../../lib/types'
 
 const sharedExpected = [
   'location',
@@ -125,7 +125,7 @@ describe('createAPI()', () => {
   it('returns correct shape of the app API (app)', () => {
     const expected = ['app']
 
-    const api = test(expected, locations.LOCATION_APP_CONFIG) as unknown as AppExtensionSDK
+    const api = test(expected, locations.LOCATION_APP_CONFIG) as unknown as ConfigAppSDK
 
     expect(api.app).to.have.all.keys([
       'setReady',

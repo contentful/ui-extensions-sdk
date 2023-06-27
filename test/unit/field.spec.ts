@@ -15,7 +15,11 @@ describe(`Field`, () => {
   describe(`construction error`, () => {
     it(`gets thrown if defaultLocale is not included in info.locales`, () => {
       expect(() => {
-        return new Field(channelStub, { id: 'x', locales: ['de-DE'], values: {} } as any, 'en-US')
+        return new Field(
+          channelStub,
+          { id: 'x', locales: ['de-DE'], values: {}, isDisabled: {}, schemaErrors: {} } as any,
+          'en-US'
+        )
       }).to.throw('Unknown locale "en-US" for field "x"')
     })
   })
@@ -32,6 +36,8 @@ describe(`Field`, () => {
         'it-IT': 'Ciao',
         'de-DE': 'Hallo',
       },
+      isDisabled: { 'en-US': false, 'it-IT': false, 'de-DE': false },
+      schemaErrors: { 'en-US': [], 'it-IT': [], 'de-DE': [] },
       type: 'Array',
       required: true,
       validations: 'VALIDATIONS',
@@ -142,9 +148,9 @@ describe(`Field`, () => {
       })
 
       it(`throws an error if locale is unknown to the field`, () => {
-        expect(() => {
-          field.setValue('value', unknownLocale)
-        }).to.throw('Unknown locale "some-unknown-locale" for field "some-field"')
+        expect(field.setValue('value', unknownLocale)).to.eventually.throw(
+          'Unknown locale "some-unknown-locale" for field "some-field"'
+        )
       })
     })
 
@@ -168,8 +174,8 @@ describe(`Field`, () => {
           )
         })
         it(`returns the promise returned by internal channel.call()`, () => {
-          channelStub.call.withArgs('setValue').returns('PROMISE')
-          expect(field.setValue('val')).to.equal('PROMISE')
+          channelStub.call.withArgs('setValue').returns(Promise.resolve('PROMISE'))
+          expect(field.setValue('val')).to.eventually.equal('PROMISE')
         })
       })
     }
@@ -182,9 +188,9 @@ describe(`Field`, () => {
       })
 
       it(`throws an error if locale is unknown to the field`, () => {
-        expect(() => {
-          field.removeValue(unknownLocale)
-        }).to.throw('Unknown locale "some-unknown-locale" for field "some-field"')
+        expect(field.removeValue(unknownLocale)).to.eventually.throw(
+          'Unknown locale "some-unknown-locale" for field "some-field"'
+        )
       })
     })
 
@@ -200,10 +206,11 @@ describe(`Field`, () => {
             .to.have.callCount(1)
             .and.to.have.been.calledWithExactly(undefined, locale)
         })
-        it(`returns the same value as .setValue(undefined, ${localeParam})`, () => {
+        it(`returns undefined`, () => {
           const setValueStub = sinon.stub(field, 'setValue')
-          setValueStub.returns('PROMISE')
-          expect(field.removeValue()).to.equal('PROMISE')
+          setValueStub.returns(Promise.resolve('PROMISE'))
+          // eslint-disable-next-line no-unused-expressions
+          expect(field.removeValue()).to.eventually.be.undefined
         })
         it(`makes .getValue(${localeParam}) return undefined`, () => {
           field.removeValue(locale)

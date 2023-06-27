@@ -1,9 +1,9 @@
-import { NavigatorAPI, IdsAPI } from './types'
+import { NavigatorAPI, IdsAPI, NavigatorSlideInfo } from './types'
 import { Channel } from './channel'
 import { Signal } from './signal'
 
 export default function createNavigator(channel: Channel, ids: IdsAPI): NavigatorAPI {
-  const _onSlideInSignal = new Signal()
+  const _onSlideInSignal = new Signal<[NavigatorSlideInfo]>()
 
   channel.addHandler('navigateSlideIn', (data: any) => {
     _onSlideInSignal.dispatch(data)

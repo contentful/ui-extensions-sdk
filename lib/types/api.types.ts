@@ -13,7 +13,7 @@ import {
 import { EntryAPI } from './entry.types'
 import { SpaceAPI } from './space.types'
 import { WindowAPI } from './window.types'
-import { ContentEntitySys, Link, SerializedJSONValue } from './utils'
+import { EntrySys, Link, SerializedJSONValue } from './utils'
 import { FieldAPI } from './field-locale.types'
 import { DialogsAPI } from './dialogs.types'
 import { AppConfigAPI } from './app.types'
@@ -78,10 +78,14 @@ export interface LocationAPI {
 
 /* Parameters API */
 
-export interface ParametersAPI {
-  installation: KeyValueMap
-  instance: KeyValueMap
-  invocation?: SerializedJSONValue
+export interface ParametersAPI<
+  InstallationParameters extends KeyValueMap,
+  InstanceParameters extends KeyValueMap,
+  InvocationParameters extends SerializedJSONValue
+> {
+  installation: InstallationParameters
+  instance: InstanceParameters
+  invocation: InvocationParameters
 }
 
 /* IDs */
@@ -125,12 +129,56 @@ export interface EditorLocaleSettings {
 export interface SharedEditorSDK {
   editor: {
     editorInterface: EditorInterface
-    onLocaleSettingsChanged: (callback: (value: EditorLocaleSettings) => any) => Function
-    onShowDisabledFieldsChanged: (callback: (value: boolean) => any) => Function
+
+    /**
+     * Returns the current locale settings
+     *
+     * The locale setting can change. To always work with the latest settings, use `onLocaleSettingsChanged`.
+     */
+    getLocaleSettings(): EditorLocaleSettings
+
+    /**
+     * Subscribes to changes of the editor's locale settings
+     *
+     * @param callback Function that is called every time the locale settings change. Called immidiately with the current setting.
+     * @returns Function to unsubscribe. `callback` won't be called anymore.
+     */
+    onLocaleSettingsChanged: (
+      callback: (localeSettings: EditorLocaleSettings) => void
+    ) => () => void
+
+    /**
+     * Subscribes to changes of whether or not disabled fields are displayed
+     *
+     * @param callback Function that is called every time the setting whether or not disabled fields are displayed changes. Called immediately with the current state.
+     * @returns Function to unsubscribe. `callback` won't be called anymore.
+     * @deprecated Use {@link onShowHiddenFieldsChanged} instead
+     */
+    onShowDisabledFieldsChanged: (callback: (showDisabledFields: boolean) => void) => () => void
+
+    /**
+     * Returns whether or not hidden fields are displayed
+     *
+     * This setting can change. To always work with the latest settings, use `onShowHiddenFieldsChanged`.
+     */
+    getShowHiddenFields(): boolean
+
+    /**
+     * Subscribes to changes of whether or not hidden fields are displayed
+     *
+     * @param callback Function that is called every time the setting whether or not hidden fields are displayed changes. Called immediately with the current state.
+     * @returns Function to unsubscribe. `callback` won't be called anymore.
+     */
+    onShowHiddenFieldsChanged: (callback: (showHiddenFields: boolean) => void) => () => void
   }
-  /** Allows to read and update the value of any field of the current entry and to get the entry's metadata */
+
+  /**
+   * Allows to read and update the value of any field of the current entry and to get the entry's metadata
+   */
   entry: EntryAPI
-  /** Information about the content type of the entry. */
+  /**
+   * Information about the content type of the entry.
+   */
   contentType: ContentTypeAPI
 }
 
@@ -167,7 +215,11 @@ export interface AccessAPI {
 
 type EntryScopedIds = 'field' | 'entry' | 'contentType'
 
-export interface BaseExtensionSDK {
+export interface BaseAppSDK<
+  InstallationParameters extends KeyValueMap = KeyValueMap,
+  InstanceParameters extends KeyValueMap = KeyValueMap,
+  InvocationParameters extends SerializedJSONValue = SerializedJSONValue
+> {
   /** @deprecated since version 4.0.0 consider using the CMA instead
    * See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details
    */
@@ -183,7 +235,7 @@ export interface BaseExtensionSDK {
   /** Methods for displaying notifications. */
   notifier: NotifierAPI
   /** Exposes app configuration parameters */
-  parameters: ParametersAPI
+  parameters: ParametersAPI<InstallationParameters, InstanceParameters, InvocationParameters>
   /** Exposes method to identify app's location */
   location: LocationAPI
   /** Exposes methods for checking user's access level */
@@ -194,13 +246,19 @@ export interface BaseExtensionSDK {
   cmaAdapter: Adapter
 }
 
-export type EditorExtensionSDK = Omit<BaseExtensionSDK, 'ids'> &
+export type EditorAppSDK<
+  InstallationParameters extends KeyValueMap = KeyValueMap,
+  InstanceParameters extends KeyValueMap = KeyValueMap
+> = Omit<BaseAppSDK<InstallationParameters, InstanceParameters, never>, 'ids'> &
   SharedEditorSDK & {
     /** A set of IDs for the app */
     ids: Omit<IdsAPI, 'field'>
   }
 
-export type SidebarExtensionSDK = Omit<BaseExtensionSDK, 'ids'> &
+export type SidebarAppSDK<
+  InstallationParameters extends KeyValueMap = KeyValueMap,
+  InstanceParameters extends KeyValueMap = KeyValueMap
+> = Omit<BaseAppSDK<InstallationParameters, InstanceParameters, never>, 'ids'> &
   SharedEditorSDK & {
     /** A set of IDs for the app */
     ids: Omit<IdsAPI, 'field'>
@@ -208,7 +266,10 @@ export type SidebarExtensionSDK = Omit<BaseExtensionSDK, 'ids'> &
     window: WindowAPI
   }
 
-export type FieldExtensionSDK = BaseExtensionSDK &
+export type FieldAppSDK<
+  InstallationParameters extends KeyValueMap = KeyValueMap,
+  InstanceParameters extends KeyValueMap = KeyValueMap
+> = BaseAppSDK<InstallationParameters, InstanceParameters, never> &
   SharedEditorSDK & {
     /** A set of IDs for the app */
     ids: IdsAPI
@@ -218,7 +279,10 @@ export type FieldExtensionSDK = BaseExtensionSDK &
     window: WindowAPI
   }
 
-export type DialogExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
+export type DialogAppSDK<
+  InstallationParameters extends KeyValueMap = KeyValueMap,
+  InvocationParameters extends SerializedJSONValue = SerializedJSONValue
+> = Omit<BaseAppSDK<InstallationParameters, never, InvocationParameters>, 'ids'> & {
   /** A set of IDs for the app */
   ids: Omit<IdsAPI, EntryScopedIds>
   /** Closes the dialog and resolves openCurrentApp promise with data */
@@ -227,29 +291,69 @@ export type DialogExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
   window: WindowAPI
 }
 
-export type PageExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
+export type PageAppSDK<InstallationParameters extends KeyValueMap = KeyValueMap> = Omit<
+  BaseAppSDK<InstallationParameters, never, { path: string }>,
+  'ids'
+> & {
   /** A set of IDs actual for the app */
   ids: Omit<IdsAPI, EntryScopedIds>
 }
 
-export type HomeExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
+export type HomeAppSDK<InstallationParameters extends KeyValueMap = KeyValueMap> = Omit<
+  BaseAppSDK<InstallationParameters, never, never>,
+  'ids'
+> & {
   ids: Omit<IdsAPI, EntryScopedIds>
 }
 
-export type AppExtensionSDK = Omit<BaseExtensionSDK, 'ids'> & {
+export type ConfigAppSDK<InstallationParameters extends KeyValueMap = KeyValueMap> = Omit<
+  BaseAppSDK<InstallationParameters, never, never>,
+  'ids'
+> & {
   /** A set of IDs actual for the app */
   ids: Omit<IdsAPI, EntryScopedIds | 'extension' | 'app'> & { app: string }
   app: AppConfigAPI
 }
 
-export type KnownSDK =
-  | FieldExtensionSDK
-  | SidebarExtensionSDK
-  | DialogExtensionSDK
-  | EditorExtensionSDK
-  | PageExtensionSDK
-  | AppExtensionSDK
-  | HomeExtensionSDK
+export type KnownAppSDK<
+  InstallationParameters extends KeyValueMap = KeyValueMap,
+  InstanceParameters extends KeyValueMap = KeyValueMap,
+  InvocationParameters extends SerializedJSONValue = SerializedJSONValue
+> =
+  | FieldAppSDK<InstallationParameters, InstanceParameters>
+  | SidebarAppSDK<InstallationParameters, InstanceParameters>
+  | DialogAppSDK<InstallationParameters, InvocationParameters>
+  | EditorAppSDK<InstallationParameters, InstanceParameters>
+  | PageAppSDK<InstallationParameters>
+  | ConfigAppSDK<InstallationParameters>
+  | HomeAppSDK<InstallationParameters>
+
+/** @deprecated consider using {@link BaseAppSDK} */
+export type BaseExtensionSDK = BaseAppSDK
+
+/** @deprecated consider using {@link EditorAppSDK} */
+export type EditorExtensionSDK = EditorAppSDK
+
+/** @deprecated consider using {@link SidebarAppSDK} */
+export type SidebarExtensionSDK = SidebarAppSDK
+
+/** @deprecated consider using {@link FieldAppSDK} */
+export type FieldExtensionSDK = FieldAppSDK
+
+/** @deprecated consider using {@link DialogAppSDK} */
+export type DialogExtensionSDK = DialogAppSDK
+
+/** @deprecated consider using {@link PageAppSDK} */
+export type PageExtensionSDK = PageAppSDK
+
+/** @deprecated consider using {@link HomeAppSDK} */
+export type HomeExtensionSDK = HomeAppSDK
+
+/** @deprecated consider using {@link ConfigAppSDK} */
+export type AppExtensionSDK = ConfigAppSDK
+
+/** @deprecated consider using {@link KnownAppSDK} */
+export type KnownSDK = KnownAppSDK
 
 export interface Locations {
   LOCATION_ENTRY_FIELD: 'entry-field'
@@ -265,15 +369,19 @@ export interface Locations {
 export interface ConnectMessage {
   id: string
   location: Location[keyof Location]
-  parameters: ParametersAPI
+  parameters: ParametersAPI<KeyValueMap, KeyValueMap, never>
   locales: LocalesAPI
   user: UserAPI
   initialContentTypes: ContentType[]
   ids: IdsAPI
   contentType: ContentTypeAPI
   editorInterface?: EditorInterface
+  editor?: {
+    localeSettings: EditorLocaleSettings
+    showHiddenFields: boolean
+  }
   entry: {
-    sys: ContentEntitySys
+    sys: EntrySys
     metadata?: Metadata
   }
   fieldInfo: EntryFieldInfo[]
