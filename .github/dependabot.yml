@@ -6,28 +6,6 @@ updates:
   schedule:
     interval: daily
   open-pull-requests-limit: 99
-  ignore:
-  - dependency-name: contentful-management
-    versions:
-    - 7.14.1
-    - 7.15.2
-    - 7.16.0
-  - dependency-name: typescript
-    versions:
-    - 4.2.2
-    - 4.2.3
-  - dependency-name: "@testing-library/dom"
-    versions:
-    - 7.30.2
-  - dependency-name: rollup
-    versions:
-    - 2.41.0
-    - 2.41.5
-    - 2.42.4
-    - 2.43.1
-  - dependency-name: semantic-release
-    versions:
-    - ">=20.0.0"
   commit-message:
     prefix: chore
     include: scope

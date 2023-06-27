@@ -18,7 +18,7 @@ import {
 } from './types'
 import { Channel } from './channel'
 import { createAdapter } from './cmaAdapter'
-import { createCMAClient } from './cma'
+import { KeyValueMap } from 'contentful-management/types'
 
 const DEFAULT_API_PRODUCERS = [
   makeSharedAPI,
@@ -56,15 +56,17 @@ export default function createAPI(
   }, {}) as any
 }
 
-function makeSharedAPI(channel: Channel, data: ConnectMessage): BaseAppSDK {
+function makeSharedAPI(
+  channel: Channel,
+  data: ConnectMessage
+): BaseAppSDK<KeyValueMap, KeyValueMap, never> {
   const { user, parameters, locales, ids, initialContentTypes } = data
   const currentLocation = data.location || locations.LOCATION_ENTRY_FIELD
 
   return {
-    cma: createCMAClient(ids, channel),
     cmaAdapter: createAdapter(channel),
     location: {
-      is: (tested: string) => currentLocation === tested,
+      is: (tested) => currentLocation === tested,
     },
     user,
     parameters,

@@ -1,3 +1,19 @@
+## [4.21.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.21.0...v4.21.1) (2023-06-23)
+
+### Bug Fixes
+
+- revert expose cma in the sdk [EXT-3599] ([#1549](https://github.com/contentful/ui-extensions-sdk/issues/1549)) ([7b58c94](https://github.com/contentful/ui-extensions-sdk/commit/7b58c9403d4af01bc409b1a2e77ccac193ab9c20))
+
+### Reverts
+
+- expose cma in the sdk [EXT-3599] ([#1548](https://github.com/contentful/ui-extensions-sdk/issues/1548)) ([9b8684f](https://github.com/contentful/ui-extensions-sdk/commit/9b8684fec4694fc68f0971a3b0be8bb9c48c20f2))
+
+# [4.21.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.20.0...v4.21.0) (2023-06-22)
+
+### Features
+
+- adds optional types for parameters [EXT-4381] ([#1538](https://github.com/contentful/ui-extensions-sdk/issues/1538)) ([7cbad71](https://github.com/contentful/ui-extensions-sdk/commit/7cbad718111ba830b0c75921c06bfae437515411))
+
 # [4.20.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.19.1...v4.20.0) (2023-06-22)
 
 ### Features
