@@ -1,7 +1,7 @@
 {
   "name": "contentful-ui-extensions-sdk",
   "description": "A JavaScript library to develop custom apps for Contentful",
-  "version": "4.21.1",
+  "version": "4.10.0-alpha.5",
   "author": "Contentful GmbH",
   "license": "MIT",
   "sideEffects": true,
