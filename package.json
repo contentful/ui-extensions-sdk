@@ -34,6 +34,7 @@
     "lint-staged": "lint-staged"
   },
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.1.0",
     "@semantic-release/changelog": "6.0.3",
     "@semantic-release/exec": "6.0.3",
     "@semantic-release/git": "10.0.1",
