@@ -1,14 +1,16 @@
-class Signal {
-  private _id = 0
-  private _listeners: { [key: string]: Function } = {}
+type Listener<T extends unknown[]> = (...args: T) => void
 
-  dispatch(...args: any[]) {
+export class Signal<T extends unknown[]> {
+  private _id = 0
+  private _listeners: { [key: string]: Listener<T> } = {}
+
+  dispatch(...args: T) {
     for (const key in this._listeners) {
       this._listeners[key](...args)
     }
   }
 
-  attach(listener: Function) {
+  attach(listener: Listener<T>) {
     if (typeof listener !== 'function') {
       throw new Error('listener function expected')
     }
@@ -19,27 +21,25 @@ class Signal {
   }
 }
 
-const memArgsSymbol = '__private__memoized__arguments__'
+export class MemoizedSignal<T extends unknown[]> extends Signal<T> {
+  private _memoizedArgs: T
 
-class MemoizedSignal extends Signal {
-  private [memArgsSymbol]: any[] = []
-
-  constructor(...memoizedArgs: any[]) {
+  constructor(...memoizedArgs: T) {
     super()
 
     if (!memoizedArgs.length) {
       throw new Error('Initial value to be memoized expected')
     }
 
-    this[memArgsSymbol] = memoizedArgs
+    this._memoizedArgs = memoizedArgs
   }
 
-  dispatch(...args: any[]) {
-    this[memArgsSymbol] = args
+  dispatch(...args: T) {
+    this._memoizedArgs = args
     super.dispatch(...args)
   }
 
-  attach(listener: Function) {
+  attach(listener: Listener<T>) {
     /*
      * attaching first so that we throw a sensible
      * error if listener is not a function without
@@ -47,9 +47,11 @@ class MemoizedSignal extends Signal {
      */
     const detachListener = super.attach(listener)
 
-    listener(...this[memArgsSymbol])
+    listener(...this._memoizedArgs)
     return detachListener
   }
-}
 
-export { Signal, MemoizedSignal }
+  getMemoizedArgs(): T {
+    return this._memoizedArgs
+  }
+}

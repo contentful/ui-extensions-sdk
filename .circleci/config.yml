@@ -1,27 +1,42 @@
 version: 2.1
 
+orbs:
+  vault: contentful/vault@1
+
 jobs:
   unit:
     docker:
-      - image: cimg/node:16.13.2
+      - image: cimg/node:18.16.1
         environment:
           ## this enables colors in the output
           TERM: xterm
     steps:
       - checkout
-      - run: npm ci
-      - run: npm run lint
-      - run: npm test
-      - run: npm run build
-      - run: npm run size
+      - run:
+          name: Npm Install
+          command: npm ci
+      - run:
+          name: Run linter
+          command: npm run lint
+      - run:
+          name: Run test
+          command: npm test
+      - run:
+          name: Building
+          command: npm run build
+      - run:
+          name: Sizing
+          command: npm run size
       - store_test_results:
           path: test/unit/reports
 
   semantic-release:
     docker:
-      - image: cimg/node:16.13.2
+      - image: cimg/node:18.16.1
     steps:
       - checkout
+      - vault/get-secrets:
+          template-preset: "semantic-release-ecosystem"
       - run:
           name: Setup NPM
           command: |
@@ -33,12 +48,15 @@ jobs:
           command: npm run semantic-release
 
 workflows:
-  version: 2
   # run on every commit
   commit:
     jobs:
-      - unit
+      - unit:
+          context:
+            - vault
       - semantic-release:
+          context:
+            - vault
           requires:
             - unit
           filters:

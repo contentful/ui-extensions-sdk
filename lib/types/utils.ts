@@ -33,9 +33,9 @@ export interface CollectionResponse<T> {
   sys: { type: string }
 }
 
-export type ContentEntityType = 'Entry' | 'Asset' | string
+export type ContentEntityType = 'Entry' | 'Asset'
 
-export interface ContentEntitySys {
+export type ContentEntitySys = {
   space: Link
   id: string
   type: ContentEntityType
@@ -55,11 +55,40 @@ export interface ContentEntitySys {
   contentType: Link
 }
 
-export interface Items {
-  type: string
-  linkType?: string
+export interface EntrySys extends ContentEntitySys {
+  type: 'Entry'
+  automationTags: Link<'Tag'>[]
+}
+
+export type FieldType =
+  | 'Symbol'
+  | 'Text'
+  | 'RichText'
+  | 'Number'
+  | 'Integer'
+  | 'Array'
+  | 'Link'
+  | 'Object'
+  | 'Date'
+  | 'Location'
+  | 'Boolean'
+
+export type FieldLinkType = 'Entry' | 'Asset'
+
+interface ItemsBase {
   validations?: ContentTypeFieldValidation[]
 }
+
+interface LinkItems extends ItemsBase {
+  type: 'Link'
+  linkType: FieldLinkType
+}
+
+interface SymbolItems extends ItemsBase {
+  type: 'Symbol'
+}
+
+export type Items = SymbolItems | LinkItems
 
 export interface SearchQuery {
   order?: string

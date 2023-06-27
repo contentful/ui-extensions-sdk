@@ -1,10 +1,14 @@
-import { ConnectMessage, KnownSDK } from './types'
+import { ConnectMessage, KnownAppSDK } from './types'
 import { connect, Channel, sendInitMessage } from './channel'
 import { createDeferred } from './utils/deferred'
 
 export function createInitializer(
   currentGlobal: typeof globalThis,
-  apiCreator: (channel: Channel, data: ConnectMessage, currentGlobal: typeof globalThis) => KnownSDK
+  apiCreator: (
+    channel: Channel,
+    data: ConnectMessage,
+    currentGlobal: typeof globalThis
+  ) => KnownAppSDK
 ) {
   if (
     typeof currentGlobal.window === 'undefined' ||
@@ -27,9 +31,9 @@ export function createInitializer(
   // messages before `init` is called.
   connect(currentGlobal, (...args) => connectDeferred.resolve(args))
 
-  let initializedSdks: Promise<[sdk: KnownSDK, customSdk: any]> | undefined
+  let initializedSdks: Promise<[sdk: KnownAppSDK, customSdk: any]> | undefined
   return function init(
-    initCb: (sdk: KnownSDK, customSdk: any) => any,
+    initCb: (sdk: KnownAppSDK, customSdk: any) => any,
     {
       makeCustomApi,
       supressIframeWarning,

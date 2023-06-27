@@ -1,34 +1,42 @@
 import { Channel } from './channel'
 import { MemoizedSignal } from './signal'
-import { FieldAPI, FieldInfo, Items } from './types'
+import { FieldInfo, FieldType, FieldLinkType, Items, SerializedJSONValue } from './types'
+import { ExhaustiveFieldAPI } from './types/field-locale.types'
 import { ValidationError } from './types/validation-error'
 
-export default class FieldLocale implements FieldAPI {
+export default class FieldLocale implements ExhaustiveFieldAPI {
   id: string
+  name: string
   locale: string
-  type: string
+  type: FieldType
   required: boolean
   validations: any[]
   items?: Items
+  linkType?: FieldLinkType
   private _value: any
 
-  private _valueSignal: MemoizedSignal
-  private _isDisabledSignal: MemoizedSignal
-  private _schemaErrorsChangedSignal: MemoizedSignal
-  private _channel: any
+  private _valueSignal: MemoizedSignal<[any]>
+  private _isDisabledSignal: MemoizedSignal<[boolean]>
+  private _schemaErrorsChangedSignal: MemoizedSignal<[ValidationError[]]>
+  private _channel: Channel
 
   constructor(channel: Channel, info: FieldInfo) {
     this.id = info.id
+    this.name = info.name
     this.locale = info.locale
     this.type = info.type
     this.required = info.required
     this.validations = info.validations
-    this.items = info.items
-
+    if (info.type === 'Array') {
+      this.items = info.items
+    }
+    if (info.type === 'Link') {
+      this.linkType = info.linkType
+    }
     this._value = info.value
     this._valueSignal = new MemoizedSignal(this._value)
-    this._isDisabledSignal = new MemoizedSignal(undefined)
-    this._schemaErrorsChangedSignal = new MemoizedSignal(undefined)
+    this._isDisabledSignal = new MemoizedSignal<[boolean]>(info.isDisabled)
+    this._schemaErrorsChangedSignal = new MemoizedSignal<[ValidationError[]]>(info.schemaErrors)
     this._channel = channel
 
     channel.addHandler('valueChanged', (id: string, locale: string, value: any) => {
@@ -61,15 +69,20 @@ export default class FieldLocale implements FieldAPI {
     return this._value
   }
 
-  setValue(value: any) {
+  async setValue(value: any) {
     this._value = value
     this._valueSignal.dispatch(value)
-    return this._channel.call('setValue', this.id, this.locale, value)
+    return await this._channel.call<SerializedJSONValue | undefined>(
+      'setValue',
+      this.id,
+      this.locale,
+      value
+    )
   }
 
-  removeValue() {
+  async removeValue() {
     this._value = undefined
-    return this._channel.call('removeValue', this.id, this.locale)
+    await this._channel.call('removeValue', this.id, this.locale)
   }
 
   setInvalid(isInvalid: boolean) {
@@ -80,11 +93,19 @@ export default class FieldLocale implements FieldAPI {
     return this._valueSignal.attach(handler)
   }
 
+  getIsDisabled(): boolean {
+    return this._isDisabledSignal.getMemoizedArgs()[0]
+  }
+
   onIsDisabledChanged(handler: (isDisabled: boolean) => any) {
     return this._isDisabledSignal.attach(handler)
   }
 
-  onSchemaErrorsChanged(handler: Function) {
+  getSchemaErrors(): ValidationError[] {
+    return this._schemaErrorsChangedSignal.getMemoizedArgs()[0]
+  }
+
+  onSchemaErrorsChanged(handler: (errors: ValidationError[]) => void) {
     return this._schemaErrorsChangedSignal.attach(handler)
   }
 }

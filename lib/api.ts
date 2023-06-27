@@ -9,15 +9,16 @@ import createNavigator from './navigator'
 import createApp from './app'
 import locations from './locations'
 import {
-  BaseExtensionSDK,
   EntryFieldInfo,
   NavigatorAPI,
-  KnownSDK,
   ConnectMessage,
   JSONPatchItem,
+  BaseAppSDK,
+  KnownAppSDK,
 } from './types'
 import { Channel } from './channel'
 import { createAdapter } from './cmaAdapter'
+import { KeyValueMap } from 'contentful-management/types'
 
 const DEFAULT_API_PRODUCERS = [
   makeSharedAPI,
@@ -47,7 +48,7 @@ export default function createAPI(
   channel: Channel,
   data: ConnectMessage,
   currentGlobal: typeof globalThis
-): KnownSDK {
+): KnownAppSDK {
   const producers = LOCATION_TO_API_PRODUCERS[data.location as string] || DEFAULT_API_PRODUCERS
 
   return producers.reduce((api, produce) => {
@@ -55,7 +56,10 @@ export default function createAPI(
   }, {}) as any
 }
 
-function makeSharedAPI(channel: Channel, data: ConnectMessage): BaseExtensionSDK {
+function makeSharedAPI(
+  channel: Channel,
+  data: ConnectMessage
+): BaseAppSDK<KeyValueMap, KeyValueMap, never> {
   const { user, parameters, locales, ids, initialContentTypes } = data
   const currentLocation = data.location || locations.LOCATION_ENTRY_FIELD
 
@@ -99,9 +103,9 @@ function makeWindowAPI(channel: Channel, _data: any, currentGlobal: typeof globa
 }
 
 function makeEditorAPI(channel: Channel, data: any) {
-  const { editorInterface } = data
+  const { editorInterface, editor } = data
   return {
-    editor: createEditor(channel, editorInterface),
+    editor: createEditor(channel, editorInterface, editor),
   }
 }
 
