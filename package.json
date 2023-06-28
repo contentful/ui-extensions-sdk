@@ -17,6 +17,7 @@
   "files": [
     "dist/cf-extension-api.js",
     "dist/cf-extension-api.js.map",
+    "dist/cf-extension-api.bundled.js",
     "dist/cf-extension.css",
     "dist/**/*.d.ts"
   ],
