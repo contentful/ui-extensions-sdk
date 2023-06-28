@@ -12,6 +12,7 @@
   "homepage": "https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/",
   "main": "dist/cf-extension-api.js",
   "unpkg": "dist/cf-extension-api.bundled.js",
+  "jsdelivr": "dist/cf-extension-api.bundled.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist/cf-extension-api.js",
