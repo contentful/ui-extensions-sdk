@@ -36,9 +36,6 @@ module.exports = [
       format: 'umd',
       name: 'contentfulExtension',
       footer: 'globalThis.contentfulApp = globalThis.contentfulExtension;',
-      globals: {
-        'contentful-management': 'contentfulManagement',
-      },
     },
     [nodeResolve({ browser: true }), commonjs()]
   ),
