@@ -46,6 +46,13 @@ The default and stable releases are always published under the `latest` tag (as 
 The release under the `canary` tag is to be considered unstable and potentially breaking.
 You should not rely on it in production.
 
+To release alpha version of package follow these steps:
+
+1. Delete the `canary` branch.
+2. Create a new `canary` branch from `master`.
+3. Create a new branch with your changes from `canary`.
+4. Create a PR that merges into `canary`.
+
 ### File Structure
 
 #### `docs`
