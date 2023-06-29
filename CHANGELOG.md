@@ -1,3 +1,9 @@
+# [4.22.0-alpha.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.21.1...v4.22.0-alpha.1) (2023-06-29)
+
+### Features
+
+- [EXT-3599] Bundle contentful-management with app-sdk. (Third attempt) ([#1560](https://github.com/contentful/ui-extensions-sdk/issues/1560)) ([78780b7](https://github.com/contentful/ui-extensions-sdk/commit/78780b715d7e7b4e94a3360a8cf339819c3789ab)), closes [#1548](https://github.com/contentful/ui-extensions-sdk/issues/1548)
+
 ## [4.21.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.21.0...v4.21.1) (2023-06-23)
 
 ### Bug Fixes

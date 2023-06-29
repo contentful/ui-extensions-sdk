@@ -1,7 +1,7 @@
 {
   "name": "contentful-ui-extensions-sdk",
   "description": "A JavaScript library to develop custom apps for Contentful",
-  "version": "4.21.1",
+  "version": "4.22.0-alpha.1",
   "author": "Contentful GmbH",
   "license": "MIT",
   "sideEffects": true,
@@ -11,10 +11,13 @@
   },
   "homepage": "https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/",
   "main": "dist/cf-extension-api.js",
+  "unpkg": "dist/cf-extension-api.bundled.js",
+  "jsdelivr": "dist/cf-extension-api.bundled.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist/cf-extension-api.js",
     "dist/cf-extension-api.js.map",
+    "dist/cf-extension-api.bundled.js",
     "dist/cf-extension.css",
     "dist/**/*.d.ts"
   ],
@@ -33,7 +36,12 @@
     "prepare": "husky install",
     "lint-staged": "lint-staged"
   },
+  "dependencies": {
+    "contentful-management": ">=7.30.0"
+  },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.2",
+    "@rollup/plugin-node-resolve": "^15.1.0",
     "@semantic-release/changelog": "6.0.3",
     "@semantic-release/exec": "6.0.3",
     "@semantic-release/git": "10.0.1",
@@ -51,7 +59,6 @@
     "babel-eslint": "10.1.0",
     "chai": "4.3.7",
     "chai-as-promised": "7.1.1",
-    "contentful-management": "10.38.2",
     "cross-spawn": "7.0.3",
     "eslint": "8.43.0",
     "eslint-config-prettier": "8.8.0",
@@ -76,12 +83,12 @@
     "rollup": "2.79.1",
     "rollup-plugin-terser": "7.0.2",
     "rollup-plugin-typescript2": "0.35.0",
-    "semantic-release": "21.0.5",
+    "semantic-release": "21.0.6",
     "sinon": "15.2.0",
     "sinon-chai": "3.7.0",
     "ts-mocha": "10.0.0",
     "tslib": "2.6.0",
-    "typescript": "5.1.5"
+    "typescript": "5.1.6"
   },
   "lint-staged": {
     "*.ts": [
@@ -133,8 +140,5 @@
       ],
       "@semantic-release/github"
     ]
-  },
-  "peerDependencies": {
-    "contentful-management": ">=7.30.0"
   }
 }
