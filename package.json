@@ -11,10 +11,13 @@
   },
   "homepage": "https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/",
   "main": "dist/cf-extension-api.js",
+  "unpkg": "dist/cf-extension-api.bundled.js",
+  "jsdelivr": "dist/cf-extension-api.bundled.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist/cf-extension-api.js",
     "dist/cf-extension-api.js.map",
+    "dist/cf-extension-api.bundled.js",
     "dist/cf-extension.css",
     "dist/**/*.d.ts"
   ],
@@ -33,7 +36,12 @@
     "prepare": "husky install",
     "lint-staged": "lint-staged"
   },
+  "dependencies": {
+    "contentful-management": ">=7.30.0"
+  },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.2",
+    "@rollup/plugin-node-resolve": "^15.1.0",
     "@semantic-release/changelog": "6.0.3",
     "@semantic-release/exec": "6.0.3",
     "@semantic-release/git": "10.0.1",
@@ -51,7 +59,6 @@
     "babel-eslint": "10.1.0",
     "chai": "4.3.7",
     "chai-as-promised": "7.1.1",
-    "contentful-management": "10.38.2",
     "cross-spawn": "7.0.3",
     "eslint": "8.43.0",
     "eslint-config-prettier": "8.8.0",
@@ -133,8 +140,5 @@
       ],
       "@semantic-release/github"
     ]
-  },
-  "peerDependencies": {
-    "contentful-management": ">=7.30.0"
   }
 }
