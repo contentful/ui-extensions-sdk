@@ -71,8 +71,9 @@ function test(expected: string[], location: string | undefined, expectedLocation
   expect(api.notifier).to.have.all.keys(['success', 'error', 'warning'])
   expect(api.access).to.have.all.keys(['can', 'canEditAppConfig'])
 
-  // Test location methods (currently only `is`).
-  expect(Object.keys(api.location)).to.deep.equal(['is'])
+  // Test location API methods (`current` and `is`).
+  expect(Object.keys(api.location)).to.deep.equal(['current', 'is'])
+  expect(api.location.current).to.equal(expectedLocation)
   expect(api.location.is(expectedLocation as string)).to.equal(true)
   expect(api.location.is('wat?')).to.equal(false)
 

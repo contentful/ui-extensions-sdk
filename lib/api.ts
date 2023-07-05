@@ -15,6 +15,7 @@ import {
   JSONPatchItem,
   BaseAppSDK,
   KnownAppSDK,
+  Locations,
 } from './types'
 import { Channel } from './channel'
 import { createAdapter } from './cmaAdapter'
@@ -62,12 +63,14 @@ function makeSharedAPI(
   data: ConnectMessage
 ): BaseAppSDK<KeyValueMap, KeyValueMap, never> {
   const { user, parameters, locales, ids, initialContentTypes } = data
-  const currentLocation = data.location || locations.LOCATION_ENTRY_FIELD
+  const currentLocation: Locations[keyof Locations] =
+    data.location || locations.LOCATION_ENTRY_FIELD
 
   return {
     cma: createCMAClient(ids, channel),
     cmaAdapter: createAdapter(channel),
     location: {
+      current: currentLocation,
       is: (tested: string) => currentLocation === tested,
     },
     user,
