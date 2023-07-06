@@ -72,8 +72,20 @@ export interface NotifierAPI {
 
 /* Location API */
 
+export interface Locations {
+  LOCATION_ENTRY_FIELD: 'entry-field'
+  LOCATION_ENTRY_FIELD_SIDEBAR: 'entry-field-sidebar'
+  LOCATION_ENTRY_SIDEBAR: 'entry-sidebar'
+  LOCATION_DIALOG: 'dialog'
+  LOCATION_ENTRY_EDITOR: 'entry-editor'
+  LOCATION_PAGE: 'page'
+  LOCATION_HOME: 'home'
+  LOCATION_APP_CONFIG: 'app-config'
+}
+
 export interface LocationAPI {
   /** Checks the location in which your app is running */
+  current: Locations[keyof Locations]
   is: (type: string) => boolean
 }
 
@@ -358,20 +370,9 @@ export type AppExtensionSDK = ConfigAppSDK
 /** @deprecated consider using {@link KnownAppSDK} */
 export type KnownSDK = KnownAppSDK
 
-export interface Locations {
-  LOCATION_ENTRY_FIELD: 'entry-field'
-  LOCATION_ENTRY_FIELD_SIDEBAR: 'entry-field-sidebar'
-  LOCATION_ENTRY_SIDEBAR: 'entry-sidebar'
-  LOCATION_DIALOG: 'dialog'
-  LOCATION_ENTRY_EDITOR: 'entry-editor'
-  LOCATION_PAGE: 'page'
-  LOCATION_HOME: 'home'
-  LOCATION_APP_CONFIG: 'app-config'
-}
-
 export interface ConnectMessage {
   id: string
-  location: Location[keyof Location]
+  location: Locations[keyof Locations]
   parameters: ParametersAPI<KeyValueMap, KeyValueMap, never>
   locales: LocalesAPI
   user: UserAPI
