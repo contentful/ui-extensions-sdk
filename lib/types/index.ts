@@ -1,13 +1,4 @@
 export type {
-  AppExtensionSDK,
-  BaseExtensionSDK,
-  DialogExtensionSDK,
-  EditorExtensionSDK,
-  FieldExtensionSDK,
-  HomeExtensionSDK,
-  KnownSDK,
-  PageExtensionSDK,
-  SidebarExtensionSDK,
   ConfigAppSDK,
   BaseAppSDK,
   DialogAppSDK,
