@@ -1,3 +1,9 @@
+# [4.23.0-alpha.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.22.0...v4.23.0-alpha.1) (2023-07-06)
+
+### Features
+
+- adds current location to location API [EXT-3498] ([#1571](https://github.com/contentful/ui-extensions-sdk/issues/1571)) ([564e287](https://github.com/contentful/ui-extensions-sdk/commit/564e2873b9e781c8cd102ed52304d8413bc73d88))
+
 # [4.22.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.21.1...v4.22.0) (2023-06-29)
 
 ### Features
