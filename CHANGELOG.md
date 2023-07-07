@@ -1,10 +1,22 @@
 # [5.0.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.22.0...v5.0.0) (2023-07-07)
 
-### Features
+### Refactors
+
+This release removes support for legacy UI Extensions which have been deprecated for some time. Migration to the App Framework is required.
+
+Added:
 
 - [EXT-3498] Adds `location.current` to Locations API
+
+Renamed:
+
+- [EXT-3596] Rename `navigator.openCurrentAppPage` to `navigator.openPage` in Navigator API
+
+Removed:
+
 - [EXT-3595] Remove extensions from Dialog API
 - [EXT-3597] Remove extensions from IDs API
+- [EXT-4621] Remove `navigator.openPageExtension` from Navigator API
 
 # [4.22.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.21.1...v4.22.0) (2023-06-29)
 
