@@ -14,6 +14,16 @@ Renamed:
 
 Removed:
 
+- [EXT-3204] Removes:
+  - `BaseExtensionSDK`
+  - `EditorExtensionSDK`
+  - `SidebarExtensionSDK`
+  - `FieldExtensionSDK`
+  - `DialogExtensionSDK`
+  - `PageExtensionSDK`
+  - `HomeExtensionSDK`
+  - `AppExtensionSDK`
+  - `KnownSDK`
 - [EXT-3595] Remove extensions from Dialog API
 - [EXT-3597] Remove extensions from IDs API
 - [EXT-4621] Remove `navigator.openPageExtension` from Navigator API
