@@ -42,14 +42,8 @@ export interface DialogsAPI {
       defaultValue?: string
     }
   ) => Promise<string | boolean>
-  /** Opens an extension in a dialog. */
-  openExtension: (options: OpenCustomWidgetOptions) => Promise<any>
   /** Opens the current app in a dialog */
-  openCurrentApp: (options?: Omit<OpenCustomWidgetOptions, 'id'>) => Promise<any>
-  /** Opens the current app or extension in a dialog */
-  openCurrent: (
-    options?: Omit<OpenCustomWidgetOptions, 'id'> | OpenCustomWidgetOptions
-  ) => Promise<any>
+  open: (options?: Omit<OpenCustomWidgetOptions, 'id'>) => Promise<any>
   /** Opens a dialog for selecting a single entry. */
   selectSingleEntry: <T = Object>(options?: {
     locale?: string

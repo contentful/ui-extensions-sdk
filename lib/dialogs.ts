@@ -15,9 +15,7 @@ export default function createDialogs(channel: Channel, ids: IdsAPI): DialogsAPI
     openAlert: openSimpleDialog.bind(null, 'alert'),
     openConfirm: openSimpleDialog.bind(null, 'confirm'),
     openPrompt: openSimpleDialog.bind(null, 'prompt'),
-    openExtension: openExtensionDialog,
-    openCurrentApp: openCurrentAppDialog,
-    openCurrent: openCurrentDialog,
+    open: open,
     selectSingleEntry: openEntitySelector.bind(null, 'Entry', false),
     selectSingleAsset: openEntitySelector.bind(null, 'Asset', false),
     selectMultipleEntries: openEntitySelector.bind(null, 'Entry', true),
@@ -28,30 +26,7 @@ export default function createDialogs(channel: Channel, ids: IdsAPI): DialogsAPI
     return channel.call('openDialog', type, prepareOptions(options)) as Promise<any>
   }
 
-  function openExtensionDialog(optionsInput?: OpenCustomWidgetOptions) {
-    let options = prepareOptions(optionsInput)
-
-    // Use provided ID, default to the current extension.
-    options = { ...options, id: options.id || ids.extension }
-    if (options.id) {
-      return channel.call('openDialog', 'extension', options)
-    } else {
-      throw new Error('Extension ID not provided.')
-    }
-  }
-
-  function openCurrentDialog(options?: Omit<OpenCustomWidgetOptions, 'id'>) {
-    if (ids.app) {
-      return openCurrentAppDialog(options)
-    } else {
-      return openExtensionDialog({
-        ...options,
-        id: ids.extension,
-      })
-    }
-  }
-
-  function openCurrentAppDialog(options?: Omit<OpenCustomWidgetOptions, 'id'>) {
+  function open(options?: Omit<OpenCustomWidgetOptions, 'id'>) {
     options = prepareOptions(options)
     if (ids.app) {
       // Force ID of the current app.
