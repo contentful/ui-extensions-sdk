@@ -105,9 +105,8 @@ export interface ParametersAPI<
 
 export interface IdsAPI {
   user: string
-  extension?: string
   organization: string
-  app?: string
+  app: string
   space: string
   environment: string
   environmentAlias?: string
@@ -326,7 +325,7 @@ export type ConfigAppSDK<InstallationParameters extends KeyValueMap = KeyValueMa
   'ids'
 > & {
   /** A set of IDs actual for the app */
-  ids: Omit<IdsAPI, EntryScopedIds | 'extension' | 'app'> & { app: string }
+  ids: Omit<IdsAPI, EntryScopedIds | 'app'> & { app: string }
   app: AppConfigAPI
 }
 
