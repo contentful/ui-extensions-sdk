@@ -5,13 +5,6 @@ export interface NavigatorAPIOptions {
   slideIn?: boolean | { waitForClose: boolean }
 }
 
-export interface PageExtensionOptions {
-  /** If included, you can navigate to a different page extension. If omitted, you will navigate within the current extension. */
-  id?: string
-  /** Navigate to a path within your page extension. */
-  path?: string
-}
-
 export interface AppPageLocationOptions {
   /** A path to navigate to within your app's page location. */
   path?: string
@@ -54,8 +47,6 @@ export interface NavigatorAPI {
   ) => Promise<NavigatorOpenResponse<Entry<Fields>>>
   /** Opens a new asset in the current Web App session. */
   openNewAsset: (options?: NavigatorAPIOptions) => Promise<NavigatorOpenResponse<Asset>>
-  /** Navigates to a page extension in the current Web App session. Calling without `options` will navigate to the home route of your page extension. */
-  openPageExtension: (options?: PageExtensionOptions) => Promise<NavigatorPageResponse>
   /** Navigates to the app's page location. */
   openPage: (options?: AppPageLocationOptions) => Promise<NavigatorPageResponse>
   /** Navigates to a bulk entry editor */
