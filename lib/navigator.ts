@@ -48,7 +48,7 @@ export default function createNavigator(channel: Channel, ids: IdsAPI): Navigato
     openPageExtension: (opts) => {
       return channel.call('navigateToPage', {
         type: 'extension',
-        id: ids.extension,
+        id: ids.app,
         ...opts,
       }) as Promise<any>
     },
