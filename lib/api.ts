@@ -2,7 +2,6 @@ import Field from './field'
 import FieldLocale from './field-locale'
 import createWindow from './window'
 import createEntry from './entry'
-import createSpace from './space'
 import createDialogs from './dialogs'
 import createEditor from './editor'
 import createNavigator from './navigator'
@@ -62,7 +61,7 @@ function makeSharedAPI(
   channel: Channel,
   data: ConnectMessage
 ): BaseAppSDK<KeyValueMap, KeyValueMap, never> {
-  const { user, parameters, locales, ids, initialContentTypes } = data
+  const { user, parameters, locales, ids } = data
   const currentLocation: Locations[keyof Locations] =
     data.location || locations.LOCATION_ENTRY_FIELD
 
@@ -83,7 +82,6 @@ function makeSharedAPI(
       optional: locales.optional,
       direction: locales.direction,
     },
-    space: createSpace(channel, initialContentTypes),
     dialogs: createDialogs(channel, ids),
     // Typecast because promises returned by navigator methods aren't typed
     navigator: createNavigator(channel, ids) as NavigatorAPI,
