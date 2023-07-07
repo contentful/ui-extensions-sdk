@@ -82,7 +82,6 @@ export type {
   NavigatorOpenResponse,
   NavigatorPageResponse,
   NavigatorSlideInfo,
-  PageExtensionOptions,
 } from './navigator.types'
 
 export type { SpaceAPI } from './space.types'

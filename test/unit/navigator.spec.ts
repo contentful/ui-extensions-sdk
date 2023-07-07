@@ -46,30 +46,6 @@ const SCENARIOS = [
     expected: { entityType: 'Asset', id: null, slideIn: true },
   },
   {
-    method: 'openPageExtension',
-    args: [{ id: 'test-id', type: 'extension' }],
-    expected: { id: 'test-id', type: 'extension' },
-    channelMethod: 'navigateToPage',
-  },
-  {
-    method: 'openPageExtension',
-    args: [{ id: 'test-id', page: 'testPage', type: 'extension' }],
-    expected: { id: 'test-id', page: 'testPage', type: 'extension' },
-    channelMethod: 'navigateToPage',
-  },
-  {
-    method: 'openPageExtension',
-    args: [{ id: 'another-id', type: 'extension' }],
-    expected: { id: 'another-id', type: 'extension' },
-    channelMethod: 'navigateToPage',
-  },
-  {
-    method: 'openPageExtension',
-    args: [{ id: 'another-id', page: 'testPage', type: 'extension' }],
-    expected: { id: 'another-id', page: 'testPage', type: 'extension' },
-    channelMethod: 'navigateToPage',
-  },
-  {
     method: 'openCurrentAppPage',
     args: [{ id: 'app-id', page: '/something', type: 'app' }],
     expected: { id: 'app-id', page: '/something', type: 'app' },
