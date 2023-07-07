@@ -1,3 +1,9 @@
+# [5.0.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.22.0...v5.0.0) (2023-07-07)
+
+### Features
+
+- [EXT-3597] Remove extensions from IDs API
+
 # [4.22.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.21.1...v4.22.0) (2023-06-29)
 
 ### Features
