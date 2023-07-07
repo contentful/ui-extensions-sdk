@@ -46,7 +46,7 @@ const SCENARIOS = [
     expected: { entityType: 'Asset', id: null, slideIn: true },
   },
   {
-    method: 'openCurrentAppPage',
+    method: 'openPage',
     args: [{ id: 'app-id', page: '/something', type: 'app' }],
     expected: { id: 'app-id', page: '/something', type: 'app' },
     channelMethod: 'navigateToPage',

@@ -48,7 +48,7 @@ export interface NavigatorAPI {
   /** Opens a new asset in the current Web App session. */
   openNewAsset: (options?: NavigatorAPIOptions) => Promise<NavigatorOpenResponse<Asset>>
   /** Navigates to the app's page location. */
-  openCurrentAppPage: (options?: AppPageLocationOptions) => Promise<NavigatorPageResponse>
+  openPage: (options?: AppPageLocationOptions) => Promise<NavigatorPageResponse>
   /** Navigates to a bulk entry editor */
   openBulkEditor: (
     entryId: string,
