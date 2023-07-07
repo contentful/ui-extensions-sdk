@@ -70,7 +70,7 @@ const SCENARIOS = [
     channelMethod: 'navigateToPage',
   },
   {
-    method: 'openCurrentAppPage',
+    method: 'openPage',
     args: [{ id: 'app-id', page: '/something', type: 'app' }],
     expected: { id: 'app-id', page: '/something', type: 'app' },
     channelMethod: 'navigateToPage',

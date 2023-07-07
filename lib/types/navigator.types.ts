@@ -57,7 +57,7 @@ export interface NavigatorAPI {
   /** Navigates to a page extension in the current Web App session. Calling without `options` will navigate to the home route of your page extension. */
   openPageExtension: (options?: PageExtensionOptions) => Promise<NavigatorPageResponse>
   /** Navigates to the app's page location. */
-  openCurrentAppPage: (options?: AppPageLocationOptions) => Promise<NavigatorPageResponse>
+  openPage: (options?: AppPageLocationOptions) => Promise<NavigatorPageResponse>
   /** Navigates to a bulk entry editor */
   openBulkEditor: (
     entryId: string,
