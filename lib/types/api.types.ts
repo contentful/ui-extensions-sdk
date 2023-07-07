@@ -342,33 +342,6 @@ export type KnownAppSDK<
   | ConfigAppSDK<InstallationParameters>
   | HomeAppSDK<InstallationParameters>
 
-/** @deprecated consider using {@link BaseAppSDK} */
-export type BaseExtensionSDK = BaseAppSDK
-
-/** @deprecated consider using {@link EditorAppSDK} */
-export type EditorExtensionSDK = EditorAppSDK
-
-/** @deprecated consider using {@link SidebarAppSDK} */
-export type SidebarExtensionSDK = SidebarAppSDK
-
-/** @deprecated consider using {@link FieldAppSDK} */
-export type FieldExtensionSDK = FieldAppSDK
-
-/** @deprecated consider using {@link DialogAppSDK} */
-export type DialogExtensionSDK = DialogAppSDK
-
-/** @deprecated consider using {@link PageAppSDK} */
-export type PageExtensionSDK = PageAppSDK
-
-/** @deprecated consider using {@link HomeAppSDK} */
-export type HomeExtensionSDK = HomeAppSDK
-
-/** @deprecated consider using {@link ConfigAppSDK} */
-export type AppExtensionSDK = ConfigAppSDK
-
-/** @deprecated consider using {@link KnownAppSDK} */
-export type KnownSDK = KnownAppSDK
-
 export interface ConnectMessage {
   id: string
   location: Locations[keyof Locations]
