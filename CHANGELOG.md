@@ -4,8 +4,9 @@
 
 - [EXT-3498] Adds `location.current` to Locations API
 - [EXT-3595] Remove extensions from Dialog API
+- [EXT-3597] Remove extensions from IDs API
 
-# [4.22.0-alpha.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.21.1...v4.22.0-alpha.1) (2023-06-29)
+# [4.22.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.21.1...v4.22.0) (2023-06-29)
 
 ### Features
 

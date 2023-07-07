@@ -9,7 +9,7 @@ describe('createCMAClient()', function () {
       environment: 'environment',
       environmentAlias: 'environmentAlias',
       organization: 'organization',
-      extension: 'extension',
+      app: 'app',
       user: 'user',
       field: 'field',
       entry: 'entry',
