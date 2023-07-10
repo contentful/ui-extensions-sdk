@@ -1,3 +1,9 @@
+## [4.22.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.22.0...v4.22.1) (2023-07-10)
+
+### Bug Fixes
+
+- [EXT-3666] Remove duplicating event dispatch ([#1565](https://github.com/contentful/ui-extensions-sdk/issues/1565)) ([c51f998](https://github.com/contentful/ui-extensions-sdk/commit/c51f9988fd48aa6a7416b46d53bcb1176396b89e))
+
 # [4.22.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.21.1...v4.22.0) (2023-06-29)
 
 ### Features
