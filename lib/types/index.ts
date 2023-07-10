@@ -75,8 +75,6 @@ export type {
   NavigatorSlideInfo,
 } from './navigator.types'
 
-export type { SpaceAPI } from './space.types'
-
 export type {
   SearchQuery,
   CollectionResponse,
