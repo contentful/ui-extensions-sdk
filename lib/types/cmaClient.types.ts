@@ -24,7 +24,6 @@ export type CMAClient = {
   role: Pick<PlainClientAPI['role'], 'get' | 'getMany'>
   scheduledActions: PlainClientAPI['scheduledActions']
   snapshot: PlainClientAPI['snapshot']
-  space: Pick<PlainClientAPI['space'], 'get'>
   upload: PlainClientAPI['upload']
   user: Pick<PlainClientAPI['user'], 'getManyForSpace' | 'getForSpace'>
   usage: Pick<PlainClientAPI['usage'], 'getManyForSpace'>
