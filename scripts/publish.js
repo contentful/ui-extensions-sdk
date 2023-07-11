@@ -3,36 +3,34 @@ const {
   isCanary,
   restorePackageJson,
   setPackageName,
-  PACKAGES,
+  PACKAGE_NAME,
   MODULE_MAIN_PATH,
   getVersion,
   getTag,
 } = require('./shared')
 
 try {
-  for (const package of PACKAGES) {
-    console.log('')
-    console.log(`📦 Deploying package: ${package}`)
+  console.log('')
+  console.log(`📦 Deploying package: ${PACKAGE_NAME}`)
 
-    const version = getVersion()
-    const tag = getTag(isCanary(version))
+  const version = getVersion()
+  const tag = getTag(isCanary(version))
 
-    console.log(` > 📝 Updating package name...`)
-    setPackageName(package)
+  console.log(` > 📝 Updating package name...`)
+  setPackageName(PACKAGE_NAME)
 
-    console.log(` > 📚 Publishing ${package} on the registry...`)
-    const { status } = spawn.sync('npm', ['publish', '--access', 'public', '--tag', tag], {
-      stdio: 'inherit',
-      cwd: MODULE_MAIN_PATH,
-    })
+  console.log(` > 📚 Publishing ${PACKAGE_NAME} on the registry...`)
+  const { status } = spawn.sync('npm', ['publish', '--access', 'public', '--tag', tag], {
+    stdio: 'inherit',
+    cwd: MODULE_MAIN_PATH,
+  })
 
-    if (status !== 0) {
-      throw new Error(`Failed to publish ${package}`)
-    }
-
-    console.log(`✅ Successfully published ${package}@${getVersion()} on ${tag}!`)
-    console.log('')
+  if (status !== 0) {
+    throw new Error(`Failed to publish ${PACKAGE_NAME}`)
   }
+
+  console.log(`✅ Successfully published ${PACKAGE_NAME}@${getVersion()} on ${tag}!`)
+  console.log('')
 } catch (err) {
   throw new Error(err)
 } finally {
