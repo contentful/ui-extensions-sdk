@@ -10,6 +10,8 @@
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
     "skipLibCheck": true,
+    "moduleResolution": "nodenext",
+    "outDir": "./dist"
   },
   "include": ["lib/**/*"],
   "exclude": ["test", "node_modules"]
