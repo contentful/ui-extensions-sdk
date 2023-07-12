@@ -15,17 +15,13 @@
   "jsdelivr": "dist/cf-extension-api.bundled.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist/cf-extension-api.js",
-    "dist/cf-extension-api.js.map",
-    "dist/cf-extension-api.bundled.js",
-    "dist/cf-extension.css",
-    "dist/**/*.d.ts"
+    "dist"
   ],
   "scripts": {
     "test": "ts-mocha -p tsconfig.test.json 'test/unit/*.[jt]s' --reporter mocha-multi-reporters --reporter-options configFile=mocha.unit-reporters.json",
     "lint": "eslint '{lib,test}/**/*.{t,j}s'",
     "lint:fix": "npm run lint -- --fix",
-    "build": "npm run check-types && rollup -c --compact",
+    "build": "npm run check-types && tsc --project tsconfig.json",
     "build:debug": "npm run build -- --sourcemap",
     "prepublishOnly": "npm run build",
     "size": "echo \"Gzipped, estimate: $(gzip -9 -c dist/cf-extension-api.js | wc -c) bytes\"",
@@ -40,8 +36,6 @@
     "contentful-management": ">=7.30.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^25.0.2",
-    "@rollup/plugin-node-resolve": "^15.1.0",
     "@semantic-release/changelog": "6.0.3",
     "@semantic-release/exec": "6.0.3",
     "@semantic-release/git": "10.0.1",
@@ -80,9 +74,6 @@
     "mochawesome-merge": "4.3.0",
     "mochawesome-report-generator": "6.2.0",
     "prettier": "2.8.8",
-    "rollup": "2.79.1",
-    "rollup-plugin-terser": "7.0.2",
-    "rollup-plugin-typescript2": "0.35.0",
     "semantic-release": "21.0.7",
     "sinon": "15.2.0",
     "sinon-chai": "3.7.0",
