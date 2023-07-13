@@ -2,7 +2,7 @@ const path = require('path')
 const spawn = require('cross-spawn')
 const fs = require('fs')
 
-const PACKAGES = ['contentful-ui-extensions-sdk', '@contentful/app-sdk']
+const PACKAGE_NAME = '@contentful/app-sdk'
 const MODULE_MAIN_PATH = path.resolve(__dirname, '..')
 const PACKAGE_JSON_PATH = path.resolve(MODULE_MAIN_PATH, 'package.json')
 
@@ -33,7 +33,7 @@ function setPackageName(name) {
 }
 
 module.exports = {
-  PACKAGES,
+  PACKAGE_NAME,
   MODULE_MAIN_PATH,
   PACKAGE_JSON_PATH,
   getVersion,

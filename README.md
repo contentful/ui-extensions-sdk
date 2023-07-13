@@ -33,10 +33,7 @@ A new package version is automatically published to npm using [semantic-release]
 
 To manually publish the package, run `npm run publish-all`.
 
-This repository is published as two packages with identical data. We recommend using `@contentful/app-sdk`.
-
-- `@contentful/app-sdk`
-- `contentful-ui-extensions-sdk`
+This repository is published as `@contentful/app-sdk` package.
 
 #### Canary releases
 
