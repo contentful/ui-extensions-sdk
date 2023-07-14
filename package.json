@@ -13,13 +13,17 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "dist/index.d.ts"
   ],
   "scripts": {
+    "clean": "rimraf dist",
     "test": "ts-mocha -p tsconfig.test.json 'test/unit/*.[jt]s' --reporter mocha-multi-reporters --reporter-options configFile=mocha.unit-reporters.json",
     "lint": "eslint '{lib,test}/**/*.{t,j}s'",
     "lint:fix": "npm run lint -- --fix",
-    "build": "npm run check-types && tsc --project tsconfig.json",
+    "build": "npm run check-types && npm run clean && npm run build:types && npm run build:code",
+    "build:types": "tsc --declaration --emitDeclarationOnly --allowJs false",
+    "build:code": "tsc --module commonjs",
     "build:debug": "npm run build -- --sourcemap",
     "prepublishOnly": "npm run build",
     "size": "echo \"Gzipped, estimate: $(gzip -9 -c dist/cf-extension-api.js | wc -c) bytes\"",
@@ -72,6 +76,7 @@
     "mochawesome-merge": "4.3.0",
     "mochawesome-report-generator": "6.2.0",
     "prettier": "2.8.8",
+    "rimraf": "^5.0.1",
     "semantic-release": "21.0.7",
     "sinon": "15.2.0",
     "sinon-chai": "3.7.0",
