@@ -59,14 +59,26 @@ const SCENARIOS = [
   },
   {
     method: 'openEntriesList',
-    args: [{ route: 'entries' }],
-    expected: undefined,
+    args: [],
+    expected: { route: 'entries', options: {} },
+    channelMethod: 'navigateToSpaceEnvRoute',
+  },
+  {
+    method: 'openEntriesList',
+    args: [{ filters: { contentType: 'BlogPost' } }],
+    expected: { route: 'entries', options: { filters: { contentType: 'BlogPost' } } },
     channelMethod: 'navigateToSpaceEnvRoute',
   },
   {
     method: 'openAssetsList',
-    args: [{ route: 'assets' }],
-    expected: undefined,
+    args: [],
+    expected: { route: 'assets', options: {} },
+    channelMethod: 'navigateToSpaceEnvRoute',
+  },
+  {
+    method: 'openAssetsList',
+    args: [{ filters: { type: 'image' } }],
+    expected: { route: 'assets', options: { filters: { type: 'image' } } },
     channelMethod: 'navigateToSpaceEnvRoute',
   },
 ]
