@@ -10,6 +10,30 @@ export interface AppPageLocationOptions {
   path?: string
 }
 
+export interface OpenEntriesListOptions {
+  filters?: {
+    contentType?: string
+  }
+}
+
+export interface OpenAssetsListOptions {
+  filters?: {
+    type?:
+      | 'attachment'
+      | 'plaintext'
+      | 'image'
+      | 'audio'
+      | 'video'
+      | 'richtext'
+      | 'presentation'
+      | 'spreadsheet'
+      | 'pdfdocument'
+      | 'archive'
+      | 'code'
+      | 'markup'
+  }
+}
+
 /** Information about current value of the navigation status. */
 export interface NavigatorPageResponse {
   /** Will be true if navigation was successfully executed by the web app. */
@@ -65,7 +89,7 @@ export interface NavigatorAPI {
     slide?: NavigatorSlideInfo
   }>
   openAppConfig: () => Promise<void>
-  openEntriesList: () => Promise<void>
-  openAssetsList: () => Promise<void>
+  openEntriesList: (options?: OpenEntriesListOptions) => Promise<void>
+  openAssetsList: (options?: OpenAssetsListOptions) => Promise<void>
   onSlideInNavigation: (fn: (slide: NavigatorSlideInfo) => void) => () => void
 }
