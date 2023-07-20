@@ -1,3 +1,26 @@
+# [5.0.0-alpha.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.22.1...v5.0.0-alpha.1) (2023-07-17)
+
+### Features
+
+- adds current location to location API ([067b57f](https://github.com/contentful/ui-extensions-sdk/commit/067b57f26bd574cca6ace59e2a4022d1a5168678))
+- Remove Space API ([#1576](https://github.com/contentful/ui-extensions-sdk/issues/1576)) [EXT-3594] ([95541bc](https://github.com/contentful/ui-extensions-sdk/commit/95541bcbf166bb36935c46f27622fab9be811e04))
+- Remove XXXExtensionSDK deprecated types ([#1574](https://github.com/contentful/ui-extensions-sdk/issues/1574)) [EXT-3204] ([1b40aa2](https://github.com/contentful/ui-extensions-sdk/commit/1b40aa24338570a6baf293d198a943020ed65361))
+- removes `navigator.openPageExtension` [EXT-4621] ([#1581](https://github.com/contentful/ui-extensions-sdk/issues/1581)) ([1cd2138](https://github.com/contentful/ui-extensions-sdk/commit/1cd21388f7edf7fbcff55c956db9c06504023f2f))
+- removes extensions from Dialog API [EXT-3595] ([#1577](https://github.com/contentful/ui-extensions-sdk/issues/1577)) ([824a111](https://github.com/contentful/ui-extensions-sdk/commit/824a1112cb10b4b7f32f634738ce5fca8588717e))
+- removes extensions from IDs API [EXT-3597] ([#1579](https://github.com/contentful/ui-extensions-sdk/issues/1579)) ([5260be5](https://github.com/contentful/ui-extensions-sdk/commit/5260be550198c953a70caf9b64c52501cac1ec23))
+- rename `navigator.openCurrentAppPage` [EXT-3596] ([#1580](https://github.com/contentful/ui-extensions-sdk/issues/1580)) ([1d1bfe7](https://github.com/contentful/ui-extensions-sdk/commit/1d1bfe74b5244b3a31a9bfe36132a20de47f53cc))
+- Stop publishing `contentful-ui-extensions-sdk` package to npm ([#1584](https://github.com/contentful/ui-extensions-sdk/issues/1584)) [EXT-3593] ([51faf28](https://github.com/contentful/ui-extensions-sdk/commit/51faf287ead7206fcbc66ec7070a4a01c86297d2))
+
+### BREAKING CHANGES
+
+- remove space api
+- remove XXXExtensionSDK deprecated types
+- removes `navigator.openPageExtension`
+- renames `navigator.openCurrentAppPage` to
+  `navigator.openPage`
+- removes extensions from IDs API
+- removes extensions from Dialog API
+
 ## [4.22.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.22.0...v4.22.1) (2023-07-10)
 
 ### Bug Fixes
