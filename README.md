@@ -16,7 +16,7 @@ for the Contentful Web App. Every Contentful App has to include the library in i
 - [Forma 36: The Contentful Design System](https://f36.contentful.com/)
 - [Forma 36 guide for Contentful Apps](https://www.contentful.com/developers/docs/extensibility/ui-extensions/component-library/)
 - [`create-contentful-app`](https://github.com/contentful/create-contentful-app) - CLI tool for developing apps without the hassle of managing build configurations
-- [`contentful-ui-extensions-sdk` at npm](https://www.npmjs.com/package/contentful-ui-extensions-sdk)
+- [`@contentful/app-sdk` at npm](https://www.npmjs.com/package/@contentful/app-sdk)
 
 ## Getting help
 
@@ -30,8 +30,6 @@ information needs to be discussed, then the conversation should be handled via o
 ### Publishing
 
 A new package version is automatically published to npm using [semantic-release](https://github.com/semantic-release/semantic-release).
-
-To manually publish the package, run `npm run publish-all`.
 
 This repository is published as `@contentful/app-sdk` package.
 
@@ -70,10 +68,6 @@ considered too small to be in a separate file, they are part of the [`api`](./li
 All the typings are in the [`types`](./lib/types) folder and they map 1-to-1 APIs, when they make sense.
 The [`entities`](./lib/types/entities.ts) file maps Contentful entities in TypeScript.
 [`utils`](./lib/types/utils.ts) includes utility types, meant to save on characters to type.
-
-#### `scripts`
-
-Includes utility tools for maintainers.
 
 #### `test`
 

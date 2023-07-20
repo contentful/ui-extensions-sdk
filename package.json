@@ -1,5 +1,5 @@
 {
-  "name": "contentful-ui-extensions-sdk",
+  "name": "@contentful/app-sdk",
   "description": "A JavaScript library to develop custom apps for Contentful",
   "version": "5.0.0-alpha.1",
   "author": "Contentful GmbH",
@@ -26,8 +26,6 @@
     "build:debug": "npm run build -- --sourcemap",
     "prepublishOnly": "npm run build",
     "semantic-release": "semantic-release",
-    "publish-all": "node ./scripts/publish.js",
-    "verify": "node ./scripts/verify.js",
     "prepare": "husky install",
     "lint-staged": "lint-staged"
   },
@@ -36,7 +34,6 @@
   },
   "devDependencies": {
     "@semantic-release/changelog": "6.0.3",
-    "@semantic-release/exec": "6.0.3",
     "@semantic-release/git": "10.0.1",
     "@testing-library/dom": "9.3.1",
     "@types/chai-as-promised": "7.1.5",
@@ -105,19 +102,7 @@
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
       "@semantic-release/changelog",
-      [
-        "@semantic-release/npm",
-        {
-          "npmPublish": false
-        }
-      ],
-      [
-        "@semantic-release/exec",
-        {
-          "verifyConditionsCmd": "node ./scripts/verify.js",
-          "publishCmd": "npm run publish-all"
-        }
-      ],
+      "@semantic-release/npm",
       [
         "@semantic-release/git",
         {
