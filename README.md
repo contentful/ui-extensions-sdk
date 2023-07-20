@@ -33,10 +33,7 @@ A new package version is automatically published to npm using [semantic-release]
 
 To manually publish the package, run `npm run publish-all`.
 
-This repository is published as two packages with identical data. We recommend using `@contentful/app-sdk`.
-
-- `@contentful/app-sdk`
-- `contentful-ui-extensions-sdk`
+This repository is published as `@contentful/app-sdk` package.
 
 #### Canary releases
 
@@ -46,11 +43,11 @@ The default and stable releases are always published under the `latest` tag (as 
 The release under the `canary` tag is to be considered unstable and potentially breaking.
 You should not rely on it in production.
 
-To release alpha version of package follow these steps:
+To start a new alpha version of the package follow these steps:
 
-1. Delete the `canary` branch.
-2. Create a new `canary` branch from `master`.
-3. Create a new branch with your changes from `canary`.
+1. Checkout the `canary` branch.
+2. Reset canary to the latest master: `git reset --hard origin/master`
+3. Create a new branch with your changes from `canary`
 4. Create a PR that merges into `canary`.
 
 ### File Structure

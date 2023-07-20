@@ -71,7 +71,6 @@ export default class FieldLocale implements ExhaustiveFieldAPI {
 
   async setValue(value: any) {
     this._value = value
-    this._valueSignal.dispatch(value)
     return await this._channel.call<SerializedJSONValue | undefined>(
       'setValue',
       this.id,

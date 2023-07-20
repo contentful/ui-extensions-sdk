@@ -190,20 +190,6 @@ describe('FieldLocale', () => {
       channelStub.call.withArgs(method).returns(Promise.resolve('PROMISE'))
       expect(field[method]('val')).to.eventually.equal('PROMISE')
     })
-
-    it('calls onValueChanged handler', function () {
-      const spy = sinon.spy()
-      field.onValueChanged(spy)
-      spy.resetHistory()
-
-      field.setValue('VAL1')
-      sinon.assert.calledOnce(spy)
-      sinon.assert.calledWithExactly(spy, 'VAL1')
-
-      field.setValue('VAL2')
-      sinon.assert.calledTwice(spy)
-      sinon.assert.calledWithExactly(spy, 'VAL2')
-    })
   }
 
   function testChannelSignal(
