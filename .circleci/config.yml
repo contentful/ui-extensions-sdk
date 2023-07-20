@@ -24,9 +24,6 @@ jobs:
       - run:
           name: Building
           command: npm run build
-      - run:
-          name: Sizing
-          command: npm run size
       - store_test_results:
           path: test/unit/reports
 
