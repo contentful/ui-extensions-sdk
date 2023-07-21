@@ -19,8 +19,6 @@ export const actionSelectors = {
 
 export const widgetLocation = {
   entryField: 'entry-field',
-  /** @deprecated */
-  entryFieldSidebar: 'entry-field-sidebar',
   entrySidebar: 'entry-sidebar',
   dialog: 'dialog',
   entryEditor: 'entry-editor',

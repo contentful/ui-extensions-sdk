@@ -38,11 +38,6 @@ export interface EntryAPI extends TaskAPI {
   onSysChanged: (callback: (sys: EntrySys) => void) => () => void
   /** Allows to control the values of all other fields in the current entry. */
   fields: { [key: string]: EntryFieldAPI }
-  /**
-   * Optional metadata on an entry
-   * @deprecated
-   */
-  metadata?: Metadata
   getMetadata: () => Metadata | undefined
   onMetadataChanged: (callback: (metadata?: Metadata) => void) => VoidFunction
 }
