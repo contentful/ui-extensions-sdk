@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "ES2015",
-    "lib": ["ESNext", "DOM"],
+    "target": "ES2020",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
     "strict": true,
-    "forceConsistentCasingInFileNames": true,
     "declaration": true,
     "skipLibCheck": true,
-    "moduleResolution": "nodenext"
+    "outDir": "./dist"
   },
   "include": ["lib/**/*"],
   "exclude": ["test", "node_modules"]

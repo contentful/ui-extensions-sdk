@@ -4,9 +4,6 @@
 /mochawesome-report
 /.DS_Store
 /dist
-!/dist/cf-extension.css
-!/dist/README.md
-!/dist/WARNING.txt
 
 /test/unit/reports
 .env
