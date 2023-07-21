@@ -27,12 +27,6 @@ export default function createEditor(
     onLocaleSettingsChanged: (handler) => {
       return localeSettingsSignal.attach(handler)
     },
-    /**
-     * @deprecated
-     */
-    onShowDisabledFieldsChanged: (handler) => {
-      return showHiddenFieldsSignal.attach(handler)
-    },
     getShowHiddenFields(): boolean {
       return showHiddenFieldsSignal.getMemoizedArgs()[0]
     },

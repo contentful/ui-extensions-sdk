@@ -4,10 +4,6 @@ interface AppStateEditorInterfaceItem {
   controls?: Array<{ fieldId: string; settings?: Record<string, any> }>
   sidebar?: { position: number; settings?: Record<string, any> }
   editors?: { position: number; settings?: Record<string, any> }
-  /**
-   * @deprecated use `editors` instead
-   */
-  editor?: boolean
 }
 
 export interface AppState {

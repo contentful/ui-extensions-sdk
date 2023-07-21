@@ -159,15 +159,6 @@ export interface SharedEditorSDK {
     ) => () => void
 
     /**
-     * Subscribes to changes of whether or not disabled fields are displayed
-     *
-     * @param callback Function that is called every time the setting whether or not disabled fields are displayed changes. Called immediately with the current state.
-     * @returns Function to unsubscribe. `callback` won't be called anymore.
-     * @deprecated Use {@link onShowHiddenFieldsChanged} instead
-     */
-    onShowDisabledFieldsChanged: (callback: (showDisabledFields: boolean) => void) => () => void
-
-    /**
      * Returns whether or not hidden fields are displayed
      *
      * This setting can change. To always work with the latest settings, use `onShowHiddenFieldsChanged`.
