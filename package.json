@@ -23,7 +23,6 @@
     "build": "npm run clean && npm run build:types && npm run build:cjs",
     "build:types": "tsc --emitDeclarationOnly",
     "build:cjs": "tsc",
-    "build:debug": "npm run build -- --sourcemap",
     "prepublishOnly": "npm run build",
     "semantic-release": "semantic-release",
     "prepare": "husky install",
