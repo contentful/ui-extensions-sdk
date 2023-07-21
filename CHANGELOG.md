@@ -1,3 +1,15 @@
+# [5.0.0-alpha.2](https://github.com/contentful/ui-extensions-sdk/compare/v5.0.0-alpha.1...v5.0.0-alpha.2) (2023-07-21)
+
+### Features
+
+- add options for openEntriesList and openAssetsList [EXT-4514 EXT-4618] ([#1596](https://github.com/contentful/ui-extensions-sdk/issues/1596)) ([22d08a6](https://github.com/contentful/ui-extensions-sdk/commit/22d08a6b4e48bbdfacc43932218ee8f12cfa7820))
+- do not bundle package [EXT-3598] ([#1590](https://github.com/contentful/ui-extensions-sdk/issues/1590)) ([e95c81a](https://github.com/contentful/ui-extensions-sdk/commit/e95c81a3213b440ddcc47542d169bf3c32c7364c)), closes [#1577](https://github.com/contentful/ui-extensions-sdk/issues/1577) [#1579](https://github.com/contentful/ui-extensions-sdk/issues/1579) [#1580](https://github.com/contentful/ui-extensions-sdk/issues/1580) [#1581](https://github.com/contentful/ui-extensions-sdk/issues/1581) [#1574](https://github.com/contentful/ui-extensions-sdk/issues/1574) [#1576](https://github.com/contentful/ui-extensions-sdk/issues/1576)
+- remove deprecated props & methods [EXT-4467] ([#1597](https://github.com/contentful/ui-extensions-sdk/issues/1597)) ([7f7240b](https://github.com/contentful/ui-extensions-sdk/commit/7f7240bc35e849a37f3605b0eba4f7c5a9f92fb8))
+
+### BREAKING CHANGES
+
+- removed deprecated props & methods
+
 # [5.0.0-alpha.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.22.1...v5.0.0-alpha.1) (2023-07-17)
 
 ### Features
