@@ -52,7 +52,7 @@ const SCENARIOS = [
     channelMethod: 'navigateToPage',
   },
   {
-    method: 'openAppConfig',
+    method: 'openConfig',
     args: [],
     expected: undefined,
     channelMethod: 'navigateToAppConfig',

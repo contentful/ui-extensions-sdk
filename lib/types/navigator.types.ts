@@ -88,7 +88,7 @@ export interface NavigatorAPI {
     navigated: boolean
     slide?: NavigatorSlideInfo
   }>
-  openAppConfig: () => Promise<void>
+  openConfig: () => Promise<void>
   openEntriesList: (options?: OpenEntriesListOptions) => Promise<void>
   openAssetsList: (options?: OpenAssetsListOptions) => Promise<void>
   onSlideInNavigation: (fn: (slide: NavigatorSlideInfo) => void) => () => void
