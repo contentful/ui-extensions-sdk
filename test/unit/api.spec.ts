@@ -80,7 +80,7 @@ function test(expected: string[], location: string | undefined, expectedLocation
 }
 
 describe('createAPI()', () => {
-  it('returns correct shape of the default API (entry-field and entry-field-sidebar)', () => {
+  it('returns correct shape of the default API (entry-field)', () => {
     const expected = ['contentType', 'entry', 'field', 'editor', 'window']
 
     // No location, `entry-field` is the default.
@@ -88,9 +88,6 @@ describe('createAPI()', () => {
 
     // `entry-field` provided explicitly.
     test(expected, locations.LOCATION_ENTRY_FIELD)
-
-    // Legacy sidebar extension, has the `entry-field` API.
-    test(expected, locations.LOCATION_ENTRY_FIELD_SIDEBAR)
   })
 
   it('returns correct shape of the sidebar API (entry-sidebar)', () => {
