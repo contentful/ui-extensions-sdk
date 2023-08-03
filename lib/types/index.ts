@@ -73,6 +73,8 @@ export type {
   NavigatorOpenResponse,
   NavigatorPageResponse,
   NavigatorSlideInfo,
+  OpenEntriesListOptions,
+  OpenAssetsListOptions,
 } from './navigator.types'
 
 export type {
