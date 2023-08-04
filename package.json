@@ -1,7 +1,7 @@
 {
   "name": "@contentful/app-sdk",
   "description": "A JavaScript library to develop custom apps for Contentful",
-  "version": "5.0.0-alpha.2",
+  "version": "5.0.0-alpha.3",
   "author": "Contentful GmbH",
   "license": "MIT",
   "sideEffects": true,

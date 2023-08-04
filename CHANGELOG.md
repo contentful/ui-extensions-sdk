@@ -1,3 +1,9 @@
+# [5.0.0-alpha.3](https://github.com/contentful/ui-extensions-sdk/compare/v5.0.0-alpha.2...v5.0.0-alpha.3) (2023-08-04)
+
+### Features
+
+- add generic InstallationParams to AppConfigAPI ([#1614](https://github.com/contentful/ui-extensions-sdk/issues/1614)) ([8b978da](https://github.com/contentful/ui-extensions-sdk/commit/8b978da66d536e1b8b6b536fad8d4d2d9eba68f3))
+
 # [5.0.0-alpha.2](https://github.com/contentful/ui-extensions-sdk/compare/v5.0.0-alpha.1...v5.0.0-alpha.2) (2023-07-21)
 
 ### Features
