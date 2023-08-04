@@ -53,7 +53,7 @@ const runHandler = (handler: Function, defaultResult: any, handlerArg?: any) => 
     .catch(handleHandlerError)
 }
 
-export default function createApp(channel: Channel): AppConfigAPI {
+export default function createApp(channel: Channel): AppConfigAPI<KeyValueMap> {
   const handlers: { [key: string]: any } = {
     [HOOK_STAGE_PRE_INSTALL]: null,
     [HOOK_STAGE_POST_INSTALL]: null,
@@ -105,7 +105,7 @@ export default function createApp(channel: Channel): AppConfigAPI {
     getCurrentState() {
       return channel.call('callAppMethod', 'getCurrentState') as Promise<AppState | null>
     },
-    onConfigure(handler: OnConfigureHandler) {
+    onConfigure(handler: OnConfigureHandler<KeyValueMap>) {
       setHandler(HOOK_STAGE_PRE_INSTALL, handler)
     },
     onConfigurationCompleted(handler: (err: null | { message: string }) => void) {

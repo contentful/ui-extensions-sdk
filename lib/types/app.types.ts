@@ -10,12 +10,14 @@ export interface AppState {
   EditorInterface: Record<ContentType['sys']['id'], AppStateEditorInterfaceItem>
 }
 
-export type OnConfigureHandlerReturn =
-  | { parameters?: KeyValueMap | null; targetState?: AppState | null }
+export type OnConfigureHandlerReturn<InstallationParameters extends KeyValueMap> =
+  | { parameters?: InstallationParameters | null; targetState?: AppState | null }
   | false
-export type OnConfigureHandler = () => OnConfigureHandlerReturn | Promise<OnConfigureHandlerReturn>
+export type OnConfigureHandler<InstallationParameters extends KeyValueMap> = () =>
+  | OnConfigureHandlerReturn<InstallationParameters>
+  | Promise<OnConfigureHandlerReturn<InstallationParameters>>
 
-export interface AppConfigAPI {
+export interface AppConfigAPI<InstallationParameters extends KeyValueMap> {
   /** Tells the web app that the app is loaded */
   setReady: () => Promise<void>
   /** Returns true if an App is installed */
@@ -23,9 +25,9 @@ export interface AppConfigAPI {
   /** Returns current state of an App */
   getCurrentState: () => Promise<AppState | null>
   /** Returns parameters of an App, null otherwise */
-  getParameters: <T extends KeyValueMap = KeyValueMap>() => Promise<null | T>
+  getParameters: () => Promise<null | InstallationParameters>
   /** Registers a handler to be called to produce parameters for an App */
-  onConfigure: (handler: OnConfigureHandler) => void
+  onConfigure: (handler: OnConfigureHandler<InstallationParameters>) => void
   /** Registers a handler to be called once configuration was finished */
   onConfigurationCompleted: (handler: (err: null | { message: string }) => void) => void
 }

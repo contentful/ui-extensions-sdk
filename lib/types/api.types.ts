@@ -312,7 +312,7 @@ export type ConfigAppSDK<InstallationParameters extends KeyValueMap = KeyValueMa
 > & {
   /** A set of IDs actual for the app */
   ids: Omit<IdsAPI, EntryScopedIds | 'app'> & { app: string }
-  app: AppConfigAPI
+  app: AppConfigAPI<InstallationParameters>
 }
 
 export type KnownAppSDK<
