@@ -19,7 +19,7 @@ import { DialogsAPI } from './dialogs.types'
 import { AppConfigAPI } from './app.types'
 import { NavigatorAPI } from './navigator.types'
 import { EntryFieldInfo, FieldInfo } from './field.types'
-import { Adapter, KeyValueMap } from 'contentful-management/types'
+import { Adapter, KeyValueMap, TeamMembership } from 'contentful-management/types'
 import { CMAClient } from './cmaClient.types'
 
 /* User API */
@@ -41,6 +41,10 @@ export interface UserAPI {
     admin: SpaceMembership['admin']
     roles: Pick<Role, 'name' | 'description'>[]
   }
+  teamMemberships: {
+    admin: boolean
+    sys: Pick<TeamMembership['sys'], 'id' | 'type'>
+  }[]
 }
 
 /* Locales API */
