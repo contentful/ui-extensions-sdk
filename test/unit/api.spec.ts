@@ -16,6 +16,7 @@ const sharedExpected = [
   'ids',
   'access',
   'cmaAdapter',
+  'hostnames',
   'cma',
 ]
 
