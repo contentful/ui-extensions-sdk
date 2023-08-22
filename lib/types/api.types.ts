@@ -104,6 +104,22 @@ export interface IdsAPI {
   contentType: string
 }
 
+/** Hostnames */
+export interface HostnamesAPI {
+  /** Hostname of the Content Delivery API */
+  cdn: string
+  /** Hostname of the Content Management API */
+  cma: string
+  /** Hostname of the Preview API */
+  preview: string
+  /** Hostname of the Upload API */
+  upload: string
+  /** Hostname of the GraphQL API */
+  graphql: string
+  /** Hostname of the Web App */
+  app: string
+}
+
 /** Content API */
 export interface ContentTypeAPI {
   sys: {
@@ -243,6 +259,8 @@ export interface BaseAppSDK<
   access: AccessAPI
   /** Exposes relevant ids, keys may be ommited based on location */
   ids: Omit<IdsAPI, EntryScopedIds>
+  /** Exposes hostnames to interact with Contentful's API or to link to the web app */
+  hostnames: HostnamesAPI
   /** Adapter to be injected in contentful-management client */
   cmaAdapter: Adapter
   /** A CMA Client initialized with default params */
@@ -389,4 +407,5 @@ export interface ConnectMessage {
   }
   fieldInfo: EntryFieldInfo[]
   field?: FieldInfo
+  hostnames: HostnamesAPI
 }

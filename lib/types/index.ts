@@ -33,6 +33,7 @@ export type {
   SharedEditorSDK,
   UserAPI,
   JSONPatchItem,
+  HostnamesAPI,
 } from './api.types'
 
 export type {

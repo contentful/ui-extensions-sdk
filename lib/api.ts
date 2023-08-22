@@ -61,7 +61,7 @@ function makeSharedAPI(
   channel: Channel,
   data: ConnectMessage
 ): BaseAppSDK<KeyValueMap, KeyValueMap, never> {
-  const { user, parameters, locales, ids, initialContentTypes } = data
+  const { user, parameters, locales, ids, initialContentTypes, hostnames } = data
   const currentLocation = data.location || locations.LOCATION_ENTRY_FIELD
 
   return {
@@ -90,6 +90,7 @@ function makeSharedAPI(
       warning: (message: string) => channel.send('notify', { type: 'warning', message }),
     },
     ids,
+    hostnames,
     access: {
       can: (action: string, entity: any, patch?: JSONPatchItem[]) =>
         channel.call('checkAccess', action, entity, patch) as Promise<boolean>,
