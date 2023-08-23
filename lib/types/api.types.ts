@@ -117,7 +117,7 @@ export interface HostnamesAPI {
   /** Hostname of the GraphQL API */
   graphql: string
   /** Hostname of the Web App */
-  webUI: string
+  webapp: string
 }
 
 /** Content API */
