@@ -107,7 +107,7 @@ export interface IdsAPI {
 /** Hostnames */
 export interface HostnamesAPI {
   /** Hostname of the Content Delivery API */
-  cdn: string
+  cda: string
   /** Hostname of the Content Management API */
   cma: string
   /** Hostname of the Preview API */
