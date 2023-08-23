@@ -107,9 +107,9 @@ export interface IdsAPI {
 /** Hostnames */
 export interface HostnamesAPI {
   /** Hostname of the Content Delivery API */
-  cda: string
+  delivery: string
   /** Hostname of the Content Management API */
-  cma: string
+  management: string
   /** Hostname of the Preview API */
   preview: string
   /** Hostname of the Upload API */
@@ -117,7 +117,7 @@ export interface HostnamesAPI {
   /** Hostname of the GraphQL API */
   graphql: string
   /** Hostname of the Web App */
-  app: string
+  webUI: string
 }
 
 /** Content API */
