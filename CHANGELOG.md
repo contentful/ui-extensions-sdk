@@ -1,3 +1,9 @@
+# [4.23.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.22.1...v4.23.0) (2023-08-25)
+
+### Features
+
+- hostnames API ([#1633](https://github.com/contentful/ui-extensions-sdk/issues/1633)) ([e776ce4](https://github.com/contentful/ui-extensions-sdk/commit/e776ce44d8672c3e2355e373e58d790b8e9ef6d0))
+
 ## [4.22.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.22.0...v4.22.1) (2023-07-10)
 
 ### Bug Fixes
