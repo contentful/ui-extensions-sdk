@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "ES2015",
+    "module": "NodeNext",
     "lib": ["ESNext", "DOM"],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
     "skipLibCheck": true,
-    "moduleResolution": "nodenext"
+    "moduleResolution": "NodeNext"
   },
   "include": ["lib/**/*"],
   "exclude": ["test", "node_modules"]
