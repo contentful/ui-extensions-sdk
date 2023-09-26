@@ -6,7 +6,7 @@ orbs:
 jobs:
   unit:
     docker:
-      - image: cimg/node:18.16.1
+      - image: cimg/node:18.18.0
         environment:
           ## this enables colors in the output
           TERM: xterm
@@ -32,11 +32,11 @@ jobs:
 
   semantic-release:
     docker:
-      - image: cimg/node:18.16.1
+      - image: cimg/node:18.18.0
     steps:
       - checkout
       - vault/get-secrets:
-          template-preset: "semantic-release-ecosystem"
+          template-preset: 'semantic-release-ecosystem'
       - run:
           name: Setup NPM
           command: |
