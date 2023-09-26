@@ -1,3 +1,9 @@
+## [4.23.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.23.0...v4.23.1) (2023-09-26)
+
+### Bug Fixes
+
+- node 18.18 for semantic release to work ([#1676](https://github.com/contentful/ui-extensions-sdk/issues/1676)) ([4336a35](https://github.com/contentful/ui-extensions-sdk/commit/4336a35d80553be168f473cc4730ecb6276ec38a))
+
 # [4.23.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.22.1...v4.23.0) (2023-08-25)
 
 ### Features
