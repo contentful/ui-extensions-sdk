@@ -13,6 +13,7 @@ export interface SizeValidationError extends BaseValidationError {
   name: 'size'
   max: number
   min: number
+  nodeType?: string
 }
 
 export interface RangeValidationError extends BaseValidationError {
