@@ -1,3 +1,9 @@
+# [4.24.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.23.1...v4.24.0) (2024-01-19)
+
+### Features
+
+- add nodeType to SizeValidationError [DANTE-1114] ([#1807](https://github.com/contentful/ui-extensions-sdk/issues/1807)) ([735e915](https://github.com/contentful/ui-extensions-sdk/commit/735e915be699a2861bc5662c9edc6d5b53f39a9d))
+
 ## [4.23.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.23.0...v4.23.1) (2023-09-26)
 
 ### Bug Fixes
