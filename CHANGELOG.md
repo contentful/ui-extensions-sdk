@@ -1,3 +1,9 @@
+# [4.25.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.24.0...v4.25.0) (2024-03-06)
+
+### Features
+
+- github migration [EXT-5010] ([#1851](https://github.com/contentful/ui-extensions-sdk/issues/1851)) ([aa29074](https://github.com/contentful/ui-extensions-sdk/commit/aa29074e98f06d9f7a364dbbae1475c3c970aaa1))
+
 # [4.24.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.23.1...v4.24.0) (2024-01-19)
 
 ### Features
