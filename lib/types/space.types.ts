@@ -51,7 +51,7 @@ export interface SpaceAPI {
    * See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details
    */
   getContentTypes: <Query extends SearchQuery = SearchQuery>(
-    query?: Query
+    query?: Query,
   ) => Promise<CollectionResponse<ContentType>>
   /**
    * @deprecated since version 4.0.0
@@ -84,7 +84,7 @@ export interface SpaceAPI {
    * See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details
    */
   getEntrySnapshots: <Fields extends KeyValueMap = KeyValueMap>(
-    id: string
+    id: string,
   ) => Promise<CollectionResponse<Snapshot<Entry<Fields>>>>
   /**
    * @deprecated since version 4.0.0
@@ -92,7 +92,7 @@ export interface SpaceAPI {
    * See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details
    */
   getEntries: <Fields, Query extends SearchQuery = SearchQuery>(
-    query?: Query
+    query?: Query,
   ) => Promise<CollectionResponse<Entry<Fields>>>
   /**
    * @deprecated since version 4.0.0
@@ -101,7 +101,7 @@ export interface SpaceAPI {
    */
   createEntry: <Fields>(
     contentTypeId: string,
-    data: WithOptionalId<Entry<Fields>>
+    data: WithOptionalId<Entry<Fields>>,
   ) => Promise<Entry<Fields>>
   /**
    * @deprecated since version 4.0.0
@@ -109,7 +109,7 @@ export interface SpaceAPI {
    * See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details
    */
   updateEntry: <Fields extends KeyValueMap = KeyValueMap>(
-    data: Entry<Fields>
+    data: Entry<Fields>,
   ) => Promise<Entry<Fields>>
   /**
    * @deprecated since version 4.0.0
@@ -117,7 +117,7 @@ export interface SpaceAPI {
    * See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details
    */
   publishEntry: <Fields extends KeyValueMap = KeyValueMap>(
-    data: Entry<Fields>
+    data: Entry<Fields>,
   ) => Promise<Entry<Fields>>
   /**
    * @deprecated since version 4.0.0
@@ -125,7 +125,7 @@ export interface SpaceAPI {
    * See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details
    */
   unpublishEntry: <Fields extends KeyValueMap = KeyValueMap>(
-    data: Entry<Fields>
+    data: Entry<Fields>,
   ) => Promise<Entry<Fields>>
   /**
    * @deprecated since version 4.0.0
@@ -133,7 +133,7 @@ export interface SpaceAPI {
    * See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details
    */
   archiveEntry: <Fields extends KeyValueMap = KeyValueMap>(
-    data: Entry<Fields>
+    data: Entry<Fields>,
   ) => Promise<Entry<Fields>>
   /**
    * @deprecated since version 4.0.0
@@ -141,7 +141,7 @@ export interface SpaceAPI {
    * See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details
    */
   unarchiveEntry: <Fields extends KeyValueMap = KeyValueMap>(
-    data: Entry<Fields>
+    data: Entry<Fields>,
   ) => Promise<Entry<Fields>>
   /**
    * @deprecated since version 4.0.0
@@ -155,7 +155,7 @@ export interface SpaceAPI {
    * See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details
    */
   getPublishedEntries: <Fields, Query extends SearchQuery = SearchQuery>(
-    query?: Query
+    query?: Query,
   ) => Promise<CollectionResponse<Entry<Fields>>>
 
   /**
@@ -170,7 +170,7 @@ export interface SpaceAPI {
    * See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details
    */
   getAssets: <Query extends SearchQuery = SearchQuery>(
-    query?: Query
+    query?: Query,
   ) => Promise<CollectionResponse<Asset>>
   /**
    * @deprecated since version 4.0.0
@@ -226,7 +226,7 @@ export interface SpaceAPI {
    * See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details
    */
   getPublishedAssets: <Query extends SearchQuery = SearchQuery>(
-    query?: Query
+    query?: Query,
   ) => Promise<CollectionResponse<Asset>>
   /**
    * @deprecated since version 4.0.0
@@ -272,7 +272,7 @@ export interface SpaceAPI {
    */
   getEntityScheduledActions: (
     entityType: ContentEntityType,
-    entityId: string
+    entityId: string,
   ) => Promise<ScheduledAction[]>
   /**
    * @deprecated since version 4.0.0

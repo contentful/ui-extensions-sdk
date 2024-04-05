@@ -89,7 +89,7 @@ export default function createApp(channel: Channel): AppConfigAPI {
       } else {
         return Promise.resolve()
       }
-    }
+    },
   )
 
   return {

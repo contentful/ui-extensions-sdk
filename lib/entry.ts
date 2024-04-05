@@ -15,7 +15,7 @@ export default function createEntry(
   channel: Channel,
   entryData: any,
   fieldInfo: EntryFieldInfo[],
-  createEntryField: (info: EntryFieldInfo) => ExhaustiveEntryFieldAPI
+  createEntryField: (info: EntryFieldInfo) => ExhaustiveEntryFieldAPI,
 ): EntryAPI {
   let sys = entryData.sys
   const sysChanged = new MemoizedSignal<[EntrySys]>(sys)

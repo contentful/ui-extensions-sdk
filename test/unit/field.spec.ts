@@ -18,7 +18,7 @@ describe(`Field`, () => {
         return new Field(
           channelStub,
           { id: 'x', locales: ['de-DE'], values: {}, isDisabled: {}, schemaErrors: {} } as any,
-          'en-US'
+          'en-US',
         )
       }).to.throw('Unknown locale "en-US" for field "x"')
     })
@@ -133,7 +133,7 @@ describe(`Field`, () => {
         describe(`with locale set to "${locale}"`, () => {
           it(`returns the value for the given locale`, () => {
             expect(field.getValue(locale)).to.equal(
-              (info.values as { [key: string]: string })[locale]
+              (info.values as { [key: string]: string })[locale],
             )
           })
         })
@@ -149,7 +149,7 @@ describe(`Field`, () => {
 
       it(`throws an error if locale is unknown to the field`, () => {
         expect(field.setValue('value', unknownLocale)).to.eventually.throw(
-          'Unknown locale "some-unknown-locale" for field "some-field"'
+          'Unknown locale "some-unknown-locale" for field "some-field"',
         )
       })
     })
@@ -170,7 +170,7 @@ describe(`Field`, () => {
             'setValue',
             field.id,
             localeOrDefault,
-            newValue
+            newValue,
           )
         })
         it(`returns the promise returned by internal channel.call()`, () => {
@@ -189,7 +189,7 @@ describe(`Field`, () => {
 
       it(`throws an error if locale is unknown to the field`, () => {
         expect(field.removeValue(unknownLocale)).to.eventually.throw(
-          'Unknown locale "some-unknown-locale" for field "some-field"'
+          'Unknown locale "some-unknown-locale" for field "some-field"',
         )
       })
     })

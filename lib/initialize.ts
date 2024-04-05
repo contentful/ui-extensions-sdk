@@ -7,8 +7,8 @@ export function createInitializer(
   apiCreator: (
     channel: Channel,
     data: ConnectMessage,
-    currentGlobal: typeof globalThis
-  ) => KnownAppSDK
+    currentGlobal: typeof globalThis,
+  ) => KnownAppSDK,
 ) {
   if (
     typeof currentGlobal.window === 'undefined' ||
@@ -39,7 +39,7 @@ export function createInitializer(
       supressIframeWarning,
     }: { makeCustomApi?: Function; supressIframeWarning?: boolean } = {
       supressIframeWarning: false,
-    }
+    },
   ) {
     if (!supressIframeWarning) {
       warnIfOutsideOfContentful(currentGlobal)
@@ -72,7 +72,7 @@ export function createInitializer(
 
     initializedSdks.then(([sdk, customSdk]) =>
       // Hand over control to the developer.
-      initCb(sdk, customSdk)
+      initCb(sdk, customSdk),
     )
   }
 }
