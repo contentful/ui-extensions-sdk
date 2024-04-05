@@ -49,7 +49,7 @@ You should not rely on it in production.
 To start a new alpha version of the package follow these steps:
 
 1. Checkout the `canary` branch.
-2. Reset canary to the latest master: `git reset --hard origin/master`
+2. Reset canary to the latest main: `git reset --hard origin/main`
 3. Create a new branch with your changes from `canary`
 4. Create a PR that merges into `canary`.
 
