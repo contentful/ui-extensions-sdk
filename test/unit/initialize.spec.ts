@@ -59,7 +59,7 @@ describe('initializeApi(currentGlobal, apiCreator)', function () {
           expect(makeCustomApi).to.be.calledWithExactly(channel, params)
           done()
         },
-        { makeCustomApi }
+        { makeCustomApi },
       )
 
       sendConnect(this.dom)
@@ -128,7 +128,7 @@ describe('initializeApi(currentGlobal, apiCreator)', function () {
         method: 'connect',
         params: [params || { id: 'foo' }, messageQueue || []],
       },
-      '*'
+      '*',
     )
   }
 

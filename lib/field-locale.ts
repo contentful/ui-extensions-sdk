@@ -52,7 +52,7 @@ export default class FieldLocale implements ExhaustiveFieldAPI {
         if (id === this.id && locale === this.locale) {
           this._isDisabledSignal.dispatch(isDisabled)
         }
-      }
+      },
     )
 
     channel.addHandler(
@@ -61,7 +61,7 @@ export default class FieldLocale implements ExhaustiveFieldAPI {
         if (id === this.id && locale === this.locale) {
           this._schemaErrorsChangedSignal.dispatch(errors)
         }
-      }
+      },
     )
   }
 
@@ -75,7 +75,7 @@ export default class FieldLocale implements ExhaustiveFieldAPI {
       'setValue',
       this.id,
       this.locale,
-      value
+      value,
     )
   }
 

@@ -32,7 +32,7 @@ const DEFAULT_API_PRODUCERS = [
 type ProducerFunc = (
   channel: Channel,
   data: ConnectMessage,
-  currentGlobal: typeof globalThis
+  currentGlobal: typeof globalThis,
 ) => any
 const LOCATION_TO_API_PRODUCERS: { [location: string]: ProducerFunc[] } = {
   [locations.LOCATION_ENTRY_FIELD]: DEFAULT_API_PRODUCERS,
@@ -48,7 +48,7 @@ const LOCATION_TO_API_PRODUCERS: { [location: string]: ProducerFunc[] } = {
 export default function createAPI(
   channel: Channel,
   data: ConnectMessage,
-  currentGlobal: typeof globalThis
+  currentGlobal: typeof globalThis,
 ): KnownAppSDK {
   const producers = LOCATION_TO_API_PRODUCERS[data.location as string] || DEFAULT_API_PRODUCERS
 
@@ -59,7 +59,7 @@ export default function createAPI(
 
 function makeSharedAPI(
   channel: Channel,
-  data: ConnectMessage
+  data: ConnectMessage,
 ): BaseAppSDK<KeyValueMap, KeyValueMap, never> {
   const { user, parameters, locales, ids, initialContentTypes, hostnames } = data
   const currentLocation = data.location || locations.LOCATION_ENTRY_FIELD
@@ -114,7 +114,7 @@ function makeEditorAPI(channel: Channel, data: any) {
 
 function makeEntryAPI(
   channel: Channel,
-  { locales, contentType, entry, fieldInfo }: ConnectMessage
+  { locales, contentType, entry, fieldInfo }: ConnectMessage,
 ) {
   const createEntryField = (info: EntryFieldInfo) => new Field(channel, info, locales.default)
 

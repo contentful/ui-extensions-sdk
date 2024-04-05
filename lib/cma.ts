@@ -14,6 +14,6 @@ export function createCMAClient(ids: IdsAPI, channel: Channel): CMAClient {
         spaceId: ids.space,
         organizationId: ids.organization,
       },
-    }
+    },
   )
 }

@@ -107,7 +107,7 @@ describe('FieldLocale', () => {
       'onIsDisabledChanged',
       'isDisabledChangedForFieldLocale',
       [info.id, info.locale, true],
-      [true]
+      [true],
     )
   })
 
@@ -116,7 +116,7 @@ describe('FieldLocale', () => {
       'onSchemaErrorsChanged',
       'schemaErrorsChangedForFieldLocale',
       [info.id, info.locale, [{ message: 'oh no' }]],
-      [[{ message: 'oh no' }]]
+      [[{ message: 'oh no' }]],
     )
   })
 
@@ -181,7 +181,7 @@ describe('FieldLocale', () => {
           method,
           field.id,
           info.locale,
-          newValue
+          newValue,
         )
       }
     })
@@ -196,7 +196,7 @@ describe('FieldLocale', () => {
     method: string,
     message: any,
     messageArgs: any[] = ['VALUE'],
-    methodArgs = messageArgs
+    methodArgs = messageArgs,
   ) {
     it('calls handler when method is received', () => {
       const cb = sinon.spy()

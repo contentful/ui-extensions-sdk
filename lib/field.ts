@@ -74,7 +74,7 @@ export default class Field implements ExhaustiveEntryFieldAPI {
 
   onIsDisabledChanged(
     locale: string | ((isDisabled: boolean) => void),
-    handler?: (isDisabled: boolean) => void
+    handler?: (isDisabled: boolean) => void,
   ) {
     const h = handler || locale
     if (!handler) {

@@ -26,7 +26,7 @@ describe('channel connect', function () {
         method: 'connect',
         params: [{ id: 'ID' }],
       },
-      '*'
+      '*',
     )
   })
 
@@ -42,7 +42,7 @@ describe('channel connect', function () {
           method: 'connect',
           params: [{ id: 'SOURCE' }],
         },
-        '*'
+        '*',
       )
     })
 
@@ -94,7 +94,7 @@ describe('channel connect', function () {
             id: messageId,
             result: 'JO',
           },
-          '*'
+          '*',
         )
 
         return expect(response).to.eventually.equal('JO')
@@ -109,7 +109,7 @@ describe('channel connect', function () {
             id: messageId,
             error: 'ERROR',
           },
-          '*'
+          '*',
         )
 
         return expect(response).to.be.rejected
@@ -127,7 +127,7 @@ describe('channel connect', function () {
             method: 'method',
             params: ['a', 'b', 'c'],
           },
-          '*'
+          '*',
         )
       })
     })

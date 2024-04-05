@@ -3,7 +3,7 @@ import { WindowAPI } from './types/window.types'
 
 export default function createWindow(
   currentGlobal: typeof globalThis,
-  channel: Channel
+  channel: Channel,
 ): WindowAPI {
   const { document, MutationObserver, ResizeObserver } = currentGlobal
 

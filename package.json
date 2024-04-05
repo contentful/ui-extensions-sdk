@@ -103,7 +103,7 @@
   },
   "release": {
     "branches": [
-      "master",
+      "main",
       {
         "name": "canary",
         "channel": "canary",

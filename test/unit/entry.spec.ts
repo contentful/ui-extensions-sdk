@@ -78,7 +78,7 @@ describe('createEntry()', () => {
             creator: (channel) => createEntry(channel, {}, [], () => ({})),
             methodName,
             channelMethod: 'callEntryMethod',
-            args: args,
+            args,
             expectedCallArgs: [methodName, args],
           })
         })

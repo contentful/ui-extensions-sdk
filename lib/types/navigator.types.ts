@@ -40,17 +40,17 @@ export interface NavigatorAPI {
   /** Opens an existing entry in the current Web App session. */
   openEntry: <Fields extends KeyValueMap = KeyValueMap>(
     entryId: string,
-    options?: NavigatorAPIOptions
+    options?: NavigatorAPIOptions,
   ) => Promise<NavigatorOpenResponse<Entry<Fields>>>
   /** Opens an existing asset in the current Web App session. */
   openAsset: (
     assetId: string,
-    options?: NavigatorAPIOptions
+    options?: NavigatorAPIOptions,
   ) => Promise<NavigatorOpenResponse<Asset>>
   /** Opens a new entry in the current Web App session. */
   openNewEntry: <Fields extends KeyValueMap = KeyValueMap>(
     contentTypeId: string,
-    options?: NavigatorAPIOptions
+    options?: NavigatorAPIOptions,
   ) => Promise<NavigatorOpenResponse<Entry<Fields>>>
   /** Opens a new asset in the current Web App session. */
   openNewAsset: (options?: NavigatorAPIOptions) => Promise<NavigatorOpenResponse<Asset>>
@@ -68,7 +68,7 @@ export interface NavigatorAPI {
       locale: string
       /** Focused index */
       index: number
-    }
+    },
   ) => Promise<{
     navigated: boolean
     slide?: NavigatorSlideInfo
