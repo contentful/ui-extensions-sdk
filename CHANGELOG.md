@@ -1,3 +1,9 @@
+## [4.26.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.26.0...v4.26.1) (2024-06-28)
+
+### Bug Fixes
+
+- non-compatible test deps [NONE] ([#1947](https://github.com/contentful/ui-extensions-sdk/issues/1947)) ([81546a1](https://github.com/contentful/ui-extensions-sdk/commit/81546a13671dff9a62ecfeb2a740ce7a27e68ea9))
+
 # [4.26.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.25.0...v4.26.0) (2024-03-07)
 
 ### Features
@@ -314,7 +320,7 @@ const cma = createClient(
       environmentId: sdk.ids.environment,
       spaceId: sdk.ids.space,
     },
-  }
+  },
 )
 ```
 
