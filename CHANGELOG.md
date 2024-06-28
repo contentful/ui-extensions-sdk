@@ -1,3 +1,9 @@
+## [4.26.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.26.1...v4.26.2) (2024-06-28)
+
+### Bug Fixes
+
+- whitespace [] ([#1949](https://github.com/contentful/ui-extensions-sdk/issues/1949)) ([e682d5b](https://github.com/contentful/ui-extensions-sdk/commit/e682d5b045e226a8ff7166ad9594ecbbd5c6c0b0))
+
 ## [4.26.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.26.0...v4.26.1) (2024-06-28)
 
 ### Bug Fixes
