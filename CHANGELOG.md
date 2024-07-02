@@ -1,3 +1,9 @@
+## [4.26.3](https://github.com/contentful/ui-extensions-sdk/compare/v4.26.2...v4.26.3) (2024-07-02)
+
+### Bug Fixes
+
+- [] add NPM token to .npmrc in CI ([#1952](https://github.com/contentful/ui-extensions-sdk/issues/1952)) ([a16d1c7](https://github.com/contentful/ui-extensions-sdk/commit/a16d1c783a60571257113b6c184e487324c79315))
+
 ## [4.26.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.26.1...v4.26.2) (2024-06-28)
 
 ### Bug Fixes
