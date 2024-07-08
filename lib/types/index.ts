@@ -118,6 +118,8 @@ export type {
   UniqueValidationError,
   UnknownValidationError,
   ValidationError,
+  AllowedResourceValidationError,
+  AllowedResourcesValidationError,
 } from './validation-error'
 
 export type { WindowAPI } from './window.types'
