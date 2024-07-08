@@ -76,6 +76,15 @@ export interface TypeValidationError extends BaseValidationError {
   type: string
 }
 
+export interface AllowedResourceValidationError extends BaseValidationError {
+  name: 'allowedResource'
+  code: string
+}
+export interface AllowedResourcesValidationError extends BaseValidationError {
+  name: 'allowedResources'
+  contentTypeId?: string[]
+}
+
 export type ValidationError =
   | SizeValidationError
   | RangeValidationError
@@ -90,4 +99,6 @@ export type ValidationError =
   | NotResolvableValidationError
   | UnknownValidationError
   | TypeValidationError
+  | AllowedResourceValidationError
+  | AllowedResourcesValidationError
   | BaseValidationError
