@@ -1,3 +1,9 @@
+# [4.27.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.26.3...v4.27.0) (2024-07-08)
+
+### Features
+
+- add allowed resources error types ([#1957](https://github.com/contentful/ui-extensions-sdk/issues/1957)) ([d946440](https://github.com/contentful/ui-extensions-sdk/commit/d94644086667cb8f5dce72404191b4f9b7301d45))
+
 ## [4.26.3](https://github.com/contentful/ui-extensions-sdk/compare/v4.26.2...v4.26.3) (2024-07-02)
 
 ### Bug Fixes
