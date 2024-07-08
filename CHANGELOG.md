@@ -1,3 +1,9 @@
+# [4.28.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.27.0...v4.28.0) (2024-07-08)
+
+### Features
+
+- export allowed resources error types ([#1962](https://github.com/contentful/ui-extensions-sdk/issues/1962)) ([d9feb5b](https://github.com/contentful/ui-extensions-sdk/commit/d9feb5bf390e328fbf972589830fe68f8a5f6ba7))
+
 # [4.27.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.26.3...v4.27.0) (2024-07-08)
 
 ### Features
