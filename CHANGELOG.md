@@ -1,3 +1,13 @@
+# [4.29.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.28.0...v4.29.0) (2024-07-22)
+
+### Bug Fixes
+
+- husky pre-commit [] ([#1981](https://github.com/contentful/ui-extensions-sdk/issues/1981)) ([4d81c5a](https://github.com/contentful/ui-extensions-sdk/commit/4d81c5a77b940f6c7cf7d28a4f34650a8b587c2f))
+
+### Features
+
+- add type for cursor-based collection responses ([#1975](https://github.com/contentful/ui-extensions-sdk/issues/1975)) ([e912b7d](https://github.com/contentful/ui-extensions-sdk/commit/e912b7d93055a6f2527330beab040c98de23602e))
+
 # [4.28.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.27.0...v4.28.0) (2024-07-08)
 
 ### Features
