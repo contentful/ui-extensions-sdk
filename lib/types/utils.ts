@@ -33,6 +33,16 @@ export interface CollectionResponse<T> {
   sys: { type: string }
 }
 
+export interface CursorBasedCollectionResponse<T> {
+  items: T[]
+  limit: number
+  pages: {
+    next?: string
+    prev?: string
+  }
+  sys: { type: string }
+}
+
 export type ContentEntityType = 'Entry' | 'Asset'
 
 export type ContentEntitySys = {
