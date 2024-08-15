@@ -1,3 +1,9 @@
+## [4.29.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.29.0...v4.29.1) (2024-08-15)
+
+### Bug Fixes
+
+- upgrade contentful-management to include axios vuln fix ([#2002](https://github.com/contentful/ui-extensions-sdk/issues/2002)) ([a9d2831](https://github.com/contentful/ui-extensions-sdk/commit/a9d283192a77ce55929588d301b247dbebcff38a))
+
 # [4.29.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.28.0...v4.29.0) (2024-07-22)
 
 ### Bug Fixes
