@@ -1,3 +1,9 @@
+## [4.29.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.29.1...v4.29.2) (2024-10-30)
+
+### Bug Fixes
+
+- release dependabot updates [] ([#2058](https://github.com/contentful/ui-extensions-sdk/issues/2058)) ([8ef81a9](https://github.com/contentful/ui-extensions-sdk/commit/8ef81a9bce8299dea8836e621cd8a7e31e2e9c72))
+
 ## [4.29.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.29.0...v4.29.1) (2024-08-15)
 
 ### Bug Fixes
