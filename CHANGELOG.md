@@ -1,3 +1,9 @@
+## [4.29.3](https://github.com/contentful/ui-extensions-sdk/compare/v4.29.2...v4.29.3) (2024-11-05)
+
+### Bug Fixes
+
+- remove .npmrc at root to fix publish registry [EXT-5905] ([#2064](https://github.com/contentful/ui-extensions-sdk/issues/2064)) ([b3174ec](https://github.com/contentful/ui-extensions-sdk/commit/b3174ecff2efaef32ab04236e4d629408a11a182))
+
 ## [4.29.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.29.1...v4.29.2) (2024-10-30)
 
 ### Bug Fixes
