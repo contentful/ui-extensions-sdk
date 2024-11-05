@@ -33,7 +33,7 @@
     "publish-all": "node ./scripts/publish.js",
     "verify": "node ./scripts/verify.js",
     "check-types": "tsc --noEmit -m commonjs",
-    "prepare": "husky install",
+    "prepare": "husky",
     "lint-staged": "lint-staged"
   },
   "dependencies": {
@@ -93,12 +93,10 @@
   "lint-staged": {
     "*.ts": [
       "prettier --write",
-      "eslint --fix",
-      "git add"
+      "eslint --fix"
     ],
     "*.md": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   },
   "release": {
