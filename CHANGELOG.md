@@ -1,3 +1,9 @@
+## [4.29.6](https://github.com/contentful/ui-extensions-sdk/compare/v4.29.5...v4.29.6) (2025-04-09)
+
+### Bug Fixes
+
+- force new release with updated contentful-management [] ([#2209](https://github.com/contentful/ui-extensions-sdk/issues/2209)) ([2945e6a](https://github.com/contentful/ui-extensions-sdk/commit/2945e6a4a6fa4e3f6d17311af1d7ce88f7c42a51))
+
 ## [4.29.5](https://github.com/contentful/ui-extensions-sdk/compare/v4.29.4...v4.29.5) (2025-01-27)
 
 ### Bug Fixes
