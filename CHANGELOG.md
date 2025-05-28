@@ -2,7 +2,7 @@
 
 ### Bug Fixes
 
-- rename team-tundra -> team-extensibility [EXT-6372] ([#2249](https://github.com/contentful/ui-extensions-sdk/issues/2249)) ([8e2805a](https://github.com/contentful/ui-extensions-sdk/commit/8e2805aa2ca08c7456581e1a549b38211781e618))
+- internal fixes [EXT-6372] ([#2249](https://github.com/contentful/ui-extensions-sdk/issues/2249)) ([8e2805a](https://github.com/contentful/ui-extensions-sdk/commit/8e2805aa2ca08c7456581e1a549b38211781e618))
 
 ## [4.29.6](https://github.com/contentful/ui-extensions-sdk/compare/v4.29.5...v4.29.6) (2025-04-09)
 
