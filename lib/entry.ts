@@ -1,6 +1,6 @@
 import { Channel } from './channel'
 import { MemoizedSignal } from './signal'
-import { EntryAPI, EntryFieldInfo, EntrySys, Metadata, TaskAPI } from './types'
+import { EntryAPI, EntryFieldInfo, EntrySys, Metadata, Release, TaskAPI } from './types'
 import { ExhaustiveEntryFieldAPI } from './types/field.types'
 
 const taskMethods: Array<keyof TaskAPI> = [
@@ -16,6 +16,7 @@ export default function createEntry(
   entryData: any,
   fieldInfo: EntryFieldInfo[],
   createEntryField: (info: EntryFieldInfo) => ExhaustiveEntryFieldAPI,
+  release?: Release,
 ): EntryAPI {
   let sys = entryData.sys
   const sysChanged = new MemoizedSignal<[EntrySys]>(sys)
@@ -45,9 +46,15 @@ export default function createEntry(
       return sys
     },
     publish(options?: { skipUiValidation?: boolean }) {
+      if (release) {
+        throw new Error('SDK method "publish" is not supported in release context')
+      }
       return channel.call<void>('callEntryMethod', 'publish', [options])
     },
     unpublish() {
+      if (release) {
+        throw new Error('SDK method "unpublish" is not supported in release context')
+      }
       return channel.call<void>('callEntryMethod', 'unpublish')
     },
     save() {
