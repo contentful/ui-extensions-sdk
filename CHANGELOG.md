@@ -1,3 +1,13 @@
+# [4.30.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.29.7...v4.30.0) (2025-07-15)
+
+### Bug Fixes
+
+- npm-ci-syncing-issue [] ([#2283](https://github.com/contentful/ui-extensions-sdk/issues/2283)) ([ae777e5](https://github.com/contentful/ui-extensions-sdk/commit/ae777e503503e1cd1cd8abf7a37a00dbc74d5103))
+
+### Features
+
+- **api:** !!DO NOT MERGE !! add release property to ConnectMessage and API responses [EXT-6546] ([#2281](https://github.com/contentful/ui-extensions-sdk/issues/2281)) ([9758d6d](https://github.com/contentful/ui-extensions-sdk/commit/9758d6dbbac9065d1dccb62cdc419180371f9ae7))
+
 ## [4.29.7](https://github.com/contentful/ui-extensions-sdk/compare/v4.29.6...v4.29.7) (2025-05-28)
 
 ### Bug Fixes
