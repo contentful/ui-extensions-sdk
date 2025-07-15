@@ -3,6 +3,8 @@ import { makeDOM, mockMutationObserver, expect, mockResizeObserver } from '../he
 import createAPI from '../../lib/api'
 import locations from '../../lib/locations'
 import { ConfigAppSDK, ConnectMessage } from '../../lib/types'
+import { mockRelease, mockReleaseWithoutEntities } from '../mocks/releases'
+import { baseConnectMessage } from '../mocks/connectMessage'
 
 const sharedExpected = [
   'location',
@@ -18,6 +20,7 @@ const sharedExpected = [
   'cmaAdapter',
   'hostnames',
   'cma',
+  'release',
 ]
 
 function test(expected: string[], location: string | undefined, expectedLocation = location) {
@@ -82,7 +85,7 @@ function test(expected: string[], location: string | undefined, expectedLocation
 
 describe('createAPI()', () => {
   it('returns correct shape of the default API (entry-field and entry-field-sidebar)', () => {
-    const expected = ['contentType', 'entry', 'field', 'editor', 'window', 'release']
+    const expected = ['contentType', 'entry', 'field', 'editor', 'window']
 
     // No location, `entry-field` is the default.
     test(expected, undefined, locations.LOCATION_ENTRY_FIELD)
@@ -95,13 +98,13 @@ describe('createAPI()', () => {
   })
 
   it('returns correct shape of the sidebar API (entry-sidebar)', () => {
-    const expected = ['contentType', 'entry', 'editor', 'window', 'release']
+    const expected = ['contentType', 'entry', 'editor', 'window']
 
     test(expected, locations.LOCATION_ENTRY_SIDEBAR)
   })
 
   it('returns correct shape of the entry editor API (entry-editor)', () => {
-    const expected = ['contentType', 'entry', 'editor', 'release']
+    const expected = ['contentType', 'entry', 'editor']
 
     test(expected, locations.LOCATION_ENTRY_EDITOR)
   })
@@ -137,5 +140,146 @@ describe('createAPI()', () => {
       'onConfigure',
       'onConfigurationCompleted',
     ])
+  })
+})
+
+describe('Release functionality in SDK', () => {
+  const channel = { addHandler: () => {} } as any
+
+  it('should include release property when provided in ConnectMessage', () => {
+    const connectMessageWithRelease = {
+      ...baseConnectMessage,
+      release: mockRelease,
+    }
+
+    const dom = makeDOM()
+    mockMutationObserver(dom, () => {})
+    mockResizeObserver(dom, () => {})
+    const api = createAPI(channel, connectMessageWithRelease, dom.window as any)
+
+    expect(api.release).to.not.equal(undefined)
+    expect((api.release as any)!.title).to.equal('Test Release')
+    expect(api.release!.sys.id).to.equal('test-release-id')
+    expect((api.release as any)!.description).to.equal('A test release for validation')
+    expect((api.release as any)!.entities.items).to.have.length(2)
+  })
+
+  it('should have undefined release property when not provided in ConnectMessage', () => {
+    const connectMessageWithoutRelease = {
+      ...baseConnectMessage,
+      // no release property
+    }
+
+    const dom = makeDOM()
+    mockMutationObserver(dom, () => {})
+    mockResizeObserver(dom, () => {})
+    const api = createAPI(channel, connectMessageWithoutRelease, dom.window as any)
+
+    expect(api.release).to.equal(undefined)
+  })
+
+  it('should preserve all release metadata when provided', () => {
+    const connectMessageWithRelease = {
+      ...baseConnectMessage,
+      release: mockRelease,
+    }
+
+    const dom = makeDOM()
+    mockMutationObserver(dom, () => {})
+    mockResizeObserver(dom, () => {})
+    const api = createAPI(channel, connectMessageWithRelease, dom.window as any)
+
+    // Verify sys metadata
+    expect(api.release!.sys.type).to.equal('Release')
+    expect(api.release!.sys.version).to.equal(1)
+    expect(api.release!.sys.space.sys.id).to.equal('test-space')
+    expect(api.release!.sys.environment.sys.id).to.equal('master')
+    expect(api.release!.sys.createdAt).to.be.a('string')
+
+    // Verify entities structure
+    expect((api.release as any)!.entities.sys.type).to.equal('Array')
+    expect((api.release as any)!.entities.items[0].sys.linkType).to.equal('Entry')
+    expect((api.release as any)!.entities.items[0].sys.id).to.equal('entry-1')
+    expect((api.release as any)!.entities.items[1].sys.linkType).to.equal('Asset')
+    expect((api.release as any)!.entities.items[1].sys.id).to.equal('asset-1')
+  })
+
+  it('should work with empty release (no entities)', () => {
+    const connectMessageWithEmptyRelease = {
+      ...baseConnectMessage,
+      release: mockReleaseWithoutEntities,
+    }
+
+    const dom = makeDOM()
+    mockMutationObserver(dom, () => {})
+    mockResizeObserver(dom, () => {})
+    const api = createAPI(channel, connectMessageWithEmptyRelease, dom.window as any)
+
+    expect(api.release).to.not.equal(undefined)
+    expect((api.release as any)!.title).to.equal('Empty Release')
+    expect(api.release!.sys.id).to.equal('empty-release-id')
+    expect((api.release as any)!.entities.items).to.have.length(0)
+  })
+
+  it('should work across ALL SDK locations when release is provided', () => {
+    const allLocations = [
+      'entry-field',
+      'entry-field-sidebar',
+      'entry-sidebar',
+      'entry-editor',
+      'dialog',
+      'page',
+      'home',
+      'app-config',
+    ]
+
+    allLocations.forEach((location) => {
+      const connectMessage = {
+        ...baseConnectMessage,
+        location,
+        release: mockRelease,
+      }
+
+      const dom = makeDOM()
+      mockMutationObserver(dom, () => {})
+      mockResizeObserver(dom, () => {})
+      const api = createAPI(channel, connectMessage, dom.window as any)
+
+      expect(api.release, `Release should be available in ${location} location`).to.not.equal(
+        undefined,
+      )
+      expect((api.release as any)!.title).to.equal('Test Release')
+    })
+  })
+
+  it('should have undefined release in all locations when not provided', () => {
+    const allLocations = [
+      'entry-field',
+      'entry-field-sidebar',
+      'entry-sidebar',
+      'entry-editor',
+      'dialog',
+      'page',
+      'home',
+      'app-config',
+    ]
+
+    allLocations.forEach((location) => {
+      const connectMessage = {
+        ...baseConnectMessage,
+        location,
+        // no release property
+      }
+
+      const dom = makeDOM()
+      mockMutationObserver(dom, () => {})
+      mockResizeObserver(dom, () => {})
+      const api = createAPI(channel, connectMessage, dom.window as any)
+
+      expect(
+        api.release,
+        `Release should be undefined in ${location} location when not provided`,
+      ).to.equal(undefined)
+    })
   })
 })

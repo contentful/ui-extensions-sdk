@@ -61,7 +61,7 @@ function makeSharedAPI(
   channel: Channel,
   data: ConnectMessage,
 ): BaseAppSDK<KeyValueMap, KeyValueMap, never> {
-  const { user, parameters, locales, ids, initialContentTypes, hostnames } = data
+  const { user, parameters, locales, ids, initialContentTypes, hostnames, release } = data
   const currentLocation = data.location || locations.LOCATION_ENTRY_FIELD
 
   return {
@@ -91,6 +91,7 @@ function makeSharedAPI(
     },
     ids,
     hostnames,
+    release,
     access: {
       can: (action: string, entity: any, patch?: JSONPatchItem[]) =>
         channel.call('checkAccess', action, entity, patch) as Promise<boolean>,
@@ -114,14 +115,13 @@ function makeEditorAPI(channel: Channel, data: any) {
 
 function makeEntryAPI(
   channel: Channel,
-  { locales, contentType, entry, fieldInfo, release }: ConnectMessage,
+  { locales, contentType, entry, fieldInfo }: ConnectMessage,
 ) {
   const createEntryField = (info: EntryFieldInfo) => new Field(channel, info, locales.default)
 
   return {
     contentType,
     entry: createEntry(channel, entry, fieldInfo, createEntryField),
-    release,
   }
 }
 
