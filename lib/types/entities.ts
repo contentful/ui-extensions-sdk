@@ -8,6 +8,7 @@ export type {
   KeyValueMap,
   MetadataProps as Metadata,
   QueryOptions,
+  ReleaseProps as Release,
   RoleProps as Role,
   ScheduledActionProps as ScheduledAction,
   SpaceMembershipProps as SpaceMembership,
@@ -26,3 +27,32 @@ export interface CanonicalRequest {
   headers?: Record<string, string>
   body?: string
 }
+
+// // Release entity type definition
+// export interface Release {
+//   sys: {
+//     type: 'Release'
+//     id: string
+//     version: number
+//     space: { sys: { type: 'Link'; linkType: 'Space'; id: string } }
+//     environment: { sys: { type: 'Link'; linkType: 'Environment'; id: string } }
+//     createdAt: string
+//     updatedAt: string
+//     createdBy: { sys: { type: 'Link'; linkType: 'User'; id: string } }
+//     updatedBy: { sys: { type: 'Link'; linkType: 'User'; id: string } }
+//   }
+//   name: string
+//   description?: string
+//   entities: {
+//     sys: {
+//       type: 'Array'
+//     }
+//     items: Array<{
+//       sys: {
+//         type: 'Link'
+//         linkType: 'Entry' | 'Asset'
+//         id: string
+//       }
+//     }>
+//   }
+// }

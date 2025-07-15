@@ -59,6 +59,7 @@ export type {
   EditorInterface,
   Entry,
   Metadata,
+  Release,
   Role,
   ScheduledAction,
   SpaceMembership,
