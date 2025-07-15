@@ -168,7 +168,7 @@ describe('Release functionality in entry contexts', () => {
     mockResizeObserver(dom, () => {})
     const api = createAPI(channel, connectMessageWithoutRelease, dom.window as any)
 
-    expect(api.release).to.not.equal(undefined)
+    expect(api.release).to.equal(undefined)
   })
 
   it('should preserve all release metadata when provided', () => {
