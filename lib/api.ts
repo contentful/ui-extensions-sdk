@@ -114,14 +114,13 @@ function makeEditorAPI(channel: Channel, data: any) {
 
 function makeEntryAPI(
   channel: Channel,
-  { locales, contentType, entry, fieldInfo, release }: ConnectMessage,
+  { locales, contentType, entry, fieldInfo }: ConnectMessage,
 ) {
   const createEntryField = (info: EntryFieldInfo) => new Field(channel, info, locales.default)
 
   return {
     contentType,
     entry: createEntry(channel, entry, fieldInfo, createEntryField),
-    release,
   }
 }
 

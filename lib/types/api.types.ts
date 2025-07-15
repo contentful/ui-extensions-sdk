@@ -8,7 +8,6 @@ import {
   Entry,
   Task,
   Asset,
-  Release,
   WorkflowDefinition,
 } from './entities'
 import { EntryAPI } from './entry.types'
@@ -266,8 +265,6 @@ export interface BaseAppSDK<
   cmaAdapter: Adapter
   /** A CMA Client initialized with default params */
   cma: CMAClient
-  /** Current release context, undefined if not editing within a release */
-  release?: Release
 }
 
 export type EditorAppSDK<
@@ -411,5 +408,4 @@ export interface ConnectMessage {
   fieldInfo: EntryFieldInfo[]
   field?: FieldInfo
   hostnames: HostnamesAPI
-  release?: Release
 }

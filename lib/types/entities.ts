@@ -8,7 +8,6 @@ export type {
   KeyValueMap,
   MetadataProps as Metadata,
   QueryOptions,
-  ReleaseProps as Release,
   RoleProps as Role,
   ScheduledActionProps as ScheduledAction,
   SpaceMembershipProps as SpaceMembership,
