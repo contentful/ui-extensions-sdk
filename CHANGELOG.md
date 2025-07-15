@@ -1,3 +1,9 @@
+# [4.31.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.30.0...v4.31.0) (2025-07-15)
+
+### Features
+
+- passed the release obj to the shared api instead of just the entry api so dialogs and navigator could have access to this value ([fd8ea6f](https://github.com/contentful/ui-extensions-sdk/commit/fd8ea6f380bb4fc6a77d37d3de0a4769930a0251))
+
 # [4.30.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.29.7...v4.30.0) (2025-07-15)
 
 ### Bug Fixes
