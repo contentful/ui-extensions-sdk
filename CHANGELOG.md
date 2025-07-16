@@ -1,3 +1,9 @@
+# [4.32.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.31.0...v4.32.0) (2025-07-16)
+
+### Features
+
+- **api:** add release parameter to entry API and update createEntry [EXT-6548] ([#2284](https://github.com/contentful/ui-extensions-sdk/issues/2284)) ([73dabf5](https://github.com/contentful/ui-extensions-sdk/commit/73dabf5b76d8a84592e52063a8392ddbffca4803))
+
 # [4.31.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.30.0...v4.31.0) (2025-07-15)
 
 ### Features
