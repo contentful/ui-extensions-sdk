@@ -6,7 +6,7 @@ import {
 } from '../helpers'
 
 import createEntry from '../../lib/entry'
-import { EntryAPI, EntryFieldInfo } from '../../lib/types'
+import { EntryAPI, EntryFieldInfo, Release } from '../../lib/types'
 
 describe('createEntry()', () => {
   describe('returned "entry" object', () => {
@@ -125,6 +125,53 @@ describe('createEntry()', () => {
         entry = createEntry(channelStub, { ...entryData, metadata }, fieldInfo, createEntryFieldSpy)
 
         expect(entry.metadata).to.equal(metadata)
+      })
+    })
+
+    describe('in release context', () => {
+      const release = { sys: { id: 'release-id', type: 'Release' } } as Release
+      let releaseEntry: EntryAPI
+      let releaseChannelStub: any
+      let releaseCreateEntryFieldSpy: any
+
+      beforeEach(() => {
+        releaseCreateEntryFieldSpy = sinon.spy()
+        releaseChannelStub = {
+          addHandler: sinon.spy(),
+          call: sinon.spy(),
+        }
+
+        releaseEntry = createEntry(
+          releaseChannelStub,
+          entryData,
+          fieldInfo,
+          releaseCreateEntryFieldSpy,
+          release,
+        )
+      })
+
+      it('still returns the sys object', () => {
+        expect(releaseEntry.getSys()).to.equal(entryData.sys)
+      })
+
+      it('throws an error when calling publish', () => {
+        expect(() => releaseEntry.publish()).to.throw(
+          'SDK method "publish" is not supported in release context',
+        )
+        expect(releaseChannelStub.call).to.not.have.been.called // eslint-disable-line no-unused-expressions
+      })
+
+      it('throws an error when calling unpublish', () => {
+        expect(() => releaseEntry.unpublish()).to.throw(
+          'SDK method "unpublish" is not supported in release context',
+        )
+        expect(releaseChannelStub.call).to.not.have.been.called // eslint-disable-line no-unused-expressions
+      })
+
+      it('allows save method to work normally', () => {
+        releaseEntry.save()
+        expect(releaseChannelStub.call).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
+        expect(releaseChannelStub.call).to.have.been.calledWith('callEntryMethod', 'save')
       })
     })
   })
