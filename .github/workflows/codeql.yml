@@ -1,5 +1,5 @@
 ---
-name: "CodeQL Scan for GitHub Actions Workflow"
+name: "CodeQL Scan for GitHub Actions Workflows"
 
 on:
   push:
@@ -11,7 +11,7 @@ on:
 
 jobs:
   analyze:
-    name: Analyze GitHub Actions workflow
+    name: Analyze GitHub Actions workflows
     runs-on: ubuntu-latest
     permissions:
       actions: read
