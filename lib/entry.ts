@@ -16,7 +16,7 @@ export default function createEntry(
   entryData: any,
   fieldInfo: EntryFieldInfo[],
   createEntryField: (info: EntryFieldInfo) => ExhaustiveEntryFieldAPI,
-  release?: Release,
+  release?: Release, // It's not possible to determine if an entry is a release entry by inspecting its data alone, so we need to pass the release context here
 ): EntryAPI {
   let sys = entryData.sys
   const sysChanged = new MemoizedSignal<[EntrySys]>(sys)
