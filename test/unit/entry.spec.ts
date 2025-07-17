@@ -6,11 +6,12 @@ import {
 } from '../helpers'
 
 import createEntry from '../../lib/entry'
-import { EntryAPI, EntryFieldInfo, Release } from '../../lib/types'
+import { EntryAPI, EntryFieldInfo, EntrySys } from '../../lib/types'
+import { ReleaseEntrySys } from '../../lib/types/entry.types'
 
 describe('createEntry()', () => {
   describe('returned "entry" object', () => {
-    const entryData = { sys: {} }
+    const entryData = { sys: {} as EntrySys }
     const fieldInfo = [
       {
         id: 'field1',
@@ -129,7 +130,7 @@ describe('createEntry()', () => {
     })
 
     describe('in release context', () => {
-      const release = { sys: { id: 'release-id', type: 'Release' } } as Release
+      const releaseEntryData = { sys: { release: { sys: { id: 'releaseid' } } } as ReleaseEntrySys }
       let releaseEntry: EntryAPI
       let releaseChannelStub: any
       let releaseCreateEntryFieldSpy: any
@@ -143,15 +144,14 @@ describe('createEntry()', () => {
 
         releaseEntry = createEntry(
           releaseChannelStub,
-          entryData,
+          releaseEntryData,
           fieldInfo,
           releaseCreateEntryFieldSpy,
-          release,
         )
       })
 
       it('still returns the sys object', () => {
-        expect(releaseEntry.getSys()).to.equal(entryData.sys)
+        expect(releaseEntry.getSys()).to.equal(releaseEntryData.sys)
       })
 
       it('throws an error when calling publish', () => {
