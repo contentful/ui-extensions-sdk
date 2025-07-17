@@ -25,9 +25,13 @@ export interface TaskAPI {
   deleteTask(task: Task): Promise<void>
 }
 
+export type ReleaseEntrySys = EntrySys & { release: { sys: { id: string } } }
+
 export interface EntryAPI extends TaskAPI {
   /** Returns sys for an entry. */
-  getSys: () => EntrySys
+  // eventually, EntrySys might already provide an optional `release` property, at which point
+  // we can remove ReleaseEntrySys
+  getSys: () => EntrySys | ReleaseEntrySys
   /** Publish the entry */
   publish: (options?: { skipUiValidation?: boolean }) => Promise<void>
   /** Unpublish the entry */
