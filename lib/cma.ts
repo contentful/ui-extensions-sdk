@@ -13,6 +13,8 @@ export function createCMAClient(ids: IdsAPI, channel: Channel): CMAClient {
         environmentId: ids.environmentAlias ?? ids.environment,
         spaceId: ids.space,
         organizationId: ids.organization,
+        // TODO: Shipped in the CMA
+        // releaseId: ids.release,
       },
     },
   )
