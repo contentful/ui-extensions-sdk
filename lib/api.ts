@@ -64,7 +64,7 @@ function makeSharedAPI(
   const { user, parameters, locales, ids, initialContentTypes, hostnames, release } = data
   const currentLocation = data.location || locations.LOCATION_ENTRY_FIELD
 
-  const idsWithRelease = release ? { ...ids, release: release.sys.id } : ids
+  const effectiveIds = release ? { ...ids, release: release.sys.id } : ids
 
   return {
     cma: createCMAClient(ids, channel),
@@ -91,7 +91,7 @@ function makeSharedAPI(
       error: (message: string) => channel.send('notify', { type: 'error', message }),
       warning: (message: string) => channel.send('notify', { type: 'warning', message }),
     },
-    ids: idsWithRelease,
+    ids: effectiveIds,
     hostnames,
     release,
     access: {
