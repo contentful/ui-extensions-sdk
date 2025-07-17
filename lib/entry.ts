@@ -25,7 +25,7 @@ export default function createEntry(
   let metadata = entryData.metadata
   const metadataChanged = new MemoizedSignal<[Metadata | undefined]>(metadata)
 
-  channel.addHandler('sysChanged', (newSys: EntrySys) => {
+  channel.addHandler('sysChanged', (newSys: EntrySys | ReleaseEntrySys) => {
     sys = newSys
     isReleaseEntry = isReleaseEntrySys(sys)
     sysChanged.dispatch(sys)
@@ -82,5 +82,5 @@ export default function createEntry(
 }
 
 function isReleaseEntrySys(entrySys: EntrySys): entrySys is ReleaseEntrySys {
-  return !!(entrySys as any)?.release?.sys?.id
+  return !!(entrySys as ReleaseEntrySys)?.release?.sys?.id
 }
