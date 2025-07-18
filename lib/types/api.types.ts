@@ -103,6 +103,7 @@ export interface IdsAPI {
   field: string
   entry: string
   contentType: string
+  release: string
 }
 
 /** Hostnames */
