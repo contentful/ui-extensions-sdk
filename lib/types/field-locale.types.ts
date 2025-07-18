@@ -58,29 +58,23 @@ interface FieldAPIBase {
   onSchemaErrorsChanged: (callback: (errors: ValidationError[]) => void) => () => void
 }
 
-interface BasicFieldAPI extends FieldAPIBase {
+export interface BasicFieldAPI extends FieldAPIBase {
   /** Holds the type of the field. */
   type: Exclude<FieldType, 'Array' | 'Link'>
 }
 
-interface ArrayFieldAPI extends FieldAPIBase {
+export interface ArrayFieldAPI extends FieldAPIBase {
   /** Holds the type of the field. */
   type: 'Array'
   /** Defines the shape of array items */
   items: Items
 }
 
-interface LinkFieldAPI extends FieldAPIBase {
+export interface LinkFieldAPI extends FieldAPIBase {
   /** Holds the type of the field. */
   type: 'Link'
   /** Type of linked resource */
   linkType: FieldLinkType
-}
-
-export interface ExhaustiveFieldAPI extends FieldAPIBase {
-  type: FieldType
-  items?: Items
-  linkType?: FieldLinkType
 }
 
 export type FieldAPI = BasicFieldAPI | ArrayFieldAPI | LinkFieldAPI
