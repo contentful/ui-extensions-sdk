@@ -1,18 +1,16 @@
 import { Channel } from './channel'
 import { MemoizedSignal } from './signal'
-import { FieldInfo, FieldType, FieldLinkType, Items, SerializedJSONValue } from './types'
-import { ExhaustiveFieldAPI } from './types/field-locale.types'
+import { FieldInfo, FieldLinkType, Items, SerializedJSONValue } from './types'
+import { ArrayFieldAPI, BasicFieldAPI, FieldAPI, LinkFieldAPI } from './types/field-locale.types'
+import { ArrayFieldInfo, BasicFieldInfo, LinkFieldInfo } from './types/field.types'
 import { ValidationError } from './types/validation-error'
 
-export default class FieldLocale implements ExhaustiveFieldAPI {
+class BaseFieldLocale {
   id: string
   name: string
   locale: string
-  type: FieldType
   required: boolean
   validations: any[]
-  items?: Items
-  linkType?: FieldLinkType
   private _value: any
 
   private _valueSignal: MemoizedSignal<[any]>
@@ -24,15 +22,8 @@ export default class FieldLocale implements ExhaustiveFieldAPI {
     this.id = info.id
     this.name = info.name
     this.locale = info.locale
-    this.type = info.type
     this.required = info.required
     this.validations = info.validations
-    if (info.type === 'Array') {
-      this.items = info.items
-    }
-    if (info.type === 'Link') {
-      this.linkType = info.linkType
-    }
     this._value = info.value
     this._valueSignal = new MemoizedSignal(this._value)
     this._isDisabledSignal = new MemoizedSignal<[boolean]>(info.isDisabled)
@@ -106,5 +97,47 @@ export default class FieldLocale implements ExhaustiveFieldAPI {
 
   onSchemaErrorsChanged(handler: (errors: ValidationError[]) => void) {
     return this._schemaErrorsChangedSignal.attach(handler)
+  }
+}
+
+export class BasicFieldLocale extends BaseFieldLocale implements BasicFieldAPI {
+  type: BasicFieldAPI['type']
+
+  constructor(channel: Channel, info: BasicFieldInfo) {
+    super(channel, info)
+    this.type = info.type
+  }
+}
+
+export class ArrayFieldLocale extends BaseFieldLocale implements ArrayFieldAPI {
+  type: ArrayFieldAPI['type']
+  items: Items
+
+  constructor(channel: Channel, info: ArrayFieldInfo) {
+    super(channel, info)
+    this.type = info.type
+    this.items = info.items
+  }
+}
+
+export class LinkFieldLocale extends BaseFieldLocale implements LinkFieldAPI {
+  type: LinkFieldAPI['type']
+  linkType: FieldLinkType
+
+  constructor(channel: Channel, info: LinkFieldInfo) {
+    super(channel, info)
+    this.type = info.type
+    this.linkType = info.linkType
+  }
+}
+
+export function makeFieldLocale(channel: Channel, info: FieldInfo): FieldAPI {
+  switch (info.type) {
+    case 'Link':
+      return new LinkFieldLocale(channel, info)
+    case 'Array':
+      return new ArrayFieldLocale(channel, info)
+    default:
+      return new BasicFieldLocale(channel, info)
   }
 }

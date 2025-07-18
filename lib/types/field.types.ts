@@ -14,16 +14,16 @@ interface FieldInfoBase {
   schemaErrors: ValidationError[]
 }
 
-interface BasicFieldInfo extends FieldInfoBase {
+export interface BasicFieldInfo extends FieldInfoBase {
   type: Exclude<FieldType, 'Array' | 'Link'>
 }
 
-interface ArrayFieldInfo extends FieldInfoBase {
+export interface ArrayFieldInfo extends FieldInfoBase {
   type: 'Array'
   items: Items
 }
 
-interface LinkFieldInfo extends FieldInfoBase {
+export interface LinkFieldInfo extends FieldInfoBase {
   type: 'Link'
   linkType: FieldLinkType
 }
@@ -41,16 +41,16 @@ interface EntryFieldInfoBase {
   schemaErrors: { [locale: string]: ValidationError[] }
 }
 
-interface BasicEntryFieldInfo extends EntryFieldInfoBase {
+export interface BasicEntryFieldInfo extends EntryFieldInfoBase {
   type: Exclude<FieldType, 'Array' | 'Link'>
 }
 
-interface ArrayEntryFieldInfo extends EntryFieldInfoBase {
+export interface ArrayEntryFieldInfo extends EntryFieldInfoBase {
   type: 'Array'
   items: Items
 }
 
-interface LinkEntryFieldInfo extends EntryFieldInfoBase {
+export interface LinkEntryFieldInfo extends EntryFieldInfoBase {
   type: 'Link'
   linkType: FieldLinkType
 }
@@ -95,29 +95,23 @@ export interface EntryFieldAPIBase {
   getForLocale: (locale: string) => FieldAPI
 }
 
-interface BasicEntryFieldAPI extends EntryFieldAPIBase {
+export interface BasicEntryFieldAPI extends EntryFieldAPIBase {
   /** Holds the type of the field. */
   type: Exclude<FieldType, 'Array' | 'Link'>
 }
 
-interface ArrayEntryFieldAPI extends EntryFieldAPIBase {
+export interface ArrayEntryFieldAPI extends EntryFieldAPIBase {
   /** Holds the type of the field. */
   type: 'Array'
   /** Defines the shape of array items */
   items: Items
 }
 
-interface LinkEntryFieldAPI extends EntryFieldAPIBase {
+export interface LinkEntryFieldAPI extends EntryFieldAPIBase {
   /** Holds the type of the field. */
   type: 'Link'
   /** Type of linked resource */
   linkType: FieldLinkType
-}
-
-export interface ExhaustiveEntryFieldAPI extends EntryFieldAPIBase {
-  type: FieldType
-  items?: Items
-  linkType?: FieldLinkType
 }
 
 export type EntryFieldAPI = BasicEntryFieldAPI | ArrayEntryFieldAPI | LinkEntryFieldAPI
