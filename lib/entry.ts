@@ -2,7 +2,7 @@ import { Channel } from './channel'
 import { MemoizedSignal } from './signal'
 import { ConnectMessage, EntryAPI, EntryFieldInfo, EntrySys, Metadata, TaskAPI } from './types'
 import { ReleaseEntrySys } from './types/entry.types'
-import { ExhaustiveEntryFieldAPI } from './types/field.types'
+import { EntryFieldAPI } from './types/field.types'
 
 const taskMethods: Array<keyof TaskAPI> = [
   'getTask',
@@ -16,7 +16,7 @@ export default function createEntry(
   channel: Channel,
   entryData: ConnectMessage['entry'],
   fieldInfo: EntryFieldInfo[],
-  createEntryField: (info: EntryFieldInfo) => ExhaustiveEntryFieldAPI,
+  createEntryField: (info: EntryFieldInfo) => EntryFieldAPI,
 ): EntryAPI {
   let sys: EntrySys | ReleaseEntrySys = entryData.sys
   let isReleaseEntry = isReleaseEntrySys(sys)
@@ -66,7 +66,7 @@ export default function createEntry(
     onSysChanged(handler: (sys: EntrySys) => void) {
       return sysChanged.attach(handler)
     },
-    fields: fieldInfo.reduce((acc: any, info: EntryFieldInfo) => {
+    fields: fieldInfo.reduce((acc: Record<string, EntryFieldAPI>, info: EntryFieldInfo) => {
       acc[info.id] = createEntryField(info)
       return acc
     }, {}),
