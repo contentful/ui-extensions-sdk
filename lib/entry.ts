@@ -1,6 +1,7 @@
 import { Channel } from './channel'
 import { MemoizedSignal } from './signal'
-import { EntryAPI, EntryFieldInfo, EntrySys, Metadata, Release, TaskAPI } from './types'
+import { ConnectMessage, EntryAPI, EntryFieldInfo, EntrySys, Metadata, TaskAPI } from './types'
+import { ReleaseEntrySys } from './types/entry.types'
 import { ExhaustiveEntryFieldAPI } from './types/field.types'
 
 const taskMethods: Array<keyof TaskAPI> = [
@@ -13,18 +14,20 @@ const taskMethods: Array<keyof TaskAPI> = [
 
 export default function createEntry(
   channel: Channel,
-  entryData: any,
+  entryData: ConnectMessage['entry'],
   fieldInfo: EntryFieldInfo[],
   createEntryField: (info: EntryFieldInfo) => ExhaustiveEntryFieldAPI,
-  release?: Release, // It's not possible to determine if an entry is a release entry by inspecting its data alone, so we need to pass the release context here
 ): EntryAPI {
-  let sys = entryData.sys
+  let sys: EntrySys | ReleaseEntrySys = entryData.sys
+  let isReleaseEntry = isReleaseEntrySys(sys)
+
   const sysChanged = new MemoizedSignal<[EntrySys]>(sys)
   let metadata = entryData.metadata
   const metadataChanged = new MemoizedSignal<[Metadata | undefined]>(metadata)
 
-  channel.addHandler('sysChanged', (newSys: Metadata) => {
+  channel.addHandler('sysChanged', (newSys: EntrySys | ReleaseEntrySys) => {
     sys = newSys
+    isReleaseEntry = isReleaseEntrySys(sys)
     sysChanged.dispatch(sys)
   })
 
@@ -46,13 +49,13 @@ export default function createEntry(
       return sys
     },
     publish(options?: { skipUiValidation?: boolean }) {
-      if (release) {
+      if (isReleaseEntry) {
         throw new Error('SDK method "publish" is not supported in release context')
       }
       return channel.call<void>('callEntryMethod', 'publish', [options])
     },
     unpublish() {
-      if (release) {
+      if (isReleaseEntry) {
         throw new Error('SDK method "unpublish" is not supported in release context')
       }
       return channel.call<void>('callEntryMethod', 'unpublish')
@@ -76,4 +79,8 @@ export default function createEntry(
     },
     ...taskApi,
   }
+}
+
+function isReleaseEntrySys(entrySys: EntrySys): entrySys is ReleaseEntrySys {
+  return !!(entrySys as ReleaseEntrySys)?.release?.sys?.id
 }
