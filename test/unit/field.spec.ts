@@ -1,7 +1,7 @@
 import { sinon, expect, describeAttachHandlerMember } from '../helpers'
 
 import { makeField } from '../../lib/field'
-import { EntryFieldAPI } from '../../lib/types'
+import { EntryFieldAPI, FieldAPI } from '../../lib/types'
 
 describe(`Field`, () => {
   let channelStub: any
@@ -257,7 +257,7 @@ describe(`Field`, () => {
     })
 
     describe('getForLocale called with a locale', () => {
-      let result: any
+      let result: FieldAPI
       beforeEach(() => {
         result = field.getForLocale('en-US')
       })
