@@ -1,3 +1,9 @@
+# [4.33.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.32.0...v4.33.0) (2025-07-21)
+
+### Features
+
+- bump to deploy [] ([#2291](https://github.com/contentful/ui-extensions-sdk/issues/2291)) ([6d095f3](https://github.com/contentful/ui-extensions-sdk/commit/6d095f302d0c2d79fef8fb8c2b89957a51606ad5))
+
 # [4.32.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.31.0...v4.32.0) (2025-07-16)
 
 ### Features
