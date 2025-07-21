@@ -50,13 +50,13 @@ export default function createEntry(
     },
     publish(options?: { skipUiValidation?: boolean }) {
       if (isReleaseEntry) {
-        throw new Error('SDK method "publish" is not supported in release context')
+        throw new Error('SDK method "publish" is not supported in release context.')
       }
       return channel.call<void>('callEntryMethod', 'publish', [options])
     },
     unpublish() {
       if (isReleaseEntry) {
-        throw new Error('SDK method "unpublish" is not supported in release context')
+        throw new Error('SDK method "unpublish" is not supported in release context.')
       }
       return channel.call<void>('callEntryMethod', 'unpublish')
     },
