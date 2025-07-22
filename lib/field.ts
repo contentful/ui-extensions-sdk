@@ -1,33 +1,40 @@
 import { Channel } from './channel'
-import { ArrayFieldLocale, BasicFieldLocale, LinkFieldLocale } from './field-locale'
+import { makeFieldLocale } from './field-locale'
 import { EntryFieldInfo, Items, FieldAPI, FieldLinkType } from './types'
-import { ArrayFieldAPI, BasicFieldAPI, LinkFieldAPI } from './types/field-locale.types'
 import {
   ArrayEntryFieldAPI,
   ArrayEntryFieldInfo,
   BasicEntryFieldAPI,
   BasicEntryFieldInfo,
   EntryFieldAPI,
+  FieldInfo,
   LinkEntryFieldAPI,
   LinkEntryFieldInfo,
 } from './types/field.types'
 
 class EntryField {
   private _defaultLocale: string
-  protected _fieldLocales: { [key: string]: FieldAPI } = {}
+  private _fieldLocales: { [key: string]: FieldAPI }
   id: string
   name: string
   locales: string[]
   required: boolean
   validations: Object[]
 
-  constructor(_channel: Channel, info: EntryFieldInfo, defaultLocale: string) {
+  constructor(channel: Channel, info: EntryFieldInfo, defaultLocale: string) {
     this.id = info.id
     this.name = info.name
     this.locales = info.locales
     this.required = info.required
     this.validations = info.validations
     this._defaultLocale = defaultLocale
+
+    this._fieldLocales = info.locales.reduce((acc: { [key: string]: FieldAPI }, locale: string) => {
+      const fieldLocale = makeFieldLocale(channel, this.toFieldInfo(info, locale))
+      return { ...acc, [locale]: fieldLocale }
+    }, {})
+
+    this.assertHasLocale(defaultLocale)
   }
 
   getValue(locale?: string) {
@@ -76,102 +83,73 @@ class EntryField {
     return this._getFieldLocale(locale)
   }
 
-  assertHasLocale(locale: string) {
+  private assertHasLocale(locale: string) {
     if (!this._fieldLocales[locale]) {
       throw new Error(`Unknown locale "${locale}" for field "${this.id}"`)
+    }
+  }
+
+  private toFieldInfo(value: EntryFieldInfo, locale: string): FieldInfo {
+    const fieldInfo = {
+      id: value.id,
+      name: value.name,
+      required: value.required,
+      validations: value.validations,
+      locale,
+      value: value.values[locale],
+      isDisabled: value.isDisabled[locale],
+      schemaErrors: value.schemaErrors[locale],
+    }
+    switch (value.type) {
+      case 'Array':
+        return {
+          ...fieldInfo,
+          type: value.type,
+          items: value.items,
+        }
+      case 'Link':
+        return {
+          ...fieldInfo,
+          type: value.type,
+          linkType: value.linkType,
+        }
+      default:
+        return {
+          ...fieldInfo,
+          type: value.type,
+        }
     }
   }
 }
 
 class BasicEntryField extends EntryField implements BasicEntryFieldAPI {
   type: BasicEntryFieldAPI['type']
-  protected _fieldLocales: { [key: string]: BasicFieldAPI }
 
   constructor(channel: Channel, info: BasicEntryFieldInfo, defaultLocale: string) {
     super(channel, info, defaultLocale)
     this.type = info.type
-
-    this._fieldLocales = info.locales.reduce(
-      (acc: { [key: string]: BasicFieldAPI }, locale: string) => {
-        const fieldLocale = new BasicFieldLocale(channel, {
-          id: info.id,
-          name: info.name,
-          required: info.required,
-          validations: info.validations,
-          locale,
-          value: info.values[locale],
-          isDisabled: info.isDisabled[locale],
-          schemaErrors: info.schemaErrors[locale],
-          type: info.type,
-        })
-        return { ...acc, [locale]: fieldLocale }
-      },
-      {},
-    )
-    this.assertHasLocale(defaultLocale)
   }
 }
 
 class ArrayEntryField extends EntryField implements ArrayEntryFieldAPI {
   type: ArrayEntryFieldAPI['type']
   items: Items
-  protected _fieldLocales: { [key: string]: ArrayFieldAPI }
 
   constructor(channel: Channel, info: ArrayEntryFieldInfo, defaultLocale: string) {
     super(channel, info, defaultLocale)
     this.type = info.type
     this.items = info.items
-    this._fieldLocales = info.locales.reduce(
-      (acc: { [key: string]: ArrayFieldAPI }, locale: string) => {
-        const fieldLocale = new ArrayFieldLocale(channel, {
-          id: info.id,
-          name: info.name,
-          required: info.required,
-          validations: info.validations,
-          locale,
-          value: info.values[locale],
-          isDisabled: info.isDisabled[locale],
-          schemaErrors: info.schemaErrors[locale],
-          type: info.type,
-          items: info.items,
-        })
-        return { ...acc, [locale]: fieldLocale }
-      },
-      {},
-    )
-    this.assertHasLocale(defaultLocale)
   }
 }
 
 class LinkEntryField extends EntryField implements LinkEntryFieldAPI {
   type: LinkEntryFieldAPI['type']
   linkType: FieldLinkType
-  protected _fieldLocales: { [key: string]: LinkFieldAPI }
 
   constructor(channel: Channel, info: LinkEntryFieldInfo, defaultLocale: string) {
     super(channel, info, defaultLocale)
     this.type = info.type
     this.linkType = info.linkType
-
-    this._fieldLocales = info.locales.reduce(
-      (acc: { [key: string]: LinkFieldAPI }, locale: string) => {
-        const fieldLocale = new LinkFieldLocale(channel, {
-          id: info.id,
-          name: info.name,
-          required: info.required,
-          validations: info.validations,
-          locale,
-          value: info.values[locale],
-          isDisabled: info.isDisabled[locale],
-          schemaErrors: info.schemaErrors[locale],
-          type: info.type,
-          linkType: info.linkType,
-        })
-        return { ...acc, [locale]: fieldLocale }
-      },
-      {},
-    )
-    this.assertHasLocale(defaultLocale)
   }
 }
 
