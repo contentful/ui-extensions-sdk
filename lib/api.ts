@@ -1,5 +1,5 @@
-import Field from './field'
-import FieldLocale from './field-locale'
+import { makeField } from './field'
+import { makeFieldLocale } from './field-locale'
 import createWindow from './window'
 import createEntry from './entry'
 import createSpace from './space'
@@ -117,7 +117,7 @@ function makeEntryAPI(
   channel: Channel,
   { locales, contentType, entry, fieldInfo }: ConnectMessage,
 ) {
-  const createEntryField = (info: EntryFieldInfo) => new Field(channel, info, locales.default)
+  const createEntryField = (info: EntryFieldInfo) => makeField(channel, info, locales.default)
 
   return {
     contentType,
@@ -129,8 +129,9 @@ function makeFieldAPI(channel: Channel, { field }: ConnectMessage) {
   if (!field) {
     throw new Error('FieldAPI called for location without "field" property defined.')
   }
+
   return {
-    field: new FieldLocale(channel, field),
+    field: makeFieldLocale(channel, field),
   }
 }
 

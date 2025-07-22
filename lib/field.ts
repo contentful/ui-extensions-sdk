@@ -1,51 +1,36 @@
 import { Channel } from './channel'
-import FieldLocale from './field-locale'
-import { EntryFieldInfo, FieldType, Items, FieldAPI, FieldLinkType } from './types'
-import { ExhaustiveEntryFieldAPI, FieldInfo } from './types/field.types'
+import { makeFieldLocale } from './field-locale'
+import { EntryFieldInfo, Items, FieldAPI, FieldLinkType } from './types'
+import {
+  ArrayEntryFieldAPI,
+  ArrayEntryFieldInfo,
+  BasicEntryFieldAPI,
+  BasicEntryFieldInfo,
+  EntryFieldAPI,
+  FieldInfo,
+  LinkEntryFieldAPI,
+  LinkEntryFieldInfo,
+} from './types/field.types'
 
-export default class Field implements ExhaustiveEntryFieldAPI {
+class EntryField {
   private _defaultLocale: string
   private _fieldLocales: { [key: string]: FieldAPI }
   id: string
   name: string
   locales: string[]
-  type: FieldType
   required: boolean
   validations: Object[]
-  items?: Items
-  linkType?: FieldLinkType
 
   constructor(channel: Channel, info: EntryFieldInfo, defaultLocale: string) {
     this.id = info.id
     this.name = info.name
     this.locales = info.locales
-    this.type = info.type
     this.required = info.required
     this.validations = info.validations
-    if (info.type === 'Array') {
-      this.items = info.items
-    }
-    if (info.type === 'Link') {
-      this.linkType = info.linkType
-    }
-
     this._defaultLocale = defaultLocale
 
     this._fieldLocales = info.locales.reduce((acc: { [key: string]: FieldAPI }, locale: string) => {
-      const fieldLocale = new FieldLocale(channel, {
-        id: info.id,
-        name: info.name,
-        type: info.type,
-        required: info.required,
-        validations: info.validations,
-        locale,
-        items: info.type === 'Array' ? info.items : undefined,
-        linkType: info.type === 'Link' ? info.linkType : undefined,
-        value: info.values[locale],
-        isDisabled: info.isDisabled[locale],
-        schemaErrors: info.schemaErrors[locale],
-      } as FieldInfo) as FieldAPI
-
+      const fieldLocale = makeFieldLocale(channel, this.toFieldInfo(info, locale))
       return { ...acc, [locale]: fieldLocale }
     }, {})
 
@@ -98,9 +83,87 @@ export default class Field implements ExhaustiveEntryFieldAPI {
     return this._getFieldLocale(locale)
   }
 
-  assertHasLocale(locale: string) {
+  private assertHasLocale(locale: string) {
     if (!this._fieldLocales[locale]) {
       throw new Error(`Unknown locale "${locale}" for field "${this.id}"`)
     }
+  }
+
+  private toFieldInfo(value: EntryFieldInfo, locale: string): FieldInfo {
+    const fieldInfo = {
+      id: value.id,
+      name: value.name,
+      required: value.required,
+      validations: value.validations,
+      locale,
+      value: value.values[locale],
+      isDisabled: value.isDisabled[locale],
+      schemaErrors: value.schemaErrors[locale],
+    }
+    switch (value.type) {
+      case 'Array':
+        return {
+          ...fieldInfo,
+          type: value.type,
+          items: value.items,
+        }
+      case 'Link':
+        return {
+          ...fieldInfo,
+          type: value.type,
+          linkType: value.linkType,
+        }
+      default:
+        return {
+          ...fieldInfo,
+          type: value.type,
+        }
+    }
+  }
+}
+
+class BasicEntryField extends EntryField implements BasicEntryFieldAPI {
+  type: BasicEntryFieldAPI['type']
+
+  constructor(channel: Channel, info: BasicEntryFieldInfo, defaultLocale: string) {
+    super(channel, info, defaultLocale)
+    this.type = info.type
+  }
+}
+
+class ArrayEntryField extends EntryField implements ArrayEntryFieldAPI {
+  type: ArrayEntryFieldAPI['type']
+  items: Items
+
+  constructor(channel: Channel, info: ArrayEntryFieldInfo, defaultLocale: string) {
+    super(channel, info, defaultLocale)
+    this.type = info.type
+    this.items = info.items
+  }
+}
+
+class LinkEntryField extends EntryField implements LinkEntryFieldAPI {
+  type: LinkEntryFieldAPI['type']
+  linkType: FieldLinkType
+
+  constructor(channel: Channel, info: LinkEntryFieldInfo, defaultLocale: string) {
+    super(channel, info, defaultLocale)
+    this.type = info.type
+    this.linkType = info.linkType
+  }
+}
+
+export function makeField(
+  channel: Channel,
+  info: EntryFieldInfo,
+  defaultLocale: string,
+): EntryFieldAPI {
+  switch (info.type) {
+    case 'Array':
+      return new ArrayEntryField(channel, info, defaultLocale)
+    case 'Link':
+      return new LinkEntryField(channel, info, defaultLocale)
+    default:
+      return new BasicEntryField(channel, info, defaultLocale)
   }
 }
