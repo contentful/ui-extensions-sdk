@@ -83,7 +83,7 @@ function makeSharedAPI(
     space: createSpace(channel, initialContentTypes),
     dialogs: createDialogs(channel, ids),
     // Typecast because promises returned by navigator methods aren't typed
-    navigator: createNavigator(channel, ids, release || undefined) as NavigatorAPI,
+    navigator: createNavigator(channel, ids, release) as NavigatorAPI,
     notifier: {
       success: (message: string) => channel.send('notify', { type: 'success', message }),
       error: (message: string) => channel.send('notify', { type: 'error', message }),
