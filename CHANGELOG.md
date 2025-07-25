@@ -1,3 +1,9 @@
+# [4.35.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.34.0...v4.35.0) (2025-07-25)
+
+### Features
+
+- api, navigator): add optional release parameter to createNavigator so openEntry method could work properly. ([#2297](https://github.com/contentful/ui-extensions-sdk/issues/2297)) ([2f0aedf](https://github.com/contentful/ui-extensions-sdk/commit/2f0aedf4d80325ad3ea4bc87f48f041da0d5a04c))
+
 # [4.34.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.33.0...v4.34.0) (2025-07-21)
 
 ### Features
