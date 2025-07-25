@@ -3,6 +3,8 @@ import { Asset, Entry, KeyValueMap } from './entities'
 export interface NavigatorAPIOptions {
   /** use `waitForClose` if you want promise to be resolved only after slide in editor is closed */
   slideIn?: boolean | { waitForClose: boolean }
+  /** If true, the entry will be opened in the release context. */
+  entryInRelease?: boolean
 }
 
 export interface PageExtensionOptions {
