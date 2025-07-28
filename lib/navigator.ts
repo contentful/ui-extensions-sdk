@@ -14,7 +14,6 @@ export default function createNavigator(channel: Channel, ids: IdsAPI): Navigato
       return channel.call('navigateToContentEntity', {
         ...opts,
         entityType: 'Entry',
-        // This is the id of the entry to open
         id: entryId,
         releaseId: opts?.releaseId,
       }) as Promise<any>
