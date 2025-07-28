@@ -1,13 +1,8 @@
-import { NavigatorAPI, IdsAPI, NavigatorSlideInfo } from './types'
+import { NavigatorAPI, IdsAPI, NavigatorSlideInfo, NavigatorAPIOptions } from './types'
 import { Channel } from './channel'
 import { Signal } from './signal'
-import { ReleaseProps } from 'contentful-management'
 
-export default function createNavigator(
-  channel: Channel,
-  ids: IdsAPI,
-  release?: ReleaseProps,
-): NavigatorAPI {
+export default function createNavigator(channel: Channel, ids: IdsAPI): NavigatorAPI {
   const _onSlideInSignal = new Signal<[NavigatorSlideInfo]>()
 
   channel.addHandler('navigateSlideIn', (data: any) => {
@@ -15,16 +10,12 @@ export default function createNavigator(
   })
 
   return {
-    openEntry: (id, opts) => {
-      let entryInRelease: boolean = false
-      if (release) {
-        entryInRelease = isEntryInRelease(id, release)
-      }
+    openEntry: (entryId: string, opts: NavigatorAPIOptions | undefined) => {
       return channel.call('navigateToContentEntity', {
         ...opts,
         entityType: 'Entry',
-        id,
-        entryInRelease,
+        id: entryId,
+        releaseId: opts?.releaseId,
       }) as Promise<any>
     },
     openNewEntry: (contentTypeId: string, opts) => {
@@ -78,9 +69,4 @@ export default function createNavigator(
       return _onSlideInSignal.attach(handler)
     },
   }
-}
-
-function isEntryInRelease(entryId: string, release: ReleaseProps) {
-  const entryIdsInRelease = release.entities.items.map((item) => item.sys.id)
-  return entryIdsInRelease.includes(entryId)
 }
