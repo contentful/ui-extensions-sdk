@@ -1,3 +1,9 @@
+# [4.36.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.35.0...v4.36.0) (2025-07-28)
+
+### Features
+
+- update navigator open entry method [EXT-6551] ([#2299](https://github.com/contentful/ui-extensions-sdk/issues/2299)) ([84183c1](https://github.com/contentful/ui-extensions-sdk/commit/84183c13cb5b769c210b30f8dba89b002a2f2d3c))
+
 # [4.35.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.34.0...v4.35.0) (2025-07-25)
 
 ### Features
