@@ -84,6 +84,6 @@ export default function createNavigator(
 }
 
 function isEntityInRelease(entityId: string, release: Release | undefined): boolean {
-  const releaseEntities = release?.entities?.items?.map((entity) => entity.sys.id) ?? []
-  return releaseEntities.includes(entityId)
+  const releaseEntityIds = release?.entities?.items?.map((entity) => entity.sys.id) ?? []
+  return releaseEntityIds.includes(entityId)
 }
