@@ -1,8 +1,12 @@
-import { NavigatorAPI, IdsAPI, NavigatorSlideInfo, NavigatorAPIOptions } from './types'
+import { NavigatorAPI, IdsAPI, NavigatorSlideInfo, NavigatorAPIOptions, Release } from './types'
 import { Channel } from './channel'
 import { Signal } from './signal'
 
-export default function createNavigator(channel: Channel, ids: IdsAPI): NavigatorAPI {
+export default function createNavigator(
+  channel: Channel,
+  ids: IdsAPI,
+  release: Release | undefined,
+): NavigatorAPI {
   const _onSlideInSignal = new Signal<[NavigatorSlideInfo]>()
 
   channel.addHandler('navigateSlideIn', (data: any) => {
@@ -11,11 +15,18 @@ export default function createNavigator(channel: Channel, ids: IdsAPI): Navigato
 
   return {
     openEntry: (entryId: string, opts: NavigatorAPIOptions | undefined) => {
+      let entityInRelease: boolean = false
+
+      if (release) {
+        entityInRelease = isEntityInRelease(entryId, release)
+      }
+
       return channel.call('navigateToContentEntity', {
         ...opts,
         entityType: 'Entry',
         // This is the id of the entry to open
         id: entryId,
+        entityInRelease,
         releaseId: opts?.releaseId,
       }) as Promise<any>
     },
@@ -70,4 +81,9 @@ export default function createNavigator(channel: Channel, ids: IdsAPI): Navigato
       return _onSlideInSignal.attach(handler)
     },
   }
+}
+
+function isEntityInRelease(entityId: string, release: Release | undefined): boolean {
+  const releaseEntities = release?.entities?.items?.map((entity) => entity.sys.id) ?? []
+  return releaseEntities.includes(entityId)
 }
