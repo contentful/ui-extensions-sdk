@@ -1,3 +1,9 @@
+# [4.37.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.36.0...v4.37.0) (2025-07-31)
+
+### Features
+
+- Add entityInRelease back to navigateToContentEntity channel message object [EXT-6551] ([#2301](https://github.com/contentful/ui-extensions-sdk/issues/2301)) ([7769383](https://github.com/contentful/ui-extensions-sdk/commit/7769383e51e1b7aad960b12503892a3cc447c64b))
+
 # [4.36.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.35.0...v4.36.0) (2025-07-28)
 
 ### Features
