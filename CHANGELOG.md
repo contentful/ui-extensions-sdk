@@ -1,3 +1,9 @@
+# [4.38.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.37.0...v4.38.0) (2025-08-04)
+
+### Features
+
+- **navigator:** enhance navigation methods to include releaseId [EXT_6551] ([#2303](https://github.com/contentful/ui-extensions-sdk/issues/2303)) ([c8ceb35](https://github.com/contentful/ui-extensions-sdk/commit/c8ceb350eab5312593a32a5f67b843d22fea14e2))
+
 # [4.37.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.36.0...v4.37.0) (2025-07-31)
 
 ### Features
