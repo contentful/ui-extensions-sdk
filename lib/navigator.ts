@@ -36,6 +36,7 @@ export default function createNavigator(
         entityType: 'Entry',
         id: null,
         contentTypeId,
+        releaseId: release?.sys?.id,
       }) as Promise<any>
     },
     openBulkEditor: (entryId: string, opts) => {
@@ -45,10 +46,17 @@ export default function createNavigator(
       }) as Promise<any>
     },
     openAsset: (id, opts) => {
+      let entityInRelease: boolean = false
+
+      if (release) {
+        entityInRelease = isEntityInRelease(id, release)
+      }
       return channel.call('navigateToContentEntity', {
         ...opts,
         entityType: 'Asset',
         id,
+        entityInRelease,
+        releaseId: opts?.releaseId,
       }) as Promise<any>
     },
     openNewAsset: (opts) => {
@@ -56,6 +64,7 @@ export default function createNavigator(
         ...opts,
         entityType: 'Asset',
         id: null,
+        releaseId: release?.sys?.id,
       }) as Promise<any>
     },
     openPageExtension: (opts) => {
@@ -72,10 +81,16 @@ export default function createNavigator(
       return channel.call('navigateToAppConfig') as Promise<void>
     },
     openEntriesList: () => {
-      return channel.call('navigateToSpaceEnvRoute', { route: 'entries' }) as Promise<void>
+      return channel.call('navigateToSpaceEnvRoute', {
+        route: 'entries',
+        releaseId: release?.sys?.id,
+      }) as Promise<void>
     },
     openAssetsList: () => {
-      return channel.call('navigateToSpaceEnvRoute', { route: 'assets' }) as Promise<void>
+      return channel.call('navigateToSpaceEnvRoute', {
+        route: 'assets',
+        releaseId: release?.sys?.id,
+      }) as Promise<void>
     },
     onSlideInNavigation: (handler) => {
       return _onSlideInSignal.attach(handler)
