@@ -58,9 +58,13 @@ export default function createNavigator(
         id,
         entityInRelease,
 <<<<<<< HEAD
+<<<<<<< HEAD
         // releaseId coming from user to open from asset in, not from release itself
 =======
 >>>>>>> e8db82a (feat(navigator): enhance navigation methods to include releaseId and entityInRelease)
+=======
+        // releaseId coming from user to open from asset in, not from release itself
+>>>>>>> 0b3f273 (fix(navigator): clarify comments regarding releaseId usage in navigation methods)
         releaseId: opts?.releaseId,
       }) as Promise<any>
     },
