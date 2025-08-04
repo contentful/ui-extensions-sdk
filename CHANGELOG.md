@@ -1,3 +1,9 @@
+# [4.39.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.38.0...v4.39.0) (2025-08-04)
+
+### Features
+
+- **navigator:** add entityInRelease flag to NavigatorAPIOptions [EXT-6551] ([#2305](https://github.com/contentful/ui-extensions-sdk/issues/2305)) ([96c3899](https://github.com/contentful/ui-extensions-sdk/commit/96c3899e26f2c579519450157a77f5effcc00908))
+
 # [4.38.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.37.0...v4.38.0) (2025-08-04)
 
 ### Features
