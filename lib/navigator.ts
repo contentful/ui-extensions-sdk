@@ -27,7 +27,7 @@ export default function createNavigator(
         // This is the id of the entry to open
         id: entryId,
         entityInRelease,
-        // releaseId coming from user to open an entry in, not from release itself.
+        // releaseId coming from user to open an entry in, not from release itself..
         releaseId: opts?.releaseId,
       }) as Promise<any>
     },
