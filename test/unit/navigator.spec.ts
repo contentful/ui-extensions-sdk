@@ -34,7 +34,7 @@ const SCENARIOS = [
   {
     method: 'openNewEntry',
     args: ['ct-id'],
-    expected: { entityType: 'Entry', id: null, contentTypeId: 'ct-id', releaseId: undefined },
+    expected: { entityType: 'Entry', id: null, contentTypeId: 'ct-id' },
   },
   {
     method: 'openNewEntry',
@@ -44,7 +44,6 @@ const SCENARIOS = [
       id: null,
       contentTypeId: 'ct-id',
       slideIn: true,
-      releaseId: undefined,
     },
   },
   {
@@ -76,12 +75,12 @@ const SCENARIOS = [
   {
     method: 'openNewAsset',
     args: [],
-    expected: { entityType: 'Asset', id: null, releaseId: undefined },
+    expected: { entityType: 'Asset', id: null },
   },
   {
     method: 'openNewAsset',
     args: [{ slideIn: true }],
-    expected: { entityType: 'Asset', id: null, slideIn: true, releaseId: undefined },
+    expected: { entityType: 'Asset', id: null, slideIn: true },
   },
   {
     method: 'openPageExtension',
@@ -312,52 +311,6 @@ describe('createNavigator()', () => {
         id: 'asset-id',
         entityInRelease: false,
         releaseId: 'custom-release-id',
-      })
-    })
-
-    it('should include releaseId in openNewEntry when release is provided', () => {
-      const navigator = createNavigator(channel, ids, mockRelease)
-
-      navigator.openNewEntry('ct-id')
-      expect(channel.call).to.have.been.calledWith('navigateToContentEntity', {
-        entityType: 'Entry',
-        id: null,
-        contentTypeId: 'ct-id',
-        releaseId: 'release-123',
-      })
-    })
-
-    it('should not include releaseId in openNewEntry when release is undefined', () => {
-      const navigator = createNavigator(channel, ids, undefined)
-
-      navigator.openNewEntry('ct-id')
-      expect(channel.call).to.have.been.calledWith('navigateToContentEntity', {
-        entityType: 'Entry',
-        id: null,
-        contentTypeId: 'ct-id',
-        releaseId: undefined,
-      })
-    })
-
-    it('should include releaseId in openNewAsset when release is provided', () => {
-      const navigator = createNavigator(channel, ids, mockRelease)
-
-      navigator.openNewAsset()
-      expect(channel.call).to.have.been.calledWith('navigateToContentEntity', {
-        entityType: 'Asset',
-        id: null,
-        releaseId: 'release-123',
-      })
-    })
-
-    it('should not include releaseId in openNewAsset when release is undefined', () => {
-      const navigator = createNavigator(channel, ids, undefined)
-
-      navigator.openNewAsset()
-      expect(channel.call).to.have.been.calledWith('navigateToContentEntity', {
-        entityType: 'Asset',
-        id: null,
-        releaseId: undefined,
       })
     })
 
