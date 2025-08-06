@@ -13,22 +13,16 @@ export default function createNavigator(
     _onSlideInSignal.dispatch(data)
   })
 
+  const releaseId = release ? release.sys?.id : undefined
+
   return {
     openEntry: (entryId: string, opts: NavigatorAPIOptions | undefined) => {
-      let entityInRelease: boolean = false
-
-      if (release) {
-        entityInRelease = isEntityInRelease(entryId, release)
-      }
-
       return channel.call('navigateToContentEntity', {
         ...opts,
         entityType: 'Entry',
         // This is the id of the entry to open
         id: entryId,
-        entityInRelease,
-        // releaseId coming from user to open an entry in, not from release itself.
-        releaseId: opts?.releaseId,
+        releaseId,
       }) as Promise<any>
     },
     openNewEntry: (contentTypeId: string, opts) => {
@@ -46,18 +40,11 @@ export default function createNavigator(
       }) as Promise<any>
     },
     openAsset: (id, opts) => {
-      let entityInRelease: boolean = false
-
-      if (release) {
-        entityInRelease = isEntityInRelease(id, release)
-      }
       return channel.call('navigateToContentEntity', {
         ...opts,
         entityType: 'Asset',
         id,
-        entityInRelease,
-        // releaseId coming from user to open an asset in, not from release itself.
-        releaseId: opts?.releaseId,
+        releaseId,
       }) as Promise<any>
     },
     openNewAsset: (opts) => {
@@ -83,22 +70,17 @@ export default function createNavigator(
     openEntriesList: () => {
       return channel.call('navigateToSpaceEnvRoute', {
         route: 'entries',
-        releaseId: release?.sys?.id,
+        releaseId,
       }) as Promise<void>
     },
     openAssetsList: () => {
       return channel.call('navigateToSpaceEnvRoute', {
         route: 'assets',
-        releaseId: release?.sys?.id,
+        releaseId,
       }) as Promise<void>
     },
     onSlideInNavigation: (handler) => {
       return _onSlideInSignal.attach(handler)
     },
   }
-}
-
-function isEntityInRelease(entityId: string, release: Release | undefined): boolean {
-  const releaseEntityIds = release?.entities?.items?.map((entity) => entity.sys.id) ?? []
-  return releaseEntityIds.includes(entityId)
 }

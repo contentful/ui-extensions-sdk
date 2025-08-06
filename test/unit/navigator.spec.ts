@@ -3,12 +3,13 @@ import { sinon, expect } from '../helpers'
 import createNavigator from '../../lib/navigator'
 import { Channel } from '../../lib/channel'
 import { IdsAPI } from '../../lib/types'
+import { mockRelease } from '../mocks/releases'
 
 const SCENARIOS = [
   {
     method: 'openEntry',
     args: ['entry-id'],
-    expected: { entityType: 'Entry', id: 'entry-id', entityInRelease: false, releaseId: undefined },
+    expected: { entityType: 'Entry', id: 'entry-id', releaseId: undefined },
   },
   {
     method: 'openEntry',
@@ -17,20 +18,10 @@ const SCENARIOS = [
       entityType: 'Entry',
       id: 'entry-id',
       slideIn: true,
-      entityInRelease: false,
       releaseId: undefined,
     },
   },
-  {
-    method: 'openEntry',
-    args: ['entry-id', { releaseId: 'release-123' }],
-    expected: {
-      entityType: 'Entry',
-      id: 'entry-id',
-      entityInRelease: false,
-      releaseId: 'release-123',
-    },
-  },
+
   {
     method: 'openNewEntry',
     args: ['ct-id'],
@@ -49,7 +40,7 @@ const SCENARIOS = [
   {
     method: 'openAsset',
     args: ['asset-id'],
-    expected: { entityType: 'Asset', id: 'asset-id', entityInRelease: false, releaseId: undefined },
+    expected: { entityType: 'Asset', id: 'asset-id', releaseId: undefined },
   },
   {
     method: 'openAsset',
@@ -58,20 +49,10 @@ const SCENARIOS = [
       entityType: 'Asset',
       id: 'asset-id',
       slideIn: true,
-      entityInRelease: false,
       releaseId: undefined,
     },
   },
-  {
-    method: 'openAsset',
-    args: ['asset-id', { releaseId: 'release-123' }],
-    expected: {
-      entityType: 'Asset',
-      id: 'asset-id',
-      entityInRelease: false,
-      releaseId: 'release-123',
-    },
-  },
+
   {
     method: 'openNewAsset',
     args: [],
@@ -181,176 +162,204 @@ describe('createNavigator()', () => {
   })
 
   describe('release functionality', () => {
-    let mockRelease: any
+    describe('openEntry with release', () => {
+      it('should pass releaseId when release exists', () => {
+        const navigator = createNavigator(channel, ids, mockRelease)
 
-    beforeEach(() => {
-      mockRelease = {
-        sys: {
-          id: 'release-123',
-          type: 'Release' as const,
-          version: 1,
-          status: 'active' as const,
-          space: { sys: { type: 'Link' as const, linkType: 'Space' as const, id: 'space-id' } },
-          environment: {
-            sys: { type: 'Link' as const, linkType: 'Environment' as const, id: 'env-id' },
-          },
-          createdBy: { sys: { type: 'Link' as const, linkType: 'User' as const, id: 'user-id' } },
-          createdAt: '2023-01-01T00:00:00.000Z',
-          updatedBy: { sys: { type: 'Link' as const, linkType: 'User' as const, id: 'user-id' } },
-          updatedAt: '2023-01-01T00:00:00.000Z',
-        },
-        title: 'Test Release',
-        entities: {
-          sys: { type: 'Array' as const },
-          items: [{ sys: { id: 'entry-in-release' } }, { sys: { id: 'another-entry' } }],
-        },
-      }
-    })
+        navigator.openEntry('entry-id')
+        expect(channel.call).to.have.been.calledWith('navigateToContentEntity', {
+          entityType: 'Entry',
+          id: 'entry-id',
+          releaseId: 'test-release-id',
+        })
+      })
 
-    it('should set entityInRelease to true in openEntry when release is provided and entry is in release', () => {
-      const navigator = createNavigator(channel, ids, mockRelease)
+      it('should pass releaseId as undefined when release is undefined', () => {
+        const navigator = createNavigator(channel, ids, undefined)
 
-      // Test with entry that is in release
-      navigator.openEntry('entry-in-release')
-      expect(channel.call).to.have.been.calledWith('navigateToContentEntity', {
-        entityType: 'Entry',
-        id: 'entry-in-release',
-        entityInRelease: true,
-        releaseId: undefined,
+        navigator.openEntry('entry-id')
+        expect(channel.call).to.have.been.calledWith('navigateToContentEntity', {
+          entityType: 'Entry',
+          id: 'entry-id',
+          releaseId: undefined,
+        })
+      })
+
+      it('should spread other options correctly', () => {
+        const navigator = createNavigator(channel, ids, mockRelease)
+
+        navigator.openEntry('entry-id', { slideIn: true })
+        expect(channel.call).to.have.been.calledWith('navigateToContentEntity', {
+          entityType: 'Entry',
+          id: 'entry-id',
+          slideIn: true,
+          releaseId: 'test-release-id',
+        })
+      })
+
+      it('should ignore releaseId from options', () => {
+        const navigator = createNavigator(channel, ids, mockRelease)
+
+        navigator.openEntry('entry-id', { releaseId: 'ignored-release-id' })
+        expect(channel.call).to.have.been.calledWith('navigateToContentEntity', {
+          entityType: 'Entry',
+          id: 'entry-id',
+          releaseId: 'test-release-id', // Uses release.sys.id, not the option
+        })
       })
     })
 
-    it('should set entityInRelease to false in openEntry when release is undefined', () => {
-      const navigator = createNavigator(channel, ids, undefined)
+    describe('openAsset with release', () => {
+      it('should pass releaseId when release exists', () => {
+        const navigator = createNavigator(channel, ids, mockRelease)
 
-      navigator.openEntry('any-entry')
-      expect(channel.call).to.have.been.calledWith('navigateToContentEntity', {
-        entityType: 'Entry',
-        id: 'any-entry',
-        entityInRelease: false,
-        releaseId: undefined,
+        navigator.openAsset('asset-id')
+        expect(channel.call).to.have.been.calledWith('navigateToContentEntity', {
+          entityType: 'Asset',
+          id: 'asset-id',
+          releaseId: 'test-release-id',
+        })
+      })
+
+      it('should pass releaseId as undefined when release is undefined', () => {
+        const navigator = createNavigator(channel, ids, undefined)
+
+        navigator.openAsset('asset-id')
+        expect(channel.call).to.have.been.calledWith('navigateToContentEntity', {
+          entityType: 'Asset',
+          id: 'asset-id',
+          releaseId: undefined,
+        })
+      })
+
+      it('should spread other options correctly', () => {
+        const navigator = createNavigator(channel, ids, mockRelease)
+
+        navigator.openAsset('asset-id', { slideIn: true })
+        expect(channel.call).to.have.been.calledWith('navigateToContentEntity', {
+          entityType: 'Asset',
+          id: 'asset-id',
+          slideIn: true,
+          releaseId: 'test-release-id',
+        })
+      })
+
+      it('should ignore releaseId from options', () => {
+        const navigator = createNavigator(channel, ids, mockRelease)
+
+        navigator.openAsset('asset-id', { releaseId: 'ignored-release-id' })
+        expect(channel.call).to.have.been.calledWith('navigateToContentEntity', {
+          entityType: 'Asset',
+          id: 'asset-id',
+          releaseId: 'test-release-id', // Uses release.sys.id, not the option
+        })
       })
     })
 
-    it('should pass through releaseId from options', () => {
-      const navigator = createNavigator(channel, ids, mockRelease)
+    describe('openEntriesList with release', () => {
+      it('should pass releaseId when release exists', () => {
+        const navigator = createNavigator(channel, ids, mockRelease)
 
-      navigator.openEntry('entry-in-release', { releaseId: 'custom-release-id' })
-      expect(channel.call).to.have.been.calledWith('navigateToContentEntity', {
-        entityType: 'Entry',
-        id: 'entry-in-release',
-        entityInRelease: true,
-        releaseId: 'custom-release-id',
+        navigator.openEntriesList()
+        expect(channel.call).to.have.been.calledWith('navigateToSpaceEnvRoute', {
+          route: 'entries',
+          releaseId: 'test-release-id',
+        })
+      })
+
+      it('should pass releaseId as undefined when release is undefined', () => {
+        const navigator = createNavigator(channel, ids, undefined)
+
+        navigator.openEntriesList()
+        expect(channel.call).to.have.been.calledWith('navigateToSpaceEnvRoute', {
+          route: 'entries',
+          releaseId: undefined,
+        })
       })
     })
 
-    it('should handle release with empty entities', () => {
-      const emptyRelease = {
-        sys: {
-          id: 'release-123',
-          type: 'Release' as const,
-          version: 1,
-          status: 'active' as const,
-          space: { sys: { type: 'Link' as const, linkType: 'Space' as const, id: 'space-id' } },
-          environment: {
-            sys: { type: 'Link' as const, linkType: 'Environment' as const, id: 'env-id' },
-          },
-          createdBy: { sys: { type: 'Link' as const, linkType: 'User' as const, id: 'user-id' } },
-          createdAt: '2023-01-01T00:00:00.000Z',
-          updatedBy: { sys: { type: 'Link' as const, linkType: 'User' as const, id: 'user-id' } },
-          updatedAt: '2023-01-01T00:00:00.000Z',
-        },
-        title: 'Empty Release',
-        entities: {
-          sys: { type: 'Array' as const },
-          items: [],
-        },
-      }
-      const navigator = createNavigator(channel, ids, emptyRelease)
+    describe('openAssetsList with release', () => {
+      it('should pass releaseId when release exists', () => {
+        const navigator = createNavigator(channel, ids, mockRelease)
 
-      navigator.openEntry('any-entry')
-      expect(channel.call).to.have.been.calledWith('navigateToContentEntity', {
-        entityType: 'Entry',
-        id: 'any-entry',
-        entityInRelease: false,
-        releaseId: undefined,
+        navigator.openAssetsList()
+        expect(channel.call).to.have.been.calledWith('navigateToSpaceEnvRoute', {
+          route: 'assets',
+          releaseId: 'test-release-id',
+        })
+      })
+
+      it('should pass releaseId as undefined when release is undefined', () => {
+        const navigator = createNavigator(channel, ids, undefined)
+
+        navigator.openAssetsList()
+        expect(channel.call).to.have.been.calledWith('navigateToSpaceEnvRoute', {
+          route: 'assets',
+          releaseId: undefined,
+        })
       })
     })
 
-    it('should set entityInRelease to false in openAsset when release is provided but asset is not in release', () => {
-      const navigator = createNavigator(channel, ids, mockRelease)
+    describe('methods that do not handle releaseId', () => {
+      it('should not pass releaseId in openNewEntry', () => {
+        const navigator = createNavigator(channel, ids, mockRelease)
 
-      // Test with asset that is in release
-      navigator.openAsset('asset-in-release')
-      expect(channel.call).to.have.been.calledWith('navigateToContentEntity', {
-        entityType: 'Asset',
-        id: 'asset-in-release',
-        entityInRelease: false, // Assuming asset is not in release for this test
-        releaseId: undefined,
+        navigator.openNewEntry('content-type-id')
+        expect(channel.call).to.have.been.calledWith('navigateToContentEntity', {
+          entityType: 'Entry',
+          id: null,
+          contentTypeId: 'content-type-id',
+        })
       })
-    })
 
-    it('should set entityInRelease to false in openAsset when release is not provided', () => {
-      const navigator = createNavigator(channel, ids, undefined)
+      it('should not pass releaseId in openNewAsset', () => {
+        const navigator = createNavigator(channel, ids, mockRelease)
 
-      navigator.openAsset('any-asset')
-      expect(channel.call).to.have.been.calledWith('navigateToContentEntity', {
-        entityType: 'Asset',
-        id: 'any-asset',
-        entityInRelease: false,
-        releaseId: undefined,
+        navigator.openNewAsset()
+        expect(channel.call).to.have.been.calledWith('navigateToContentEntity', {
+          entityType: 'Asset',
+          id: null,
+        })
       })
-    })
 
-    it('should pass through releaseId from options in openAsset', () => {
-      const navigator = createNavigator(channel, ids, mockRelease)
+      it('should not pass releaseId in openBulkEditor', () => {
+        const navigator = createNavigator(channel, ids, mockRelease)
 
-      navigator.openAsset('asset-id', { releaseId: 'custom-release-id' })
-      expect(channel.call).to.have.been.calledWith('navigateToContentEntity', {
-        entityType: 'Asset',
-        id: 'asset-id',
-        entityInRelease: false,
-        releaseId: 'custom-release-id',
+        navigator.openBulkEditor('entry-id', { fieldId: 'field-id', locale: 'en-US', index: 0 })
+        expect(channel.call).to.have.been.calledWith('navigateToBulkEditor', {
+          entryId: 'entry-id',
+          fieldId: 'field-id',
+          locale: 'en-US',
+          index: 0,
+        })
       })
-    })
 
-    it('should include releaseId in openEntriesList when release is provided', () => {
-      const navigator = createNavigator(channel, ids, mockRelease)
+      it('should not pass releaseId in openPageExtension', () => {
+        const navigator = createNavigator(channel, ids, mockRelease)
 
-      navigator.openEntriesList()
-      expect(channel.call).to.have.been.calledWith('navigateToSpaceEnvRoute', {
-        route: 'entries',
-        releaseId: 'release-123',
+        navigator.openPageExtension({ id: 'extension-id' })
+        expect(channel.call).to.have.been.calledWith('navigateToPage', {
+          type: 'extension',
+          id: 'extension-id',
+        })
       })
-    })
 
-    it('should not include releaseId in openEntriesList when release is undefined', () => {
-      const navigator = createNavigator(channel, ids, undefined)
+      it('should not pass releaseId in openCurrentAppPage', () => {
+        const navigator = createNavigator(channel, ids, mockRelease)
 
-      navigator.openEntriesList()
-      expect(channel.call).to.have.been.calledWith('navigateToSpaceEnvRoute', {
-        route: 'entries',
-        releaseId: undefined,
+        navigator.openCurrentAppPage({ path: '/some-path' })
+        expect(channel.call).to.have.been.calledWith('navigateToPage', {
+          type: 'app',
+          id: 'app-id',
+          path: '/some-path',
+        })
       })
-    })
 
-    it('should include releaseId in openAssetsList when release is provided', () => {
-      const navigator = createNavigator(channel, ids, mockRelease)
+      it('should not pass releaseId in openAppConfig', () => {
+        const navigator = createNavigator(channel, ids, mockRelease)
 
-      navigator.openAssetsList()
-      expect(channel.call).to.have.been.calledWith('navigateToSpaceEnvRoute', {
-        route: 'assets',
-        releaseId: 'release-123',
-      })
-    })
-
-    it('should not include releaseId in openAssetsList when release is undefined', () => {
-      const navigator = createNavigator(channel, ids, undefined)
-
-      navigator.openAssetsList()
-      expect(channel.call).to.have.been.calledWith('navigateToSpaceEnvRoute', {
-        route: 'assets',
-        releaseId: undefined,
+        navigator.openAppConfig()
+        expect(channel.call).to.have.been.calledWith('navigateToAppConfig')
       })
     })
   })
