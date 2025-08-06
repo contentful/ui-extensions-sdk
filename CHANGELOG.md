@@ -1,3 +1,9 @@
+# [4.40.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.39.0...v4.40.0) (2025-08-06)
+
+### Features
+
+- streamline release handling in navigation methods [EXT-6551] ([#2311](https://github.com/contentful/ui-extensions-sdk/issues/2311)) ([6ab1fdf](https://github.com/contentful/ui-extensions-sdk/commit/6ab1fdf8c59ea2dc4799f7686fda8ae1150452d6))
+
 # [4.39.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.38.0...v4.39.0) (2025-08-04)
 
 ### Features
