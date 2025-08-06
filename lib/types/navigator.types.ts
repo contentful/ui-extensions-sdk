@@ -5,8 +5,6 @@ export interface NavigatorAPIOptions {
   slideIn?: boolean | { waitForClose: boolean }
   /** if provided, the entry will be opened in the release context with the given release id */
   releaseId?: string
-  /** indicates whether the entity is part of the current release */
-  entityInRelease?: boolean
 }
 
 export interface PageExtensionOptions {
