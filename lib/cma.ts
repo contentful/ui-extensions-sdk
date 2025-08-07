@@ -13,7 +13,8 @@ export function createCMAClient(ids: IdsAPI, channel: Channel): CMAClient {
         environmentId: ids.environmentAlias ?? ids.environment,
         spaceId: ids.space,
         organizationId: ids.organization,
-        // releaseId: ids.release,
+        // @ts-expect-error releaseId will be part of DefaultParams in a future SDK version
+        releaseId: ids.release,
       },
     },
   )
