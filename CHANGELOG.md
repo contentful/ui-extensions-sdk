@@ -1,3 +1,9 @@
+# [4.41.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.40.0...v4.41.0) (2025-08-07)
+
+### Features
+
+- **cma:** add releaseId to CMAClient parameters [EXT-6580] ([#2312](https://github.com/contentful/ui-extensions-sdk/issues/2312)) ([18869bb](https://github.com/contentful/ui-extensions-sdk/commit/18869bb42d2fb122c3dbce8697f6a5b9a451bc5d))
+
 # [4.40.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.39.0...v4.40.0) (2025-08-06)
 
 ### Features
