@@ -1,3 +1,9 @@
+## [4.41.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.41.0...v4.41.1) (2025-08-18)
+
+### Bug Fixes
+
+- **api.types:** make release field optional in IdsAPI interface [] ([#2314](https://github.com/contentful/ui-extensions-sdk/issues/2314)) ([4905969](https://github.com/contentful/ui-extensions-sdk/commit/4905969fbbf261c506f9928b9872ed6b145eecad))
+
 # [4.41.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.40.0...v4.41.0) (2025-08-07)
 
 ### Features
