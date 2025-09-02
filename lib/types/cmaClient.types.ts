@@ -4,7 +4,7 @@ export type CMAClient = {
   appAction: Pick<PlainClientAPI['appAction'], 'get' | 'getMany' | 'getManyForEnvironment'>
   appActionCall: Pick<
     PlainClientAPI['appActionCall'],
-    'create' | 'getCallDetails' | 'createWithResponse'
+    'create' | 'getCallDetails' | 'createWithResponse' | 'createWithResult' | 'get' | 'getResponse'
   >
   appDefinition: Pick<PlainClientAPI['appDefinition'], 'get' | 'getInstallationsForOrg'>
   appInstallation: Pick<PlainClientAPI['appInstallation'], 'getForOrganization'>
