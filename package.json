@@ -37,7 +37,7 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
-    "contentful-management": "^11.52.1"
+    "contentful-management": "file:../contentful-management.js/contentful-management-0.0.0-determined-by-semantic-release.tgz"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.0",
