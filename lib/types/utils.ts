@@ -43,7 +43,7 @@ export interface CursorBasedCollectionResponse<T> {
   sys: { type: string }
 }
 
-export type ContentEntityType = 'Entry' | 'Asset'
+export type ContentEntityType = 'Entry' | 'Asset' | 'Experience' | 'Pattern' | 'ComponentDefinition'
 
 export type ContentEntitySys = {
   space: Link
