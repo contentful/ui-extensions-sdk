@@ -74,4 +74,40 @@ export interface DialogsAPI {
     max?: number
     mimetypeGroups?: string[]
   }) => Promise<T[] | null>
+  /** Opens a dialog for selecting a single experience. */
+  selectSingleExperience: <T = Object>(options?: {
+    locale?: string
+    contentTypes?: string[]
+  }) => Promise<T | null>
+  /** Opens a dialog for selecting multiple experiences. */
+  selectMultipleExperiences: <T = Object>(options?: {
+    locale?: string
+    contentTypes?: string[]
+    min?: number
+    max?: number
+  }) => Promise<T[] | null>
+  /** Opens a dialog for selecting a single pattern. */
+  selectSinglePattern: <T = Object>(options?: {
+    locale?: string
+    contentTypes?: string[]
+  }) => Promise<T | null>
+  /** Opens a dialog for selecting multiple patterns. */
+  selectMultiplePatterns: <T = Object>(options?: {
+    locale?: string
+    contentTypes?: string[]
+    min?: number
+    max?: number
+  }) => Promise<T[] | null>
+  /** Opens a dialog for selecting a single component definition. */
+  selectSingleComponentDefinition: <T = Object>(options?: {
+    locale?: string
+    contentTypes?: string[]
+  }) => Promise<T | null>
+  /** Opens a dialog for selecting multiple component definitions. */
+  selectMultipleComponentDefinitions: <T = Object>(options?: {
+    locale?: string
+    contentTypes?: string[]
+    min?: number
+    max?: number
+  }) => Promise<T[] | null>
 }
