@@ -83,7 +83,7 @@ export type FieldType =
   | 'Location'
   | 'Boolean'
 
-export type FieldLinkType = 'Entry' | 'Asset' | 'Experience' | 'Pattern' | 'ComponentDefinition'
+export type FieldLinkType = 'Entry' | 'Asset'
 
 interface ItemsBase {
   validations?: ContentTypeFieldValidation[]
