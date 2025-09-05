@@ -14,6 +14,12 @@ const ENTITY_SELECTOR_DIALOGS: [string, string, boolean][] = [
   ['selectSingleAsset', 'Asset', false],
   ['selectMultipleEntries', 'Entry', true],
   ['selectMultipleAssets', 'Asset', true],
+  ['selectSingleExperience', 'Experience', false],
+  ['selectMultipleExperiences', 'Experience', true],
+  ['selectSinglePattern', 'Pattern', false],
+  ['selectMultiplePatterns', 'Pattern', true],
+  ['selectSingleComponentDefinition', 'ComponentDefinition', false],
+  ['selectMultipleComponentDefinitions', 'ComponentDefinition', true],
 ]
 
 describe('createDialogs()', () => {
