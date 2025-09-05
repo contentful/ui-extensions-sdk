@@ -1,3 +1,9 @@
+## [4.41.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.41.1...v4.41.2) (2025-09-05)
+
+### Bug Fixes
+
+- added support for types Experience, Pattern and ComponentDefinition [SPA-3128] ([#2320](https://github.com/contentful/ui-extensions-sdk/issues/2320)) ([41ccac0](https://github.com/contentful/ui-extensions-sdk/commit/41ccac01b99109c0a12b14e27dc2b8db3f9c0109))
+
 ## [4.41.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.41.0...v4.41.1) (2025-08-18)
 
 ### Bug Fixes
