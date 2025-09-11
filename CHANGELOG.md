@@ -1,3 +1,9 @@
+# [4.42.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.41.2...v4.42.0) (2025-09-11)
+
+### Features
+
+- update appActionCall to use new methods [EXT-6593] ([#2318](https://github.com/contentful/ui-extensions-sdk/issues/2318)) ([54194b4](https://github.com/contentful/ui-extensions-sdk/commit/54194b40afe3b1a492c4c4cbe6eef485bd6d338f))
+
 ## [4.41.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.41.1...v4.41.2) (2025-09-05)
 
 ### Bug Fixes
