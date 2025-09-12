@@ -1,3 +1,9 @@
+# [4.43.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.42.0...v4.43.0) (2025-09-12)
+
+### Features
+
+- bump CMA version ([#2325](https://github.com/contentful/ui-extensions-sdk/issues/2325)) ([7b44b0d](https://github.com/contentful/ui-extensions-sdk/commit/7b44b0d4d2b23a1584097d513b1bf99b685a21e0))
+
 # [4.42.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.41.2...v4.42.0) (2025-09-11)
 
 ### Features
