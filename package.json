@@ -71,7 +71,7 @@
     "eslint-plugin-standard": "5.0.0",
     "fs-extra": "11.3.1",
     "husky": "9.1.7",
-    "jsdom": "26.1.0",
+    "jsdom": "27.0.0",
     "lint-staged": "16.1.6",
     "mocha": "11.7.2",
     "mocha-junit-reporter": "2.2.1",
