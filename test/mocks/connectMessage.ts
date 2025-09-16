@@ -204,6 +204,7 @@ export const baseConnectMessage: ConnectMessage = {
     graphql: 'graphql.contentful.com',
     webapp: 'app.contentful.com',
   },
+  uiLanguageLocale: 'en-US',
 } as any // Type assertion to work with complex nested types in testing
 
 export default baseConnectMessage

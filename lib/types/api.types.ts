@@ -269,6 +269,8 @@ export interface BaseAppSDK<
   cma: CMAClient
   /** Current release context, undefined if not editing within a release */
   release?: Release
+  /** Current language locale set in the web app */
+  uiLanguageLocale?: string
 }
 
 export type EditorAppSDK<
@@ -413,4 +415,5 @@ export interface ConnectMessage {
   field?: FieldInfo
   hostnames: HostnamesAPI
   release?: Release
+  uiLanguageLocale: string
 }
