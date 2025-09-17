@@ -1,3 +1,9 @@
+# [4.44.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.43.0...v4.44.0) (2025-09-17)
+
+### Features
+
+- add uiLanguageLocale to API ([#2328](https://github.com/contentful/ui-extensions-sdk/issues/2328)) ([cbf6bba](https://github.com/contentful/ui-extensions-sdk/commit/cbf6bba479c568baed411e369e9daa6ecd2072b9))
+
 # [4.43.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.42.0...v4.43.0) (2025-09-12)
 
 ### Features
