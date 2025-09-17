@@ -21,6 +21,7 @@ const sharedExpected = [
   'hostnames',
   'cma',
   'release',
+  'uiLanguageLocale',
 ]
 
 function test(expected: string[], location: string | undefined, expectedLocation = location) {
@@ -52,6 +53,7 @@ function test(expected: string[], location: string | undefined, expectedLocation
     ids: {
       extension: 'my-test-id',
     },
+    uiLanguageLocale: 'en-US',
   } as unknown as ConnectMessage
 
   const dom = makeDOM()
@@ -79,6 +81,9 @@ function test(expected: string[], location: string | undefined, expectedLocation
   expect(Object.keys(api.location)).to.deep.equal(['is'])
   expect(api.location.is(expectedLocation as string)).to.equal(true)
   expect(api.location.is('wat?')).to.equal(false)
+
+  // Test UI language locale
+  expect(api.uiLanguageLocale).to.equal('en-US')
 
   return api
 }
