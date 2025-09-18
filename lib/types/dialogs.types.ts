@@ -74,43 +74,37 @@ export interface DialogsAPI {
     max?: number
     mimetypeGroups?: string[]
   }) => Promise<T[] | null>
-  /** Opens a dialog for selecting a single experience.
-   * This is intentionally optional, until the actual implemenation */
-  selectSingleExperience?: <T = Object>(options?: {
+  /** Opens a dialog for selecting a single experience. */
+  selectSingleExperience: <T = Object>(options?: {
     locale?: string
     contentTypes?: string[]
   }) => Promise<T | null>
-  /** Opens a dialog for selecting multiple experiences.
-   * This is intentionally optional, until the actual implemenation  */
-  selectMultipleExperiences?: <T = Object>(options?: {
+  /** Opens a dialog for selecting multiple experiences. */
+  selectMultipleExperiences: <T = Object>(options?: {
     locale?: string
     contentTypes?: string[]
     min?: number
     max?: number
   }) => Promise<T[] | null>
-  /** Opens a dialog for selecting a single pattern.
-   * This is intentionally optional, until the actual implemenation  */
-  selectSinglePattern?: <T = Object>(options?: {
+  /** Opens a dialog for selecting a single pattern. */
+  selectSinglePattern: <T = Object>(options?: {
     locale?: string
     contentTypes?: string[]
   }) => Promise<T | null>
-  /** Opens a dialog for selecting multiple patterns.
-   * This is intentionally optional, until the actual implemenation  */
-  selectMultiplePatterns?: <T = Object>(options?: {
+  /** Opens a dialog for selecting multiple patterns. */
+  selectMultiplePatterns: <T = Object>(options?: {
     locale?: string
     contentTypes?: string[]
     min?: number
     max?: number
   }) => Promise<T[] | null>
-  /** Opens a dialog for selecting a single component definition.
-   * This is intentionally optional, until the actual implemenation  */
-  selectSingleComponentDefinition?: <T = Object>(options?: {
+  /** Opens a dialog for selecting a single component definition. */
+  selectSingleComponentDefinition: <T = Object>(options?: {
     locale?: string
     contentTypes?: string[]
   }) => Promise<T | null>
-  /** Opens a dialog for selecting multiple component definitions.
-   * This is intentionally optional, until the actual implemenation  */
-  selectMultipleComponentDefinitions?: <T = Object>(options?: {
+  /** Opens a dialog for selecting multiple component definitions. */
+  selectMultipleComponentDefinitions: <T = Object>(options?: {
     locale?: string
     contentTypes?: string[]
     min?: number
