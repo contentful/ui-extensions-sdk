@@ -1,3 +1,9 @@
+## [4.44.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.44.0...v4.44.1) (2025-09-18)
+
+### Bug Fixes
+
+- made functions optional until implementation [SPA-3218] ([#2333](https://github.com/contentful/ui-extensions-sdk/issues/2333)) ([89109a2](https://github.com/contentful/ui-extensions-sdk/commit/89109a274ca66d6332ea3a65f4a5cd48e48d09dc))
+
 # [4.44.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.43.0...v4.44.0) (2025-09-17)
 
 ### Features
