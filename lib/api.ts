@@ -2,6 +2,7 @@ import { makeField } from './field'
 import { makeFieldLocale } from './field-locale'
 import createWindow from './window'
 import createEntry from './entry'
+import createAsset from './asset'
 import createSpace from './space'
 import createDialogs from './dialogs'
 import createEditor from './editor'
@@ -38,6 +39,7 @@ const LOCATION_TO_API_PRODUCERS: { [location: string]: ProducerFunc[] } = {
   [locations.LOCATION_ENTRY_FIELD]: DEFAULT_API_PRODUCERS,
   [locations.LOCATION_ENTRY_FIELD_SIDEBAR]: DEFAULT_API_PRODUCERS,
   [locations.LOCATION_ENTRY_SIDEBAR]: [makeSharedAPI, makeEntryAPI, makeEditorAPI, makeWindowAPI],
+  [locations.LOCATION_ASSET_SIDEBAR]: [makeSharedAPI, makeAssetAPI, makeWindowAPI],
   [locations.LOCATION_ENTRY_EDITOR]: [makeSharedAPI, makeEntryAPI, makeEditorAPI],
   [locations.LOCATION_DIALOG]: [makeSharedAPI, makeDialogAPI, makeWindowAPI],
   [locations.LOCATION_PAGE]: [makeSharedAPI],
@@ -148,6 +150,12 @@ function makeFieldAPI(channel: Channel, { field }: ConnectMessage) {
 function makeDialogAPI(channel: Channel) {
   return {
     close: (data: any) => channel.send('closeDialog', data),
+  }
+}
+
+function makeAssetAPI(channel: Channel, { asset }: ConnectMessage) {
+  return {
+    asset: createAsset(channel, asset),
   }
 }
 

@@ -70,6 +70,10 @@ export interface EntrySys extends ContentEntitySys {
   automationTags: Link<'Tag'>[]
 }
 
+export interface AssetSys extends ContentEntitySys {
+  type: 'Asset'
+}
+
 export type FieldType =
   | 'Symbol'
   | 'Text'

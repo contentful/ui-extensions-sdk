@@ -14,7 +14,7 @@ import {
 import { EntryAPI } from './entry.types'
 import { SpaceAPI } from './space.types'
 import { WindowAPI } from './window.types'
-import { EntrySys, Link, SerializedJSONValue } from './utils'
+import { EntrySys, AssetSys, Link, SerializedJSONValue } from './utils'
 import { FieldAPI } from './field-locale.types'
 import { DialogsAPI } from './dialogs.types'
 import { AppConfigAPI } from './app.types'
@@ -386,6 +386,7 @@ export interface Locations {
   LOCATION_ENTRY_FIELD: 'entry-field'
   LOCATION_ENTRY_FIELD_SIDEBAR: 'entry-field-sidebar'
   LOCATION_ENTRY_SIDEBAR: 'entry-sidebar'
+  LOCATION_ASSET_SIDEBAR: 'asset-sidebar'
   LOCATION_DIALOG: 'dialog'
   LOCATION_ENTRY_EDITOR: 'entry-editor'
   LOCATION_PAGE: 'page'
@@ -409,6 +410,10 @@ export interface ConnectMessage {
   }
   entry: {
     sys: EntrySys
+    metadata?: Metadata
+  }
+  asset?: {
+    sys: AssetSys
     metadata?: Metadata
   }
   fieldInfo: EntryFieldInfo[]
