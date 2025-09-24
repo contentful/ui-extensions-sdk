@@ -12,11 +12,6 @@ export interface AssetAPI {
   save: () => Promise<void>
   /** Calls the callback with sys every time that sys changes. */
   onSysChanged: (callback: (sys: AssetSys) => void) => () => void
-  /**
-   * Optional metadata on an asset
-   * @deprecated
-   */
-  metadata?: Metadata
   getMetadata: () => Metadata | undefined
   onMetadataChanged: (callback: (metadata?: Metadata) => void) => VoidFunction
 }

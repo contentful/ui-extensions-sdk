@@ -43,7 +43,6 @@ export default function createAsset(
     onSysChanged(handler: (sys: AssetSys) => void) {
       return sysChanged.attach(handler)
     },
-    ...(metadata ? { metadata } : {}),
     getMetadata() {
       return metadata
     },
