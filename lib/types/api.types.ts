@@ -14,7 +14,7 @@ import {
 import { EntryAPI } from './entry.types'
 import { SpaceAPI } from './space.types'
 import { WindowAPI } from './window.types'
-import { EntrySys, Link, SerializedJSONValue } from './utils'
+import { EntrySys, AssetSys, Link, SerializedJSONValue } from './utils'
 import { FieldAPI } from './field-locale.types'
 import { DialogsAPI } from './dialogs.types'
 import { AppConfigAPI } from './app.types'
@@ -410,6 +410,10 @@ export interface ConnectMessage {
   }
   entry: {
     sys: EntrySys
+    metadata?: Metadata
+  }
+  asset?: {
+    sys: AssetSys
     metadata?: Metadata
   }
   fieldInfo: EntryFieldInfo[]
