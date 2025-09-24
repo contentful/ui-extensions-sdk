@@ -1,3 +1,9 @@
+# [4.45.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.44.1...v4.45.0) (2025-09-24)
+
+### Features
+
+- ext 6788 asset sidebar location constants [EXT-6786] ([#2338](https://github.com/contentful/ui-extensions-sdk/issues/2338)) ([87ab2b1](https://github.com/contentful/ui-extensions-sdk/commit/87ab2b112a2cb668f6eb52644361912539382d05))
+
 ## [4.44.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.44.0...v4.44.1) (2025-09-18)
 
 ### Bug Fixes
