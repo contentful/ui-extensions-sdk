@@ -34,7 +34,10 @@ export type {
   UserAPI,
   JSONPatchItem,
   HostnamesAPI,
+  AgentAppSDK,
 } from './api.types'
+
+export type { AgentAPI, AgentContext } from './agent.types'
 
 export type {
   AppConfigAPI,

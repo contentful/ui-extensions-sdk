@@ -22,6 +22,7 @@ import { NavigatorAPI } from './navigator.types'
 import { EntryFieldInfo, FieldInfo } from './field.types'
 import { Adapter, KeyValueMap } from 'contentful-management/types'
 import { CMAClient } from './cmaClient.types'
+import { AgentAPI, AgentContext } from './agent.types'
 
 /* User API */
 
@@ -342,6 +343,14 @@ export type ConfigAppSDK<InstallationParameters extends KeyValueMap = KeyValueMa
   app: AppConfigAPI
 }
 
+export type AgentAppSDK<InstallationParameters extends KeyValueMap = KeyValueMap> = BaseAppSDK<
+  InstallationParameters,
+  never,
+  never
+> & {
+  agent: AgentAPI
+}
+
 export type KnownAppSDK<
   InstallationParameters extends KeyValueMap = KeyValueMap,
   InstanceParameters extends KeyValueMap = KeyValueMap,
@@ -354,6 +363,7 @@ export type KnownAppSDK<
   | PageAppSDK<InstallationParameters>
   | ConfigAppSDK<InstallationParameters>
   | HomeAppSDK<InstallationParameters>
+  | AgentAppSDK<InstallationParameters>
 
 /** @deprecated consider using {@link BaseAppSDK} */
 export type BaseExtensionSDK = BaseAppSDK
@@ -392,6 +402,7 @@ export interface Locations {
   LOCATION_PAGE: 'page'
   LOCATION_HOME: 'home'
   LOCATION_APP_CONFIG: 'app-config'
+  LOCATION_AGENT: 'agent'
 }
 
 export interface ConnectMessage {
@@ -421,4 +432,5 @@ export interface ConnectMessage {
   hostnames: HostnamesAPI
   release?: Release
   uiLanguageLocale: string
+  agent?: AgentContext
 }
