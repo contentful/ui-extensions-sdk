@@ -1,4 +1,5 @@
 import { ConnectMessage } from '../../lib/types'
+import { mockAgentContext } from './agent'
 
 export const baseConnectMessage: ConnectMessage = {
   id: 'test-app-id',
@@ -206,5 +207,11 @@ export const baseConnectMessage: ConnectMessage = {
   },
   uiLanguageLocale: 'en-US',
 } as any // Type assertion to work with complex nested types in testing
+
+export const connectMessageWithAgent: ConnectMessage = {
+  ...baseConnectMessage,
+  location: 'agent',
+  agent: mockAgentContext,
+} as any
 
 export default baseConnectMessage

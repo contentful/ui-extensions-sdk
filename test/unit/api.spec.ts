@@ -2,9 +2,10 @@ import { makeDOM, mockMutationObserver, expect, mockResizeObserver } from '../he
 
 import createAPI from '../../lib/api'
 import locations from '../../lib/locations'
-import { ConfigAppSDK, ConnectMessage } from '../../lib/types'
+import { AgentAppSDK, ConfigAppSDK, ConnectMessage } from '../../lib/types'
 import { mockRelease, mockReleaseWithoutEntities } from '../mocks/releases'
-import { baseConnectMessage } from '../mocks/connectMessage'
+import { baseConnectMessage, connectMessageWithAgent } from '../mocks/connectMessage'
+import { mockAgentContext, mockAgentContextMinimal } from '../mocks/agent'
 
 const sharedExpected = [
   'location',
@@ -146,6 +147,25 @@ describe('createAPI()', () => {
       'onConfigurationCompleted',
     ])
   })
+
+  it('returns correct shape of the agent API (agent)', () => {
+    const expected = ['agent']
+    const channel = { addHandler: () => {} } as any
+
+    const dom = makeDOM()
+    mockMutationObserver(dom, () => {})
+    mockResizeObserver(dom, () => {})
+
+    const api = createAPI(
+      channel,
+      connectMessageWithAgent,
+      dom.window as any as Window,
+    ) as unknown as AgentAppSDK
+
+    expect(api).to.have.all.keys(sharedExpected.concat(expected))
+    expect(api.agent).to.have.all.keys(['onContextChange'])
+    expect(api.agent.onContextChange).to.be.a('function')
+  })
 })
 
 describe('Release functionality in SDK', () => {
@@ -286,5 +306,91 @@ describe('Release functionality in SDK', () => {
         `Release should be undefined in ${location} location when not provided`,
       ).to.equal(undefined)
     })
+  })
+})
+
+describe('Agent functionality in SDK', () => {
+  const channel = { addHandler: () => {} } as any
+
+  it('should include agent property when provided in ConnectMessage for agent location', () => {
+    const dom = makeDOM()
+    mockMutationObserver(dom, () => {})
+    mockResizeObserver(dom, () => {})
+    const api = createAPI(channel, connectMessageWithAgent, dom.window as any) as AgentAppSDK
+
+    expect(api.agent).to.not.equal(undefined)
+    expect(api.agent.onContextChange).to.be.a('function')
+  })
+
+  it('should not include agent property when location is not agent', () => {
+    const connectMessageWithoutAgent = {
+      ...baseConnectMessage,
+      location: 'entry-field',
+      // no agent property
+    }
+
+    const dom = makeDOM()
+    mockMutationObserver(dom, () => {})
+    mockResizeObserver(dom, () => {})
+    const api = createAPI(channel, connectMessageWithoutAgent, dom.window as any)
+
+    expect((api as any).agent).to.equal(undefined)
+  })
+
+  it('should provide agent API with context when agent location is used', () => {
+    const dom = makeDOM()
+    mockMutationObserver(dom, () => {})
+    mockResizeObserver(dom, () => {})
+    const api = createAPI(channel, connectMessageWithAgent, dom.window as any) as AgentAppSDK
+
+    expect(api.agent).to.not.equal(undefined)
+    expect(api.agent.onContextChange).to.be.a('function')
+
+    // Test that the handler gets called with initial context
+    let receivedContext: any
+    api.agent.onContextChange((context) => {
+      receivedContext = context
+    })
+
+    expect(receivedContext).to.deep.equal(mockAgentContext)
+  })
+
+  it('should handle agent location with minimal metadata', () => {
+    const connectMessage = {
+      ...baseConnectMessage,
+      location: 'agent',
+      agent: mockAgentContextMinimal,
+    }
+
+    const dom = makeDOM()
+    mockMutationObserver(dom, () => {})
+    mockResizeObserver(dom, () => {})
+    const api = createAPI(channel, connectMessage, dom.window as any) as AgentAppSDK
+
+    expect(api.agent).to.not.equal(undefined)
+
+    let receivedContext: any
+    api.agent.onContextChange((context) => {
+      receivedContext = context
+    })
+
+    expect(receivedContext.view).to.equal('home')
+    expect(receivedContext.metadata).to.deep.equal({})
+  })
+
+  it('should throw error when agent context is not provided for agent location', () => {
+    const connectMessage = {
+      ...baseConnectMessage,
+      location: 'agent',
+      // no agent property - this should cause an error
+    }
+
+    const dom = makeDOM()
+    mockMutationObserver(dom, () => {})
+    mockResizeObserver(dom, () => {})
+
+    expect(() => {
+      createAPI(channel, connectMessage, dom.window as any)
+    }).to.throw('Context data is required')
   })
 })

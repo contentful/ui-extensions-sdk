@@ -10,13 +10,10 @@ export default function createAgent(
     throw new Error('Context data is required')
   }
 
-  let context: AgentContext = contextData
-
-  const contextChanged = new MemoizedSignal<[AgentContext]>(context)
+  const contextChanged = new MemoizedSignal<[AgentContext]>(contextData)
 
   channel.addHandler('contextChanged', (newContext: AgentContext) => {
-    context = newContext
-    contextChanged.dispatch(context)
+    contextChanged.dispatch(newContext)
   })
 
   return {
