@@ -1,6 +1,7 @@
 import { Channel } from './channel'
-import { MemoizedSignal } from './signal'
+import { MemoizedSignal, Signal } from './signal'
 import { AgentAPI, AgentContext, ConnectMessage } from './types'
+import { ToolbarAction } from './types/agent.types'
 
 export default function createAgent(
   channel: Channel,
@@ -12,11 +13,18 @@ export default function createAgent(
 
   const contextChanged = new MemoizedSignal<[AgentContext]>(contextData)
 
+  const toolbarActionSignal = new Signal<[ToolbarAction]>()
+
   channel.addHandler('contextChanged', (newContext: AgentContext) => {
     contextChanged.dispatch(newContext)
   })
 
+  channel.addHandler('toolbarAction', (action: ToolbarAction) => {
+    toolbarActionSignal.dispatch(action)
+  })
+
   return {
     onContextChange: (handler) => contextChanged.attach(handler),
+    onToolbarAction: (handler) => toolbarActionSignal.attach(handler),
   }
 }

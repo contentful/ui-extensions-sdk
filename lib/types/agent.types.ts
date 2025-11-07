@@ -7,6 +7,14 @@ export interface AgentContext {
   }
 }
 
+export type ToolbarActionName = 'chat.history' | 'chat.back' | 'chat.close'
+
+export interface ToolbarAction {
+  name: ToolbarActionName
+  action: 'click'
+}
+
 export interface AgentAPI {
   onContextChange: (handler: (context: AgentContext) => void) => VoidFunction
+  onToolbarAction: (handler: (action: ToolbarAction) => void) => VoidFunction
 }
