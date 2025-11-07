@@ -1,7 +1,6 @@
 import { Channel } from './channel'
 import { MemoizedSignal, Signal } from './signal'
-import { AgentAPI, AgentContext, ConnectMessage } from './types'
-import { ToolbarAction } from './types/agent.types'
+import { AgentAPI, AgentContext, ConnectMessage, ToolbarAction } from './types'
 
 export default function createAgent(
   channel: Channel,
