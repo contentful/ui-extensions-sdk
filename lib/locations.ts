@@ -10,6 +10,7 @@ const locations: Locations = {
   LOCATION_PAGE: 'page',
   LOCATION_APP_CONFIG: 'app-config',
   LOCATION_HOME: 'home',
+  LOCATION_AGENT: 'agent',
 }
 
 export default locations
