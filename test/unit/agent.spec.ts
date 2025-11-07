@@ -41,9 +41,10 @@ describe('createAgent()', () => {
     })
 
     describe('API shape', () => {
-      it('returns an object with onContextChange method', () => {
-        expect(agent).to.have.all.keys(['onContextChange'])
+      it('returns an object with onContextChange and onToolbarAction methods', () => {
+        expect(agent).to.have.all.keys(['onContextChange', 'onToolbarAction'])
         expect(agent.onContextChange).to.be.a('function')
+        expect(agent.onToolbarAction).to.be.a('function')
       })
     })
 
@@ -73,9 +74,16 @@ describe('createAgent()', () => {
     })
 
     describe('context change handling', () => {
-      it('registers contextChanged handler with channel', () => {
-        expect(channelStub.addHandler).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
-        expect(channelStub.addHandler).to.have.been.calledWith('contextChanged', sinon.match.func)
+      it('registers contextChanged and toolbarAction handlers with channel', () => {
+        expect(channelStub.addHandler).to.have.been.calledTwice // eslint-disable-line no-unused-expressions
+        expect(channelStub.addHandler.firstCall).to.have.been.calledWith(
+          'contextChanged',
+          sinon.match.func,
+        )
+        expect(channelStub.addHandler.secondCall).to.have.been.calledWith(
+          'toolbarAction',
+          sinon.match.func,
+        )
       })
 
       it('calls handler when contextChanged event is received', () => {
@@ -238,6 +246,91 @@ describe('createAgent()', () => {
       expect(handler.getCall(0).args[0]).to.deep.equal(contexts[0])
       expect(handler.getCall(1).args[0]).to.deep.equal(contexts[1])
       expect(handler.getCall(2).args[0]).to.deep.equal(contexts[2])
+    })
+  })
+
+  describe('toolbar action handling', () => {
+    let agent: ReturnType<typeof createAgent>
+
+    beforeEach(() => {
+      agent = createAgent(channelStub, mockAgentContext)
+    })
+
+    describe('.onToolbarAction(handler)', () => {
+      describeAttachHandlerMember('default behaviour', () => {
+        return agent.onToolbarAction(() => {})
+      })
+
+      it('does not call handler immediately on attach', () => {
+        const handler = sinon.stub()
+
+        agent.onToolbarAction(handler)
+
+        expect(handler).to.not.have.been.called // eslint-disable-line no-unused-expressions
+      })
+
+      it('calls handler when toolbarAction event is received', () => {
+        const handler = sinon.stub()
+        agent.onToolbarAction(handler)
+
+        const action = { name: 'chat.history' as const, action: 'click' as const }
+
+        // Simulate channel dispatching toolbarAction event
+        const toolbarActionHandler = channelStub.addHandler.secondCall.args[1]
+        toolbarActionHandler(action)
+
+        expect(handler).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
+        expect(handler).to.have.been.calledWith(action)
+      })
+
+      it('calls multiple handlers when toolbarAction event is received', () => {
+        const handler1 = sinon.stub()
+        const handler2 = sinon.stub()
+
+        agent.onToolbarAction(handler1)
+        agent.onToolbarAction(handler2)
+
+        const action = { name: 'chat.close' as const, action: 'click' as const }
+
+        const toolbarActionHandler = channelStub.addHandler.secondCall.args[1]
+        toolbarActionHandler(action)
+
+        expect(handler1).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
+        expect(handler1).to.have.been.calledWith(action)
+        expect(handler2).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
+        expect(handler2).to.have.been.calledWith(action)
+      })
+
+      it('does not call detached handler when toolbarAction event is received', () => {
+        const handler = sinon.stub()
+        const detach = agent.onToolbarAction(handler)
+
+        detach()
+
+        const action = { name: 'chat.back' as const, action: 'click' as const }
+
+        const toolbarActionHandler = channelStub.addHandler.secondCall.args[1]
+        toolbarActionHandler(action)
+
+        expect(handler).to.not.have.been.called // eslint-disable-line no-unused-expressions
+      })
+
+      it('handles different toolbar action types', () => {
+        const handler = sinon.stub()
+        agent.onToolbarAction(handler)
+
+        const toolbarActionHandler = channelStub.addHandler.secondCall.args[1]
+
+        // Test all action types
+        toolbarActionHandler({ name: 'chat.history' as const, action: 'click' as const })
+        toolbarActionHandler({ name: 'chat.back' as const, action: 'click' as const })
+        toolbarActionHandler({ name: 'chat.close' as const, action: 'click' as const })
+
+        expect(handler).to.have.callCount(3)
+        expect(handler.getCall(0).args[0]).to.deep.equal({ name: 'chat.history', action: 'click' })
+        expect(handler.getCall(1).args[0]).to.deep.equal({ name: 'chat.back', action: 'click' })
+        expect(handler.getCall(2).args[0]).to.deep.equal({ name: 'chat.close', action: 'click' })
+      })
     })
   })
 })

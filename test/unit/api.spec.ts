@@ -163,8 +163,9 @@ describe('createAPI()', () => {
     ) as unknown as AgentAppSDK
 
     expect(api).to.have.all.keys(sharedExpected.concat(expected))
-    expect(api.agent).to.have.all.keys(['onContextChange'])
+    expect(api.agent).to.have.all.keys(['onContextChange', 'onToolbarAction'])
     expect(api.agent.onContextChange).to.be.a('function')
+    expect(api.agent.onToolbarAction).to.be.a('function')
   })
 })
 
