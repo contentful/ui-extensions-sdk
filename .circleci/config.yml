@@ -6,7 +6,7 @@ orbs:
 jobs:
   unit:
     docker:
-      - image: cimg/node:20.8.1
+      - image: cimg/node:24.11.0
         environment:
           ## this enables colors in the output
           TERM: xterm
@@ -36,7 +36,7 @@ jobs:
 
   semantic-release:
     docker:
-      - image: cimg/node:20.8.1
+      - image: cimg/node:24.11.0
     steps:
       - checkout
       - vault/get-secrets:
