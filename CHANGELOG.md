@@ -1,3 +1,14 @@
+# [4.46.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.45.0...v4.46.0) (2025-11-11)
+
+### Bug Fixes
+
+- bump CircleCI Node version to 24.11.0 [] ([#2365](https://github.com/contentful/ui-extensions-sdk/issues/2365)) ([e054b06](https://github.com/contentful/ui-extensions-sdk/commit/e054b06c278f9e953d30b51f1dddf386dccbf468))
+- **deps:** downgrade semantic-release and related dependencies ([#2366](https://github.com/contentful/ui-extensions-sdk/issues/2366)) ([d27fde3](https://github.com/contentful/ui-extensions-sdk/commit/d27fde355ab51701b5b84d9dd899294698180950))
+
+### Features
+
+- **api:** add agent location and API integration [EXT-6966] ([#2362](https://github.com/contentful/ui-extensions-sdk/issues/2362)) ([2febd54](https://github.com/contentful/ui-extensions-sdk/commit/2febd5466551bbcd8f3f032af7967e88179a21d7))
+
 # [4.45.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.44.1...v4.45.0) (2025-09-24)
 
 ### Features
