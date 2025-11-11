@@ -19,6 +19,9 @@ updates:
     - dependency-name: 'framer-motion'
       versions:
         - '>=8.0.0'
+    - dependency-name: 'semantic-release'
+      versions:
+        - '>=25.0.0'
   groups:
     production-dependencies:
       applies-to: version-updates
