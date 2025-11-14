@@ -149,7 +149,7 @@ describe('createAPI()', () => {
   })
 
   it('returns correct shape of the agent API (agent)', () => {
-    const expected = ['agent']
+    const expected = ['agent', 'window']
     const channel = { addHandler: () => {} } as any
 
     const dom = makeDOM()
@@ -321,6 +321,18 @@ describe('Agent functionality in SDK', () => {
 
     expect(api.agent).to.not.equal(undefined)
     expect(api.agent.onContextChange).to.be.a('function')
+  })
+
+  it('should include window API for agent location', () => {
+    const dom = makeDOM()
+    mockMutationObserver(dom, () => {})
+    mockResizeObserver(dom, () => {})
+    const api = createAPI(channel, connectMessageWithAgent, dom.window as any) as AgentAppSDK
+
+    expect(api.window).to.not.equal(undefined)
+    expect(api.window.startAutoResizer).to.be.a('function')
+    expect(api.window.stopAutoResizer).to.be.a('function')
+    expect(api.window.updateHeight).to.be.a('function')
   })
 
   it('should not include agent property when location is not agent', () => {
