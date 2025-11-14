@@ -349,6 +349,8 @@ export type AgentAppSDK<InstallationParameters extends KeyValueMap = KeyValueMap
   never
 > & {
   agent: AgentAPI
+  /** Methods to update the size of the iframe the app is contained within.  */
+  window: WindowAPI
 }
 
 export type KnownAppSDK<
