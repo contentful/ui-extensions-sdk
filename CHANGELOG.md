@@ -1,3 +1,9 @@
+# [4.47.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.46.0...v4.47.0) (2025-11-14)
+
+### Features
+
+- add window api for agent location [EXT-6968] ([#2372](https://github.com/contentful/ui-extensions-sdk/issues/2372)) ([9493f72](https://github.com/contentful/ui-extensions-sdk/commit/9493f720f59afcf7bd96bd9b1f91a320e1ff1a7c))
+
 # [4.46.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.45.0...v4.46.0) (2025-11-11)
 
 ### Bug Fixes
