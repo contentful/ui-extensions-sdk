@@ -17,5 +17,3 @@
 .vscode/
 .idea/
 
-# ignore .npmrc so that it does not conflict with setting the registry to publish to in CI
-.npmrc
