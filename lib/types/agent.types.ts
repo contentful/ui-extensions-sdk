@@ -7,6 +7,8 @@ export interface AgentContext {
   }
 }
 
+export type LayoutVariant = 'normal' | 'expanded'
+
 export type ToolbarActionName = 'chat.history' | 'chat.back' | 'chat.close'
 
 export interface ToolbarAction {
@@ -17,4 +19,6 @@ export interface ToolbarAction {
 export interface AgentAPI {
   onContextChange: (handler: (context: AgentContext) => void) => VoidFunction
   onToolbarAction: (handler: (action: ToolbarAction) => void) => VoidFunction
+  onLayoutVariantChange: (handler: (variant: LayoutVariant) => void) => VoidFunction
+  setLayoutVariant: (variant: LayoutVariant) => void
 }
