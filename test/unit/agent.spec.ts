@@ -42,16 +42,10 @@ describe('createAgent()', () => {
     })
 
     describe('API shape', () => {
-      it('returns an object with onContextChange, onToolbarAction, onLayoutVariantChange, and setLayoutVariant methods', () => {
-        expect(agent).to.have.all.keys([
-          'onContextChange',
-          'onToolbarAction',
-          'onLayoutVariantChange',
-          'setLayoutVariant',
-        ])
+      it('returns an object with onContextChange, onToolbarAction, and setLayoutVariant methods', () => {
+        expect(agent).to.have.all.keys(['onContextChange', 'onToolbarAction', 'setLayoutVariant'])
         expect(agent.onContextChange).to.be.a('function')
         expect(agent.onToolbarAction).to.be.a('function')
-        expect(agent.onLayoutVariantChange).to.be.a('function')
         expect(agent.setLayoutVariant).to.be.a('function')
       })
     })
@@ -82,18 +76,14 @@ describe('createAgent()', () => {
     })
 
     describe('context change handling', () => {
-      it('registers contextChanged, toolbarAction, and layoutVariantChanged handlers with channel', () => {
-        expect(channelStub.addHandler).to.have.been.calledThrice // eslint-disable-line no-unused-expressions
+      it('registers contextChanged and toolbarAction handlers with channel', () => {
+        expect(channelStub.addHandler).to.have.been.calledTwice // eslint-disable-line no-unused-expressions
         expect(channelStub.addHandler.firstCall).to.have.been.calledWith(
           'contextChanged',
           sinon.match.func,
         )
         expect(channelStub.addHandler.getCall(1)).to.have.been.calledWith(
           'toolbarAction',
-          sinon.match.func,
-        )
-        expect(channelStub.addHandler.thirdCall).to.have.been.calledWith(
-          'layoutVariantChanged',
           sinon.match.func,
         )
       })
@@ -304,7 +294,7 @@ describe('createAgent()', () => {
 
         const action = { name: 'chat.close' as const, action: 'click' as const }
 
-        const toolbarActionHandler = channelStub.addHandler.getCall(1).args[1]
+        const toolbarActionHandler = channelStub.addHandler.secondCall.args[1]
         toolbarActionHandler(action)
 
         expect(handler1).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
@@ -321,7 +311,7 @@ describe('createAgent()', () => {
 
         const action = { name: 'chat.back' as const, action: 'click' as const }
 
-        const toolbarActionHandler = channelStub.addHandler.getCall(1).args[1]
+        const toolbarActionHandler = channelStub.addHandler.secondCall.args[1]
         toolbarActionHandler(action)
 
         expect(handler).to.not.have.been.called // eslint-disable-line no-unused-expressions
@@ -331,7 +321,7 @@ describe('createAgent()', () => {
         const handler = sinon.stub()
         agent.onToolbarAction(handler)
 
-        const toolbarActionHandler = channelStub.addHandler.getCall(1).args[1]
+        const toolbarActionHandler = channelStub.addHandler.secondCall.args[1]
 
         // Test all action types
         toolbarActionHandler({ name: 'chat.history' as const, action: 'click' as const })
@@ -346,82 +336,11 @@ describe('createAgent()', () => {
     })
   })
 
-  describe('layout variant handling', () => {
+  describe('setLayoutVariant', () => {
     let agent: ReturnType<typeof createAgent>
 
     beforeEach(() => {
       agent = createAgent(channelStub, mockAgentContext)
-    })
-
-    describe('.onLayoutVariantChange(handler)', () => {
-      describeAttachHandlerMember('default behaviour', () => {
-        return agent.onLayoutVariantChange(() => {})
-      })
-
-      it('calls handler immediately with initial value "normal"', () => {
-        const handler = sinon.stub()
-        agent.onLayoutVariantChange(handler)
-
-        expect(handler).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
-        expect(handler).to.have.been.calledWith('normal')
-      })
-
-      it('calls handler when layoutVariantChanged event is received', () => {
-        const handler = sinon.stub()
-        agent.onLayoutVariantChange(handler)
-        handler.resetHistory() // Reset the initial call
-
-        // Simulate channel dispatching layoutVariantChanged event
-        const layoutVariantChangedHandler = channelStub.addHandler.getCall(2).args[1]
-        layoutVariantChangedHandler('expanded')
-
-        expect(handler).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
-        expect(handler).to.have.been.calledWith('expanded')
-      })
-
-      it('calls handler with "normal" when layoutVariantChanged event is received with "normal"', () => {
-        const handler = sinon.stub()
-        agent.onLayoutVariantChange(handler)
-        handler.resetHistory() // Reset the initial call
-
-        const layoutVariantChangedHandler = channelStub.addHandler.getCall(2).args[1]
-        layoutVariantChangedHandler('normal')
-
-        expect(handler).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
-        expect(handler).to.have.been.calledWith('normal')
-      })
-
-      it('calls multiple handlers when layoutVariantChanged event is received', () => {
-        const handler1 = sinon.stub()
-        const handler2 = sinon.stub()
-
-        agent.onLayoutVariantChange(handler1)
-        agent.onLayoutVariantChange(handler2)
-
-        handler1.resetHistory()
-        handler2.resetHistory()
-
-        const layoutVariantChangedHandler = channelStub.addHandler.getCall(2).args[1]
-        layoutVariantChangedHandler('expanded')
-
-        expect(handler1).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
-        expect(handler1).to.have.been.calledWith('expanded')
-        expect(handler2).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
-        expect(handler2).to.have.been.calledWith('expanded')
-      })
-
-      it('does not call detached handler when layoutVariantChanged event is received', () => {
-        const handler = sinon.stub()
-        const detach = agent.onLayoutVariantChange(handler)
-
-        handler.resetHistory()
-        detach()
-
-        const layoutVariantChangedHandler = channelStub.addHandler.getCall(2).args[1]
-        layoutVariantChangedHandler('expanded')
-
-        expect(handler).to.not.have.been.called // eslint-disable-line no-unused-expressions
-      })
     })
 
     describe('.setLayoutVariant(variant)', () => {
@@ -447,26 +366,6 @@ describe('createAgent()', () => {
         expect(channelStub.send).to.have.been.calledTwice // eslint-disable-line no-unused-expressions
         expect(channelStub.send.firstCall).to.have.been.calledWith('setLayoutVariant', 'normal')
         expect(channelStub.send.secondCall).to.have.been.calledWith('setLayoutVariant', 'expanded')
-      })
-
-      it('dispatches layoutVariantChanged signal when layoutVariantChanged event is received', () => {
-        const handler = sinon.stub()
-        agent.onLayoutVariantChange(handler)
-        handler.resetHistory()
-
-        const layoutVariantChangedHandler = channelStub.addHandler.getCall(2).args[1]
-
-        // Simulate receiving 'expanded' variant change
-        layoutVariantChangedHandler('expanded')
-
-        expect(handler).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
-        expect(handler).to.have.been.calledWith('expanded')
-
-        // Simulate receiving 'normal' variant change
-        layoutVariantChangedHandler('normal')
-
-        expect(handler).to.have.been.calledTwice // eslint-disable-line no-unused-expressions
-        expect(handler.secondCall).to.have.been.calledWith('normal')
       })
     })
   })
