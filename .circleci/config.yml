@@ -41,9 +41,23 @@ jobs:
       - checkout
       - vault/get-secrets:
           template-preset: 'semantic-release-ecosystem'
-      - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-      - run: echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_WRITE_TOKEN}" >> ~/.npmrc
-      - run: echo "@contentful:registry=https://npm.pkg.github.com" >> ~/.npmrc
+      - run:
+          name: Setup npm authentication
+          command: |
+            # Create .npmrc with both npmjs.org and GitHub Packages authentication
+            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+            echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_WRITE_TOKEN}" >> ~/.npmrc
+            echo "@contentful:registry=https://npm.pkg.github.com" >> ~/.npmrc
+            # Verify tokens are set (don't expose values)
+            if [ -z "${NPM_TOKEN}" ]; then
+              echo "Error: NPM_TOKEN is not set"
+              exit 1
+            fi
+            if [ -z "${GITHUB_PACKAGES_WRITE_TOKEN}" ]; then
+              echo "Error: GITHUB_PACKAGES_WRITE_TOKEN is not set"
+              exit 1
+            fi
+            echo "✓ npm authentication configured"
       - run: npm ci
       - run:
           name: Releasing
