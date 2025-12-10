@@ -41,8 +41,9 @@ jobs:
       - checkout
       - vault/get-secrets:
           template-preset: 'semantic-release-ecosystem'
-      - run:
-          name: Setup npm authentication
+      - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+      - run: echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_WRITE_TOKEN}" >> ~/.npmrc
+      - run: echo "@contentful:registry=https://npm.pkg.github.com" >> ~/.npmrc
       - run: npm ci
       - run: num run build
       - run:
