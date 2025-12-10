@@ -1,3 +1,9 @@
+## [4.48.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.48.0...v4.48.1) (2025-12-10)
+
+### Bug Fixes
+
+- manually run build from semantic release to fix circle ci issues [EXT-7067] ([#2382](https://github.com/contentful/ui-extensions-sdk/issues/2382)) ([1c6a0e0](https://github.com/contentful/ui-extensions-sdk/commit/1c6a0e0c95ab0110fe04acbfbb03649ad8e44798))
+
 # [4.48.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.47.0...v4.48.0) (2025-12-10)
 
 ### Features
