@@ -44,6 +44,7 @@ jobs:
       - run:
           name: Setup npm authentication
       - run: npm ci
+      - run: num run build
       - run:
           name: Releasing
           command: npm run semantic-release
