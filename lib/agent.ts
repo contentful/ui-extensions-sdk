@@ -1,6 +1,7 @@
 import { Channel } from './channel'
 import { MemoizedSignal, Signal } from './signal'
 import { AgentAPI, AgentContext, ConnectMessage, ToolbarAction } from './types'
+import { LayoutVariant } from './types/agent.types'
 
 export default function createAgent(
   channel: Channel,
@@ -14,6 +15,8 @@ export default function createAgent(
 
   const toolbarActionSignal = new Signal<[ToolbarAction]>()
 
+  const layoutVariantChanged = new MemoizedSignal<[LayoutVariant]>('normal')
+
   channel.addHandler('contextChanged', (newContext: AgentContext) => {
     contextChanged.dispatch(newContext)
   })
@@ -22,8 +25,16 @@ export default function createAgent(
     toolbarActionSignal.dispatch(action)
   })
 
+  channel.addHandler('layoutVariantChanged', (variant: LayoutVariant) => {
+    layoutVariantChanged.dispatch(variant)
+  })
+
   return {
     onContextChange: (handler) => contextChanged.attach(handler),
     onToolbarAction: (handler) => toolbarActionSignal.attach(handler),
+    onLayoutVariantChange: (handler) => layoutVariantChanged.attach(handler),
+    setLayoutVariant: (variant: LayoutVariant) => {
+      channel.send('setLayoutVariant', variant)
+    },
   }
 }
