@@ -1,3 +1,9 @@
+# [4.48.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.47.0...v4.48.0) (2025-12-10)
+
+### Features
+
+- Restore onLayoutVariantChange to AgentAPI [EXT-7067] ([#2381](https://github.com/contentful/ui-extensions-sdk/issues/2381)) ([11f4b69](https://github.com/contentful/ui-extensions-sdk/commit/11f4b692141bdb211f611647cbf87877a52af641))
+
 # [4.47.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.46.0...v4.47.0) (2025-11-14)
 
 ### Features
