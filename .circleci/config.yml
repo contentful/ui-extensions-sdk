@@ -45,7 +45,7 @@ jobs:
       - run: echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_WRITE_TOKEN}" >> ~/.npmrc
       - run: echo "@contentful:registry=https://npm.pkg.github.com" >> ~/.npmrc
       - run: npm ci
-      - run: num run build
+      - run: npm run build
       - run:
           name: Releasing
           command: npm run semantic-release
