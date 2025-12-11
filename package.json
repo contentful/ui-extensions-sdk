@@ -21,6 +21,10 @@
     "dist/cf-extension.css",
     "dist/**/*.d.ts"
   ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com/"
+  },
   "scripts": {
     "test": "ts-mocha -p tsconfig.test.json 'test/unit/*.[jt]s' --reporter mocha-multi-reporters --reporter-options configFile=mocha.unit-reporters.json",
     "lint": "eslint '{lib,test}/**/*.{t,j}s'",
