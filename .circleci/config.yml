@@ -12,9 +12,6 @@ jobs:
           TERM: xterm
     steps:
       - checkout
-      - vault/get-secrets:
-          template-preset: 'packages-read'
-      - run: echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_READ_TOKEN}" > ~/.npmrc
       - run:
           name: Npm Install
           command: npm ci
