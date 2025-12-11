@@ -13,7 +13,7 @@ jobs:
     steps:
       - checkout
       - vault/get-secrets:
-          template-preset: 'semanitc-release'
+          template-preset: 'packages-read'
       - run: echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_READ_TOKEN}" > ~/.npmrc
       - run: echo "@contentful:registry=https://npm.pkg.github.com" >> ~/.npmrc
       - run:
