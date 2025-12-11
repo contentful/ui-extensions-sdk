@@ -2,13 +2,17 @@ name: CI
 
 on:
   push:
-    branches: [ main, canary ]
+    branches: [main, canary]
   pull_request:
-    branches: [ main, canary ]
+    branches: [main, canary]
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      actions: read
 
     strategy:
       matrix:
