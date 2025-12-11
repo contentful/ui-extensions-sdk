@@ -12,10 +12,6 @@ jobs:
           TERM: xterm
     steps:
       - checkout
-      - vault/get-secrets:
-          template-preset: 'packages-read'
-      - run: echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_READ_TOKEN}" > ~/.npmrc
-      - run: echo "@contentful:registry=https://npm.pkg.github.com" >> ~/.npmrc
       - run:
           name: Npm Install
           command: npm ci
@@ -40,10 +36,9 @@ jobs:
     steps:
       - checkout
       - vault/get-secrets:
-          template-preset: 'semantic-release-ecosystem'
-      - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          template-preset: 'semantic-release'
       - run: echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_WRITE_TOKEN}" >> ~/.npmrc
-      - run: echo "@contentful:registry=https://npm.pkg.github.com" >> ~/.npmrc
+      - run: echo "registry=https://npm.pkg.github.com" >> ~/.npmrc
       - run: npm ci
       - run: npm run build
       - run:
