@@ -30,7 +30,6 @@ jobs:
       - store_test_results:
           path: test/unit/reports
 
-
 workflows:
   # run on every commit
   commit:
