@@ -1,3 +1,10 @@
+## [4.48.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.48.1...v4.48.2) (2025-12-11)
+
+
+### Bug Fixes
+
+* swap AIChatLayout variant enum order [EXT-7067] ([#2389](https://github.com/contentful/ui-extensions-sdk/issues/2389)) ([86434d0](https://github.com/contentful/ui-extensions-sdk/commit/86434d0274399f64512b4166d55163a6a18a993e))
+
 ## [4.48.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.48.0...v4.48.1) (2025-12-10)
 
 ### Bug Fixes
