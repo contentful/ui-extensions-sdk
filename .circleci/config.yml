@@ -30,20 +30,6 @@ jobs:
       - store_test_results:
           path: test/unit/reports
 
-  semantic-release:
-    docker:
-      - image: cimg/node:24.11.0
-    steps:
-      - checkout
-      - vault/get-secrets:
-          template-preset: 'semantic-release'
-      - run: npm ci
-      - run: npm run build
-      - run: echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_WRITE_TOKEN}" >> ~/.npmrc
-      - run: echo "registry=https://npm.pkg.github.com" >> ~/.npmrc
-      - run:
-          name: Releasing
-          command: npm run semantic-release
 
 workflows:
   # run on every commit
@@ -52,13 +38,3 @@ workflows:
       - unit:
           context:
             - vault
-      - semantic-release:
-          context:
-            - vault
-          requires:
-            - unit
-          filters:
-            branches:
-              only:
-                - main
-                - canary
