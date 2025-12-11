@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../../../user_interface"
+		},
+		{
+			"path": "../../../experience-packages"
+		},
+		{
+			"path": "../.."
+		}
+	],
+	"settings": {}
+}
