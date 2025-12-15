@@ -9,10 +9,6 @@ const {
   getTag,
 } = require('./shared')
 
-if (!process.env.NPM_TOKEN) {
-  throw new Error('Missing NPM_TOKEN!')
-}
-
 try {
   for (const package of PACKAGES) {
     console.log('')
