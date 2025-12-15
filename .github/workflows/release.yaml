@@ -27,6 +27,13 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.workflow_run.head_branch || github.ref }}
 
+      - name: Retrieve Secrets from Vault
+        id: vault
+        uses: contentful/vault-github-actions/action@v1
+        with:
+          url: ${{ secrets.VAULT_URL }}
+          template-preset: semantic-release
+
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
@@ -49,7 +56,7 @@ jobs:
           echo "npm version: $(npm -v)"
           npm run semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.vault.outputs.GITHUB_TOKEN }}
 
       - name: Get latest release tag
         id: get-tag
@@ -71,7 +78,7 @@ jobs:
             fi
           fi
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.vault.outputs.GITHUB_TOKEN }}
 
       - name: Summary
         run: |
