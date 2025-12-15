@@ -54,15 +54,38 @@ jobs:
       - name: Get latest release tag
         id: get-tag
         run: |
-          TAG=$(gh api repos/${{ github.repository }}/releases/latest --jq .tag_name)
-          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          # Fetch latest release, handling 404 when no release exists
+          RESPONSE=$(gh api repos/${{ github.repository }}/releases/latest 2>&1) || EXIT_CODE=$?
+          
+          if [ "${EXIT_CODE:-0}" -ne 0 ]; then
+            echo "No existing release found (API returned error). Skipping tag export."
+            echo "tag=" >> $GITHUB_OUTPUT
+          else
+            TAG=$(echo "$RESPONSE" | jq -r '.tag_name // empty')
+            if [ -n "$TAG" ]; then
+              echo "Found latest release tag: $TAG"
+              echo "tag=$TAG" >> $GITHUB_OUTPUT
+            else
+              echo "No tag_name found in API response. Skipping tag export."
+              echo "tag=" >> $GITHUB_OUTPUT
+            fi
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Summary
         run: |
-          VERSION=$(echo "${{ steps.get-tag.outputs.tag }}" | sed 's/^v//')
-          echo "## Release Summary" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- **Version**: ${{ steps.get-tag.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **GitHub Release**: https://github.com/${{ github.repository }}/releases/tag/${{ steps.get-tag.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
+          TAG="${{ steps.get-tag.outputs.tag }}"
+          
+          if [ -z "$TAG" ]; then
+            echo "## Release Summary" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "⚠️ **No release was created or found.** This may be expected if semantic-release determined no release was needed." >> $GITHUB_STEP_SUMMARY
+          else
+            VERSION=$(echo "$TAG" | sed 's/^v//')
+            echo "## Release Summary" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "- **Tag**: $TAG" >> $GITHUB_STEP_SUMMARY
+            echo "- **Version**: $VERSION" >> $GITHUB_STEP_SUMMARY
+            echo "- **GitHub Release**: https://github.com/${{ github.repository }}/releases/tag/$TAG" >> $GITHUB_STEP_SUMMARY
+          fi
