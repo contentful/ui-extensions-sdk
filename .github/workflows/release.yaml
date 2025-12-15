@@ -29,7 +29,7 @@ jobs:
 
       - name: Retrieve Secrets from Vault
         id: vault
-        uses: contentful/vault-github-actions/action@v1
+        uses: contentful/vault-github-actions/action@854d5e074feaca14ece63a3895cf0c439b374ccb # v1
         with:
           url: ${{ secrets.VAULT_URL }}
           template-preset: semantic-release
