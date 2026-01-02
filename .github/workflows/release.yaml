@@ -21,11 +21,6 @@ jobs:
       actions: read
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-          ref: ${{ github.event.workflow_run.head_branch || github.ref }}
       - name: Retrieve Secrets from Vault
         id: vault
         uses: hashicorp/vault-action@v3.4.0
@@ -41,16 +36,30 @@ jobs:
             secret/data/github/automation-app-user GH_USER_NAME | GIT_COMMITTER_NAME ;
             secret/data/github/automation-app-user GH_USER_EMAIL | GIT_COMMITTER_EMAIL ;
 
-      # - name: Get Automation Bot User ID
-      #   id: get-user-id
-      #   run: echo "user-id=$(gh api "/users/contentful-automation[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
-      #   env:
-      #     GITHUB_TOKEN: ${{ steps.vault.outputs.GITHUB_TOKEN }}
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.workflow_run.head_branch || github.ref }}
+          token: ${{ steps.vault.outputs.GITHUB_TOKEN }}
 
-      # - name: Setting up Git User Credentials
-      #   run: |
-      #     git config --global user.name 'contentful-automation[bot]'
-      #     git config --global user.email '${{ steps.get-user-id.outputs.user-id }}+contentful-automation[bot]@users.noreply.github.com'
+      - name: Get Automation Bot User ID
+        id: get-user-id
+        run: |
+          USER_ID=$(gh api "/users/contentful-automation[bot]" --jq .id)
+          if [ -z "$USER_ID" ] || [ "$USER_ID" = "null" ]; then
+            echo "Error: Failed to retrieve bot user ID"
+            exit 1
+          fi
+          echo "user-id=$USER_ID" >> "$GITHUB_OUTPUT"
+        env:
+          GITHUB_TOKEN: ${{ steps.vault.outputs.GITHUB_TOKEN }}
+
+      - name: Setting up Git User Credentials
+        run: |
+          git config --global user.name 'contentful-automation[bot]'
+          git config --global user.email '${{ steps.get-user-id.outputs.user-id }}+contentful-automation[bot]@users.noreply.github.com'
+
       - name: Setup npmrc for publishing
         run: |
           echo "//npm.pkg.github.com/:_authToken=${{ steps.vault.outputs.GITHUB_PACKAGES_WRITE_TOKEN }}" > .npmrc
