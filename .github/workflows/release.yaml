@@ -45,7 +45,13 @@ jobs:
 
       - name: Get Automation Bot User ID
         id: get-user-id
-        run: echo "user-id=$(gh api "/users/contentful-automation[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
+        run: |
+          USER_ID=$(gh api "/users/contentful-automation[bot]" --jq .id)
+          if [ -z "$USER_ID" ] || [ "$USER_ID" = "null" ]; then
+            echo "Error: Failed to retrieve bot user ID"
+            exit 1
+          fi
+          echo "user-id=$USER_ID" >> "$GITHUB_OUTPUT"
         env:
           GITHUB_TOKEN: ${{ steps.vault.outputs.GITHUB_TOKEN }}
 
