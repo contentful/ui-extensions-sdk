@@ -21,10 +21,6 @@
     "dist/cf-extension.css",
     "dist/**/*.d.ts"
   ],
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://npm.pkg.github.com/"
-  },
   "scripts": {
     "test": "ts-mocha -p tsconfig.test.json 'test/unit/*.[jt]s' --reporter mocha-multi-reporters --reporter-options configFile=mocha.unit-reporters.json",
     "lint": "eslint '{lib,test}/**/*.{t,j}s'",
@@ -75,7 +71,7 @@
     "eslint-plugin-standard": "5.0.0",
     "fs-extra": "11.3.2",
     "husky": "9.1.7",
-    "jsdom": "27.2.0",
+    "jsdom": "27.3.0",
     "lint-staged": "16.2.7",
     "mocha": "11.7.5",
     "mocha-junit-reporter": "2.2.1",
@@ -83,7 +79,7 @@
     "mochawesome": "7.1.4",
     "mochawesome-merge": "5.1.0",
     "mochawesome-report-generator": "6.3.2",
-    "prettier": "3.7.3",
+    "prettier": "3.7.4",
     "rollup": "2.79.2",
     "rollup-plugin-terser": "7.0.2",
     "rollup-plugin-typescript2": "0.36.0",
