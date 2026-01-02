@@ -51,7 +51,10 @@ jobs:
       #   run: |
       #     git config --global user.name 'contentful-automation[bot]'
       #     git config --global user.email '${{ steps.get-user-id.outputs.user-id }}+contentful-automation[bot]@users.noreply.github.com'
-
+      - name: Setup npmrc for publishing
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ steps.vault.outputs.GITHUB_PACKAGES_WRITE_TOKEN }}" > .npmrc
+          echo "@contentful:registry=https://npm.pkg.github.com" >> .npmrc
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
