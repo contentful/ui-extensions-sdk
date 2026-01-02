@@ -1,9 +1,27 @@
-## [4.48.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.48.1...v4.48.2) (2025-12-11)
-
+# [4.49.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.48.2...v4.49.0) (2026-01-02)
 
 ### Bug Fixes
 
-* swap AIChatLayout variant enum order [EXT-7067] ([#2389](https://github.com/contentful/ui-extensions-sdk/issues/2389)) ([86434d0](https://github.com/contentful/ui-extensions-sdk/commit/86434d0274399f64512b4166d55163a6a18a993e))
+- add vault step to release github action to retrieve token for version bump in git [EXT-7068] ([#2398](https://github.com/contentful/ui-extensions-sdk/issues/2398)) ([c913680](https://github.com/contentful/ui-extensions-sdk/commit/c913680e3a83a513c0556cf52cf693719e5f2dcf))
+- bump patch [EXT-7068] ([#2411](https://github.com/contentful/ui-extensions-sdk/issues/2411)) ([6c4676a](https://github.com/contentful/ui-extensions-sdk/commit/6c4676ab5d68159954f5de877bcb1b37a91e18b1))
+- **ci:** auth actions/checkout as bot because it is used for subsequent ops [MEC-2423] ([#2418](https://github.com/contentful/ui-extensions-sdk/issues/2418)) ([d16e9ce](https://github.com/contentful/ui-extensions-sdk/commit/d16e9ce40c12377da93a88b52146821aa4938071))
+- MEC-2423 fix CI actor ([bcc1338](https://github.com/contentful/ui-extensions-sdk/commit/bcc1338b79f2fe72c519fd7860101b3609b30612))
+- MEC-2423 fix npm publishing ([22890e5](https://github.com/contentful/ui-extensions-sdk/commit/22890e5dffb63b9d90c91b58cc591ff6a0288bf5))
+- MEC-2423 fix release pipeline ([a5bd8b8](https://github.com/contentful/ui-extensions-sdk/commit/a5bd8b8908889d072c9d476424b17fe613129abe))
+- MEC-2423 fix token passing for release ([#2417](https://github.com/contentful/ui-extensions-sdk/issues/2417)) ([6e95291](https://github.com/contentful/ui-extensions-sdk/commit/6e95291c73ee97023e975b2f246c5d6994787f0a))
+- release job [EXT-7068] ([#2400](https://github.com/contentful/ui-extensions-sdk/issues/2400)) ([bea6ede](https://github.com/contentful/ui-extensions-sdk/commit/bea6eded64c3716aee85af52ab214ec3765dd1da))
+- remove npm token check since now we use oidc [EXT-7067] ([#2397](https://github.com/contentful/ui-extensions-sdk/issues/2397)) ([22389d0](https://github.com/contentful/ui-extensions-sdk/commit/22389d08fdfba8b5f2c701897847e6ff59329728))
+- use correct vault-github-actions tag [EXT-7068] ([#2399](https://github.com/contentful/ui-extensions-sdk/issues/2399)) ([8fb861a](https://github.com/contentful/ui-extensions-sdk/commit/8fb861a9476fcdb483f45d21bd7cd141c686a3c1))
+
+### Features
+
+- implement trusted publishing for npm releases and remove custom codeql workflow [EXT-7067] ([#2384](https://github.com/contentful/ui-extensions-sdk/issues/2384)) ([1f6b45b](https://github.com/contentful/ui-extensions-sdk/commit/1f6b45bb94f929180c4887b21a463c8237e4d73f))
+
+## [4.48.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.48.1...v4.48.2) (2025-12-11)
+
+### Bug Fixes
+
+- swap AIChatLayout variant enum order [EXT-7067] ([#2389](https://github.com/contentful/ui-extensions-sdk/issues/2389)) ([86434d0](https://github.com/contentful/ui-extensions-sdk/commit/86434d0274399f64512b4166d55163a6a18a993e))
 
 ## [4.48.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.48.0...v4.48.1) (2025-12-10)
 
