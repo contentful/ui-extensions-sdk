@@ -1,3 +1,10 @@
+## [4.49.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.49.0...v4.49.1) (2026-01-05)
+
+### Bug Fixes
+
+- **ci:** use temporary version in verify.js to avoid publish collision [EXT-7068] ([#2422](https://github.com/contentful/ui-extensions-sdk/issues/2422)) ([122de86](https://github.com/contentful/ui-extensions-sdk/commit/122de86e1f57515c4ffc6c38c425355fe29ef208))
+- update contentful-management dependency to version 11.67.0 [PIC-828] ([#2421](https://github.com/contentful/ui-extensions-sdk/issues/2421)) ([46520d1](https://github.com/contentful/ui-extensions-sdk/commit/46520d1e936345907022e9609c16a02c8fe5fea9))
+
 # [4.49.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.48.2...v4.49.0) (2026-01-02)
 
 ### Bug Fixes
