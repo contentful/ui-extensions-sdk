@@ -1,3 +1,9 @@
+# [4.51.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.50.0...v4.51.0) (2026-01-09)
+
+### Features
+
+- rename agent layout variant methods and export LayoutVariant type [EXT-7094] ([#2427](https://github.com/contentful/ui-extensions-sdk/issues/2427)) ([b66a7ee](https://github.com/contentful/ui-extensions-sdk/commit/b66a7ee9893e4fc4677227f415d95ed913dca703))
+
 # [4.50.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.49.1...v4.50.0) (2026-01-07)
 
 ### Features
