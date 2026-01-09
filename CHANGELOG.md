@@ -1,3 +1,9 @@
+# [4.50.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.49.1...v4.50.0) (2026-01-07)
+
+### Features
+
+- add agents and agent runs [PIC-829] ([#2401](https://github.com/contentful/ui-extensions-sdk/issues/2401)) ([a6916c1](https://github.com/contentful/ui-extensions-sdk/commit/a6916c11bf7993ac2de3e1f6f5e380206d6b2140))
+
 ## [4.49.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.49.0...v4.49.1) (2026-01-05)
 
 ### Bug Fixes
