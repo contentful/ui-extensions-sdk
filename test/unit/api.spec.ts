@@ -166,13 +166,13 @@ describe('createAPI()', () => {
     expect(api.agent).to.have.all.keys([
       'onContextChange',
       'onToolbarAction',
-      'onLayoutVariantChange',
-      'setLayoutVariant',
+      'onAgentLayoutVariantChange',
+      'setAgentLayoutVariant',
     ])
     expect(api.agent.onContextChange).to.be.a('function')
     expect(api.agent.onToolbarAction).to.be.a('function')
-    expect(api.agent.onLayoutVariantChange).to.be.a('function')
-    expect(api.agent.setLayoutVariant).to.be.a('function')
+    expect(api.agent.onAgentLayoutVariantChange).to.be.a('function')
+    expect(api.agent.setAgentLayoutVariant).to.be.a('function')
   })
 })
 

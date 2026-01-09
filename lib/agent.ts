@@ -15,7 +15,7 @@ export default function createAgent(
 
   const toolbarActionSignal = new Signal<[ToolbarAction]>()
 
-  const layoutVariantChanged = new MemoizedSignal<[LayoutVariant]>('normal')
+  const agentLayoutVariantChanged = new MemoizedSignal<[LayoutVariant]>('normal')
 
   channel.addHandler('contextChanged', (newContext: AgentContext) => {
     contextChanged.dispatch(newContext)
@@ -25,16 +25,19 @@ export default function createAgent(
     toolbarActionSignal.dispatch(action)
   })
 
-  channel.addHandler('layoutVariantChanged', (variant: LayoutVariant) => {
-    layoutVariantChanged.dispatch(variant)
+  channel.addHandler('agentLayoutVariantChanged', (variant: LayoutVariant) => {
+    agentLayoutVariantChanged.dispatch(variant)
   })
 
   return {
     onContextChange: (handler) => contextChanged.attach(handler),
     onToolbarAction: (handler) => toolbarActionSignal.attach(handler),
-    onLayoutVariantChange: (handler) => layoutVariantChanged.attach(handler),
-    setLayoutVariant: (variant: LayoutVariant) => {
-      channel.send('setLayoutVariant', variant)
+    onAgentLayoutVariantChange: (handler) => agentLayoutVariantChanged.attach(handler),
+    setAgentLayoutVariant: (variant: LayoutVariant) => {
+      if (variant !== 'expanded' && variant !== 'normal') {
+        throw new Error(`Invalid layout variant "${variant}". Expected "expanded" or "normal".`)
+      }
+      channel.send('setAgentLayoutVariant', variant)
     },
   }
 }

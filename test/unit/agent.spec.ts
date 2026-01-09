@@ -42,17 +42,17 @@ describe('createAgent()', () => {
     })
 
     describe('API shape', () => {
-      it('returns an object with onContextChange, onToolbarAction, onLayoutVariantChange, and setLayoutVariant methods', () => {
+      it('returns an object with onContextChange, onToolbarAction, onAgentLayoutVariantChange, and setAgentLayoutVariant methods', () => {
         expect(agent).to.have.all.keys([
           'onContextChange',
           'onToolbarAction',
-          'onLayoutVariantChange',
-          'setLayoutVariant',
+          'onAgentLayoutVariantChange',
+          'setAgentLayoutVariant',
         ])
         expect(agent.onContextChange).to.be.a('function')
         expect(agent.onToolbarAction).to.be.a('function')
-        expect(agent.onLayoutVariantChange).to.be.a('function')
-        expect(agent.setLayoutVariant).to.be.a('function')
+        expect(agent.onAgentLayoutVariantChange).to.be.a('function')
+        expect(agent.setAgentLayoutVariant).to.be.a('function')
       })
     })
 
@@ -82,7 +82,7 @@ describe('createAgent()', () => {
     })
 
     describe('context change handling', () => {
-      it('registers contextChanged, toolbarAction, and layoutVariantChanged handlers with channel', () => {
+      it('registers contextChanged, toolbarAction, and agentLayoutVariantChanged handlers with channel', () => {
         expect(channelStub.addHandler).to.have.been.calledThrice // eslint-disable-line no-unused-expressions
         expect(channelStub.addHandler.firstCall).to.have.been.calledWith(
           'contextChanged',
@@ -93,7 +93,7 @@ describe('createAgent()', () => {
           sinon.match.func,
         )
         expect(channelStub.addHandler.thirdCall).to.have.been.calledWith(
-          'layoutVariantChanged',
+          'agentLayoutVariantChanged',
           sinon.match.func,
         )
       })
@@ -353,56 +353,56 @@ describe('createAgent()', () => {
       agent = createAgent(channelStub, mockAgentContext)
     })
 
-    describe('.onLayoutVariantChange(handler)', () => {
+    describe('.onAgentLayoutVariantChange(handler)', () => {
       describeAttachHandlerMember('default behaviour', () => {
-        return agent.onLayoutVariantChange(() => {})
+        return agent.onAgentLayoutVariantChange(() => {})
       })
 
       it('calls handler immediately with initial value "normal"', () => {
         const handler = sinon.stub()
-        agent.onLayoutVariantChange(handler)
+        agent.onAgentLayoutVariantChange(handler)
 
         expect(handler).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
         expect(handler).to.have.been.calledWith('normal')
       })
 
-      it('calls handler when layoutVariantChanged event is received', () => {
+      it('calls handler when agentLayoutVariantChanged event is received', () => {
         const handler = sinon.stub()
-        agent.onLayoutVariantChange(handler)
+        agent.onAgentLayoutVariantChange(handler)
         handler.resetHistory() // Reset the initial call
 
-        // Simulate channel dispatching layoutVariantChanged event
-        const layoutVariantChangedHandler = channelStub.addHandler.getCall(2).args[1]
-        layoutVariantChangedHandler('expanded')
+        // Simulate channel dispatching agentLayoutVariantChanged event
+        const agentLayoutVariantChangedHandler = channelStub.addHandler.getCall(2).args[1]
+        agentLayoutVariantChangedHandler('expanded')
 
         expect(handler).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
         expect(handler).to.have.been.calledWith('expanded')
       })
 
-      it('calls handler with "normal" when layoutVariantChanged event is received with "normal"', () => {
+      it('calls handler with "normal" when agentLayoutVariantChanged event is received with "normal"', () => {
         const handler = sinon.stub()
-        agent.onLayoutVariantChange(handler)
+        agent.onAgentLayoutVariantChange(handler)
         handler.resetHistory() // Reset the initial call
 
-        const layoutVariantChangedHandler = channelStub.addHandler.getCall(2).args[1]
-        layoutVariantChangedHandler('normal')
+        const agentLayoutVariantChangedHandler = channelStub.addHandler.getCall(2).args[1]
+        agentLayoutVariantChangedHandler('normal')
 
         expect(handler).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
         expect(handler).to.have.been.calledWith('normal')
       })
 
-      it('calls multiple handlers when layoutVariantChanged event is received', () => {
+      it('calls multiple handlers when agentLayoutVariantChanged event is received', () => {
         const handler1 = sinon.stub()
         const handler2 = sinon.stub()
 
-        agent.onLayoutVariantChange(handler1)
-        agent.onLayoutVariantChange(handler2)
+        agent.onAgentLayoutVariantChange(handler1)
+        agent.onAgentLayoutVariantChange(handler2)
 
         handler1.resetHistory()
         handler2.resetHistory()
 
-        const layoutVariantChangedHandler = channelStub.addHandler.getCall(2).args[1]
-        layoutVariantChangedHandler('expanded')
+        const agentLayoutVariantChangedHandler = channelStub.addHandler.getCall(2).args[1]
+        agentLayoutVariantChangedHandler('expanded')
 
         expect(handler1).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
         expect(handler1).to.have.been.calledWith('expanded')
@@ -410,60 +410,90 @@ describe('createAgent()', () => {
         expect(handler2).to.have.been.calledWith('expanded')
       })
 
-      it('does not call detached handler when layoutVariantChanged event is received', () => {
+      it('does not call detached handler when agentLayoutVariantChanged event is received', () => {
         const handler = sinon.stub()
-        const detach = agent.onLayoutVariantChange(handler)
+        const detach = agent.onAgentLayoutVariantChange(handler)
 
         handler.resetHistory()
         detach()
 
-        const layoutVariantChangedHandler = channelStub.addHandler.getCall(2).args[1]
-        layoutVariantChangedHandler('expanded')
+        const agentLayoutVariantChangedHandler = channelStub.addHandler.getCall(2).args[1]
+        agentLayoutVariantChangedHandler('expanded')
 
         expect(handler).to.not.have.been.called // eslint-disable-line no-unused-expressions
       })
     })
 
-    describe('.setLayoutVariant(variant)', () => {
-      it('sends "setLayoutVariant" message to channel with "normal"', () => {
-        agent.setLayoutVariant('normal')
+    describe('.setAgentLayoutVariant(variant)', () => {
+      it('sends "setAgentLayoutVariant" message to channel with "normal"', () => {
+        agent.setAgentLayoutVariant('normal')
 
         expect(channelStub.send).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
-        expect(channelStub.send).to.have.been.calledWith('setLayoutVariant', 'normal')
+        expect(channelStub.send).to.have.been.calledWith('setAgentLayoutVariant', 'normal')
       })
 
-      it('sends "setLayoutVariant" message to channel with "expanded"', () => {
-        agent.setLayoutVariant('expanded')
+      it('sends "setAgentLayoutVariant" message to channel with "expanded"', () => {
+        agent.setAgentLayoutVariant('expanded')
 
         expect(channelStub.send).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
-        expect(channelStub.send).to.have.been.calledWith('setLayoutVariant', 'expanded')
+        expect(channelStub.send).to.have.been.calledWith('setAgentLayoutVariant', 'expanded')
       })
 
       it('only accepts "normal" or "expanded" as valid values', () => {
         // TypeScript should prevent invalid values, but we can test the runtime behavior
-        agent.setLayoutVariant('normal')
-        agent.setLayoutVariant('expanded')
+        agent.setAgentLayoutVariant('normal')
+        agent.setAgentLayoutVariant('expanded')
 
         expect(channelStub.send).to.have.been.calledTwice // eslint-disable-line no-unused-expressions
-        expect(channelStub.send.firstCall).to.have.been.calledWith('setLayoutVariant', 'normal')
-        expect(channelStub.send.secondCall).to.have.been.calledWith('setLayoutVariant', 'expanded')
+        expect(channelStub.send.firstCall).to.have.been.calledWith(
+          'setAgentLayoutVariant',
+          'normal',
+        )
+        expect(channelStub.send.secondCall).to.have.been.calledWith(
+          'setAgentLayoutVariant',
+          'expanded',
+        )
       })
 
-      it('dispatches layoutVariantChanged signal when layoutVariantChanged event is received', () => {
+      it('throws error for invalid layout variant', () => {
+        expect(() => {
+          agent.setAgentLayoutVariant('invalid' as any)
+        }).to.throw('Invalid layout variant "invalid". Expected "expanded" or "normal".')
+      })
+
+      it('throws error for empty string layout variant', () => {
+        expect(() => {
+          agent.setAgentLayoutVariant('' as any)
+        }).to.throw('Invalid layout variant "". Expected "expanded" or "normal".')
+      })
+
+      it('throws error for null layout variant', () => {
+        expect(() => {
+          agent.setAgentLayoutVariant(null as any)
+        }).to.throw(/Invalid layout variant/)
+      })
+
+      it('throws error for undefined layout variant', () => {
+        expect(() => {
+          agent.setAgentLayoutVariant(undefined as any)
+        }).to.throw(/Invalid layout variant/)
+      })
+
+      it('dispatches agentLayoutVariantChanged signal when agentLayoutVariantChanged event is received', () => {
         const handler = sinon.stub()
-        agent.onLayoutVariantChange(handler)
+        agent.onAgentLayoutVariantChange(handler)
         handler.resetHistory()
 
-        const layoutVariantChangedHandler = channelStub.addHandler.getCall(2).args[1]
+        const agentLayoutVariantChangedHandler = channelStub.addHandler.getCall(2).args[1]
 
         // Simulate receiving 'expanded' variant change
-        layoutVariantChangedHandler('expanded')
+        agentLayoutVariantChangedHandler('expanded')
 
         expect(handler).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
         expect(handler).to.have.been.calledWith('expanded')
 
         // Simulate receiving 'normal' variant change
-        layoutVariantChangedHandler('normal')
+        agentLayoutVariantChangedHandler('normal')
 
         expect(handler).to.have.been.calledTwice // eslint-disable-line no-unused-expressions
         expect(handler.secondCall).to.have.been.calledWith('normal')
