@@ -21,7 +21,7 @@ import {
 import { Channel } from './channel'
 import { createAdapter } from './cmaAdapter'
 import { createCMAClient } from './cma'
-import { KeyValueMap } from 'contentful-management/types'
+import { KeyValueMap } from 'contentful-management'
 
 const DEFAULT_API_PRODUCERS = [
   makeSharedAPI,

@@ -19,7 +19,7 @@ export type {
   UploadProps as Upload,
   UserProps as User,
   WorkflowDefinitionProps as WorkflowDefinition,
-} from 'contentful-management/types'
+} from 'contentful-management'
 
 export interface CanonicalRequest {
   method: 'GET' | 'PUT' | 'POST' | 'PATCH' | 'DELETE' | 'HEAD' | 'OPTIONS'

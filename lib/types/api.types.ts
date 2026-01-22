@@ -20,7 +20,7 @@ import { DialogsAPI } from './dialogs.types'
 import { AppConfigAPI } from './app.types'
 import { NavigatorAPI } from './navigator.types'
 import { EntryFieldInfo, FieldInfo } from './field.types'
-import { Adapter, KeyValueMap } from 'contentful-management/types'
+import { Adapter, KeyValueMap } from 'contentful-management'
 import { CMAClient } from './cmaClient.types'
 import { AgentAPI, AgentContext } from './agent.types'
 
