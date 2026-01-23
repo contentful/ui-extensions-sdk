@@ -1,3 +1,9 @@
+## [4.51.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.51.0...v4.51.1) (2026-01-23)
+
+### Bug Fixes
+
+- **ci:** only create local main reference if we aren't currently on it [] ([#2440](https://github.com/contentful/ui-extensions-sdk/issues/2440)) ([3ea7439](https://github.com/contentful/ui-extensions-sdk/commit/3ea7439e92f3255b12fc41467e5460b1d02fa356))
+
 # [4.51.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.50.0...v4.51.0) (2026-01-09)
 
 ### Features
