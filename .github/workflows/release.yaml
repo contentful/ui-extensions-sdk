@@ -42,13 +42,6 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.workflow_run.head_branch || github.ref }}
           token: ${{ steps.vault.outputs.GITHUB_TOKEN }}
-      
-      - name: Track main branch
-        run: |
-          # Only create local main reference if we aren't currently on it
-          if [ "$(git rev-parse --abbrev-ref HEAD)" != "main" ]; then
-            git branch -f main origin/main
-          fi
 
       - name: Get Automation Bot User ID
         id: get-user-id
