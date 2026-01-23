@@ -1,3 +1,9 @@
+## [4.51.3](https://github.com/contentful/ui-extensions-sdk/compare/v4.51.2...v4.51.3) (2026-01-23)
+
+### Bug Fixes
+
+- revert unintentional canary release [INC-970] ([#2442](https://github.com/contentful/ui-extensions-sdk/issues/2442)) ([86f54c4](https://github.com/contentful/ui-extensions-sdk/commit/86f54c4bef8913625392e422b4866863cab22877))
+
 ## [4.51.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.51.1...v4.51.2) (2026-01-23)
 
 ### Bug Fixes
