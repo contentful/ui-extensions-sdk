@@ -43,6 +43,14 @@ jobs:
           ref: ${{ github.event.workflow_run.head_branch || github.ref }}
           token: ${{ steps.vault.outputs.GITHUB_TOKEN }}
 
+      - name: Create local main branch reference
+        # semantic-release needs a local 'main' branch to run 'git tag --merged main'
+        # When checking out a non-main branch (e.g., canary), we need to create this reference
+        run: |
+          if [ "$(git rev-parse --abbrev-ref HEAD)" != "main" ]; then
+            git branch -f main origin/main
+          fi
+
       - name: Get Automation Bot User ID
         id: get-user-id
         run: |
@@ -95,6 +103,10 @@ jobs:
           GIT_AUTHOR_EMAIL: ${{ steps.vault.outputs.GIT_COMMITTER_EMAIL }}
           GIT_COMMITTER_NAME: ${{ steps.vault.outputs.GIT_COMMITTER_NAME }}
           GIT_COMMITTER_EMAIL: ${{ steps.vault.outputs.GIT_COMMITTER_EMAIL }}
+          # Fix: Override GITHUB_REF for workflow_run trigger
+          # In workflow_run, GITHUB_REF points to the default branch (main), not the branch that triggered CI
+          # This tells semantic-release which branch configuration to use (main vs canary prerelease)
+          GITHUB_REF: refs/heads/${{ github.event.workflow_run.head_branch || github.ref_name }}
 
       - name: Get latest release tag
         id: get-tag
