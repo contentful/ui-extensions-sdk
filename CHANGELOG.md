@@ -1,3 +1,9 @@
+## [4.51.4](https://github.com/contentful/ui-extensions-sdk/compare/v4.51.3...v4.51.4) (2026-01-29)
+
+### Bug Fixes
+
+- run release overrides github ref to current branch for canary release [EXT-7158] ([#2446](https://github.com/contentful/ui-extensions-sdk/issues/2446)) ([14efe95](https://github.com/contentful/ui-extensions-sdk/commit/14efe95041c1c23a4507173fc8e13ec1906585e2))
+
 ## [4.51.3](https://github.com/contentful/ui-extensions-sdk/compare/v4.51.2...v4.51.3) (2026-01-23)
 
 ### Bug Fixes
