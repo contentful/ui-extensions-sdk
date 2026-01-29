@@ -1,3 +1,10 @@
+## [4.51.4-alpha.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.51.3...v4.51.4-alpha.1) (2026-01-29)
+
+### Bug Fixes
+
+- run release overrides github ref to current branch ([1c843cf](https://github.com/contentful/ui-extensions-sdk/commit/1c843cfd545a76f492bd6534ab9a8aab9783aa48))
+- run release overrides github ref to current branch ([e02fc0f](https://github.com/contentful/ui-extensions-sdk/commit/e02fc0f46cf7ce51724d16c06e856c097ed91e46))
+
 ## [4.51.3](https://github.com/contentful/ui-extensions-sdk/compare/v4.51.2...v4.51.3) (2026-01-23)
 
 ### Bug Fixes
