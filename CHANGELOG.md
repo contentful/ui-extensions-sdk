@@ -1,3 +1,9 @@
+## [4.51.4-alpha.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.51.4-alpha.1...v4.51.4-alpha.2) (2026-01-29)
+
+### Bug Fixes
+
+- update cma to 12.0.0-new-beta.11 [DX-680] ([#2447](https://github.com/contentful/ui-extensions-sdk/issues/2447)) ([967fd48](https://github.com/contentful/ui-extensions-sdk/commit/967fd48e92d428bea30bde27ff12f5d1ff303e20))
+
 ## [4.51.4-alpha.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.51.3...v4.51.4-alpha.1) (2026-01-29)
 
 ### Bug Fixes
