@@ -93,6 +93,22 @@ jobs:
         run: |
           echo "Starting Semantic Release Process"
           echo "npm version: $(npm -v)"
+          
+          # === TESTING SAFEGUARD - REMOVE BEFORE MERGING ===
+          echo "RELEASE BLOCKED FOR TESTING"
+          echo ""
+          echo "Debug info:"
+          echo "  Git branch (from checkout): $(git rev-parse --abbrev-ref HEAD)"
+          echo "  GITHUB_REF (overridden):    $GITHUB_REF"
+          echo "  workflow_run.head_branch:   ${{ github.event.workflow_run.head_branch }}"
+          echo "  github.ref_name:            ${{ github.ref_name }}"
+          echo ""
+          echo "Expected behavior:"
+          echo "  - If GITHUB_REF = refs/heads/canary → would release as alpha prerelease"
+          echo "  - If GITHUB_REF = refs/heads/main   → would release as production (DANGER if on canary branch)"
+          exit 1
+          # === END TESTING SAFEGUARD ===
+          
           npm run semantic-release
         env:
           GITHUB_TOKEN: ${{ steps.vault.outputs.GITHUB_TOKEN }}
