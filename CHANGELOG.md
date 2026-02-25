@@ -1,3 +1,9 @@
+## [4.51.5](https://github.com/contentful/ui-extensions-sdk/compare/v4.51.4...v4.51.5) (2026-02-25)
+
+### Bug Fixes
+
+- trigger release ([#2469](https://github.com/contentful/ui-extensions-sdk/issues/2469)) ([b89431b](https://github.com/contentful/ui-extensions-sdk/commit/b89431bbb084d3e75fd6fdb32c4c4ecb79e8541a))
+
 ## [4.51.4](https://github.com/contentful/ui-extensions-sdk/compare/v4.51.3...v4.51.4) (2026-01-29)
 
 ### Bug Fixes
