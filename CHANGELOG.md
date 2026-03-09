@@ -1,3 +1,9 @@
+# [4.53.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.52.0...v4.53.0) (2026-03-09)
+
+### Features
+
+- [EXT-7181] experience-toolbar-location-constant ([#2477](https://github.com/contentful/ui-extensions-sdk/issues/2477)) ([beb58ef](https://github.com/contentful/ui-extensions-sdk/commit/beb58ef63db0e26d67ba4a7e040fadf4a4673d35))
+
 # [4.52.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.51.5...v4.52.0) (2026-03-09)
 
 ### Features
