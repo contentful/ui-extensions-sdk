@@ -405,6 +405,7 @@ export interface Locations {
   LOCATION_HOME: 'home'
   LOCATION_APP_CONFIG: 'app-config'
   LOCATION_AGENT: 'agent'
+  LOCATION_EXPERIENCE_TOOLBAR: 'experience-toolbar'
 }
 
 export interface ConnectMessage {
