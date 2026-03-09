@@ -133,12 +133,6 @@ describe('createAPI()', () => {
     test(expected, locations.LOCATION_PAGE)
   })
 
-  it('returns correct shape of the ExO experience toolbar API (experience-toolbar)', () => {
-    const expected: string[] = []
-
-    test(expected, locations.LOCATION_EXPERIENCE_TOOLBAR)
-  })
-
   it('returns correct shape of the app API (app)', () => {
     const expected = ['app']
 

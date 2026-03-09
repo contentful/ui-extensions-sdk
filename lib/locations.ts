@@ -11,7 +11,6 @@ const locations: Locations = {
   LOCATION_APP_CONFIG: 'app-config',
   LOCATION_HOME: 'home',
   LOCATION_AGENT: 'agent',
-  LOCATION_EXPERIENCE_TOOLBAR: 'experience-toolbar',
 }
 
 export default locations
