@@ -35,6 +35,7 @@ export type {
   JSONPatchItem,
   HostnamesAPI,
   AgentAppSDK,
+  ExperienceToolbarAppSDK,
 } from './api.types'
 
 export type {
@@ -136,3 +137,26 @@ export type {
 export type { WindowAPI } from './window.types'
 
 export type { CMAClient } from './cmaClient.types'
+
+export type {
+  Unsubscribe,
+  UiMode,
+  ExoSDK,
+  BindingSourceType,
+  EntryBinding,
+  ManualBinding,
+  ExperienceBinding,
+  Binding,
+  ComponentPropertyBinding,
+  DesignTokenValue,
+  ManualDesignValue,
+  DesignValue,
+  ComponentPropertyDescriptor,
+  LinkType,
+  DataAssemblyParameterDefinition,
+  DataAssemblyParameterValue,
+  DataAssemblyParameter,
+  DataAssemblySnapshot,
+  EntryBindingRef,
+  DataAssemblySDK,
+} from './exo.types'
