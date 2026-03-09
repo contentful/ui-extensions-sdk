@@ -159,4 +159,8 @@ export type {
   DataAssemblySnapshot,
   EntryBindingRef,
   DataAssemblySDK,
+  ExperienceSnapshot,
+  ExoNodeAPI,
+  ExoSelectionAPI,
+  ExperienceAPI,
 } from './exo.types'
