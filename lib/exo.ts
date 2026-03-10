@@ -22,9 +22,6 @@ import {
   SlotDescriptor,
 } from './types'
 
-/**
- * Creates the ExO SDK namespace when handshake includes `exo`; otherwise returns undefined.
- */
 export default function createExo(
   channel: Channel,
   exoInit?: { uiMode?: UiMode; experience?: ExperienceSnapshot },

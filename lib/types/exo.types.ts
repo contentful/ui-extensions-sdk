@@ -1,14 +1,8 @@
-/**
- * ExO (Experience Orchestration) SDK types.
- */
-
 import { Link } from './utils'
 
 export type Unsubscribe = () => void
 
 export type UiMode = 'form' | 'visual'
-
-/* Bindings + property descriptors */
 
 export type BindingSourceType = 'entry' | 'manual' | 'experience'
 
@@ -55,8 +49,6 @@ export interface ComponentPropertyDescriptor<C = unknown, D extends DesignValue 
   value: C | D
   binding?: ComponentPropertyBinding
 }
-
-/* Data Assembly types */
 
 export type LinkType = 'Entry' | 'Asset'
 
@@ -117,73 +109,49 @@ export interface DataAssemblySDK {
   onChange(cb: (snapshot: DataAssemblySnapshot) => void): Unsubscribe
 }
 
-/* Node types */
+export type ExoNodeType = 'experience' | 'fragment' | 'inlineFragment' | 'slot' | 'component'
 
-/** Classifies each node within the Experience tree */
-export type ExoNodeType =
-  | 'experience' // root-level entity
-  | 'fragment' // reusable, independent lifecycle
-  | 'inlineFragment' // parent-bound, non-reusable
-  | 'slot' // placement area within a Template or ComponentType
-  | 'component' // leaf coded component
-
-/** Minimal snapshot of a node's data */
 export interface ExoNodeSnapshot {
   id: string
   nodeType: ExoNodeType
 }
 
-/** Describes a slot's placement rules and current occupants */
 export interface SlotDescriptor {
   id: string
   allowedComponentTypeIds: string[]
   currentItems: Array<{ nodeId: string; nodeType: 'fragment' | 'inlineFragment' }>
 }
 
-/** Node-level property and binding access for a single component node */
 export interface ExoNodeAPI {
-  /** Stable identifier for this node */
   id: string
-  /** Classifies this node within the experience tree */
   nodeType: ExoNodeType
-  /** Synchronous snapshot of this node's current data */
   get(): ExoNodeSnapshot
-  /** Subscribe to changes on this node */
   onChange(cb: (node: ExoNodeSnapshot) => void): Unsubscribe
-  // Content properties
   getContentProperty<T = unknown>(key: string): Promise<T>
   setContentProperty<T = unknown>(key: string, value: T): Promise<void>
   onContentPropertyChanged<T = unknown>(key: string, cb: (value: T) => void): Unsubscribe
-  // Design properties
   getDesignProperty<T extends DesignValue = DesignValue>(key: string): Promise<T>
   setDesignProperty<T extends DesignValue = DesignValue>(key: string, value: T): Promise<void>
   onDesignPropertyChanged<T extends DesignValue = DesignValue>(
     key: string,
     cb: (value: T) => void,
   ): Unsubscribe
-  /** Enumerate all properties with binding metadata */
   getProperties(): Promise<ComponentPropertyDescriptor[]>
-  /** Convenience: routes to content/design setter as appropriate */
   updateProperty<T = unknown>(key: string, value: T): Promise<void>
-  // Binding read/write
   getBinding(key: string): Promise<Binding | null>
   setBinding(key: string, binding: Binding): Promise<void>
   getBindingMetadata(key: string): Promise<ComponentPropertyBinding | null>
   resolveEntryBinding(key: string): Promise<{ entryId: string; fieldId?: string } | null>
-  /** Only valid when nodeType === 'slot' */
   getSlotDescriptor(): Promise<SlotDescriptor | null>
 }
 
-/* Selection state API */
 export interface ExoSelectionAPI {
   get(): { nodeId: string | null; nodeType?: ExoNodeType }
   onChange(cb: (sel: { nodeId: string | null; nodeType?: ExoNodeType }) => void): Unsubscribe
-  /** Pass null to clear the current selection */
   set(nodeId: string | null): void
   highlight(nodeId: string, opts?: { flash?: boolean; scrollIntoView?: boolean }): void
 }
 
-/* Experience snapshot — entity shape aligned with DX-499/DX-500 contracts */
 export interface ExperienceSnapshot {
   sys: {
     id: string
@@ -193,7 +161,6 @@ export interface ExperienceSnapshot {
   }
 }
 
-/* The sdk.exo.experience sub-namespace */
 export interface ExperienceAPI {
   get(): ExperienceSnapshot
   onChange(cb: (v: ExperienceSnapshot) => void): Unsubscribe
