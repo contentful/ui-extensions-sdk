@@ -23,7 +23,7 @@ import { EntryFieldInfo, FieldInfo } from './field.types'
 import { Adapter, KeyValueMap } from 'contentful-management'
 import { CMAClient } from './cmaClient.types'
 import { AgentAPI, AgentContext } from './agent.types'
-import { ExoSDK, UiMode } from './exo.types'
+import { ExoSDK, UiMode, ExperienceSnapshot } from './exo.types'
 
 /* User API */
 
@@ -448,5 +448,6 @@ export interface ConnectMessage {
   /** ExO data; when present, SDK constructs sdk.exo */
   exo?: {
     uiMode?: UiMode
+    experience?: ExperienceSnapshot
   }
 }
