@@ -1,3 +1,9 @@
+## [4.53.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.53.0...v4.53.1) (2026-03-10)
+
+### Bug Fixes
+
+- [EXT-00] canary-does-not-auto-release ([#2480](https://github.com/contentful/ui-extensions-sdk/issues/2480)) ([f819391](https://github.com/contentful/ui-extensions-sdk/commit/f8193912be5602d006a3d03841082c6f09f04c71))
+
 # [4.53.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.52.0...v4.53.0) (2026-03-09)
 
 ### Features
