@@ -1,3 +1,9 @@
+# [4.52.0-alpha.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.52.0-alpha.1...v4.52.0-alpha.2) (2026-03-10)
+
+### Features
+
+- [EXT-7185] ExperienceEditorToolbarAppSDK surface (experience, nodes, selection, Data Assembly) ([#2479](https://github.com/contentful/ui-extensions-sdk/issues/2479)) ([fdc7b28](https://github.com/contentful/ui-extensions-sdk/commit/fdc7b28de78114b8f9131caf761800f071cbc5e6))
+
 # [4.52.0-alpha.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.51.5...v4.52.0-alpha.1) (2026-03-09)
 
 ### Features
