@@ -1,8 +1,14 @@
+/**
+ * ExO (Experience Orchestration) SDK types.
+ */
+
 import { Link } from './utils'
 
 export type Unsubscribe = () => void
 
 export type UiMode = 'form' | 'visual'
+
+/* Bindings + property descriptors */
 
 export type BindingSourceType = 'entry' | 'manual' | 'experience'
 
@@ -49,6 +55,8 @@ export interface ComponentPropertyDescriptor<C = unknown, D extends DesignValue 
   value: C | D
   binding?: ComponentPropertyBinding
 }
+
+/* Data Assembly types */
 
 export type LinkType = 'Entry' | 'Asset'
 

@@ -357,6 +357,7 @@ export type AgentAppSDK<InstallationParameters extends KeyValueMap = KeyValueMap
 export type ExperienceToolbarAppSDK<InstallationParameters extends KeyValueMap = KeyValueMap> =
   Omit<BaseAppSDK<InstallationParameters, never, never>, 'ids'> & {
     ids: Omit<IdsAPI, EntryScopedIds>
+    /** ExO (Experience Orchestration) SDK for experience-toolbar location */
     exo: ExoSDK
   }
 
@@ -444,6 +445,7 @@ export interface ConnectMessage {
   release?: Release
   uiLanguageLocale: string
   agent?: AgentContext
+  /** ExO data; when present, SDK constructs sdk.exo */
   exo?: {
     uiMode?: UiMode
     experience?: ExperienceSnapshot
