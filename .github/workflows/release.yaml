@@ -7,12 +7,15 @@ on:
       - completed
     branches:
       - main
-      - canary
   workflow_dispatch:
 
 jobs:
   release:
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    # workflow_run: only triggers from main (branches filter above), so run on success.
+    # workflow_dispatch: allow main (full release) or canary (pre-release) so manual canary runs publish under the canary dist-tag.
+    if: >
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') ||
+      (github.event_name == 'workflow_dispatch' && (github.ref_name == 'main' || github.ref_name == 'canary'))
     runs-on: ubuntu-latest
 
     permissions:
