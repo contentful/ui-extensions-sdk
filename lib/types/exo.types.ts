@@ -126,10 +126,12 @@ export interface ExperienceSnapshot {
 
 /* Node-level property access for a single component node within the experience */
 export interface ExoNodeAPI {
-  getContentProperty(key: string): Promise<ComponentPropertyDescriptor | null>
-  setContentProperty(key: string, value: unknown): Promise<void>
-  getDesignProperty(key: string): Promise<ComponentPropertyDescriptor | null>
-  setDesignProperty(key: string, value: unknown): Promise<void>
+  getContentProperty<T = unknown>(key: string): Promise<ComponentPropertyDescriptor<T> | null>
+  setContentProperty<T = unknown>(key: string, value: T): Promise<void>
+  getDesignProperty<D extends DesignValue = DesignValue>(
+    key: string,
+  ): Promise<ComponentPropertyDescriptor<unknown, D> | null>
+  setDesignProperty<D extends DesignValue = DesignValue>(key: string, value: D): Promise<void>
 }
 
 /* Selection state API */

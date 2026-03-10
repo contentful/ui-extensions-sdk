@@ -14,12 +14,11 @@ import {
   DataAssemblyParameterValue,
   EntryBindingRef,
   ComponentPropertyDescriptor,
+  DesignValue,
 } from './types'
 
 /**
  * Creates the ExO SDK namespace when handshake includes `exo`; otherwise returns undefined.
- * @see EXT-7182
- * @see EXT-7185
  */
 export default function createExo(
   channel: Channel,
@@ -85,17 +84,27 @@ function createExperienceAPI(channel: Channel, initial?: ExperienceSnapshot): Ex
 
 function createNodeAPI(channel: Channel, nodeId: string): ExoNodeAPI {
   return {
-    getContentProperty(key: string): Promise<ComponentPropertyDescriptor | null> {
-      return channel.call('exo.getNodeContentProperty', nodeId, key)
+    getContentProperty<T = unknown>(key: string): Promise<ComponentPropertyDescriptor<T> | null> {
+      return channel.call<ComponentPropertyDescriptor<T> | null>(
+        'exo.getNodeContentProperty',
+        nodeId,
+        key,
+      )
     },
-    setContentProperty(key: string, value: unknown): Promise<void> {
-      return channel.call('exo.setNodeContentProperty', nodeId, key, value)
+    setContentProperty<T = unknown>(key: string, value: T): Promise<void> {
+      return channel.call<void>('exo.setNodeContentProperty', nodeId, key, value)
     },
-    getDesignProperty(key: string): Promise<ComponentPropertyDescriptor | null> {
-      return channel.call('exo.getNodeDesignProperty', nodeId, key)
+    getDesignProperty<D extends DesignValue = DesignValue>(
+      key: string,
+    ): Promise<ComponentPropertyDescriptor<unknown, D> | null> {
+      return channel.call<ComponentPropertyDescriptor<unknown, D> | null>(
+        'exo.getNodeDesignProperty',
+        nodeId,
+        key,
+      )
     },
-    setDesignProperty(key: string, value: unknown): Promise<void> {
-      return channel.call('exo.setNodeDesignProperty', nodeId, key, value)
+    setDesignProperty<D extends DesignValue = DesignValue>(key: string, value: D): Promise<void> {
+      return channel.call<void>('exo.setNodeDesignProperty', nodeId, key, value)
     },
   }
 }
