@@ -115,13 +115,14 @@ describe('createExo()', () => {
     })
 
     describe('.experience', () => {
-      it('exposes get, onChange, save, publish, getNode, selection, and dataAssembly', () => {
+      it('exposes get, onChange, save, publish, getNode, getRootNodes, selection, and dataAssembly', () => {
         expect(exo!.experience).to.have.all.keys([
           'get',
           'onChange',
           'save',
           'publish',
           'getNode',
+          'getRootNodes',
           'selection',
           'dataAssembly',
         ])
@@ -224,13 +225,34 @@ describe('createExo()', () => {
           node = exo!.experience.getNode(nodeId)
         })
 
-        it('returns an ExoNodeAPI object', () => {
+        it('returns an ExoNodeAPI object with the correct shape', () => {
           expect(node).to.have.all.keys([
+            'id',
+            'nodeType',
+            'get',
+            'onChange',
             'getContentProperty',
             'setContentProperty',
+            'onContentPropertyChanged',
             'getDesignProperty',
             'setDesignProperty',
+            'onDesignPropertyChanged',
+            'getProperties',
+            'updateProperty',
+            'getBinding',
+            'setBinding',
+            'getBindingMetadata',
+            'resolveEntryBinding',
+            'getSlotDescriptor',
           ])
+        })
+
+        it('has id equal to the provided nodeId', () => {
+          expect(node!.id).to.equal(nodeId)
+        })
+
+        it('has nodeType defaulting to "component"', () => {
+          expect(node!.nodeType).to.equal('component')
         })
 
         describe('.getContentProperty(key)', () => {
@@ -301,14 +323,17 @@ describe('createExo()', () => {
         })
 
         describe('.get()', () => {
-          it('returns null initially', () => {
-            expect(exo!.experience.selection.get()).to.be.null // eslint-disable-line no-unused-expressions
+          it('returns { nodeId: null } initially (nothing selected)', () => {
+            expect(exo!.experience.selection.get()).to.deep.equal({ nodeId: null })
           })
 
           it('returns the updated selection after exo.selectionChanged is dispatched', () => {
             const selectionChangedHandler = channelStub.addHandler.getCall(2).args[1]
-            selectionChangedHandler({ nodeId: 'node-xyz' })
-            expect(exo!.experience.selection.get()).to.deep.equal({ nodeId: 'node-xyz' })
+            selectionChangedHandler({ nodeId: 'node-xyz', nodeType: 'component' })
+            expect(exo!.experience.selection.get()).to.deep.equal({
+              nodeId: 'node-xyz',
+              nodeType: 'component',
+            })
           })
         })
 
@@ -317,10 +342,10 @@ describe('createExo()', () => {
             return exo!.experience.selection.onChange(() => {})
           })
 
-          it('calls cb immediately with null (initial selection)', () => {
+          it('calls cb immediately with { nodeId: null } (initial selection)', () => {
             const cb = sinon.stub()
             exo!.experience.selection.onChange(cb)
-            expect(cb).to.have.been.calledOnceWith(null)
+            expect(cb).to.have.been.calledOnceWith({ nodeId: null })
           })
 
           it('calls cb when exo.selectionChanged is dispatched', () => {
@@ -329,20 +354,20 @@ describe('createExo()', () => {
             cb.resetHistory()
 
             const selectionChangedHandler = channelStub.addHandler.getCall(2).args[1]
-            selectionChangedHandler({ nodeId: 'node-xyz' })
+            selectionChangedHandler({ nodeId: 'node-xyz', nodeType: 'component' })
 
-            expect(cb).to.have.been.calledOnceWith({ nodeId: 'node-xyz' })
+            expect(cb).to.have.been.calledOnceWith({ nodeId: 'node-xyz', nodeType: 'component' })
           })
 
-          it('calls cb with null when selection is cleared', () => {
+          it('calls cb with { nodeId: null } when selection is cleared', () => {
             const cb = sinon.stub()
             exo!.experience.selection.onChange(cb)
             cb.resetHistory()
 
             const selectionChangedHandler = channelStub.addHandler.getCall(2).args[1]
-            selectionChangedHandler(null)
+            selectionChangedHandler({ nodeId: null })
 
-            expect(cb).to.have.been.calledOnceWith(null)
+            expect(cb).to.have.been.calledOnceWith({ nodeId: null })
           })
         })
 
@@ -353,6 +378,11 @@ describe('createExo()', () => {
               nodeId: 'node-abc',
             })
           })
+
+          it('accepts null to clear the selection', () => {
+            exo!.experience.selection.set(null)
+            expect(channelStub.send).to.have.been.calledWith('exo.setSelection', { nodeId: null })
+          })
         })
 
         describe('.highlight(nodeId)', () => {
@@ -360,6 +390,15 @@ describe('createExo()', () => {
             exo!.experience.selection.highlight('node-abc')
             expect(channelStub.send).to.have.been.calledWith('exo.highlightNode', {
               nodeId: 'node-abc',
+            })
+          })
+
+          it('forwards flash and scrollIntoView options to channel', () => {
+            exo!.experience.selection.highlight('node-abc', { flash: true, scrollIntoView: true })
+            expect(channelStub.send).to.have.been.calledWith('exo.highlightNode', {
+              nodeId: 'node-abc',
+              flash: true,
+              scrollIntoView: true,
             })
           })
         })

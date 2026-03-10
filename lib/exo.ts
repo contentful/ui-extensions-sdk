@@ -7,6 +7,8 @@ import {
   ExperienceSnapshot,
   ExperienceAPI,
   ExoNodeAPI,
+  ExoNodeSnapshot,
+  ExoNodeType,
   ExoSelectionAPI,
   DataAssemblySDK,
   DataAssemblySnapshot,
@@ -15,6 +17,9 @@ import {
   EntryBindingRef,
   ComponentPropertyDescriptor,
   DesignValue,
+  Binding,
+  ComponentPropertyBinding,
+  SlotDescriptor,
 } from './types'
 
 /**
@@ -50,7 +55,12 @@ export default function createExo(
 
 function createExperienceAPI(channel: Channel, initial?: ExperienceSnapshot): ExperienceAPI {
   const initialSnapshot: ExperienceSnapshot = initial ?? {
-    sys: { id: '', type: 'Experience', version: 0 },
+    sys: {
+      id: '',
+      type: 'Experience',
+      version: 0,
+      template: { sys: { id: '', type: 'Link', linkType: 'Template' } },
+    },
   }
   const experienceSignal = new MemoizedSignal<[ExperienceSnapshot]>(initialSnapshot)
 
@@ -77,57 +87,111 @@ function createExperienceAPI(channel: Channel, initial?: ExperienceSnapshot): Ex
     getNode(nodeId: string): ExoNodeAPI | null {
       return createNodeAPI(channel, nodeId)
     },
+    getRootNodes(): ExoNodeAPI[] {
+      return []
+    },
     selection,
     dataAssembly,
   }
 }
 
-function createNodeAPI(channel: Channel, nodeId: string): ExoNodeAPI {
+function createNodeAPI(
+  channel: Channel,
+  nodeId: string,
+  nodeType: ExoNodeType = 'component',
+): ExoNodeAPI {
+  const nodeSignal = new MemoizedSignal<[ExoNodeSnapshot]>({ id: nodeId, nodeType })
+
+  channel.addHandler(`exo.nodeChanged.${nodeId}`, (payload: ExoNodeSnapshot) => {
+    nodeSignal.dispatch(payload)
+  })
+
   return {
-    getContentProperty<T = unknown>(key: string): Promise<ComponentPropertyDescriptor<T> | null> {
-      return channel.call<ComponentPropertyDescriptor<T> | null>(
-        'exo.getNodeContentProperty',
-        nodeId,
-        key,
-      )
+    id: nodeId,
+    nodeType,
+    get(): ExoNodeSnapshot {
+      return nodeSignal.getMemoizedArgs()[0]
+    },
+    onChange(cb: (node: ExoNodeSnapshot) => void): Unsubscribe {
+      return nodeSignal.attach(cb)
+    },
+    getContentProperty<T = unknown>(key: string): Promise<T> {
+      return channel.call<T>('exo.getNodeContentProperty', nodeId, key)
     },
     setContentProperty<T = unknown>(key: string, value: T): Promise<void> {
       return channel.call<void>('exo.setNodeContentProperty', nodeId, key, value)
     },
-    getDesignProperty<D extends DesignValue = DesignValue>(
+    onContentPropertyChanged<T = unknown>(key: string, cb: (value: T) => void): Unsubscribe {
+      return channel.addHandler(`exo.nodeContentPropertyChanged.${nodeId}.${key}`, cb)
+    },
+    getDesignProperty<T extends DesignValue = DesignValue>(key: string): Promise<T> {
+      return channel.call<T>('exo.getNodeDesignProperty', nodeId, key)
+    },
+    setDesignProperty<T extends DesignValue = DesignValue>(key: string, value: T): Promise<void> {
+      return channel.call<void>('exo.setNodeDesignProperty', nodeId, key, value)
+    },
+    onDesignPropertyChanged<T extends DesignValue = DesignValue>(
       key: string,
-    ): Promise<ComponentPropertyDescriptor<unknown, D> | null> {
-      return channel.call<ComponentPropertyDescriptor<unknown, D> | null>(
-        'exo.getNodeDesignProperty',
+      cb: (value: T) => void,
+    ): Unsubscribe {
+      return channel.addHandler(`exo.nodeDesignPropertyChanged.${nodeId}.${key}`, cb)
+    },
+    getProperties(): Promise<ComponentPropertyDescriptor[]> {
+      return channel.call<ComponentPropertyDescriptor[]>('exo.getNodeProperties', nodeId)
+    },
+    updateProperty<T = unknown>(key: string, value: T): Promise<void> {
+      return channel.call<void>('exo.updateNodeProperty', nodeId, key, value)
+    },
+    getBinding(key: string): Promise<Binding | null> {
+      return channel.call<Binding | null>('exo.getNodeBinding', nodeId, key)
+    },
+    setBinding(key: string, binding: Binding): Promise<void> {
+      return channel.call<void>('exo.setNodeBinding', nodeId, key, binding)
+    },
+    getBindingMetadata(key: string): Promise<ComponentPropertyBinding | null> {
+      return channel.call<ComponentPropertyBinding | null>(
+        'exo.getNodeBindingMetadata',
         nodeId,
         key,
       )
     },
-    setDesignProperty<D extends DesignValue = DesignValue>(key: string, value: D): Promise<void> {
-      return channel.call<void>('exo.setNodeDesignProperty', nodeId, key, value)
+    resolveEntryBinding(key: string): Promise<{ entryId: string; fieldId?: string } | null> {
+      return channel.call<{ entryId: string; fieldId?: string } | null>(
+        'exo.resolveNodeEntryBinding',
+        nodeId,
+        key,
+      )
+    },
+    getSlotDescriptor(): Promise<SlotDescriptor | null> {
+      return channel.call<SlotDescriptor | null>('exo.getNodeSlotDescriptor', nodeId)
     },
   }
 }
 
 function createSelectionAPI(channel: Channel): ExoSelectionAPI {
-  const selectionSignal = new MemoizedSignal<[{ nodeId: string } | null]>(null)
-
-  channel.addHandler('exo.selectionChanged', (payload: { nodeId: string } | null) => {
-    selectionSignal.dispatch(payload)
+  const selectionSignal = new MemoizedSignal<[{ nodeId: string | null; nodeType?: ExoNodeType }]>({
+    nodeId: null,
   })
 
+  channel.addHandler(
+    'exo.selectionChanged',
+    (payload: { nodeId: string | null; nodeType?: ExoNodeType }) => {
+      selectionSignal.dispatch(payload)
+    },
+  )
+
   return {
-    get(): { nodeId: string } | null {
+    get(): { nodeId: string | null; nodeType?: ExoNodeType } {
       return selectionSignal.getMemoizedArgs()[0]
     },
-    onChange(cb: (selection: { nodeId: string } | null) => void): Unsubscribe {
+    onChange(cb: (sel: { nodeId: string | null; nodeType?: ExoNodeType }) => void): Unsubscribe {
       return selectionSignal.attach(cb)
     },
-    set(nodeId: string): void {
+    set(nodeId: string | null): void {
       channel.send('exo.setSelection', { nodeId })
     },
-    highlight(nodeId: string): void {
-      channel.send('exo.highlightNode', { nodeId })
+    highlight(nodeId: string, opts?: { flash?: boolean; scrollIntoView?: boolean }): void {
+      channel.send('exo.highlightNode', { nodeId, ...opts })
     },
   }
 }
