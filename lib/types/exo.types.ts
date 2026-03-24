@@ -2,11 +2,14 @@
  * ExO (Experience Orchestration) SDK types.
  */
 
-import { Link } from './utils'
-
 export type Unsubscribe = () => void
 
 export type UiMode = 'form' | 'visual'
+
+export interface ExoSDK {
+  getUiMode(): UiMode
+  onUiModeChanged(cb: (mode: UiMode) => void): Unsubscribe
+}
 
 /* Bindings + property descriptors */
 
@@ -115,73 +118,4 @@ export interface DataAssemblySDK {
   setParameter(parameterId: string, value: DataAssemblyParameterValue): Promise<void>
   setParameters(updates: Partial<Record<string, DataAssemblyParameterValue>>): Promise<void>
   onChange(cb: (snapshot: DataAssemblySnapshot) => void): Unsubscribe
-}
-
-export type ExoNodeType = 'experience' | 'fragment' | 'inlineFragment' | 'slot' | 'component'
-
-export interface ExoNodeSnapshot {
-  id: string
-  nodeType: ExoNodeType
-}
-
-export interface SlotDescriptor {
-  id: string
-  allowedComponentTypeIds: string[]
-  currentItems: Array<{ nodeId: string; nodeType: 'fragment' | 'inlineFragment' }>
-}
-
-export interface ExoNodeAPI {
-  id: string
-  nodeType: ExoNodeType
-  get(): ExoNodeSnapshot
-  onChange(cb: (node: ExoNodeSnapshot) => void): Unsubscribe
-  getContentProperty<T = unknown>(key: string): Promise<T>
-  setContentProperty<T = unknown>(key: string, value: T): Promise<void>
-  onContentPropertyChanged<T = unknown>(key: string, cb: (value: T) => void): Unsubscribe
-  getDesignProperty<T extends DesignValue = DesignValue>(key: string): Promise<T>
-  setDesignProperty<T extends DesignValue = DesignValue>(key: string, value: T): Promise<void>
-  onDesignPropertyChanged<T extends DesignValue = DesignValue>(
-    key: string,
-    cb: (value: T) => void,
-  ): Unsubscribe
-  getProperties(): Promise<ComponentPropertyDescriptor[]>
-  updateProperty<T = unknown>(key: string, value: T): Promise<void>
-  getBinding(key: string): Promise<Binding | null>
-  setBinding(key: string, binding: Binding): Promise<void>
-  getBindingMetadata(key: string): Promise<ComponentPropertyBinding | null>
-  resolveEntryBinding(key: string): Promise<{ entryId: string; fieldId?: string } | null>
-  getSlotDescriptor(): Promise<SlotDescriptor | null>
-}
-
-export interface ExoSelectionAPI {
-  get(): { nodeId: string | null; nodeType?: ExoNodeType }
-  onChange(cb: (sel: { nodeId: string | null; nodeType?: ExoNodeType }) => void): Unsubscribe
-  set(nodeId: string | null): void
-  highlight(nodeId: string, opts?: { flash?: boolean; scrollIntoView?: boolean }): void
-}
-
-export interface ExperienceSnapshot {
-  sys: {
-    id: string
-    type: 'Experience'
-    version: number
-    template: Link<'Template'>
-  }
-}
-
-export interface ExperienceAPI {
-  get(): ExperienceSnapshot
-  onChange(cb: (v: ExperienceSnapshot) => void): Unsubscribe
-  save(): Promise<void>
-  publish(): Promise<void>
-  getNode(nodeId: string): ExoNodeAPI | null
-  getRootNodes(): ExoNodeAPI[]
-  selection: ExoSelectionAPI
-  dataAssembly: DataAssemblySDK
-}
-
-export interface ExoSDK {
-  getUiMode(): UiMode
-  onUiModeChanged(cb: (mode: UiMode) => void): Unsubscribe
-  experience: ExperienceAPI
 }
