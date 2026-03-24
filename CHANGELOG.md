@@ -9,6 +9,17 @@
 
 - Revert "feat: [EXT-7181] experience-toolbar-location-constant ([#2477](https://github.com/contentful/ui-extensions-sdk/issues/2477))" ([02fb0d7](https://github.com/contentful/ui-extensions-sdk/commit/02fb0d7a0ae7df4267085468a2803305eaa348c3))
 
+## [4.53.1-alpha.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.53.0...v4.53.1-alpha.1) (2026-03-24)
+
+### Bug Fixes
+
+- bump contentful-management to 12.0.0-new-beta.16 [DX-861] ([#2501](https://github.com/contentful/ui-extensions-sdk/issues/2501)) ([33ed501](https://github.com/contentful/ui-extensions-sdk/commit/33ed50158cbd1f541605d5629524122e2b7c1d3d))
+- canary doesn't auto-release ([a198d82](https://github.com/contentful/ui-extensions-sdk/commit/a198d82b8012a5cc5d829e472deb0296a047eadb))
+
+### Reverts
+
+- Revert "feat: [EXT-7181] experience-toolbar-location-constant ([#2477](https://github.com/contentful/ui-extensions-sdk/issues/2477))" ([02fb0d7](https://github.com/contentful/ui-extensions-sdk/commit/02fb0d7a0ae7df4267085468a2803305eaa348c3))
+
 # [4.53.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.52.0...v4.53.0) (2026-03-09)
 
 ### Features
