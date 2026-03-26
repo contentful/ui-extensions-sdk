@@ -61,8 +61,8 @@ export default function createDialogs(channel: Channel, ids: IdsAPI): DialogsAPI
   function openAppDialog(options?: OpenCustomWidgetOptions) {
     options = prepareOptions(options)
 
-    // Use provided ID, default to the current extension.
-    options = { ...options, id: options?.id || ids.extension }
+    // Use provided ID, default to the current app.
+    options = { ...options, id: options?.id || ids.app }
     if (options.id) {
       // Force ID of the current app.
       return channel.call('openDialog', 'app', options)
