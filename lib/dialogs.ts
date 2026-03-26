@@ -16,6 +16,7 @@ export default function createDialogs(channel: Channel, ids: IdsAPI): DialogsAPI
     openConfirm: openSimpleDialog.bind(null, 'confirm'),
     openPrompt: openSimpleDialog.bind(null, 'prompt'),
     openExtension: openExtensionDialog,
+    openApp: openAppDialog,
     openCurrentApp: openCurrentAppDialog,
     openCurrent: openCurrentDialog,
     selectSingleEntry: openEntitySelector.bind(null, 'Entry', false),
@@ -54,6 +55,19 @@ export default function createDialogs(channel: Channel, ids: IdsAPI): DialogsAPI
         ...options,
         id: ids.extension,
       })
+    }
+  }
+
+  function openAppDialog(options?: OpenCustomWidgetOptions) {
+    options = prepareOptions(options)
+
+    // Use provided ID, default to the current extension.
+    options = { ...options, id: options?.id || ids.extension }
+    if (options.id) {
+      // Force ID of the current app.
+      return channel.call('openDialog', 'app', options)
+    } else {
+      throw new Error('App ID not provided.')
     }
   }
 

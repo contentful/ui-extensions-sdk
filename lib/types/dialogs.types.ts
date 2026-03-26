@@ -44,6 +44,8 @@ export interface DialogsAPI {
   ) => Promise<string | boolean>
   /** Opens an extension in a dialog. */
   openExtension: (options: OpenCustomWidgetOptions) => Promise<any>
+  /** Opens an app dialog */
+  openApp: (options?: OpenCustomWidgetOptions) => Promise<any>
   /** Opens the current app in a dialog */
   openCurrentApp: (options?: Omit<OpenCustomWidgetOptions, 'id'>) => Promise<any>
   /** Opens the current app or extension in a dialog */
