@@ -1,7 +1,7 @@
 {
   "name": "contentful-ui-extensions-sdk",
   "description": "A JavaScript library to develop custom apps for Contentful",
-  "version": "4.53.1",
+  "version": "4.54.0",
   "author": "Contentful GmbH",
   "license": "MIT",
   "sideEffects": true,
@@ -37,7 +37,7 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
-    "contentful-management": "^12.2.0"
+    "contentful-management": "^12.3.1"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^29.0.0",
@@ -49,7 +49,7 @@
     "@types/chai-as-promised": "7.1.8",
     "@types/cross-spawn": "6.0.6",
     "@types/fs-extra": "11.0.4",
-    "@types/jsdom": "28.0.0",
+    "@types/jsdom": "28.0.1",
     "@types/mocha": "10.0.10",
     "@types/nanoid": "3.0.0",
     "@types/sinon": "^21.0.0",
@@ -71,7 +71,7 @@
     "eslint-plugin-standard": "5.0.0",
     "fs-extra": "11.3.4",
     "husky": "9.1.7",
-    "jsdom": "29.0.0",
+    "jsdom": "29.0.1",
     "lint-staged": "16.4.0",
     "mocha": "11.7.5",
     "mocha-junit-reporter": "2.2.1",
@@ -82,7 +82,7 @@
     "prettier": "3.8.1",
     "rollup": "2.80.0",
     "rollup-plugin-terser": "7.0.2",
-    "rollup-plugin-typescript2": "0.36.0",
+    "rollup-plugin-typescript2": "0.37.0",
     "semantic-release": "^25.0.2",
     "sinon": "21.0.3",
     "sinon-chai": "3.7.0",

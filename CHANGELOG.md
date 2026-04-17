@@ -1,3 +1,13 @@
+# [4.54.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.53.1...v4.54.0) (2026-04-14)
+
+### Bug Fixes
+
+- **ci:** work around npm self-upgrade regression on Node 22 [DX-945] ([#2533](https://github.com/contentful/ui-extensions-sdk/issues/2533)) ([e0adf69](https://github.com/contentful/ui-extensions-sdk/commit/e0adf6934464248c6c8dfc836302d453fa06e3f7)), closes [npm/cli#9151](https://github.com/npm/cli/issues/9151)
+
+### Features
+
+- bump contentful-management to ^12.3.1 [DX-912] ([#2532](https://github.com/contentful/ui-extensions-sdk/issues/2532)) ([46164d5](https://github.com/contentful/ui-extensions-sdk/commit/46164d5b7e9fadcc11c14ba7ba79edc84c0f082f))
+
 ## [4.53.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.53.0...v4.53.1) (2026-03-10)
 
 ### Bug Fixes
