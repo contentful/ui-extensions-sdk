@@ -35,7 +35,7 @@ export type {
   JSONPatchItem,
   HostnamesAPI,
   AgentAppSDK,
-  ExperienceToolbarAppSDK,
+  ExperienceEditorToolbarAppSDK,
 } from './api.types'
 
 export type {
@@ -141,6 +141,7 @@ export type { CMAClient } from './cmaClient.types'
 export type {
   Unsubscribe,
   UiMode,
+  ExoContext,
   ExoSDK,
   BindingSourceType,
   EntryBinding,

@@ -2,6 +2,7 @@ import { Channel } from './channel'
 import { MemoizedSignal } from './signal'
 import {
   ExoSDK,
+  ExoContext,
   UiMode,
   Unsubscribe,
   ExperienceSnapshot,
@@ -28,11 +29,13 @@ import {
  */
 export default function createExo(
   channel: Channel,
-  exoInit?: { uiMode?: UiMode; experience?: ExperienceSnapshot },
+  exoInit?: { context?: ExoContext; uiMode?: UiMode; experience?: ExperienceSnapshot },
 ): ExoSDK | undefined {
   if (exoInit === undefined) {
     return undefined
   }
+
+  const context: ExoContext = exoInit.context ?? { type: 'experience', entityId: '' }
 
   const initialMode: UiMode = exoInit.uiMode ?? 'form'
   const uiModeSignal = new MemoizedSignal<[UiMode]>(initialMode)
@@ -44,6 +47,7 @@ export default function createExo(
   const experience = createExperienceAPI(channel, exoInit.experience)
 
   return {
+    context,
     getUiMode(): UiMode {
       return uiModeSignal.getMemoizedArgs()[0]
     },
