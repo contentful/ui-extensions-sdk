@@ -1,3 +1,9 @@
+## [4.55.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.55.0...v4.55.1) (2026-04-21)
+
+### Bug Fixes
+
+- trigger release for npm publish failure [DX-912] ([#2539](https://github.com/contentful/ui-extensions-sdk/issues/2539)) ([c7c1e5a](https://github.com/contentful/ui-extensions-sdk/commit/c7c1e5a37d912b2569dcd7f010296b128b424b85))
+
 # [4.55.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.54.0...v4.55.0) (2026-04-21)
 
 ### Features
