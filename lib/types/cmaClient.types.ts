@@ -39,4 +39,3 @@ export type CMAClient = {
   workflowDefinition: PlainClientAPI['workflowDefinition']
   workflowsChangelog: PlainClientAPI['workflowsChangelog']
 }
-
