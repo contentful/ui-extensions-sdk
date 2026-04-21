@@ -1,3 +1,9 @@
+# [4.56.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.55.1...v4.56.0) (2026-04-21)
+
+### Features
+
+- expose agentRun.resumeRun types for AI agent apps [DX-912] ([#2540](https://github.com/contentful/ui-extensions-sdk/issues/2540)) ([94e9a6f](https://github.com/contentful/ui-extensions-sdk/commit/94e9a6fa8d8793c9d83fb3b191547d4df378053c))
+
 ## [4.55.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.55.0...v4.55.1) (2026-04-21)
 
 ### Bug Fixes
