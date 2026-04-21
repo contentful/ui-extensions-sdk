@@ -20,7 +20,7 @@ for the Contentful Web App. Every Contentful App has to include the library in i
 
 ## Getting help
 
-Technical questions, feedback or feature request can be provided directly through the Github issues
+Technical questions, feedback, or feature requests can be provided directly through the GitHub issues
 for this repository. However, if you are a paying customer or at any point business sensitive
 information needs to be discussed, then the conversation should be handled via our
 [support system](https://www.contentful.com/support/).
