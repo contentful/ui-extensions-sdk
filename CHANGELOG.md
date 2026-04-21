@@ -1,3 +1,9 @@
+# [4.55.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.54.0...v4.55.0) (2026-04-21)
+
+### Features
+
+- **cma:** upgrade contentful-management to v12 and expose agentRun ([#2512](https://github.com/contentful/ui-extensions-sdk/issues/2512)) ([896b83d](https://github.com/contentful/ui-extensions-sdk/commit/896b83d59b8ca9bdedd49d34d8b523d27e45bd80))
+
 # [4.54.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.53.1...v4.54.0) (2026-04-14)
 
 ### Bug Fixes
