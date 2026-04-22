@@ -6,7 +6,7 @@ import {
   AgentAppSDK,
   ConfigAppSDK,
   ConnectMessage,
-  ExperienceToolbarAppSDK,
+  ExperienceEditorToolbarAppSDK,
   ExoSDK,
   UiMode,
 } from '../../lib/types'
@@ -145,7 +145,7 @@ describe('createAPI()', () => {
 
     const api = test(expected, locations.LOCATION_EXPERIENCE_TOOLBAR) as any
     if (api.exo != null) {
-      expect(api.exo).to.have.all.keys('getUiMode', 'onUiModeChanged')
+      expect(api.exo).to.have.all.keys('context', 'getUiMode', 'onUiModeChanged')
     }
   })
 
@@ -253,18 +253,45 @@ describe('createAPI()', () => {
       expect(modes).to.deep.equal(['visual', 'form'])
     })
 
-    it('ExperienceToolbarAppSDK has exo: ExoSDK; getUiMode returns UiMode', () => {
+    it('ExperienceEditorToolbarAppSDK has exo: ExoSDK; getUiMode returns UiMode', () => {
       const channel = { addHandler: () => () => {} } as any
       const dom = makeDOM()
       mockMutationObserver(dom, () => {})
       mockResizeObserver(dom, () => {})
 
       const data: ConnectMessage = { ...baseData, exo: { uiMode: 'form' } } as any
-      const api = createAPI(channel, data, dom.window as any as Window) as ExperienceToolbarAppSDK
+      const api = createAPI(channel, data, dom.window as any as Window) as ExperienceEditorToolbarAppSDK
 
       const exo: ExoSDK = api.exo
       const mode: UiMode = exo.getUiMode()
       expect(mode).to.equal('form')
+    })
+
+    it('sdk.exo.context reflects the context from handshake', () => {
+      const channel = { addHandler: () => () => {} } as any
+      const dom = makeDOM()
+      mockMutationObserver(dom, () => {})
+      mockResizeObserver(dom, () => {})
+
+      const data: ConnectMessage = {
+        ...baseData,
+        exo: { context: { type: 'fragment', entityId: 'frag-456' }, uiMode: 'form' },
+      } as any
+      const api = createAPI(channel, data, dom.window as any as Window) as any
+
+      expect(api.exo.context).to.deep.equal({ type: 'fragment', entityId: 'frag-456' })
+    })
+
+    it('sdk.exo.context defaults when not provided in handshake', () => {
+      const channel = { addHandler: () => () => {} } as any
+      const dom = makeDOM()
+      mockMutationObserver(dom, () => {})
+      mockResizeObserver(dom, () => {})
+
+      const data: ConnectMessage = { ...baseData, exo: { uiMode: 'visual' } } as any
+      const api = createAPI(channel, data, dom.window as any as Window) as any
+
+      expect(api.exo.context).to.deep.equal({ type: 'experience', entityId: '' })
     })
   })
 

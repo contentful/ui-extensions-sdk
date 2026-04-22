@@ -33,8 +33,8 @@ describe('createExo()', () => {
       exo = createExo(channelStub, mockExoInit)
     })
 
-    it('returns an object with getUiMode, onUiModeChanged, and experience', () => {
-      expect(exo).to.have.all.keys(['getUiMode', 'onUiModeChanged', 'experience'])
+    it('returns an object with context, getUiMode, onUiModeChanged, and experience', () => {
+      expect(exo).to.have.all.keys(['context', 'getUiMode', 'onUiModeChanged', 'experience'])
     })
 
     it('registers handlers for uiModeChanged, experienceChanged, selectionChanged, and dataAssemblyChanged', () => {
@@ -55,6 +55,28 @@ describe('createExo()', () => {
         'exo.dataAssemblyChanged',
         sinon.match.func,
       )
+    })
+
+    describe('.context', () => {
+      it('defaults to { type: "experience", entityId: "" } when no context is provided', () => {
+        expect(exo!.context).to.deep.equal({ type: 'experience', entityId: '' })
+      })
+
+      it('returns the provided context from exoInit', () => {
+        const exoWithContext = createExo(channelStub, {
+          ...mockExoInit,
+          context: { type: 'fragment', entityId: 'frag-123' },
+        })
+        expect(exoWithContext!.context).to.deep.equal({ type: 'fragment', entityId: 'frag-123' })
+      })
+
+      it('returns experience context when explicitly provided', () => {
+        const exoWithContext = createExo(channelStub, {
+          ...mockExoInit,
+          context: { type: 'experience', entityId: 'exp-abc' },
+        })
+        expect(exoWithContext!.context).to.deep.equal({ type: 'experience', entityId: 'exp-abc' })
+      })
     })
 
     describe('.getUiMode()', () => {

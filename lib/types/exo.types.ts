@@ -180,7 +180,13 @@ export interface ExperienceAPI {
   dataAssembly: DataAssemblySDK
 }
 
+export interface ExoContext {
+  type: 'experience' | 'fragment'
+  entityId: string
+}
+
 export interface ExoSDK {
+  context: ExoContext
   getUiMode(): UiMode
   onUiModeChanged(cb: (mode: UiMode) => void): Unsubscribe
   experience: ExperienceAPI
