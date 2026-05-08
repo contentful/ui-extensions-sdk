@@ -40,7 +40,7 @@ export interface DialogsAPI {
   openPrompt: (
     options: OpenConfirmOptions & {
       defaultValue?: string
-    }
+    },
   ) => Promise<string | boolean>
   /** Opens an extension in a dialog. */
   openExtension: (options: OpenCustomWidgetOptions) => Promise<any>
@@ -48,7 +48,7 @@ export interface DialogsAPI {
   openCurrentApp: (options?: Omit<OpenCustomWidgetOptions, 'id'>) => Promise<any>
   /** Opens the current app or extension in a dialog */
   openCurrent: (
-    options?: Omit<OpenCustomWidgetOptions, 'id'> | OpenCustomWidgetOptions
+    options?: Omit<OpenCustomWidgetOptions, 'id'> | OpenCustomWidgetOptions,
   ) => Promise<any>
   /** Opens a dialog for selecting a single entry. */
   selectSingleEntry: <T = Object>(options?: {
@@ -73,5 +73,47 @@ export interface DialogsAPI {
     min?: number
     max?: number
     mimetypeGroups?: string[]
+  }) => Promise<T[] | null>
+  /** Opens a dialog for selecting a single experience.
+   * This is intentionally optional, until the actual implemenation */
+  selectSingleExperience?: <T = Object>(options?: {
+    locale?: string
+    contentTypes?: string[]
+  }) => Promise<T | null>
+  /** Opens a dialog for selecting multiple experiences.
+   * This is intentionally optional, until the actual implemenation  */
+  selectMultipleExperiences?: <T = Object>(options?: {
+    locale?: string
+    contentTypes?: string[]
+    min?: number
+    max?: number
+  }) => Promise<T[] | null>
+  /** Opens a dialog for selecting a single pattern.
+   * This is intentionally optional, until the actual implemenation  */
+  selectSinglePattern?: <T = Object>(options?: {
+    locale?: string
+    contentTypes?: string[]
+  }) => Promise<T | null>
+  /** Opens a dialog for selecting multiple patterns.
+   * This is intentionally optional, until the actual implemenation  */
+  selectMultiplePatterns?: <T = Object>(options?: {
+    locale?: string
+    contentTypes?: string[]
+    min?: number
+    max?: number
+  }) => Promise<T[] | null>
+  /** Opens a dialog for selecting a single component definition.
+   * This is intentionally optional, until the actual implemenation  */
+  selectSingleComponentDefinition?: <T = Object>(options?: {
+    locale?: string
+    contentTypes?: string[]
+  }) => Promise<T | null>
+  /** Opens a dialog for selecting multiple component definitions.
+   * This is intentionally optional, until the actual implemenation  */
+  selectMultipleComponentDefinitions?: <T = Object>(options?: {
+    locale?: string
+    contentTypes?: string[]
+    min?: number
+    max?: number
   }) => Promise<T[] | null>
 }

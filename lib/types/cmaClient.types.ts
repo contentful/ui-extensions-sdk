@@ -1,10 +1,12 @@
 import { PlainClientAPI } from 'contentful-management'
 
 export type CMAClient = {
+  agent: Pick<PlainClientAPI['agent'], 'get' | 'getMany' | 'generate'>
+  agentRun: Pick<PlainClientAPI['agentRun'], 'get' | 'getMany' | 'resumeRun'>
   appAction: Pick<PlainClientAPI['appAction'], 'get' | 'getMany' | 'getManyForEnvironment'>
   appActionCall: Pick<
     PlainClientAPI['appActionCall'],
-    'create' | 'getCallDetails' | 'createWithResponse'
+    'create' | 'getCallDetails' | 'createWithResponse' | 'createWithResult' | 'get' | 'getResponse'
   >
   appDefinition: Pick<PlainClientAPI['appDefinition'], 'get' | 'getInstallationsForOrg'>
   appInstallation: Pick<PlainClientAPI['appInstallation'], 'getForOrganization'>

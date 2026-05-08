@@ -8,19 +8,21 @@ import {
   Entry,
   Task,
   Asset,
+  Release,
   WorkflowDefinition,
 } from './entities'
 import { EntryAPI } from './entry.types'
 import { SpaceAPI } from './space.types'
 import { WindowAPI } from './window.types'
-import { EntrySys, Link, SerializedJSONValue } from './utils'
+import { EntrySys, AssetSys, Link, SerializedJSONValue } from './utils'
 import { FieldAPI } from './field-locale.types'
 import { DialogsAPI } from './dialogs.types'
 import { AppConfigAPI } from './app.types'
 import { NavigatorAPI } from './navigator.types'
 import { EntryFieldInfo, FieldInfo } from './field.types'
-import { Adapter, KeyValueMap } from 'contentful-management/types'
+import { Adapter, KeyValueMap } from 'contentful-management'
 import { CMAClient } from './cmaClient.types'
+import { AgentAPI, AgentContext } from './agent.types'
 
 /* User API */
 
@@ -82,7 +84,7 @@ export interface LocationAPI {
 export interface ParametersAPI<
   InstallationParameters extends KeyValueMap,
   InstanceParameters extends KeyValueMap,
-  InvocationParameters extends SerializedJSONValue
+  InvocationParameters extends SerializedJSONValue,
 > {
   installation: InstallationParameters
   instance: InstanceParameters
@@ -102,6 +104,7 @@ export interface IdsAPI {
   field: string
   entry: string
   contentType: string
+  release?: string
 }
 
 /** Hostnames */
@@ -161,7 +164,7 @@ export interface SharedEditorSDK {
      * @returns Function to unsubscribe. `callback` won't be called anymore.
      */
     onLocaleSettingsChanged: (
-      callback: (localeSettings: EditorLocaleSettings) => void
+      callback: (localeSettings: EditorLocaleSettings) => void,
     ) => () => void
 
     /**
@@ -214,12 +217,12 @@ export interface AccessAPI {
 
   can<T = Object>(
     action: CrudAction,
-    entity: 'ContentType' | ContentType | 'Asset' | 'Entry' | T
+    entity: 'ContentType' | ContentType | 'Asset' | 'Entry' | T,
   ): Promise<boolean>
 
   can<T = Object>(
     action: PublishableAction,
-    entity: 'ContentType' | ContentType | 'Asset' | 'Entry' | T
+    entity: 'ContentType' | ContentType | 'Asset' | 'Entry' | T,
   ): Promise<boolean>
 
   can<T = Object>(action: ArchiveableAction, entity: 'Asset' | 'Entry' | T): Promise<boolean>
@@ -235,7 +238,7 @@ type EntryScopedIds = 'field' | 'entry' | 'contentType'
 export interface BaseAppSDK<
   InstallationParameters extends KeyValueMap = KeyValueMap,
   InstanceParameters extends KeyValueMap = KeyValueMap,
-  InvocationParameters extends SerializedJSONValue = SerializedJSONValue
+  InvocationParameters extends SerializedJSONValue = SerializedJSONValue,
 > {
   /** @deprecated since version 4.0.0 consider using the CMA instead
    * See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details
@@ -265,11 +268,15 @@ export interface BaseAppSDK<
   cmaAdapter: Adapter
   /** A CMA Client initialized with default params */
   cma: CMAClient
+  /** Current release context, undefined if not editing within a release */
+  release?: Release
+  /** Current language locale set in the web app */
+  uiLanguageLocale?: string
 }
 
 export type EditorAppSDK<
   InstallationParameters extends KeyValueMap = KeyValueMap,
-  InstanceParameters extends KeyValueMap = KeyValueMap
+  InstanceParameters extends KeyValueMap = KeyValueMap,
 > = Omit<BaseAppSDK<InstallationParameters, InstanceParameters, never>, 'ids'> &
   SharedEditorSDK & {
     /** A set of IDs for the app */
@@ -278,7 +285,7 @@ export type EditorAppSDK<
 
 export type SidebarAppSDK<
   InstallationParameters extends KeyValueMap = KeyValueMap,
-  InstanceParameters extends KeyValueMap = KeyValueMap
+  InstanceParameters extends KeyValueMap = KeyValueMap,
 > = Omit<BaseAppSDK<InstallationParameters, InstanceParameters, never>, 'ids'> &
   SharedEditorSDK & {
     /** A set of IDs for the app */
@@ -289,7 +296,7 @@ export type SidebarAppSDK<
 
 export type FieldAppSDK<
   InstallationParameters extends KeyValueMap = KeyValueMap,
-  InstanceParameters extends KeyValueMap = KeyValueMap
+  InstanceParameters extends KeyValueMap = KeyValueMap,
 > = BaseAppSDK<InstallationParameters, InstanceParameters, never> &
   SharedEditorSDK & {
     /** A set of IDs for the app */
@@ -302,7 +309,7 @@ export type FieldAppSDK<
 
 export type DialogAppSDK<
   InstallationParameters extends KeyValueMap = KeyValueMap,
-  InvocationParameters extends SerializedJSONValue = SerializedJSONValue
+  InvocationParameters extends SerializedJSONValue = SerializedJSONValue,
 > = Omit<BaseAppSDK<InstallationParameters, never, InvocationParameters>, 'ids'> & {
   /** A set of IDs for the app */
   ids: Omit<IdsAPI, EntryScopedIds>
@@ -336,10 +343,20 @@ export type ConfigAppSDK<InstallationParameters extends KeyValueMap = KeyValueMa
   app: AppConfigAPI
 }
 
+export type AgentAppSDK<InstallationParameters extends KeyValueMap = KeyValueMap> = BaseAppSDK<
+  InstallationParameters,
+  never,
+  never
+> & {
+  agent: AgentAPI
+  /** Methods to update the size of the iframe the app is contained within.  */
+  window: WindowAPI
+}
+
 export type KnownAppSDK<
   InstallationParameters extends KeyValueMap = KeyValueMap,
   InstanceParameters extends KeyValueMap = KeyValueMap,
-  InvocationParameters extends SerializedJSONValue = SerializedJSONValue
+  InvocationParameters extends SerializedJSONValue = SerializedJSONValue,
 > =
   | FieldAppSDK<InstallationParameters, InstanceParameters>
   | SidebarAppSDK<InstallationParameters, InstanceParameters>
@@ -348,6 +365,7 @@ export type KnownAppSDK<
   | PageAppSDK<InstallationParameters>
   | ConfigAppSDK<InstallationParameters>
   | HomeAppSDK<InstallationParameters>
+  | AgentAppSDK<InstallationParameters>
 
 /** @deprecated consider using {@link BaseAppSDK} */
 export type BaseExtensionSDK = BaseAppSDK
@@ -380,11 +398,13 @@ export interface Locations {
   LOCATION_ENTRY_FIELD: 'entry-field'
   LOCATION_ENTRY_FIELD_SIDEBAR: 'entry-field-sidebar'
   LOCATION_ENTRY_SIDEBAR: 'entry-sidebar'
+  LOCATION_ASSET_SIDEBAR: 'asset-sidebar'
   LOCATION_DIALOG: 'dialog'
   LOCATION_ENTRY_EDITOR: 'entry-editor'
   LOCATION_PAGE: 'page'
   LOCATION_HOME: 'home'
   LOCATION_APP_CONFIG: 'app-config'
+  LOCATION_AGENT: 'agent'
 }
 
 export interface ConnectMessage {
@@ -405,7 +425,14 @@ export interface ConnectMessage {
     sys: EntrySys
     metadata?: Metadata
   }
+  asset?: {
+    sys: AssetSys
+    metadata?: Metadata
+  }
   fieldInfo: EntryFieldInfo[]
   field?: FieldInfo
   hostnames: HostnamesAPI
+  release?: Release
+  uiLanguageLocale: string
+  agent?: AgentContext
 }

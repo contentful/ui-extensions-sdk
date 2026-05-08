@@ -22,6 +22,12 @@ export default function createDialogs(channel: Channel, ids: IdsAPI): DialogsAPI
     selectSingleAsset: openEntitySelector.bind(null, 'Asset', false),
     selectMultipleEntries: openEntitySelector.bind(null, 'Entry', true),
     selectMultipleAssets: openEntitySelector.bind(null, 'Asset', true),
+    selectSingleExperience: openEntitySelector.bind(null, 'Experience', false),
+    selectMultipleExperiences: openEntitySelector.bind(null, 'Experience', true),
+    selectSinglePattern: openEntitySelector.bind(null, 'Pattern', false),
+    selectMultiplePatterns: openEntitySelector.bind(null, 'Pattern', true),
+    selectSingleComponentDefinition: openEntitySelector.bind(null, 'ComponentDefinition', false),
+    selectMultipleComponentDefinitions: openEntitySelector.bind(null, 'ComponentDefinition', true),
   }
 
   function openSimpleDialog(type: string, options?: OpenAlertOptions | OpenConfirmOptions) {

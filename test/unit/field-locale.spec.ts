@@ -1,6 +1,5 @@
 import { sinon, expect, describeAttachHandlerMember } from '../helpers'
-
-import FieldLocale from '../../lib/field-locale'
+import { makeFieldLocale } from '../../lib/field-locale'
 
 describe('FieldLocale', () => {
   const info = {
@@ -31,7 +30,7 @@ describe('FieldLocale', () => {
     }
 
     const infoCopy = JSON.parse(JSON.stringify(info))
-    field = new FieldLocale(channelStub, infoCopy)
+    field = makeFieldLocale(channelStub, infoCopy)
   })
 
   describe('.id', () => {
@@ -72,8 +71,8 @@ describe('FieldLocale', () => {
     it('is skipped on the object if not defined in info', () => {
       const noItemsInfo = JSON.parse(JSON.stringify(info))
       delete noItemsInfo.items
-      const noItemsField = new FieldLocale(channelStub, noItemsInfo)
-      expect(noItemsField.items).to.equal(undefined)
+      const noItemsField = makeFieldLocale(channelStub, noItemsInfo)
+      expect((noItemsField as any).items).to.equal(undefined)
     })
   })
 
@@ -107,7 +106,7 @@ describe('FieldLocale', () => {
       'onIsDisabledChanged',
       'isDisabledChangedForFieldLocale',
       [info.id, info.locale, true],
-      [true]
+      [true],
     )
   })
 
@@ -116,7 +115,7 @@ describe('FieldLocale', () => {
       'onSchemaErrorsChanged',
       'schemaErrorsChangedForFieldLocale',
       [info.id, info.locale, [{ message: 'oh no' }]],
-      [[{ message: 'oh no' }]]
+      [[{ message: 'oh no' }]],
     )
   })
 
@@ -181,7 +180,7 @@ describe('FieldLocale', () => {
           method,
           field.id,
           info.locale,
-          newValue
+          newValue,
         )
       }
     })
@@ -196,7 +195,7 @@ describe('FieldLocale', () => {
     method: string,
     message: any,
     messageArgs: any[] = ['VALUE'],
-    methodArgs = messageArgs
+    methodArgs = messageArgs,
   ) {
     it('calls handler when method is received', () => {
       const cb = sinon.spy()

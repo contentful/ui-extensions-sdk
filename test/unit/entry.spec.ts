@@ -6,11 +6,12 @@ import {
 } from '../helpers'
 
 import createEntry from '../../lib/entry'
-import { EntryAPI, EntryFieldInfo } from '../../lib/types'
+import { EntryAPI, EntryFieldInfo, EntrySys } from '../../lib/types'
+import { ReleaseEntrySys } from '../../lib/types/entry.types'
 
 describe('createEntry()', () => {
   describe('returned "entry" object', () => {
-    const entryData = { sys: {} }
+    const entryData = { sys: {} as EntrySys }
     const fieldInfo = [
       {
         id: 'field1',
@@ -78,7 +79,7 @@ describe('createEntry()', () => {
             creator: (channel) => createEntry(channel, {}, [], () => ({})),
             methodName,
             channelMethod: 'callEntryMethod',
-            args: args,
+            args,
             expectedCallArgs: [methodName, args],
           })
         })
@@ -125,6 +126,52 @@ describe('createEntry()', () => {
         entry = createEntry(channelStub, { ...entryData, metadata }, fieldInfo, createEntryFieldSpy)
 
         expect(entry.metadata).to.equal(metadata)
+      })
+    })
+
+    describe('in release context', () => {
+      const releaseEntryData = { sys: { release: { sys: { id: 'releaseid' } } } as ReleaseEntrySys }
+      let releaseEntry: EntryAPI
+      let releaseChannelStub: any
+      let releaseCreateEntryFieldSpy: any
+
+      beforeEach(() => {
+        releaseCreateEntryFieldSpy = sinon.spy()
+        releaseChannelStub = {
+          addHandler: sinon.spy(),
+          call: sinon.spy(),
+        }
+
+        releaseEntry = createEntry(
+          releaseChannelStub,
+          releaseEntryData,
+          fieldInfo,
+          releaseCreateEntryFieldSpy,
+        )
+      })
+
+      it('still returns the sys object', () => {
+        expect(releaseEntry.getSys()).to.equal(releaseEntryData.sys)
+      })
+
+      it('throws an error when calling publish', () => {
+        expect(() => releaseEntry.publish()).to.throw(
+          'SDK method "publish" is not supported in release context',
+        )
+        expect(releaseChannelStub.call).to.not.have.been.called // eslint-disable-line no-unused-expressions
+      })
+
+      it('throws an error when calling unpublish', () => {
+        expect(() => releaseEntry.unpublish()).to.throw(
+          'SDK method "unpublish" is not supported in release context',
+        )
+        expect(releaseChannelStub.call).to.not.have.been.called // eslint-disable-line no-unused-expressions
+      })
+
+      it('allows save method to work normally', () => {
+        releaseEntry.save()
+        expect(releaseChannelStub.call).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
+        expect(releaseChannelStub.call).to.have.been.calledWith('callEntryMethod', 'save')
       })
     })
   })

@@ -1,20 +1,28 @@
-import { NavigatorAPI, IdsAPI, NavigatorSlideInfo } from './types'
+import { NavigatorAPI, IdsAPI, NavigatorSlideInfo, NavigatorAPIOptions, Release } from './types'
 import { Channel } from './channel'
 import { Signal } from './signal'
 
-export default function createNavigator(channel: Channel, ids: IdsAPI): NavigatorAPI {
+export default function createNavigator(
+  channel: Channel,
+  ids: IdsAPI,
+  release: Release | undefined,
+): NavigatorAPI {
   const _onSlideInSignal = new Signal<[NavigatorSlideInfo]>()
 
   channel.addHandler('navigateSlideIn', (data: any) => {
     _onSlideInSignal.dispatch(data)
   })
 
+  const releaseId = release ? release.sys?.id : undefined
+
   return {
-    openEntry: (id, opts) => {
+    openEntry: (entryId: string, opts: NavigatorAPIOptions | undefined) => {
       return channel.call('navigateToContentEntity', {
         ...opts,
         entityType: 'Entry',
-        id,
+        // This is the id of the entry to open
+        id: entryId,
+        releaseId,
       }) as Promise<any>
     },
     openNewEntry: (contentTypeId: string, opts) => {
@@ -36,6 +44,7 @@ export default function createNavigator(channel: Channel, ids: IdsAPI): Navigato
         ...opts,
         entityType: 'Asset',
         id,
+        releaseId,
       }) as Promise<any>
     },
     openNewAsset: (opts) => {
@@ -59,10 +68,16 @@ export default function createNavigator(channel: Channel, ids: IdsAPI): Navigato
       return channel.call('navigateToAppConfig') as Promise<void>
     },
     openEntriesList: () => {
-      return channel.call('navigateToSpaceEnvRoute', { route: 'entries' }) as Promise<void>
+      return channel.call('navigateToSpaceEnvRoute', {
+        route: 'entries',
+        releaseId,
+      }) as Promise<void>
     },
     openAssetsList: () => {
-      return channel.call('navigateToSpaceEnvRoute', { route: 'assets' }) as Promise<void>
+      return channel.call('navigateToSpaceEnvRoute', {
+        route: 'assets',
+        releaseId,
+      }) as Promise<void>
     },
     onSlideInNavigation: (handler) => {
       return _onSlideInSignal.attach(handler)

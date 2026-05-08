@@ -1,0 +1,2 @@
+# Only validate the PR title since we squash PRs
+titleOnly: true

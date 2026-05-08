@@ -33,7 +33,17 @@ export interface CollectionResponse<T> {
   sys: { type: string }
 }
 
-export type ContentEntityType = 'Entry' | 'Asset'
+export interface CursorBasedCollectionResponse<T> {
+  items: T[]
+  limit: number
+  pages: {
+    next?: string
+    prev?: string
+  }
+  sys: { type: string }
+}
+
+export type ContentEntityType = 'Entry' | 'Asset' | 'Experience' | 'Pattern' | 'ComponentDefinition'
 
 export type ContentEntitySys = {
   space: Link
@@ -58,6 +68,10 @@ export type ContentEntitySys = {
 export interface EntrySys extends ContentEntitySys {
   type: 'Entry'
   automationTags: Link<'Tag'>[]
+}
+
+export interface AssetSys extends ContentEntitySys {
+  type: 'Asset'
 }
 
 export type FieldType =

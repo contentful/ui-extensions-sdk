@@ -1,0 +1,152 @@
+name: Release
+
+on:
+  workflow_run:
+    workflows: ['CI']
+    types:
+      - completed
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  release:
+    # workflow_run: only triggers from main (branches filter above), so run on success.
+    # workflow_dispatch: allow main (full release) or canary (pre-release) so manual canary runs publish under the canary dist-tag.
+    if: >
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') ||
+      (github.event_name == 'workflow_dispatch' && (github.ref_name == 'main' || github.ref_name == 'canary'))
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      id-token: write
+      actions: read
+
+    steps:
+      - name: Retrieve Secrets from Vault
+        id: vault
+        uses: hashicorp/vault-action@v3.4.0
+        with:
+          url: ${{ secrets.VAULT_URL }}
+          role: ${{ github.event.repository.name }}-github-action
+          method: jwt
+          path: github-actions
+          exportEnv: false
+          secrets: |
+            secret/data/github/github_packages_write GITHUB_PACKAGES_WRITE_TOKEN | GITHUB_PACKAGES_WRITE_TOKEN;
+            github/token/${{ github.event.repository.name }}-semantic-release token | GITHUB_TOKEN ;
+            secret/data/github/automation-app-user GH_USER_NAME | GIT_COMMITTER_NAME ;
+            secret/data/github/automation-app-user GH_USER_EMAIL | GIT_COMMITTER_EMAIL ;
+
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.workflow_run.head_branch || github.ref }}
+          token: ${{ steps.vault.outputs.GITHUB_TOKEN }}
+
+      - name: Create local main branch reference
+        # semantic-release needs a local 'main' branch to run 'git tag --merged main'
+        # When checking out a non-main branch (e.g., canary), we need to create this reference
+        run: |
+          if [ "$(git rev-parse --abbrev-ref HEAD)" != "main" ]; then
+            git branch -f main origin/main
+          fi
+
+      - name: Get Automation Bot User ID
+        id: get-user-id
+        run: |
+          USER_ID=$(gh api "/users/contentful-automation[bot]" --jq .id)
+          if [ -z "$USER_ID" ] || [ "$USER_ID" = "null" ]; then
+            echo "Error: Failed to retrieve bot user ID"
+            exit 1
+          fi
+          echo "user-id=$USER_ID" >> "$GITHUB_OUTPUT"
+        env:
+          GITHUB_TOKEN: ${{ steps.vault.outputs.GITHUB_TOKEN }}
+
+      - name: Setting up Git User Credentials
+        run: |
+          git config --global user.name 'contentful-automation[bot]'
+          git config --global user.email '${{ steps.get-user-id.outputs.user-id }}+contentful-automation[bot]@users.noreply.github.com'
+
+      - name: Setup npmrc for publishing
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ steps.vault.outputs.GITHUB_PACKAGES_WRITE_TOKEN }}" > .npmrc
+          echo "@contentful:registry=https://npm.pkg.github.com" >> .npmrc
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install latest npm
+        run: |
+          # Work around the npm self-upgrade regression on Node 22.22.2.
+          # See: https://github.com/npm/cli/issues/9151
+          npm install -g npm@11.11.1
+          npm install -g npm@latest
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Run Release
+        run: |
+          echo "Starting Semantic Release Process"
+          echo "npm version: $(npm -v)"
+          npm run semantic-release
+        env:
+          GITHUB_TOKEN: ${{ steps.vault.outputs.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ steps.vault.outputs.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ steps.vault.outputs.GITHUB_PACKAGES_WRITE_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ steps.vault.outputs.GITHUB_PACKAGES_WRITE_TOKEN }}
+          GIT_AUTHOR_NAME: ${{ steps.vault.outputs.GIT_COMMITTER_NAME }}
+          GIT_AUTHOR_EMAIL: ${{ steps.vault.outputs.GIT_COMMITTER_EMAIL }}
+          GIT_COMMITTER_NAME: ${{ steps.vault.outputs.GIT_COMMITTER_NAME }}
+          GIT_COMMITTER_EMAIL: ${{ steps.vault.outputs.GIT_COMMITTER_EMAIL }}
+          GITHUB_REF: refs/heads/${{ github.event.workflow_run.head_branch || github.ref_name }}
+
+      - name: Get latest release tag
+        id: get-tag
+        run: |
+          # Fetch latest release, handling 404 when no release exists
+          RESPONSE=$(gh api repos/${{ github.repository }}/releases/latest 2>&1) || EXIT_CODE=$?
+          
+          if [ "${EXIT_CODE:-0}" -ne 0 ]; then
+            echo "No existing release found (API returned error). Skipping tag export."
+            echo "tag=" >> $GITHUB_OUTPUT
+          else
+            TAG=$(echo "$RESPONSE" | jq -r '.tag_name // empty')
+            if [ -n "$TAG" ]; then
+              echo "Found latest release tag: $TAG"
+              echo "tag=$TAG" >> $GITHUB_OUTPUT
+            else
+              echo "No tag_name found in API response. Skipping tag export."
+              echo "tag=" >> $GITHUB_OUTPUT
+            fi
+          fi
+        env:
+          GITHUB_TOKEN: ${{ steps.vault.outputs.GITHUB_TOKEN }}
+
+      - name: Summary
+        run: |
+          TAG="${{ steps.get-tag.outputs.tag }}"
+          
+          if [ -z "$TAG" ]; then
+            echo "## Release Summary" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "⚠️ **No release was created or found.** This may be expected if semantic-release determined no release was needed." >> $GITHUB_STEP_SUMMARY
+          else
+            VERSION=$(echo "$TAG" | sed 's/^v//')
+            echo "## Release Summary" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "- **Tag**: $TAG" >> $GITHUB_STEP_SUMMARY
+            echo "- **Version**: $VERSION" >> $GITHUB_STEP_SUMMARY
+            echo "- **GitHub Release**: https://github.com/${{ github.repository }}/releases/tag/$TAG" >> $GITHUB_STEP_SUMMARY
+          fi

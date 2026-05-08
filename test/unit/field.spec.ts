@@ -1,7 +1,7 @@
 import { sinon, expect, describeAttachHandlerMember } from '../helpers'
 
-import Field from '../../lib/field'
-import FieldLocale from '../../lib/field-locale'
+import { makeField } from '../../lib/field'
+import { EntryFieldAPI, FieldAPI } from '../../lib/types'
 
 describe(`Field`, () => {
   let channelStub: any
@@ -15,10 +15,10 @@ describe(`Field`, () => {
   describe(`construction error`, () => {
     it(`gets thrown if defaultLocale is not included in info.locales`, () => {
       expect(() => {
-        return new Field(
+        return makeField(
           channelStub,
           { id: 'x', locales: ['de-DE'], values: {}, isDisabled: {}, schemaErrors: {} } as any,
-          'en-US'
+          'en-US',
         )
       }).to.throw('Unknown locale "en-US" for field "x"')
     })
@@ -48,14 +48,10 @@ describe(`Field`, () => {
       },
     }
 
-    let field: Field
+    let field: EntryFieldAPI
     beforeEach(() => {
       const infoCopy = JSON.parse(JSON.stringify(info))
-      field = new Field(channelStub, infoCopy, defaultLocale)
-    })
-
-    it(`is a Field instance`, () => {
-      expect(field).to.be.instanceof(Field)
+      field = makeField(channelStub, infoCopy, defaultLocale)
     })
 
     describe(`.id`, () => {
@@ -96,7 +92,7 @@ describe(`Field`, () => {
       it('is skipped on the object if not defined in info', () => {
         const noItemsInfo = JSON.parse(JSON.stringify(info))
         delete noItemsInfo.items
-        const noItemsField = new Field(channelStub, noItemsInfo, defaultLocale)
+        const noItemsField = makeField(channelStub, noItemsInfo, defaultLocale)
         expect(noItemsField.items).to.equal(undefined)
       })
     })
@@ -133,7 +129,7 @@ describe(`Field`, () => {
         describe(`with locale set to "${locale}"`, () => {
           it(`returns the value for the given locale`, () => {
             expect(field.getValue(locale)).to.equal(
-              (info.values as { [key: string]: string })[locale]
+              (info.values as { [key: string]: string })[locale],
             )
           })
         })
@@ -149,7 +145,7 @@ describe(`Field`, () => {
 
       it(`throws an error if locale is unknown to the field`, () => {
         expect(field.setValue('value', unknownLocale)).to.eventually.throw(
-          'Unknown locale "some-unknown-locale" for field "some-field"'
+          'Unknown locale "some-unknown-locale" for field "some-field"',
         )
       })
     })
@@ -170,7 +166,7 @@ describe(`Field`, () => {
             'setValue',
             field.id,
             localeOrDefault,
-            newValue
+            newValue,
           )
         })
         it(`returns the promise returned by internal channel.call()`, () => {
@@ -189,7 +185,7 @@ describe(`Field`, () => {
 
       it(`throws an error if locale is unknown to the field`, () => {
         expect(field.removeValue(unknownLocale)).to.eventually.throw(
-          'Unknown locale "some-unknown-locale" for field "some-field"'
+          'Unknown locale "some-unknown-locale" for field "some-field"',
         )
       })
     })
@@ -261,13 +257,9 @@ describe(`Field`, () => {
     })
 
     describe('getForLocale called with a locale', () => {
-      let result: FieldLocale
+      let result: FieldAPI
       beforeEach(() => {
         result = field.getForLocale('en-US')
-      })
-
-      it('returns a fieldLocale instance', () => {
-        expect(result).to.be.an.instanceOf(FieldLocale)
       })
 
       it('contains the expect value for that locale', () => {

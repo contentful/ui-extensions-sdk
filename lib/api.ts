@@ -1,12 +1,14 @@
-import Field from './field'
-import FieldLocale from './field-locale'
+import { makeField } from './field'
+import { makeFieldLocale } from './field-locale'
 import createWindow from './window'
 import createEntry from './entry'
+import createAsset from './asset'
 import createSpace from './space'
 import createDialogs from './dialogs'
 import createEditor from './editor'
 import createNavigator from './navigator'
 import createApp from './app'
+import createAgent from './agent'
 import locations from './locations'
 import {
   EntryFieldInfo,
@@ -19,7 +21,7 @@ import {
 import { Channel } from './channel'
 import { createAdapter } from './cmaAdapter'
 import { createCMAClient } from './cma'
-import { KeyValueMap } from 'contentful-management/types'
+import { KeyValueMap } from 'contentful-management'
 
 const DEFAULT_API_PRODUCERS = [
   makeSharedAPI,
@@ -32,23 +34,25 @@ const DEFAULT_API_PRODUCERS = [
 type ProducerFunc = (
   channel: Channel,
   data: ConnectMessage,
-  currentGlobal: typeof globalThis
+  currentGlobal: typeof globalThis,
 ) => any
 const LOCATION_TO_API_PRODUCERS: { [location: string]: ProducerFunc[] } = {
   [locations.LOCATION_ENTRY_FIELD]: DEFAULT_API_PRODUCERS,
   [locations.LOCATION_ENTRY_FIELD_SIDEBAR]: DEFAULT_API_PRODUCERS,
   [locations.LOCATION_ENTRY_SIDEBAR]: [makeSharedAPI, makeEntryAPI, makeEditorAPI, makeWindowAPI],
+  [locations.LOCATION_ASSET_SIDEBAR]: [makeSharedAPI, makeAssetAPI, makeWindowAPI],
   [locations.LOCATION_ENTRY_EDITOR]: [makeSharedAPI, makeEntryAPI, makeEditorAPI],
   [locations.LOCATION_DIALOG]: [makeSharedAPI, makeDialogAPI, makeWindowAPI],
   [locations.LOCATION_PAGE]: [makeSharedAPI],
   [locations.LOCATION_HOME]: [makeSharedAPI],
   [locations.LOCATION_APP_CONFIG]: [makeSharedAPI, makeAppAPI],
+  [locations.LOCATION_AGENT]: [makeSharedAPI, makeAgentAPI, makeWindowAPI],
 }
 
 export default function createAPI(
   channel: Channel,
   data: ConnectMessage,
-  currentGlobal: typeof globalThis
+  currentGlobal: typeof globalThis,
 ): KnownAppSDK {
   const producers = LOCATION_TO_API_PRODUCERS[data.location as string] || DEFAULT_API_PRODUCERS
 
@@ -59,9 +63,18 @@ export default function createAPI(
 
 function makeSharedAPI(
   channel: Channel,
-  data: ConnectMessage
+  data: ConnectMessage,
 ): BaseAppSDK<KeyValueMap, KeyValueMap, never> {
-  const { user, parameters, locales, ids, initialContentTypes, hostnames } = data
+  const {
+    user,
+    parameters,
+    locales,
+    ids,
+    initialContentTypes,
+    hostnames,
+    release,
+    uiLanguageLocale,
+  } = data
   const currentLocation = data.location || locations.LOCATION_ENTRY_FIELD
 
   return {
@@ -83,7 +96,7 @@ function makeSharedAPI(
     space: createSpace(channel, initialContentTypes),
     dialogs: createDialogs(channel, ids),
     // Typecast because promises returned by navigator methods aren't typed
-    navigator: createNavigator(channel, ids) as NavigatorAPI,
+    navigator: createNavigator(channel, ids, release) as NavigatorAPI,
     notifier: {
       success: (message: string) => channel.send('notify', { type: 'success', message }),
       error: (message: string) => channel.send('notify', { type: 'error', message }),
@@ -91,6 +104,8 @@ function makeSharedAPI(
     },
     ids,
     hostnames,
+    release,
+    uiLanguageLocale,
     access: {
       can: (action: string, entity: any, patch?: JSONPatchItem[]) =>
         channel.call('checkAccess', action, entity, patch) as Promise<boolean>,
@@ -114,9 +129,9 @@ function makeEditorAPI(channel: Channel, data: any) {
 
 function makeEntryAPI(
   channel: Channel,
-  { locales, contentType, entry, fieldInfo }: ConnectMessage
+  { locales, contentType, entry, fieldInfo }: ConnectMessage,
 ) {
-  const createEntryField = (info: EntryFieldInfo) => new Field(channel, info, locales.default)
+  const createEntryField = (info: EntryFieldInfo) => makeField(channel, info, locales.default)
 
   return {
     contentType,
@@ -128,8 +143,9 @@ function makeFieldAPI(channel: Channel, { field }: ConnectMessage) {
   if (!field) {
     throw new Error('FieldAPI called for location without "field" property defined.')
   }
+
   return {
-    field: new FieldLocale(channel, field),
+    field: makeFieldLocale(channel, field),
   }
 }
 
@@ -139,10 +155,22 @@ function makeDialogAPI(channel: Channel) {
   }
 }
 
+function makeAssetAPI(channel: Channel, { asset }: ConnectMessage) {
+  return {
+    asset: createAsset(channel, asset),
+  }
+}
+
 function makeAppAPI(channel: Channel) {
   const app = createApp(channel)
 
   return {
     app,
+  }
+}
+
+function makeAgentAPI(channel: Channel, { agent }: ConnectMessage) {
+  return {
+    agent: createAgent(channel, agent),
   }
 }

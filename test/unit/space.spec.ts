@@ -62,7 +62,7 @@ describe('createSpace()', () => {
         creator: createSpace,
         methodName: spaceMethod,
         channelMethod: 'callSpaceMethod',
-        args: args,
+        args,
         expectedCallArgs: [spaceMethod, args],
       })
     })

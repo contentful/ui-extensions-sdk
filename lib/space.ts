@@ -58,7 +58,7 @@ const spaceMethods: Array<keyof SpaceAPI> = [
 
 export default function createSpace(
   channel: Channel,
-  initialContentTypes: ContentType[]
+  initialContentTypes: ContentType[],
 ): SpaceAPI {
   const space = {} as SpaceAPI
 
@@ -66,8 +66,8 @@ export default function createSpace(
     space[methodName] = function (...args: any[]) {
       console.warn(
         `You called ${String(
-          methodName
-        )} on the Space API. Since version 4.0.0 the Space API and its methods are deprecated, and they will be removed from version 5.0.0 on. We recommend that you use the CMA client instead. See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details.`
+          methodName,
+        )} on the Space API. Since version 4.0.0 the Space API and its methods are deprecated, and they will be removed from version 5.0.0 on. We recommend that you use the CMA client instead. See https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#using-the-contentful-management-library for more details.`,
       )
       return channel.call('callSpaceMethod', methodName, args)
     } as any

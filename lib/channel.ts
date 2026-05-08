@@ -3,7 +3,7 @@ import { ConnectMessage } from './types'
 
 export function connect(
   currentGlobal: typeof globalThis,
-  onConnect: (channel: Channel, message: ConnectMessage, messageQueue: unknown[]) => void
+  onConnect: (channel: Channel, message: ConnectMessage, messageQueue: unknown[]) => void,
 ) {
   waitForConnect(currentGlobal, (params: ConnectMessage, messageQueue: unknown[]) => {
     const channel = new Channel(params.id, currentGlobal)
@@ -105,12 +105,12 @@ function createSender(sourceId: string, targetWindow: Window) {
           method,
           params,
         },
-        '*'
+        '*',
       )
     } catch (e) {
       if (e instanceof DOMException && e.name === 'DataCloneError' && method === 'openDialog') {
         console.error(
-          'Error: openCurrent[App] parameters could not be parsed. You likely tried to pass functions or DOM elements as a parameter. Tip: Use the App SDK directly within the dialog location.\n\nLearn more about the dialog location: https://ctfl.io/app-sdk-dialog'
+          'Error: openCurrent[App] parameters could not be parsed. You likely tried to pass functions or DOM elements as a parameter. Tip: Use the App SDK directly within the dialog location.\n\nLearn more about the dialog location: https://ctfl.io/app-sdk-dialog',
         )
       }
 
@@ -132,7 +132,7 @@ export function sendInitMessage(currentGlobal: typeof globalThis): number {
       method: 'init',
       params: [],
     },
-    '*'
+    '*',
   )
 
   return messageId

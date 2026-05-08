@@ -34,7 +34,16 @@ export type {
   UserAPI,
   JSONPatchItem,
   HostnamesAPI,
+  AgentAppSDK,
 } from './api.types'
+
+export type {
+  AgentAPI,
+  AgentContext,
+  LayoutVariant,
+  ToolbarAction,
+  ToolbarActionName,
+} from './agent.types'
 
 export type {
   AppConfigAPI,
@@ -59,6 +68,7 @@ export type {
   EditorInterface,
   Entry,
   Metadata,
+  Release,
   Role,
   ScheduledAction,
   SpaceMembership,
@@ -91,6 +101,7 @@ export type { SpaceAPI } from './space.types'
 export type {
   SearchQuery,
   CollectionResponse,
+  CursorBasedCollectionResponse,
   EntrySys,
   ContentEntitySys,
   ContentEntityType,
@@ -118,6 +129,8 @@ export type {
   UniqueValidationError,
   UnknownValidationError,
   ValidationError,
+  AllowedResourceValidationError,
+  AllowedResourcesValidationError,
 } from './validation-error'
 
 export type { WindowAPI } from './window.types'

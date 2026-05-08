@@ -1,3 +1,358 @@
+# [4.56.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.55.1...v4.56.0) (2026-04-21)
+
+### Features
+
+- expose agentRun.resumeRun types for AI agent apps [DX-912] ([#2540](https://github.com/contentful/ui-extensions-sdk/issues/2540)) ([94e9a6f](https://github.com/contentful/ui-extensions-sdk/commit/94e9a6fa8d8793c9d83fb3b191547d4df378053c))
+
+## [4.55.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.55.0...v4.55.1) (2026-04-21)
+
+### Bug Fixes
+
+- trigger release for npm publish failure [DX-912] ([#2539](https://github.com/contentful/ui-extensions-sdk/issues/2539)) ([c7c1e5a](https://github.com/contentful/ui-extensions-sdk/commit/c7c1e5a37d912b2569dcd7f010296b128b424b85))
+
+# [4.55.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.54.0...v4.55.0) (2026-04-21)
+
+### Features
+
+- **cma:** upgrade contentful-management to v12 and expose agentRun ([#2512](https://github.com/contentful/ui-extensions-sdk/issues/2512)) ([896b83d](https://github.com/contentful/ui-extensions-sdk/commit/896b83d59b8ca9bdedd49d34d8b523d27e45bd80))
+
+# [4.54.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.53.1...v4.54.0) (2026-04-14)
+
+### Bug Fixes
+
+- **ci:** work around npm self-upgrade regression on Node 22 [DX-945] ([#2533](https://github.com/contentful/ui-extensions-sdk/issues/2533)) ([e0adf69](https://github.com/contentful/ui-extensions-sdk/commit/e0adf6934464248c6c8dfc836302d453fa06e3f7)), closes [npm/cli#9151](https://github.com/npm/cli/issues/9151)
+
+### Features
+
+- bump contentful-management to ^12.3.1 [DX-912] ([#2532](https://github.com/contentful/ui-extensions-sdk/issues/2532)) ([46164d5](https://github.com/contentful/ui-extensions-sdk/commit/46164d5b7e9fadcc11c14ba7ba79edc84c0f082f))
+
+## [4.53.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.53.0...v4.53.1) (2026-03-10)
+
+### Bug Fixes
+
+- [EXT-00] canary-does-not-auto-release ([#2480](https://github.com/contentful/ui-extensions-sdk/issues/2480)) ([f819391](https://github.com/contentful/ui-extensions-sdk/commit/f8193912be5602d006a3d03841082c6f09f04c71))
+
+# [4.53.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.52.0...v4.53.0) (2026-03-09)
+
+### Features
+
+- [EXT-7181] experience-toolbar-location-constant ([#2477](https://github.com/contentful/ui-extensions-sdk/issues/2477)) ([beb58ef](https://github.com/contentful/ui-extensions-sdk/commit/beb58ef63db0e26d67ba4a7e040fadf4a4673d35))
+
+# [4.52.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.51.5...v4.52.0) (2026-03-09)
+
+### Features
+
+- [EXT-7181] experience-toolbar-location-constant ([#2477](https://github.com/contentful/ui-extensions-sdk/issues/2477)) ([6f5dc4a](https://github.com/contentful/ui-extensions-sdk/commit/6f5dc4aaa5fbc84669f86893b56478cf9e628e83))
+
+## [4.51.5](https://github.com/contentful/ui-extensions-sdk/compare/v4.51.4...v4.51.5) (2026-02-25)
+
+### Bug Fixes
+
+- trigger release ([#2469](https://github.com/contentful/ui-extensions-sdk/issues/2469)) ([b89431b](https://github.com/contentful/ui-extensions-sdk/commit/b89431bbb084d3e75fd6fdb32c4c4ecb79e8541a))
+
+## [4.51.4](https://github.com/contentful/ui-extensions-sdk/compare/v4.51.3...v4.51.4) (2026-01-29)
+
+### Bug Fixes
+
+- run release overrides github ref to current branch for canary release [EXT-7158] ([#2446](https://github.com/contentful/ui-extensions-sdk/issues/2446)) ([14efe95](https://github.com/contentful/ui-extensions-sdk/commit/14efe95041c1c23a4507173fc8e13ec1906585e2))
+
+## [4.51.3](https://github.com/contentful/ui-extensions-sdk/compare/v4.51.2...v4.51.3) (2026-01-23)
+
+### Bug Fixes
+
+- revert unintentional canary release [INC-970] ([#2442](https://github.com/contentful/ui-extensions-sdk/issues/2442)) ([86f54c4](https://github.com/contentful/ui-extensions-sdk/commit/86f54c4bef8913625392e422b4866863cab22877))
+
+## [4.51.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.51.1...v4.51.2) (2026-01-23)
+
+### Bug Fixes
+
+- update cma to 12.0.0-new-beta.11 ([3a1ce24](https://github.com/contentful/ui-extensions-sdk/commit/3a1ce248da96940c7503152355a6454a0198a743))
+
+## [4.51.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.51.0...v4.51.1) (2026-01-23)
+
+### Bug Fixes
+
+- **ci:** only create local main reference if we aren't currently on it [] ([#2440](https://github.com/contentful/ui-extensions-sdk/issues/2440)) ([3ea7439](https://github.com/contentful/ui-extensions-sdk/commit/3ea7439e92f3255b12fc41467e5460b1d02fa356))
+
+# [4.51.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.50.0...v4.51.0) (2026-01-09)
+
+### Features
+
+- rename agent layout variant methods and export LayoutVariant type [EXT-7094] ([#2427](https://github.com/contentful/ui-extensions-sdk/issues/2427)) ([b66a7ee](https://github.com/contentful/ui-extensions-sdk/commit/b66a7ee9893e4fc4677227f415d95ed913dca703))
+
+# [4.50.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.49.1...v4.50.0) (2026-01-07)
+
+### Features
+
+- add agents and agent runs [PIC-829] ([#2401](https://github.com/contentful/ui-extensions-sdk/issues/2401)) ([a6916c1](https://github.com/contentful/ui-extensions-sdk/commit/a6916c11bf7993ac2de3e1f6f5e380206d6b2140))
+
+## [4.49.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.49.0...v4.49.1) (2026-01-05)
+
+### Bug Fixes
+
+- **ci:** use temporary version in verify.js to avoid publish collision [EXT-7068] ([#2422](https://github.com/contentful/ui-extensions-sdk/issues/2422)) ([122de86](https://github.com/contentful/ui-extensions-sdk/commit/122de86e1f57515c4ffc6c38c425355fe29ef208))
+- update contentful-management dependency to version 11.67.0 [PIC-828] ([#2421](https://github.com/contentful/ui-extensions-sdk/issues/2421)) ([46520d1](https://github.com/contentful/ui-extensions-sdk/commit/46520d1e936345907022e9609c16a02c8fe5fea9))
+
+# [4.49.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.48.2...v4.49.0) (2026-01-02)
+
+### Bug Fixes
+
+- add vault step to release github action to retrieve token for version bump in git [EXT-7068] ([#2398](https://github.com/contentful/ui-extensions-sdk/issues/2398)) ([c913680](https://github.com/contentful/ui-extensions-sdk/commit/c913680e3a83a513c0556cf52cf693719e5f2dcf))
+- bump patch [EXT-7068] ([#2411](https://github.com/contentful/ui-extensions-sdk/issues/2411)) ([6c4676a](https://github.com/contentful/ui-extensions-sdk/commit/6c4676ab5d68159954f5de877bcb1b37a91e18b1))
+- **ci:** auth actions/checkout as bot because it is used for subsequent ops [MEC-2423] ([#2418](https://github.com/contentful/ui-extensions-sdk/issues/2418)) ([d16e9ce](https://github.com/contentful/ui-extensions-sdk/commit/d16e9ce40c12377da93a88b52146821aa4938071))
+- MEC-2423 fix CI actor ([bcc1338](https://github.com/contentful/ui-extensions-sdk/commit/bcc1338b79f2fe72c519fd7860101b3609b30612))
+- MEC-2423 fix npm publishing ([22890e5](https://github.com/contentful/ui-extensions-sdk/commit/22890e5dffb63b9d90c91b58cc591ff6a0288bf5))
+- MEC-2423 fix release pipeline ([a5bd8b8](https://github.com/contentful/ui-extensions-sdk/commit/a5bd8b8908889d072c9d476424b17fe613129abe))
+- MEC-2423 fix token passing for release ([#2417](https://github.com/contentful/ui-extensions-sdk/issues/2417)) ([6e95291](https://github.com/contentful/ui-extensions-sdk/commit/6e95291c73ee97023e975b2f246c5d6994787f0a))
+- release job [EXT-7068] ([#2400](https://github.com/contentful/ui-extensions-sdk/issues/2400)) ([bea6ede](https://github.com/contentful/ui-extensions-sdk/commit/bea6eded64c3716aee85af52ab214ec3765dd1da))
+- remove npm token check since now we use oidc [EXT-7067] ([#2397](https://github.com/contentful/ui-extensions-sdk/issues/2397)) ([22389d0](https://github.com/contentful/ui-extensions-sdk/commit/22389d08fdfba8b5f2c701897847e6ff59329728))
+- use correct vault-github-actions tag [EXT-7068] ([#2399](https://github.com/contentful/ui-extensions-sdk/issues/2399)) ([8fb861a](https://github.com/contentful/ui-extensions-sdk/commit/8fb861a9476fcdb483f45d21bd7cd141c686a3c1))
+
+### Features
+
+- implement trusted publishing for npm releases and remove custom codeql workflow [EXT-7067] ([#2384](https://github.com/contentful/ui-extensions-sdk/issues/2384)) ([1f6b45b](https://github.com/contentful/ui-extensions-sdk/commit/1f6b45bb94f929180c4887b21a463c8237e4d73f))
+
+## [4.48.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.48.1...v4.48.2) (2025-12-11)
+
+### Bug Fixes
+
+- swap AIChatLayout variant enum order [EXT-7067] ([#2389](https://github.com/contentful/ui-extensions-sdk/issues/2389)) ([86434d0](https://github.com/contentful/ui-extensions-sdk/commit/86434d0274399f64512b4166d55163a6a18a993e))
+
+## [4.48.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.48.0...v4.48.1) (2025-12-10)
+
+### Bug Fixes
+
+- manually run build from semantic release to fix circle ci issues [EXT-7067] ([#2382](https://github.com/contentful/ui-extensions-sdk/issues/2382)) ([1c6a0e0](https://github.com/contentful/ui-extensions-sdk/commit/1c6a0e0c95ab0110fe04acbfbb03649ad8e44798))
+
+# [4.48.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.47.0...v4.48.0) (2025-12-10)
+
+### Features
+
+- Restore onLayoutVariantChange to AgentAPI [EXT-7067] ([#2381](https://github.com/contentful/ui-extensions-sdk/issues/2381)) ([11f4b69](https://github.com/contentful/ui-extensions-sdk/commit/11f4b692141bdb211f611647cbf87877a52af641))
+
+# [4.47.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.46.0...v4.47.0) (2025-11-14)
+
+### Features
+
+- add window api for agent location [EXT-6968] ([#2372](https://github.com/contentful/ui-extensions-sdk/issues/2372)) ([9493f72](https://github.com/contentful/ui-extensions-sdk/commit/9493f720f59afcf7bd96bd9b1f91a320e1ff1a7c))
+
+# [4.46.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.45.0...v4.46.0) (2025-11-11)
+
+### Bug Fixes
+
+- bump CircleCI Node version to 24.11.0 [] ([#2365](https://github.com/contentful/ui-extensions-sdk/issues/2365)) ([e054b06](https://github.com/contentful/ui-extensions-sdk/commit/e054b06c278f9e953d30b51f1dddf386dccbf468))
+- **deps:** downgrade semantic-release and related dependencies ([#2366](https://github.com/contentful/ui-extensions-sdk/issues/2366)) ([d27fde3](https://github.com/contentful/ui-extensions-sdk/commit/d27fde355ab51701b5b84d9dd899294698180950))
+
+### Features
+
+- **api:** add agent location and API integration [EXT-6966] ([#2362](https://github.com/contentful/ui-extensions-sdk/issues/2362)) ([2febd54](https://github.com/contentful/ui-extensions-sdk/commit/2febd5466551bbcd8f3f032af7967e88179a21d7))
+
+# [4.45.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.44.1...v4.45.0) (2025-09-24)
+
+### Features
+
+- ext 6788 asset sidebar location constants [EXT-6786] ([#2338](https://github.com/contentful/ui-extensions-sdk/issues/2338)) ([87ab2b1](https://github.com/contentful/ui-extensions-sdk/commit/87ab2b112a2cb668f6eb52644361912539382d05))
+
+## [4.44.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.44.0...v4.44.1) (2025-09-18)
+
+### Bug Fixes
+
+- made functions optional until implementation [SPA-3218] ([#2333](https://github.com/contentful/ui-extensions-sdk/issues/2333)) ([89109a2](https://github.com/contentful/ui-extensions-sdk/commit/89109a274ca66d6332ea3a65f4a5cd48e48d09dc))
+
+# [4.44.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.43.0...v4.44.0) (2025-09-17)
+
+### Features
+
+- add uiLanguageLocale to API ([#2328](https://github.com/contentful/ui-extensions-sdk/issues/2328)) ([cbf6bba](https://github.com/contentful/ui-extensions-sdk/commit/cbf6bba479c568baed411e369e9daa6ecd2072b9))
+
+# [4.43.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.42.0...v4.43.0) (2025-09-12)
+
+### Features
+
+- bump CMA version ([#2325](https://github.com/contentful/ui-extensions-sdk/issues/2325)) ([7b44b0d](https://github.com/contentful/ui-extensions-sdk/commit/7b44b0d4d2b23a1584097d513b1bf99b685a21e0))
+
+# [4.42.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.41.2...v4.42.0) (2025-09-11)
+
+### Features
+
+- update appActionCall to use new methods [EXT-6593] ([#2318](https://github.com/contentful/ui-extensions-sdk/issues/2318)) ([54194b4](https://github.com/contentful/ui-extensions-sdk/commit/54194b40afe3b1a492c4c4cbe6eef485bd6d338f))
+
+## [4.41.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.41.1...v4.41.2) (2025-09-05)
+
+### Bug Fixes
+
+- added support for types Experience, Pattern and ComponentDefinition [SPA-3128] ([#2320](https://github.com/contentful/ui-extensions-sdk/issues/2320)) ([41ccac0](https://github.com/contentful/ui-extensions-sdk/commit/41ccac01b99109c0a12b14e27dc2b8db3f9c0109))
+
+## [4.41.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.41.0...v4.41.1) (2025-08-18)
+
+### Bug Fixes
+
+- **api.types:** make release field optional in IdsAPI interface [] ([#2314](https://github.com/contentful/ui-extensions-sdk/issues/2314)) ([4905969](https://github.com/contentful/ui-extensions-sdk/commit/4905969fbbf261c506f9928b9872ed6b145eecad))
+
+# [4.41.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.40.0...v4.41.0) (2025-08-07)
+
+### Features
+
+- **cma:** add releaseId to CMAClient parameters [EXT-6580] ([#2312](https://github.com/contentful/ui-extensions-sdk/issues/2312)) ([18869bb](https://github.com/contentful/ui-extensions-sdk/commit/18869bb42d2fb122c3dbce8697f6a5b9a451bc5d))
+
+# [4.40.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.39.0...v4.40.0) (2025-08-06)
+
+### Features
+
+- streamline release handling in navigation methods [EXT-6551] ([#2311](https://github.com/contentful/ui-extensions-sdk/issues/2311)) ([6ab1fdf](https://github.com/contentful/ui-extensions-sdk/commit/6ab1fdf8c59ea2dc4799f7686fda8ae1150452d6))
+
+# [4.39.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.38.0...v4.39.0) (2025-08-04)
+
+### Features
+
+- **navigator:** add entityInRelease flag to NavigatorAPIOptions [EXT-6551] ([#2305](https://github.com/contentful/ui-extensions-sdk/issues/2305)) ([96c3899](https://github.com/contentful/ui-extensions-sdk/commit/96c3899e26f2c579519450157a77f5effcc00908))
+
+# [4.38.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.37.0...v4.38.0) (2025-08-04)
+
+### Features
+
+- **navigator:** enhance navigation methods to include releaseId [EXT_6551] ([#2303](https://github.com/contentful/ui-extensions-sdk/issues/2303)) ([c8ceb35](https://github.com/contentful/ui-extensions-sdk/commit/c8ceb350eab5312593a32a5f67b843d22fea14e2))
+
+# [4.37.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.36.0...v4.37.0) (2025-07-31)
+
+### Features
+
+- Add entityInRelease back to navigateToContentEntity channel message object [EXT-6551] ([#2301](https://github.com/contentful/ui-extensions-sdk/issues/2301)) ([7769383](https://github.com/contentful/ui-extensions-sdk/commit/7769383e51e1b7aad960b12503892a3cc447c64b))
+
+# [4.36.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.35.0...v4.36.0) (2025-07-28)
+
+### Features
+
+- update navigator open entry method [EXT-6551] ([#2299](https://github.com/contentful/ui-extensions-sdk/issues/2299)) ([84183c1](https://github.com/contentful/ui-extensions-sdk/commit/84183c13cb5b769c210b30f8dba89b002a2f2d3c))
+
+# [4.35.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.34.0...v4.35.0) (2025-07-25)
+
+### Features
+
+- api, navigator): add optional release parameter to createNavigator so openEntry method could work properly. ([#2297](https://github.com/contentful/ui-extensions-sdk/issues/2297)) ([2f0aedf](https://github.com/contentful/ui-extensions-sdk/commit/2f0aedf4d80325ad3ea4bc87f48f041da0d5a04c))
+
+# [4.34.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.33.0...v4.34.0) (2025-07-21)
+
+### Features
+
+- bump version for deploy [] ([#2292](https://github.com/contentful/ui-extensions-sdk/issues/2292)) ([b6f0d17](https://github.com/contentful/ui-extensions-sdk/commit/b6f0d17d83f6f0696e10ad651fde2adea36d53f9))
+
+# [4.33.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.32.0...v4.33.0) (2025-07-21)
+
+### Features
+
+- bump to deploy [] ([#2291](https://github.com/contentful/ui-extensions-sdk/issues/2291)) ([6d095f3](https://github.com/contentful/ui-extensions-sdk/commit/6d095f302d0c2d79fef8fb8c2b89957a51606ad5))
+
+# [4.32.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.31.0...v4.32.0) (2025-07-16)
+
+### Features
+
+- **api:** add release parameter to entry API and update createEntry [EXT-6548] ([#2284](https://github.com/contentful/ui-extensions-sdk/issues/2284)) ([73dabf5](https://github.com/contentful/ui-extensions-sdk/commit/73dabf5b76d8a84592e52063a8392ddbffca4803))
+
+# [4.31.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.30.0...v4.31.0) (2025-07-15)
+
+### Features
+
+- passed the release obj to the shared api instead of just the entry api so dialogs and navigator could have access to this value ([fd8ea6f](https://github.com/contentful/ui-extensions-sdk/commit/fd8ea6f380bb4fc6a77d37d3de0a4769930a0251))
+
+# [4.30.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.29.7...v4.30.0) (2025-07-15)
+
+### Bug Fixes
+
+- npm-ci-syncing-issue [] ([#2283](https://github.com/contentful/ui-extensions-sdk/issues/2283)) ([ae777e5](https://github.com/contentful/ui-extensions-sdk/commit/ae777e503503e1cd1cd8abf7a37a00dbc74d5103))
+
+### Features
+
+- **api:** !!DO NOT MERGE !! add release property to ConnectMessage and API responses [EXT-6546] ([#2281](https://github.com/contentful/ui-extensions-sdk/issues/2281)) ([9758d6d](https://github.com/contentful/ui-extensions-sdk/commit/9758d6dbbac9065d1dccb62cdc419180371f9ae7))
+
+## [4.29.7](https://github.com/contentful/ui-extensions-sdk/compare/v4.29.6...v4.29.7) (2025-05-28)
+
+### Bug Fixes
+
+- internal fixes [EXT-6372] ([#2249](https://github.com/contentful/ui-extensions-sdk/issues/2249)) ([8e2805a](https://github.com/contentful/ui-extensions-sdk/commit/8e2805aa2ca08c7456581e1a549b38211781e618))
+
+## [4.29.6](https://github.com/contentful/ui-extensions-sdk/compare/v4.29.5...v4.29.6) (2025-04-09)
+
+### Bug Fixes
+
+- force new release with updated contentful-management [] ([#2209](https://github.com/contentful/ui-extensions-sdk/issues/2209)) ([2945e6a](https://github.com/contentful/ui-extensions-sdk/commit/2945e6a4a6fa4e3f6d17311af1d7ce88f7c42a51))
+
+## [4.29.5](https://github.com/contentful/ui-extensions-sdk/compare/v4.29.4...v4.29.5) (2025-01-27)
+
+### Bug Fixes
+
+- force release to fix type conflicts with old contentful-management ([#2130](https://github.com/contentful/ui-extensions-sdk/issues/2130)) ([c82b4e1](https://github.com/contentful/ui-extensions-sdk/commit/c82b4e1b19ca7d492d42fb319f17d35f7c80605a))
+
+## [4.29.3](https://github.com/contentful/ui-extensions-sdk/compare/v4.29.2...v4.29.3) (2024-11-05)
+
+### Bug Fixes
+
+- remove .npmrc at root to fix publish registry [EXT-5905] ([#2064](https://github.com/contentful/ui-extensions-sdk/issues/2064)) ([b3174ec](https://github.com/contentful/ui-extensions-sdk/commit/b3174ecff2efaef32ab04236e4d629408a11a182))
+
+## [4.29.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.29.1...v4.29.2) (2024-10-30)
+
+### Bug Fixes
+
+- release dependabot updates [] ([#2058](https://github.com/contentful/ui-extensions-sdk/issues/2058)) ([8ef81a9](https://github.com/contentful/ui-extensions-sdk/commit/8ef81a9bce8299dea8836e621cd8a7e31e2e9c72))
+
+## [4.29.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.29.0...v4.29.1) (2024-08-15)
+
+### Bug Fixes
+
+- upgrade contentful-management to include axios vuln fix ([#2002](https://github.com/contentful/ui-extensions-sdk/issues/2002)) ([a9d2831](https://github.com/contentful/ui-extensions-sdk/commit/a9d283192a77ce55929588d301b247dbebcff38a))
+
+# [4.29.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.28.0...v4.29.0) (2024-07-22)
+
+### Bug Fixes
+
+- husky pre-commit [] ([#1981](https://github.com/contentful/ui-extensions-sdk/issues/1981)) ([4d81c5a](https://github.com/contentful/ui-extensions-sdk/commit/4d81c5a77b940f6c7cf7d28a4f34650a8b587c2f))
+
+### Features
+
+- add type for cursor-based collection responses ([#1975](https://github.com/contentful/ui-extensions-sdk/issues/1975)) ([e912b7d](https://github.com/contentful/ui-extensions-sdk/commit/e912b7d93055a6f2527330beab040c98de23602e))
+
+# [4.28.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.27.0...v4.28.0) (2024-07-08)
+
+### Features
+
+- export allowed resources error types ([#1962](https://github.com/contentful/ui-extensions-sdk/issues/1962)) ([d9feb5b](https://github.com/contentful/ui-extensions-sdk/commit/d9feb5bf390e328fbf972589830fe68f8a5f6ba7))
+
+# [4.27.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.26.3...v4.27.0) (2024-07-08)
+
+### Features
+
+- add allowed resources error types ([#1957](https://github.com/contentful/ui-extensions-sdk/issues/1957)) ([d946440](https://github.com/contentful/ui-extensions-sdk/commit/d94644086667cb8f5dce72404191b4f9b7301d45))
+
+## [4.26.3](https://github.com/contentful/ui-extensions-sdk/compare/v4.26.2...v4.26.3) (2024-07-02)
+
+### Bug Fixes
+
+- [] add NPM token to .npmrc in CI ([#1952](https://github.com/contentful/ui-extensions-sdk/issues/1952)) ([a16d1c7](https://github.com/contentful/ui-extensions-sdk/commit/a16d1c783a60571257113b6c184e487324c79315))
+
+## [4.26.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.26.1...v4.26.2) (2024-06-28)
+
+### Bug Fixes
+
+- whitespace [] ([#1949](https://github.com/contentful/ui-extensions-sdk/issues/1949)) ([e682d5b](https://github.com/contentful/ui-extensions-sdk/commit/e682d5b045e226a8ff7166ad9594ecbbd5c6c0b0))
+
+## [4.26.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.26.0...v4.26.1) (2024-06-28)
+
+### Bug Fixes
+
+- non-compatible test deps [NONE] ([#1947](https://github.com/contentful/ui-extensions-sdk/issues/1947)) ([81546a1](https://github.com/contentful/ui-extensions-sdk/commit/81546a13671dff9a62ecfeb2a740ce7a27e68ea9))
+
+# [4.26.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.25.0...v4.26.0) (2024-03-07)
+
+### Features
+
+- github migration [EXT-5010] ([#1852](https://github.com/contentful/ui-extensions-sdk/issues/1852)) ([36d924c](https://github.com/contentful/ui-extensions-sdk/commit/36d924c148691369278f5df7f2b3af9b911c4eaa))
+
+# [4.25.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.24.0...v4.25.0) (2024-03-06)
+
+### Features
+
+- github migration [EXT-5010] ([#1851](https://github.com/contentful/ui-extensions-sdk/issues/1851)) ([aa29074](https://github.com/contentful/ui-extensions-sdk/commit/aa29074e98f06d9f7a364dbbae1475c3c970aaa1))
+
 # [4.24.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.23.1...v4.24.0) (2024-01-19)
 
 ### Features
@@ -302,7 +657,7 @@ const cma = createClient(
       environmentId: sdk.ids.environment,
       spaceId: sdk.ids.space,
     },
-  }
+  },
 )
 ```
 
