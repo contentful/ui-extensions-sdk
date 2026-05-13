@@ -1,0 +1,14 @@
+version: 1
+review:
+  guidelines:
+    - file: ./.bito/guidelines/architecture.md
+    - file: ./.bito/guidelines/quality.md
+    - file: ./.bito/guidelines/security.md
+  ignore_paths:
+    - dist/**
+    - docs/cf-extension-api.js*
+    - docs/cf-extension.css*
+    - docs/cf-widget-api.*
+    - docs/styleguide/**
+    - CHANGELOG.md
+    - package-lock.json
