@@ -19,7 +19,17 @@ interface FieldAPIBase {
   setValue: <Value = any>(value: Value) => Promise<SerializedJSONValue | undefined>
   /** Removes the value for the field and locale. */
   removeValue: () => Promise<void>
-  /** Communicates to the web application if the field is in a valid state or not. */
+  /**
+   * Sets a visual invalid indicator (red error bar) on the field in the web app.
+   *
+   * **Constraints:**
+   * - Visual only — does NOT prevent publishing.
+   * - Only affects the field the app is assigned to. Calling this via
+   *   `sdk.entry.fields['otherField'].getForLocale(...).setInvalid()` from
+   *   a different field location has no effect.
+   * - To prevent publishing, use a built-in validation on a separate field and
+   *   control its value with `sdk.field.setValue()`.
+   */
   setInvalid: (value: boolean) => void
 
   /** Calls the callback every time the value of the field is changed by an external event or when setValue() is called.
