@@ -142,7 +142,7 @@ dependabot PR ────────────────►  .github/workf
                                   contentful/github-auto-merge@v1
 ```
 
-- **Branch protection on:** 1 required approving review, code-owner review required, stale reviews dismissed on push, strict status checks, no force-push, no branch deletion based on the repo's GitHub branch-protection settings.
+- **Branch protection on:** 1 required approving review, code-owner review required, stale reviews dismissed on push, strict status checks, no force-push, no branch deletion.
 - **Semantic PR titles required** — `.github/semantic.yml` enforces title-only validation (PRs are squash-merged).
 - **Release runs after CI succeeds** via `workflow_run` trigger; the manual `workflow_dispatch` path also accepts `canary` for ad-hoc alpha cuts.
 
