@@ -1,3 +1,9 @@
+## [4.56.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.56.0...v4.56.1) (2026-05-13)
+
+### Bug Fixes
+
+- expand setInvalid JSDoc to document visual-only and same-field constraints [DX-1077] ([#2562](https://github.com/contentful/ui-extensions-sdk/issues/2562)) ([1ced9bf](https://github.com/contentful/ui-extensions-sdk/commit/1ced9bf3f365893f15a3282c3affd3e650d93304))
+
 # [4.56.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.55.1...v4.56.0) (2026-04-21)
 
 ### Features
