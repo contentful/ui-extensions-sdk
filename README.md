@@ -3,6 +3,14 @@
 The App SDK (formerly known as UI Extensions SDK) is a JavaScript library that allows developers to create custom Contentful Apps
 for the Contentful Web App. Every Contentful App has to include the library in its source.
 
+## For agents and contributors
+
+If you're an AI agent or a new contributor, start here:
+
+- [AGENTS.md](./AGENTS.md) — routing table, sharp edges, and never/always rules
+- [ARCHITECTURE.md](./ARCHITECTURE.md) — module map, data flows, build/release pipeline
+- [CONTRIBUTING.md](./CONTRIBUTING.md) — local setup, tests, commit conventions, release process
+
 ## Resources
 
 - [App SDK reference](https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/)
