@@ -1,3 +1,9 @@
+# [4.57.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.56.1...v4.57.0) (2026-05-14)
+
+### Features
+
+- **cma:** expose Content Semantics surface on App SDK CMAClient [EXT-7432] ([#2564](https://github.com/contentful/ui-extensions-sdk/issues/2564)) ([cdb773f](https://github.com/contentful/ui-extensions-sdk/commit/cdb773fccc2546b888cd16c7757f83a8add19191))
+
 ## [4.56.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.56.0...v4.56.1) (2026-05-13)
 
 ### Bug Fixes
