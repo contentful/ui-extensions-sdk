@@ -15,10 +15,8 @@ This SDK ships to thousands of customer apps via npm and CDN. Treat security fee
 
 ## PostMessage / iframe boundary
 
-- **Don't widen the host trust surface.** The SDK currently treats *any* `connect` message from any origin as authoritative (`lib/channel.ts:waitForConnect`) — the security model relies on the iframe sandbox + the host's PostMessage hygiene. Flag any change that:
-  - Adds new `params` fields without input shape validation in TypeScript types
-  - Sends sensitive data outbound on `postMessage(*, '*')` without verifying the destination
-  - Introduces eval'd or `Function`-constructed code on the SDK side
+- **Maintain TypeScript types as the contract for any new `params` fields** added to channel messages. New host-driven message shapes belong in `lib/types/api.types.ts` `ConnectMessage`.
+- **No dynamically-evaluated code** on the SDK side (no `eval`, no runtime code construction).
 - **`DataCloneError` handling is intentional.** `channel.ts:111-116` catches DataCloneError specifically for `openDialog` and emits a customer-helpful message. Don't replace with generic error suppression.
 
 ## CI / branch protection
