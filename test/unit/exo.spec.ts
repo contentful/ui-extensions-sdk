@@ -33,25 +33,35 @@ describe('createExo()', () => {
       exo = createExo(channelStub, mockExoInit)
     })
 
-    it('returns an object with context, getUiMode, onUiModeChanged, and experience', () => {
-      expect(exo).to.have.all.keys(['context', 'getUiMode', 'onUiModeChanged', 'experience'])
+    it('returns an object with context, onContextChanged, getUiMode, onUiModeChanged, and experience', () => {
+      expect(exo).to.have.all.keys([
+        'context',
+        'onContextChanged',
+        'getUiMode',
+        'onUiModeChanged',
+        'experience',
+      ])
     })
 
-    it('registers handlers for uiModeChanged, experienceChanged, selectionChanged, and dataAssemblyChanged', () => {
-      expect(channelStub.addHandler).to.have.callCount(4)
+    it('registers handlers for contextChanged, uiModeChanged, experienceChanged, selectionChanged, and dataAssemblyChanged', () => {
+      expect(channelStub.addHandler).to.have.callCount(5)
       expect(channelStub.addHandler.getCall(0)).to.have.been.calledWith(
-        'exo.uiModeChanged',
+        'exo.contextChanged',
         sinon.match.func,
       )
       expect(channelStub.addHandler.getCall(1)).to.have.been.calledWith(
-        'exo.experienceChanged',
+        'exo.uiModeChanged',
         sinon.match.func,
       )
       expect(channelStub.addHandler.getCall(2)).to.have.been.calledWith(
-        'exo.selectionChanged',
+        'exo.experienceChanged',
         sinon.match.func,
       )
       expect(channelStub.addHandler.getCall(3)).to.have.been.calledWith(
+        'exo.selectionChanged',
+        sinon.match.func,
+      )
+      expect(channelStub.addHandler.getCall(4)).to.have.been.calledWith(
         'exo.dataAssemblyChanged',
         sinon.match.func,
       )
@@ -77,6 +87,47 @@ describe('createExo()', () => {
         })
         expect(exoWithContext!.context).to.deep.equal({ type: 'experience', entityId: 'exp-abc' })
       })
+
+      it('updates after exo.contextChanged is dispatched', () => {
+        const contextChangedHandler = channelStub.addHandler.getCall(0).args[1]
+        contextChangedHandler({ type: 'fragment', entityId: 'frag-new' })
+        expect(exo!.context).to.deep.equal({ type: 'fragment', entityId: 'frag-new' })
+      })
+    })
+
+    describe('.onContextChanged(cb)', () => {
+      describeAttachHandlerMember('default behaviour', () => {
+        return exo!.onContextChanged(() => {})
+      })
+
+      it('calls cb immediately with the initial context', () => {
+        const cb = sinon.stub()
+        exo!.onContextChanged(cb)
+        expect(cb).to.have.been.calledOnceWith({ type: 'experience', entityId: '' })
+      })
+
+      it('calls cb when exo.contextChanged is dispatched', () => {
+        const cb = sinon.stub()
+        exo!.onContextChanged(cb)
+        cb.resetHistory()
+
+        const contextChangedHandler = channelStub.addHandler.getCall(0).args[1]
+        contextChangedHandler({ type: 'fragment', entityId: 'frag-456' })
+
+        expect(cb).to.have.been.calledOnceWith({ type: 'fragment', entityId: 'frag-456' })
+      })
+
+      it('does not call detached cb when exo.contextChanged is dispatched', () => {
+        const cb = sinon.stub()
+        const detach = exo!.onContextChanged(cb)
+        cb.resetHistory()
+        detach()
+
+        const contextChangedHandler = channelStub.addHandler.getCall(0).args[1]
+        contextChangedHandler({ type: 'fragment', entityId: 'frag-789' })
+
+        expect(cb).to.not.have.been.called // eslint-disable-line no-unused-expressions
+      })
     })
 
     describe('.getUiMode()', () => {
@@ -95,7 +146,7 @@ describe('createExo()', () => {
       })
 
       it('updates after exo.uiModeChanged is dispatched', () => {
-        const uiModeChangedHandler = channelStub.addHandler.getCall(0).args[1]
+        const uiModeChangedHandler = channelStub.addHandler.getCall(1).args[1]
         uiModeChangedHandler({ mode: 'visual' })
         expect(exo!.getUiMode()).to.equal('visual')
       })
@@ -117,7 +168,7 @@ describe('createExo()', () => {
         exo!.onUiModeChanged(cb)
         cb.resetHistory()
 
-        const uiModeChangedHandler = channelStub.addHandler.getCall(0).args[1]
+        const uiModeChangedHandler = channelStub.addHandler.getCall(1).args[1]
         uiModeChangedHandler({ mode: 'visual' })
 
         expect(cb).to.have.been.calledOnceWith('visual')
@@ -129,7 +180,7 @@ describe('createExo()', () => {
         cb.resetHistory()
         detach()
 
-        const uiModeChangedHandler = channelStub.addHandler.getCall(0).args[1]
+        const uiModeChangedHandler = channelStub.addHandler.getCall(1).args[1]
         uiModeChangedHandler({ mode: 'visual' })
 
         expect(cb).to.not.have.been.called // eslint-disable-line no-unused-expressions
@@ -167,7 +218,7 @@ describe('createExo()', () => {
           const updatedSnapshot = {
             sys: { id: 'exp-456', type: 'Experience' as const, version: 2 },
           }
-          const experienceChangedHandler = channelStub.addHandler.getCall(1).args[1]
+          const experienceChangedHandler = channelStub.addHandler.getCall(2).args[1]
           experienceChangedHandler(updatedSnapshot)
           expect(exo!.experience.get()).to.deep.equal(updatedSnapshot)
         })
@@ -192,7 +243,7 @@ describe('createExo()', () => {
           const updatedSnapshot = {
             sys: { id: 'exp-789', type: 'Experience' as const, version: 3 },
           }
-          const experienceChangedHandler = channelStub.addHandler.getCall(1).args[1]
+          const experienceChangedHandler = channelStub.addHandler.getCall(2).args[1]
           experienceChangedHandler(updatedSnapshot)
 
           expect(cb).to.have.been.calledOnceWith(updatedSnapshot)
@@ -204,7 +255,7 @@ describe('createExo()', () => {
           cb.resetHistory()
           detach()
 
-          const experienceChangedHandler = channelStub.addHandler.getCall(1).args[1]
+          const experienceChangedHandler = channelStub.addHandler.getCall(2).args[1]
           experienceChangedHandler({
             sys: { id: 'exp-999', type: 'Experience' as const, version: 4 },
           })
@@ -350,7 +401,7 @@ describe('createExo()', () => {
           })
 
           it('returns the updated selection after exo.selectionChanged is dispatched', () => {
-            const selectionChangedHandler = channelStub.addHandler.getCall(2).args[1]
+            const selectionChangedHandler = channelStub.addHandler.getCall(3).args[1]
             selectionChangedHandler({ nodeId: 'node-xyz', nodeType: 'component' })
             expect(exo!.experience.selection.get()).to.deep.equal({
               nodeId: 'node-xyz',
@@ -375,7 +426,7 @@ describe('createExo()', () => {
             exo!.experience.selection.onChange(cb)
             cb.resetHistory()
 
-            const selectionChangedHandler = channelStub.addHandler.getCall(2).args[1]
+            const selectionChangedHandler = channelStub.addHandler.getCall(3).args[1]
             selectionChangedHandler({ nodeId: 'node-xyz', nodeType: 'component' })
 
             expect(cb).to.have.been.calledOnceWith({ nodeId: 'node-xyz', nodeType: 'component' })
@@ -386,7 +437,7 @@ describe('createExo()', () => {
             exo!.experience.selection.onChange(cb)
             cb.resetHistory()
 
-            const selectionChangedHandler = channelStub.addHandler.getCall(2).args[1]
+            const selectionChangedHandler = channelStub.addHandler.getCall(3).args[1]
             selectionChangedHandler({ nodeId: null })
 
             expect(cb).to.have.been.calledOnceWith({ nodeId: null })
@@ -452,7 +503,7 @@ describe('createExo()', () => {
               name: 'My Assembly',
               parameters: {},
             }
-            const dataAssemblyChangedHandler = channelStub.addHandler.getCall(3).args[1]
+            const dataAssemblyChangedHandler = channelStub.addHandler.getCall(4).args[1]
             dataAssemblyChangedHandler(updatedSnapshot)
             expect(exo!.experience.dataAssembly.get()).to.deep.equal(updatedSnapshot)
           })
@@ -476,7 +527,7 @@ describe('createExo()', () => {
             cb.resetHistory()
 
             const updatedSnapshot = { id: 'da-456', parameters: {} }
-            const dataAssemblyChangedHandler = channelStub.addHandler.getCall(3).args[1]
+            const dataAssemblyChangedHandler = channelStub.addHandler.getCall(4).args[1]
             dataAssemblyChangedHandler(updatedSnapshot)
 
             expect(cb).to.have.been.calledOnceWith(updatedSnapshot)

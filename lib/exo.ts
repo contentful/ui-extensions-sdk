@@ -35,7 +35,12 @@ export default function createExo(
     return undefined
   }
 
-  const context: ExoContext = exoInit.context ?? { type: 'experience', entityId: '' }
+  const initialContext: ExoContext = exoInit.context ?? { type: 'experience', entityId: '' }
+  const contextSignal = new MemoizedSignal<[ExoContext]>(initialContext)
+
+  channel.addHandler('exo.contextChanged', (payload: ExoContext) => {
+    contextSignal.dispatch(payload)
+  })
 
   const initialMode: UiMode = exoInit.uiMode ?? 'form'
   const uiModeSignal = new MemoizedSignal<[UiMode]>(initialMode)
@@ -47,7 +52,12 @@ export default function createExo(
   const experience = createExperienceAPI(channel, exoInit.experience)
 
   return {
-    context,
+    get context(): ExoContext {
+      return contextSignal.getMemoizedArgs()[0]
+    },
+    onContextChanged(cb: (context: ExoContext) => void): Unsubscribe {
+      return contextSignal.attach(cb)
+    },
     getUiMode(): UiMode {
       return uiModeSignal.getMemoizedArgs()[0]
     },

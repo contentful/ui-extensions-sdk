@@ -187,6 +187,7 @@ export interface ExoContext {
 
 export interface ExoSDK {
   context: ExoContext
+  onContextChanged(cb: (context: ExoContext) => void): Unsubscribe
   getUiMode(): UiMode
   onUiModeChanged(cb: (mode: UiMode) => void): Unsubscribe
   experience: ExperienceAPI
