@@ -2,7 +2,7 @@ import { PlainClientAPI } from 'contentful-management'
 
 export type CMAClient = {
   agent: Pick<PlainClientAPI['agent'], 'get' | 'getMany' | 'generate'>
-  agentRun: Pick<PlainClientAPI['agentRun'], 'get' | 'getMany'>
+  agentRun: Pick<PlainClientAPI['agentRun'], 'get' | 'getMany' | 'resumeRun'>
   appAction: Pick<PlainClientAPI['appAction'], 'get' | 'getMany' | 'getManyForEnvironment'>
   appActionCall: Pick<
     PlainClientAPI['appActionCall'],
@@ -15,6 +15,7 @@ export type CMAClient = {
   appSignedRequest: Pick<PlainClientAPI['appSignedRequest'], 'create'>
   bulkAction: PlainClientAPI['bulkAction']
   comment: PlainClientAPI['comment']
+  contentSemanticsIndex: Pick<PlainClientAPI['contentSemanticsIndex'], 'getManyForEnvironment'>
   contentType: PlainClientAPI['contentType']
   editorInterface: PlainClientAPI['editorInterface']
   environment: Pick<PlainClientAPI['environment'], 'get'>
@@ -25,6 +26,10 @@ export type CMAClient = {
   releaseAction: PlainClientAPI['releaseAction']
   role: Pick<PlainClientAPI['role'], 'get' | 'getMany'>
   scheduledActions: PlainClientAPI['scheduledActions']
+  semanticDuplicates: PlainClientAPI['semanticDuplicates']
+  semanticRecommendations: PlainClientAPI['semanticRecommendations']
+  semanticReferenceSuggestions: PlainClientAPI['semanticReferenceSuggestions']
+  semanticSearch: PlainClientAPI['semanticSearch']
   snapshot: PlainClientAPI['snapshot']
   space: Pick<PlainClientAPI['space'], 'get'>
   upload: PlainClientAPI['upload']

@@ -7,12 +7,15 @@ on:
       - completed
     branches:
       - main
-      - canary
   workflow_dispatch:
 
 jobs:
   release:
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    # workflow_run: only triggers from main (branches filter above), so run on success.
+    # workflow_dispatch: allow main (full release) or canary (pre-release) so manual canary runs publish under the canary dist-tag.
+    if: >
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') ||
+      (github.event_name == 'workflow_dispatch' && (github.ref_name == 'main' || github.ref_name == 'canary'))
     runs-on: ubuntu-latest
 
     permissions:
@@ -81,7 +84,11 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install latest npm
-        run: npm install -g npm@latest
+        run: |
+          # Work around the npm self-upgrade regression on Node 22.22.2.
+          # See: https://github.com/npm/cli/issues/9151
+          npm install -g npm@11.11.1
+          npm install -g npm@latest
 
       - name: Install dependencies
         run: npm ci

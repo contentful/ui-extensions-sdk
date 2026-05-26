@@ -1,15 +1,60 @@
-# [4.52.0-alpha.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.52.0-alpha.1...v4.52.0-alpha.2) (2026-03-10)
+# [4.57.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.56.1...v4.57.0) (2026-05-14)
 
 ### Features
 
-- [EXT-7185] ExperienceEditorToolbarAppSDK surface (experience, nodes, selection, Data Assembly) ([#2479](https://github.com/contentful/ui-extensions-sdk/issues/2479)) ([fdc7b28](https://github.com/contentful/ui-extensions-sdk/commit/fdc7b28de78114b8f9131caf761800f071cbc5e6))
+- **cma:** expose Content Semantics surface on App SDK CMAClient [EXT-7432] ([#2564](https://github.com/contentful/ui-extensions-sdk/issues/2564)) ([cdb773f](https://github.com/contentful/ui-extensions-sdk/commit/cdb773fccc2546b888cd16c7757f83a8add19191))
 
-# [4.52.0-alpha.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.51.5...v4.52.0-alpha.1) (2026-03-09)
+## [4.56.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.56.0...v4.56.1) (2026-05-13)
+
+### Bug Fixes
+
+- expand setInvalid JSDoc to document visual-only and same-field constraints [DX-1077] ([#2562](https://github.com/contentful/ui-extensions-sdk/issues/2562)) ([1ced9bf](https://github.com/contentful/ui-extensions-sdk/commit/1ced9bf3f365893f15a3282c3affd3e650d93304))
+
+# [4.56.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.55.1...v4.56.0) (2026-04-21)
+
+### Features
+
+- expose agentRun.resumeRun types for AI agent apps [DX-912] ([#2540](https://github.com/contentful/ui-extensions-sdk/issues/2540)) ([94e9a6f](https://github.com/contentful/ui-extensions-sdk/commit/94e9a6fa8d8793c9d83fb3b191547d4df378053c))
+
+## [4.55.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.55.0...v4.55.1) (2026-04-21)
+
+### Bug Fixes
+
+- trigger release for npm publish failure [DX-912] ([#2539](https://github.com/contentful/ui-extensions-sdk/issues/2539)) ([c7c1e5a](https://github.com/contentful/ui-extensions-sdk/commit/c7c1e5a37d912b2569dcd7f010296b128b424b85))
+
+# [4.55.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.54.0...v4.55.0) (2026-04-21)
+
+### Features
+
+- **cma:** upgrade contentful-management to v12 and expose agentRun ([#2512](https://github.com/contentful/ui-extensions-sdk/issues/2512)) ([896b83d](https://github.com/contentful/ui-extensions-sdk/commit/896b83d59b8ca9bdedd49d34d8b523d27e45bd80))
+
+# [4.54.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.53.1...v4.54.0) (2026-04-14)
+
+### Bug Fixes
+
+- **ci:** work around npm self-upgrade regression on Node 22 [DX-945] ([#2533](https://github.com/contentful/ui-extensions-sdk/issues/2533)) ([e0adf69](https://github.com/contentful/ui-extensions-sdk/commit/e0adf6934464248c6c8dfc836302d453fa06e3f7)), closes [npm/cli#9151](https://github.com/npm/cli/issues/9151)
+
+### Features
+
+- bump contentful-management to ^12.3.1 [DX-912] ([#2532](https://github.com/contentful/ui-extensions-sdk/issues/2532)) ([46164d5](https://github.com/contentful/ui-extensions-sdk/commit/46164d5b7e9fadcc11c14ba7ba79edc84c0f082f))
+
+## [4.53.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.53.0...v4.53.1) (2026-03-10)
+
+### Bug Fixes
+
+- [EXT-00] canary-does-not-auto-release ([#2480](https://github.com/contentful/ui-extensions-sdk/issues/2480)) ([f819391](https://github.com/contentful/ui-extensions-sdk/commit/f8193912be5602d006a3d03841082c6f09f04c71))
+
+# [4.53.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.52.0...v4.53.0) (2026-03-09)
+
+### Features
+
+- [EXT-7181] experience-toolbar-location-constant ([#2477](https://github.com/contentful/ui-extensions-sdk/issues/2477)) ([beb58ef](https://github.com/contentful/ui-extensions-sdk/commit/beb58ef63db0e26d67ba4a7e040fadf4a4673d35))
+
+# [4.52.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.51.5...v4.52.0) (2026-03-09)
 
 ### Features
 
 - [EXT-7181] experience-toolbar-location-constant ([#2477](https://github.com/contentful/ui-extensions-sdk/issues/2477)) ([6f5dc4a](https://github.com/contentful/ui-extensions-sdk/commit/6f5dc4aaa5fbc84669f86893b56478cf9e628e83))
-- [EXT-7182] sdk.exo namespace and shared exo types ([#2478](https://github.com/contentful/ui-extensions-sdk/issues/2478)) ([5f5dc5a](https://github.com/contentful/ui-extensions-sdk/commit/5f5dc5a05a3c30127a37da4019c1565ec4c6bbd0))
 
 ## [4.51.5](https://github.com/contentful/ui-extensions-sdk/compare/v4.51.4...v4.51.5) (2026-02-25)
 
