@@ -324,8 +324,8 @@ describe('createExo()', () => {
           expect(node!.id).to.equal(nodeId)
         })
 
-        it('has nodeType defaulting to "component"', () => {
-          expect(node!.nodeType).to.equal('component')
+        it('has nodeType defaulting to "Component"', () => {
+          expect(node!.nodeType).to.equal('Component')
         })
 
         it('returns the same cached instance for repeated calls and does not leak handlers', () => {
@@ -382,12 +382,13 @@ describe('createExo()', () => {
 
         describe('.setDesignProperty(key, value)', () => {
           it('calls channel.call with the correct arguments', () => {
-            node!.setDesignProperty('backgroundColor', '#fff')
+            const value = { type: 'ManualDesignValue' as const, value: '#fff' }
+            node!.setDesignProperty('backgroundColor', value)
             expect(channelStub.call).to.have.been.calledWith(
               'exo.setNodeDesignProperty',
               nodeId,
               'backgroundColor',
-              '#fff',
+              value,
             )
           })
         })
@@ -569,7 +570,11 @@ describe('createExo()', () => {
         describe('.setParameter(parameterId, value)', () => {
           it('calls channel.call with the correct arguments', () => {
             const value = {
-              sys: { type: 'Link' as const, linkType: 'Entry' as const, id: 'entry-1' },
+              sys: {
+                type: 'ResourceLink' as const,
+                linkType: 'Contentful:Entry' as const,
+                urn: 'crn:contentful:::content:spaces/sp/entries/entry-1',
+              },
             }
             exo!.experience.dataAssembly.setParameter('param-1', value)
             expect(channelStub.call).to.have.been.calledWith(
@@ -584,7 +589,11 @@ describe('createExo()', () => {
           it('calls channel.call with the correct arguments', () => {
             const updates = {
               'param-1': {
-                sys: { type: 'Link' as const, linkType: 'Entry' as const, id: 'entry-1' },
+                sys: {
+                  type: 'ResourceLink' as const,
+                  linkType: 'Contentful:Entry' as const,
+                  urn: 'crn:contentful:::content:spaces/sp/entries/entry-1',
+                },
               },
             }
             exo!.experience.dataAssembly.setParameters(updates)

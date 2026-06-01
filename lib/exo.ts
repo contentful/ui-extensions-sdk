@@ -125,7 +125,7 @@ function createExperienceAPI(channel: Channel, initial?: ExperienceSnapshot): Ex
 function createNodeAPI(
   channel: Channel,
   nodeId: string,
-  nodeType: ExoNodeType = 'component',
+  nodeType: ExoNodeType = 'Component',
 ): ExoNodeAPI {
   const nodeSignal = new MemoizedSignal<[ExoNodeSnapshot]>({ id: nodeId, nodeType })
 

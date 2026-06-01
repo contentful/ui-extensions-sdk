@@ -34,15 +34,16 @@ export interface ComponentPropertyBinding {
   fieldId?: string
 }
 
+/** A reference to a design token. */
 export type DesignTokenValue = {
-  type: 'token'
-  tokenId: string
-  tokenKey: string
+  type: 'DesignToken'
+  value: string
 }
 
+/** An inlined design value. */
 export type ManualDesignValue = {
-  type: 'manual'
-  value: string | number
+  type: 'ManualDesignValue'
+  value: string | number | boolean
 }
 
 export type DesignValue = DesignTokenValue | ManualDesignValue
@@ -58,10 +59,12 @@ export interface ComponentPropertyDescriptor<C = unknown, D extends DesignValue 
 
 export type LinkType = 'Entry' | 'Asset'
 
+/** Same-space content source CRN used by Data Assembly ResourceLink parameters. */
+export type SameSpaceContentSource = 'crn:contentful:::content:spaces/$self/environments/$self'
+
 /**
- * A cross-space/environment reference to a Contentful resource, identified by a URN.
- * Mirrors `ResourceLink` from `contentful-management`: `linkType` is a `Contentful:`-prefixed
- * resource type (e.g. `'Contentful:Template'`) and the target is addressed by `urn`, not `id`.
+ * A reference to a Contentful resource, addressed by `urn`. `linkType` is a `Contentful:`-prefixed
+ * resource type (e.g. `'Contentful:Template'`).
  */
 export interface ResourceLink<T extends string = string> {
   sys: {
@@ -71,30 +74,24 @@ export interface ResourceLink<T extends string = string> {
   }
 }
 
-export type DataAssemblyParameterDefinition =
-  | {
-      type: 'Link'
-      linkType: LinkType
-      allowedContentTypes?: string[]
-    }
-  | {
-      type: 'ResourceLink'
-      allowedResources: Array<{
-        type: string
-        contentTypes?: string[]
-        source?: string
-      }>
-    }
+/** One allowed resource for a Data Assembly ResourceLink parameter. */
+export interface AllowedResource {
+  type: 'Contentful:Entry'
+  source: SameSpaceContentSource
+  allowedTypes: string[]
+}
 
-export type DataAssemblyParameterValue =
-  | {
-      sys: {
-        type: 'Link'
-        linkType: LinkType
-        id: string
-      }
-    }
-  | ResourceLink
+/** Definition of a single Data Assembly parameter. */
+export interface DataAssemblyParameterDefinition {
+  name?: string
+  description?: string
+  type: 'ResourceLink'
+  linkType: 'Contentful:Entry'
+  allowedResources: AllowedResource[]
+}
+
+/** The value bound to a Data Assembly parameter: a ResourceLink to the referenced entity. */
+export type DataAssemblyParameterValue = ResourceLink<'Contentful:Entry'>
 
 export interface DataAssemblyParameter {
   id: string
@@ -130,7 +127,8 @@ export interface DataAssemblyAPI {
   onChange(cb: (snapshot: DataAssemblySnapshot) => void): Unsubscribe
 }
 
-export type ExoNodeType = 'experience' | 'fragment' | 'inlineFragment' | 'slot' | 'component'
+/** The type of a node within an experience/fragment tree. */
+export type ExoNodeType = 'Component' | 'Fragment' | 'InlineFragment' | 'Slot'
 
 export interface ExoNodeSnapshot {
   id: string
@@ -140,7 +138,7 @@ export interface ExoNodeSnapshot {
 export interface SlotDescriptor {
   id: string
   allowedComponentTypeIds: string[]
-  currentItems: Array<{ nodeId: string; nodeType: 'fragment' | 'inlineFragment' }>
+  currentItems: Array<{ nodeId: string; nodeType: 'Fragment' | 'InlineFragment' }>
 }
 
 /**
