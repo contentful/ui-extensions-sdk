@@ -76,7 +76,7 @@ function createExperienceAPI(channel: Channel, initial?: ExperienceSnapshot): Ex
       id: '',
       type: 'Experience',
       version: 0,
-      template: { sys: { id: '', type: 'Link', linkType: 'Template' } },
+      template: { sys: { type: 'ResourceLink', linkType: 'Contentful:Template', urn: '' } },
     },
   }
   const experienceSignal = new MemoizedSignal<[ExperienceSnapshot]>(initialSnapshot)

@@ -143,6 +143,7 @@ export type {
   UiMode,
   ExoContext,
   ExoSDK,
+  ResourceLink,
   BindingSourceType,
   EntryBinding,
   ManualBinding,

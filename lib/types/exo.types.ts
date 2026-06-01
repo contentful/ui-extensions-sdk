@@ -2,8 +2,6 @@
  * ExO (Experience Orchestration) SDK types.
  */
 
-import { Link } from './utils'
-
 export type Unsubscribe = () => void
 
 export type UiMode = 'form' | 'visual'
@@ -60,6 +58,19 @@ export interface ComponentPropertyDescriptor<C = unknown, D extends DesignValue 
 
 export type LinkType = 'Entry' | 'Asset'
 
+/**
+ * A cross-space/environment reference to a Contentful resource, identified by a URN.
+ * Mirrors `ResourceLink` from `contentful-management`: `linkType` is a `Contentful:`-prefixed
+ * resource type (e.g. `'Contentful:Template'`) and the target is addressed by `urn`, not `id`.
+ */
+export interface ResourceLink<T extends string = string> {
+  sys: {
+    type: 'ResourceLink'
+    linkType: T
+    urn: string
+  }
+}
+
 export type DataAssemblyParameterDefinition =
   | {
       type: 'Link'
@@ -83,12 +94,7 @@ export type DataAssemblyParameterValue =
         id: string
       }
     }
-  | {
-      sys: {
-        type: 'ResourceLink'
-        id: string
-      }
-    }
+  | ResourceLink
 
 export interface DataAssemblyParameter {
   id: string
@@ -193,7 +199,7 @@ export interface ExperienceSnapshot {
     id: string
     type: 'Experience'
     version: number
-    template: Link<'Template'>
+    template: ResourceLink<'Contentful:Template'>
   }
 }
 
