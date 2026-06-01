@@ -411,10 +411,10 @@ describe('createExo()', () => {
 
           it('returns the updated selection after exo.selectionChanged is dispatched', () => {
             const selectionChangedHandler = channelStub.addHandler.getCall(3).args[1]
-            selectionChangedHandler({ nodeId: 'node-xyz', nodeType: 'component' })
+            selectionChangedHandler({ nodeId: 'node-xyz', nodeType: 'Component' })
             expect(exo!.experience.selection.get()).to.deep.equal({
               nodeId: 'node-xyz',
-              nodeType: 'component',
+              nodeType: 'Component',
             })
           })
         })
@@ -436,9 +436,9 @@ describe('createExo()', () => {
             cb.resetHistory()
 
             const selectionChangedHandler = channelStub.addHandler.getCall(3).args[1]
-            selectionChangedHandler({ nodeId: 'node-xyz', nodeType: 'component' })
+            selectionChangedHandler({ nodeId: 'node-xyz', nodeType: 'Component' })
 
-            expect(cb).to.have.been.calledOnceWith({ nodeId: 'node-xyz', nodeType: 'component' })
+            expect(cb).to.have.been.calledOnceWith({ nodeId: 'node-xyz', nodeType: 'Component' })
           })
 
           it('calls cb with { nodeId: null } when selection is cleared', () => {

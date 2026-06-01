@@ -154,7 +154,6 @@ export type {
   ManualDesignValue,
   DesignValue,
   ComponentPropertyDescriptor,
-  LinkType,
   SameSpaceContentSource,
   AllowedResource,
   DataAssemblyParameterDefinition,

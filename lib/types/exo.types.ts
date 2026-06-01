@@ -57,8 +57,6 @@ export interface ComponentPropertyDescriptor<C = unknown, D extends DesignValue 
 
 /* Data Assembly types */
 
-export type LinkType = 'Entry' | 'Asset'
-
 /** Same-space content source CRN used by Data Assembly ResourceLink parameters. */
 export type SameSpaceContentSource = 'crn:contentful:::content:spaces/$self/environments/$self'
 
