@@ -260,7 +260,11 @@ describe('createAPI()', () => {
       mockResizeObserver(dom, () => {})
 
       const data: ConnectMessage = { ...baseData, exo: { uiMode: 'form' } } as any
-      const api = createAPI(channel, data, dom.window as any as Window) as ExperienceEditorToolbarAppSDK
+      const api = createAPI(
+        channel,
+        data,
+        dom.window as any as Window,
+      ) as ExperienceEditorToolbarAppSDK
 
       const exo: ExoSDK = api.exo
       const mode: UiMode = exo.getUiMode()

@@ -354,12 +354,13 @@ export type AgentAppSDK<InstallationParameters extends KeyValueMap = KeyValueMap
   window: WindowAPI
 }
 
-export type ExperienceEditorToolbarAppSDK<InstallationParameters extends KeyValueMap = KeyValueMap> =
-  Omit<BaseAppSDK<InstallationParameters, never, never>, 'ids'> & {
-    ids: Omit<IdsAPI, EntryScopedIds>
-    /** ExO (Experience Orchestration) SDK for experience-toolbar location */
-    exo: ExoSDK
-  }
+export type ExperienceEditorToolbarAppSDK<
+  InstallationParameters extends KeyValueMap = KeyValueMap,
+> = Omit<BaseAppSDK<InstallationParameters, never, never>, 'ids'> & {
+  ids: Omit<IdsAPI, EntryScopedIds>
+  /** ExO (Experience Orchestration) SDK for experience-toolbar location */
+  exo: ExoSDK
+}
 
 export type KnownAppSDK<
   InstallationParameters extends KeyValueMap = KeyValueMap,
