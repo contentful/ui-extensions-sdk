@@ -11,7 +11,7 @@ import {
   ExoNodeSnapshot,
   ExoNodeType,
   ExoSelectionAPI,
-  DataAssemblySDK,
+  DataAssemblyAPI,
   DataAssemblySnapshot,
   DataAssemblyParameter,
   DataAssemblyParameterValue,
@@ -24,15 +24,17 @@ import {
 } from './types'
 
 /**
- * Creates the ExO SDK namespace when handshake includes `exo`; otherwise returns undefined.
- * @see EXT-7182
+ * Creates the ExO (Experience Orchestration) SDK namespace for the experience-toolbar location.
+ *
+ * Throws when called without handshake `exo` data, mirroring `createAgent`. This keeps the
+ * public `ExperienceEditorToolbarAppSDK['exo']` type sound (non-optional, always present).
  */
 export default function createExo(
   channel: Channel,
   exoInit?: { context?: ExoContext; uiMode?: UiMode; experience?: ExperienceSnapshot },
-): ExoSDK | undefined {
+): ExoSDK {
   if (exoInit === undefined) {
-    return undefined
+    throw new Error('Context data is required')
   }
 
   const initialContext: ExoContext = exoInit.context ?? { type: 'experience', entityId: '' }
@@ -86,6 +88,11 @@ function createExperienceAPI(channel: Channel, initial?: ExperienceSnapshot): Ex
   const selection = createSelectionAPI(channel)
   const dataAssembly = createDataAssemblyAPI(channel)
 
+  // Cache node APIs by id and reuse them. Each createNodeAPI() registers a channel handler
+  // for `exo.nodeChanged.${nodeId}`, so constructing a fresh one per getNode() call would
+  // leak a handler on every call over a long-lived session. Construct-once, reuse by id.
+  const nodeApis = new Map<string, ExoNodeAPI>()
+
   return {
     get(): ExperienceSnapshot {
       return experienceSignal.getMemoizedArgs()[0]
@@ -100,7 +107,12 @@ function createExperienceAPI(channel: Channel, initial?: ExperienceSnapshot): Ex
       return channel.call('exo.publishExperience')
     },
     getNode(nodeId: string): ExoNodeAPI | null {
-      return createNodeAPI(channel, nodeId)
+      let nodeApi = nodeApis.get(nodeId)
+      if (nodeApi === undefined) {
+        nodeApi = createNodeAPI(channel, nodeId)
+        nodeApis.set(nodeId, nodeApi)
+      }
+      return nodeApi
     },
     getRootNodes(): ExoNodeAPI[] {
       return []
@@ -211,7 +223,7 @@ function createSelectionAPI(channel: Channel): ExoSelectionAPI {
   }
 }
 
-function createDataAssemblyAPI(channel: Channel): DataAssemblySDK {
+function createDataAssemblyAPI(channel: Channel): DataAssemblyAPI {
   const initialSnapshot: DataAssemblySnapshot = { id: '', parameters: {} }
   const dataAssemblySignal = new MemoizedSignal<[DataAssemblySnapshot]>(initialSnapshot)
 

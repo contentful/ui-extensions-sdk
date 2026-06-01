@@ -159,7 +159,7 @@ export type {
   DataAssemblyParameter,
   DataAssemblySnapshot,
   EntryBindingRef,
-  DataAssemblySDK,
+  DataAssemblyAPI,
   ExoNodeType,
   ExoNodeSnapshot,
   SlotDescriptor,

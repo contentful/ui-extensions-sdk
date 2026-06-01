@@ -16,12 +16,12 @@ describe('createExo()', () => {
   })
 
   describe('when exoInit is undefined', () => {
-    it('returns undefined', () => {
-      expect(createExo(channelStub, undefined)).to.be.undefined // eslint-disable-line no-unused-expressions
+    it('throws (mirrors createAgent; keeps the non-optional exo type sound)', () => {
+      expect(() => createExo(channelStub, undefined)).to.throw('Context data is required')
     })
 
     it('does not register any channel handlers', () => {
-      createExo(channelStub, undefined)
+      expect(() => createExo(channelStub, undefined)).to.throw()
       expect(channelStub.addHandler).to.not.have.been.called // eslint-disable-line no-unused-expressions
     })
   })
@@ -326,6 +326,14 @@ describe('createExo()', () => {
 
         it('has nodeType defaulting to "component"', () => {
           expect(node!.nodeType).to.equal('component')
+        })
+
+        it('returns the same cached instance for repeated calls and does not leak handlers', () => {
+          const callsBefore = channelStub.addHandler.callCount
+          const again = exo!.experience.getNode(nodeId)
+          expect(again).to.equal(node)
+          // No additional exo.nodeChanged.<id> handler registered on the second call.
+          expect(channelStub.addHandler.callCount).to.equal(callsBefore)
         })
 
         describe('.getContentProperty(key)', () => {

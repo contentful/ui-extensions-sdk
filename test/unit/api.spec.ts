@@ -140,15 +140,6 @@ describe('createAPI()', () => {
     test(expected, locations.LOCATION_PAGE)
   })
 
-  it('returns correct shape of the ExO experience toolbar API (experience-toolbar)', () => {
-    const expected: string[] = ['exo']
-
-    const api = test(expected, locations.LOCATION_EXPERIENCE_TOOLBAR) as any
-    if (api.exo != null) {
-      expect(api.exo).to.have.all.keys('context', 'getUiMode', 'onUiModeChanged')
-    }
-  })
-
   describe('ExO (experience-toolbar) runtime', () => {
     const baseData = {
       location: locations.LOCATION_EXPERIENCE_TOOLBAR,
@@ -204,7 +195,7 @@ describe('createAPI()', () => {
       expect(api.exo.getUiMode()).to.equal('form')
     })
 
-    it('without exo in handshake, sdk.exo is undefined', () => {
+    it('without exo in handshake, building the experience-toolbar API throws', () => {
       const channel = { addHandler: () => () => {} } as any
       const dom = makeDOM()
       mockMutationObserver(dom, () => {})
@@ -212,9 +203,12 @@ describe('createAPI()', () => {
 
       const data: ConnectMessage = { ...baseData } as any
       delete (data as any).exo
-      const api = createAPI(channel, data, dom.window as any as Window) as any
 
-      expect(api.exo).to.equal(undefined)
+      // The experience-toolbar location always carries exo data; building it without is a
+      // protocol violation. Throwing keeps the public `exo: ExoSDK` type sound (non-optional).
+      expect(() => createAPI(channel, data, dom.window as any as Window)).to.throw(
+        'Context data is required',
+      )
     })
 
     it('onUiModeChanged fires on exo.uiModeChanged event; unsubscribe stops notifications', () => {
