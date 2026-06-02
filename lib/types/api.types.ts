@@ -23,6 +23,7 @@ import { EntryFieldInfo, FieldInfo } from './field.types'
 import { Adapter, KeyValueMap } from 'contentful-management'
 import { CMAClient } from './cmaClient.types'
 import { AgentAPI, AgentContext } from './agent.types'
+import { ExoSDK, ExoContext, UiMode, ExperienceSnapshot } from './exo.types'
 
 /* User API */
 
@@ -353,6 +354,14 @@ export type AgentAppSDK<InstallationParameters extends KeyValueMap = KeyValueMap
   window: WindowAPI
 }
 
+export type ExperienceEditorToolbarAppSDK<
+  InstallationParameters extends KeyValueMap = KeyValueMap,
+> = Omit<BaseAppSDK<InstallationParameters, never, never>, 'ids'> & {
+  ids: Omit<IdsAPI, EntryScopedIds>
+  /** ExO (Experience Orchestration) SDK for experience-toolbar location */
+  exo: ExoSDK
+}
+
 export type KnownAppSDK<
   InstallationParameters extends KeyValueMap = KeyValueMap,
   InstanceParameters extends KeyValueMap = KeyValueMap,
@@ -366,6 +375,7 @@ export type KnownAppSDK<
   | ConfigAppSDK<InstallationParameters>
   | HomeAppSDK<InstallationParameters>
   | AgentAppSDK<InstallationParameters>
+  | ExperienceEditorToolbarAppSDK<InstallationParameters>
 
 /** @deprecated consider using {@link BaseAppSDK} */
 export type BaseExtensionSDK = BaseAppSDK
@@ -405,6 +415,7 @@ export interface Locations {
   LOCATION_HOME: 'home'
   LOCATION_APP_CONFIG: 'app-config'
   LOCATION_AGENT: 'agent'
+  LOCATION_EXPERIENCE_TOOLBAR: 'experience-toolbar'
 }
 
 export interface ConnectMessage {
@@ -435,4 +446,10 @@ export interface ConnectMessage {
   release?: Release
   uiLanguageLocale: string
   agent?: AgentContext
+  /** ExO data; when present, SDK constructs sdk.exo */
+  exo?: {
+    context?: ExoContext
+    uiMode?: UiMode
+    experience?: ExperienceSnapshot
+  }
 }

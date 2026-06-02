@@ -2,7 +2,14 @@ import { makeDOM, mockMutationObserver, expect, mockResizeObserver } from '../he
 
 import createAPI from '../../lib/api'
 import locations from '../../lib/locations'
-import { AgentAppSDK, ConfigAppSDK, ConnectMessage } from '../../lib/types'
+import {
+  AgentAppSDK,
+  ConfigAppSDK,
+  ConnectMessage,
+  ExperienceEditorToolbarAppSDK,
+  ExoSDK,
+  UiMode,
+} from '../../lib/types'
 import { mockRelease, mockReleaseWithoutEntities } from '../mocks/releases'
 import { baseConnectMessage, connectMessageWithAgent } from '../mocks/connectMessage'
 import { mockAgentContext, mockAgentContextMinimal } from '../mocks/agent'
@@ -131,6 +138,159 @@ describe('createAPI()', () => {
     const expected = []
 
     test(expected, locations.LOCATION_PAGE)
+  })
+
+  describe('ExO (experience-toolbar) runtime', () => {
+    const baseData = {
+      location: locations.LOCATION_EXPERIENCE_TOOLBAR,
+      user: 'USER',
+      parameters: 'PARAMS',
+      locales: {
+        available: 'AVAIL',
+        default: 'DEFAULT',
+        names: 'NAMES',
+        fallbacks: 'FALLBACK',
+        optional: 'OPTIONAL',
+        direction: 'DIRECTION',
+      },
+      ids: { extension: 'my-test-id' },
+      initialContentTypes: [],
+      contentType: 'CONTENT TYPE',
+      entry: { sys: 'EID' },
+      fieldInfo: [],
+      uiLanguageLocale: 'en-US',
+      hostnames: {
+        delivery: '',
+        management: '',
+        preview: '',
+        upload: '',
+        graphql: '',
+        webapp: '',
+      },
+    } as unknown as ConnectMessage
+
+    it('with exo: { uiMode: "visual" } in handshake, sdk.exo is defined and getUiMode() returns "visual"', () => {
+      const channel = { addHandler: () => () => {} } as any
+      const dom = makeDOM()
+      mockMutationObserver(dom, () => {})
+      mockResizeObserver(dom, () => {})
+
+      const data: ConnectMessage = { ...baseData, exo: { uiMode: 'visual' } } as any
+      const api = createAPI(channel, data, dom.window as any as Window) as any
+
+      expect(api.exo).to.be.an('object')
+      expect(api.exo.getUiMode()).to.equal('visual')
+    })
+
+    it('with exo: {} in handshake, getUiMode() returns "form"', () => {
+      const channel = { addHandler: () => () => {} } as any
+      const dom = makeDOM()
+      mockMutationObserver(dom, () => {})
+      mockResizeObserver(dom, () => {})
+
+      const data: ConnectMessage = { ...baseData, exo: {} } as any
+      const api = createAPI(channel, data, dom.window as any as Window) as any
+
+      expect(api.exo).to.be.an('object')
+      expect(api.exo.getUiMode()).to.equal('form')
+    })
+
+    it('without exo in handshake, building the experience-toolbar API throws', () => {
+      const channel = { addHandler: () => () => {} } as any
+      const dom = makeDOM()
+      mockMutationObserver(dom, () => {})
+      mockResizeObserver(dom, () => {})
+
+      const data: ConnectMessage = { ...baseData } as any
+      delete (data as any).exo
+
+      // The experience-toolbar location always carries exo data; building it without is a
+      // protocol violation. Throwing keeps the public `exo: ExoSDK` type sound (non-optional).
+      expect(() => createAPI(channel, data, dom.window as any as Window)).to.throw(
+        'Context data is required',
+      )
+    })
+
+    it('onUiModeChanged fires on exo.uiModeChanged event; unsubscribe stops notifications', () => {
+      const exoHandlers: Array<(payload: { mode: UiMode }) => void> = []
+      const channel = {
+        addHandler: (method: string, handler: any) => {
+          if (method === 'exo.uiModeChanged') exoHandlers.push(handler)
+          return () => {
+            const i = exoHandlers.indexOf(handler)
+            if (i !== -1) exoHandlers.splice(i, 1)
+          }
+        },
+      } as any
+      const dom = makeDOM()
+      mockMutationObserver(dom, () => {})
+      mockResizeObserver(dom, () => {})
+
+      const data: ConnectMessage = { ...baseData, exo: { uiMode: 'visual' } } as any
+      const api = createAPI(channel, data, dom.window as any as Window) as any
+
+      const modes: UiMode[] = []
+      const unsubscribe = api.exo.onUiModeChanged((mode: UiMode) => modes.push(mode))
+
+      expect(api.exo.getUiMode()).to.equal('visual')
+      expect(exoHandlers).to.have.lengthOf(1)
+      // MemoizedSignal.attach calls the listener immediately with current value
+      expect(modes).to.deep.equal(['visual'])
+
+      const dispatchMode = exoHandlers[0]
+      dispatchMode({ mode: 'form' })
+      expect(modes).to.deep.equal(['visual', 'form'])
+      expect(api.exo.getUiMode()).to.equal('form')
+
+      unsubscribe()
+      dispatchMode({ mode: 'visual' })
+      expect(modes).to.deep.equal(['visual', 'form'])
+    })
+
+    it('ExperienceEditorToolbarAppSDK has exo: ExoSDK; getUiMode returns UiMode', () => {
+      const channel = { addHandler: () => () => {} } as any
+      const dom = makeDOM()
+      mockMutationObserver(dom, () => {})
+      mockResizeObserver(dom, () => {})
+
+      const data: ConnectMessage = { ...baseData, exo: { uiMode: 'form' } } as any
+      const api = createAPI(
+        channel,
+        data,
+        dom.window as any as Window,
+      ) as ExperienceEditorToolbarAppSDK
+
+      const exo: ExoSDK = api.exo
+      const mode: UiMode = exo.getUiMode()
+      expect(mode).to.equal('form')
+    })
+
+    it('sdk.exo.context reflects the context from handshake', () => {
+      const channel = { addHandler: () => () => {} } as any
+      const dom = makeDOM()
+      mockMutationObserver(dom, () => {})
+      mockResizeObserver(dom, () => {})
+
+      const data: ConnectMessage = {
+        ...baseData,
+        exo: { context: { type: 'fragment', entityId: 'frag-456' }, uiMode: 'form' },
+      } as any
+      const api = createAPI(channel, data, dom.window as any as Window) as any
+
+      expect(api.exo.context).to.deep.equal({ type: 'fragment', entityId: 'frag-456' })
+    })
+
+    it('sdk.exo.context defaults when not provided in handshake', () => {
+      const channel = { addHandler: () => () => {} } as any
+      const dom = makeDOM()
+      mockMutationObserver(dom, () => {})
+      mockResizeObserver(dom, () => {})
+
+      const data: ConnectMessage = { ...baseData, exo: { uiMode: 'visual' } } as any
+      const api = createAPI(channel, data, dom.window as any as Window) as any
+
+      expect(api.exo.context).to.deep.equal({ type: 'experience', entityId: '' })
+    })
   })
 
   it('returns correct shape of the app API (app)', () => {
