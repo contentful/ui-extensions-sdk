@@ -1,3 +1,9 @@
+# [4.58.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.57.0...v4.58.0) (2026-06-02)
+
+### Features
+
+- add ExO Experience Editor Toolbar App SDK surface [EXT-7361] ([#2582](https://github.com/contentful/ui-extensions-sdk/issues/2582)) ([1c7c72a](https://github.com/contentful/ui-extensions-sdk/commit/1c7c72a42c0d21fd37739271331693d3d66c7073))
+
 # [4.57.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.56.1...v4.57.0) (2026-05-14)
 
 ### Features
