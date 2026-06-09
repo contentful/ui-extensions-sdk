@@ -19,7 +19,6 @@ import {
   ComponentPropertyDescriptor,
   DesignValue,
   Binding,
-  ComponentPropertyBinding,
   SlotDescriptor,
 } from './types'
 
@@ -115,6 +114,10 @@ function createExperienceAPI(channel: Channel, initial?: ExperienceSnapshot): Ex
       return nodeApi
     },
     getRootNodes(): ExoNodeAPI[] {
+      // Returns [] in this build: root-node access requires a synchronous view of
+      // the node tree, which the host has not yet pushed to the SDK. Until that
+      // handshake data is available, callers should resolve nodes by id via
+      // `getNode(nodeId)` instead.
       return []
     },
     selection,
@@ -174,13 +177,6 @@ function createNodeAPI(
     },
     setBinding(key: string, binding: Binding): Promise<void> {
       return channel.call<void>('exo.setNodeBinding', nodeId, key, binding)
-    },
-    getBindingMetadata(key: string): Promise<ComponentPropertyBinding | null> {
-      return channel.call<ComponentPropertyBinding | null>(
-        'exo.getNodeBindingMetadata',
-        nodeId,
-        key,
-      )
     },
     resolveEntryBinding(key: string): Promise<{ entryId: string; fieldId?: string } | null> {
       return channel.call<{ entryId: string; fieldId?: string } | null>(
