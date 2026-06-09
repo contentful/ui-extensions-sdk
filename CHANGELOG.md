@@ -1,3 +1,9 @@
+## [4.58.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.58.0...v4.58.1) (2026-06-09)
+
+### Bug Fixes
+
+- align ExO snapshot, bindings, and property descriptor with canonical schemas [EXT-7477] ([#2589](https://github.com/contentful/ui-extensions-sdk/issues/2589)) ([27e659c](https://github.com/contentful/ui-extensions-sdk/commit/27e659c5967e5bb11036e31a60383df63dbb7276))
+
 # [4.58.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.57.0...v4.58.0) (2026-06-02)
 
 ### Features
