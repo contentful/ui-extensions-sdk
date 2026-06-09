@@ -314,7 +314,6 @@ describe('createExo()', () => {
             'updateProperty',
             'getBinding',
             'setBinding',
-            'getBindingMetadata',
             'resolveEntryBinding',
             'getSlotDescriptor',
           ])

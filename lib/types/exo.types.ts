@@ -8,7 +8,7 @@ export type UiMode = 'form' | 'visual'
 
 /* Bindings + property descriptors */
 
-export type BindingSourceType = 'entry' | 'manual' | 'experience'
+export type BindingSourceType = 'entry' | 'manual'
 
 export type EntryBinding = {
   type: 'entry'
@@ -21,12 +21,7 @@ export type ManualBinding = {
   type: 'manual'
 }
 
-export type ExperienceBinding = {
-  type: 'experience'
-  source?: string // reserved
-}
-
-export type Binding = EntryBinding | ManualBinding | ExperienceBinding
+export type Binding = EntryBinding | ManualBinding
 
 export interface ComponentPropertyBinding {
   sourceType: BindingSourceType
@@ -175,8 +170,6 @@ export interface ExoNodeAPI {
   getBinding(key: string): Promise<Binding | null>
   /** Sets the binding for a property key. */
   setBinding(key: string, binding: Binding): Promise<void>
-  /** Resolves binding metadata for a property key, or `null` if the property is not bound. */
-  getBindingMetadata(key: string): Promise<ComponentPropertyBinding | null>
   /** Resolves the entry a property is bound to, or `null` if it is not an entry binding. */
   resolveEntryBinding(key: string): Promise<{ entryId: string; fieldId?: string } | null>
   /** Resolves the slot descriptor for this node, or `null` if the node is not a slot. */
@@ -190,14 +183,29 @@ export interface ExoSelectionAPI {
   highlight(nodeId: string, opts?: { flash?: boolean; scrollIntoView?: boolean }): void
 }
 
-export interface ExperienceSnapshot {
-  sys: {
-    id: string
-    type: 'Experience'
-    version: number
-    template: ResourceLink<'Contentful:Template'>
-  }
-}
+/**
+ * Snapshot of the root entity being edited. Discriminated on `sys.type`:
+ * an `Experience` (optionally backed by a template) or a `Fragment` (no template).
+ * Mirrors the canonical `experiences-api-schemas` shapes — `Experience.sys.template`
+ * is optional there, and `Fragment.sys` carries a `componentType` ResourceLink and no template.
+ */
+export type ExperienceSnapshot =
+  | {
+      sys: {
+        id: string
+        type: 'Experience'
+        version: number
+        template?: ResourceLink<'Contentful:Template'>
+      }
+    }
+  | {
+      sys: {
+        id: string
+        type: 'Fragment'
+        version: number
+        componentType: ResourceLink<'Contentful:ComponentType'>
+      }
+    }
 
 export interface ExperienceAPI {
   get(): ExperienceSnapshot

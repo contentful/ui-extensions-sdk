@@ -19,7 +19,6 @@ import {
   ComponentPropertyDescriptor,
   DesignValue,
   Binding,
-  ComponentPropertyBinding,
   SlotDescriptor,
 } from './types'
 
@@ -115,6 +114,11 @@ function createExperienceAPI(channel: Channel, initial?: ExperienceSnapshot): Ex
       return nodeApi
     },
     getRootNodes(): ExoNodeAPI[] {
+      // This direct-channel factory has no local node tree, and the signature is
+      // synchronous — it can't await a `channel.call`. Real root-node access is
+      // served by the host-side bridge (`createExperienceApiFromBridge`), which
+      // holds the tree in memory. Wiring this path needs a host->guest snapshot
+      // push (a contract change) — tracked under EXT-7477 pending Thomas's review.
       return []
     },
     selection,
@@ -174,13 +178,6 @@ function createNodeAPI(
     },
     setBinding(key: string, binding: Binding): Promise<void> {
       return channel.call<void>('exo.setNodeBinding', nodeId, key, binding)
-    },
-    getBindingMetadata(key: string): Promise<ComponentPropertyBinding | null> {
-      return channel.call<ComponentPropertyBinding | null>(
-        'exo.getNodeBindingMetadata',
-        nodeId,
-        key,
-      )
     },
     resolveEntryBinding(key: string): Promise<{ entryId: string; fieldId?: string } | null> {
       return channel.call<{ entryId: string; fieldId?: string } | null>(

@@ -147,7 +147,6 @@ export type {
   BindingSourceType,
   EntryBinding,
   ManualBinding,
-  ExperienceBinding,
   Binding,
   ComponentPropertyBinding,
   DesignTokenValue,
