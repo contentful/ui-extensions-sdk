@@ -348,8 +348,8 @@ describe('createExo()', () => {
           it('returns the promise from channel.call', () => {
             const expectedPromise = Promise.resolve({
               key: 'title',
+              area: 'content' as const,
               value: 'Hello',
-              binding: null,
             })
             channelStub.call.withArgs('exo.getNodeContentProperty').returns(expectedPromise)
             expect(node!.getContentProperty('title')).to.equal(expectedPromise)

@@ -36,15 +36,19 @@ export type ManualDesignValue = {
 export type DesignValue = DesignTokenValue | ManualDesignValue
 
 /**
- * Describes a single component property: its key, current value, and binding.
- * `binding` is the same `Binding` union returned by `ExoNodeAPI.getBinding` —
- * an `EntryBinding` carries the `entryId`/`fieldId` a consumer needs to resolve
- * the backing entry, or `null` when the property is unbound.
+ * Describes a single component property: its key, area, current value, and binding.
+ * `area` distinguishes content properties (bound to entry fields / authored content)
+ * from design properties (presentation values, e.g. design tokens) — the same split
+ * the ExO domain model and editor model natively, letting an app render them separately.
+ * `binding`, when present, is the same `Binding` union returned by
+ * `ExoNodeAPI.getBinding` — an `EntryBinding` carries the `entryId`/`fieldId` a
+ * consumer needs to resolve the backing entry; omitted when the property is unbound.
  */
 export interface ComponentPropertyDescriptor<C = unknown, D extends DesignValue = DesignValue> {
   key: string
+  area: 'content' | 'design'
   value: C | D
-  binding: Binding | null
+  binding?: Binding
 }
 
 /* Data Assembly types */
