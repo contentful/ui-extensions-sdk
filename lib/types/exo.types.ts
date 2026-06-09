@@ -8,8 +8,6 @@ export type UiMode = 'form' | 'visual'
 
 /* Bindings + property descriptors */
 
-export type BindingSourceType = 'entry' | 'manual'
-
 export type EntryBinding = {
   type: 'entry'
   entryId: string
@@ -22,12 +20,6 @@ export type ManualBinding = {
 }
 
 export type Binding = EntryBinding | ManualBinding
-
-export interface ComponentPropertyBinding {
-  sourceType: BindingSourceType
-  entryId?: string
-  fieldId?: string
-}
 
 /** A reference to a design token. */
 export type DesignTokenValue = {
@@ -43,11 +35,16 @@ export type ManualDesignValue = {
 
 export type DesignValue = DesignTokenValue | ManualDesignValue
 
+/**
+ * Describes a single component property: its key, current value, and binding.
+ * `binding` is the same `Binding` union returned by `ExoNodeAPI.getBinding` —
+ * an `EntryBinding` carries the `entryId`/`fieldId` a consumer needs to resolve
+ * the backing entry, or `null` when the property is unbound.
+ */
 export interface ComponentPropertyDescriptor<C = unknown, D extends DesignValue = DesignValue> {
   key: string
-  area: 'content' | 'design'
   value: C | D
-  binding?: ComponentPropertyBinding
+  binding: Binding | null
 }
 
 /* Data Assembly types */
