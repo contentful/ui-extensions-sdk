@@ -87,32 +87,19 @@ export interface DataAssemblyParameterDefinition {
 /** The value bound to a Data Assembly parameter: a ResourceLink to the referenced entity. */
 export type DataAssemblyParameterValue = ResourceLink<'Contentful:Entry'>
 
-export interface DataAssemblyParameter {
-  id: string
-  definition: DataAssemblyParameterDefinition
-  value?: DataAssemblyParameterValue | null
-}
-
 export interface DataAssemblySnapshot {
   id: string
   name?: string
-  parameters: Record<string, DataAssemblyParameter>
-}
-
-export interface EntryBindingRef {
-  parameterId: string
-  entryId: string
+  parameters: Record<string, DataAssemblyParameterDefinition>
 }
 
 export interface DataAssemblyAPI {
   /** Returns the current Data Assembly snapshot for the active experience/fragment. */
   get(): DataAssemblySnapshot
   /** Resolves all Data Assembly parameter definitions, keyed by parameter id. */
-  getParameters(): Promise<Record<string, DataAssemblyParameter>>
+  getParameters(): Promise<Record<string, DataAssemblyParameterDefinition>>
   /** Resolves a single parameter definition, or `null` if no parameter has that id. */
-  getParameter(parameterId: string): Promise<DataAssemblyParameter | null>
-  /** Resolves the entry bindings currently mapped to Data Assembly parameters. */
-  getEntryBindings(): Promise<EntryBindingRef[]>
+  getParameter(parameterId: string): Promise<DataAssemblyParameterDefinition | null>
   /** Sets the value of a single Data Assembly parameter. */
   setParameter(parameterId: string, value: DataAssemblyParameterValue): Promise<void>
   /** Sets multiple Data Assembly parameter values in a single update. */

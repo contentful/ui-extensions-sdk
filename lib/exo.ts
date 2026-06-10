@@ -13,9 +13,8 @@ import {
   ExoSelectionAPI,
   DataAssemblyAPI,
   DataAssemblySnapshot,
-  DataAssemblyParameter,
+  DataAssemblyParameterDefinition,
   DataAssemblyParameterValue,
-  EntryBindingRef,
   ComponentPropertyDescriptor,
   DesignValue,
   Binding,
@@ -231,14 +230,11 @@ function createDataAssemblyAPI(channel: Channel): DataAssemblyAPI {
     get(): DataAssemblySnapshot {
       return dataAssemblySignal.getMemoizedArgs()[0]
     },
-    getParameters(): Promise<Record<string, DataAssemblyParameter>> {
+    getParameters(): Promise<Record<string, DataAssemblyParameterDefinition>> {
       return channel.call('exo.getDataAssemblyParameters')
     },
-    getParameter(parameterId: string): Promise<DataAssemblyParameter | null> {
+    getParameter(parameterId: string): Promise<DataAssemblyParameterDefinition | null> {
       return channel.call('exo.getDataAssemblyParameter', parameterId)
-    },
-    getEntryBindings(): Promise<EntryBindingRef[]> {
-      return channel.call('exo.getDataAssemblyEntryBindings')
     },
     setParameter(parameterId: string, value: DataAssemblyParameterValue): Promise<void> {
       return channel.call('exo.setDataAssemblyParameter', parameterId, value)
