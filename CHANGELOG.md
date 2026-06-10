@@ -1,3 +1,9 @@
+## [4.58.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.58.1...v4.58.2) (2026-06-10)
+
+### Bug Fixes
+
+- trim Data Assembly surface to definition-only parameters [EXT-7477] ([#2592](https://github.com/contentful/ui-extensions-sdk/issues/2592)) ([9583d6c](https://github.com/contentful/ui-extensions-sdk/commit/9583d6c2cd639699092ccff66a0cc5bb3459d036))
+
 ## [4.58.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.58.0...v4.58.1) (2026-06-09)
 
 ### Bug Fixes
