@@ -486,13 +486,12 @@ describe('createExo()', () => {
       })
 
       describe('.dataAssembly', () => {
-        it('exposes get, onChange, getParameters, getParameter, getEntryBindings, setParameter, setParameters', () => {
+        it('exposes get, onChange, getParameters, getParameter, setParameter, setParameters', () => {
           expect(exo!.experience.dataAssembly).to.have.all.keys([
             'get',
             'onChange',
             'getParameters',
             'getParameter',
-            'getEntryBindings',
             'setParameter',
             'setParameters',
           ])
@@ -556,13 +555,6 @@ describe('createExo()', () => {
               'exo.getDataAssemblyParameter',
               'param-1',
             )
-          })
-        })
-
-        describe('.getEntryBindings()', () => {
-          it('calls channel.call with "exo.getDataAssemblyEntryBindings"', () => {
-            exo!.experience.dataAssembly.getEntryBindings()
-            expect(channelStub.call).to.have.been.calledWith('exo.getDataAssemblyEntryBindings')
           })
         })
 
