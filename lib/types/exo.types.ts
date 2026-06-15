@@ -93,9 +93,26 @@ export interface DataAssemblySnapshot {
   parameters: Record<string, DataAssemblyParameterDefinition>
 }
 
+/**
+ * A Data Assembly available within the current experience/fragment, with its parameter
+ * definitions. Returned by {@link DataAssemblyAPI.getMany}. Definition-only — no GraphQL
+ * resolvers, `return` mapping, or nested DAs (consistent with the trimmed DA surface).
+ */
+export interface DataAssemblySummary {
+  id: string
+  name: string
+  description?: string
+  parameters: Record<string, DataAssemblyParameterDefinition>
+}
+
 export interface DataAssemblyAPI {
   /** Returns the current Data Assembly snapshot for the active experience/fragment. */
   get(): DataAssemblySnapshot
+  /**
+   * Resolves the Data Assemblies available in the current experience/fragment, each with its
+   * parameter definitions. Discovery counterpart to {@link get}, which returns only the active DA.
+   */
+  getMany(): Promise<DataAssemblySummary[]>
   /** Resolves all Data Assembly parameter definitions, keyed by parameter id. */
   getParameters(): Promise<Record<string, DataAssemblyParameterDefinition>>
   /** Resolves a single parameter definition, or `null` if no parameter has that id. */
