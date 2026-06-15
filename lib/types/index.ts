@@ -156,6 +156,7 @@ export type {
   DataAssemblyParameterDefinition,
   DataAssemblyParameterValue,
   DataAssemblySnapshot,
+  DataAssemblySummary,
   DataAssemblyAPI,
   ExoNodeType,
   ExoNodeSnapshot,
