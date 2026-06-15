@@ -486,9 +486,10 @@ describe('createExo()', () => {
       })
 
       describe('.dataAssembly', () => {
-        it('exposes get, onChange, getParameters, getParameter, setParameter, setParameters', () => {
+        it('exposes get, getMany, onChange, getParameters, getParameter, setParameter, setParameters', () => {
           expect(exo!.experience.dataAssembly).to.have.all.keys([
             'get',
+            'getMany',
             'onChange',
             'getParameters',
             'getParameter',
@@ -545,6 +546,27 @@ describe('createExo()', () => {
           it('calls channel.call with "exo.getDataAssemblyParameters"', () => {
             exo!.experience.dataAssembly.getParameters()
             expect(channelStub.call).to.have.been.calledWith('exo.getDataAssemblyParameters')
+          })
+        })
+
+        describe('.getMany()', () => {
+          it('calls channel.call with "exo.getAvailableDataAssemblies"', () => {
+            exo!.experience.dataAssembly.getMany()
+            expect(channelStub.call).to.have.been.calledWith('exo.getAvailableDataAssemblies')
+          })
+
+          it('resolves with the available data assemblies from the channel', async () => {
+            const available = [
+              {
+                id: 'da-1',
+                name: 'Product Grid',
+                parameters: {},
+              },
+            ]
+            channelStub.call = sinon.stub().resolves(available)
+            const exoLocal = createExo(channelStub, mockExoInit)
+            const result = await exoLocal!.experience.dataAssembly.getMany()
+            expect(result).to.deep.equal(available)
           })
         })
 

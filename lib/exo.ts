@@ -13,6 +13,7 @@ import {
   ExoSelectionAPI,
   DataAssemblyAPI,
   DataAssemblySnapshot,
+  DataAssemblySummary,
   DataAssemblyParameterDefinition,
   DataAssemblyParameterValue,
   ComponentPropertyDescriptor,
@@ -229,6 +230,9 @@ function createDataAssemblyAPI(channel: Channel): DataAssemblyAPI {
   return {
     get(): DataAssemblySnapshot {
       return dataAssemblySignal.getMemoizedArgs()[0]
+    },
+    getMany(): Promise<DataAssemblySummary[]> {
+      return channel.call('exo.getAvailableDataAssemblies')
     },
     getParameters(): Promise<Record<string, DataAssemblyParameterDefinition>> {
       return channel.call('exo.getDataAssemblyParameters')
