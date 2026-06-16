@@ -86,17 +86,42 @@ export interface DataAssemblySnapshot {
   parameters: Record<string, DataAssemblyParameterDefinition>
 }
 
-export interface DataAssemblyAPI {
+/**
+ * A Data Assembly available within the current experience/fragment, with its parameter
+ * definitions. Returned by {@link DataAssemblyAPI.getAvailable}. Definition-only — no GraphQL
+ * resolvers, `return` mapping, or nested DAs.
+ */
+export interface DataAssemblySummary {
+  id: string
+  name: string
+  description?: string
+  parameters: Record<string, DataAssemblyParameterDefinition>
+}
+
+/**
+ * Reads parameter definitions and writes parameter values for a Data Assembly. A parameter's
+ * *definition* (its allowed resources, name, description) and its *value* (the entry bound to it)
+ * are distinct concepts, reflected in the method names: `get*Definition*` reads, `set*Value*` writes.
+ */
+export interface DataAssemblyParameterAPI {
+  /** Resolves all Data Assembly parameter definitions, keyed by parameter id. */
+  getParameterDefinitions(): Promise<Record<string, DataAssemblyParameterDefinition>>
+  /** Resolves a single parameter definition, or `null` if no parameter has that id. */
+  getParameterDefinition(parameterId: string): Promise<DataAssemblyParameterDefinition | null>
+  /** Sets the value of a single Data Assembly parameter. */
+  setParameterValue(parameterId: string, value: DataAssemblyParameterValue): Promise<void>
+  /** Sets multiple Data Assembly parameter values in a single update. */
+  setParameterValues(updates: Partial<Record<string, DataAssemblyParameterValue>>): Promise<void>
+}
+
+export interface DataAssemblyAPI extends DataAssemblyParameterAPI {
   /** Returns the current Data Assembly snapshot for the active experience/fragment. */
   get(): DataAssemblySnapshot
-  /** Resolves all Data Assembly parameter definitions, keyed by parameter id. */
-  getParameters(): Promise<Record<string, DataAssemblyParameterDefinition>>
-  /** Resolves a single parameter definition, or `null` if no parameter has that id. */
-  getParameter(parameterId: string): Promise<DataAssemblyParameterDefinition | null>
-  /** Sets the value of a single Data Assembly parameter. */
-  setParameter(parameterId: string, value: DataAssemblyParameterValue): Promise<void>
-  /** Sets multiple Data Assembly parameter values in a single update. */
-  setParameters(updates: Partial<Record<string, DataAssemblyParameterValue>>): Promise<void>
+  /**
+   * Resolves the Data Assemblies available in the current experience/fragment, each with its
+   * parameter definitions. Discovery counterpart to {@link get}, which returns only the active DA.
+   */
+  getAvailable(): Promise<DataAssemblySummary[]>
   /** Subscribes to Data Assembly snapshot changes. Returns an unsubscribe function. */
   onChange(cb: (snapshot: DataAssemblySnapshot) => void): Unsubscribe
 }
@@ -128,12 +153,13 @@ export interface ExoNodeAPI {
   get(): ExoNodeSnapshot
   /** Subscribes to changes to this node. Returns an unsubscribe function. */
   onChange(cb: (node: ExoNodeSnapshot) => void): Unsubscribe
-  /** Resolves the value of a content property by key. */
-  getContentProperty<T = unknown>(key: string): Promise<T>
-  /** Sets the value of a content property by key. */
-  setContentProperty<T = unknown>(key: string, value: T): Promise<void>
-  /** Subscribes to changes of a single content property. Returns an unsubscribe function. */
-  onContentPropertyChanged<T = unknown>(key: string, cb: (value: T) => void): Unsubscribe
+  /**
+   * Reads parameter definitions and writes parameter values for this node's Data Assembly.
+   * A node's content is populated through Data Assembly parameters, not free-form content
+   * properties — so content is read/written here. Only meaningful for inline-fragment nodes;
+   * other node types have no Data Assembly and these calls resolve empty / are no-ops.
+   */
+  dataAssembly: DataAssemblyParameterAPI
   /** Resolves the value of a design property by key. */
   getDesignProperty<T extends DesignValue = DesignValue>(key: string): Promise<T>
   /** Sets the value of a design property by key. */
