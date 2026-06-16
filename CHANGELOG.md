@@ -1,3 +1,9 @@
+## [4.58.3](https://github.com/contentful/ui-extensions-sdk/compare/v4.58.2...v4.58.3) (2026-06-16)
+
+### Bug Fixes
+
+- trim non-functional ExoNodeAPI methods and collapse Binding [EXT-7495] ([#2598](https://github.com/contentful/ui-extensions-sdk/issues/2598)) ([41d16c2](https://github.com/contentful/ui-extensions-sdk/commit/41d16c206ba1fcf36144ca9a70acc46d59d8890f))
+
 ## [4.58.2](https://github.com/contentful/ui-extensions-sdk/compare/v4.58.1...v4.58.2) (2026-06-10)
 
 ### Bug Fixes
