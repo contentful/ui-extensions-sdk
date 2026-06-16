@@ -15,12 +15,6 @@ export type EntryBinding = {
   locale?: string
 }
 
-export type ManualBinding = {
-  type: 'manual'
-}
-
-export type Binding = EntryBinding | ManualBinding
-
 /** A reference to a design token. */
 export type DesignTokenValue = {
   type: 'DesignToken'
@@ -40,15 +34,14 @@ export type DesignValue = DesignTokenValue | ManualDesignValue
  * `area` distinguishes content properties (bound to entry fields / authored content)
  * from design properties (presentation values, e.g. design tokens) — the same split
  * the ExO domain model and editor model natively, letting an app render them separately.
- * `binding`, when present, is the same `Binding` union returned by
- * `ExoNodeAPI.getBinding` — an `EntryBinding` carries the `entryId`/`fieldId` a
+ * `binding`, when present, is an `EntryBinding` carrying the `entryId`/`fieldId` a
  * consumer needs to resolve the backing entry; omitted when the property is unbound.
  */
 export interface ComponentPropertyDescriptor<C = unknown, D extends DesignValue = DesignValue> {
   key: string
   area: 'content' | 'design'
   value: C | D
-  binding?: Binding
+  binding?: EntryBinding
 }
 
 /* Data Assembly types */
@@ -152,14 +145,6 @@ export interface ExoNodeAPI {
   ): Unsubscribe
   /** Resolves the descriptors for all of the node's component properties. */
   getProperties(): Promise<ComponentPropertyDescriptor[]>
-  /** Updates a single property by key (content or design, resolved by the host). */
-  updateProperty<T = unknown>(key: string, value: T): Promise<void>
-  /** Resolves the binding for a property key, or `null` if the property is not bound. */
-  getBinding(key: string): Promise<Binding | null>
-  /** Sets the binding for a property key. */
-  setBinding(key: string, binding: Binding): Promise<void>
-  /** Resolves the entry a property is bound to, or `null` if it is not an entry binding. */
-  resolveEntryBinding(key: string): Promise<{ entryId: string; fieldId?: string } | null>
   /** Resolves the slot descriptor for this node, or `null` if the node is not a slot. */
   getSlotDescriptor(): Promise<SlotDescriptor | null>
 }

@@ -311,10 +311,6 @@ describe('createExo()', () => {
             'setDesignProperty',
             'onDesignPropertyChanged',
             'getProperties',
-            'updateProperty',
-            'getBinding',
-            'setBinding',
-            'resolveEntryBinding',
             'getSlotDescriptor',
           ])
         })
