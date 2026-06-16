@@ -17,7 +17,6 @@ import {
   DataAssemblyParameterValue,
   ComponentPropertyDescriptor,
   DesignValue,
-  Binding,
   SlotDescriptor,
 } from './types'
 
@@ -167,22 +166,6 @@ function createNodeAPI(
     },
     getProperties(): Promise<ComponentPropertyDescriptor[]> {
       return channel.call<ComponentPropertyDescriptor[]>('exo.getNodeProperties', nodeId)
-    },
-    updateProperty<T = unknown>(key: string, value: T): Promise<void> {
-      return channel.call<void>('exo.updateNodeProperty', nodeId, key, value)
-    },
-    getBinding(key: string): Promise<Binding | null> {
-      return channel.call<Binding | null>('exo.getNodeBinding', nodeId, key)
-    },
-    setBinding(key: string, binding: Binding): Promise<void> {
-      return channel.call<void>('exo.setNodeBinding', nodeId, key, binding)
-    },
-    resolveEntryBinding(key: string): Promise<{ entryId: string; fieldId?: string } | null> {
-      return channel.call<{ entryId: string; fieldId?: string } | null>(
-        'exo.resolveNodeEntryBinding',
-        nodeId,
-        key,
-      )
     },
     getSlotDescriptor(): Promise<SlotDescriptor | null> {
       return channel.call<SlotDescriptor | null>('exo.getNodeSlotDescriptor', nodeId)

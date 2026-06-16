@@ -145,8 +145,6 @@ export type {
   ExoSDK,
   ResourceLink,
   EntryBinding,
-  ManualBinding,
-  Binding,
   DesignTokenValue,
   ManualDesignValue,
   DesignValue,
