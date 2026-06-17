@@ -12,7 +12,9 @@ import {
   ExoNodeType,
   ExoSelectionAPI,
   DataAssemblyAPI,
+  DataAssemblyParameterAPI,
   DataAssemblySnapshot,
+  DataAssemblySummary,
   DataAssemblyParameterDefinition,
   DataAssemblyParameterValue,
   ComponentPropertyDescriptor,
@@ -143,15 +145,7 @@ function createNodeAPI(
     onChange(cb: (node: ExoNodeSnapshot) => void): Unsubscribe {
       return nodeSignal.attach(cb)
     },
-    getContentProperty<T = unknown>(key: string): Promise<T> {
-      return channel.call<T>('exo.getNodeContentProperty', nodeId, key)
-    },
-    setContentProperty<T = unknown>(key: string, value: T): Promise<void> {
-      return channel.call<void>('exo.setNodeContentProperty', nodeId, key, value)
-    },
-    onContentPropertyChanged<T = unknown>(key: string, cb: (value: T) => void): Unsubscribe {
-      return channel.addHandler(`exo.nodeContentPropertyChanged.${nodeId}.${key}`, cb)
-    },
+    dataAssembly: createParameterAPI(channel, NODE_DA_SCOPE, nodeId),
     getDesignProperty<T extends DesignValue = DesignValue>(key: string): Promise<T> {
       return channel.call<T>('exo.getNodeDesignProperty', nodeId, key)
     },
@@ -201,6 +195,49 @@ function createSelectionAPI(channel: Channel): ExoSelectionAPI {
   }
 }
 
+/**
+ * Builds the parameter definition/value methods shared by the experience-level
+ * {@link DataAssemblyAPI} and the node-scoped surface on {@link ExoNodeAPI}. `args` are
+ * prepended to every channel call so a node-scoped API can carry its `nodeId` while the
+ * experience-level one carries none.
+ */
+function createParameterAPI(
+  channel: Channel,
+  scope: { definitions: string; definition: string; setValue: string; setValues: string },
+  ...args: unknown[]
+): DataAssemblyParameterAPI {
+  return {
+    getParameterDefinitions(): Promise<Record<string, DataAssemblyParameterDefinition>> {
+      return channel.call(scope.definitions, ...args)
+    },
+    getParameterDefinition(parameterId: string): Promise<DataAssemblyParameterDefinition | null> {
+      return channel.call(scope.definition, ...args, parameterId)
+    },
+    setParameterValue(parameterId: string, value: DataAssemblyParameterValue): Promise<void> {
+      return channel.call(scope.setValue, ...args, parameterId, value)
+    },
+    setParameterValues(
+      updates: Partial<Record<string, DataAssemblyParameterValue>>,
+    ): Promise<void> {
+      return channel.call(scope.setValues, ...args, updates)
+    },
+  }
+}
+
+const EXPERIENCE_DA_SCOPE = {
+  definitions: 'exo.getDataAssemblyParameterDefinitions',
+  definition: 'exo.getDataAssemblyParameterDefinition',
+  setValue: 'exo.setDataAssemblyParameterValue',
+  setValues: 'exo.setDataAssemblyParameterValues',
+}
+
+const NODE_DA_SCOPE = {
+  definitions: 'exo.getNodeParameterDefinitions',
+  definition: 'exo.getNodeParameterDefinition',
+  setValue: 'exo.setNodeParameterValue',
+  setValues: 'exo.setNodeParameterValues',
+}
+
 function createDataAssemblyAPI(channel: Channel): DataAssemblyAPI {
   const initialSnapshot: DataAssemblySnapshot = { id: '', parameters: {} }
   const dataAssemblySignal = new MemoizedSignal<[DataAssemblySnapshot]>(initialSnapshot)
@@ -213,18 +250,10 @@ function createDataAssemblyAPI(channel: Channel): DataAssemblyAPI {
     get(): DataAssemblySnapshot {
       return dataAssemblySignal.getMemoizedArgs()[0]
     },
-    getParameters(): Promise<Record<string, DataAssemblyParameterDefinition>> {
-      return channel.call('exo.getDataAssemblyParameters')
+    getAvailable(): Promise<DataAssemblySummary[]> {
+      return channel.call('exo.getAvailableDataAssemblies')
     },
-    getParameter(parameterId: string): Promise<DataAssemblyParameterDefinition | null> {
-      return channel.call('exo.getDataAssemblyParameter', parameterId)
-    },
-    setParameter(parameterId: string, value: DataAssemblyParameterValue): Promise<void> {
-      return channel.call('exo.setDataAssemblyParameter', parameterId, value)
-    },
-    setParameters(updates: Partial<Record<string, DataAssemblyParameterValue>>): Promise<void> {
-      return channel.call('exo.setDataAssemblyParameters', updates)
-    },
+    ...createParameterAPI(channel, EXPERIENCE_DA_SCOPE),
     onChange(cb: (snapshot: DataAssemblySnapshot) => void): Unsubscribe {
       return dataAssemblySignal.attach(cb)
     },

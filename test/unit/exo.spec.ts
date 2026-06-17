@@ -304,9 +304,7 @@ describe('createExo()', () => {
             'nodeType',
             'get',
             'onChange',
-            'getContentProperty',
-            'setContentProperty',
-            'onContentPropertyChanged',
+            'dataAssembly',
             'getDesignProperty',
             'setDesignProperty',
             'onDesignPropertyChanged',
@@ -331,35 +329,42 @@ describe('createExo()', () => {
           expect(channelStub.addHandler.callCount).to.equal(callsBefore)
         })
 
-        describe('.getContentProperty(key)', () => {
-          it('calls channel.call with the correct arguments', () => {
-            node!.getContentProperty('title')
+        describe('.dataAssembly.getParameterDefinitions()', () => {
+          it('calls channel.call with the node-scoped channel and nodeId', () => {
+            node!.dataAssembly.getParameterDefinitions()
             expect(channelStub.call).to.have.been.calledWith(
-              'exo.getNodeContentProperty',
+              'exo.getNodeParameterDefinitions',
               nodeId,
-              'title',
             )
-          })
-
-          it('returns the promise from channel.call', () => {
-            const expectedPromise = Promise.resolve({
-              key: 'title',
-              area: 'content' as const,
-              value: 'Hello',
-            })
-            channelStub.call.withArgs('exo.getNodeContentProperty').returns(expectedPromise)
-            expect(node!.getContentProperty('title')).to.equal(expectedPromise)
           })
         })
 
-        describe('.setContentProperty(key, value)', () => {
-          it('calls channel.call with the correct arguments', () => {
-            node!.setContentProperty('title', 'New Title')
+        describe('.dataAssembly.getParameterDefinition(parameterId)', () => {
+          it('calls channel.call with the node-scoped channel, nodeId, and parameterId', () => {
+            node!.dataAssembly.getParameterDefinition('heroEntry')
             expect(channelStub.call).to.have.been.calledWith(
-              'exo.setNodeContentProperty',
+              'exo.getNodeParameterDefinition',
               nodeId,
-              'title',
-              'New Title',
+              'heroEntry',
+            )
+          })
+        })
+
+        describe('.dataAssembly.setParameterValue(parameterId, value)', () => {
+          it('calls channel.call with the node-scoped channel, nodeId, parameterId, and value', () => {
+            const value = {
+              sys: {
+                type: 'ResourceLink' as const,
+                linkType: 'Contentful:Entry' as const,
+                urn: 'urn',
+              },
+            }
+            node!.dataAssembly.setParameterValue('heroEntry', value)
+            expect(channelStub.call).to.have.been.calledWith(
+              'exo.setNodeParameterValue',
+              nodeId,
+              'heroEntry',
+              value,
             )
           })
         })
@@ -482,14 +487,15 @@ describe('createExo()', () => {
       })
 
       describe('.dataAssembly', () => {
-        it('exposes get, onChange, getParameters, getParameter, setParameter, setParameters', () => {
+        it('exposes get, getAvailable, onChange, and the parameter definition/value methods', () => {
           expect(exo!.experience.dataAssembly).to.have.all.keys([
             'get',
+            'getAvailable',
             'onChange',
-            'getParameters',
-            'getParameter',
-            'setParameter',
-            'setParameters',
+            'getParameterDefinitions',
+            'getParameterDefinition',
+            'setParameterValue',
+            'setParameterValues',
           ])
         })
 
@@ -537,24 +543,33 @@ describe('createExo()', () => {
           })
         })
 
-        describe('.getParameters()', () => {
-          it('calls channel.call with "exo.getDataAssemblyParameters"', () => {
-            exo!.experience.dataAssembly.getParameters()
-            expect(channelStub.call).to.have.been.calledWith('exo.getDataAssemblyParameters')
+        describe('.getAvailable()', () => {
+          it('calls channel.call with "exo.getAvailableDataAssemblies"', () => {
+            exo!.experience.dataAssembly.getAvailable()
+            expect(channelStub.call).to.have.been.calledWith('exo.getAvailableDataAssemblies')
           })
         })
 
-        describe('.getParameter(parameterId)', () => {
-          it('calls channel.call with "exo.getDataAssemblyParameter" and the parameterId', () => {
-            exo!.experience.dataAssembly.getParameter('param-1')
+        describe('.getParameterDefinitions()', () => {
+          it('calls channel.call with "exo.getDataAssemblyParameterDefinitions"', () => {
+            exo!.experience.dataAssembly.getParameterDefinitions()
             expect(channelStub.call).to.have.been.calledWith(
-              'exo.getDataAssemblyParameter',
+              'exo.getDataAssemblyParameterDefinitions',
+            )
+          })
+        })
+
+        describe('.getParameterDefinition(parameterId)', () => {
+          it('calls channel.call with "exo.getDataAssemblyParameterDefinition" and the parameterId', () => {
+            exo!.experience.dataAssembly.getParameterDefinition('param-1')
+            expect(channelStub.call).to.have.been.calledWith(
+              'exo.getDataAssemblyParameterDefinition',
               'param-1',
             )
           })
         })
 
-        describe('.setParameter(parameterId, value)', () => {
+        describe('.setParameterValue(parameterId, value)', () => {
           it('calls channel.call with the correct arguments', () => {
             const value = {
               sys: {
@@ -563,16 +578,16 @@ describe('createExo()', () => {
                 urn: 'crn:contentful:::content:spaces/sp/entries/entry-1',
               },
             }
-            exo!.experience.dataAssembly.setParameter('param-1', value)
+            exo!.experience.dataAssembly.setParameterValue('param-1', value)
             expect(channelStub.call).to.have.been.calledWith(
-              'exo.setDataAssemblyParameter',
+              'exo.setDataAssemblyParameterValue',
               'param-1',
               value,
             )
           })
         })
 
-        describe('.setParameters(updates)', () => {
+        describe('.setParameterValues(updates)', () => {
           it('calls channel.call with the correct arguments', () => {
             const updates = {
               'param-1': {
@@ -583,9 +598,9 @@ describe('createExo()', () => {
                 },
               },
             }
-            exo!.experience.dataAssembly.setParameters(updates)
+            exo!.experience.dataAssembly.setParameterValues(updates)
             expect(channelStub.call).to.have.been.calledWith(
-              'exo.setDataAssemblyParameters',
+              'exo.setDataAssemblyParameterValues',
               updates,
             )
           })
