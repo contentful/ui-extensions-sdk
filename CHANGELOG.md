@@ -1,3 +1,9 @@
+# [4.59.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.58.3...v4.59.0) (2026-06-17)
+
+### Features
+
+- node-scoped Data Assembly surface and parameter naming [EXT-7496] ([#2602](https://github.com/contentful/ui-extensions-sdk/issues/2602)) ([35ac229](https://github.com/contentful/ui-extensions-sdk/commit/35ac229779c39fde86d6cfd2bb302a0df877835b))
+
 ## [4.58.3](https://github.com/contentful/ui-extensions-sdk/compare/v4.58.2...v4.58.3) (2026-06-16)
 
 ### Bug Fixes
