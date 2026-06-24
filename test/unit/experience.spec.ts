@@ -1,10 +1,14 @@
 import { describeAttachHandlerMember, sinon, expect } from '../helpers'
 
-import createExo from '../../lib/exo'
+import createExperience from '../../lib/experience'
 import { Channel } from '../../lib/channel'
-import { mockExoInit, mockExoInitVisualMode, mockExperienceSnapshot } from '../mocks/exo'
+import {
+  mockExperienceInit,
+  mockExperienceInitVisualMode,
+  mockExperienceSnapshot,
+} from '../mocks/experience'
 
-describe('createExo()', () => {
+describe('createExperience()', () => {
   let channelStub: any
 
   beforeEach(() => {
@@ -15,26 +19,26 @@ describe('createExo()', () => {
     } as unknown as Channel
   })
 
-  describe('when exoInit is undefined', () => {
-    it('throws (mirrors createAgent; keeps the non-optional exo type sound)', () => {
-      expect(() => createExo(channelStub, undefined)).to.throw('Context data is required')
+  describe('when experienceInit is undefined', () => {
+    it('throws (mirrors createAgent; keeps the non-optional experiences type sound)', () => {
+      expect(() => createExperience(channelStub, undefined)).to.throw('Context data is required')
     })
 
     it('does not register any channel handlers', () => {
-      expect(() => createExo(channelStub, undefined)).to.throw()
+      expect(() => createExperience(channelStub, undefined)).to.throw()
       expect(channelStub.addHandler).to.not.have.been.called // eslint-disable-line no-unused-expressions
     })
   })
 
-  describe('when exoInit is provided', () => {
-    let exo: ReturnType<typeof createExo>
+  describe('when experienceInit is provided', () => {
+    let experience: ReturnType<typeof createExperience>
 
     beforeEach(() => {
-      exo = createExo(channelStub, mockExoInit)
+      experience = createExperience(channelStub, mockExperienceInit)
     })
 
     it('returns an object with context, onContextChanged, getUiMode, onUiModeChanged, and experience', () => {
-      expect(exo).to.have.all.keys([
+      expect(experience).to.have.all.keys([
         'context',
         'onContextChanged',
         'getUiMode',
@@ -69,46 +73,52 @@ describe('createExo()', () => {
 
     describe('.context', () => {
       it('defaults to { type: "experience", entityId: "" } when no context is provided', () => {
-        expect(exo!.context).to.deep.equal({ type: 'experience', entityId: '' })
+        expect(experience!.context).to.deep.equal({ type: 'experience', entityId: '' })
       })
 
-      it('returns the provided context from exoInit', () => {
-        const exoWithContext = createExo(channelStub, {
-          ...mockExoInit,
+      it('returns the provided context from experienceInit', () => {
+        const experienceWithContext = createExperience(channelStub, {
+          ...mockExperienceInit,
           context: { type: 'fragment', entityId: 'frag-123' },
         })
-        expect(exoWithContext!.context).to.deep.equal({ type: 'fragment', entityId: 'frag-123' })
+        expect(experienceWithContext!.context).to.deep.equal({
+          type: 'fragment',
+          entityId: 'frag-123',
+        })
       })
 
       it('returns experience context when explicitly provided', () => {
-        const exoWithContext = createExo(channelStub, {
-          ...mockExoInit,
+        const experienceWithContext = createExperience(channelStub, {
+          ...mockExperienceInit,
           context: { type: 'experience', entityId: 'exp-abc' },
         })
-        expect(exoWithContext!.context).to.deep.equal({ type: 'experience', entityId: 'exp-abc' })
+        expect(experienceWithContext!.context).to.deep.equal({
+          type: 'experience',
+          entityId: 'exp-abc',
+        })
       })
 
       it('updates after exo.contextChanged is dispatched', () => {
         const contextChangedHandler = channelStub.addHandler.getCall(0).args[1]
         contextChangedHandler({ type: 'fragment', entityId: 'frag-new' })
-        expect(exo!.context).to.deep.equal({ type: 'fragment', entityId: 'frag-new' })
+        expect(experience!.context).to.deep.equal({ type: 'fragment', entityId: 'frag-new' })
       })
     })
 
     describe('.onContextChanged(cb)', () => {
       describeAttachHandlerMember('default behaviour', () => {
-        return exo!.onContextChanged(() => {})
+        return experience!.onContextChanged(() => {})
       })
 
       it('calls cb immediately with the initial context', () => {
         const cb = sinon.stub()
-        exo!.onContextChanged(cb)
+        experience!.onContextChanged(cb)
         expect(cb).to.have.been.calledOnceWith({ type: 'experience', entityId: '' })
       })
 
       it('calls cb when exo.contextChanged is dispatched', () => {
         const cb = sinon.stub()
-        exo!.onContextChanged(cb)
+        experience!.onContextChanged(cb)
         cb.resetHistory()
 
         const contextChangedHandler = channelStub.addHandler.getCall(0).args[1]
@@ -119,7 +129,7 @@ describe('createExo()', () => {
 
       it('does not call detached cb when exo.contextChanged is dispatched', () => {
         const cb = sinon.stub()
-        const detach = exo!.onContextChanged(cb)
+        const detach = experience!.onContextChanged(cb)
         cb.resetHistory()
         detach()
 
@@ -131,41 +141,43 @@ describe('createExo()', () => {
     })
 
     describe('.getUiMode()', () => {
-      it('returns the initial uiMode from exoInit', () => {
-        expect(exo!.getUiMode()).to.equal('form')
+      it('returns the initial uiMode from experienceInit', () => {
+        expect(experience!.getUiMode()).to.equal('form')
       })
 
-      it('returns "form" when no uiMode is provided in exoInit', () => {
-        const exoNoMode = createExo(channelStub, { experience: mockExperienceSnapshot })
-        expect(exoNoMode!.getUiMode()).to.equal('form')
+      it('returns "form" when no uiMode is provided in experienceInit', () => {
+        const experienceNoMode = createExperience(channelStub, {
+          experience: mockExperienceSnapshot,
+        })
+        expect(experienceNoMode!.getUiMode()).to.equal('form')
       })
 
       it('returns "visual" when uiMode is visual', () => {
-        const exoVisual = createExo(channelStub, mockExoInitVisualMode)
-        expect(exoVisual!.getUiMode()).to.equal('visual')
+        const experienceVisual = createExperience(channelStub, mockExperienceInitVisualMode)
+        expect(experienceVisual!.getUiMode()).to.equal('visual')
       })
 
       it('updates after exo.uiModeChanged is dispatched', () => {
         const uiModeChangedHandler = channelStub.addHandler.getCall(1).args[1]
         uiModeChangedHandler({ mode: 'visual' })
-        expect(exo!.getUiMode()).to.equal('visual')
+        expect(experience!.getUiMode()).to.equal('visual')
       })
     })
 
     describe('.onUiModeChanged(cb)', () => {
       describeAttachHandlerMember('default behaviour', () => {
-        return exo!.onUiModeChanged(() => {})
+        return experience!.onUiModeChanged(() => {})
       })
 
       it('calls cb immediately with the initial uiMode', () => {
         const cb = sinon.stub()
-        exo!.onUiModeChanged(cb)
+        experience!.onUiModeChanged(cb)
         expect(cb).to.have.been.calledOnceWith('form')
       })
 
       it('calls cb when exo.uiModeChanged is dispatched', () => {
         const cb = sinon.stub()
-        exo!.onUiModeChanged(cb)
+        experience!.onUiModeChanged(cb)
         cb.resetHistory()
 
         const uiModeChangedHandler = channelStub.addHandler.getCall(1).args[1]
@@ -176,7 +188,7 @@ describe('createExo()', () => {
 
       it('does not call detached cb when exo.uiModeChanged is dispatched', () => {
         const cb = sinon.stub()
-        const detach = exo!.onUiModeChanged(cb)
+        const detach = experience!.onUiModeChanged(cb)
         cb.resetHistory()
         detach()
 
@@ -189,7 +201,7 @@ describe('createExo()', () => {
 
     describe('.experience', () => {
       it('exposes get, onChange, save, publish, getNode, getRootNodes, selection, and dataAssembly', () => {
-        expect(exo!.experience).to.have.all.keys([
+        expect(experience!.experience).to.have.all.keys([
           'get',
           'onChange',
           'save',
@@ -202,13 +214,13 @@ describe('createExo()', () => {
       })
 
       describe('.get()', () => {
-        it('returns the initial experience snapshot from exoInit', () => {
-          expect(exo!.experience.get()).to.deep.equal(mockExperienceSnapshot)
+        it('returns the initial experience snapshot from experienceInit', () => {
+          expect(experience!.experience.get()).to.deep.equal(mockExperienceSnapshot)
         })
 
-        it('returns a default snapshot when no experience is provided in exoInit', () => {
-          const exoNoExp = createExo(channelStub, { uiMode: 'form' })
-          const snapshot = exoNoExp!.experience.get()
+        it('returns a default snapshot when no experience is provided in experienceInit', () => {
+          const experienceNoExp = createExperience(channelStub, { uiMode: 'form' })
+          const snapshot = experienceNoExp!.experience.get()
           expect(snapshot.sys.type).to.equal('Experience')
           expect(snapshot.sys.id).to.equal('')
           expect(snapshot.sys.version).to.equal(0)
@@ -220,24 +232,24 @@ describe('createExo()', () => {
           }
           const experienceChangedHandler = channelStub.addHandler.getCall(2).args[1]
           experienceChangedHandler(updatedSnapshot)
-          expect(exo!.experience.get()).to.deep.equal(updatedSnapshot)
+          expect(experience!.experience.get()).to.deep.equal(updatedSnapshot)
         })
       })
 
       describe('.onChange(cb)', () => {
         describeAttachHandlerMember('default behaviour', () => {
-          return exo!.experience.onChange(() => {})
+          return experience!.experience.onChange(() => {})
         })
 
         it('calls cb immediately with the initial experience snapshot', () => {
           const cb = sinon.stub()
-          exo!.experience.onChange(cb)
+          experience!.experience.onChange(cb)
           expect(cb).to.have.been.calledOnceWith(mockExperienceSnapshot)
         })
 
         it('calls cb when exo.experienceChanged is dispatched', () => {
           const cb = sinon.stub()
-          exo!.experience.onChange(cb)
+          experience!.experience.onChange(cb)
           cb.resetHistory()
 
           const updatedSnapshot = {
@@ -251,7 +263,7 @@ describe('createExo()', () => {
 
         it('does not call detached cb when exo.experienceChanged is dispatched', () => {
           const cb = sinon.stub()
-          const detach = exo!.experience.onChange(cb)
+          const detach = experience!.experience.onChange(cb)
           cb.resetHistory()
           detach()
 
@@ -266,39 +278,39 @@ describe('createExo()', () => {
 
       describe('.save()', () => {
         it('calls channel.call with "exo.saveExperience"', () => {
-          exo!.experience.save()
+          experience!.experience.save()
           expect(channelStub.call).to.have.been.calledWith('exo.saveExperience')
         })
 
         it('returns the promise from channel.call', () => {
           const expectedPromise = Promise.resolve()
           channelStub.call.withArgs('exo.saveExperience').returns(expectedPromise)
-          expect(exo!.experience.save()).to.equal(expectedPromise)
+          expect(experience!.experience.save()).to.equal(expectedPromise)
         })
       })
 
       describe('.publish()', () => {
         it('calls channel.call with "exo.publishExperience"', () => {
-          exo!.experience.publish()
+          experience!.experience.publish()
           expect(channelStub.call).to.have.been.calledWith('exo.publishExperience')
         })
 
         it('returns the promise from channel.call', () => {
           const expectedPromise = Promise.resolve()
           channelStub.call.withArgs('exo.publishExperience').returns(expectedPromise)
-          expect(exo!.experience.publish()).to.equal(expectedPromise)
+          expect(experience!.experience.publish()).to.equal(expectedPromise)
         })
       })
 
       describe('.getNode(nodeId)', () => {
         const nodeId = 'node-abc'
-        let node: ReturnType<typeof exo.experience.getNode>
+        let node: ReturnType<typeof experience.experience.getNode>
 
         beforeEach(() => {
-          node = exo!.experience.getNode(nodeId)
+          node = experience!.experience.getNode(nodeId)
         })
 
-        it('returns an ExoNodeAPI object with the correct shape', () => {
+        it('returns an ExperienceNodeAPI object with the correct shape', () => {
           expect(node).to.have.all.keys([
             'id',
             'nodeType',
@@ -323,7 +335,7 @@ describe('createExo()', () => {
 
         it('returns the same cached instance for repeated calls and does not leak handlers', () => {
           const callsBefore = channelStub.addHandler.callCount
-          const again = exo!.experience.getNode(nodeId)
+          const again = experience!.experience.getNode(nodeId)
           expect(again).to.equal(node)
           // No additional exo.nodeChanged.<id> handler registered on the second call.
           expect(channelStub.addHandler.callCount).to.equal(callsBefore)
@@ -396,7 +408,7 @@ describe('createExo()', () => {
 
       describe('.selection', () => {
         it('exposes get, onChange, set, and highlight', () => {
-          expect(exo!.experience.selection).to.have.all.keys([
+          expect(experience!.experience.selection).to.have.all.keys([
             'get',
             'onChange',
             'set',
@@ -406,13 +418,13 @@ describe('createExo()', () => {
 
         describe('.get()', () => {
           it('returns { nodeId: null } initially (nothing selected)', () => {
-            expect(exo!.experience.selection.get()).to.deep.equal({ nodeId: null })
+            expect(experience!.experience.selection.get()).to.deep.equal({ nodeId: null })
           })
 
           it('returns the updated selection after exo.selectionChanged is dispatched', () => {
             const selectionChangedHandler = channelStub.addHandler.getCall(3).args[1]
             selectionChangedHandler({ nodeId: 'node-xyz', nodeType: 'Component' })
-            expect(exo!.experience.selection.get()).to.deep.equal({
+            expect(experience!.experience.selection.get()).to.deep.equal({
               nodeId: 'node-xyz',
               nodeType: 'Component',
             })
@@ -421,18 +433,18 @@ describe('createExo()', () => {
 
         describe('.onChange(cb)', () => {
           describeAttachHandlerMember('default behaviour', () => {
-            return exo!.experience.selection.onChange(() => {})
+            return experience!.experience.selection.onChange(() => {})
           })
 
           it('calls cb immediately with { nodeId: null } (initial selection)', () => {
             const cb = sinon.stub()
-            exo!.experience.selection.onChange(cb)
+            experience!.experience.selection.onChange(cb)
             expect(cb).to.have.been.calledOnceWith({ nodeId: null })
           })
 
           it('calls cb when exo.selectionChanged is dispatched', () => {
             const cb = sinon.stub()
-            exo!.experience.selection.onChange(cb)
+            experience!.experience.selection.onChange(cb)
             cb.resetHistory()
 
             const selectionChangedHandler = channelStub.addHandler.getCall(3).args[1]
@@ -443,7 +455,7 @@ describe('createExo()', () => {
 
           it('calls cb with { nodeId: null } when selection is cleared', () => {
             const cb = sinon.stub()
-            exo!.experience.selection.onChange(cb)
+            experience!.experience.selection.onChange(cb)
             cb.resetHistory()
 
             const selectionChangedHandler = channelStub.addHandler.getCall(3).args[1]
@@ -455,28 +467,31 @@ describe('createExo()', () => {
 
         describe('.set(nodeId)', () => {
           it('sends "exo.setSelection" to channel with the nodeId', () => {
-            exo!.experience.selection.set('node-abc')
+            experience!.experience.selection.set('node-abc')
             expect(channelStub.send).to.have.been.calledWith('exo.setSelection', {
               nodeId: 'node-abc',
             })
           })
 
           it('accepts null to clear the selection', () => {
-            exo!.experience.selection.set(null)
+            experience!.experience.selection.set(null)
             expect(channelStub.send).to.have.been.calledWith('exo.setSelection', { nodeId: null })
           })
         })
 
         describe('.highlight(nodeId)', () => {
           it('sends "exo.highlightNode" to channel with the nodeId', () => {
-            exo!.experience.selection.highlight('node-abc')
+            experience!.experience.selection.highlight('node-abc')
             expect(channelStub.send).to.have.been.calledWith('exo.highlightNode', {
               nodeId: 'node-abc',
             })
           })
 
           it('forwards flash and scrollIntoView options to channel', () => {
-            exo!.experience.selection.highlight('node-abc', { flash: true, scrollIntoView: true })
+            experience!.experience.selection.highlight('node-abc', {
+              flash: true,
+              scrollIntoView: true,
+            })
             expect(channelStub.send).to.have.been.calledWith('exo.highlightNode', {
               nodeId: 'node-abc',
               flash: true,
@@ -488,7 +503,7 @@ describe('createExo()', () => {
 
       describe('.dataAssembly', () => {
         it('exposes get, getAvailable, onChange, and the parameter definition/value methods', () => {
-          expect(exo!.experience.dataAssembly).to.have.all.keys([
+          expect(experience!.experience.dataAssembly).to.have.all.keys([
             'get',
             'getAvailable',
             'onChange',
@@ -501,7 +516,7 @@ describe('createExo()', () => {
 
         describe('.get()', () => {
           it('returns the initial empty DataAssemblySnapshot', () => {
-            const snapshot = exo!.experience.dataAssembly.get()
+            const snapshot = experience!.experience.dataAssembly.get()
             expect(snapshot.id).to.equal('')
             expect(snapshot.parameters).to.deep.equal({})
           })
@@ -514,25 +529,25 @@ describe('createExo()', () => {
             }
             const dataAssemblyChangedHandler = channelStub.addHandler.getCall(4).args[1]
             dataAssemblyChangedHandler(updatedSnapshot)
-            expect(exo!.experience.dataAssembly.get()).to.deep.equal(updatedSnapshot)
+            expect(experience!.experience.dataAssembly.get()).to.deep.equal(updatedSnapshot)
           })
         })
 
         describe('.onChange(cb)', () => {
           describeAttachHandlerMember('default behaviour', () => {
-            return exo!.experience.dataAssembly.onChange(() => {})
+            return experience!.experience.dataAssembly.onChange(() => {})
           })
 
           it('calls cb immediately with the initial snapshot', () => {
             const cb = sinon.stub()
-            exo!.experience.dataAssembly.onChange(cb)
+            experience!.experience.dataAssembly.onChange(cb)
             expect(cb).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
             expect(cb.firstCall.args[0]).to.deep.equal({ id: '', parameters: {} })
           })
 
           it('calls cb when exo.dataAssemblyChanged is dispatched', () => {
             const cb = sinon.stub()
-            exo!.experience.dataAssembly.onChange(cb)
+            experience!.experience.dataAssembly.onChange(cb)
             cb.resetHistory()
 
             const updatedSnapshot = { id: 'da-456', parameters: {} }
@@ -545,14 +560,14 @@ describe('createExo()', () => {
 
         describe('.getAvailable()', () => {
           it('calls channel.call with "exo.getAvailableDataAssemblies"', () => {
-            exo!.experience.dataAssembly.getAvailable()
+            experience!.experience.dataAssembly.getAvailable()
             expect(channelStub.call).to.have.been.calledWith('exo.getAvailableDataAssemblies')
           })
         })
 
         describe('.getParameterDefinitions()', () => {
           it('calls channel.call with "exo.getDataAssemblyParameterDefinitions"', () => {
-            exo!.experience.dataAssembly.getParameterDefinitions()
+            experience!.experience.dataAssembly.getParameterDefinitions()
             expect(channelStub.call).to.have.been.calledWith(
               'exo.getDataAssemblyParameterDefinitions',
             )
@@ -561,7 +576,7 @@ describe('createExo()', () => {
 
         describe('.getParameterDefinition(parameterId)', () => {
           it('calls channel.call with "exo.getDataAssemblyParameterDefinition" and the parameterId', () => {
-            exo!.experience.dataAssembly.getParameterDefinition('param-1')
+            experience!.experience.dataAssembly.getParameterDefinition('param-1')
             expect(channelStub.call).to.have.been.calledWith(
               'exo.getDataAssemblyParameterDefinition',
               'param-1',
@@ -578,7 +593,7 @@ describe('createExo()', () => {
                 urn: 'crn:contentful:::content:spaces/sp/entries/entry-1',
               },
             }
-            exo!.experience.dataAssembly.setParameterValue('param-1', value)
+            experience!.experience.dataAssembly.setParameterValue('param-1', value)
             expect(channelStub.call).to.have.been.calledWith(
               'exo.setDataAssemblyParameterValue',
               'param-1',
@@ -598,7 +613,7 @@ describe('createExo()', () => {
                 },
               },
             }
-            exo!.experience.dataAssembly.setParameterValues(updates)
+            experience!.experience.dataAssembly.setParameterValues(updates)
             expect(channelStub.call).to.have.been.calledWith(
               'exo.setDataAssemblyParameterValues',
               updates,

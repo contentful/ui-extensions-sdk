@@ -23,7 +23,7 @@ import { EntryFieldInfo, FieldInfo } from './field.types'
 import { Adapter, KeyValueMap } from 'contentful-management'
 import { CMAClient } from './cmaClient.types'
 import { AgentAPI, AgentContext } from './agent.types'
-import { ExoSDK, ExoContext, UiMode, ExperienceSnapshot } from './exo.types'
+import { ExperienceSDK, ExperienceContext, UiMode, ExperienceSnapshot } from './experience.types'
 
 /* User API */
 
@@ -358,8 +358,8 @@ export type ExperienceEditorToolbarAppSDK<
   InstallationParameters extends KeyValueMap = KeyValueMap,
 > = Omit<BaseAppSDK<InstallationParameters, never, never>, 'ids'> & {
   ids: Omit<IdsAPI, EntryScopedIds>
-  /** ExO (Experience Orchestration) SDK for experience-toolbar location */
-  exo: ExoSDK
+  /** Experience SDK for experience-toolbar location */
+  experiences: ExperienceSDK
 }
 
 export type KnownAppSDK<
@@ -446,9 +446,9 @@ export interface ConnectMessage {
   release?: Release
   uiLanguageLocale: string
   agent?: AgentContext
-  /** ExO data; when present, SDK constructs sdk.exo */
-  exo?: {
-    context?: ExoContext
+  /** Experiences data; when present, SDK constructs sdk.experiences */
+  experiences?: {
+    context?: ExperienceContext
     uiMode?: UiMode
     experience?: ExperienceSnapshot
   }
