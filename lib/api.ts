@@ -9,7 +9,7 @@ import createEditor from './editor'
 import createNavigator from './navigator'
 import createApp from './app'
 import createAgent from './agent'
-import createExo from './exo'
+import createExperience from './experience'
 import locations from './locations'
 import {
   EntryFieldInfo,
@@ -48,7 +48,7 @@ const LOCATION_TO_API_PRODUCERS: { [location: string]: ProducerFunc[] } = {
   [locations.LOCATION_HOME]: [makeSharedAPI],
   [locations.LOCATION_APP_CONFIG]: [makeSharedAPI, makeAppAPI],
   [locations.LOCATION_AGENT]: [makeSharedAPI, makeAgentAPI, makeWindowAPI],
-  [locations.LOCATION_EXPERIENCE_TOOLBAR]: [makeSharedAPI, makeExoAPI],
+  [locations.LOCATION_EXPERIENCE_TOOLBAR]: [makeSharedAPI, makeExperienceAPI],
 }
 
 export default function createAPI(
@@ -177,8 +177,8 @@ function makeAgentAPI(channel: Channel, { agent }: ConnectMessage) {
   }
 }
 
-function makeExoAPI(channel: Channel, data: ConnectMessage) {
+function makeExperienceAPI(channel: Channel, data: ConnectMessage) {
   return {
-    exo: createExo(channel, data.exo),
+    experiences: createExperience(channel, data.experiences),
   }
 }

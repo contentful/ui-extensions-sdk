@@ -1,16 +1,16 @@
 import { Channel } from './channel'
 import { MemoizedSignal } from './signal'
 import {
-  ExoSDK,
-  ExoContext,
+  ExperienceSDK,
+  ExperienceContext,
   UiMode,
   Unsubscribe,
   ExperienceSnapshot,
   ExperienceAPI,
-  ExoNodeAPI,
-  ExoNodeSnapshot,
-  ExoNodeType,
-  ExoSelectionAPI,
+  ExperienceNodeAPI,
+  ExperienceNodeSnapshot,
+  ExperienceNodeType,
+  ExperienceSelectionAPI,
   DataAssemblyAPI,
   DataAssemblyParameterAPI,
   DataAssemblySnapshot,
@@ -23,40 +23,47 @@ import {
 } from './types'
 
 /**
- * Creates the ExO (Experience Orchestration) SDK namespace for the experience-toolbar location.
+ * Creates the Experience SDK namespace for the experience-toolbar location.
  *
- * Throws when called without handshake `exo` data, mirroring `createAgent`. This keeps the
- * public `ExperienceEditorToolbarAppSDK['exo']` type sound (non-optional, always present).
+ * Throws when called without handshake `experiences` data, mirroring `createAgent`. This keeps the
+ * public `ExperienceEditorToolbarAppSDK['experiences']` type sound (non-optional, always present).
  */
-export default function createExo(
+export default function createExperience(
   channel: Channel,
-  exoInit?: { context?: ExoContext; uiMode?: UiMode; experience?: ExperienceSnapshot },
-): ExoSDK {
-  if (exoInit === undefined) {
+  experienceInit?: {
+    context?: ExperienceContext
+    uiMode?: UiMode
+    experience?: ExperienceSnapshot
+  },
+): ExperienceSDK {
+  if (experienceInit === undefined) {
     throw new Error('Context data is required')
   }
 
-  const initialContext: ExoContext = exoInit.context ?? { type: 'experience', entityId: '' }
-  const contextSignal = new MemoizedSignal<[ExoContext]>(initialContext)
+  const initialContext: ExperienceContext = experienceInit.context ?? {
+    type: 'experience',
+    entityId: '',
+  }
+  const contextSignal = new MemoizedSignal<[ExperienceContext]>(initialContext)
 
-  channel.addHandler('exo.contextChanged', (payload: ExoContext) => {
+  channel.addHandler('exo.contextChanged', (payload: ExperienceContext) => {
     contextSignal.dispatch(payload)
   })
 
-  const initialMode: UiMode = exoInit.uiMode ?? 'form'
+  const initialMode: UiMode = experienceInit.uiMode ?? 'form'
   const uiModeSignal = new MemoizedSignal<[UiMode]>(initialMode)
 
   channel.addHandler('exo.uiModeChanged', (payload: { mode: UiMode }) => {
     uiModeSignal.dispatch(payload.mode)
   })
 
-  const experience = createExperienceAPI(channel, exoInit.experience)
+  const experience = createExperienceAPI(channel, experienceInit.experience)
 
   return {
-    get context(): ExoContext {
+    get context(): ExperienceContext {
       return contextSignal.getMemoizedArgs()[0]
     },
-    onContextChanged(cb: (context: ExoContext) => void): Unsubscribe {
+    onContextChanged(cb: (context: ExperienceContext) => void): Unsubscribe {
       return contextSignal.attach(cb)
     },
     getUiMode(): UiMode {
@@ -90,7 +97,7 @@ function createExperienceAPI(channel: Channel, initial?: ExperienceSnapshot): Ex
   // Cache node APIs by id and reuse them. Each createNodeAPI() registers a channel handler
   // for `exo.nodeChanged.${nodeId}`, so constructing a fresh one per getNode() call would
   // leak a handler on every call over a long-lived session. Construct-once, reuse by id.
-  const nodeApis = new Map<string, ExoNodeAPI>()
+  const nodeApis = new Map<string, ExperienceNodeAPI>()
 
   return {
     get(): ExperienceSnapshot {
@@ -105,7 +112,7 @@ function createExperienceAPI(channel: Channel, initial?: ExperienceSnapshot): Ex
     publish(): Promise<void> {
       return channel.call('exo.publishExperience')
     },
-    getNode(nodeId: string): ExoNodeAPI | null {
+    getNode(nodeId: string): ExperienceNodeAPI | null {
       let nodeApi = nodeApis.get(nodeId)
       if (nodeApi === undefined) {
         nodeApi = createNodeAPI(channel, nodeId)
@@ -113,7 +120,7 @@ function createExperienceAPI(channel: Channel, initial?: ExperienceSnapshot): Ex
       }
       return nodeApi
     },
-    getRootNodes(): ExoNodeAPI[] {
+    getRootNodes(): ExperienceNodeAPI[] {
       // Returns [] in this build: root-node access requires a synchronous view of
       // the node tree, which the host has not yet pushed to the SDK. Until that
       // handshake data is available, callers should resolve nodes by id via
@@ -128,21 +135,21 @@ function createExperienceAPI(channel: Channel, initial?: ExperienceSnapshot): Ex
 function createNodeAPI(
   channel: Channel,
   nodeId: string,
-  nodeType: ExoNodeType = 'Component',
-): ExoNodeAPI {
-  const nodeSignal = new MemoizedSignal<[ExoNodeSnapshot]>({ id: nodeId, nodeType })
+  nodeType: ExperienceNodeType = 'Component',
+): ExperienceNodeAPI {
+  const nodeSignal = new MemoizedSignal<[ExperienceNodeSnapshot]>({ id: nodeId, nodeType })
 
-  channel.addHandler(`exo.nodeChanged.${nodeId}`, (payload: ExoNodeSnapshot) => {
+  channel.addHandler(`exo.nodeChanged.${nodeId}`, (payload: ExperienceNodeSnapshot) => {
     nodeSignal.dispatch(payload)
   })
 
   return {
     id: nodeId,
     nodeType,
-    get(): ExoNodeSnapshot {
+    get(): ExperienceNodeSnapshot {
       return nodeSignal.getMemoizedArgs()[0]
     },
-    onChange(cb: (node: ExoNodeSnapshot) => void): Unsubscribe {
+    onChange(cb: (node: ExperienceNodeSnapshot) => void): Unsubscribe {
       return nodeSignal.attach(cb)
     },
     dataAssembly: createParameterAPI(channel, NODE_DA_SCOPE, nodeId),
@@ -167,23 +174,27 @@ function createNodeAPI(
   }
 }
 
-function createSelectionAPI(channel: Channel): ExoSelectionAPI {
-  const selectionSignal = new MemoizedSignal<[{ nodeId: string | null; nodeType?: ExoNodeType }]>({
+function createSelectionAPI(channel: Channel): ExperienceSelectionAPI {
+  const selectionSignal = new MemoizedSignal<
+    [{ nodeId: string | null; nodeType?: ExperienceNodeType }]
+  >({
     nodeId: null,
   })
 
   channel.addHandler(
     'exo.selectionChanged',
-    (payload: { nodeId: string | null; nodeType?: ExoNodeType }) => {
+    (payload: { nodeId: string | null; nodeType?: ExperienceNodeType }) => {
       selectionSignal.dispatch(payload)
     },
   )
 
   return {
-    get(): { nodeId: string | null; nodeType?: ExoNodeType } {
+    get(): { nodeId: string | null; nodeType?: ExperienceNodeType } {
       return selectionSignal.getMemoizedArgs()[0]
     },
-    onChange(cb: (sel: { nodeId: string | null; nodeType?: ExoNodeType }) => void): Unsubscribe {
+    onChange(
+      cb: (sel: { nodeId: string | null; nodeType?: ExperienceNodeType }) => void,
+    ): Unsubscribe {
       return selectionSignal.attach(cb)
     },
     set(nodeId: string | null): void {
@@ -197,7 +208,7 @@ function createSelectionAPI(channel: Channel): ExoSelectionAPI {
 
 /**
  * Builds the parameter definition/value methods shared by the experience-level
- * {@link DataAssemblyAPI} and the node-scoped surface on {@link ExoNodeAPI}. `args` are
+ * {@link DataAssemblyAPI} and the node-scoped surface on {@link ExperienceNodeAPI}. `args` are
  * prepended to every channel call so a node-scoped API can carry its `nodeId` while the
  * experience-level one carries none.
  */

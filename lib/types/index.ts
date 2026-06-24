@@ -141,8 +141,8 @@ export type { CMAClient } from './cmaClient.types'
 export type {
   Unsubscribe,
   UiMode,
-  ExoContext,
-  ExoSDK,
+  ExperienceContext,
+  ExperienceSDK,
   ResourceLink,
   EntryBinding,
   DesignTokenValue,
@@ -157,11 +157,11 @@ export type {
   DataAssemblySummary,
   DataAssemblyParameterAPI,
   DataAssemblyAPI,
-  ExoNodeType,
-  ExoNodeSnapshot,
+  ExperienceNodeType,
+  ExperienceNodeSnapshot,
   SlotDescriptor,
   ExperienceSnapshot,
-  ExoNodeAPI,
-  ExoSelectionAPI,
+  ExperienceNodeAPI,
+  ExperienceSelectionAPI,
   ExperienceAPI,
-} from './exo.types'
+} from './experience.types'

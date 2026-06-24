@@ -1,5 +1,5 @@
 /**
- * ExO (Experience Orchestration) SDK types.
+ * Experience SDK types.
  */
 
 export type Unsubscribe = () => void
@@ -33,7 +33,7 @@ export type DesignValue = DesignTokenValue | ManualDesignValue
  * Describes a single component property: its key, area, current value, and binding.
  * `area` distinguishes content properties (bound to entry fields / authored content)
  * from design properties (presentation values, e.g. design tokens) — the same split
- * the ExO domain model and editor model natively, letting an app render them separately.
+ * the Experience domain model and editor model natively, letting an app render them separately.
  * `binding`, when present, is an `EntryBinding` carrying the `entryId`/`fieldId` a
  * consumer needs to resolve the backing entry; omitted when the property is unbound.
  */
@@ -127,11 +127,11 @@ export interface DataAssemblyAPI extends DataAssemblyParameterAPI {
 }
 
 /** The type of a node within an experience/fragment tree. */
-export type ExoNodeType = 'Component' | 'Fragment' | 'InlineFragment' | 'Slot'
+export type ExperienceNodeType = 'Component' | 'Fragment' | 'InlineFragment' | 'Slot'
 
-export interface ExoNodeSnapshot {
+export interface ExperienceNodeSnapshot {
   id: string
-  nodeType: ExoNodeType
+  nodeType: ExperienceNodeType
 }
 
 export interface SlotDescriptor {
@@ -144,15 +144,15 @@ export interface SlotDescriptor {
  * API for reading and mutating a single node (component, slot, fragment, etc.) within an
  * experience or fragment tree. Obtained via {@link ExperienceAPI.getNode}.
  */
-export interface ExoNodeAPI {
+export interface ExperienceNodeAPI {
   /** The node's unique id within the experience/fragment tree. */
   id: string
   /** The node's type (component, slot, fragment, etc.). */
-  nodeType: ExoNodeType
+  nodeType: ExperienceNodeType
   /** Returns the current snapshot of this node. */
-  get(): ExoNodeSnapshot
+  get(): ExperienceNodeSnapshot
   /** Subscribes to changes to this node. Returns an unsubscribe function. */
-  onChange(cb: (node: ExoNodeSnapshot) => void): Unsubscribe
+  onChange(cb: (node: ExperienceNodeSnapshot) => void): Unsubscribe
   /**
    * Reads parameter definitions and writes parameter values for this node's Data Assembly.
    * A node's content is populated through Data Assembly parameters, not free-form content
@@ -175,9 +175,9 @@ export interface ExoNodeAPI {
   getSlotDescriptor(): Promise<SlotDescriptor | null>
 }
 
-export interface ExoSelectionAPI {
-  get(): { nodeId: string | null; nodeType?: ExoNodeType }
-  onChange(cb: (sel: { nodeId: string | null; nodeType?: ExoNodeType }) => void): Unsubscribe
+export interface ExperienceSelectionAPI {
+  get(): { nodeId: string | null; nodeType?: ExperienceNodeType }
+  onChange(cb: (sel: { nodeId: string | null; nodeType?: ExperienceNodeType }) => void): Unsubscribe
   set(nodeId: string | null): void
   highlight(nodeId: string, opts?: { flash?: boolean; scrollIntoView?: boolean }): void
 }
@@ -211,20 +211,20 @@ export interface ExperienceAPI {
   onChange(cb: (v: ExperienceSnapshot) => void): Unsubscribe
   save(): Promise<void>
   publish(): Promise<void>
-  getNode(nodeId: string): ExoNodeAPI | null
-  getRootNodes(): ExoNodeAPI[]
-  selection: ExoSelectionAPI
+  getNode(nodeId: string): ExperienceNodeAPI | null
+  getRootNodes(): ExperienceNodeAPI[]
+  selection: ExperienceSelectionAPI
   dataAssembly: DataAssemblyAPI
 }
 
-export interface ExoContext {
+export interface ExperienceContext {
   type: 'experience' | 'fragment'
   entityId: string
 }
 
-export interface ExoSDK {
-  context: ExoContext
-  onContextChanged(cb: (context: ExoContext) => void): Unsubscribe
+export interface ExperienceSDK {
+  context: ExperienceContext
+  onContextChanged(cb: (context: ExperienceContext) => void): Unsubscribe
   getUiMode(): UiMode
   onUiModeChanged(cb: (mode: UiMode) => void): Unsubscribe
   experience: ExperienceAPI
