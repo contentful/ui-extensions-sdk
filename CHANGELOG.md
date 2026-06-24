@@ -1,3 +1,9 @@
+# [4.60.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.59.0...v4.60.0) (2026-06-24)
+
+### Features
+
+- rename ExO surface to Experience in app-sdk [EXT-7497] ([#2610](https://github.com/contentful/ui-extensions-sdk/issues/2610)) ([d586e57](https://github.com/contentful/ui-extensions-sdk/commit/d586e574cce77a207e4ad668f3b0c66f8d396239))
+
 # [4.59.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.58.3...v4.59.0) (2026-06-17)
 
 ### Features
