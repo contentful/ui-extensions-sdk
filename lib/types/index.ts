@@ -59,6 +59,9 @@ export type {
   OpenAlertOptions,
   OpenConfirmOptions,
   OpenCustomWidgetOptions,
+  RecommendationsOptions,
+  CrossSpaceAllowedResource,
+  ResourceEntitySelectorOptions,
 } from './dialogs.types'
 
 export type {

@@ -1,3 +1,4 @@
+import { ResourceLink } from './experience.types'
 import { SerializedJSONValue } from './utils'
 export interface OpenAlertOptions {
   title: string
@@ -31,6 +32,24 @@ export interface EntityDialogOptions {
   max?: number
 }
 
+export interface RecommendationsOptions {
+  searchQuery?: string
+}
+
+export interface CrossSpaceAllowedResource {
+  type: string
+  source: string
+  contentTypes?: string[]
+}
+
+export interface ResourceEntitySelectorOptions {
+  locale?: string
+  allowedResources?: CrossSpaceAllowedResource[]
+  referencingEntryId?: string
+  min?: number
+  max?: number
+}
+
 export interface DialogsAPI {
   /** Opens a simple alert window (which can only be closed). */
   openAlert: (options: OpenAlertOptions) => Promise<boolean>
@@ -54,6 +73,7 @@ export interface DialogsAPI {
   selectSingleEntry: <T = Object>(options?: {
     locale?: string
     contentTypes?: string[]
+    recommendations?: RecommendationsOptions
   }) => Promise<T | null>
   /** Opens a dialog for selecting multiple entries. */
   selectMultipleEntries: <T = Object>(options?: {
@@ -61,6 +81,7 @@ export interface DialogsAPI {
     contentTypes?: string[]
     min?: number
     max?: number
+    recommendations?: RecommendationsOptions
   }) => Promise<T[] | null>
   /** Opens a dialog for selecting a single asset. */
   selectSingleAsset: <T = Object>(options?: {
@@ -116,4 +137,12 @@ export interface DialogsAPI {
     min?: number
     max?: number
   }) => Promise<T[] | null>
+  /** Opens a dialog for selecting a single cross-space resource entity. */
+  selectSingleResourceEntity: (
+    options?: ResourceEntitySelectorOptions,
+  ) => Promise<ResourceLink | null>
+  /** Opens a dialog for selecting multiple cross-space resource entities. */
+  selectMultipleResourceEntities: (
+    options?: ResourceEntitySelectorOptions,
+  ) => Promise<ResourceLink[] | null>
 }
