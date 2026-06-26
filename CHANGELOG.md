@@ -1,3 +1,9 @@
+# [4.61.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.60.0...v4.61.0) (2026-06-26)
+
+### Features
+
+- **dialogs:** add cross-space resource entity selectors and recommendations support ([#2611](https://github.com/contentful/ui-extensions-sdk/issues/2611)) ([ad32d3c](https://github.com/contentful/ui-extensions-sdk/commit/ad32d3c109a7309d701c7faad36b65657e7dc38a))
+
 # [4.60.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.59.0...v4.60.0) (2026-06-24)
 
 ### Features
