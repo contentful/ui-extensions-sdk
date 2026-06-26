@@ -22,6 +22,11 @@ const ENTITY_SELECTOR_DIALOGS: [string, string, boolean][] = [
   ['selectMultipleComponentDefinitions', 'ComponentDefinition', true],
 ]
 
+const RESOURCE_ENTITY_SELECTOR_DIALOGS: [string, boolean][] = [
+  ['selectSingleResourceEntity', false],
+  ['selectMultipleResourceEntities', true],
+]
+
 describe('createDialogs()', () => {
   describe('returned "dialogs" object', () => {
     SIMPLE_DIALOGS.forEach(([method, type]) => {
@@ -41,6 +46,19 @@ describe('createDialogs()', () => {
         channelMethod: 'openDialog',
         args: [{ test: true }],
         expectedCallArgs: ['entitySelector', { test: true, entityType, multiple }],
+      })
+    })
+
+    RESOURCE_ENTITY_SELECTOR_DIALOGS.forEach(([method, multiple]) => {
+      describeChannelCallingMethod({
+        creator: createDialogs,
+        methodName: method,
+        channelMethod: 'openDialog',
+        args: [{ allowedResources: [], locale: 'en-US' }],
+        expectedCallArgs: [
+          'resourceEntitySelector',
+          { allowedResources: [], locale: 'en-US', multiple },
+        ],
       })
     })
 

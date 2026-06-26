@@ -5,6 +5,8 @@ import {
   OpenAlertOptions,
   OpenConfirmOptions,
   IdsAPI,
+  ResourceEntitySelectorOptions,
+  ResourceLink,
 } from './types'
 
 const isObject = (o: any) => typeof o === 'object' && o !== null && !Array.isArray(o)
@@ -28,6 +30,10 @@ export default function createDialogs(channel: Channel, ids: IdsAPI): DialogsAPI
     selectMultiplePatterns: openEntitySelector.bind(null, 'Pattern', true),
     selectSingleComponentDefinition: openEntitySelector.bind(null, 'ComponentDefinition', false),
     selectMultipleComponentDefinitions: openEntitySelector.bind(null, 'ComponentDefinition', true),
+    selectSingleResourceEntity: (options?: ResourceEntitySelectorOptions) =>
+      openResourceEntitySelector(false, options) as Promise<ResourceLink | null>,
+    selectMultipleResourceEntities: (options?: ResourceEntitySelectorOptions) =>
+      openResourceEntitySelector(true, options) as Promise<ResourceLink[] | null>,
   }
 
   function openSimpleDialog(type: string, options?: OpenAlertOptions | OpenConfirmOptions) {
@@ -74,5 +80,17 @@ export default function createDialogs(channel: Channel, ids: IdsAPI): DialogsAPI
     options.multiple = multiple
 
     return channel.call('openDialog', 'entitySelector', options) as Promise<any>
+  }
+
+  function openResourceEntitySelector(
+    multiple: boolean,
+    options?: ResourceEntitySelectorOptions,
+  ): Promise<ResourceLink | ResourceLink[] | null> {
+    const opts = prepareOptions(options)
+    opts.multiple = multiple
+
+    return channel.call('openDialog', 'resourceEntitySelector', opts) as Promise<
+      ResourceLink | ResourceLink[] | null
+    >
   }
 }
