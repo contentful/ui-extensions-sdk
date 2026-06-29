@@ -47,6 +47,16 @@ describe('createCMAClient()', function () {
         /Could not resolve `createClient`/,
       )
     })
+
+    // A bundler can resolve `contentful-management` to a non-module (e.g. its
+    // `.cjs` entry emitted as a static asset URL). The error names the resolved
+    // type and points at bundler config.
+    it('reports the resolved type for a non-module value', function () {
+      expect(() => resolveCreateClient('/static/media/index.abc123.cjs' as any)).to.throw(
+        TypeError,
+        /resolved to a string.*\.cjs/s,
+      )
+    })
   })
 
   // Apps are space-env scoped per CMA Adapter Permissions
