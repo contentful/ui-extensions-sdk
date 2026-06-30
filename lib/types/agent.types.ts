@@ -9,7 +9,7 @@ export interface AgentContext {
 
 export type LayoutVariant = 'expanded' | 'normal'
 
-export type ToolbarActionName = 'chat.history' | 'chat.back' | 'chat.close'
+export type ToolbarActionName = 'chat.history' | 'chat.back' | 'chat.close' | 'chat.new'
 
 export interface ToolbarAction {
   name: ToolbarActionName
