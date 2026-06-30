@@ -1,3 +1,9 @@
+# [4.62.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.61.1...v4.62.0) (2026-06-30)
+
+### Features
+
+- **agent:** add chat.new to ToolbarActionName [PIC-1217] ([#2616](https://github.com/contentful/ui-extensions-sdk/issues/2616)) ([a789afe](https://github.com/contentful/ui-extensions-sdk/commit/a789afe8723ec170d687df96b06c077839394854))
+
 ## [4.61.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.61.0...v4.61.1) (2026-06-29)
 
 ### Bug Fixes
