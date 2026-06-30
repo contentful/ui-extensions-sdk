@@ -1,3 +1,9 @@
+## [4.61.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.61.0...v4.61.1) (2026-06-29)
+
+### Bug Fixes
+
+- resolve createClient defensively across CM interop shapes [AIS-59] ([#2614](https://github.com/contentful/ui-extensions-sdk/issues/2614)) ([97f8025](https://github.com/contentful/ui-extensions-sdk/commit/97f8025071f819099bb131018ef92a4bb05d1876))
+
 # [4.61.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.60.0...v4.61.0) (2026-06-26)
 
 ### Features

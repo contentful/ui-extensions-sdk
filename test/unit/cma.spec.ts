@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { createCMAClient } from '../../lib/cma'
+import { createCMAClient, resolveCreateClient } from '../../lib/cma'
 import { IdsAPI } from '../../lib/types'
 
 describe('createCMAClient()', function () {
@@ -18,6 +18,35 @@ describe('createCMAClient()', function () {
   it('Creates a CMA client', function () {
     const client = createCMAClient(ids, { addHandler: () => {} } as any)
     expect(client).to.be.an('object')
+  })
+
+  // Regression: `contentful-management` can be bundled with `createClient` either
+  // as a direct namespace member or wrapped under `default` (CJS↔ESM interop).
+  // Both must resolve, otherwise `init()` throws `createClient is not a function`.
+  describe('resolveCreateClient() interop', function () {
+    const fn = () => undefined
+
+    it('resolves createClient as a direct namespace member', function () {
+      expect(resolveCreateClient({ createClient: fn } as any)).to.equal(fn)
+    })
+
+    it('resolves createClient wrapped under default', function () {
+      expect(resolveCreateClient({ default: { createClient: fn } } as any)).to.equal(fn)
+    })
+
+    it('prefers the direct namespace member over default', function () {
+      const wrapped = () => undefined
+      expect(
+        resolveCreateClient({ createClient: fn, default: { createClient: wrapped } } as any),
+      ).to.equal(fn)
+    })
+
+    it('throws a helpful error when createClient cannot be resolved', function () {
+      expect(() => resolveCreateClient({} as any)).to.throw(
+        TypeError,
+        /Could not resolve `createClient`/,
+      )
+    })
   })
 
   // Apps are space-env scoped per CMA Adapter Permissions
