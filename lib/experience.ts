@@ -6,6 +6,7 @@ import {
   UiMode,
   Unsubscribe,
   ExperienceSnapshot,
+  ExperienceMetadata,
   ExperienceAPI,
   ExperienceNodeAPI,
   ExperienceNodeSnapshot,
@@ -105,6 +106,12 @@ function createExperienceAPI(channel: Channel, initial?: ExperienceSnapshot): Ex
     },
     onChange(cb: (v: ExperienceSnapshot) => void): Unsubscribe {
       return experienceSignal.attach(cb)
+    },
+    getMetadata(): ExperienceMetadata {
+      return experienceSignal.getMemoizedArgs()[0].metadata ?? {}
+    },
+    setMetadata(patch: Partial<ExperienceMetadata>): Promise<void> {
+      return channel.call('exo.setExperienceMetadata', patch)
     },
     save(): Promise<void> {
       return channel.call('exo.saveExperience')

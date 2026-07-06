@@ -200,10 +200,12 @@ describe('createExperience()', () => {
     })
 
     describe('.experience', () => {
-      it('exposes get, onChange, save, publish, getNode, getRootNodes, selection, and dataAssembly', () => {
+      it('exposes get, onChange, getMetadata, setMetadata, save, publish, getNode, getRootNodes, selection, and dataAssembly', () => {
         expect(experience!.experience).to.have.all.keys([
           'get',
           'onChange',
+          'getMetadata',
+          'setMetadata',
           'save',
           'publish',
           'getNode',
@@ -299,6 +301,42 @@ describe('createExperience()', () => {
           const expectedPromise = Promise.resolve()
           channelStub.call.withArgs('exo.publishExperience').returns(expectedPromise)
           expect(experience!.experience.publish()).to.equal(expectedPromise)
+        })
+      })
+
+      describe('.getMetadata()', () => {
+        it('returns an empty object when the snapshot carries no metadata', () => {
+          expect(experience!.experience.getMetadata()).to.deep.equal({})
+        })
+
+        it('returns the metadata from the current snapshot', () => {
+          const metadata = {
+            tags: [{ sys: { type: 'Link' as const, linkType: 'Tag' as const, id: 'tag-1' } }],
+            concepts: [
+              { sys: { type: 'Link' as const, linkType: 'TaxonomyConcept' as const, id: 'c-1' } },
+            ],
+            name: 'Homepage hero',
+          }
+          const experienceChangedHandler = channelStub.addHandler.getCall(2).args[1]
+          experienceChangedHandler({
+            sys: { id: 'exp-456', type: 'Experience' as const, version: 2 },
+            metadata,
+          })
+          expect(experience!.experience.getMetadata()).to.deep.equal(metadata)
+        })
+      })
+
+      describe('.setMetadata(patch)', () => {
+        it('calls channel.call with "exo.setExperienceMetadata" and the patch', () => {
+          const patch = { name: 'Renamed' }
+          experience!.experience.setMetadata(patch)
+          expect(channelStub.call).to.have.been.calledWith('exo.setExperienceMetadata', patch)
+        })
+
+        it('returns the promise from channel.call', () => {
+          const expectedPromise = Promise.resolve()
+          channelStub.call.withArgs('exo.setExperienceMetadata').returns(expectedPromise)
+          expect(experience!.experience.setMetadata({ tags: [] })).to.equal(expectedPromise)
         })
       })
 

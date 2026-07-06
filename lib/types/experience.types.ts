@@ -2,6 +2,8 @@
  * Experience SDK types.
  */
 
+import { Link } from './utils'
+
 export type Unsubscribe = () => void
 
 export type UiMode = 'form' | 'visual'
@@ -190,10 +192,21 @@ export interface ExperienceSelectionAPI {
 }
 
 /**
+ * Editable metadata carried by an experience or fragment: taxonomy `tags` and `concepts`,
+ * plus the entity `name`. `tags` and `concepts` are classic `Link`s (`sys.type: 'Link'`),
+ * distinct from the `ResourceLink`s used elsewhere in this surface.
+ */
+export interface ExperienceMetadata {
+  tags?: Link<'Tag', 'Link'>[]
+  concepts?: Link<'TaxonomyConcept', 'Link'>[]
+  name?: string
+}
+
+/**
  * Snapshot of the root entity being edited. Discriminated on `sys.type`:
  * an `Experience` (optionally backed by a template) or a `Fragment` (no template).
- * Mirrors the canonical `experiences-api-schemas` shapes — `Experience.sys.template`
- * is optional there, and `Fragment.sys` carries a `componentType` ResourceLink and no template.
+ * `Experience.sys.template` is optional, and `Fragment.sys` carries a `componentType`
+ * ResourceLink and no template.
  */
 export type ExperienceSnapshot =
   | {
@@ -203,6 +216,7 @@ export type ExperienceSnapshot =
         version: number
         template?: ResourceLink<'Contentful:Template'>
       }
+      metadata?: ExperienceMetadata
     }
   | {
       sys: {
@@ -211,11 +225,21 @@ export type ExperienceSnapshot =
         version: number
         componentType: ResourceLink<'Contentful:ComponentType'>
       }
+      metadata?: ExperienceMetadata
     }
 
 export interface ExperienceAPI {
   get(): ExperienceSnapshot
   onChange(cb: (v: ExperienceSnapshot) => void): Unsubscribe
+  /** Reads the current experience/fragment metadata (tags, concepts, name). */
+  getMetadata(): ExperienceMetadata
+  /**
+   * Applies a partial update to the experience/fragment metadata, persisted on the next
+   * {@link ExperienceAPI.save}. Only the keys present in `patch` are changed; a provided
+   * `tags`/`concepts` array replaces that field wholesale (pass `[]` to clear it), and an
+   * omitted key is left untouched. Resolves once the host has accepted the patch.
+   */
+  setMetadata(patch: Partial<ExperienceMetadata>): Promise<void>
   save(): Promise<void>
   publish(): Promise<void>
   getNode(nodeId: string): ExperienceNodeAPI | null

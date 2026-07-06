@@ -164,6 +164,7 @@ export type {
   ExperienceNodeSnapshot,
   SlotAllowedResource,
   SlotDescriptor,
+  ExperienceMetadata,
   ExperienceSnapshot,
   ExperienceNodeAPI,
   ExperienceSelectionAPI,
