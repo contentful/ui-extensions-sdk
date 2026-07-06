@@ -1,3 +1,9 @@
+## [4.62.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.62.0...v4.62.1) (2026-07-06)
+
+### Bug Fixes
+
+- correct SlotDescriptor to allowedResources[] shape [EXT-7477] ([#2624](https://github.com/contentful/ui-extensions-sdk/issues/2624)) ([9cf2e6b](https://github.com/contentful/ui-extensions-sdk/commit/9cf2e6b219b76fdb7673fa587eacbf2b5d6ca220))
+
 # [4.62.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.61.1...v4.62.0) (2026-06-30)
 
 ### Features
