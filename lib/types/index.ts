@@ -162,6 +162,7 @@ export type {
   DataAssemblyAPI,
   ExperienceNodeType,
   ExperienceNodeSnapshot,
+  SlotAllowedResource,
   SlotDescriptor,
   ExperienceSnapshot,
   ExperienceNodeAPI,
