@@ -134,9 +134,16 @@ export interface ExperienceNodeSnapshot {
   nodeType: ExperienceNodeType
 }
 
+/** One allowed resource for a slot: the Component(s) that may be placed in it. */
+export interface SlotAllowedResource {
+  type: 'Contentful:ComponentType'
+  source: string
+  allowedTypes: string[]
+}
+
 export interface SlotDescriptor {
   id: string
-  allowedComponentTypeIds: string[]
+  allowedResources: SlotAllowedResource[]
   currentItems: Array<{ nodeId: string; nodeType: 'Fragment' | 'InlineFragment' }>
 }
 
