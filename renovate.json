@@ -3,14 +3,6 @@
   "extends": ["local>contentful/renovate-config"],
   "packageRules": [
     {
-      "matchPackageNames": ["framer-motion"],
-      "allowedVersions": "<8.0.0"
-    },
-    {
-      "matchPackageNames": ["semantic-release"],
-      "allowedVersions": "<25.0.0"
-    },
-    {
       "matchDepTypes": ["dependencies"],
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "production dependencies"
