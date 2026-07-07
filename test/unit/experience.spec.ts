@@ -200,12 +200,13 @@ describe('createExperience()', () => {
     })
 
     describe('.experience', () => {
-      it('exposes get, onChange, getMetadata, setMetadata, save, publish, getNode, getRootNodes, selection, and dataAssembly', () => {
+      it('exposes get, onChange, getMetadata, setMetadata, onMetadataChanged, save, publish, getNode, getRootNodes, selection, and dataAssembly', () => {
         expect(experience!.experience).to.have.all.keys([
           'get',
           'onChange',
           'getMetadata',
           'setMetadata',
+          'onMetadataChanged',
           'save',
           'publish',
           'getNode',
@@ -304,25 +305,26 @@ describe('createExperience()', () => {
         })
       })
 
+      const mockMetadata = {
+        tags: [{ sys: { type: 'Link' as const, linkType: 'Tag' as const, id: 'tag-1' } }],
+        concepts: [
+          { sys: { type: 'Link' as const, linkType: 'TaxonomyConcept' as const, id: 'c-1' } },
+        ],
+        name: 'Homepage hero',
+      }
+
       describe('.getMetadata()', () => {
-        it('returns an empty object when the snapshot carries no metadata', () => {
-          expect(experience!.experience.getMetadata()).to.deep.equal({})
+        it('returns undefined when the snapshot carries no metadata (matches entry/asset)', () => {
+          expect(experience!.experience.getMetadata()).to.be.undefined // eslint-disable-line no-unused-expressions
         })
 
         it('returns the metadata from the current snapshot', () => {
-          const metadata = {
-            tags: [{ sys: { type: 'Link' as const, linkType: 'Tag' as const, id: 'tag-1' } }],
-            concepts: [
-              { sys: { type: 'Link' as const, linkType: 'TaxonomyConcept' as const, id: 'c-1' } },
-            ],
-            name: 'Homepage hero',
-          }
           const experienceChangedHandler = channelStub.addHandler.getCall(2).args[1]
           experienceChangedHandler({
             sys: { id: 'exp-456', type: 'Experience' as const, version: 2 },
-            metadata,
+            metadata: mockMetadata,
           })
-          expect(experience!.experience.getMetadata()).to.deep.equal(metadata)
+          expect(experience!.experience.getMetadata()).to.deep.equal(mockMetadata)
         })
       })
 
@@ -337,6 +339,55 @@ describe('createExperience()', () => {
           const expectedPromise = Promise.resolve()
           channelStub.call.withArgs('exo.setExperienceMetadata').returns(expectedPromise)
           expect(experience!.experience.setMetadata({ tags: [] })).to.equal(expectedPromise)
+        })
+      })
+
+      describe('.onMetadataChanged(cb)', () => {
+        const dispatchSnapshot = (snapshot: any) =>
+          channelStub.addHandler.getCall(2).args[1](snapshot)
+
+        it('calls cb immediately with the initial metadata (undefined when absent)', () => {
+          const cb = sinon.stub()
+          experience!.experience.onMetadataChanged(cb)
+          expect(cb).to.have.been.calledOnceWith(undefined)
+        })
+
+        it('calls cb when metadata changes on exo.experienceChanged', () => {
+          const cb = sinon.stub()
+          experience!.experience.onMetadataChanged(cb)
+          cb.resetHistory()
+
+          dispatchSnapshot({
+            sys: { id: 'exp-456', type: 'Experience' as const, version: 2 },
+            metadata: mockMetadata,
+          })
+
+          expect(cb).to.have.been.calledOnceWith(mockMetadata)
+        })
+
+        it('does not call cb when a snapshot arrives with unchanged metadata', () => {
+          const cb = sinon.stub()
+          experience!.experience.onMetadataChanged(cb)
+          cb.resetHistory()
+
+          // Same (absent) metadata as the initial snapshot, only sys.version bumped.
+          dispatchSnapshot({ sys: { id: 'exp-456', type: 'Experience' as const, version: 2 } })
+
+          expect(cb).to.not.have.been.called // eslint-disable-line no-unused-expressions
+        })
+
+        it('does not call detached cb when exo.experienceChanged is dispatched', () => {
+          const cb = sinon.stub()
+          const detach = experience!.experience.onMetadataChanged(cb)
+          cb.resetHistory()
+          detach()
+
+          dispatchSnapshot({
+            sys: { id: 'exp-456', type: 'Experience' as const, version: 2 },
+            metadata: mockMetadata,
+          })
+
+          expect(cb).to.not.have.been.called // eslint-disable-line no-unused-expressions
         })
       })
 

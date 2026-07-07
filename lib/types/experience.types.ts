@@ -231,8 +231,8 @@ export type ExperienceSnapshot =
 export interface ExperienceAPI {
   get(): ExperienceSnapshot
   onChange(cb: (v: ExperienceSnapshot) => void): Unsubscribe
-  /** Reads the current experience/fragment metadata (tags, concepts, name). */
-  getMetadata(): ExperienceMetadata
+  /** Reads the current experience/fragment metadata, or `undefined` when the entity carries none (matches entry/asset). */
+  getMetadata(): ExperienceMetadata | undefined
   /**
    * Applies a partial update to the experience/fragment metadata, persisted on the next
    * {@link ExperienceAPI.save}. Only the keys present in `patch` are changed; a provided
@@ -240,6 +240,8 @@ export interface ExperienceAPI {
    * omitted key is left untouched. Resolves once the host has accepted the patch.
    */
   setMetadata(patch: Partial<ExperienceMetadata>): Promise<void>
+  /** Subscribes to metadata changes, invoking `cb` whenever the tags, concepts, or name change. */
+  onMetadataChanged(cb: (metadata?: ExperienceMetadata) => void): Unsubscribe
   save(): Promise<void>
   publish(): Promise<void>
   getNode(nodeId: string): ExperienceNodeAPI | null

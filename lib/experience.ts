@@ -107,11 +107,23 @@ function createExperienceAPI(channel: Channel, initial?: ExperienceSnapshot): Ex
     onChange(cb: (v: ExperienceSnapshot) => void): Unsubscribe {
       return experienceSignal.attach(cb)
     },
-    getMetadata(): ExperienceMetadata {
-      return experienceSignal.getMemoizedArgs()[0].metadata ?? {}
+    getMetadata(): ExperienceMetadata | undefined {
+      return experienceSignal.getMemoizedArgs()[0].metadata
     },
     setMetadata(patch: Partial<ExperienceMetadata>): Promise<void> {
       return channel.call('exo.setExperienceMetadata', patch)
+    },
+    onMetadataChanged(cb: (metadata?: ExperienceMetadata) => void): Unsubscribe {
+      // Diff-guard the memoized snapshot so sys-only churn doesn't fire a spurious metadata change.
+      let previous: string | undefined
+      let seeded = false
+      return experienceSignal.attach((snapshot) => {
+        const next = JSON.stringify(snapshot.metadata)
+        if (seeded && next === previous) return
+        seeded = true
+        previous = next
+        cb(snapshot.metadata)
+      })
     },
     save(): Promise<void> {
       return channel.call('exo.saveExperience')
