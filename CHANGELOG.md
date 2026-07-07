@@ -1,3 +1,9 @@
+# [4.63.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.62.1...v4.63.0) (2026-07-07)
+
+### Features
+
+- add experience metadata get/set/subscribe surface [EXT-7501] ([#2625](https://github.com/contentful/ui-extensions-sdk/issues/2625)) ([cf06653](https://github.com/contentful/ui-extensions-sdk/commit/cf0665372826f87996e029da72f36d166cc277b5))
+
 ## [4.62.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.62.0...v4.62.1) (2026-07-06)
 
 ### Bug Fixes
