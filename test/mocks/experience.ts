@@ -16,11 +16,5 @@ export const mockExperienceSnapshot: ExperienceSnapshot = {
 }
 
 export const mockExperienceInit = {
-  uiMode: 'form' as const,
-  experience: mockExperienceSnapshot,
-}
-
-export const mockExperienceInitVisualMode = {
-  uiMode: 'visual' as const,
   experience: mockExperienceSnapshot,
 }

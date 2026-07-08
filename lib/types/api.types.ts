@@ -23,7 +23,7 @@ import { EntryFieldInfo, FieldInfo } from './field.types'
 import { Adapter, KeyValueMap } from 'contentful-management'
 import { CMAClient } from './cmaClient.types'
 import { AgentAPI, AgentContext } from './agent.types'
-import { ExperienceSDK, ExperienceContext, UiMode, ExperienceSnapshot } from './experience.types'
+import { ExperienceSDK, ExperienceContext, ExperienceSnapshot } from './experience.types'
 
 /* User API */
 
@@ -449,7 +449,6 @@ export interface ConnectMessage {
   /** Experiences data; when present, SDK constructs sdk.experiences */
   experiences?: {
     context?: ExperienceContext
-    uiMode?: UiMode
     experience?: ExperienceSnapshot
   }
 }
