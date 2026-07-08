@@ -1,3 +1,9 @@
+## [4.63.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.63.0...v4.63.1) (2026-07-08)
+
+### Bug Fixes
+
+- drop experience UI mode from ExO toolbar SDK surface [EXT-7477] ([#2627](https://github.com/contentful/ui-extensions-sdk/issues/2627)) ([2b439d2](https://github.com/contentful/ui-extensions-sdk/commit/2b439d2383e8b393323ea256de48e6ba3cb86774))
+
 # [4.63.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.62.1...v4.63.0) (2026-07-07)
 
 ### Features
