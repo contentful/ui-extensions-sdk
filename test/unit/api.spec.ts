@@ -8,7 +8,6 @@ import {
   ConnectMessage,
   ExperienceEditorToolbarAppSDK,
   ExperienceSDK,
-  UiMode,
 } from '../../lib/types'
 import { mockRelease, mockReleaseWithoutEntities } from '../mocks/releases'
 import { baseConnectMessage, connectMessageWithAgent } from '../mocks/connectMessage'
@@ -169,20 +168,7 @@ describe('createAPI()', () => {
       },
     } as unknown as ConnectMessage
 
-    it('with experiences: { uiMode: "visual" } in handshake, sdk.experiences is defined and getUiMode() returns "visual"', () => {
-      const channel = { addHandler: () => () => {} } as any
-      const dom = makeDOM()
-      mockMutationObserver(dom, () => {})
-      mockResizeObserver(dom, () => {})
-
-      const data: ConnectMessage = { ...baseData, experiences: { uiMode: 'visual' } } as any
-      const api = createAPI(channel, data, dom.window as any as Window) as any
-
-      expect(api.experiences).to.be.an('object')
-      expect(api.experiences.getUiMode()).to.equal('visual')
-    })
-
-    it('with experiences: {} in handshake, getUiMode() returns "form"', () => {
+    it('with experiences: {} in handshake, sdk.experiences is defined', () => {
       const channel = { addHandler: () => () => {} } as any
       const dom = makeDOM()
       mockMutationObserver(dom, () => {})
@@ -192,7 +178,6 @@ describe('createAPI()', () => {
       const api = createAPI(channel, data, dom.window as any as Window) as any
 
       expect(api.experiences).to.be.an('object')
-      expect(api.experiences.getUiMode()).to.equal('form')
     })
 
     it('without experiences in handshake, building the experience-toolbar API throws', () => {
@@ -211,49 +196,13 @@ describe('createAPI()', () => {
       )
     })
 
-    it('onUiModeChanged fires on exo.uiModeChanged event; unsubscribe stops notifications', () => {
-      const experienceHandlers: Array<(payload: { mode: UiMode }) => void> = []
-      const channel = {
-        addHandler: (method: string, handler: any) => {
-          if (method === 'exo.uiModeChanged') experienceHandlers.push(handler)
-          return () => {
-            const i = experienceHandlers.indexOf(handler)
-            if (i !== -1) experienceHandlers.splice(i, 1)
-          }
-        },
-      } as any
-      const dom = makeDOM()
-      mockMutationObserver(dom, () => {})
-      mockResizeObserver(dom, () => {})
-
-      const data: ConnectMessage = { ...baseData, experiences: { uiMode: 'visual' } } as any
-      const api = createAPI(channel, data, dom.window as any as Window) as any
-
-      const modes: UiMode[] = []
-      const unsubscribe = api.experiences.onUiModeChanged((mode: UiMode) => modes.push(mode))
-
-      expect(api.experiences.getUiMode()).to.equal('visual')
-      expect(experienceHandlers).to.have.lengthOf(1)
-      // MemoizedSignal.attach calls the listener immediately with current value
-      expect(modes).to.deep.equal(['visual'])
-
-      const dispatchMode = experienceHandlers[0]
-      dispatchMode({ mode: 'form' })
-      expect(modes).to.deep.equal(['visual', 'form'])
-      expect(api.experiences.getUiMode()).to.equal('form')
-
-      unsubscribe()
-      dispatchMode({ mode: 'visual' })
-      expect(modes).to.deep.equal(['visual', 'form'])
-    })
-
-    it('ExperienceEditorToolbarAppSDK has experiences: ExperienceSDK; getUiMode returns UiMode', () => {
+    it('ExperienceEditorToolbarAppSDK exposes experiences: ExperienceSDK', () => {
       const channel = { addHandler: () => () => {} } as any
       const dom = makeDOM()
       mockMutationObserver(dom, () => {})
       mockResizeObserver(dom, () => {})
 
-      const data: ConnectMessage = { ...baseData, experiences: { uiMode: 'form' } } as any
+      const data: ConnectMessage = { ...baseData, experiences: {} } as any
       const api = createAPI(
         channel,
         data,
@@ -261,8 +210,7 @@ describe('createAPI()', () => {
       ) as ExperienceEditorToolbarAppSDK
 
       const experiences: ExperienceSDK = api.experiences
-      const mode: UiMode = experiences.getUiMode()
-      expect(mode).to.equal('form')
+      expect(experiences).to.be.an('object')
     })
 
     it('sdk.experiences.context reflects the context from handshake', () => {
@@ -273,7 +221,7 @@ describe('createAPI()', () => {
 
       const data: ConnectMessage = {
         ...baseData,
-        experiences: { context: { type: 'fragment', entityId: 'frag-456' }, uiMode: 'form' },
+        experiences: { context: { type: 'fragment', entityId: 'frag-456' } },
       } as any
       const api = createAPI(channel, data, dom.window as any as Window) as any
 
@@ -286,7 +234,7 @@ describe('createAPI()', () => {
       mockMutationObserver(dom, () => {})
       mockResizeObserver(dom, () => {})
 
-      const data: ConnectMessage = { ...baseData, experiences: { uiMode: 'visual' } } as any
+      const data: ConnectMessage = { ...baseData, experiences: {} } as any
       const api = createAPI(channel, data, dom.window as any as Window) as any
 
       expect(api.experiences.context).to.deep.equal({ type: 'experience', entityId: '' })

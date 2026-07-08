@@ -143,7 +143,6 @@ export type { CMAClient } from './cmaClient.types'
 
 export type {
   Unsubscribe,
-  UiMode,
   ExperienceContext,
   ExperienceSDK,
   ResourceLink,

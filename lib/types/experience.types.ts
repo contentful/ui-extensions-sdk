@@ -6,8 +6,6 @@ import { Link } from './utils'
 
 export type Unsubscribe = () => void
 
-export type UiMode = 'form' | 'visual'
-
 /* Bindings + property descriptors */
 
 export type EntryBinding = {
@@ -258,7 +256,5 @@ export interface ExperienceContext {
 export interface ExperienceSDK {
   context: ExperienceContext
   onContextChanged(cb: (context: ExperienceContext) => void): Unsubscribe
-  getUiMode(): UiMode
-  onUiModeChanged(cb: (mode: UiMode) => void): Unsubscribe
   experience: ExperienceAPI
 }

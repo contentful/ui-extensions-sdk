@@ -3,7 +3,6 @@ import { MemoizedSignal } from './signal'
 import {
   ExperienceSDK,
   ExperienceContext,
-  UiMode,
   Unsubscribe,
   ExperienceSnapshot,
   ExperienceMetadata,
@@ -33,7 +32,6 @@ export default function createExperience(
   channel: Channel,
   experienceInit?: {
     context?: ExperienceContext
-    uiMode?: UiMode
     experience?: ExperienceSnapshot
   },
 ): ExperienceSDK {
@@ -51,13 +49,6 @@ export default function createExperience(
     contextSignal.dispatch(payload)
   })
 
-  const initialMode: UiMode = experienceInit.uiMode ?? 'form'
-  const uiModeSignal = new MemoizedSignal<[UiMode]>(initialMode)
-
-  channel.addHandler('exo.uiModeChanged', (payload: { mode: UiMode }) => {
-    uiModeSignal.dispatch(payload.mode)
-  })
-
   const experience = createExperienceAPI(channel, experienceInit.experience)
 
   return {
@@ -66,12 +57,6 @@ export default function createExperience(
     },
     onContextChanged(cb: (context: ExperienceContext) => void): Unsubscribe {
       return contextSignal.attach(cb)
-    },
-    getUiMode(): UiMode {
-      return uiModeSignal.getMemoizedArgs()[0]
-    },
-    onUiModeChanged(cb: (mode: UiMode) => void): Unsubscribe {
-      return uiModeSignal.attach(cb)
     },
     experience,
   }
