@@ -492,6 +492,16 @@ describe('createExperience()', () => {
           expect(nodes).to.deep.equal([])
         })
 
+        it('replaces a stale cached instance when getRootNodes() resolves a different nodeType', async () => {
+          const staleNode = experience!.experience.getNode('n1')
+
+          channelStub.call.resolves([{ id: 'n1', nodeType: 'Slot' }])
+          const nodes = await experience!.experience.getRootNodes()
+
+          expect(nodes[0].nodeType).to.equal('Slot')
+          expect(nodes[0]).to.not.equal(staleNode)
+        })
+
         it('propagates rejection from channel.call without modification', async () => {
           channelStub.call.rejects(new Error('host boom'))
           await expect(experience!.experience.getRootNodes()).to.be.rejectedWith('host boom')
