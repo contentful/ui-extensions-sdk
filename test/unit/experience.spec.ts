@@ -422,6 +422,92 @@ describe('createExperience()', () => {
         })
       })
 
+      describe('.getRootNodes()', () => {
+        it('calls channel.call with "exo.getRootNodes" and no additional parameters', async () => {
+          channelStub.call.resolves([])
+          await experience!.experience.getRootNodes()
+          expect(channelStub.call).to.have.been.calledWith('exo.getRootNodes')
+        })
+
+        it('resolves a single ExperienceNodeAPI with the correct shape', async () => {
+          channelStub.call.resolves([{ id: 'n1', nodeType: 'Component' }])
+          const nodes = await experience!.experience.getRootNodes()
+
+          expect(nodes).to.have.lengthOf(1)
+          expect(nodes[0]).to.have.all.keys([
+            'id',
+            'nodeType',
+            'get',
+            'onChange',
+            'dataAssembly',
+            'getDesignProperty',
+            'setDesignProperty',
+            'onDesignPropertyChanged',
+            'getProperties',
+            'getSlotDescriptor',
+          ])
+          expect(nodes[0].id).to.equal('n1')
+          expect(nodes[0].nodeType).to.equal('Component')
+        })
+
+        it('resolves multiple mixed-type snapshots preserving order, ids, and nodeTypes', async () => {
+          channelStub.call.resolves([
+            { id: 'n1', nodeType: 'Component' },
+            { id: 'n2', nodeType: 'Slot' },
+          ])
+          const nodes = await experience!.experience.getRootNodes()
+
+          expect(nodes).to.have.lengthOf(2)
+          expect(nodes[0].id).to.equal('n1')
+          expect(nodes[0].nodeType).to.equal('Component')
+          expect(nodes[1].id).to.equal('n2')
+          expect(nodes[1].nodeType).to.equal('Slot')
+        })
+
+        it('reuses the same ExperienceNodeAPI instance returned by getNode() (cache dedup)', async () => {
+          const node = experience!.experience.getNode('n1')
+          const callsBefore = channelStub.addHandler.callCount
+
+          channelStub.call.resolves([{ id: 'n1', nodeType: 'Component' }])
+          const nodes = await experience!.experience.getRootNodes()
+
+          expect(nodes[0]).to.equal(node)
+          expect(channelStub.addHandler.callCount).to.equal(callsBefore)
+        })
+
+        it('reuses the same ExperienceNodeAPI instance across two getRootNodes() calls', async () => {
+          channelStub.call.resolves([{ id: 'n2', nodeType: 'Fragment' }])
+
+          const first = await experience!.experience.getRootNodes()
+          const callsBeforeSecond = channelStub.addHandler.callCount
+          const second = await experience!.experience.getRootNodes()
+
+          expect(second[0]).to.equal(first[0])
+          expect(channelStub.addHandler.callCount).to.equal(callsBeforeSecond)
+        })
+
+        it('resolves an empty array when the host reports an empty tree', async () => {
+          channelStub.call.resolves([])
+          const nodes = await experience!.experience.getRootNodes()
+          expect(nodes).to.deep.equal([])
+        })
+
+        it('replaces a stale cached instance when getRootNodes() resolves a different nodeType', async () => {
+          const staleNode = experience!.experience.getNode('n1')
+
+          channelStub.call.resolves([{ id: 'n1', nodeType: 'Slot' }])
+          const nodes = await experience!.experience.getRootNodes()
+
+          expect(nodes[0].nodeType).to.equal('Slot')
+          expect(nodes[0]).to.not.equal(staleNode)
+        })
+
+        it('propagates rejection from channel.call without modification', async () => {
+          channelStub.call.rejects(new Error('host boom'))
+          await expect(experience!.experience.getRootNodes()).to.be.rejectedWith('host boom')
+        })
+      })
+
       describe('.selection', () => {
         it('exposes get, onChange, set, and highlight', () => {
           expect(experience!.experience.selection).to.have.all.keys([

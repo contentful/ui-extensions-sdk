@@ -85,6 +85,20 @@ function createExperienceAPI(channel: Channel, initial?: ExperienceSnapshot): Ex
   // leak a handler on every call over a long-lived session. Construct-once, reuse by id.
   const nodeApis = new Map<string, ExperienceNodeAPI>()
 
+  // Single source of truth for the nodeApis cache, shared by getNode() and getRootNodes().
+  // When `nodeType` is provided and disagrees with a cached instance's type, the cached
+  // instance is stale (e.g. seeded as the 'Component' default by getNode() before
+  // getRootNodes() resolved its authoritative type) and is replaced.
+  function getOrCreateNodeApi(nodeId: string, nodeType?: ExperienceNodeType): ExperienceNodeAPI {
+    const cached = nodeApis.get(nodeId)
+    if (cached !== undefined && (nodeType === undefined || nodeType === cached.nodeType)) {
+      return cached
+    }
+    const nodeApi = createNodeAPI(channel, nodeId, nodeType)
+    nodeApis.set(nodeId, nodeApi)
+    return nodeApi
+  }
+
   return {
     get(): ExperienceSnapshot {
       return experienceSignal.getMemoizedArgs()[0]
@@ -117,19 +131,12 @@ function createExperienceAPI(channel: Channel, initial?: ExperienceSnapshot): Ex
       return channel.call('exo.publishExperience')
     },
     getNode(nodeId: string): ExperienceNodeAPI | null {
-      let nodeApi = nodeApis.get(nodeId)
-      if (nodeApi === undefined) {
-        nodeApi = createNodeAPI(channel, nodeId)
-        nodeApis.set(nodeId, nodeApi)
-      }
-      return nodeApi
+      return getOrCreateNodeApi(nodeId)
     },
-    getRootNodes(): ExperienceNodeAPI[] {
-      // Returns [] in this build: root-node access requires a synchronous view of
-      // the node tree, which the host has not yet pushed to the SDK. Until that
-      // handshake data is available, callers should resolve nodes by id via
-      // `getNode(nodeId)` instead.
-      return []
+    getRootNodes(): Promise<ExperienceNodeAPI[]> {
+      return channel
+        .call<ExperienceNodeSnapshot[]>('exo.getRootNodes')
+        .then((snapshots) => snapshots.map((s) => getOrCreateNodeApi(s.id, s.nodeType)))
     },
     selection,
     dataAssembly,

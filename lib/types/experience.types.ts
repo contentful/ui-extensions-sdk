@@ -243,7 +243,7 @@ export interface ExperienceAPI {
   save(): Promise<void>
   publish(): Promise<void>
   getNode(nodeId: string): ExperienceNodeAPI | null
-  getRootNodes(): ExperienceNodeAPI[]
+  getRootNodes(): Promise<ExperienceNodeAPI[]>
   selection: ExperienceSelectionAPI
   dataAssembly: DataAssemblyAPI
 }
