@@ -1,3 +1,9 @@
+# [4.64.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.63.1...v4.64.0) (2026-07-13)
+
+### Features
+
+- wire getRootNodes() channel.call in createExperienceAPI [AIS-208] ([#2628](https://github.com/contentful/ui-extensions-sdk/issues/2628)) ([c5364a5](https://github.com/contentful/ui-extensions-sdk/commit/c5364a52dd41c97b5893986a68734ed3fe51a519))
+
 ## [4.63.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.63.0...v4.63.1) (2026-07-08)
 
 ### Bug Fixes
