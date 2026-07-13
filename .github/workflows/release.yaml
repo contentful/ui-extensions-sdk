@@ -71,11 +71,6 @@ jobs:
           git config --global user.name 'contentful-automation[bot]'
           git config --global user.email '${{ steps.get-user-id.outputs.user-id }}+contentful-automation[bot]@users.noreply.github.com'
 
-      - name: Setup npmrc for publishing
-        run: |
-          echo "//npm.pkg.github.com/:_authToken=${{ steps.vault.outputs.GITHUB_PACKAGES_WRITE_TOKEN }}" > .npmrc
-          echo "@contentful:registry=https://npm.pkg.github.com" >> .npmrc
-
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
@@ -83,18 +78,19 @@ jobs:
           cache: 'npm'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Install latest npm
-        run: |
-          # Work around the npm self-upgrade regression on Node 22.22.2.
-          # See: https://github.com/npm/cli/issues/9151
-          npm install -g npm@11.11.1
-          npm install -g npm@latest
-
       - name: Install dependencies
         run: npm ci
 
       - name: Build
         run: npm run build
+
+      # After install: @contentful:registry rewrite is for publishing
+      # @contentful/app-sdk to GitHub Packages. Applying it before npm ci
+      # breaks under npm 12 (EALLOWREMOTE vs lockfile registry.npmjs.org URLs).
+      - name: Setup npmrc for publishing
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ steps.vault.outputs.GITHUB_PACKAGES_WRITE_TOKEN }}" > .npmrc
+          echo "@contentful:registry=https://npm.pkg.github.com" >> .npmrc
 
       - name: Run Release
         run: |
