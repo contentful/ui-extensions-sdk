@@ -243,7 +243,6 @@ export interface ExperienceAPI {
   save(): Promise<void>
   publish(): Promise<void>
   getNode(nodeId: string): ExperienceNodeAPI | null
-  /** Resolves the experience/fragment root nodes from the host over the channel. */
   getRootNodes(): Promise<ExperienceNodeAPI[]>
   selection: ExperienceSelectionAPI
   dataAssembly: DataAssemblyAPI
