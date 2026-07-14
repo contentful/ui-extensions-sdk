@@ -1,3 +1,9 @@
+# [4.65.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.64.0...v4.65.0) (2026-07-14)
+
+### Features
+
+- add ExO ids to AgentContext metadata [AIS-201] ([#2630](https://github.com/contentful/ui-extensions-sdk/issues/2630)) ([c3be367](https://github.com/contentful/ui-extensions-sdk/commit/c3be367f2e8c79773d154952940709267e73ac9b))
+
 # [4.64.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.63.1...v4.64.0) (2026-07-13)
 
 ### Features
