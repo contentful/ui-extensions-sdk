@@ -4,6 +4,10 @@ export interface AgentContext {
     entryId?: string
     contentTypeId?: string
     lastFocusedFieldId?: string
+    experienceId?: string
+    experienceFragmentId?: string
+    componentId?: string
+    experienceTemplateId?: string
   }
 }
 
