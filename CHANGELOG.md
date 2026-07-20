@@ -1,3 +1,9 @@
+# [4.66.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.65.0...v4.66.0) (2026-07-20)
+
+### Features
+
+- add navigator.openExperience and openComponent [AIS-202] ([#2632](https://github.com/contentful/ui-extensions-sdk/issues/2632)) ([fff17dc](https://github.com/contentful/ui-extensions-sdk/commit/fff17dc644a17a3b05424980064a985ea7fca543))
+
 # [4.65.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.64.0...v4.65.0) (2026-07-14)
 
 ### Features
