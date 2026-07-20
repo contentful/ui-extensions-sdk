@@ -79,6 +79,12 @@ export default function createNavigator(
         releaseId,
       }) as Promise<void>
     },
+    openExperience: (experienceId: string) => {
+      return channel.call('navigateToExperience', { id: experienceId }) as Promise<void>
+    },
+    openComponent: (componentId: string) => {
+      return channel.call('navigateToComponent', { id: componentId }) as Promise<void>
+    },
     onSlideInNavigation: (handler) => {
       return _onSlideInSignal.attach(handler)
     },

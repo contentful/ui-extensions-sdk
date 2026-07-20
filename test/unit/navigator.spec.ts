@@ -111,6 +111,18 @@ const SCENARIOS = [
     expected: { route: 'assets', releaseId: undefined },
     channelMethod: 'navigateToSpaceEnvRoute',
   },
+  {
+    method: 'openExperience',
+    args: ['experience-id'],
+    expected: { id: 'experience-id' },
+    channelMethod: 'navigateToExperience',
+  },
+  {
+    method: 'openComponent',
+    args: ['component-id'],
+    expected: { id: 'component-id' },
+    channelMethod: 'navigateToComponent',
+  },
 ]
 
 describe('createNavigator()', () => {

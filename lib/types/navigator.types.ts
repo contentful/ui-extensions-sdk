@@ -78,5 +78,9 @@ export interface NavigatorAPI {
   openAppConfig: () => Promise<void>
   openEntriesList: (options?: Pick<NavigatorAPIOptions, 'releaseId'>) => Promise<void>
   openAssetsList: (options?: Pick<NavigatorAPIOptions, 'releaseId'>) => Promise<void>
+  /** Opens an existing Experience in the Experience Canvas (full-page). */
+  openExperience: (experienceId: string) => Promise<void>
+  /** Opens an existing Component in the Component Canvas (full-page). */
+  openComponent: (componentId: string) => Promise<void>
   onSlideInNavigation: (fn: (slide: NavigatorSlideInfo) => void) => () => void
 }
