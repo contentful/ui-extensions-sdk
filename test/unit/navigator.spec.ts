@@ -114,7 +114,7 @@ const SCENARIOS = [
   {
     method: 'openExperience',
     args: ['experience-id'],
-    expected: { id: 'experience-id' },
+    expected: { id: 'experience-id', releaseId: undefined },
     channelMethod: 'navigateToExperience',
   },
   {
@@ -312,6 +312,28 @@ describe('createNavigator()', () => {
       })
     })
 
+    describe('openExperience with release', () => {
+      it('should pass releaseId when release exists', () => {
+        const navigator = createNavigator(channel, ids, mockRelease)
+
+        navigator.openExperience('experience-id')
+        expect(channel.call).to.have.been.calledWith('navigateToExperience', {
+          id: 'experience-id',
+          releaseId: 'test-release-id',
+        })
+      })
+
+      it('should pass releaseId as undefined when release is undefined', () => {
+        const navigator = createNavigator(channel, ids, undefined)
+
+        navigator.openExperience('experience-id')
+        expect(channel.call).to.have.been.calledWith('navigateToExperience', {
+          id: 'experience-id',
+          releaseId: undefined,
+        })
+      })
+    })
+
     describe('methods that do not handle releaseId', () => {
       it('should not pass releaseId in openNewEntry', () => {
         const navigator = createNavigator(channel, ids, mockRelease)
@@ -372,6 +394,15 @@ describe('createNavigator()', () => {
 
         navigator.openAppConfig()
         expect(channel.call).to.have.been.calledWith('navigateToAppConfig')
+      })
+
+      it('should not pass releaseId in openComponent', () => {
+        const navigator = createNavigator(channel, ids, mockRelease)
+
+        navigator.openComponent('component-id')
+        expect(channel.call).to.have.been.calledWith('navigateToComponent', {
+          id: 'component-id',
+        })
       })
     })
   })
