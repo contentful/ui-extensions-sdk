@@ -78,5 +78,13 @@ export interface NavigatorAPI {
   openAppConfig: () => Promise<void>
   openEntriesList: (options?: Pick<NavigatorAPIOptions, 'releaseId'>) => Promise<void>
   openAssetsList: (options?: Pick<NavigatorAPIOptions, 'releaseId'>) => Promise<void>
+  /**
+   * Opens an existing Experience in the Experience Canvas (full-page).
+   * When the SDK session has an active release, navigation preserves that release context
+   * (same ambient model as `openEntry` / `openEntriesList`).
+   */
+  openExperience: (experienceId: string) => Promise<void>
+  /** Opens an existing Component in the Component Canvas (full-page). */
+  openComponent: (componentId: string) => Promise<void>
   onSlideInNavigation: (fn: (slide: NavigatorSlideInfo) => void) => () => void
 }
