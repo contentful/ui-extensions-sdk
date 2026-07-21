@@ -354,7 +354,7 @@ export type AgentAppSDK<InstallationParameters extends KeyValueMap = KeyValueMap
   window: WindowAPI
 }
 
-export type ExperienceEditorToolbarAppSDK<
+export type ExperienceCanvasToolbarAppSDK<
   InstallationParameters extends KeyValueMap = KeyValueMap,
 > = Omit<BaseAppSDK<InstallationParameters, never, never>, 'ids'> & {
   ids: Omit<IdsAPI, EntryScopedIds>
@@ -377,7 +377,7 @@ export type KnownAppSDK<
   | ConfigAppSDK<InstallationParameters>
   | HomeAppSDK<InstallationParameters>
   | AgentAppSDK<InstallationParameters>
-  | ExperienceEditorToolbarAppSDK<InstallationParameters>
+  | ExperienceCanvasToolbarAppSDK<InstallationParameters>
 
 /** @deprecated consider using {@link BaseAppSDK} */
 export type BaseExtensionSDK = BaseAppSDK

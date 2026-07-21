@@ -26,7 +26,7 @@ import {
  * Creates the Experience SDK namespace for the experience-toolbar location.
  *
  * Throws when called without handshake `experiences` data, mirroring `createAgent`. This keeps the
- * public `ExperienceEditorToolbarAppSDK['experiences']` type sound (non-optional, always present).
+ * public `ExperienceCanvasToolbarAppSDK['experiences']` type sound (non-optional, always present).
  */
 export default function createExperience(
   channel: Channel,
