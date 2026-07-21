@@ -1,3 +1,9 @@
+## [4.66.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.66.0...v4.66.1) (2026-07-21)
+
+### Bug Fixes
+
+- update CODEOWNERS to use group-applied-ai-solutions [AIS-66] ([#2633](https://github.com/contentful/ui-extensions-sdk/issues/2633)) ([aedf526](https://github.com/contentful/ui-extensions-sdk/commit/aedf526ce44750b34c4aecb149fddf1619397772))
+
 # [4.66.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.65.0...v4.66.0) (2026-07-20)
 
 ### Features
