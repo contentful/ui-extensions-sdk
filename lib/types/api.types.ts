@@ -360,6 +360,8 @@ export type ExperienceEditorToolbarAppSDK<
   ids: Omit<IdsAPI, EntryScopedIds>
   /** Experience SDK for experience-toolbar location */
   experiences: ExperienceSDK
+  /** Methods to update the size of the iframe the app is contained within.  */
+  window: WindowAPI
 }
 
 export type KnownAppSDK<

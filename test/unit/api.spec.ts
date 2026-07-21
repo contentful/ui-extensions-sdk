@@ -239,6 +239,25 @@ describe('createAPI()', () => {
 
       expect(api.experiences.context).to.deep.equal({ type: 'experience', entityId: '' })
     })
+
+    it('exposes a window API for auto-resize', () => {
+      const channel = { addHandler: () => () => {} } as any
+      const dom = makeDOM()
+      mockMutationObserver(dom, () => {})
+      mockResizeObserver(dom, () => {})
+
+      const data: ConnectMessage = { ...baseData, experiences: {} } as any
+      const api = createAPI(
+        channel,
+        data,
+        dom.window as any as Window,
+      ) as ExperienceEditorToolbarAppSDK
+
+      expect(api.window).to.not.equal(undefined)
+      expect(api.window.startAutoResizer).to.be.a('function')
+      expect(api.window.stopAutoResizer).to.be.a('function')
+      expect(api.window.updateHeight).to.be.a('function')
+    })
   })
 
   it('returns correct shape of the app API (app)', () => {
