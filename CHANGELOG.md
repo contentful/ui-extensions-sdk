@@ -1,3 +1,9 @@
+# [4.67.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.66.1...v4.67.0) (2026-07-21)
+
+### Features
+
+- expose window API on experience-toolbar SDK [AIS-311] ([#2634](https://github.com/contentful/ui-extensions-sdk/issues/2634)) ([466b759](https://github.com/contentful/ui-extensions-sdk/commit/466b759de302ca3c67da6ca96b21007cb0cc53c7))
+
 ## [4.66.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.66.0...v4.66.1) (2026-07-21)
 
 ### Bug Fixes
