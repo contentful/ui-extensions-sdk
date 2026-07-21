@@ -1,3 +1,7 @@
+import type { KeyValueMap } from 'contentful-management'
+
+import type { ExperienceCanvasToolbarAppSDK } from './api.types'
+
 export type {
   AppExtensionSDK,
   BaseExtensionSDK,
@@ -35,8 +39,13 @@ export type {
   JSONPatchItem,
   HostnamesAPI,
   AgentAppSDK,
-  ExperienceEditorToolbarAppSDK,
+  ExperienceCanvasToolbarAppSDK,
 } from './api.types'
+
+/** @deprecated Renamed to ExperienceCanvasToolbarAppSDK. Alias kept for the internal migration window; will be removed. */
+export type ExperienceEditorToolbarAppSDK<
+  InstallationParameters extends KeyValueMap = KeyValueMap,
+> = ExperienceCanvasToolbarAppSDK<InstallationParameters>
 
 export type {
   AgentAPI,

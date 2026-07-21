@@ -2,7 +2,12 @@ import { describeAttachHandlerMember, sinon, expect } from '../helpers'
 
 import createExperience from '../../lib/experience'
 import { Channel } from '../../lib/channel'
-import { mockExperienceInit, mockExperienceSnapshot } from '../mocks/experience'
+import {
+  mockExperienceInit,
+  mockExperienceSnapshot,
+  mockFragmentSnapshot,
+  mockExperienceFragmentSnapshot,
+} from '../mocks/experience'
 
 describe('createExperience()', () => {
   let channelStub: any
@@ -163,6 +168,22 @@ describe('createExperience()', () => {
           const experienceChangedHandler = channelStub.addHandler.getCall(1).args[1]
           experienceChangedHandler(updatedSnapshot)
           expect(experience!.experience.get()).to.deep.equal(updatedSnapshot)
+        })
+
+        it('carries the legacy Fragment snapshot shape (componentType) through unchanged', () => {
+          const experienceChangedHandler = channelStub.addHandler.getCall(1).args[1]
+          experienceChangedHandler(mockFragmentSnapshot)
+          const snapshot = experience!.experience.get()
+          expect(snapshot.sys.type).to.equal('Fragment')
+          expect(snapshot).to.deep.equal(mockFragmentSnapshot)
+        })
+
+        it('carries the canonical ExperienceFragment snapshot shape (component) through unchanged', () => {
+          const experienceChangedHandler = channelStub.addHandler.getCall(1).args[1]
+          experienceChangedHandler(mockExperienceFragmentSnapshot)
+          const snapshot = experience!.experience.get()
+          expect(snapshot.sys.type).to.equal('ExperienceFragment')
+          expect(snapshot).to.deep.equal(mockExperienceFragmentSnapshot)
         })
       })
 

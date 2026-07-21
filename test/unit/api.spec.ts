@@ -6,7 +6,7 @@ import {
   AgentAppSDK,
   ConfigAppSDK,
   ConnectMessage,
-  ExperienceEditorToolbarAppSDK,
+  ExperienceCanvasToolbarAppSDK,
   ExperienceSDK,
 } from '../../lib/types'
 import { mockRelease, mockReleaseWithoutEntities } from '../mocks/releases'
@@ -196,7 +196,7 @@ describe('createAPI()', () => {
       )
     })
 
-    it('ExperienceEditorToolbarAppSDK exposes experiences: ExperienceSDK', () => {
+    it('ExperienceCanvasToolbarAppSDK exposes experiences: ExperienceSDK', () => {
       const channel = { addHandler: () => () => {} } as any
       const dom = makeDOM()
       mockMutationObserver(dom, () => {})
@@ -207,7 +207,7 @@ describe('createAPI()', () => {
         channel,
         data,
         dom.window as any as Window,
-      ) as ExperienceEditorToolbarAppSDK
+      ) as ExperienceCanvasToolbarAppSDK
 
       const experiences: ExperienceSDK = api.experiences
       expect(experiences).to.be.an('object')
@@ -251,7 +251,7 @@ describe('createAPI()', () => {
         channel,
         data,
         dom.window as any as Window,
-      ) as ExperienceEditorToolbarAppSDK
+      ) as ExperienceCanvasToolbarAppSDK
 
       expect(api.window).to.not.equal(undefined)
       expect(api.window.startAutoResizer).to.be.a('function')
