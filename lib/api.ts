@@ -48,7 +48,7 @@ const LOCATION_TO_API_PRODUCERS: { [location: string]: ProducerFunc[] } = {
   [locations.LOCATION_HOME]: [makeSharedAPI],
   [locations.LOCATION_APP_CONFIG]: [makeSharedAPI, makeAppAPI],
   [locations.LOCATION_AGENT]: [makeSharedAPI, makeAgentAPI, makeWindowAPI],
-  [locations.LOCATION_EXPERIENCE_TOOLBAR]: [makeSharedAPI, makeExperienceAPI],
+  [locations.LOCATION_EXPERIENCE_TOOLBAR]: [makeSharedAPI, makeExperienceAPI, makeWindowAPI],
 }
 
 export default function createAPI(
