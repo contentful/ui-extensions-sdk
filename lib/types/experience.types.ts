@@ -51,7 +51,7 @@ export type SameSpaceContentSource = 'crn:contentful:::content:spaces/$self/envi
 
 /**
  * A reference to a Contentful resource, addressed by `urn`. `linkType` is a `Contentful:`-prefixed
- * resource type (e.g. `'Contentful:Template'`).
+ * resource type (e.g. `'Contentful:Template'` / its canonical `'Contentful:ExperienceTemplate'`).
  */
 export interface ResourceLink<T extends string = string> {
   sys: {
@@ -126,17 +126,30 @@ export interface DataAssemblyAPI extends DataAssemblyParameterAPI {
   onChange(cb: (snapshot: DataAssemblySnapshot) => void): Unsubscribe
 }
 
-/** The type of a node within an experience/fragment tree. */
-export type ExperienceNodeType = 'Component' | 'Fragment' | 'InlineFragment' | 'Slot'
+/**
+ * The type of a node within an experience/fragment tree. Accepts both the current
+ * (`Fragment`/`InlineFragment`) and upcoming canonical (`ExperienceFragment`/`InlineExperienceFragment`)
+ * vocabulary — the same node entity, named differently across the ExO data-model transition.
+ */
+export type ExperienceNodeType =
+  | 'Component'
+  | 'Fragment'
+  | 'ExperienceFragment'
+  | 'InlineFragment'
+  | 'InlineExperienceFragment'
+  | 'Slot'
 
 export interface ExperienceNodeSnapshot {
   id: string
   nodeType: ExperienceNodeType
 }
 
-/** One allowed resource for a slot: the Component(s) that may be placed in it. */
+/**
+ * One allowed resource for a slot: the Component(s) that may be placed in it. `type` accepts both
+ * the current (`Contentful:ComponentType`) and upcoming canonical (`Contentful:Component`) URN.
+ */
 export interface SlotAllowedResource {
-  type: 'Contentful:ComponentType'
+  type: 'Contentful:ComponentType' | 'Contentful:Component'
   source: string
   allowedTypes: string[]
 }
@@ -144,7 +157,10 @@ export interface SlotAllowedResource {
 export interface SlotDescriptor {
   id: string
   allowedResources: SlotAllowedResource[]
-  currentItems: Array<{ nodeId: string; nodeType: 'Fragment' | 'InlineFragment' }>
+  currentItems: Array<{
+    nodeId: string
+    nodeType: 'Fragment' | 'ExperienceFragment' | 'InlineFragment' | 'InlineExperienceFragment'
+  }>
 }
 
 /**
@@ -201,10 +217,13 @@ export interface ExperienceMetadata {
 }
 
 /**
- * Snapshot of the root entity being edited. Discriminated on `sys.type`:
- * an `Experience` (optionally backed by a template) or a `Fragment` (no template).
- * `Experience.sys.template` is optional, and `Fragment.sys` carries a `componentType`
- * ResourceLink and no template.
+ * Snapshot of the root entity being edited, discriminated on `sys.type`. Three arms:
+ * an `Experience` (optionally backed by a template) plus two shapes of the same fragment
+ * entity — `Fragment` (current vocabulary: `sys.componentType`, `Contentful:ComponentType`)
+ * and `ExperienceFragment` (upcoming canonical vocabulary: `sys.component`, `Contentful:Component`).
+ * `Fragment` and `ExperienceFragment` are the same entity in legacy vs canonical shape; both are
+ * accepted so apps stay forward-compatible across the ExO data-model transition. The `Experience`
+ * arm carries an optional `template`/`experienceTemplate` (an experience may be un-templated).
  */
 export type ExperienceSnapshot =
   | {
@@ -213,6 +232,7 @@ export type ExperienceSnapshot =
         type: 'Experience'
         version: number
         template?: ResourceLink<'Contentful:Template'>
+        experienceTemplate?: ResourceLink<'Contentful:ExperienceTemplate'>
       }
       metadata?: ExperienceMetadata
     }
@@ -222,6 +242,15 @@ export type ExperienceSnapshot =
         type: 'Fragment'
         version: number
         componentType: ResourceLink<'Contentful:ComponentType'>
+      }
+      metadata?: ExperienceMetadata
+    }
+  | {
+      sys: {
+        id: string
+        type: 'ExperienceFragment'
+        version: number
+        component: ResourceLink<'Contentful:Component'>
       }
       metadata?: ExperienceMetadata
     }
@@ -249,7 +278,7 @@ export interface ExperienceAPI {
 }
 
 export interface ExperienceContext {
-  type: 'experience' | 'fragment'
+  type: 'experience' | 'fragment' | 'experienceFragment'
   entityId: string
 }
 
