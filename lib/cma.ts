@@ -4,10 +4,9 @@ import { CMAClient } from './types/cmaClient.types'
 import type { IdsAPI } from './types/api.types'
 import type { Channel } from './channel'
 
-// `contentful-management` is external, so its bundled shape depends on the
-// consumer's bundler: some expose `createClient` directly, others wrap it under
-// `default` (CJS↔ESM interop). Resolve both so a bare named import can't end up
-// `undefined` and throw `createClient is not a function` inside `init()`.
+// `contentful-management` is an external dependency, so the runtime shape
+// depends on the consumer's bundler: `createClient` may sit on the namespace
+// directly or under `default` (interop wrapper). Resolve both.
 type ContentfulManagementModule = typeof contentfulManagement & {
   default?: Partial<typeof contentfulManagement>
 }
@@ -18,10 +17,12 @@ export function resolveCreateClient(
   const createClient = mod.createClient ?? mod.default?.createClient
 
   if (typeof createClient !== 'function') {
+    const received = mod === null || mod === undefined ? String(mod) : typeof mod
     throw new TypeError(
-      "Could not resolve `createClient` from 'contentful-management'. " +
-        'This usually means an incompatible or duplicate version was bundled. ' +
-        'Ensure a single contentful-management copy resolves in your app.',
+      `Could not resolve \`createClient\` from 'contentful-management' (resolved to a ${received}). ` +
+        'Ensure your bundler bundles contentful-management as a module — some ' +
+        'bundlers emit its `.cjs` entry as a static asset; excluding `.cjs` from ' +
+        'asset/file loaders resolves this.',
     )
   }
 
