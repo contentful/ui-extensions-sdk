@@ -1,3 +1,9 @@
+# [4.68.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.67.0...v4.68.0) (2026-07-21)
+
+### Features
+
+- align App SDK ExO vocabulary to canonical names [AIS-307] ([#2636](https://github.com/contentful/ui-extensions-sdk/issues/2636)) ([b6aa251](https://github.com/contentful/ui-extensions-sdk/commit/b6aa251d1f5bbfcba6ebcd917d773ba12aa5ad98))
+
 # [4.67.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.66.1...v4.67.0) (2026-07-21)
 
 ### Features
