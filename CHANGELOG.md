@@ -1,3 +1,9 @@
+## [4.68.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.68.0...v4.68.1) (2026-07-27)
+
+### Bug Fixes
+
+- clarify createClient resolution and improve unresolved error [AIS-59] ([#2615](https://github.com/contentful/ui-extensions-sdk/issues/2615)) ([56964ab](https://github.com/contentful/ui-extensions-sdk/commit/56964ab01b0b6973cd48500374c2891425922191))
+
 # [4.68.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.67.0...v4.68.0) (2026-07-21)
 
 ### Features
