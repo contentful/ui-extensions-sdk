@@ -207,12 +207,17 @@ export interface ExperienceSelectionAPI {
 
 /**
  * Editable metadata carried by an experience or fragment: taxonomy `tags` and `concepts`,
- * plus the entity `name`. `tags` and `concepts` are classic `Link`s (`sys.type: 'Link'`),
+ * plus a `name`. `tags` and `concepts` are classic `Link`s (`sys.type: 'Link'`),
  * distinct from the `ResourceLink`s used elsewhere in this surface.
  */
 export interface ExperienceMetadata {
   tags?: Link<'Tag', 'Link'>[]
   concepts?: Link<'TaxonomyConcept', 'Link'>[]
+  /**
+   * Display name of the *optimization variant*, not of the entity — it is only populated for
+   * variant entities and is `undefined` on a base experience or fragment. For the entity's own
+   * display name read {@link ExperienceSnapshot}'s top-level `name`.
+   */
   name?: string
 }
 
@@ -224,6 +229,11 @@ export interface ExperienceMetadata {
  * `Fragment` and `ExperienceFragment` are the same entity in legacy vs canonical shape; both are
  * accepted so apps stay forward-compatible across the ExO data-model transition. The `Experience`
  * arm carries an optional `template`/`experienceTemplate` (an experience may be un-templated).
+ *
+ * Every arm carries the entity's display `name`. It is optional because the host populates it and
+ * hosts version independently of apps: a host predating this field sends none, and the initial
+ * snapshot is a placeholder until the first `exo.experienceChanged` arrives. Do not confuse it with
+ * {@link ExperienceMetadata.name}, which is the optimization variant's name.
  */
 export type ExperienceSnapshot =
   | {
@@ -234,6 +244,8 @@ export type ExperienceSnapshot =
         template?: ResourceLink<'Contentful:Template'>
         experienceTemplate?: ResourceLink<'Contentful:ExperienceTemplate'>
       }
+      /** Display name of the entity being edited, as shown in the experience editor. */
+      name?: string
       metadata?: ExperienceMetadata
     }
   | {
@@ -243,6 +255,8 @@ export type ExperienceSnapshot =
         version: number
         componentType: ResourceLink<'Contentful:ComponentType'>
       }
+      /** Display name of the entity being edited, as shown in the experience editor. */
+      name?: string
       metadata?: ExperienceMetadata
     }
   | {
@@ -252,6 +266,8 @@ export type ExperienceSnapshot =
         version: number
         component: ResourceLink<'Contentful:Component'>
       }
+      /** Display name of the entity being edited, as shown in the experience editor. */
+      name?: string
       metadata?: ExperienceMetadata
     }
 
