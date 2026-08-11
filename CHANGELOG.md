@@ -1,3 +1,9 @@
+# [4.69.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.68.1...v4.69.0) (2026-08-11)
+
+### Features
+
+- expose entity display name on ExperienceSnapshot [NT-3901] ([#2644](https://github.com/contentful/ui-extensions-sdk/issues/2644)) ([6b5540f](https://github.com/contentful/ui-extensions-sdk/commit/6b5540ff5e8af29be87593916d0446635ef8eaf2))
+
 ## [4.68.1](https://github.com/contentful/ui-extensions-sdk/compare/v4.68.0...v4.68.1) (2026-07-27)
 
 ### Bug Fixes
