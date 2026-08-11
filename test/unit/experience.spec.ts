@@ -185,6 +185,35 @@ describe('createExperience()', () => {
           expect(snapshot.sys.type).to.equal('ExperienceFragment')
           expect(snapshot).to.deep.equal(mockExperienceFragmentSnapshot)
         })
+
+        it('exposes the entity display name sent by the host', () => {
+          const experienceChangedHandler = channelStub.addHandler.getCall(1).args[1]
+          experienceChangedHandler({
+            sys: { id: 'exp-456', type: 'Experience' as const, version: 2 },
+            name: 'Homepage hero',
+          })
+          expect(experience!.experience.get().name).to.equal('Homepage hero')
+        })
+
+        it('leaves name undefined when the host sends none', () => {
+          const experienceChangedHandler = channelStub.addHandler.getCall(1).args[1]
+          experienceChangedHandler({
+            sys: { id: 'exp-456', type: 'Experience' as const, version: 2 },
+          })
+          // eslint-disable-next-line no-unused-expressions
+          expect(experience!.experience.get().name).to.be.undefined
+        })
+
+        it('keeps the entity name independent of the variant name in metadata', () => {
+          const experienceChangedHandler = channelStub.addHandler.getCall(1).args[1]
+          experienceChangedHandler({
+            sys: { id: 'exp-456', type: 'Experience' as const, version: 2 },
+            name: 'Homepage hero',
+            metadata: { name: 'Variant B' },
+          })
+          expect(experience!.experience.get().name).to.equal('Homepage hero')
+          expect(experience!.experience.getMetadata()).to.deep.equal({ name: 'Variant B' })
+        })
       })
 
       describe('.onChange(cb)', () => {
