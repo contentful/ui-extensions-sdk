@@ -40,7 +40,7 @@ jobs:
             secret/data/github/automation-app-user GH_USER_EMAIL | GIT_COMMITTER_EMAIL ;
 
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
           ref: ${{ github.event.workflow_run.head_branch || github.ref }}
