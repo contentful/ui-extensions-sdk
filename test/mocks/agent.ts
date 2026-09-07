@@ -6,6 +6,7 @@ export const mockAgentContext: AgentContext = {
     entryId: 'test-entry-123',
     contentTypeId: 'test-content-type-456',
     lastFocusedFieldId: 'test-field-789',
+    variantId: 'test-variant-123',
   },
 }
 

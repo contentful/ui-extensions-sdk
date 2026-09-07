@@ -5,6 +5,7 @@ export interface AgentContext {
     contentTypeId?: string
     lastFocusedFieldId?: string
     experienceId?: string
+    variantId?: string
     experienceFragmentId?: string
     componentId?: string
     experienceTemplateId?: string
