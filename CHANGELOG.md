@@ -1,3 +1,9 @@
+# [4.70.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.69.0...v4.70.0) (2026-09-09)
+
+### Features
+
+- expose variant id in agent context [EXA-2362] ([#2655](https://github.com/contentful/ui-extensions-sdk/issues/2655)) ([c864876](https://github.com/contentful/ui-extensions-sdk/commit/c864876fbcf1ea5ed033ce91fab21e2c5584b016))
+
 # [4.69.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.68.1...v4.69.0) (2026-08-11)
 
 ### Features
