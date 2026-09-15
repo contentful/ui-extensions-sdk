@@ -129,7 +129,7 @@ Pre-publish dry-run runs in `verifyConditions` via `scripts/verify.js`, which us
 ## Getting help
 
 - **CI alerts** route to `#prd-extensibility-bots` (per `catalog-info.yaml`).
-- **Owning teams**: `@contentful/team-extensibility` and `@contentful/team-marketplace` (per CODEOWNERS).
+- **Owning teams**: `@contentful/group-applied-ai-solutions` and `@contentful/group-applied-ai-solutions` (per CODEOWNERS).
 - **Customer-facing reference**: [Contentful Docs — App SDK Reference](https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/).
 
 ## Troubleshooting

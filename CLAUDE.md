@@ -5,7 +5,7 @@ You are working in the **`ui-extensions-sdk`** repo (`github.com/contentful/ui-e
 ## Identity & Scope
 
 - This is a public, customer-facing TypeScript library. Public types are a contract: thousands of customer apps and many internal repos consume `lib/types/index.ts`.
-- Co-owned by `@contentful/team-extensibility` and `@contentful/team-marketplace`.
+- Co-owned by `@contentful/group-applied-ai-solutions` and `@contentful/group-applied-ai-solutions`.
 - Bundle size is policed by CI. Adding a runtime dependency is almost always wrong — `contentful-management` is currently the only one.
 
 ## Working style

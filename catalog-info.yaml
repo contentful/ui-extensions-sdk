@@ -20,6 +20,6 @@ spec:
   lifecycle: production
   system: app-framework
   # owner: takes a single group; co-ownership with team-marketplace is enforced via CODEOWNERS.
-  owner: group:team-extensibility
+  owner: group:group-applied-ai-solutions
   dependsOn:
     - component:default/contentful-management.js
