@@ -4,7 +4,7 @@
 This is the **`ui-extensions-sdk`** repository (`github.com/contentful/ui-extensions-sdk`). It builds and publishes the **App SDK** to npm under two package names: **`@contentful/app-sdk`** (preferred — use this in all new code, examples, and documentation) and **`contentful-ui-extensions-sdk`** (legacy alias retained for installed-base compatibility). Repo name and package names diverged for historical reasons; do not rename the repo.
 
 ## Ownership
-`@contentful/group-applied-ai-solutions` and `@contentful/group-applied-ai-solutions` (co-owned per [`.github/CODEOWNERS`](./.github/CODEOWNERS)).
+`@contentful/group-applied-ai-solutions` (co-owned per [`.github/CODEOWNERS`](./.github/CODEOWNERS)).
 
 ## Where to look
 | You want to… | Read this |
