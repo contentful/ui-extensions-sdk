@@ -16,6 +16,7 @@ import {
   DataAssemblySnapshot,
   DataAssemblySummary,
   DataAssemblyParameterDefinition,
+  DataAssemblyParameterDefinitions,
   DataAssemblyParameterValue,
   ComponentPropertyDescriptor,
   DesignValue,
@@ -229,7 +230,7 @@ function createParameterAPI(
   ...args: unknown[]
 ): DataAssemblyParameterAPI {
   return {
-    getParameterDefinitions(): Promise<Record<string, DataAssemblyParameterDefinition>> {
+    getParameterDefinitions(): Promise<DataAssemblyParameterDefinitions> {
       return channel.call(scope.definitions, ...args)
     },
     getParameterDefinition(parameterId: string): Promise<DataAssemblyParameterDefinition | null> {

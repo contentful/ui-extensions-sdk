@@ -61,21 +61,112 @@ export interface ResourceLink<T extends string = string> {
   }
 }
 
-/** One allowed resource for a Data Assembly ResourceLink parameter. */
-export interface AllowedResource {
+/** An entry resource accepted by a Data Assembly ResourceLink parameter. */
+export interface AllowedEntryResource {
   type: 'Contentful:Entry'
   source: SameSpaceContentSource
   allowedTypes: string[]
 }
 
-/** Definition of a single Data Assembly parameter. */
-export interface DataAssemblyParameterDefinition {
+/** An asset resource accepted by a Data Assembly ResourceLink parameter. */
+export interface AllowedAssetResource {
+  type: 'Contentful:Asset'
+  source: SameSpaceContentSource
+}
+
+/** One resource accepted by a Data Assembly ResourceLink parameter. */
+export type AllowedResource = AllowedEntryResource | AllowedAssetResource
+
+type DataAssemblyParameterMetadata = {
   name?: string
   description?: string
+  required?: boolean
+}
+
+/** A ResourceLink parameter may accept entries, assets, or a mixed collection. */
+export type DataAssemblyResourceLinkParameter = DataAssemblyParameterMetadata & {
   type: 'ResourceLink'
-  linkType: 'Contentful:Entry'
+  /** Deprecated compatibility metadata; allowed resources determine the actual target type. */
+  linkType?: 'Contentful:Entry' | 'Contentful:Asset'
   allowedResources: AllowedResource[]
 }
+
+export type DataAssemblyStringParameter = DataAssemblyParameterMetadata & {
+  type: 'String'
+  fallbackValue?: string
+  locked?: boolean
+  validation?: {
+    allowedValues?: string[]
+  }
+}
+
+export type DataAssemblyNumberParameter = DataAssemblyParameterMetadata & {
+  type: 'Number'
+  fallbackValue?: number
+  locked?: boolean
+  validation?: {
+    min?: number
+    max?: number
+  }
+}
+
+export type DataAssemblyOrderDirection = 'asc' | 'desc'
+
+export type DataAssemblyOrderTerm = {
+  path: string
+  direction: DataAssemblyOrderDirection
+}
+
+export type DataAssemblyOrderExpressionParameter = DataAssemblyParameterMetadata & {
+  type: 'OrderExpression'
+  fallbackValue?: DataAssemblyOrderTerm[]
+  locked?: boolean
+  target: {
+    resourceLink: string
+  }
+}
+
+export type DataAssemblyStringRecordField = DataAssemblyStringParameter & {
+  id: string
+}
+
+export type DataAssemblyNumberRecordField = DataAssemblyNumberParameter & {
+  id: string
+}
+
+export type DataAssemblyOrderExpressionRecordField = DataAssemblyOrderExpressionParameter & {
+  id: string
+}
+
+export type DataAssemblyRecordField =
+  | DataAssemblyStringRecordField
+  | DataAssemblyNumberRecordField
+  | DataAssemblyOrderExpressionRecordField
+
+export type DataAssemblyRecordParameter = DataAssemblyParameterMetadata & {
+  type: 'Record'
+  fields: DataAssemblyRecordField[]
+  locked?: boolean
+}
+
+/** A Data Assembly parameter definition. */
+export type DataAssemblyParameterDefinition =
+  | DataAssemblyResourceLinkParameter
+  | DataAssemblyStringParameter
+  | DataAssemblyNumberParameter
+  | DataAssemblyRecordParameter
+  | DataAssemblyOrderExpressionParameter
+
+/** A parameter declared in the ordered Data Assembly representation. */
+export type OrderedDataAssemblyParameterDefinition = DataAssemblyParameterDefinition & {
+  id: string
+  required: boolean
+}
+
+/** Parameter definitions supplied by a Data Assembly. */
+export type DataAssemblyParameterDefinitions =
+  | Record<string, DataAssemblyParameterDefinition>
+  | OrderedDataAssemblyParameterDefinition[]
 
 /** The value bound to a Data Assembly parameter: a ResourceLink to the referenced entity. */
 export type DataAssemblyParameterValue = ResourceLink<'Contentful:Entry'>
@@ -83,7 +174,7 @@ export type DataAssemblyParameterValue = ResourceLink<'Contentful:Entry'>
 export interface DataAssemblySnapshot {
   id: string
   name?: string
-  parameters: Record<string, DataAssemblyParameterDefinition>
+  parameters: DataAssemblyParameterDefinitions
 }
 
 /**
@@ -95,7 +186,7 @@ export interface DataAssemblySummary {
   id: string
   name: string
   description?: string
-  parameters: Record<string, DataAssemblyParameterDefinition>
+  parameters: DataAssemblyParameterDefinitions
 }
 
 /**
@@ -104,8 +195,8 @@ export interface DataAssemblySummary {
  * are distinct concepts, reflected in the method names: `get*Definition*` reads, `set*Value*` writes.
  */
 export interface DataAssemblyParameterAPI {
-  /** Resolves all Data Assembly parameter definitions, keyed by parameter id. */
-  getParameterDefinitions(): Promise<Record<string, DataAssemblyParameterDefinition>>
+  /** Resolves all Data Assembly parameter definitions. */
+  getParameterDefinitions(): Promise<DataAssemblyParameterDefinitions>
   /** Resolves a single parameter definition, or `null` if no parameter has that id. */
   getParameterDefinition(parameterId: string): Promise<DataAssemblyParameterDefinition | null>
   /** Sets the value of a single Data Assembly parameter. */
