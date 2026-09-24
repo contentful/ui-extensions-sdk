@@ -2,13 +2,93 @@ import { describeAttachHandlerMember, sinon, expect } from '../helpers'
 
 import createExperience from '../../lib/experience'
 import { Channel } from '../../lib/channel'
-import type { DataAssemblyParameterDefinitions, DataAssemblySnapshot } from '../../lib/types'
+import type {
+  DataAssemblyParameterDefinitions,
+  DataAssemblySnapshot,
+  OrderedDataAssemblyParameterDefinition,
+} from '../../lib/types'
 import {
   mockExperienceInit,
   mockExperienceSnapshot,
   mockFragmentSnapshot,
   mockExperienceFragmentSnapshot,
 } from '../mocks/experience'
+
+const orderedParameterDefinitions: OrderedDataAssemblyParameterDefinition[] = [
+  {
+    id: 'secondary',
+    name: 'Secondary resource',
+    type: 'ResourceLink',
+    required: false,
+    allowedResources: [
+      {
+        type: 'Contentful:Entry',
+        source: 'crn:contentful:::content:spaces/$self/environments/$self',
+        allowedTypes: ['blogPost'],
+      },
+      {
+        type: 'Contentful:Asset',
+        source: 'crn:contentful:::content:spaces/$self/environments/$self',
+      },
+    ],
+  },
+  {
+    id: 'title',
+    type: 'String',
+    required: true,
+    fallbackValue: 'Untitled',
+    validation: { allowedValues: ['Untitled', 'Featured'] },
+  },
+  {
+    id: 'limit',
+    type: 'Number',
+    required: false,
+    validation: { min: 1, max: 20 },
+  },
+  {
+    id: 'collection',
+    type: 'Record',
+    required: true,
+    fields: [
+      { id: 'query', type: 'String', required: false },
+      {
+        id: 'order',
+        type: 'OrderExpression',
+        target: { resourceLink: 'secondary' },
+        fallbackValue: [{ path: 'sys.createdAt', direction: 'desc' }],
+      },
+    ],
+  },
+  {
+    id: 'sort',
+    type: 'OrderExpression',
+    required: true,
+    target: { resourceLink: 'secondary' },
+  },
+]
+
+const legacyParameterDefinitions: DataAssemblyParameterDefinitions = {
+  title: { type: 'String', fallbackValue: 'Untitled' },
+  limit: { type: 'Number', required: false, validation: { min: 1 } },
+  collection: {
+    type: 'Record',
+    fields: [{ id: 'query', type: 'String' }],
+  },
+  sort: {
+    type: 'OrderExpression',
+    target: { resourceLink: 'title' },
+  },
+  entry: {
+    type: 'ResourceLink',
+    allowedResources: [
+      {
+        type: 'Contentful:Entry',
+        source: 'crn:contentful:::content:spaces/$self/environments/$self',
+        allowedTypes: ['article'],
+      },
+    ],
+  },
+}
 
 describe('createExperience()', () => {
   let channelStub: any
@@ -655,6 +735,19 @@ describe('createExperience()', () => {
       })
 
       describe('.dataAssembly', () => {
+        it('requires required on ordered parameter definitions', () => {
+          // @ts-expect-error Ordered parameter definitions require `required`.
+          const orderedParameterWithoutRequired: OrderedDataAssemblyParameterDefinition = {
+            id: 'missing-required',
+            type: 'String',
+          }
+
+          expect(orderedParameterWithoutRequired).to.deep.equal({
+            id: 'missing-required',
+            type: 'String',
+          })
+        })
+
         it('exposes get, getAvailable, onChange, and the parameter definition/value methods', () => {
           expect(experience!.experience.dataAssembly).to.have.all.keys([
             'get',
@@ -686,45 +779,18 @@ describe('createExperience()', () => {
           })
 
           it('retains ordered parameter definitions from the host', () => {
-            const parameters: DataAssemblyParameterDefinitions = [
-              {
-                id: 'secondary',
-                name: 'Secondary entry',
-                type: 'ResourceLink',
-                linkType: 'Contentful:Entry',
-                required: false,
-                allowedResources: [
-                  {
-                    type: 'Contentful:Entry',
-                    source: 'crn:contentful:::content:spaces/$self/environments/$self',
-                    allowedTypes: ['blogPost'],
-                  },
-                ],
-              },
-              {
-                id: 'primary',
-                name: 'Primary entry',
-                type: 'ResourceLink',
-                linkType: 'Contentful:Entry',
-                required: true,
-                allowedResources: [
-                  {
-                    type: 'Contentful:Entry',
-                    source: 'crn:contentful:::content:spaces/$self/environments/$self',
-                    allowedTypes: ['author'],
-                  },
-                ],
-              },
-            ]
             const updatedSnapshot: DataAssemblySnapshot = {
               id: 'da-ordered',
-              parameters,
+              parameters: orderedParameterDefinitions,
             }
             const dataAssemblyChangedHandler = channelStub.addHandler.getCall(3).args[1]
 
             dataAssemblyChangedHandler(updatedSnapshot)
 
             expect(experience!.experience.dataAssembly.get()).to.deep.equal(updatedSnapshot)
+            expect(experience!.experience.dataAssembly.get().parameters).to.deep.equal(
+              orderedParameterDefinitions,
+            )
           })
         })
 
@@ -751,12 +817,42 @@ describe('createExperience()', () => {
 
             expect(cb).to.have.been.calledOnceWith(updatedSnapshot)
           })
+
+          it('forwards ordered definitions through change events unchanged', () => {
+            const cb = sinon.stub()
+            experience!.experience.dataAssembly.onChange(cb)
+            cb.resetHistory()
+            const updatedSnapshot: DataAssemblySnapshot = {
+              id: 'da-ordered-event',
+              parameters: orderedParameterDefinitions,
+            }
+            const dataAssemblyChangedHandler = channelStub.addHandler.getCall(3).args[1]
+
+            dataAssemblyChangedHandler(updatedSnapshot)
+
+            expect(cb).to.have.been.calledOnceWith(updatedSnapshot)
+          })
         })
 
         describe('.getAvailable()', () => {
           it('calls channel.call with "exo.getAvailableDataAssemblies"', () => {
             experience!.experience.dataAssembly.getAvailable()
             expect(channelStub.call).to.have.been.calledWith('exo.getAvailableDataAssemblies')
+          })
+
+          it('forwards ordered definitions in available summaries unchanged', async () => {
+            const summaries = [
+              {
+                id: 'da-ordered-summary',
+                name: 'Ordered summary',
+                parameters: orderedParameterDefinitions,
+              },
+            ]
+            channelStub.call.withArgs('exo.getAvailableDataAssemblies').resolves(summaries)
+
+            const result = await experience!.experience.dataAssembly.getAvailable()
+
+            expect(result).to.deep.equal(summaries)
           })
         })
 
@@ -769,21 +865,7 @@ describe('createExperience()', () => {
           })
 
           it('returns ordered definitions without converting them to a record', async () => {
-            const parameters: DataAssemblyParameterDefinitions = [
-              {
-                id: 'entry',
-                type: 'ResourceLink',
-                linkType: 'Contentful:Entry',
-                required: false,
-                allowedResources: [
-                  {
-                    type: 'Contentful:Entry',
-                    source: 'crn:contentful:::content:spaces/$self/environments/$self',
-                    allowedTypes: ['blogPost'],
-                  },
-                ],
-              },
-            ]
+            const parameters: DataAssemblyParameterDefinitions = orderedParameterDefinitions
             channelStub.call
               .withArgs('exo.getDataAssemblyParameterDefinitions')
               .resolves(parameters)
@@ -791,6 +873,16 @@ describe('createExperience()', () => {
             const result = await experience!.experience.dataAssembly.getParameterDefinitions()
 
             expect(result).to.deep.equal(parameters)
+          })
+
+          it('returns record definitions unchanged', async () => {
+            channelStub.call
+              .withArgs('exo.getDataAssemblyParameterDefinitions')
+              .resolves(legacyParameterDefinitions)
+
+            const result = await experience!.experience.dataAssembly.getParameterDefinitions()
+
+            expect(result).to.deep.equal(legacyParameterDefinitions)
           })
         })
 
@@ -801,6 +893,19 @@ describe('createExperience()', () => {
               'exo.getDataAssemblyParameterDefinition',
               'param-1',
             )
+          })
+
+          it('returns every supported ordered definition variant from the host', async () => {
+            const definition = orderedParameterDefinitions[3]
+            channelStub.call
+              .withArgs('exo.getDataAssemblyParameterDefinition', definition.id)
+              .resolves(definition)
+
+            const result = await experience!.experience.dataAssembly.getParameterDefinition(
+              definition.id,
+            )
+
+            expect(result).to.deep.equal(definition)
           })
         })
 
