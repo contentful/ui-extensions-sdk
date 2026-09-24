@@ -2,6 +2,7 @@ import { describeAttachHandlerMember, sinon, expect } from '../helpers'
 
 import createExperience from '../../lib/experience'
 import { Channel } from '../../lib/channel'
+import type { DataAssemblyParameterDefinitions, DataAssemblySnapshot } from '../../lib/types'
 import {
   mockExperienceInit,
   mockExperienceSnapshot,
@@ -683,6 +684,48 @@ describe('createExperience()', () => {
             dataAssemblyChangedHandler(updatedSnapshot)
             expect(experience!.experience.dataAssembly.get()).to.deep.equal(updatedSnapshot)
           })
+
+          it('retains ordered parameter definitions from the host', () => {
+            const parameters: DataAssemblyParameterDefinitions = [
+              {
+                id: 'secondary',
+                name: 'Secondary entry',
+                type: 'ResourceLink',
+                linkType: 'Contentful:Entry',
+                required: false,
+                allowedResources: [
+                  {
+                    type: 'Contentful:Entry',
+                    source: 'crn:contentful:::content:spaces/$self/environments/$self',
+                    allowedTypes: ['blogPost'],
+                  },
+                ],
+              },
+              {
+                id: 'primary',
+                name: 'Primary entry',
+                type: 'ResourceLink',
+                linkType: 'Contentful:Entry',
+                required: true,
+                allowedResources: [
+                  {
+                    type: 'Contentful:Entry',
+                    source: 'crn:contentful:::content:spaces/$self/environments/$self',
+                    allowedTypes: ['author'],
+                  },
+                ],
+              },
+            ]
+            const updatedSnapshot: DataAssemblySnapshot = {
+              id: 'da-ordered',
+              parameters,
+            }
+            const dataAssemblyChangedHandler = channelStub.addHandler.getCall(3).args[1]
+
+            dataAssemblyChangedHandler(updatedSnapshot)
+
+            expect(experience!.experience.dataAssembly.get()).to.deep.equal(updatedSnapshot)
+          })
         })
 
         describe('.onChange(cb)', () => {
@@ -723,6 +766,31 @@ describe('createExperience()', () => {
             expect(channelStub.call).to.have.been.calledWith(
               'exo.getDataAssemblyParameterDefinitions',
             )
+          })
+
+          it('returns ordered definitions without converting them to a record', async () => {
+            const parameters: DataAssemblyParameterDefinitions = [
+              {
+                id: 'entry',
+                type: 'ResourceLink',
+                linkType: 'Contentful:Entry',
+                required: false,
+                allowedResources: [
+                  {
+                    type: 'Contentful:Entry',
+                    source: 'crn:contentful:::content:spaces/$self/environments/$self',
+                    allowedTypes: ['blogPost'],
+                  },
+                ],
+              },
+            ]
+            channelStub.call
+              .withArgs('exo.getDataAssemblyParameterDefinitions')
+              .resolves(parameters)
+
+            const result = await experience!.experience.dataAssembly.getParameterDefinitions()
+
+            expect(result).to.deep.equal(parameters)
           })
         })
 
