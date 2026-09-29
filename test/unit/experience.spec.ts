@@ -42,8 +42,8 @@ describe('createExperience()', () => {
       expect(experience).to.have.all.keys(['context', 'onContextChanged', 'experience'])
     })
 
-    it('registers handlers for contextChanged, experienceChanged, selectionChanged, and dataAssemblyChanged', () => {
-      expect(channelStub.addHandler).to.have.callCount(4)
+    it('registers handlers for contextChanged, experienceChanged, selectionChanged, dataAssemblyChanged, and sysChanged', () => {
+      expect(channelStub.addHandler).to.have.callCount(5)
       expect(channelStub.addHandler.getCall(0)).to.have.been.calledWith(
         'exo.contextChanged',
         sinon.match.func,
@@ -58,6 +58,10 @@ describe('createExperience()', () => {
       )
       expect(channelStub.addHandler.getCall(3)).to.have.been.calledWith(
         'exo.dataAssemblyChanged',
+        sinon.match.func,
+      )
+      expect(channelStub.addHandler.getCall(4)).to.have.been.calledWith(
+        'exo.sysChanged',
         sinon.match.func,
       )
     })
@@ -132,10 +136,12 @@ describe('createExperience()', () => {
     })
 
     describe('.experience', () => {
-      it('exposes get, onChange, getMetadata, setMetadata, onMetadataChanged, save, publish, getNode, getRootNodes, selection, and dataAssembly', () => {
+      it('exposes get, onChange, getSys, onSysChanged, getMetadata, setMetadata, onMetadataChanged, save, publish, getNode, getRootNodes, selection, and dataAssembly', () => {
         expect(experience!.experience).to.have.all.keys([
           'get',
           'onChange',
+          'getSys',
+          'onSysChanged',
           'getMetadata',
           'setMetadata',
           'onMetadataChanged',
@@ -251,6 +257,72 @@ describe('createExperience()', () => {
           experienceChangedHandler({
             sys: { id: 'exp-999', type: 'Experience' as const, version: 4 },
           })
+
+          expect(cb).to.not.have.been.called // eslint-disable-line no-unused-expressions
+        })
+      })
+
+      describe('.getSys()', () => {
+        it('returns the sys of the initial experience snapshot', () => {
+          expect(experience!.experience.getSys()).to.deep.equal(mockExperienceSnapshot.sys)
+        })
+
+        it('returns the updated sys after exo.sysChanged is dispatched', () => {
+          const publishedSys = { ...mockExperienceSnapshot.sys, version: 2, publishedVersion: 1 }
+          const sysChangedHandler = channelStub.addHandler.getCall(4).args[1]
+          sysChangedHandler(publishedSys)
+
+          expect(experience!.experience.getSys()).to.deep.equal(publishedSys)
+        })
+      })
+
+      describe('.onSysChanged(cb)', () => {
+        describeAttachHandlerMember('default behaviour', () => {
+          return experience!.experience.onSysChanged(() => {})
+        })
+
+        it('calls cb immediately with the initial sys', () => {
+          const cb = sinon.stub()
+          experience!.experience.onSysChanged(cb)
+          expect(cb).to.have.been.calledOnceWith(mockExperienceSnapshot.sys)
+        })
+
+        it('calls cb with the published sys when exo.sysChanged is dispatched', () => {
+          const cb = sinon.stub()
+          experience!.experience.onSysChanged(cb)
+          cb.resetHistory()
+
+          const publishedSys = {
+            ...mockExperienceSnapshot.sys,
+            version: 2,
+            publishedVersion: 1,
+            publishedAt: '2026-09-29T12:00:00.000Z',
+          }
+          const sysChangedHandler = channelStub.addHandler.getCall(4).args[1]
+          sysChangedHandler(publishedSys)
+
+          expect(cb).to.have.been.calledOnceWith(publishedSys)
+        })
+
+        it('does not call detached cb when exo.sysChanged is dispatched', () => {
+          const cb = sinon.stub()
+          const detach = experience!.experience.onSysChanged(cb)
+          cb.resetHistory()
+          detach()
+
+          const sysChangedHandler = channelStub.addHandler.getCall(4).args[1]
+          sysChangedHandler({ ...mockExperienceSnapshot.sys, version: 3 })
+
+          expect(cb).to.not.have.been.called // eslint-disable-line no-unused-expressions
+        })
+
+        it('does not fire onChange when exo.sysChanged is dispatched', () => {
+          const cb = sinon.stub()
+          experience!.experience.onChange(cb)
+          cb.resetHistory()
+
+          const sysChangedHandler = channelStub.addHandler.getCall(4).args[1]
+          sysChangedHandler({ ...mockExperienceSnapshot.sys, publishedVersion: 1 })
 
           expect(cb).to.not.have.been.called // eslint-disable-line no-unused-expressions
         })
