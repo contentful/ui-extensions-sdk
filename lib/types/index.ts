@@ -174,6 +174,7 @@ export type {
   SlotDescriptor,
   ExperienceMetadata,
   ExperienceSnapshot,
+  ExperienceSys,
   ExperienceNodeAPI,
   ExperienceSelectionAPI,
   ExperienceAPI,

@@ -5,6 +5,7 @@ import {
   ExperienceContext,
   Unsubscribe,
   ExperienceSnapshot,
+  ExperienceSys,
   ExperienceMetadata,
   ExperienceAPI,
   ExperienceNodeAPI,
@@ -80,6 +81,12 @@ function createExperienceAPI(channel: Channel, initial?: ExperienceSnapshot): Ex
   const selection = createSelectionAPI(channel)
   const dataAssembly = createDataAssemblyAPI(channel)
 
+  const sysSignal = new MemoizedSignal<[ExperienceSys]>(initialSnapshot.sys)
+
+  channel.addHandler('exo.sysChanged', (payload: ExperienceSys) => {
+    sysSignal.dispatch(payload)
+  })
+
   // Cache node APIs by id and reuse them. Each createNodeAPI() registers a channel handler
   // for `exo.nodeChanged.${nodeId}`, so constructing a fresh one per getNode() call would
   // leak a handler on every call over a long-lived session. Construct-once, reuse by id.
@@ -105,6 +112,12 @@ function createExperienceAPI(channel: Channel, initial?: ExperienceSnapshot): Ex
     },
     onChange(cb: (v: ExperienceSnapshot) => void): Unsubscribe {
       return experienceSignal.attach(cb)
+    },
+    getSys(): ExperienceSys {
+      return sysSignal.getMemoizedArgs()[0]
+    },
+    onSysChanged(cb: (sys: ExperienceSys) => void): Unsubscribe {
+      return sysSignal.attach(cb)
     },
     getMetadata(): ExperienceMetadata | undefined {
       return experienceSignal.getMemoizedArgs()[0].metadata

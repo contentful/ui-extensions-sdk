@@ -241,6 +241,8 @@ export type ExperienceSnapshot =
         id: string
         type: 'Experience'
         version: number
+        publishedVersion?: number
+        publishedAt?: string
         template?: ResourceLink<'Contentful:Template'>
         experienceTemplate?: ResourceLink<'Contentful:ExperienceTemplate'>
       }
@@ -253,6 +255,8 @@ export type ExperienceSnapshot =
         id: string
         type: 'Fragment'
         version: number
+        publishedVersion?: number
+        publishedAt?: string
         componentType: ResourceLink<'Contentful:ComponentType'>
       }
       /** Display name of the entity being edited, as shown in the experience editor. */
@@ -264,6 +268,8 @@ export type ExperienceSnapshot =
         id: string
         type: 'ExperienceFragment'
         version: number
+        publishedVersion?: number
+        publishedAt?: string
         component: ResourceLink<'Contentful:Component'>
       }
       /** Display name of the entity being edited, as shown in the experience editor. */
@@ -271,9 +277,16 @@ export type ExperienceSnapshot =
       metadata?: ExperienceMetadata
     }
 
+/** The `sys` of the entity being edited. `publishedVersion` is absent while the entity is unpublished. */
+export type ExperienceSys = ExperienceSnapshot['sys']
+
 export interface ExperienceAPI {
   get(): ExperienceSnapshot
   onChange(cb: (v: ExperienceSnapshot) => void): Unsubscribe
+  /** Returns the current sys of the experience/fragment. */
+  getSys(): ExperienceSys
+  /** Calls the callback with sys every time that sys changes, e.g. on save, publish, or unpublish. */
+  onSysChanged(cb: (sys: ExperienceSys) => void): Unsubscribe
   /** Reads the current experience/fragment metadata, or `undefined` when the entity carries none (matches entry/asset). */
   getMetadata(): ExperienceMetadata | undefined
   /**
