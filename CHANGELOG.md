@@ -1,3 +1,9 @@
+# [4.71.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.70.0...v4.71.0) (2026-09-29)
+
+### Features
+
+- add getSys/onSysChanged to the experience toolbar SDK [AIS-659] ([#2666](https://github.com/contentful/ui-extensions-sdk/issues/2666)) ([1d7148f](https://github.com/contentful/ui-extensions-sdk/commit/1d7148f14f8a16cf86d04f98e4a1e93974cc51c0))
+
 # [4.70.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.69.0...v4.70.0) (2026-09-09)
 
 ### Features
