@@ -97,8 +97,7 @@ Branch protection on `main`:
 
 1. PR title is the squash-merge commit message — write a Conventional Commits title with a Jira key in brackets where applicable, e.g. `feat: short summary of the change [TICKET-1234]`.
 2. Body follows `.github/PULL_REQUEST_TEMPLATE.md` (purpose + checklist).
-3. Two approvers may be required if your change crosses both team-extensibility and team-marketplace concerns (CODEOWNERS lists both).
-4. CI must be green; size check is part of CI.
+3. CI must be green; size check is part of CI.
 
 ## Release process
 

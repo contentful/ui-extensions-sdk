@@ -22,5 +22,5 @@ This SDK ships to thousands of customer apps via npm and CDN. Treat security fee
 ## CI / branch protection
 
 - **Branch protection on `main`.** 1 required approving review, code-owner review required, stale reviews dismissed on push, strict status checks. Flag any PR that proposes loosening these.
-- **CODEOWNERS is enforced.** Both `team-extensibility` and `team-marketplace` are listed. PRs touching `.github/CODEOWNERS` should be reviewed for ownership impact.
+- **CODEOWNERS is enforced.** `@contentful/group-applied-ai-solutions` owns all paths. PRs touching `.github/CODEOWNERS` should be reviewed for ownership impact.
 - **No `--no-verify` on commits.** Pre-commit `lint-staged` is part of the security/quality gate. Flag PRs whose body or commit messages indicate `--no-verify` was used.
