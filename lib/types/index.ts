@@ -163,6 +163,8 @@ export type {
   SameSpaceContentSource,
   AllowedResource,
   DataAssemblyParameterDefinition,
+  OrderedDataAssemblyParameterDefinition,
+  DataAssemblyParameterDefinitions,
   DataAssemblyParameterValue,
   DataAssemblySnapshot,
   DataAssemblySummary,
