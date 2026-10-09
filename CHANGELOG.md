@@ -1,3 +1,9 @@
+# [4.73.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.72.0...v4.73.0) (2026-10-09)
+
+### Features
+
+- expose selected node entity [SPA-5531] ([#2668](https://github.com/contentful/ui-extensions-sdk/issues/2668)) ([88899e5](https://github.com/contentful/ui-extensions-sdk/commit/88899e50150db10d04420f5c41b9ac409d8391af))
+
 # [4.72.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.71.0...v4.72.0) (2026-10-09)
 
 ### Features
