@@ -170,6 +170,7 @@ export type {
   DataAssemblyAPI,
   ExperienceNodeType,
   ExperienceNodeSnapshot,
+  ExperienceSelection,
   SlotAllowedResource,
   SlotDescriptor,
   ExperienceMetadata,
