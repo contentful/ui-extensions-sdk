@@ -309,6 +309,8 @@ export interface ExperienceAPI {
 export interface ExperienceContext {
   type: 'experience' | 'fragment' | 'experienceFragment'
   entityId: string
+  /** The selected ExO editor variant; omitted while editing the baseline entity. */
+  variantId?: string
 }
 
 export interface ExperienceSDK {
