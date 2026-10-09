@@ -1,3 +1,9 @@
+# [4.72.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.71.0...v4.72.0) (2026-10-09)
+
+### Features
+
+- expose variantId in experience context [EXA-2497] ([#2669](https://github.com/contentful/ui-extensions-sdk/issues/2669)) ([a006626](https://github.com/contentful/ui-extensions-sdk/commit/a0066268c1fc146870a08312de538fc1f4cad2af))
+
 # [4.71.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.70.0...v4.71.0) (2026-09-29)
 
 ### Features
