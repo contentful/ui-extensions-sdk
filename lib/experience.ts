@@ -11,6 +11,7 @@ import {
   ExperienceNodeAPI,
   ExperienceNodeSnapshot,
   ExperienceNodeType,
+  ExperienceSelection,
   ExperienceSelectionAPI,
   DataAssemblyAPI,
   DataAssemblyParameterAPI,
@@ -199,26 +200,19 @@ function createNodeAPI(
 }
 
 function createSelectionAPI(channel: Channel): ExperienceSelectionAPI {
-  const selectionSignal = new MemoizedSignal<
-    [{ nodeId: string | null; nodeType?: ExperienceNodeType }]
-  >({
+  const selectionSignal = new MemoizedSignal<[ExperienceSelection]>({
     nodeId: null,
   })
 
-  channel.addHandler(
-    'exo.selectionChanged',
-    (payload: { nodeId: string | null; nodeType?: ExperienceNodeType }) => {
-      selectionSignal.dispatch(payload)
-    },
-  )
+  channel.addHandler('exo.selectionChanged', (payload: ExperienceSelection) => {
+    selectionSignal.dispatch(payload)
+  })
 
   return {
-    get(): { nodeId: string | null; nodeType?: ExperienceNodeType } {
+    get(): ExperienceSelection {
       return selectionSignal.getMemoizedArgs()[0]
     },
-    onChange(
-      cb: (sel: { nodeId: string | null; nodeType?: ExperienceNodeType }) => void,
-    ): Unsubscribe {
+    onChange(cb: (sel: ExperienceSelection) => void): Unsubscribe {
       return selectionSignal.attach(cb)
     },
     set(nodeId: string | null): void {

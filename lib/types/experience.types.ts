@@ -145,6 +145,22 @@ export interface ExperienceNodeSnapshot {
 }
 
 /**
+ * The current Content-tab selection. When a selectable node is selected, linkedEntity identifies
+ * the Component or Fragment entity it represents. It is omitted for a cleared selection and node
+ * types that do not link to an entity.
+ */
+export interface ExperienceSelection {
+  nodeId: string | null
+  nodeType?: ExperienceNodeType
+  linkedEntity?: ResourceLink<
+    | 'Contentful:ComponentType'
+    | 'Contentful:Component'
+    | 'Contentful:Fragment'
+    | 'Contentful:ExperienceFragment'
+  >
+}
+
+/**
  * One allowed resource for a slot: the Component(s) that may be placed in it. `type` accepts both
  * the current (`Contentful:ComponentType`) and upcoming canonical (`Contentful:Component`) URN.
  */
@@ -199,8 +215,8 @@ export interface ExperienceNodeAPI {
 }
 
 export interface ExperienceSelectionAPI {
-  get(): { nodeId: string | null; nodeType?: ExperienceNodeType }
-  onChange(cb: (sel: { nodeId: string | null; nodeType?: ExperienceNodeType }) => void): Unsubscribe
+  get(): ExperienceSelection
+  onChange(cb: (sel: ExperienceSelection) => void): Unsubscribe
   set(nodeId: string | null): void
   highlight(nodeId: string, opts?: { flash?: boolean; scrollIntoView?: boolean }): void
 }

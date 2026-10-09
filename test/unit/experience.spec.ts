@@ -645,12 +645,29 @@ describe('createExperience()', () => {
             expect(experience!.experience.selection.get()).to.deep.equal({ nodeId: null })
           })
 
-          it('returns the updated selection after exo.selectionChanged is dispatched', () => {
+          it('returns the linked entity after exo.selectionChanged is dispatched', () => {
             const selectionChangedHandler = channelStub.addHandler.getCall(2).args[1]
-            selectionChangedHandler({ nodeId: 'node-xyz', nodeType: 'Component' })
+            selectionChangedHandler({
+              nodeId: 'node-xyz',
+              nodeType: 'Component',
+              linkedEntity: {
+                sys: {
+                  type: 'ResourceLink',
+                  linkType: 'Contentful:ComponentType',
+                  urn: 'crn:contentful:::experience:spaces/$self/environments/$self/componentTypes/component-xyz',
+                },
+              },
+            })
             expect(experience!.experience.selection.get()).to.deep.equal({
               nodeId: 'node-xyz',
               nodeType: 'Component',
+              linkedEntity: {
+                sys: {
+                  type: 'ResourceLink',
+                  linkType: 'Contentful:ComponentType',
+                  urn: 'crn:contentful:::experience:spaces/$self/environments/$self/componentTypes/component-xyz',
+                },
+              },
             })
           })
         })
@@ -666,15 +683,35 @@ describe('createExperience()', () => {
             expect(cb).to.have.been.calledOnceWith({ nodeId: null })
           })
 
-          it('calls cb when exo.selectionChanged is dispatched', () => {
+          it('calls cb with the linked entity when exo.selectionChanged is dispatched', () => {
             const cb = sinon.stub()
             experience!.experience.selection.onChange(cb)
             cb.resetHistory()
 
             const selectionChangedHandler = channelStub.addHandler.getCall(2).args[1]
-            selectionChangedHandler({ nodeId: 'node-xyz', nodeType: 'Component' })
+            selectionChangedHandler({
+              nodeId: 'node-xyz',
+              nodeType: 'Component',
+              linkedEntity: {
+                sys: {
+                  type: 'ResourceLink',
+                  linkType: 'Contentful:ComponentType',
+                  urn: 'crn:contentful:::experience:spaces/$self/environments/$self/componentTypes/component-xyz',
+                },
+              },
+            })
 
-            expect(cb).to.have.been.calledOnceWith({ nodeId: 'node-xyz', nodeType: 'Component' })
+            expect(cb).to.have.been.calledOnceWith({
+              nodeId: 'node-xyz',
+              nodeType: 'Component',
+              linkedEntity: {
+                sys: {
+                  type: 'ResourceLink',
+                  linkType: 'Contentful:ComponentType',
+                  urn: 'crn:contentful:::experience:spaces/$self/environments/$self/componentTypes/component-xyz',
+                },
+              },
+            })
           })
 
           it('calls cb with { nodeId: null } when selection is cleared', () => {
