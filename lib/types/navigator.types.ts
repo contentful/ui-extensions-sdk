@@ -88,10 +88,10 @@ export interface NavigatorAPI {
   openComponent: (componentId: string) => Promise<void>
   onSlideInNavigation: (fn: (slide: NavigatorSlideInfo) => void) => () => void
   /**
-   * Subscribes to the host navigating the app's page location to a new path.
+   * Subscribes to the host navigating to a new path.
    *
-   * Only fires in the page location. The handler is not called on subscribe,
-   * so read the initial path from `parameters.invocation`.
+   * Fires when the host sends a `pageNavigated` message. The handler is not
+   * called on subscribe.
    *
    * Returns a function that unsubscribes.
    */
