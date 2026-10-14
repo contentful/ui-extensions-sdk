@@ -416,6 +416,46 @@ describe('createNavigator()', () => {
 
       expect(channel.addHandler).to.have.been.calledWith('navigateSlideIn', sinon.match.func)
     })
+
+    it('should register a pageNavigated channel handler', () => {
+      createNavigator(channel, ids, undefined)
+
+      expect(channel.addHandler).to.have.been.calledWith('pageNavigated', sinon.match.func)
+    })
+
+    it('should dispatch the path to onPathChange handlers when the channel fires pageNavigated', () => {
+      const navigator = createNavigator(channel, ids, undefined)
+      const handler = sinon.stub()
+
+      navigator.onPathChange(handler)
+
+      const dispatch = channel.addHandler.withArgs('pageNavigated').firstCall.args[1]
+      dispatch('/audience/segments')
+
+      expect(handler).to.have.been.calledOnceWith('/audience/segments')
+    })
+
+    it('should stop calling an onPathChange handler once it is detached', () => {
+      const navigator = createNavigator(channel, ids, undefined)
+      const handler = sinon.stub()
+
+      const detach = navigator.onPathChange(handler)
+      detach()
+
+      const dispatch = channel.addHandler.withArgs('pageNavigated').firstCall.args[1]
+      dispatch('/agent')
+
+      sinon.assert.notCalled(handler)
+    })
+
+    it('should not call an onPathChange handler on subscribe', () => {
+      const navigator = createNavigator(channel, ids, undefined)
+      const handler = sinon.stub()
+
+      navigator.onPathChange(handler)
+
+      sinon.assert.notCalled(handler)
+    })
   })
 
   describe('error handling', () => {

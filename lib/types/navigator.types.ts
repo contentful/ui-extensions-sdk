@@ -87,4 +87,13 @@ export interface NavigatorAPI {
   /** Opens an existing Component in the Component Canvas (full-page). */
   openComponent: (componentId: string) => Promise<void>
   onSlideInNavigation: (fn: (slide: NavigatorSlideInfo) => void) => () => void
+  /**
+   * Subscribes to the host navigating the app's page location to a new path.
+   *
+   * Only fires in the page location. The handler is not called on subscribe,
+   * so read the initial path from `parameters.invocation`.
+   *
+   * Returns a function that unsubscribes.
+   */
+  onPathChange: (fn: (path: string) => void) => () => void
 }

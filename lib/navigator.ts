@@ -8,9 +8,14 @@ export default function createNavigator(
   release: Release | undefined,
 ): NavigatorAPI {
   const _onSlideInSignal = new Signal<[NavigatorSlideInfo]>()
+  const _onPathChangeSignal = new Signal<[string]>()
 
   channel.addHandler('navigateSlideIn', (data: any) => {
     _onSlideInSignal.dispatch(data)
+  })
+
+  channel.addHandler('pageNavigated', (path: string) => {
+    _onPathChangeSignal.dispatch(path)
   })
 
   const releaseId = release ? release.sys?.id : undefined
@@ -90,6 +95,9 @@ export default function createNavigator(
     },
     onSlideInNavigation: (handler) => {
       return _onSlideInSignal.attach(handler)
+    },
+    onPathChange: (handler) => {
+      return _onPathChangeSignal.attach(handler)
     },
   }
 }
