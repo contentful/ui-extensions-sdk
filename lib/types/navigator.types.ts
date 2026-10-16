@@ -32,6 +32,11 @@ export interface NavigatorSlideInfo {
   oldSlideLevel: number
 }
 
+export interface NavigatorPageLocation {
+  /** The path the host navigated to, relative to the app's page location root. */
+  path: string
+}
+
 export interface NavigatorOpenResponse<T> {
   navigated: boolean
   entity?: T
@@ -87,4 +92,13 @@ export interface NavigatorAPI {
   /** Opens an existing Component in the Component Canvas (full-page). */
   openComponent: (componentId: string) => Promise<void>
   onSlideInNavigation: (fn: (slide: NavigatorSlideInfo) => void) => () => void
+  /**
+   * Subscribes to the host navigating the app's page location to a new path.
+   *
+   * The handler is called on subscribe with the current location, then again on
+   * every subsequent host navigation.
+   *
+   * Returns a function that unsubscribes.
+   */
+  onPathChange: (fn: (location: NavigatorPageLocation) => void) => () => void
 }
