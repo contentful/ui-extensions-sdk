@@ -1,16 +1,31 @@
-import { NavigatorAPI, IdsAPI, NavigatorSlideInfo, NavigatorAPIOptions, Release } from './types'
+import {
+  NavigatorAPI,
+  IdsAPI,
+  NavigatorSlideInfo,
+  NavigatorAPIOptions,
+  NavigatorPageLocation,
+  Release,
+} from './types'
 import { Channel } from './channel'
-import { Signal } from './signal'
+import { MemoizedSignal, Signal } from './signal'
 
 export default function createNavigator(
   channel: Channel,
   ids: IdsAPI,
   release: Release | undefined,
+  invocation: NavigatorPageLocation | undefined,
 ): NavigatorAPI {
   const _onSlideInSignal = new Signal<[NavigatorSlideInfo]>()
+  const _onPathChangeSignal = new MemoizedSignal<[NavigatorPageLocation]>({
+    path: invocation?.path ?? '/',
+  })
 
   channel.addHandler('navigateSlideIn', (data: any) => {
     _onSlideInSignal.dispatch(data)
+  })
+
+  channel.addHandler('pageNavigated', (path: string) => {
+    _onPathChangeSignal.dispatch({ path })
   })
 
   const releaseId = release ? release.sys?.id : undefined
@@ -90,6 +105,9 @@ export default function createNavigator(
     },
     onSlideInNavigation: (handler) => {
       return _onSlideInSignal.attach(handler)
+    },
+    onPathChange: (handler) => {
+      return _onPathChangeSignal.attach(handler)
     },
   }
 }

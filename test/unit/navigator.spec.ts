@@ -416,6 +416,68 @@ describe('createNavigator()', () => {
 
       expect(channel.addHandler).to.have.been.calledWith('navigateSlideIn', sinon.match.func)
     })
+
+    it('should register a pageNavigated channel handler', () => {
+      createNavigator(channel, ids, undefined, undefined)
+
+      expect(channel.addHandler).to.have.been.calledWith('pageNavigated', sinon.match.func)
+    })
+
+    it('should dispatch the path to onPathChange handlers when the channel fires pageNavigated', () => {
+      const navigator = createNavigator(channel, ids, undefined, { path: '/overview' })
+      const handler = sinon.stub()
+
+      navigator.onPathChange(handler)
+
+      const dispatch = channel.addHandler.withArgs('pageNavigated').firstCall.args[1]
+      dispatch('/audience/segments')
+
+      expect(handler).to.have.been.calledWith({ path: '/audience/segments' })
+    })
+
+    it('should stop calling an onPathChange handler once it is detached', () => {
+      const navigator = createNavigator(channel, ids, undefined, { path: '/overview' })
+      const handler = sinon.stub()
+
+      const detach = navigator.onPathChange(handler)
+      detach()
+      handler.resetHistory()
+
+      const dispatch = channel.addHandler.withArgs('pageNavigated').firstCall.args[1]
+      dispatch('/agent')
+
+      sinon.assert.notCalled(handler)
+    })
+
+    it('should call an onPathChange handler on subscribe with the invocation path', () => {
+      const navigator = createNavigator(channel, ids, undefined, { path: '/overview' })
+      const handler = sinon.stub()
+
+      navigator.onPathChange(handler)
+
+      expect(handler).to.have.been.calledOnceWith({ path: '/overview' })
+    })
+
+    it('should fall back to the root path when no invocation path is given', () => {
+      const navigator = createNavigator(channel, ids, undefined, undefined)
+      const handler = sinon.stub()
+
+      navigator.onPathChange(handler)
+
+      expect(handler).to.have.been.calledOnceWith({ path: '/' })
+    })
+
+    it('should replay the last dispatched path to handlers subscribing afterwards', () => {
+      const navigator = createNavigator(channel, ids, undefined, { path: '/overview' })
+
+      const dispatch = channel.addHandler.withArgs('pageNavigated').firstCall.args[1]
+      dispatch('/audience/segments')
+
+      const handler = sinon.stub()
+      navigator.onPathChange(handler)
+
+      expect(handler).to.have.been.calledOnceWith({ path: '/audience/segments' })
+    })
   })
 
   describe('error handling', () => {

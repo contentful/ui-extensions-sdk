@@ -104,6 +104,7 @@ export type {
   AppPageLocationOptions,
   NavigatorAPIOptions,
   NavigatorOpenResponse,
+  NavigatorPageLocation,
   NavigatorPageResponse,
   NavigatorSlideInfo,
   PageExtensionOptions,
