@@ -1,3 +1,9 @@
+# [4.74.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.73.0...v4.74.0) (2026-10-19)
+
+### Features
+
+- add navigator.onPathChange for page location navigation [NT-4381] ([#2670](https://github.com/contentful/ui-extensions-sdk/issues/2670)) ([d3d29a1](https://github.com/contentful/ui-extensions-sdk/commit/d3d29a1dfdf79cb5cc74161b5b2cde55428a3c1c))
+
 # [4.73.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.72.0...v4.73.0) (2026-10-09)
 
 ### Features
