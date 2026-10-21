@@ -2,6 +2,11 @@
  * Experience SDK types.
  */
 
+import type {
+  DataAssemblyParameterConfig,
+  DataAssemblyParameterDefinitionWithId,
+  DataAssemblyResourceLinkParameter,
+} from 'contentful-management'
 import { Link } from './utils'
 
 export type Unsubscribe = () => void
@@ -47,7 +52,8 @@ export interface ComponentPropertyDescriptor<C = unknown, D extends DesignValue 
 /* Data Assembly types */
 
 /** Same-space content source CRN used by Data Assembly ResourceLink parameters. */
-export type SameSpaceContentSource = 'crn:contentful:::content:spaces/$self/environments/$self'
+export type SameSpaceContentSource =
+  DataAssemblyResourceLinkParameter['allowedResources'][number]['source']
 
 /**
  * A reference to a Contentful resource, addressed by `urn`. `linkType` is a `Contentful:`-prefixed
@@ -61,21 +67,14 @@ export interface ResourceLink<T extends string = string> {
   }
 }
 
-/** One allowed resource for a Data Assembly ResourceLink parameter. */
-export interface AllowedResource {
-  type: 'Contentful:Entry'
-  source: SameSpaceContentSource
-  allowedTypes: string[]
-}
+/** One allowed entry resource for a Data Assembly ResourceLink parameter. */
+export type AllowedResource = Extract<
+  DataAssemblyResourceLinkParameter['allowedResources'][number],
+  { type: 'Contentful:Entry' }
+>
 
-/** Definition of a single Data Assembly parameter. */
-export interface DataAssemblyParameterDefinition {
-  name?: string
-  description?: string
-  type: 'ResourceLink'
-  linkType: 'Contentful:Entry'
-  allowedResources: AllowedResource[]
-}
+/** A canonical Data Assembly parameter declaration with its id and explicit requiredness. */
+export type DataAssemblyParameterDefinition = DataAssemblyParameterDefinitionWithId
 
 /** The value bound to a Data Assembly parameter: a ResourceLink to the referenced entity. */
 export type DataAssemblyParameterValue = ResourceLink<'Contentful:Entry'>
@@ -83,7 +82,7 @@ export type DataAssemblyParameterValue = ResourceLink<'Contentful:Entry'>
 export interface DataAssemblySnapshot {
   id: string
   name?: string
-  parameters: Record<string, DataAssemblyParameterDefinition>
+  parameters: DataAssemblyParameterConfig
 }
 
 /**
@@ -95,7 +94,7 @@ export interface DataAssemblySummary {
   id: string
   name: string
   description?: string
-  parameters: Record<string, DataAssemblyParameterDefinition>
+  parameters: DataAssemblyParameterConfig
 }
 
 /**
@@ -104,8 +103,8 @@ export interface DataAssemblySummary {
  * are distinct concepts, reflected in the method names: `get*Definition*` reads, `set*Value*` writes.
  */
 export interface DataAssemblyParameterAPI {
-  /** Resolves all Data Assembly parameter definitions, keyed by parameter id. */
-  getParameterDefinitions(): Promise<Record<string, DataAssemblyParameterDefinition>>
+  /** Resolves ordered Data Assembly parameter declarations, each carrying its id. */
+  getParameterDefinitions(): Promise<DataAssemblyParameterConfig>
   /** Resolves a single parameter definition, or `null` if no parameter has that id. */
   getParameterDefinition(parameterId: string): Promise<DataAssemblyParameterDefinition | null>
   /** Sets the value of a single Data Assembly parameter. */

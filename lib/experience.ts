@@ -236,7 +236,7 @@ function createParameterAPI(
   ...args: unknown[]
 ): DataAssemblyParameterAPI {
   return {
-    getParameterDefinitions(): Promise<Record<string, DataAssemblyParameterDefinition>> {
+    getParameterDefinitions(): Promise<DataAssemblyParameterDefinition[]> {
       return channel.call(scope.definitions, ...args)
     },
     getParameterDefinition(parameterId: string): Promise<DataAssemblyParameterDefinition | null> {
@@ -268,7 +268,7 @@ const NODE_DA_SCOPE = {
 }
 
 function createDataAssemblyAPI(channel: Channel): DataAssemblyAPI {
-  const initialSnapshot: DataAssemblySnapshot = { id: '', parameters: {} }
+  const initialSnapshot: DataAssemblySnapshot = { id: '', parameters: [] }
   const dataAssemblySignal = new MemoizedSignal<[DataAssemblySnapshot]>(initialSnapshot)
 
   channel.addHandler('exo.dataAssemblyChanged', (payload: DataAssemblySnapshot) => {
