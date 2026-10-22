@@ -38,9 +38,9 @@ export default function createAgent(
   function consume(invocation: AgentInvocation, handler: Handler) {
     pendingInvocation = undefined
     lastInvocationId = invocation.id
-    const ack = (error?: unknown) =>
+    const sendResult = (error?: unknown) =>
       channel.send(
-        'agentInvocationAck',
+        'agentInvocationResult',
         error === undefined
           ? { id: invocation.id }
           : { id: invocation.id, error: error instanceof Error ? error.message : String(error) },
@@ -48,11 +48,12 @@ export default function createAgent(
 
     try {
       Promise.resolve(handler(invocation)).then(
-        () => ack(),
-        (error) => ack(error === undefined ? new Error('Invocation handler rejected') : error),
+        () => sendResult(),
+        (error) =>
+          sendResult(error === undefined ? new Error('Invocation handler rejected') : error),
       )
     } catch (error) {
-      ack(error)
+      sendResult(error)
     }
   }
 

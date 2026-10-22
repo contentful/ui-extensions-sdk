@@ -362,7 +362,7 @@ describe('createAgent()', () => {
       payload: { metric: 'views', values: [1, 2] },
       sender: { appDefinitionId: 'example-app' },
     })
-    // The ack is sent from a promise continuation, so let microtasks run before asserting on it.
+    // The result is sent from a promise continuation, so let microtasks run before asserting on it.
     const flush = () => new Promise<void>((resolve) => setTimeout(resolve, 0))
 
     beforeEach(() => {
@@ -488,19 +488,19 @@ describe('createAgent()', () => {
       })
     })
 
-    describe('acknowledgement', () => {
-      it('sends an ack with the invocation id once the handler returns', async () => {
+    describe('result', () => {
+      it('sends a result with the invocation id once the handler returns', async () => {
         agent.onInvocation(() => {})
 
         deliver(invocation())
         await flush()
 
-        expect(channelStub.send).to.have.been.calledOnceWithExactly('agentInvocationAck', {
+        expect(channelStub.send).to.have.been.calledOnceWithExactly('agentInvocationResult', {
           id: 'inv-1',
         })
       })
 
-      it('waits for an async handler to resolve before acking', async () => {
+      it('waits for an async handler to resolve before sending the result', async () => {
         let finish!: () => void
         agent.onInvocation(() => new Promise<void>((resolve) => (finish = resolve)))
 
@@ -510,12 +510,12 @@ describe('createAgent()', () => {
 
         finish()
         await flush()
-        expect(channelStub.send).to.have.been.calledOnceWithExactly('agentInvocationAck', {
+        expect(channelStub.send).to.have.been.calledOnceWithExactly('agentInvocationResult', {
           id: 'inv-1',
         })
       })
 
-      it('acks a buffered invocation once flushed to a handler', async () => {
+      it('sends the result for a buffered invocation once flushed to a handler', async () => {
         deliver(invocation())
         await flush()
         expect(channelStub.send).to.not.have.been.called // eslint-disable-line no-unused-expressions
@@ -523,12 +523,12 @@ describe('createAgent()', () => {
         agent.onInvocation(() => {})
         await flush()
 
-        expect(channelStub.send).to.have.been.calledOnceWithExactly('agentInvocationAck', {
+        expect(channelStub.send).to.have.been.calledOnceWithExactly('agentInvocationResult', {
           id: 'inv-1',
         })
       })
 
-      it('acks with an error when the handler throws', async () => {
+      it('sends an error result when the handler throws', async () => {
         agent.onInvocation(() => {
           throw new Error('boom')
         })
@@ -536,25 +536,25 @@ describe('createAgent()', () => {
         deliver(invocation())
         await flush()
 
-        expect(channelStub.send).to.have.been.calledOnceWithExactly('agentInvocationAck', {
+        expect(channelStub.send).to.have.been.calledOnceWithExactly('agentInvocationResult', {
           id: 'inv-1',
           error: 'boom',
         })
       })
 
-      it('acks with an error when the handler rejects', async () => {
+      it('sends an error result when the handler rejects', async () => {
         agent.onInvocation(() => Promise.reject(new Error('nope')))
 
         deliver(invocation())
         await flush()
 
-        expect(channelStub.send).to.have.been.calledOnceWithExactly('agentInvocationAck', {
+        expect(channelStub.send).to.have.been.calledOnceWithExactly('agentInvocationResult', {
           id: 'inv-1',
           error: 'nope',
         })
       })
 
-      it('acks with an error when the handler rejects with undefined', async () => {
+      it('sends an error result when the handler rejects with undefined', async () => {
         // eslint-disable-next-line prefer-promise-reject-errors
         agent.onInvocation(() => Promise.reject(undefined))
 
