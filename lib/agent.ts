@@ -1,6 +1,6 @@
 import { Channel } from './channel'
 import { MemoizedSignal, Signal } from './signal'
-import { AgentAPI, AgentContext, ConnectMessage, ToolbarAction } from './types'
+import { AgentAPI, AgentContext, AgentInvocation, ConnectMessage, ToolbarAction } from './types'
 import { LayoutVariant } from './types/agent.types'
 
 export default function createAgent(
@@ -29,7 +29,58 @@ export default function createAgent(
     agentLayoutVariantChanged.dispatch(variant)
   })
 
+  // Buffered because Signal drops events dispatched before a listener attaches.
+  type Handler = Parameters<AgentAPI['onInvocation']>[0]
+  let invocationHandler: Handler | undefined
+  let pendingInvocation: AgentInvocation | undefined
+  let lastInvocationId: string | undefined
+
+  function consume(invocation: AgentInvocation, handler: Handler) {
+    pendingInvocation = undefined
+    lastInvocationId = invocation.id
+    const ack = (error?: unknown) =>
+      channel.send(
+        'agentInvocationAck',
+        error === undefined
+          ? { id: invocation.id }
+          : { id: invocation.id, error: error instanceof Error ? error.message : String(error) },
+      )
+
+    try {
+      Promise.resolve(handler(invocation)).then(
+        () => ack(),
+        (error) => ack(error === undefined ? new Error('Invocation handler rejected') : error),
+      )
+    } catch (error) {
+      ack(error)
+    }
+  }
+
+  channel.addHandler('agentInvocation', (invocation: AgentInvocation) => {
+    if (invocation.id === lastInvocationId || invocation.id === pendingInvocation?.id) return
+    if (invocationHandler) {
+      consume(invocation, invocationHandler)
+    } else {
+      pendingInvocation = invocation
+    }
+  })
+
   return {
+    onInvocation: (handler) => {
+      if (typeof handler !== 'function') {
+        throw new Error('listener function expected')
+      }
+      if (invocationHandler) {
+        throw new Error('An invocation handler is already registered. Detach it first.')
+      }
+      invocationHandler = handler as Handler
+      if (pendingInvocation) {
+        consume(pendingInvocation, invocationHandler)
+      }
+      return () => {
+        if (invocationHandler === handler) invocationHandler = undefined
+      }
+    },
     onContextChange: (handler) => contextChanged.attach(handler),
     onToolbarAction: (handler) => toolbarActionSignal.attach(handler),
     onAgentLayoutVariantChange: (handler) => agentLayoutVariantChanged.attach(handler),

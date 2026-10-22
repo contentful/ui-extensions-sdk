@@ -38,8 +38,59 @@ describe('createExperience()', () => {
       experience = createExperience(channelStub, mockExperienceInit)
     })
 
-    it('returns an object with context, onContextChanged, and experience', () => {
-      expect(experience).to.have.all.keys(['context', 'onContextChanged', 'experience'])
+    it('returns an object with context, onContextChanged, experience, and openAgent', () => {
+      expect(experience).to.have.all.keys([
+        'context',
+        'onContextChanged',
+        'experience',
+        'openAgent',
+      ])
+    })
+
+    describe('.openAgent({ agentId, payload })', () => {
+      const opts = { agentId: 'agent-1', payload: { metric: 'views' } }
+
+      it('calls channel.call with "exo.openAgent" and resolves with the delivered result', async () => {
+        channelStub.call.resolves({ status: 'delivered' })
+
+        expect(await experience.openAgent(opts)).to.deep.equal({ status: 'delivered' })
+        expect(channelStub.call).to.have.been.calledOnceWithExactly('exo.openAgent', opts)
+      })
+
+      it('resolves (does not reject) when the user cancelled', async () => {
+        channelStub.call.resolves({ status: 'cancelled' })
+
+        expect(await experience.openAgent(opts)).to.deep.equal({ status: 'cancelled' })
+      })
+
+      it('rejects with an Error carrying the host error code and message', async () => {
+        channelStub.call.rejects({ code: 'NOT_PERMITTED', message: 'Agent is not permitted' })
+
+        const error: any = await experience.openAgent(opts).catch((e) => e)
+
+        expect(error).to.be.instanceOf(Error)
+        expect(error.message).to.equal('Agent is not permitted')
+        expect(error.code).to.equal('NOT_PERMITTED')
+      })
+
+      it('falls back to DELIVERY_FAILED for an unknown error code', async () => {
+        channelStub.call.rejects({ code: 'SOMETHING_ELSE', message: 'x' })
+
+        const error: any = await experience.openAgent(opts).catch((e) => e)
+
+        expect(error.code).to.equal('DELIVERY_FAILED')
+      })
+
+      it('uses a string rejection as the message and falls back to DELIVERY_FAILED', async () => {
+        // eslint-disable-next-line prefer-promise-reject-errors
+        channelStub.call.callsFake(() => Promise.reject('plain string failure'))
+
+        const error: any = await experience.openAgent(opts).catch((e) => e)
+
+        expect(error).to.be.instanceOf(Error)
+        expect(error.message).to.equal('plain string failure')
+        expect(error.code).to.equal('DELIVERY_FAILED')
+      })
     })
 
     it('registers handlers for contextChanged, experienceChanged, selectionChanged, dataAssemblyChanged, and sysChanged', () => {
