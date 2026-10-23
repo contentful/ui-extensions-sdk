@@ -42,8 +42,9 @@ describe('createAgent()', () => {
     })
 
     describe('API shape', () => {
-      it('returns an object with onContextChange, onToolbarAction, onAgentLayoutVariantChange, and setAgentLayoutVariant methods', () => {
+      it('returns an object with onContextChange, onToolbarAction, onAgentLayoutVariantChange, setAgentLayoutVariant, and onInvocation methods', () => {
         expect(agent).to.have.all.keys([
+          'onInvocation',
           'onContextChange',
           'onToolbarAction',
           'onAgentLayoutVariantChange',
@@ -83,7 +84,7 @@ describe('createAgent()', () => {
 
     describe('context change handling', () => {
       it('registers contextChanged, toolbarAction, and agentLayoutVariantChanged handlers with channel', () => {
-        expect(channelStub.addHandler).to.have.been.calledThrice // eslint-disable-line no-unused-expressions
+        expect(channelStub.addHandler).to.have.callCount(4)
         expect(channelStub.addHandler.firstCall).to.have.been.calledWith(
           'contextChanged',
           sinon.match.func,
@@ -94,6 +95,10 @@ describe('createAgent()', () => {
         )
         expect(channelStub.addHandler.thirdCall).to.have.been.calledWith(
           'agentLayoutVariantChanged',
+          sinon.match.func,
+        )
+        expect(channelStub.addHandler.getCall(3)).to.have.been.calledWith(
+          'agentInvocation',
           sinon.match.func,
         )
       })
@@ -344,6 +349,220 @@ describe('createAgent()', () => {
         expect(handler.getCall(1).args[0]).to.deep.equal({ name: 'chat.back', action: 'click' })
         expect(handler.getCall(2).args[0]).to.deep.equal({ name: 'chat.close', action: 'click' })
         expect(handler.getCall(3).args[0]).to.deep.equal({ name: 'chat.new', action: 'click' })
+      })
+    })
+  })
+
+  describe('invocation handling', () => {
+    let agent: ReturnType<typeof createAgent>
+    let deliver: (invocation: unknown) => void
+
+    const invocation = (id = 'inv-1') => ({
+      id,
+      payload: { metric: 'views', values: [1, 2] },
+      sender: { appDefinitionId: 'example-app' },
+    })
+    // The result is sent from a promise continuation, so let microtasks run before asserting on it.
+    const flush = () => new Promise<void>((resolve) => setTimeout(resolve, 0))
+
+    beforeEach(() => {
+      agent = createAgent(channelStub, mockAgentContext)
+      deliver = channelStub.addHandler.getCall(3).args[1]
+    })
+
+    describe('.onInvocation(handler)', () => {
+      it('does not call handler on attach when nothing is pending', () => {
+        const handler = sinon.stub()
+        agent.onInvocation(handler)
+
+        expect(handler).to.not.have.been.called // eslint-disable-line no-unused-expressions
+      })
+
+      it('throws when handler is not a function', () => {
+        expect(() => agent.onInvocation(undefined as any)).to.throw('listener function expected')
+      })
+
+      it('calls handler with the invocation when the event is received', () => {
+        const handler = sinon.stub()
+        agent.onInvocation(handler)
+
+        deliver(invocation())
+
+        expect(handler).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
+        expect(handler).to.have.been.calledWith(invocation())
+      })
+
+      it('buffers an invocation received before a handler is attached and flushes it on attach', () => {
+        deliver(invocation())
+        const handler = sinon.stub()
+
+        agent.onInvocation(handler)
+
+        expect(handler).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
+        expect(handler).to.have.been.calledWith(invocation())
+      })
+
+      it('does not replay a consumed invocation to a later handler', () => {
+        deliver(invocation())
+        const first = sinon.stub()
+        const detach = agent.onInvocation(first)
+        detach()
+
+        const second = sinon.stub()
+        agent.onInvocation(second)
+
+        expect(second).to.not.have.been.called // eslint-disable-line no-unused-expressions
+      })
+
+      it('ignores a repeat of an already consumed invocation id', () => {
+        const handler = sinon.stub()
+        agent.onInvocation(handler)
+
+        deliver(invocation())
+        deliver(invocation())
+
+        expect(handler).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
+      })
+
+      it('ignores a repeat of a still-buffered invocation id', () => {
+        deliver(invocation())
+        deliver(invocation())
+        const handler = sinon.stub()
+
+        agent.onInvocation(handler)
+
+        expect(handler).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
+      })
+
+      it('delivers a different invocation id after a consumed one', () => {
+        const handler = sinon.stub()
+        agent.onInvocation(handler)
+
+        deliver(invocation('inv-1'))
+        deliver(invocation('inv-2'))
+
+        expect(handler).to.have.been.calledTwice // eslint-disable-line no-unused-expressions
+      })
+
+      it('throws when a second handler is attached while one is registered', () => {
+        agent.onInvocation(() => {})
+
+        expect(() => agent.onInvocation(() => {})).to.throw(/already registered/)
+      })
+
+      it('keeps the current handler registered when a stale detach function is called', () => {
+        const detachFirst = agent.onInvocation(() => {})
+        detachFirst()
+        const current = sinon.stub()
+        agent.onInvocation(current)
+
+        detachFirst()
+        deliver(invocation())
+
+        expect(current).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
+      })
+
+      it('buffers again after the handler is detached', () => {
+        const handler = sinon.stub()
+        agent.onInvocation(handler)()
+
+        deliver(invocation())
+
+        expect(handler).to.not.have.been.called // eslint-disable-line no-unused-expressions
+        const next = sinon.stub()
+        agent.onInvocation(next)
+        expect(next).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
+      })
+
+      it('still delivers route-context updates after an invocation', () => {
+        const contextHandler = sinon.stub()
+        agent.onContextChange(contextHandler)
+        agent.onInvocation(() => {})
+        deliver(invocation())
+        contextHandler.resetHistory()
+
+        const newContext: AgentContext = { view: 'page', metadata: { entryId: 'next' } }
+        channelStub.addHandler.getCall(0).args[1](newContext)
+
+        expect(contextHandler).to.have.been.calledOnceWithExactly(newContext)
+      })
+    })
+
+    describe('result', () => {
+      it('sends a result with the invocation id once the handler returns', async () => {
+        agent.onInvocation(() => {})
+
+        deliver(invocation())
+        await flush()
+
+        expect(channelStub.send).to.have.been.calledOnceWithExactly('agentInvocationResult', {
+          id: 'inv-1',
+        })
+      })
+
+      it('waits for an async handler to resolve before sending the result', async () => {
+        let finish!: () => void
+        agent.onInvocation(() => new Promise<void>((resolve) => (finish = resolve)))
+
+        deliver(invocation())
+        await flush()
+        expect(channelStub.send).to.not.have.been.called // eslint-disable-line no-unused-expressions
+
+        finish()
+        await flush()
+        expect(channelStub.send).to.have.been.calledOnceWithExactly('agentInvocationResult', {
+          id: 'inv-1',
+        })
+      })
+
+      it('sends the result for a buffered invocation once flushed to a handler', async () => {
+        deliver(invocation())
+        await flush()
+        expect(channelStub.send).to.not.have.been.called // eslint-disable-line no-unused-expressions
+
+        agent.onInvocation(() => {})
+        await flush()
+
+        expect(channelStub.send).to.have.been.calledOnceWithExactly('agentInvocationResult', {
+          id: 'inv-1',
+        })
+      })
+
+      it('sends an error result when the handler throws', async () => {
+        agent.onInvocation(() => {
+          throw new Error('boom')
+        })
+
+        deliver(invocation())
+        await flush()
+
+        expect(channelStub.send).to.have.been.calledOnceWithExactly('agentInvocationResult', {
+          id: 'inv-1',
+          error: 'boom',
+        })
+      })
+
+      it('sends an error result when the handler rejects', async () => {
+        agent.onInvocation(() => Promise.reject(new Error('nope')))
+
+        deliver(invocation())
+        await flush()
+
+        expect(channelStub.send).to.have.been.calledOnceWithExactly('agentInvocationResult', {
+          id: 'inv-1',
+          error: 'nope',
+        })
+      })
+
+      it('sends an error result when the handler rejects with undefined', async () => {
+        // eslint-disable-next-line prefer-promise-reject-errors
+        agent.onInvocation(() => Promise.reject(undefined))
+
+        deliver(invocation())
+        await flush()
+
+        expect(channelStub.send).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
+        expect(channelStub.send.firstCall.args[1]).to.have.property('error')
       })
     })
   })
