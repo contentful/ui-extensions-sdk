@@ -32,7 +32,7 @@
     "semantic-release": "semantic-release",
     "publish-all": "node ./scripts/publish.js",
     "verify": "node ./scripts/verify.js",
-    "check-types": "tsc --noEmit -m commonjs",
+    "check-types": "tsc --noEmit -m commonjs && tsc --noEmit -p tsconfig.contract-tests.json",
     "prepare": "husky",
     "lint-staged": "lint-staged"
   },
