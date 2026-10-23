@@ -12,11 +12,25 @@ export interface PageExtensionOptions {
   id?: string
   /** Navigate to a path within your page extension. */
   path?: string
+  /**
+   * Replace the current browser history entry instead of pushing a new one. Use this when
+   * your app has already pushed its own history entry for this navigation, for example
+   * through a client-side router, so that going back does not step through a duplicate
+   * entry. Hosts that do not support this option push a new entry. Defaults to `false`.
+   */
+  replace?: boolean
 }
 
 export interface AppPageLocationOptions {
   /** A path to navigate to within your app's page location. */
   path?: string
+  /**
+   * Replace the current browser history entry instead of pushing a new one. Use this when
+   * your app has already pushed its own history entry for this navigation, for example
+   * through a client-side router, so that going back does not step through a duplicate
+   * entry. Hosts that do not support this option push a new entry. Defaults to `false`.
+   */
+  replace?: boolean
 }
 
 /** Information about current value of the navigation status. */

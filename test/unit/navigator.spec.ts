@@ -94,6 +94,18 @@ const SCENARIOS = [
     channelMethod: 'navigateToPage',
   },
   {
+    method: 'openCurrentAppPage',
+    args: [{ path: '/something', replace: true }],
+    expected: { type: 'app', id: 'app-id', path: '/something', replace: true },
+    channelMethod: 'navigateToPage',
+  },
+  {
+    method: 'openPageExtension',
+    args: [{ path: '/something', replace: true }],
+    expected: { type: 'extension', id: 'extension-id', path: '/something', replace: true },
+    channelMethod: 'navigateToPage',
+  },
+  {
     method: 'openAppConfig',
     args: [],
     expected: undefined,
