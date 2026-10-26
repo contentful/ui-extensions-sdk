@@ -528,6 +528,36 @@ describe('createAgent()', () => {
         })
       })
 
+      it('delivers only the latest buffered invocation and sends an error result for the dropped one', async () => {
+        deliver(invocation('inv-1'))
+        deliver(invocation('inv-2'))
+
+        expect(channelStub.send).to.have.been.calledOnceWithExactly('agentInvocationResult', {
+          id: 'inv-1',
+          error: 'Superseded by a newer invocation',
+        })
+
+        const handler = sinon.stub()
+        agent.onInvocation(handler)
+        await flush()
+
+        expect(handler).to.have.been.calledOnceWithExactly(invocation('inv-2'))
+        expect(channelStub.send).to.have.been.calledTwice // eslint-disable-line no-unused-expressions
+        expect(channelStub.send.secondCall).to.have.been.calledWithExactly(
+          'agentInvocationResult',
+          {
+            id: 'inv-2',
+          },
+        )
+      })
+
+      it('does not send an error result when a buffered invocation is repeated', () => {
+        deliver(invocation('inv-1'))
+        deliver(invocation('inv-1'))
+
+        expect(channelStub.send).to.not.have.been.called // eslint-disable-line no-unused-expressions
+      })
+
       it('sends an error result when the handler throws', async () => {
         agent.onInvocation(() => {
           throw new Error('boom')

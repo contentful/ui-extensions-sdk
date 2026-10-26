@@ -62,6 +62,12 @@ export default function createAgent(
     if (invocationHandler) {
       consume(invocation, invocationHandler)
     } else {
+      if (pendingInvocation) {
+        channel.send('agentInvocationResult', {
+          id: pendingInvocation.id,
+          error: 'Superseded by a newer invocation',
+        })
+      }
       pendingInvocation = invocation
     }
   })
