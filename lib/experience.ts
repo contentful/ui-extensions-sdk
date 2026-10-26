@@ -22,6 +22,9 @@ import {
   ComponentPropertyDescriptor,
   DesignValue,
   SlotDescriptor,
+  OpenAgentResult,
+  OpenAgentError,
+  OpenAgentErrorCode,
 } from './types'
 
 /**
@@ -61,7 +64,36 @@ export default function createExperience(
       return contextSignal.attach(cb)
     },
     experience,
+    async openAgent(opts) {
+      try {
+        return await channel.call<OpenAgentResult>('exo.openAgent', opts)
+      } catch (error) {
+        throw toOpenAgentError(error)
+      }
+    },
   }
+}
+
+const OPEN_AGENT_ERROR_CODES: readonly OpenAgentErrorCode[] = [
+  'AGENT_UNAVAILABLE',
+  'NOT_PERMITTED',
+  'DELIVERY_FAILED',
+  'DELIVERY_TIMEOUT',
+]
+
+function isOpenAgentErrorCode(code: unknown): code is OpenAgentErrorCode {
+  return OPEN_AGENT_ERROR_CODES.some((known) => known === code)
+}
+
+// The channel rejects with a raw cloned object, not an Error instance.
+function toOpenAgentError(raw: unknown): OpenAgentError {
+  const details = typeof raw === 'object' && raw !== null ? raw : {}
+  let message = typeof raw === 'string' ? raw : 'openAgent failed'
+  if ('message' in details && typeof details.message === 'string') {
+    message = details.message
+  }
+  const code = 'code' in details && isOpenAgentErrorCode(details.code) ? details.code : undefined
+  return Object.assign(new Error(message), { code: code ?? 'DELIVERY_FAILED' })
 }
 
 function createExperienceAPI(channel: Channel, initial?: ExperienceSnapshot): ExperienceAPI {
