@@ -97,6 +97,7 @@ The experience-toolbar SDK forwards the host's Data Assembly declarations as can
 `required`. `getParameterDefinition(id)` returns that same canonical declaration, or `null`.
 The public parameter contract reuses `contentful-management` types for ResourceLink, String,
 Number, Record and OrderExpression definitions, including their nested fields and metadata.
+Nested Record fields also declare their `id` and explicit boolean `required`.
 `npm run check-types` checks those public contracts and the all-kind fixture through the focused
 `tsconfig.contract-tests.json`, in addition to the library source.
 The SDK initializes an empty snapshot with `parameters: []` and does not convert record-shaped
@@ -114,8 +115,8 @@ const primary = definitions.find((parameter) => parameter.id === 'primary')
 ```
 
 Runtime values still use ID-keyed maps: `setParameterValues({ primary: value })` binds a value;
-it does not declare a parameter. Resolver bindings and nested Record fields keep their own
-existing contracts. PostMessage payloads retain IDs, order, metadata, explicit `false` and nested
+it does not declare a parameter. Resolver bindings keep their existing contracts.
+PostMessage payloads retain IDs, order, metadata, explicit `false` and nested
 values without mutation.
 
 This breaking contract change requires the canonical Management SDK dependency to be published

@@ -65,3 +65,17 @@ export type MissingRequirednessRejected = RequireTrue<
     false
   >
 >
+
+export type NestedMissingRequirednessRejected = RequireTrue<
+  SameType<
+    {
+      id: 'query'
+      type: 'Record'
+      required: true
+      fields: [{ id: 'limit'; type: 'Number'; fallbackValue: 0 }]
+    } extends DataAssemblyParameterDefinition
+      ? true
+      : false,
+    false
+  >
+>

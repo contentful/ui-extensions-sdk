@@ -96,7 +96,7 @@ export const mockDataAssemblyParameters: DataAssemblyParameterDefinition[] = [
     locked: false,
     fields: [
       { id: 'label', type: 'String', required: false, fallbackValue: '' },
-      { id: 'limit', type: 'Number', fallbackValue: 0 },
+      { id: 'limit', type: 'Number', required: false, fallbackValue: 0 },
       {
         id: 'order',
         type: 'OrderExpression',
