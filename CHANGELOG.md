@@ -1,3 +1,9 @@
+# [4.75.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.74.0...v4.75.0) (2026-10-23)
+
+### Features
+
+- add replace option to openCurrentAppPage and openPageExtension [NT-4383] ([#2675](https://github.com/contentful/ui-extensions-sdk/issues/2675)) ([394cb67](https://github.com/contentful/ui-extensions-sdk/commit/394cb67e5afd5ede572aaa39312a87430a3b8f24))
+
 # [4.74.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.73.0...v4.74.0) (2026-10-19)
 
 ### Features
