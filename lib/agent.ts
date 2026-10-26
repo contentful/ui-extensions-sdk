@@ -80,7 +80,7 @@ export default function createAgent(
       if (invocationHandler) {
         throw new Error('An invocation handler is already registered. Detach it first.')
       }
-      invocationHandler = handler as Handler
+      invocationHandler = handler
       if (pendingInvocation) {
         consume(pendingInvocation, invocationHandler)
       }

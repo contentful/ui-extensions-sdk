@@ -23,7 +23,7 @@ export interface ToolbarAction {
   action: 'click'
 }
 
-/** `payload` is untrusted; declare its type with `type`, not `interface`. */
+/** `payload` is untrusted: validate it before use. `T` is for an already-validated payload. */
 export interface AgentInvocation<T extends SerializedJSONValue = SerializedJSONValue> {
   id: string
   payload: T
@@ -32,10 +32,11 @@ export interface AgentInvocation<T extends SerializedJSONValue = SerializedJSONV
 
 export interface AgentAPI {
   onContextChange: (handler: (context: AgentContext) => void) => VoidFunction
-  /** Single handler only; a second call throws until the first is detached. */
-  onInvocation: <T extends SerializedJSONValue = SerializedJSONValue>(
-    handler: (invocation: AgentInvocation<T>) => void | Promise<void>,
-  ) => VoidFunction
+  /**
+   * Single handler only; a second call throws until the first is detached.
+   * `payload` is untrusted and not generic: narrow it with a type guard or schema parser.
+   */
+  onInvocation: (handler: (invocation: AgentInvocation) => void | Promise<void>) => VoidFunction
   onToolbarAction: (handler: (action: ToolbarAction) => void) => VoidFunction
   onAgentLayoutVariantChange: (handler: (variant: LayoutVariant) => void) => VoidFunction
   setAgentLayoutVariant: (variant: LayoutVariant) => void
