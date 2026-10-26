@@ -1,3 +1,9 @@
+# [4.76.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.75.0...v4.76.0) (2026-10-26)
+
+### Features
+
+- [EXA-2463] add openAgent and onInvocation for toolbar-to-agent handoff ([#2674](https://github.com/contentful/ui-extensions-sdk/issues/2674)) ([2f74e2f](https://github.com/contentful/ui-extensions-sdk/commit/2f74e2ff8769b790cbef2fa6daf941eb7a883ba4))
+
 # [4.75.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.74.0...v4.75.0) (2026-10-23)
 
 ### Features
