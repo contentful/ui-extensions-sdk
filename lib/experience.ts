@@ -64,10 +64,12 @@ export default function createExperience(
       return contextSignal.attach(cb)
     },
     experience,
-    openAgent(opts) {
-      return channel.call<OpenAgentResult>('exo.openAgent', opts).catch((error) => {
+    async openAgent(opts) {
+      try {
+        return await channel.call<OpenAgentResult>('exo.openAgent', opts)
+      } catch (error) {
         throw toOpenAgentError(error)
-      })
+      }
     },
   }
 }

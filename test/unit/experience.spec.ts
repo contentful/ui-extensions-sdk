@@ -81,6 +81,17 @@ describe('createExperience()', () => {
         expect(error.code).to.equal('DELIVERY_FAILED')
       })
 
+      it('rejects (does not throw) when channel.call throws synchronously', async () => {
+        channelStub.call.throws(new Error('could not be cloned'))
+
+        const promise = experience.openAgent(opts)
+        const error: any = await promise.catch((e) => e)
+
+        expect(error).to.be.instanceOf(Error)
+        expect(error.message).to.equal('could not be cloned')
+        expect(error.code).to.equal('DELIVERY_FAILED')
+      })
+
       it('uses a string rejection as the message and falls back to DELIVERY_FAILED', async () => {
         // eslint-disable-next-line prefer-promise-reject-errors
         channelStub.call.callsFake(() => Promise.reject('plain string failure'))
