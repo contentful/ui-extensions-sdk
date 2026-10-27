@@ -89,44 +89,6 @@ host emits valueChanged event
 
 Reads of "current value" are local (memoized in `MemoizedSignal`); writes (`setValue`) and most other operations round-trip through the channel.
 
-## Experience Data Assembly parameters
-
-The experience-toolbar SDK forwards the host's Data Assembly declarations as canonical arrays.
-`DataAssemblySnapshot.parameters`, available summaries, change events and root/node
-`getParameterDefinitions()` all carry ordered definitions with an `id` and explicit boolean
-`required`. `getParameterDefinition(id)` returns that same canonical declaration, or `null`.
-The public parameter contract reuses `contentful-management` 12.20.0 or later types for ResourceLink, String,
-Number, Record and OrderExpression definitions, including their nested fields and metadata.
-Nested Record fields also declare their `id` and explicit boolean `required`.
-`npm run check-types` checks those public contracts and the all-kind fixture through the focused
-`tsconfig.contract-tests.json`, in addition to the library source.
-The SDK initializes an empty snapshot with `parameters: []` and does not convert record-shaped
-responses. The host must provide arrays before this SDK version is adopted.
-
-```ts
-// Before: the ID lives in the record key.
-const definitions = await sdk.experiences.experience.dataAssembly.getParameterDefinitions()
-const primary = definitions.primary
-
-// After: the ID and requiredness live in the ordered declaration.
-const definitions = await sdk.experiences.experience.dataAssembly.getParameterDefinitions()
-const primary = definitions.find((parameter) => parameter.id === 'primary')
-// [{ id: 'primary', required: true, type: 'ResourceLink', allowedResources: [...] }]
-```
-
-Runtime values still use ID-keyed maps: `setParameterValues({ primary: value })` binds a value;
-it does not declare a parameter. Resolver bindings keep their existing contracts.
-PostMessage payloads retain IDs, order, metadata, explicit `false` and nested
-values without mutation.
-
-This breaking contract change requires the canonical Management SDK dependency to be published
-first, the App SDK minimum dependency and lock to use that real release, and the web-app host to
-emit canonical arrays throughout the consuming caller spaces. Coordinate package adoption with
-the API feature-flag switch; rolling that flag back while array-only apps remain installed is not
-safe. Verify the host and downstream consumers with the canonical package before release. Keep
-merging to `main` on hold until the release and coordinated rollback plan are ready, because that
-branch automatically publishes both App SDK package names.
-
 ## Build Pipeline
 
 ```
