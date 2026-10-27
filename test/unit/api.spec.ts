@@ -291,6 +291,7 @@ describe('createAPI()', () => {
 
     expect(api).to.have.all.keys(sharedExpected.concat(expected))
     expect(api.agent).to.have.all.keys([
+      'onInvocation',
       'onContextChange',
       'onToolbarAction',
       'onAgentLayoutVariantChange',

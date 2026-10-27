@@ -95,7 +95,7 @@ The experience-toolbar SDK forwards the host's Data Assembly declarations as can
 `DataAssemblySnapshot.parameters`, available summaries, change events and root/node
 `getParameterDefinitions()` all carry ordered definitions with an `id` and explicit boolean
 `required`. `getParameterDefinition(id)` returns that same canonical declaration, or `null`.
-The public parameter contract reuses `contentful-management` types for ResourceLink, String,
+The public parameter contract reuses `contentful-management` 12.20.0 or later types for ResourceLink, String,
 Number, Record and OrderExpression definitions, including their nested fields and metadata.
 Nested Record fields also declare their `id` and explicit boolean `required`.
 `npm run check-types` checks those public contracts and the all-kind fixture through the focused
@@ -188,7 +188,7 @@ dependabot PR ────────────────►  .github/workf
 
 | Package                                                                                                                            | Role                                                                 | Type                   |
 | ---------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- | ---------------------- |
-| `contentful-management` (^12.3.1)                                                                                                  | CMA types + `createClient` adapter point                             | **Runtime — only one** |
+| `contentful-management` (^12.20.0)                                                                                                 | CMA types + `createClient` adapter point                             | **Runtime — only one** |
 | `rollup` (2.80) + `@rollup/plugin-commonjs` + `@rollup/plugin-node-resolve` + `rollup-plugin-typescript2` + `rollup-plugin-terser` | Bundler chain                                                        | Build                  |
 | `typescript` (5.9)                                                                                                                 | Type-check + `.d.ts` emit                                            | Build                  |
 | `mocha` + `ts-mocha` + `chai` + `sinon` + `sinon-chai` + `chai-as-promised` + `jsdom`                                              | Test stack                                                           | Test                   |

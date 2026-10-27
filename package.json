@@ -1,7 +1,7 @@
 {
   "name": "contentful-ui-extensions-sdk",
   "description": "A JavaScript library to develop custom apps for Contentful",
-  "version": "4.74.0",
+  "version": "4.76.0",
   "author": "Contentful GmbH",
   "license": "MIT",
   "sideEffects": true,
@@ -37,7 +37,7 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
-    "contentful-management": "^12.3.1"
+    "contentful-management": "^12.20.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^29.0.0",

@@ -7,7 +7,7 @@ import type {
   DataAssemblyParameterDefinitionWithId,
   DataAssemblyResourceLinkParameter,
 } from 'contentful-management'
-import { Link } from './utils'
+import { Link, SerializedJSONValue } from './utils'
 
 export type Unsubscribe = () => void
 
@@ -328,8 +328,24 @@ export interface ExperienceContext {
   variantId?: string
 }
 
+/** `cancelled` means the user declined; failures reject with an {@link OpenAgentError}. */
+export type OpenAgentResult = { status: 'delivered' } | { status: 'cancelled' }
+
+export type OpenAgentErrorCode =
+  | 'AGENT_UNAVAILABLE'
+  | 'NOT_PERMITTED'
+  | 'DELIVERY_FAILED'
+  | 'DELIVERY_TIMEOUT'
+
+export type OpenAgentError = Error & { code: OpenAgentErrorCode }
+
 export interface ExperienceSDK {
   context: ExperienceContext
   onContextChanged(cb: (context: ExperienceContext) => void): Unsubscribe
   experience: ExperienceAPI
+  /** Declare the `payload` type with `type`, not `interface`. */
+  openAgent: <T extends SerializedJSONValue = SerializedJSONValue>(opts: {
+    agentId: string
+    payload: T
+  }) => Promise<OpenAgentResult>
 }

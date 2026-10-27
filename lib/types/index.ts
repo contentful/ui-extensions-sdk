@@ -50,6 +50,7 @@ export type ExperienceEditorToolbarAppSDK<
 export type {
   AgentAPI,
   AgentContext,
+  AgentInvocation,
   LayoutVariant,
   ToolbarAction,
   ToolbarActionName,
@@ -180,4 +181,7 @@ export type {
   ExperienceNodeAPI,
   ExperienceSelectionAPI,
   ExperienceAPI,
+  OpenAgentResult,
+  OpenAgentError,
+  OpenAgentErrorCode,
 } from './experience.types'
