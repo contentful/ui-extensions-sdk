@@ -1,3 +1,17 @@
+# [5.0.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.76.0...v5.0.0) (2026-10-28)
+
+### Features
+
+- **experience:** use array parameters [ARC-2631] ([#2672](https://github.com/contentful/ui-extensions-sdk/issues/2672)) ([6ffea98](https://github.com/contentful/ui-extensions-sdk/commit/6ffea98580ce53a24c0174a2f1040d9e6a84b2a8))
+
+### BREAKING CHANGES
+
+- **experience:** Data Assembly declarations now use canonical arrays with explicit id and required fields, including individual definitions. The App SDK requires the canonical Management SDK release and an array-emitting host before adoption; coordinate package release, feature-flag cutover and rollback.
+
+- fix(experience): require nested parameter metadata [ARC-2631]
+
+- docs: remove duplicated migration guidance [ARC-2631]
+
 # [4.76.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.75.0...v4.76.0) (2026-10-26)
 
 ### Features
