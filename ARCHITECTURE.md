@@ -4,7 +4,7 @@ This repository builds the **App SDK** and publishes it to npm as `@contentful/a
 
 ## Overview
 
-The App SDK is the **bridge** between an app running in a sandboxed iframe (the *child frame*, customer code) and the Contentful Web App (the *parent frame*, host). It exposes a typed, Promise-based JavaScript API that wraps PostMessage interactions with the host. Apps call `init()`, receive a location-specific SDK object, and use it to read/write content, open dialogs, navigate, and (in newer surfaces) interact with AI agents.
+The App SDK is the **bridge** between an app running in a sandboxed iframe (the _child frame_, customer code) and the Contentful Web App (the _parent frame_, host). It exposes a typed, Promise-based JavaScript API that wraps PostMessage interactions with the host. Apps call `init()`, receive a location-specific SDK object, and use it to read/write content, open dialogs, navigate, and (in newer surfaces) interact with AI agents.
 
 Inception: 2015-11-02 (`d21d1f9` `Initial commit`). Core transport pattern is unchanged; new locations and APIs are layered on top.
 
@@ -29,29 +29,29 @@ The SDK never talks to Contentful APIs directly. CMA calls flow through the chan
 
 ## Module Map (`lib/`)
 
-| Module | Role | Key surface |
-|---|---|---|
-| `index.ts` | Public entry: re-exports types and exposes `init` + `locations` | `init`, `locations`, all public types |
-| `initialize.ts` | Listens for the host's `connect` message, builds the SDK, and hands it to the user's callback | `createInitializer` |
-| `channel.ts` | PostMessage send/receive; correlates request IDs to response promises; dispatches host events to handlers | `Channel`, `connect`, `sendInitMessage` |
-| `signal.ts` | Tiny event emitter; `MemoizedSignal` replays the latest value to new subscribers | `Signal`, `MemoizedSignal` |
-| `api.ts` | Composes the location-specific SDK by reducing a list of "producer" functions | `createAPI`, `LOCATION_TO_API_PRODUCERS` |
-| `locations.ts` | The `locations` runtime enum exported to consumers | `LOCATION_*` keys |
-| `entry.ts` | Entry-level API (`getSys`, `publish`, `save`, `onSysChanged`, fields, tasks, metadata) | `createEntry` |
-| `field.ts` | Per-content-type field; multi-locale wrapper | `makeField` |
-| `field-locale.ts` | Single field+locale: `getValue`, `setValue`, `onValueChanged`, validation/disabled signals | `makeFieldLocale` |
-| `editor.ts` | Entry editor settings: locale settings, hidden-field visibility | `createEditor` |
-| `space.ts` | Legacy CRUD wrappers (deprecated since v4.0.0) — every method warns and delegates to channel | `createSpace` |
-| `dialogs.ts` | System dialogs (alert/confirm/prompt) and entity selectors (entries, assets, experiences, patterns, component definitions) | `createDialogs` |
-| `navigator.ts` | Open/navigate to entries, assets, app pages, app config; release-aware | `createNavigator` |
-| `app.ts` | App lifecycle hooks for the config screen: `setReady`, `onConfigure` (preInstall), `onConfigurationCompleted` (postInstall) | `createApp` |
-| `agent.ts` | AI agent location: context updates, toolbar actions, layout variant control | `createAgent` |
-| `asset.ts` | Asset-side methods on the asset sidebar location | `createAsset` |
-| `cma.ts` | Wraps `contentful-management` `createClient` with the channel-backed adapter | `createCMAClient` |
-| `cmaAdapter.ts` | The channel-backed `Adapter` for `contentful-management` | `createAdapter` |
-| `window.ts` | iframe height management: `MutationObserver`-driven auto-resize + manual `updateHeight` | `createWindow` |
-| `types/` | Public TypeScript surface — no runtime code | All `*AppSDK` types, `ConnectMessage`, `IdsAPI`, etc. |
-| `utils/deferred.ts` | Promise-with-external-resolve helper used by `initialize.ts` | `createDeferred` |
+| Module              | Role                                                                                                                        | Key surface                                           |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| `index.ts`          | Public entry: re-exports types and exposes `init` + `locations`                                                             | `init`, `locations`, all public types                 |
+| `initialize.ts`     | Listens for the host's `connect` message, builds the SDK, and hands it to the user's callback                               | `createInitializer`                                   |
+| `channel.ts`        | PostMessage send/receive; correlates request IDs to response promises; dispatches host events to handlers                   | `Channel`, `connect`, `sendInitMessage`               |
+| `signal.ts`         | Tiny event emitter; `MemoizedSignal` replays the latest value to new subscribers                                            | `Signal`, `MemoizedSignal`                            |
+| `api.ts`            | Composes the location-specific SDK by reducing a list of "producer" functions                                               | `createAPI`, `LOCATION_TO_API_PRODUCERS`              |
+| `locations.ts`      | The `locations` runtime enum exported to consumers                                                                          | `LOCATION_*` keys                                     |
+| `entry.ts`          | Entry-level API (`getSys`, `publish`, `save`, `onSysChanged`, fields, tasks, metadata)                                      | `createEntry`                                         |
+| `field.ts`          | Per-content-type field; multi-locale wrapper                                                                                | `makeField`                                           |
+| `field-locale.ts`   | Single field+locale: `getValue`, `setValue`, `onValueChanged`, validation/disabled signals                                  | `makeFieldLocale`                                     |
+| `editor.ts`         | Entry editor settings: locale settings, hidden-field visibility                                                             | `createEditor`                                        |
+| `space.ts`          | Legacy CRUD wrappers (deprecated since v4.0.0) — every method warns and delegates to channel                                | `createSpace`                                         |
+| `dialogs.ts`        | System dialogs (alert/confirm/prompt) and entity selectors (entries, assets, experiences, patterns, component definitions)  | `createDialogs`                                       |
+| `navigator.ts`      | Open/navigate to entries, assets, app pages, app config; release-aware                                                      | `createNavigator`                                     |
+| `app.ts`            | App lifecycle hooks for the config screen: `setReady`, `onConfigure` (preInstall), `onConfigurationCompleted` (postInstall) | `createApp`                                           |
+| `agent.ts`          | AI agent location: context updates, toolbar actions, layout variant control                                                 | `createAgent`                                         |
+| `asset.ts`          | Asset-side methods on the asset sidebar location                                                                            | `createAsset`                                         |
+| `cma.ts`            | Wraps `contentful-management` `createClient` with the channel-backed adapter                                                | `createCMAClient`                                     |
+| `cmaAdapter.ts`     | The channel-backed `Adapter` for `contentful-management`                                                                    | `createAdapter`                                       |
+| `window.ts`         | iframe height management: `MutationObserver`-driven auto-resize + manual `updateHeight`                                     | `createWindow`                                        |
+| `types/`            | Public TypeScript surface — no runtime code                                                                                 | All `*AppSDK` types, `ConnectMessage`, `IdsAPI`, etc. |
+| `utils/deferred.ts` | Promise-with-external-resolve helper used by `initialize.ts`                                                                | `createDeferred`                                      |
 
 ## Data Flow: Initialization Handshake
 
@@ -69,7 +69,7 @@ The SDK never talks to Contentful APIs directly. CMA calls flow through the chan
   │── postMessage(<event/method/response>) ────────────────►│  channel.ts:_handleMessage routes
 ```
 
-The SDK *connects immediately on import*, before `init()` is called, so it doesn't lose host messages that arrive before the app is ready (`initialize.ts:21-32`). User callback fires after the connect handshake completes.
+The SDK _connects immediately on import_, before `init()` is called, so it doesn't lose host messages that arrive before the app is ready (`initialize.ts:21-32`). User callback fires after the connect handshake completes.
 
 ## Data Flow: A Field Read
 
@@ -121,10 +121,10 @@ Driven by `semantic-release` via the `@semantic-release/exec` plugin (`package.j
 
 ## Branches & Release Channels
 
-| Branch | npm dist-tag | Version pattern |
-|---|---|---|
-| `main` | `latest` | `X.Y.Z` |
-| `canary` | `canary` | `X.Y.Z-alpha.N` |
+| Branch   | npm dist-tag | Version pattern |
+| -------- | ------------ | --------------- |
+| `main`   | `latest`     | `X.Y.Z`         |
+| `canary` | `canary`     | `X.Y.Z-alpha.N` |
 
 Per `package.json#release.branches`. Canary is "reset to main, branch, PR into canary, merge."
 
@@ -148,15 +148,15 @@ dependabot PR ────────────────►  .github/workf
 
 ## Key Dependencies
 
-| Package | Role | Type |
-|---|---|---|
-| `contentful-management` (^12.3.1) | CMA types + `createClient` adapter point | **Runtime — only one** |
-| `rollup` (2.80) + `@rollup/plugin-commonjs` + `@rollup/plugin-node-resolve` + `rollup-plugin-typescript2` + `rollup-plugin-terser` | Bundler chain | Build |
-| `typescript` (5.9) | Type-check + `.d.ts` emit | Build |
-| `mocha` + `ts-mocha` + `chai` + `sinon` + `sinon-chai` + `chai-as-promised` + `jsdom` | Test stack | Test |
-| `eslint` (8.57) + `eslint-config-standard` + `eslint-config-prettier` + `@typescript-eslint/*` | Linting | Tooling |
-| `husky` + `lint-staged` | Pre-commit `prettier --write` + `eslint --fix` on staged TS/MD files | Tooling |
-| `semantic-release` (^25) + `@semantic-release/changelog` + `@semantic-release/exec` + `@semantic-release/git` | Release automation | Release |
+| Package                                                                                                                            | Role                                                                 | Type                   |
+| ---------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- | ---------------------- |
+| `contentful-management` (^12.20.0)                                                                                                 | CMA types + `createClient` adapter point                             | **Runtime — only one** |
+| `rollup` (2.80) + `@rollup/plugin-commonjs` + `@rollup/plugin-node-resolve` + `rollup-plugin-typescript2` + `rollup-plugin-terser` | Bundler chain                                                        | Build                  |
+| `typescript` (5.9)                                                                                                                 | Type-check + `.d.ts` emit                                            | Build                  |
+| `mocha` + `ts-mocha` + `chai` + `sinon` + `sinon-chai` + `chai-as-promised` + `jsdom`                                              | Test stack                                                           | Test                   |
+| `eslint` (8.57) + `eslint-config-standard` + `eslint-config-prettier` + `@typescript-eslint/*`                                     | Linting                                                              | Tooling                |
+| `husky` + `lint-staged`                                                                                                            | Pre-commit `prettier --write` + `eslint --fix` on staged TS/MD files | Tooling                |
+| `semantic-release` (^25) + `@semantic-release/changelog` + `@semantic-release/exec` + `@semantic-release/git`                      | Release automation                                                   | Release                |
 
 ## Configuration & Conventions
 
@@ -168,7 +168,7 @@ dependabot PR ────────────────►  .github/workf
 
 ## Operational Knowledge
 
-This repo publishes a library — there are no SLOs, runbooks, or alert routes bound to it directly. Library bugs surface in consuming services, so escalation flows through *those* runbooks. Internal escalation paths (on-call rotations, alert routing) are documented separately in internal Contentful resources.
+This repo publishes a library — there are no SLOs, runbooks, or alert routes bound to it directly. Library bugs surface in consuming services, so escalation flows through _those_ runbooks. Internal escalation paths (on-call rotations, alert routing) are documented separately in internal Contentful resources.
 
 - **CI/release breakage**: routed via the alert channel configured in `catalog-info.yaml#contentful.com/ci-alert-slack`.
 - **Security alerts**: monitor Dependabot continuously and treat security-relevant updates as priority — the SDK ships to many installations.
@@ -190,6 +190,7 @@ The SDK has hard dependencies on `npmjs.org` and `cdn.jsdelivr.net` / `unpkg.com
 - Periodically check unpkg/jsdelivr endpoints
 
 **Behavior during a CDN outage:**
+
 - **Bundled installs** (customer ran `npm install @contentful/app-sdk` and bundled the SDK into their app): unaffected — the SDK is already in their build artifact.
 - **Script-tag installs** (`<script src="https://cdn.jsdelivr.net/npm/@contentful/app-sdk@4">`): hard-fail on app load. The customer's app iframe will not initialize until the CDN is reachable again. There is no SDK-side retry or fallback CDN.
 - **CMA outage** (Contentful Management API unavailable): SDK methods that call through `sdk.cma.*` reject with the underlying CMA error. Cached values (`field.getValue()`, `entry.getSys()`) continue to return their last-known values from `MemoizedSignal` state.
@@ -202,14 +203,14 @@ This repo has no SDK-bound dashboards (no Datadog, Grafana, or other monitor spe
 2. **npm package page** for publish state: `https://www.npmjs.com/package/@contentful/app-sdk`
 3. **Consuming-service dashboards** for downstream effect — owned by the respective consuming-service teams.
 
-| Symptom | First place to look |
-|---|---|
-| Suspected bad SDK version on npm | Run `npm view @contentful/app-sdk versions --json` and compare against `git log --oneline` of release commits; if a bad version shipped, follow "Broken-release recovery" above |
-| CI/release pipeline failure | `release.yaml` and `ci.yaml` runs in GitHub Actions; alert channel configured in `catalog-info.yaml#contentful.com/ci-alert-slack` |
-| Customer reports app rendering empty / not loading | Escalate via the consuming service's standard support path — this repo is not the right place to triage it |
-| Customer reports rate-limit errors | Falls back to the consuming Web App's monitoring; SDK has no rate-limit telemetry of its own |
+| Symptom                                            | First place to look                                                                                                                                                             |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Suspected bad SDK version on npm                   | Run `npm view @contentful/app-sdk versions --json` and compare against `git log --oneline` of release commits; if a bad version shipped, follow "Broken-release recovery" above |
+| CI/release pipeline failure                        | `release.yaml` and `ci.yaml` runs in GitHub Actions; alert channel configured in `catalog-info.yaml#contentful.com/ci-alert-slack`                                              |
+| Customer reports app rendering empty / not loading | Escalate via the consuming service's standard support path — this repo is not the right place to triage it                                                                      |
+| Customer reports rate-limit errors                 | Falls back to the consuming Web App's monitoring; SDK has no rate-limit telemetry of its own                                                                                    |
 
-The "primary alarm" question doesn't apply to this repo — there isn't one. When something looks wrong, *escalate to the consuming service's on-call*, not respond directly here.
+The "primary alarm" question doesn't apply to this repo — there isn't one. When something looks wrong, _escalate to the consuming service's on-call_, not respond directly here.
 
 ### Cross-repo testing for non-trivial SDK changes
 
@@ -220,5 +221,4 @@ The SDK is consumed by other internal Contentful packages and by the host web ap
 3. Bump the linked or canary version in each downstream package and run its CI.
 4. For host-flagged surfaces (e.g., the agent location), coordinate with the host team to verify the relevant feature flags are configured in the test environment before running through to the web app.
 
-This is intentionally captured as *observed practice* rather than a canonical playbook — the cross-repo flow evolves over time, and freezing it at CONTRIBUTING-level prescription invites drift.
-
+This is intentionally captured as _observed practice_ rather than a canonical playbook — the cross-repo flow evolves over time, and freezing it at CONTRIBUTING-level prescription invites drift.

@@ -7,6 +7,7 @@ import {
   mockExperienceSnapshot,
   mockFragmentSnapshot,
   mockExperienceFragmentSnapshot,
+  mockDataAssemblyParameters,
 } from '../mocks/experience'
 
 describe('createExperience()', () => {
@@ -542,6 +543,13 @@ describe('createExperience()', () => {
         })
 
         describe('.dataAssembly.getParameterDefinitions()', () => {
+          it('returns the ordered canonical declarations from the host unchanged', async () => {
+            const expected = JSON.parse(JSON.stringify(mockDataAssemblyParameters))
+            channelStub.call.resolves(mockDataAssemblyParameters)
+            const definitions = await node!.dataAssembly.getParameterDefinitions()
+            expect(definitions).to.deep.equal(expected)
+          })
+
           it('calls channel.call with the node-scoped channel and nodeId', () => {
             node!.dataAssembly.getParameterDefinitions()
             expect(channelStub.call).to.have.been.calledWith(
@@ -552,6 +560,19 @@ describe('createExperience()', () => {
         })
 
         describe('.dataAssembly.getParameterDefinition(parameterId)', () => {
+          it('returns a canonical declaration including its id and requiredness', async () => {
+            const definition = mockDataAssemblyParameters[1]
+            channelStub.call.resolves(definition)
+            expect(await node!.dataAssembly.getParameterDefinition(definition.id)).to.deep.equal(
+              JSON.parse(JSON.stringify(definition)),
+            )
+          })
+
+          it('preserves null for an unknown parameter id', async () => {
+            channelStub.call.resolves(null)
+            expect(await node!.dataAssembly.getParameterDefinition('missing')).to.equal(null)
+          })
+
           it('calls channel.call with the node-scoped channel, nodeId, and parameterId', () => {
             node!.dataAssembly.getParameterDefinition('heroEntry')
             expect(channelStub.call).to.have.been.calledWith(
@@ -841,18 +862,20 @@ describe('createExperience()', () => {
           it('returns the initial empty DataAssemblySnapshot', () => {
             const snapshot = experience!.experience.dataAssembly.get()
             expect(snapshot.id).to.equal('')
-            expect(snapshot.parameters).to.deep.equal({})
+            expect(snapshot.parameters).to.deep.equal([])
           })
 
           it('returns the updated snapshot after exo.dataAssemblyChanged is dispatched', () => {
             const updatedSnapshot = {
               id: 'da-123',
               name: 'My Assembly',
-              parameters: {},
+              parameters: mockDataAssemblyParameters,
             }
+            const expected = JSON.parse(JSON.stringify(updatedSnapshot))
             const dataAssemblyChangedHandler = channelStub.addHandler.getCall(3).args[1]
             dataAssemblyChangedHandler(updatedSnapshot)
-            expect(experience!.experience.dataAssembly.get()).to.deep.equal(updatedSnapshot)
+            expect(experience!.experience.dataAssembly.get()).to.deep.equal(expected)
+            expect(updatedSnapshot).to.deep.equal(expected)
           })
         })
 
@@ -865,7 +888,7 @@ describe('createExperience()', () => {
             const cb = sinon.stub()
             experience!.experience.dataAssembly.onChange(cb)
             expect(cb).to.have.been.calledOnce // eslint-disable-line no-unused-expressions
-            expect(cb.firstCall.args[0]).to.deep.equal({ id: '', parameters: {} })
+            expect(cb.firstCall.args[0]).to.deep.equal({ id: '', parameters: [] })
           })
 
           it('calls cb when exo.dataAssemblyChanged is dispatched', () => {
@@ -873,15 +896,29 @@ describe('createExperience()', () => {
             experience!.experience.dataAssembly.onChange(cb)
             cb.resetHistory()
 
-            const updatedSnapshot = { id: 'da-456', parameters: {} }
+            const updatedSnapshot = { id: 'da-456', parameters: mockDataAssemblyParameters }
+            const expected = JSON.parse(JSON.stringify(updatedSnapshot))
             const dataAssemblyChangedHandler = channelStub.addHandler.getCall(3).args[1]
             dataAssemblyChangedHandler(updatedSnapshot)
 
-            expect(cb).to.have.been.calledOnceWith(updatedSnapshot)
+            expect(cb).to.have.been.calledOnceWith(expected)
+            expect(updatedSnapshot).to.deep.equal(expected)
           })
         })
 
         describe('.getAvailable()', () => {
+          it('preserves canonical arrays, ids, order, metadata and nested definitions', async () => {
+            const summaries = [
+              { id: 'da-123', name: 'My Assembly', parameters: mockDataAssemblyParameters },
+              { id: 'da-empty', name: 'Empty assembly', parameters: [] },
+            ]
+            const expected = JSON.parse(JSON.stringify(summaries))
+            channelStub.call.resolves(summaries)
+            const result = await experience!.experience.dataAssembly.getAvailable()
+            expect(result).to.deep.equal(expected)
+            expect(summaries).to.deep.equal(expected)
+          })
+
           it('calls channel.call with "exo.getAvailableDataAssemblies"', () => {
             experience!.experience.dataAssembly.getAvailable()
             expect(channelStub.call).to.have.been.calledWith('exo.getAvailableDataAssemblies')
@@ -889,6 +926,20 @@ describe('createExperience()', () => {
         })
 
         describe('.getParameterDefinitions()', () => {
+          it('returns the ordered canonical declarations from the host unchanged', async () => {
+            const expected = JSON.parse(JSON.stringify(mockDataAssemblyParameters))
+            channelStub.call.resolves(mockDataAssemblyParameters)
+            const definitions = await experience!.experience.dataAssembly.getParameterDefinitions()
+            expect(definitions).to.deep.equal(expected)
+          })
+
+          it('returns an empty array when no parameters are declared', async () => {
+            channelStub.call.resolves([])
+            expect(
+              await experience!.experience.dataAssembly.getParameterDefinitions(),
+            ).to.deep.equal([])
+          })
+
           it('calls channel.call with "exo.getDataAssemblyParameterDefinitions"', () => {
             experience!.experience.dataAssembly.getParameterDefinitions()
             expect(channelStub.call).to.have.been.calledWith(
@@ -898,6 +949,21 @@ describe('createExperience()', () => {
         })
 
         describe('.getParameterDefinition(parameterId)', () => {
+          it('returns a canonical declaration including its id and requiredness', async () => {
+            const definition = mockDataAssemblyParameters[1]
+            channelStub.call.resolves(definition)
+            expect(
+              await experience!.experience.dataAssembly.getParameterDefinition(definition.id),
+            ).to.deep.equal(JSON.parse(JSON.stringify(definition)))
+          })
+
+          it('preserves null for an unknown parameter id', async () => {
+            channelStub.call.resolves(null)
+            expect(
+              await experience!.experience.dataAssembly.getParameterDefinition('missing'),
+            ).to.equal(null)
+          })
+
           it('calls channel.call with "exo.getDataAssemblyParameterDefinition" and the parameterId', () => {
             experience!.experience.dataAssembly.getParameterDefinition('param-1')
             expect(channelStub.call).to.have.been.calledWith(
