@@ -7,15 +7,14 @@ on:
       - completed
     branches:
       - main
-      - '*.x'
   workflow_dispatch:
 
 jobs:
   release:
-    # workflow_run: only triggers from main (branches filter above), so run on success.
-    # workflow_dispatch: allow main (full release), canary (pre-release) or an N.x maintenance branch (publishes under release-N.x).
+    # workflow_run: only pushes to main (branches filter above), so run on success.
+    # workflow_dispatch: allow main (full release), canary (pre-release) or an N.x maintenance branch (publishes under release-N.x; maintenance releases are dispatch-only).
     if: >
-      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') ||
+      (github.event_name == 'workflow_run' && github.event.workflow_run.event == 'push' && github.event.workflow_run.conclusion == 'success') ||
       (github.event_name == 'workflow_dispatch' && (github.ref_name == 'main' || github.ref_name == 'canary' || endsWith(github.ref_name, '.x')))
     runs-on: ubuntu-latest
 
@@ -46,6 +45,7 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.workflow_run.head_branch || github.ref }}
           token: ${{ steps.vault.outputs.GITHUB_TOKEN }}
+          persist-credentials: false
 
       - name: Create local main branch reference
         # semantic-release needs a local 'main' branch to run 'git tag --merged main'
