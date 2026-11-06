@@ -123,6 +123,7 @@
         "@semantic-release/exec",
         {
           "verifyConditionsCmd": "node ./scripts/verify.js",
+          "verifyReleaseCmd": "node ./scripts/verify-major.js ${nextRelease.type}",
           "publishCmd": "RELEASE_CHANNEL=${nextRelease.channel} npm run publish-all"
         }
       ],

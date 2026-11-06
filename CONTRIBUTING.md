@@ -107,6 +107,8 @@ Fully automated via `semantic-release`. Do not hand-edit `package.json#version`,
 PR merged to main
   → ci.yaml runs (Node 22 + 24)
   → if green, release.yaml triggers
+    → plan job: semantic-release dry run (commit analyzer only) picks the release type
+    → a major waits for approval in the `release-major` environment; other types don't wait
     → HashiCorp Vault provisions a short-lived npm token (trusted publishing)
     → semantic-release calculates next version from commit messages
     → scripts/publish.js publishes contentful-ui-extensions-sdk
@@ -115,6 +117,8 @@ PR merged to main
 ```
 
 Pre-publish dry-run runs in `verifyConditions` via `scripts/verify.js`, which uses a unique `0.0.0-verify.<timestamp>` version to avoid clashing with already-published versions during the dry-run.
+
+**Major releases** need approval from a `release-major` environment reviewer before anything publishes. If a breaking commit lands after the plan job ran, `scripts/verify-major.js` fails the release; re-run Release to plan again.
 
 **Canary releases:** push to `canary`. The same release pipeline runs but emits `X.Y.Z-alpha.N` under the `canary` dist-tag. Install with `npm install @contentful/app-sdk@canary`.
 
