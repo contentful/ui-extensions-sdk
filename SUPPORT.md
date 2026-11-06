@@ -20,7 +20,7 @@ When a new major version is released, the previous major version enters a **main
 
 No new features, minor bug fixes, or performance improvements will be backported to previous versions during the maintenance period.
 
-Maintenance releases are published under the `release-<major>.x` npm dist-tag (for example, `npm install @contentful/app-sdk@release-4.x`). If you load the SDK from a CDN, pin the major version in the URL (for example, `@4`) so a new major is never picked up implicitly.
+To stay on a previous major during its maintenance period, depend on its major range (for example, `npm install @contentful/app-sdk@^4`). If you load the SDK from a CDN, pin the major version in the URL (for example, `@4`) so a new major is never picked up implicitly.
 
 ## End of Support
 
