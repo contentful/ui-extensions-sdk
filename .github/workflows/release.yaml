@@ -10,12 +10,69 @@ on:
   workflow_dispatch:
 
 jobs:
-  release:
+  plan:
     # workflow_run: only pushes to main (branches filter above), so run on success.
     # workflow_dispatch: allow main (full release), canary (pre-release) or an N.x maintenance branch (publishes under release-N.x; maintenance releases are dispatch-only).
     if: >
       (github.event_name == 'workflow_run' && github.event.workflow_run.event == 'push' && github.event.workflow_run.conclusion == 'success') ||
       (github.event_name == 'workflow_dispatch' && (github.ref_name == 'main' || github.ref_name == 'canary' || endsWith(github.ref_name, '.x')))
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+
+    outputs:
+      type: ${{ steps.plan.outputs.type }}
+
+    steps:
+      - name: Retrieve Secrets from Vault
+        id: vault
+        uses: hashicorp/vault-action@892a26828f195e65540a40b4768ae4571f51ebfc # v4.0.0
+        with:
+          url: ${{ secrets.VAULT_URL }}
+          role: ${{ github.event.repository.name }}-github-action
+          method: jwt
+          path: github-actions
+          exportEnv: false
+          secrets: |
+            github/token/${{ github.event.repository.name }}-semantic-release token | GITHUB_TOKEN ;
+
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.workflow_run.head_branch || github.ref }}
+          token: ${{ steps.vault.outputs.GITHUB_TOKEN }}
+          persist-credentials: false
+
+      - name: Create local main branch reference
+        run: |
+          if [ "$(git rev-parse --abbrev-ref HEAD)" != "main" ]; then
+            git branch -f main origin/main
+          fi
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: '26'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Plan release
+        id: plan
+        run: node scripts/plan-release.js
+        env:
+          GITHUB_TOKEN: ${{ steps.vault.outputs.GITHUB_TOKEN }}
+          GITHUB_REF: refs/heads/${{ github.event.workflow_run.head_branch || github.ref_name }}
+
+  release:
+    needs: plan
+    if: needs.plan.outputs.type != ''
+    # Majors wait for a required reviewer; an empty environment means no gate
+    environment: ${{ needs.plan.outputs.type == 'major' && 'release-major' || '' }}
     runs-on: ubuntu-latest
 
     permissions:
@@ -108,6 +165,7 @@ jobs:
           GIT_COMMITTER_NAME: ${{ steps.vault.outputs.GIT_COMMITTER_NAME }}
           GIT_COMMITTER_EMAIL: ${{ steps.vault.outputs.GIT_COMMITTER_EMAIL }}
           GITHUB_REF: refs/heads/${{ github.event.workflow_run.head_branch || github.ref_name }}
+          RELEASE_ENVIRONMENT: ${{ needs.plan.outputs.type == 'major' && 'release-major' || '' }}
 
       - name: Get latest release tag
         id: get-tag
