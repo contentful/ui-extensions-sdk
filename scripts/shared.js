@@ -17,7 +17,13 @@ function getVersion() {
   return require(PACKAGE_JSON_PATH).version
 }
 
-function getTag(isCanary) {
+// Mirrors @semantic-release/npm: npm rejects dist-tags that are valid semver ranges, so a "4.x" channel publishes as "release-4.x"
+const MAINTENANCE_CHANNEL_REGEXP = /^\d+(\.(\d+|x))?\.x$/
+
+function getTag(isCanary, channel = process.env.RELEASE_CHANNEL) {
+  if (channel) {
+    return MAINTENANCE_CHANNEL_REGEXP.test(channel) ? `release-${channel}` : channel
+  }
   return isCanary ? 'canary' : 'latest'
 }
 
