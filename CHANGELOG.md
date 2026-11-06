@@ -1,3 +1,9 @@
+## [5.0.1](https://github.com/contentful/ui-extensions-sdk/compare/v5.0.0...v5.0.1) (2026-11-06)
+
+### Bug Fixes
+
+- bump bundled axios to 1.21.0 [AIS-1192] ([#2681](https://github.com/contentful/ui-extensions-sdk/issues/2681)) ([cc158c4](https://github.com/contentful/ui-extensions-sdk/commit/cc158c4728b39a044b2a1f34554116de62ba3085)), closes [#2678](https://github.com/contentful/ui-extensions-sdk/issues/2678)
+
 # [5.0.0](https://github.com/contentful/ui-extensions-sdk/compare/v4.76.0...v5.0.0) (2026-10-28)
 
 ### Features
