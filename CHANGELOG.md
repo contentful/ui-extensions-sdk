@@ -1,3 +1,9 @@
+# [5.1.0](https://github.com/contentful/ui-extensions-sdk/compare/v5.0.1...v5.1.0) (2026-11-10)
+
+### Features
+
+- expose AI Action invocation on the CMA client [AIS-1210] ([#2690](https://github.com/contentful/ui-extensions-sdk/issues/2690)) ([0783e78](https://github.com/contentful/ui-extensions-sdk/commit/0783e78d8ae715f2c9559e8e420f20fe4a123779))
+
 ## [5.0.1](https://github.com/contentful/ui-extensions-sdk/compare/v5.0.0...v5.0.1) (2026-11-06)
 
 ### Bug Fixes
