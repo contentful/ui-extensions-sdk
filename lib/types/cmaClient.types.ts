@@ -1,6 +1,8 @@
 import { PlainClientAPI } from 'contentful-management'
 
 export type CMAClient = {
+  aiAction: Pick<PlainClientAPI['aiAction'], 'get' | 'getMany' | 'invoke'>
+  aiActionInvocation: Pick<PlainClientAPI['aiActionInvocation'], 'get'>
   agent: Pick<PlainClientAPI['agent'], 'get' | 'getMany' | 'generate'>
   agentRun: Pick<PlainClientAPI['agentRun'], 'get' | 'getMany' | 'resumeRun'>
   appAction: Pick<PlainClientAPI['appAction'], 'get' | 'getMany' | 'getManyForEnvironment'>

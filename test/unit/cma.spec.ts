@@ -59,6 +59,24 @@ describe('createCMAClient()', function () {
     })
   })
 
+  // Apps may invoke AI Actions but cannot manage them, so only the read and invoke
+  // methods are exposed.
+  describe('AI Actions surface', function () {
+    it('exposes aiAction.get, getMany and invoke', function () {
+      const client = createCMAClient(ids, { addHandler: () => {} } as any)
+      expect(client.aiAction).to.be.an('object')
+      expect(client.aiAction.get).to.be.a('function')
+      expect(client.aiAction.getMany).to.be.a('function')
+      expect(client.aiAction.invoke).to.be.a('function')
+    })
+
+    it('exposes aiActionInvocation.get', function () {
+      const client = createCMAClient(ids, { addHandler: () => {} } as any)
+      expect(client.aiActionInvocation).to.be.an('object')
+      expect(client.aiActionInvocation.get).to.be.a('function')
+    })
+  })
+
   // Apps are space-env scoped per CMA Adapter Permissions
   // (https://contentful.atlassian.net/l/cp/g8WtTjUT). Org-scoped surfaces
   // (semanticSettings, contentSemanticsIndex.get/getMany) are intentionally
