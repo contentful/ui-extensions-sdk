@@ -39,13 +39,41 @@ describe('createExperience()', () => {
       experience = createExperience(channelStub, mockExperienceInit)
     })
 
-    it('returns an object with context, onContextChanged, experience, and openAgent', () => {
+    it('returns an object with context, onContextChanged, setContext, experience, and openAgent', () => {
       expect(experience).to.have.all.keys([
         'context',
         'onContextChanged',
+        'setContext',
         'experience',
         'openAgent',
       ])
+    })
+
+    describe('.setContext(patch)', () => {
+      it('calls channel.call with "exo.setContext" and the patch', () => {
+        experience!.setContext({ variantId: 'variant-1' })
+        expect(channelStub.call).to.have.been.calledOnceWithExactly('exo.setContext', {
+          variantId: 'variant-1',
+        })
+      })
+
+      it('accepts an empty patch to clear back to the baseline', () => {
+        experience!.setContext({})
+        expect(channelStub.call).to.have.been.calledOnceWithExactly('exo.setContext', {})
+      })
+
+      it('returns the promise from channel.call', () => {
+        const expectedPromise = Promise.resolve()
+        channelStub.call.withArgs('exo.setContext').returns(expectedPromise)
+        expect(experience!.setContext({ variantId: 'variant-1' })).to.equal(expectedPromise)
+      })
+
+      it('propagates rejection from channel.call without modification', async () => {
+        channelStub.call.rejects(new Error('host rejected the variant switch'))
+        await expect(experience!.setContext({ variantId: 'variant-1' })).to.be.rejectedWith(
+          'host rejected the variant switch',
+        )
+      })
     })
 
     describe('.openAgent({ agentId, payload })', () => {

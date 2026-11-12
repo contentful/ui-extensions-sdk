@@ -328,6 +328,15 @@ export interface ExperienceContext {
   variantId?: string
 }
 
+/**
+ * Patch accepted by {@link ExperienceSDK.setContext}. Only `variantId` is settable: entity/type
+ * changes are not exposed through this surface. Omitting `variantId` (or passing `undefined`)
+ * clears the selection back to the baseline.
+ */
+export interface ExperienceContextPatch {
+  variantId?: string
+}
+
 /** `cancelled` means the user declined; failures reject with an {@link OpenAgentError}. */
 export type OpenAgentResult = { status: 'delivered' } | { status: 'cancelled' }
 
@@ -342,6 +351,14 @@ export type OpenAgentError = Error & { code: OpenAgentErrorCode }
 export interface ExperienceSDK {
   context: ExperienceContext
   onContextChanged(cb: (context: ExperienceContext) => void): Unsubscribe
+  /**
+   * Requests that the host switch the editor to the given variant, or back to the baseline
+   * when `variantId` is omitted. The host is the source of truth: this does not optimistically
+   * update {@link ExperienceSDK.context}, which only changes once the host confirms the switch
+   * and dispatches a fresh `onContextChanged`. Rejects if the host cannot honor the request
+   * (e.g. an invalid/unavailable variant, release-mode editing, or an unsupported host).
+   */
+  setContext(patch: ExperienceContextPatch): Promise<void>
   experience: ExperienceAPI
   /** Declare the `payload` type with `type`, not `interface`. */
   openAgent: <T extends SerializedJSONValue = SerializedJSONValue>(opts: {

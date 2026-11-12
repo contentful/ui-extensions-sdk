@@ -155,6 +155,7 @@ export type { CMAClient } from './cmaClient.types'
 export type {
   Unsubscribe,
   ExperienceContext,
+  ExperienceContextPatch,
   ExperienceSDK,
   ResourceLink,
   EntryBinding,

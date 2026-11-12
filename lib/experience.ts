@@ -3,6 +3,7 @@ import { MemoizedSignal } from './signal'
 import {
   ExperienceSDK,
   ExperienceContext,
+  ExperienceContextPatch,
   Unsubscribe,
   ExperienceSnapshot,
   ExperienceSys,
@@ -62,6 +63,9 @@ export default function createExperience(
     },
     onContextChanged(cb: (context: ExperienceContext) => void): Unsubscribe {
       return contextSignal.attach(cb)
+    },
+    setContext(patch: ExperienceContextPatch): Promise<void> {
+      return channel.call('exo.setContext', patch)
     },
     experience,
     async openAgent(opts) {
