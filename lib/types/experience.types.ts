@@ -329,8 +329,6 @@ export interface ExperienceContext {
 }
 
 export type SetContextVariantErrorCode =
-  /** The requested variant doesn't exist or isn't available on the current entity. */
-  | 'VARIANT_NOT_FOUND'
   /** Switching is blocked right now, e.g. the host is editing a release. */
   | 'NOT_PERMITTED'
   /** The current editor has no variant concept (not an experience/fragment). */

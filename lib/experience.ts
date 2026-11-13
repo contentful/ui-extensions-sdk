@@ -83,11 +83,7 @@ export default function createExperience(
   }
 }
 
-// Known today: NOT_PERMITTED (release-mode) and UNSUPPORTED_CONTEXT (no variant concept) are
-// implemented by the host. VARIANT_NOT_FOUND is reserved per the host contract but not yet sent
-// by any host. UNKNOWN is the fallback for a rejection we can't attribute to a known reason.
 const SET_CONTEXT_VARIANT_ERROR_CODES: readonly SetContextVariantErrorCode[] = [
-  'VARIANT_NOT_FOUND',
   'NOT_PERMITTED',
   'UNSUPPORTED_CONTEXT',
   'UNKNOWN',
