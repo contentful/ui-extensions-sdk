@@ -328,10 +328,17 @@ export interface ExperienceContext {
   variantId?: string
 }
 
-/** Patch for {@link ExperienceSDK.setContext}. `variantId` only; omit it to clear to baseline. */
-export interface ExperienceContextPatch {
-  variantId?: string
-}
+export type SetContextVariantErrorCode =
+  /** The requested variant doesn't exist or isn't available on the current entity. */
+  | 'VARIANT_NOT_FOUND'
+  /** Switching is blocked right now, e.g. the host is editing a release. */
+  | 'NOT_PERMITTED'
+  /** The current editor has no variant concept (not an experience/fragment). */
+  | 'UNSUPPORTED_CONTEXT'
+  /** The host rejected without a recognizable reason. */
+  | 'UNKNOWN'
+
+export type SetContextVariantError = Error & { code: SetContextVariantErrorCode }
 
 /** `cancelled` means the user declined; failures reject with an {@link OpenAgentError}. */
 export type OpenAgentResult = { status: 'delivered' } | { status: 'cancelled' }
@@ -348,11 +355,13 @@ export interface ExperienceSDK {
   context: ExperienceContext
   onContextChanged(cb: (context: ExperienceContext) => void): Unsubscribe
   /**
-   * Requests a variant switch (or baseline, if `variantId` is omitted). Does not update
-   * {@link ExperienceSDK.context} directly — only a later `onContextChanged` does. Rejects if
-   * the host can't honor the request.
+   * Requests a canvas variant switch for the current entity, or baseline when `variantId` is
+   * `null`. Scoped to `context`/`onContextChanged`, not variant content — this only changes
+   * which variant is shown, it does not read, rename, or write a variant's data. Does not update
+   * {@link ExperienceSDK.context} directly — only a later `onContextChanged` does. Rejects
+   * with a {@link SetContextVariantError} if the host can't honor the request.
    */
-  setContext(patch: ExperienceContextPatch): Promise<void>
+  setContextVariant(variantId: string | null): Promise<void>
   experience: ExperienceAPI
   /** Declare the `payload` type with `type`, not `interface`. */
   openAgent: <T extends SerializedJSONValue = SerializedJSONValue>(opts: {
