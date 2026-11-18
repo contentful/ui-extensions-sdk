@@ -1,3 +1,9 @@
+# [5.2.0](https://github.com/contentful/ui-extensions-sdk/compare/v5.1.0...v5.2.0) (2026-11-18)
+
+### Features
+
+- **experience:** add setContextVariant for host-driven variant switching [NT-4362] ([#2692](https://github.com/contentful/ui-extensions-sdk/issues/2692)) ([5de6a57](https://github.com/contentful/ui-extensions-sdk/commit/5de6a5766a0ff042b81b983306f84a6acc1fadfe))
+
 # [5.1.0](https://github.com/contentful/ui-extensions-sdk/compare/v5.0.1...v5.1.0) (2026-11-10)
 
 ### Features
