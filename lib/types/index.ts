@@ -156,6 +156,8 @@ export type {
   Unsubscribe,
   ExperienceContext,
   ExperienceSDK,
+  SetContextVariantErrorCode,
+  SetContextVariantError,
   ResourceLink,
   EntryBinding,
   DesignTokenValue,

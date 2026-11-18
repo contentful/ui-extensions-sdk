@@ -328,6 +328,16 @@ export interface ExperienceContext {
   variantId?: string
 }
 
+export type SetContextVariantErrorCode =
+  /** Switching is blocked right now, e.g. the host is editing a release. */
+  | 'NOT_PERMITTED'
+  /** The current editor has no variant concept (not an experience/fragment). */
+  | 'UNSUPPORTED_CONTEXT'
+  /** The host rejected without a recognizable reason. */
+  | 'UNKNOWN'
+
+export type SetContextVariantError = Error & { code: SetContextVariantErrorCode }
+
 /** `cancelled` means the user declined; failures reject with an {@link OpenAgentError}. */
 export type OpenAgentResult = { status: 'delivered' } | { status: 'cancelled' }
 
@@ -342,6 +352,14 @@ export type OpenAgentError = Error & { code: OpenAgentErrorCode }
 export interface ExperienceSDK {
   context: ExperienceContext
   onContextChanged(cb: (context: ExperienceContext) => void): Unsubscribe
+  /**
+   * Requests a canvas variant switch for the current entity, or baseline when `variantId` is
+   * `null`. Scoped to `context`/`onContextChanged`, not variant content — this only changes
+   * which variant is shown, it does not read, rename, or write a variant's data. Does not update
+   * {@link ExperienceSDK.context} directly — only a later `onContextChanged` does. Rejects
+   * with a {@link SetContextVariantError} if the host can't honor the request.
+   */
+  setContextVariant(variantId: string | null): Promise<void>
   experience: ExperienceAPI
   /** Declare the `payload` type with `type`, not `interface`. */
   openAgent: <T extends SerializedJSONValue = SerializedJSONValue>(opts: {

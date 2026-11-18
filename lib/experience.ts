@@ -25,6 +25,8 @@ import {
   OpenAgentResult,
   OpenAgentError,
   OpenAgentErrorCode,
+  SetContextVariantError,
+  SetContextVariantErrorCode,
 } from './types'
 
 /**
@@ -63,6 +65,13 @@ export default function createExperience(
     onContextChanged(cb: (context: ExperienceContext) => void): Unsubscribe {
       return contextSignal.attach(cb)
     },
+    async setContextVariant(variantId: string | null): Promise<void> {
+      try {
+        await channel.call('exo.setContextVariant', { variantId })
+      } catch (error) {
+        throw toSetContextVariantError(error)
+      }
+    },
     experience,
     async openAgent(opts) {
       try {
@@ -72,6 +81,38 @@ export default function createExperience(
       }
     },
   }
+}
+
+const SET_CONTEXT_VARIANT_ERROR_CODES: readonly SetContextVariantErrorCode[] = [
+  'NOT_PERMITTED',
+  'UNSUPPORTED_CONTEXT',
+  'UNKNOWN',
+]
+
+function isSetContextVariantErrorCode(code: unknown): code is SetContextVariantErrorCode {
+  return SET_CONTEXT_VARIANT_ERROR_CODES.some((known) => known === code)
+}
+
+// The channel rejects with a raw cloned object, not an Error instance, so there is no `.code` or
+// `.message` to trust without checking: reconstruct both defensively before building a real Error.
+function toSetContextVariantError(raw: unknown): SetContextVariantError {
+  const details: Record<string, unknown> =
+    typeof raw === 'object' && raw !== null ? (raw as Record<string, unknown>) : {}
+
+  const message = extractSetContextVariantMessage(raw, details)
+  const code = isSetContextVariantErrorCode(details.code) ? details.code : 'UNKNOWN'
+
+  return Object.assign(new Error(message), { code })
+}
+
+function extractSetContextVariantMessage(raw: unknown, details: Record<string, unknown>): string {
+  if (typeof details.message === 'string') {
+    return details.message
+  }
+  if (typeof raw === 'string') {
+    return raw
+  }
+  return 'setContextVariant failed'
 }
 
 const OPEN_AGENT_ERROR_CODES: readonly OpenAgentErrorCode[] = [

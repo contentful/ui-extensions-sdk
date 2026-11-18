@@ -39,13 +39,86 @@ describe('createExperience()', () => {
       experience = createExperience(channelStub, mockExperienceInit)
     })
 
-    it('returns an object with context, onContextChanged, experience, and openAgent', () => {
+    it('returns an object with context, onContextChanged, setContextVariant, experience, and openAgent', () => {
       expect(experience).to.have.all.keys([
         'context',
         'onContextChanged',
+        'setContextVariant',
         'experience',
         'openAgent',
       ])
+    })
+
+    describe('.setContextVariant(variantId)', () => {
+      it('calls channel.call with "exo.setContextVariant" and the variantId', async () => {
+        await experience!.setContextVariant('variant-1')
+        expect(channelStub.call).to.have.been.calledOnceWithExactly('exo.setContextVariant', {
+          variantId: 'variant-1',
+        })
+      })
+
+      it('accepts null to clear back to the baseline', async () => {
+        await experience!.setContextVariant(null)
+        expect(channelStub.call).to.have.been.calledOnceWithExactly('exo.setContextVariant', {
+          variantId: null,
+        })
+      })
+
+      it('resolves when channel.call resolves', async () => {
+        channelStub.call.resolves(undefined)
+        await expect(experience!.setContextVariant('variant-1')).to.be.fulfilled
+      })
+
+      it('rejects with an Error carrying the host error code and message', async () => {
+        channelStub.call.rejects({ code: 'NOT_PERMITTED', message: 'Editing a release' })
+
+        const error: any = await experience!.setContextVariant('variant-1').catch((e) => e)
+
+        expect(error).to.be.instanceOf(Error)
+        expect(error.message).to.equal('Editing a release')
+        expect(error.code).to.equal('NOT_PERMITTED')
+      })
+
+      it('rejects with UNSUPPORTED_CONTEXT when the editor has no variant concept', async () => {
+        channelStub.call.rejects({
+          code: 'UNSUPPORTED_CONTEXT',
+          message: 'Switching the variant is only supported for experiences and fragments.',
+        })
+
+        const error: any = await experience!.setContextVariant('variant-1').catch((e) => e)
+
+        expect(error.code).to.equal('UNSUPPORTED_CONTEXT')
+      })
+
+      it('falls back to UNKNOWN for an unrecognized error code', async () => {
+        channelStub.call.rejects({ code: 'SOMETHING_ELSE', message: 'x' })
+
+        const error: any = await experience!.setContextVariant('variant-1').catch((e) => e)
+
+        expect(error.code).to.equal('UNKNOWN')
+      })
+
+      it('rejects (does not throw) when channel.call throws synchronously', async () => {
+        channelStub.call.throws(new Error('could not be cloned'))
+
+        const promise = experience!.setContextVariant('variant-1')
+        const error: any = await promise.catch((e) => e)
+
+        expect(error).to.be.instanceOf(Error)
+        expect(error.message).to.equal('could not be cloned')
+        expect(error.code).to.equal('UNKNOWN')
+      })
+
+      it('uses a string rejection as the message and falls back to UNKNOWN', async () => {
+        // eslint-disable-next-line prefer-promise-reject-errors
+        channelStub.call.callsFake(() => Promise.reject('plain string failure'))
+
+        const error: any = await experience!.setContextVariant('variant-1').catch((e) => e)
+
+        expect(error).to.be.instanceOf(Error)
+        expect(error.message).to.equal('plain string failure')
+        expect(error.code).to.equal('UNKNOWN')
+      })
     })
 
     describe('.openAgent({ agentId, payload })', () => {
